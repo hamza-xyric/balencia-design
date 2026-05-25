@@ -1,0 +1,34 @@
+<%# Email Verification Template %>
+<%- include('./layouts/base', {
+  title: 'Verify Your Email - Balencia',
+  preheader: `${firstName}, verify your email to activate Balencia.`,
+  eyebrow: 'Email verification',
+  greeting: `Verify your email, ${firstName}.`,
+  content: `
+    <p style="margin:0 0 22px; font-size:16px; line-height:26px;">
+      Thanks for signing up for <strong>Balencia</strong>. Verify your email address to activate your account and start using your personal AI Life Coach.
+    </p>
+
+    ${include('./partials/alert-box', {
+      type: 'info',
+      message: 'Verification protects your account and lets us send important coaching and security updates.'
+    })}
+
+    <p style="margin:24px 0 0; font-size:14px; line-height:22px; color:#6b7280;">
+      This link expires in <strong>24 hours</strong>. If you did not create a Balencia account, you can ignore this email.
+    </p>
+  `,
+  ctaButton: {
+    text: 'Verify My Email',
+    url: verificationUrl
+  },
+  secondaryContent: `
+    <p style="margin:0 0 8px; font-size:13px; color:#6b7280;">
+      Button not working? Copy and paste this link into your browser:
+    </p>
+    <p style="margin:0; font-size:12px; word-break:break-all;">
+      <a href="${escapeFn(verificationUrl)}" style="color:#ea580c;">${escapeFn(verificationUrl)}</a>
+    </p>
+  `,
+  footerText: 'Need help? Reply to this email or contact support@balencia.app.'
+}) %>

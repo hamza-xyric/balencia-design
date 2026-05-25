@@ -1,0 +1,429 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sora);
+
+  /* Brand Colors (60/30/10) */
+  --color-brand-orange: #FF5E00;
+  --color-forest-green: #34A853;
+  --color-royal-purple: #7F24FF;
+
+  /* Neutrals */
+  --color-ink-900: #0A0A0F;
+  --color-ink-brown-800: #211008;
+  --color-ink-700: #171717;
+  --color-paper-100: #FEFAF3;
+  --color-paper-50: #FDFDFB;
+  --color-error-red: #F44336;
+
+  /* Domain Colors */
+  --color-domain-fitness: #EF4444;
+  --color-domain-sleep: #818CF8;
+  --color-domain-career: #6366F1;
+  --color-domain-nutrition: #84CC16;
+  --color-domain-finance: #10B981;
+  --color-domain-faith: #A855F7;
+  --color-domain-productivity: #F97316;
+  --color-domain-relationships: #EC4899;
+  --color-domain-wellbeing: #14B8A6;
+  --color-domain-meditation: #A78BFA;
+  --color-domain-creativity: #F59E0B;
+  --color-domain-learning: #06B6D4;
+
+  /* Podium Colors */
+  --color-podium-gold: #FFD700;
+  --color-podium-silver: #C0C0C0;
+  --color-podium-bronze: #CD7F32;
+
+  /* Mission Type Badge Colors (metallic, muted) */
+  --color-mission-gold: #D4A017;
+  --color-mission-silver: #A8A9AD;
+  --color-mission-bronze: #CD7F32;
+  --color-mission-steel: #5B7FA5;
+  --color-mission-sage: #6B8E6B;
+  --color-mission-copper: #B87333;
+
+  /* Title Rarity Tiers */
+  --color-rarity-common: #FFFFFF;
+  --color-rarity-uncommon: #14B8A6;
+  --color-rarity-rare: #7F24FF;
+  --color-rarity-epic: #FF5E00;
+  --color-rarity-legendary: #FFD700;
+
+  /* RPG Accents */
+  --color-stalled-amber: #F59E0B;
+  --color-freeze-blue: #4FC3F7;
+
+  /* Corner Radius */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 40px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-1: 0 8px 24px rgba(33, 16, 8, 0.18);
+  --shadow-2: 0 18px 48px rgba(33, 16, 8, 0.22);
+  --shadow-3: 0 32px 80px rgba(33, 16, 8, 0.28);
+
+  /* Spacing */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+
+  /* Typography sizes */
+  --text-display-xl: 40px;
+  --text-display-l: 32px;
+  --text-h1: 28px;
+  --text-h2: 20px;
+  --text-h3: 17px;
+  --text-body: 16px;
+  --text-caption: 13px;
+  --text-eyebrow: 12px;
+  --text-small: 11px;
+}
+
+:root {
+  /* Glow effects */
+  --glow-orange: 0 0 32px rgba(255, 94, 0, 0.45);
+  --glow-green: 0 0 32px rgba(52, 168, 83, 0.40);
+  --glow-purple: 0 0 32px rgba(127, 36, 255, 0.40);
+  --glow-orange-bg: rgba(255, 94, 0, 0.15);
+
+  /* Motion */
+  --ease-flow: cubic-bezier(0.65, 0.05, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out-brand: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 520ms;
+  --dur-flow: 1200ms;
+
+  /* Glass */
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-border-strong: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  background: var(--color-ink-900);
+  color: var(--color-paper-100);
+  font-family: var(--font-sora), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism card utility */
+.glass-card {
+  background-color: var(--color-ink-brown-800);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 28px;
+  box-shadow: 0 8px 24px rgba(33, 16, 8, 0.18);
+}
+
+.glass-card-sm {
+  background-color: var(--color-ink-brown-800);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+}
+
+/* Scrollbar hiding */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Continuous stroke draw animation */
+@keyframes stroke-draw {
+  from {
+    stroke-dashoffset: var(--stroke-length, 1000);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.stroke-animate {
+  animation: stroke-draw var(--dur-flow) var(--ease-flow) forwards;
+}
+
+/* Progress ring animation */
+@keyframes ring-fill {
+  from {
+    stroke-dashoffset: var(--ring-circumference, 283);
+  }
+  to {
+    stroke-dashoffset: var(--ring-target, 0);
+  }
+}
+
+.ring-animate {
+  animation: ring-fill var(--dur-slow) var(--ease-flow) forwards;
+}
+
+/* Staggered entry */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up var(--dur-base) var(--ease-out-soft) both;
+}
+
+@keyframes radar-grow {
+  from {
+    opacity: 0.35;
+    transform: scale(0.18);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.radar-grow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: radar-grow var(--dur-slow) var(--ease-flow) both;
+}
+
+@keyframes radar-dot-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.radar-dot {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: radar-dot-in var(--dur-fast) var(--ease-out-soft) both;
+}
+
+@keyframes sia-thinking {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+.sia-thinking-dot {
+  animation: sia-thinking 900ms var(--ease-in-out-brand) infinite;
+}
+
+@keyframes sia-avatar-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.animate-sia-avatar-pulse {
+  animation: sia-avatar-pulse 1200ms var(--ease-in-out-brand) infinite;
+}
+
+@keyframes voice-wave {
+  0%, 100% {
+    transform: scaleY(0.48);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.voice-wave-bar {
+  transform-origin: center;
+  animation: voice-wave 980ms var(--ease-in-out-brand) infinite;
+}
+
+@keyframes voice-cursor-blink {
+  0%, 45% {
+    opacity: 1;
+  }
+  46%, 100% {
+    opacity: 0;
+  }
+}
+
+.voice-cursor {
+  animation: voice-cursor-blink 900ms steps(1) infinite;
+}
+
+@keyframes voice-status-pulse {
+  0%, 100% {
+    opacity: 0.42;
+  }
+  50% {
+    opacity: 0.62;
+  }
+}
+
+.voice-status-pulse {
+  animation: voice-status-pulse 1200ms var(--ease-in-out-brand) infinite;
+}
+
+@keyframes voice-record-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 94, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 34px rgba(255, 94, 0, 0.36);
+  }
+}
+
+.voice-record-glow {
+  animation: voice-record-glow 2000ms var(--ease-in-out-brand) infinite;
+}
+
+@keyframes avatar-breathe {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.015);
+  }
+}
+
+.avatar-breathe {
+  animation: avatar-breathe 4000ms ease-in-out infinite;
+}
+
+@keyframes celebration-particle-float {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -16px, 0) rotate(0deg) scale(0.7);
+  }
+  12% {
+    opacity: 1;
+  }
+  76% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(18px, 260px, 0) rotate(220deg) scale(1);
+  }
+}
+
+.celebration-particle {
+  animation-name: celebration-particle-float;
+  animation-timing-function: var(--ease-out-soft);
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+@keyframes celebration-badge-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.celebration-badge-pop {
+  animation: celebration-badge-pop var(--dur-slow) var(--ease-flow) both;
+}
+
+@keyframes celebration-hint-pulse {
+  0%, 100% {
+    opacity: 0.32;
+  }
+  50% {
+    opacity: 0.52;
+  }
+}
+
+.celebration-hint {
+  animation: celebration-hint-pulse 2000ms var(--ease-in-out-brand) infinite;
+}
+
+@keyframes ambient-drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(6px, -10px, 0);
+  }
+}
+
+.ambient-drift {
+  animation: ambient-drift 6200ms ease-in-out infinite;
+}
+
+@keyframes breathing-guide {
+  0%, 100% {
+    transform: scale(0.72);
+    opacity: 0.62;
+  }
+  46% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  68% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+.breathing-guide {
+  animation: breathing-guide 8000ms var(--ease-in-out-brand) infinite;
+}
+
+@keyframes quiet-pulse {
+  0%, 100% {
+    transform: scale(0.96);
+    opacity: 0.78;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+.quiet-pulse {
+  animation: quiet-pulse 8000ms var(--ease-in-out-brand) infinite;
+}
+
+/* Eyebrow text style */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}

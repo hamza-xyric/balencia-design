@@ -1,0 +1,19 @@
+<%# Alert/Notification Box Component %>
+<%
+const colors = {
+  info: { bg: '#fff7ed', border: '#f97316', textColor: '#9a3412' },
+  warning: { bg: '#fffbeb', border: '#f59e0b', textColor: '#92400e' },
+  success: { bg: '#ecfdf5', border: '#10b981', textColor: '#065f46' },
+  error: { bg: '#fef2f2', border: '#ef4444', textColor: '#991b1b' }
+};
+const style = colors[type] || colors.info;
+%>
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:20px 0;">
+  <tr>
+    <td style="background:<%= style.bg %>; border-left:4px solid <%= style.border %>; border-radius:0 12px 12px 0; padding:16px 18px;">
+      <p style="margin:0; font-size:14px; color:<%= style.textColor %>; line-height:21px;">
+        <%- message %>
+      </p>
+    </td>
+  </tr>
+</table>

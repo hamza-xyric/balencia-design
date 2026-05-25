@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 5: Settings & Account</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink-900:#0A0A0F;--ink-brown:#211008;--brand-orange:#FF5E00;--forest-green:#34A853;--royal-purple:#7F24FF;--error-red:#F44336;--white:#FFFFFF;--phone-w:393px;--phone-h:852px;--bezel:12px;--frame-r:54px}
+html{font-family:'Sora',sans-serif;background:#090909;color:var(--white);overflow-x:hidden}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center}
+.page-header{text-align:center;padding:48px 24px 24px;width:100%;max-width:1200px}.page-header h1{font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}.page-header h2{font-size:32px;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 40%,var(--brand-orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.batch-label{display:inline-block;margin-top:12px;padding:6px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,94,0,.12);color:var(--brand-orange);border:1px solid rgba(255,94,0,.2)}
+.carousel-wrap{position:relative;width:100%;max-width:1200px;display:flex;flex-direction:column;align-items:center;padding:0 60px}.carousel-viewport{width:100%;overflow:hidden;position:relative}.carousel-track{display:flex;transition:transform .55s cubic-bezier(.22,1,.36,1);will-change:transform}.carousel-slide{min-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px 0 0}
+.screen-label{text-align:center;margin-bottom:20px}.screen-label .num{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-orange)}.screen-label .name{font-size:20px;font-weight:600;color:#fff;margin-top:4px}
+.nav-arrow{position:absolute;top:50%;transform:translateY(-70%);z-index:20;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(17,17,17,.85);backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;color:rgba(255,255,255,.6)}.nav-arrow:hover{border-color:var(--brand-orange);color:var(--brand-orange)}.nav-arrow.prev{left:4px}.nav-arrow.next{right:4px}.nav-arrow:disabled{opacity:.25;pointer-events:none}
+.thumb-strip{display:flex;gap:12px;justify-content:center;margin:32px 0 48px;flex-wrap:wrap}.thumb{width:56px;height:120px;border-radius:14px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .3s;position:relative;background:#1a1a1a;display:flex;align-items:center;justify-content:center}.thumb:hover{border-color:rgba(255,94,0,.4)}.thumb.active{border-color:var(--brand-orange);box-shadow:0 0 16px rgba(255,94,0,.2)}.thumb-num{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:rgba(255,255,255,.5)}
+.device{position:relative;width:calc(var(--phone-w) + var(--bezel)*2);height:calc(var(--phone-h) + var(--bezel)*2);border-radius:var(--frame-r);background:linear-gradient(165deg,#3a3a3c 0%,#1c1c1e 40%,#2c2c2e 100%);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1);padding:var(--bezel);flex-shrink:0}.device-inner{width:var(--phone-w);height:var(--phone-h);border-radius:calc(var(--frame-r) - var(--bezel));overflow:hidden;position:relative;background:var(--ink-900)}
+.dynamic-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#000;border-radius:24px;z-index:20}.home-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);z-index:10}
+.status-bar{position:absolute;top:0;left:0;right:0;height:44px;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 24px 0;font-size:15px;font-weight:600;color:#fff}.status-icons{display:flex;align-items:center;gap:6px}.status-icons svg{width:16px;height:16px;fill:#fff}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;font-family:'Sora',sans-serif;overflow-y:auto;overflow-x:hidden;background:var(--ink-900);scrollbar-width:none}.screen::-webkit-scrollbar{display:none}
+.sp-4{height:4px}.sp-8{height:8px}.sp-12{height:12px}.sp-16{height:16px}.sp-24{height:24px}.sp-32{height:32px}
+.card{background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;width:100%}
+.sia-card{border-left:3px solid var(--royal-purple)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.tab-bar{position:absolute;bottom:0;left:0;right:0;height:90px;background:var(--ink-900);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:flex-start;justify-content:space-around;padding-top:8px;z-index:15}.tab-item{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,.6);cursor:pointer}.tab-item.active{color:var(--brand-orange)}.tab-item svg{width:24px;height:24px}
+.back-btn{position:relative;left:0;top:0;padding:0 16px;display:flex;align-items:center;height:44px}
+.sia-avatar{width:28px;height:28px;min-width:28px;border-radius:50%;background:linear-gradient(135deg,var(--royal-purple),rgba(127,36,255,.5));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;box-shadow:0 0 12px rgba(127,36,255,.3)}
+.xp-bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;width:100%}.xp-fill{height:100%;border-radius:4px;background:var(--brand-orange)}
+.settings-group{background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;width:100%}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05);min-height:52px}
+.settings-row:last-child{border-bottom:none}
+.settings-row-label{font-size:15px;color:#fff}
+.settings-row-value{font-size:14px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:6px}
+.toggle{width:48px;height:28px;border-radius:14px;background:rgba(255,255,255,.15);position:relative;cursor:pointer;flex-shrink:0}.toggle.on{background:var(--brand-orange)}.toggle::after{content:'';position:absolute;width:24px;height:24px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .2s}.toggle.on::after{transform:translateX(20px)}
+.chevron-right{color:rgba(255,255,255,.3)}
+.sia-note-row{display:flex;align-items:flex-start;gap:8px;padding:0 2px;margin-bottom:12px}.sia-note-dot{width:6px;height:6px;border-radius:50%;background:var(--royal-purple);flex-shrink:0;margin-top:5px}.sia-note-text{font-size:13px;color:rgba(255,255,255,.5);line-height:1.4}
+.domain-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.domain-dot.fitness{background:#34A853}.domain-dot.nutrition{background:#FF9800}.domain-dot.finance{background:#4285F4}.domain-dot.career{background:#AB47BC}
+.domain-subsection-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:10px 16px 2px}
+.freq-cap{font-size:12px;color:rgba(255,255,255,.3);text-align:center;padding:8px 16px 12px}
+@media(max-width:520px){:root{--phone-w:340px;--phone-h:736px;--bezel:10px;--frame-r:48px}.page-header h2{font-size:24px}.carousel-wrap{padding:0 16px}.nav-arrow{width:36px;height:36px}.nav-arrow.prev{left:0}.nav-arrow.next{right:0}}
+</style>
+</head>
+<body>
+<header class="page-header"><h1>Balencia Design System</h1><h2>Batch 5 — Settings & Account</h2><span class="batch-label">Screens 21 – 25</span></header>
+<section class="carousel-wrap">
+<button class="nav-arrow prev" onclick="go(-1)" disabled><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></button>
+<button class="nav-arrow next" onclick="go(1)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg></button>
+<div class="carousel-viewport"><div class="carousel-track" id="track">
+
+<!-- ═══ 21: SETTINGS ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 21</div><div class="name">Settings</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="back-btn"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 16px"><div style="font-size:24px;font-weight:700;color:#fff">settings</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- Account Section -->
+    <div class="eyebrow">ACCOUNT</div>
+    <div class="settings-group">
+      <div class="settings-row"><div class="settings-row-label">Email</div><div class="settings-row-value">amira@email.com</div></div>
+      <div class="settings-row"><div class="settings-row-label">Change password</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label">Manage subscription</div><div class="settings-row-value">Plus <svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label">Connected services</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+    </div>
+    <!-- SIA Preferences -->
+    <div class="eyebrow">SIA PREFERENCES</div>
+    <div class="sia-note-row" style="margin-top:8px">
+      <div class="sia-note-dot"></div>
+      <div class="sia-note-text">SIA adapts based on your conversations. These preferences fine-tune her approach.</div>
+    </div>
+    <div class="settings-group">
+      <div class="settings-row"><div class="settings-row-label">Communication style</div><div class="settings-row-value">Balanced <svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label">Check-in times</div><div class="settings-row-value">9am, 8pm <svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label">Tone preference</div><div class="settings-row-value">Warm <svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+    </div>
+    <!-- Notifications -->
+    <div class="eyebrow">NOTIFICATIONS</div>
+    <div class="settings-group">
+      <div class="settings-row"><div class="settings-row-label" style="font-weight:600">All notifications</div><div class="toggle on"></div></div>
+      <div class="settings-row"><div class="settings-row-label">SIA insights</div><div class="toggle on"></div></div>
+      <div class="settings-row"><div class="settings-row-label">Goal reminders</div><div class="toggle on"></div></div>
+      <div class="settings-row"><div class="settings-row-label">Habit reminders</div><div class="toggle on"></div></div>
+      <div class="settings-row"><div class="settings-row-label">Social updates</div><div class="toggle"></div></div>
+      <div class="settings-row"><div class="settings-row-label">Daily digest</div><div class="toggle on"></div></div>
+      <div class="settings-row"><div class="settings-row-label">Quiet hours</div><div class="settings-row-value">10pm–7am <svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <!-- BY DOMAIN sub-section -->
+      <div class="domain-subsection-label">BY DOMAIN</div>
+      <div class="settings-row" style="padding-top:6px"><div class="settings-row-label" style="display:flex;align-items:center;gap:8px;font-size:14px"><div class="domain-dot fitness"></div>Fitness</div><div class="toggle on"></div></div>
+      <div class="settings-row"><div class="settings-row-label" style="display:flex;align-items:center;gap:8px;font-size:14px"><div class="domain-dot nutrition"></div>Nutrition</div><div class="toggle on"></div></div>
+      <div class="settings-row"><div class="settings-row-label" style="display:flex;align-items:center;gap:8px;font-size:14px"><div class="domain-dot finance"></div>Finance</div><div class="toggle on"></div></div>
+      <div class="settings-row" style="border-bottom:none"><div class="settings-row-label" style="display:flex;align-items:center;gap:8px;font-size:14px"><div class="domain-dot career"></div>Career</div><div class="toggle"></div></div>
+      <div class="freq-cap">Max 8 notifications per day</div>
+    </div>
+    <!-- Appearance -->
+    <div class="eyebrow">APPEARANCE</div>
+    <div class="settings-group">
+      <div class="settings-row"><div class="settings-row-label">Dark mode</div><div class="toggle on"></div></div>
+    </div>
+    <!-- Privacy -->
+    <div class="eyebrow">PRIVACY</div>
+    <div class="settings-group">
+      <div class="settings-row"><div class="settings-row-label">Show on leaderboard</div><div class="toggle on"></div></div>
+      <div class="settings-row"><div class="settings-row-label">Share progress with friends</div><div class="toggle"></div></div>
+    </div>
+    <!-- About -->
+    <div class="eyebrow">ABOUT</div>
+    <div class="settings-group">
+      <div class="settings-row"><div class="settings-row-label">Version</div><div class="settings-row-value">1.0.0 (42)</div></div>
+      <div class="settings-row"><div class="settings-row-label">Terms of service</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label">Privacy policy</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label">Licenses</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+    </div>
+    <!-- Destructive -->
+    <div class="sp-8"></div>
+    <div style="background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <div style="font-size:15px;font-weight:500;color:var(--brand-orange)">Sign out</div>
+    </div>
+    <div style="background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <div style="font-size:15px;font-weight:500;color:var(--error-red)">Delete account</div>
+    </div>
+    <div class="sp-16"></div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 22: CONNECTED SERVICES ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 22</div><div class="name">Connected Services</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="back-btn"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 16px"><div style="font-size:24px;font-weight:700;color:#fff">connected services</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- SIA note -->
+    <div class="card sia-card">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="sia-avatar" style="width:24px;height:24px;min-width:24px;font-size:10px">S</div>
+        <div style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.4">Connect your services so I can find patterns across your health, schedule, and habits.</div>
+      </div>
+    </div>
+    <div class="eyebrow">AVAILABLE SERVICES</div>
+    <!-- WHOOP - connected -->
+    <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+      <div style="width:44px;height:44px;border-radius:12px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px;font-weight:800;color:#fff">W</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="font-size:16px;font-weight:600;color:#fff">WHOOP</div>
+          <div style="font-size:10px;font-weight:600;color:var(--forest-green);background:rgba(52,168,83,.15);padding:2px 8px;border-radius:999px">CONNECTED</div>
+        </div>
+        <div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:10px">Sleep, recovery, strain data · Synced 2h ago</div>
+        <div style="display:flex;gap:8px">
+          <div style="font-size:12px;color:rgba(255,255,255,.5);padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);cursor:pointer">force sync</div>
+          <div style="font-size:12px;color:var(--error-red);padding:6px 12px;border-radius:999px;border:1px solid rgba(244,67,54,.2);cursor:pointer">disconnect</div>
+        </div>
+      </div>
+    </div>
+    <!-- Google Calendar - connected -->
+    <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+      <div style="width:44px;height:44px;border-radius:12px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#4285F4" stroke-width="2"/><path d="M3 9h18" stroke="#4285F4" stroke-width="2"/><path d="M9 4v4M15 4v4" stroke="#4285F4" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="font-size:16px;font-weight:600;color:#fff">Google Calendar</div>
+          <div style="font-size:10px;font-weight:600;color:var(--forest-green);background:rgba(52,168,83,.15);padding:2px 8px;border-radius:999px">CONNECTED</div>
+        </div>
+        <div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:10px">Schedule & events · Synced 30m ago</div>
+        <div style="display:flex;gap:8px">
+          <div style="font-size:12px;color:rgba(255,255,255,.5);padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);cursor:pointer">force sync</div>
+          <div style="font-size:12px;color:var(--error-red);padding:6px 12px;border-radius:999px;border:1px solid rgba(244,67,54,.2);cursor:pointer">disconnect</div>
+        </div>
+      </div>
+    </div>
+    <!-- Spotify - not connected -->
+    <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+      <div style="width:44px;height:44px;border-radius:12px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#1DB954"><circle cx="12" cy="12" r="10"/><path d="M16 10.5c-3-1.2-6.5-.8-6.5-.8" stroke="#000" stroke-width="1.5" stroke-linecap="round"/><path d="M15 13c-2.5-1-5.5-.7-5.5-.7" stroke="#000" stroke-width="1.5" stroke-linecap="round"/><path d="M14 15.5c-2-.8-4.5-.5-4.5-.5" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="font-size:16px;font-weight:600;color:#fff">Spotify</div>
+        </div>
+        <div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:10px">Listening habits & mood data</div>
+        <div style="display:flex;gap:8px">
+          <div style="font-size:13px;font-weight:600;color:#fff;background:var(--brand-orange);padding:8px 20px;border-radius:999px;cursor:pointer">Connect</div>
+        </div>
+      </div>
+    </div>
+    <!-- Apple Health - coming soon -->
+    <div class="card" style="display:flex;gap:14px;align-items:flex-start;opacity:.7">
+      <div style="width:44px;height:44px;border-radius:12px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF2D55" stroke-width="2"><path d="M12 21c-4-4-8-7-8-11a4 4 0 018 0 4 4 0 018 0c0 4-4 7-8 11z"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="font-size:16px;font-weight:600;color:#fff">Apple Health</div>
+          <div style="font-size:10px;font-weight:600;color:rgba(255,255,255,.4);background:rgba(255,255,255,.08);padding:2px 8px;border-radius:999px">COMING SOON</div>
+        </div>
+        <div style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:10px">Steps, heart rate, workouts</div>
+        <div style="display:flex;gap:8px">
+          <div style="font-size:12px;color:rgba(255,255,255,.4);padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);cursor:pointer">Notify me</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 23: SUBSCRIPTION & BILLING ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 23</div><div class="name">Subscription & Billing</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="back-btn"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 12px"><div style="font-size:22px;font-weight:700;color:#fff">subscription & billing</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- Current Plan Card -->
+    <div class="eyebrow">YOUR PLAN</div>
+    <div class="card" style="border:2px solid var(--brand-orange);padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-size:20px;font-weight:600;color:#fff">Plus</div>
+        <div style="font-size:15px;color:rgba(255,255,255,.5)">$20/mo</div>
+      </div>
+      <!-- AI usage bar -->
+      <div style="margin-bottom:8px">
+        <div class="xp-bar" style="height:6px"><div class="xp-fill" style="width:65%"></div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between">
+        <div style="font-size:12px;color:rgba(255,255,255,.5)">AI usage: 65%</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4)">Renews Jun 15, 2026</div>
+      </div>
+    </div>
+    <!-- Tier Cards -->
+    <div class="eyebrow">ALL PLANS</div>
+    <div style="display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px">
+      <!-- Free tier -->
+      <div style="min-width:220px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.05);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:16px;font-weight:600;color:#fff;text-align:center">Free</div>
+        <div style="text-align:center"><span style="font-size:28px;font-weight:700;color:#fff">$0</span><span style="font-size:14px;color:rgba(255,255,255,.5)">/mo</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">Journaling</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">Habit tracking</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">5 AI msgs/day</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.3);text-decoration:line-through">Cross-domain insights</span></div>
+        </div>
+        <div style="padding:10px;border-radius:999px;background:#171717;text-align:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.4)">Downgrade</div>
+      </div>
+      <!-- Plus tier (current) -->
+      <div style="min-width:220px;background:var(--ink-brown);border:2px solid var(--brand-orange);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:16px;font-weight:600;color:#fff;text-align:center">Plus</div>
+        <div style="text-align:center"><span style="font-size:28px;font-weight:700;color:#fff">$20</span><span style="font-size:14px;color:rgba(255,255,255,.5)">/mo</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">Full SIA coaching</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">All domains</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">Cross-domain insights</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">RPG gamification</span></div>
+        </div>
+        <div style="padding:10px;border-radius:999px;background:#171717;text-align:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.4)">Current plan</div>
+      </div>
+      <!-- Pro tier -->
+      <div style="min-width:220px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.05);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;position:relative">
+        <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-orange);background:var(--ink-900);padding:2px 10px;border-radius:999px;border:1px solid var(--brand-orange)">RECOMMENDED</div>
+        <div style="font-size:16px;font-weight:600;color:#fff;text-align:center;margin-top:4px">Pro</div>
+        <div style="text-align:center"><span style="font-size:28px;font-weight:700;color:#fff">$60</span><span style="font-size:14px;color:rgba(255,255,255,.5)">/mo</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">Everything in Plus</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">Advanced analytics</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M2 7l3.5 3.5L12 4"/></svg><span style="font-size:12px;color:rgba(255,255,255,.7)">Higher AI limits</span></div>
+        </div>
+        <div style="padding:10px;border-radius:999px;background:var(--brand-orange);text-align:center;font-size:13px;font-weight:600;color:#fff;cursor:pointer">Upgrade</div>
+      </div>
+    </div>
+    <!-- Billing Section -->
+    <div class="eyebrow">BILLING</div>
+    <div class="settings-group">
+      <div class="settings-row"><div class="settings-row-label">Payment method</div><div class="settings-row-value">Visa ····4242 <svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label">Billing history</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label">Restore purchases</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+    </div>
+    <div class="sp-8"></div>
+    <div style="background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <div style="font-size:15px;font-weight:500;color:var(--error-red)">Downgrade plan</div>
+    </div>
+    <div style="background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+      <div style="font-size:15px;font-weight:500;color:var(--error-red)">Cancel subscription</div>
+    </div>
+    <div class="sp-16"></div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 24: NOTIFICATION HISTORY ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 24</div><div class="name">Notifications</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <!-- header with action -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:44px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg>
+    </div>
+    <div style="font-size:13px;font-weight:600;color:var(--brand-orange);cursor:pointer">Mark all read</div>
+  </div>
+  <div style="padding:0 16px 12px"><div style="font-size:24px;font-weight:700;color:#fff">notifications</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none">
+    <!-- TODAY -->
+    <div class="eyebrow" style="padding:8px 0">TODAY</div>
+    <div class="settings-group">
+      <!-- unread: SIA insight -->
+      <div class="settings-row" style="padding:14px 16px;gap:12px;align-items:flex-start">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--brand-orange);flex-shrink:0;margin-top:6px"></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(127,36,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--royal-purple)" stroke-width="2"><path d="M12 2a9 9 0 019 9c0 3.6-3 7.2-5 9l-4 2-4-2c-2-1.8-5-5.4-5-9a9 9 0 019-9z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:2px">SIA insight</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.5);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Your sleep and spending are connected — I noticed a pattern worth discussing.</div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.35);flex-shrink:0;margin-top:2px">2h ago</div>
+      </div>
+      <!-- read: reminder -->
+      <div class="settings-row" style="padding:14px 16px;gap:12px;align-items:flex-start">
+        <div style="width:8px;flex-shrink:0"></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,94,0,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-orange)" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,.8);margin-bottom:2px">Reminder</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.5);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Don't forget your morning walk — you're on a 7-day streak!</div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.35);flex-shrink:0;margin-top:2px">6h ago</div>
+      </div>
+      <!-- unread: check-in -->
+      <div class="settings-row" style="padding:14px 16px;gap:12px;align-items:flex-start;border-bottom:none">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--brand-orange);flex-shrink:0;margin-top:6px"></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(52,168,83,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--forest-green)" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 6-8"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:2px">Check-in</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.5);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">How are you feeling this morning? Tap to log your mood.</div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.35);flex-shrink:0;margin-top:2px">8h ago</div>
+      </div>
+    </div>
+    <!-- YESTERDAY -->
+    <div class="eyebrow" style="padding:8px 0">YESTERDAY</div>
+    <div class="settings-group">
+      <div class="settings-row" style="padding:14px 16px;gap:12px;align-items:flex-start">
+        <div style="width:8px;flex-shrink:0"></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(127,36,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--royal-purple)" stroke-width="2"><path d="M12 2a9 9 0 019 9c0 3.6-3 7.2-5 9l-4 2-4-2c-2-1.8-5-5.4-5-9a9 9 0 019-9z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,.8);margin-bottom:2px">SIA insight</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.5);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Great workout consistency this week — your recovery score improved 12%.</div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.35);flex-shrink:0;margin-top:2px">1d</div>
+      </div>
+      <div class="settings-row" style="padding:14px 16px;gap:12px;align-items:flex-start;border-bottom:none">
+        <div style="width:8px;flex-shrink:0"></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,.8);margin-bottom:2px">Social</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.5);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Alex completed a fitness quest — send some encouragement!</div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.35);flex-shrink:0;margin-top:2px">1d</div>
+      </div>
+    </div>
+    <!-- THIS WEEK -->
+    <div class="eyebrow" style="padding:8px 0">THIS WEEK</div>
+    <div class="settings-group">
+      <div class="settings-row" style="padding:14px 16px;gap:12px;align-items:flex-start;border-bottom:none">
+        <div style="width:8px;flex-shrink:0"></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,94,0,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-orange)" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,.8);margin-bottom:2px">Reminder</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.5);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Your budget review is due — let's make sure you're on track.</div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.35);flex-shrink:0;margin-top:2px">3d</div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 25: HELP CENTER ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 25</div><div class="name">Help Center</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="back-btn"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 16px"><div style="font-size:24px;font-weight:700;color:#fff">help center</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- Search -->
+    <div style="width:100%;height:48px;border-radius:999px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;padding:0 16px;gap:10px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <div style="font-size:15px;color:rgba(255,255,255,.35)">search help articles...</div>
+    </div>
+    <!-- Ask SIA Card -->
+    <div class="card sia-card" style="padding:20px">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div class="sia-avatar" style="width:32px;height:32px;min-width:32px;font-size:14px">S</div>
+        <div style="flex:1">
+          <div style="font-size:18px;font-weight:600;color:#fff;margin-bottom:6px">Ask SIA</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:12px">Get instant answers about anything in Balencia. SIA knows the app inside and out.</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:var(--brand-orange);padding:8px 20px;border-radius:999px;cursor:pointer">
+            <span style="font-size:14px;font-weight:600;color:#fff">Ask a question</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FAQ Categories -->
+    <div class="eyebrow">FAQ</div>
+    <div class="settings-group">
+      <div class="settings-row"><div class="settings-row-label" style="display:flex;align-items:center;gap:10px"><span style="font-size:18px">🚀</span> Getting started</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label" style="display:flex;align-items:center;gap:10px"><span style="font-size:18px">🧠</span> SIA & AI coach</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label" style="display:flex;align-items:center;gap:10px"><span style="font-size:18px">🎯</span> Goals & tracking</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label" style="display:flex;align-items:center;gap:10px"><span style="font-size:18px">💳</span> Billing & subscription</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label" style="display:flex;align-items:center;gap:10px"><span style="font-size:18px">🔒</span> Privacy & data</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+      <div class="settings-row"><div class="settings-row-label" style="display:flex;align-items:center;gap:10px"><span style="font-size:18px">🔧</span> Troubleshooting</div><div class="settings-row-value"><svg class="chevron-right" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l6 6-6 6"/></svg></div></div>
+    </div>
+    <!-- Contact Support -->
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;padding:20px;gap:8px">
+      <div style="font-size:15px;font-weight:600;color:#fff">Still need help?</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.4);text-align:center">Our team usually responds within 24 hours</div>
+      <div style="margin-top:4px;padding:8px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.15);font-size:14px;font-weight:600;color:rgba(255,255,255,.7);cursor:pointer">Contact support</div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+</div></div>
+
+<!-- Thumbnail strip -->
+<div class="thumb-strip" id="thumbs">
+<div class="thumb active" onclick="jump(0)"><div style="font-size:14px;opacity:.5">⚙️</div><div class="thumb-num">21</div></div>
+<div class="thumb" onclick="jump(1)"><div style="font-size:14px;opacity:.5">🔗</div><div class="thumb-num">22</div></div>
+<div class="thumb" onclick="jump(2)"><div style="font-size:14px;opacity:.5">💎</div><div class="thumb-num">23</div></div>
+<div class="thumb" onclick="jump(3)"><div style="font-size:14px;opacity:.5">🔔</div><div class="thumb-num">24</div></div>
+<div class="thumb" onclick="jump(4)"><div style="font-size:14px;opacity:.5">❓</div><div class="thumb-num">25</div></div>
+</div>
+</section>
+
+<script>
+let cur=0;const total=5;
+const track=document.getElementById('track');
+const thumbs=document.getElementById('thumbs').children;
+function render(){track.style.transform=`translateX(-${cur*100}%)`;for(let i=0;i<total;i++){thumbs[i].classList.toggle('active',i===cur)}document.querySelector('.nav-arrow.prev').disabled=cur===0;document.querySelector('.nav-arrow.next').disabled=cur===total-1}
+function go(d){cur=Math.max(0,Math.min(total-1,cur+d));render()}
+function jump(i){cur=i;render()}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
+const sp=new URLSearchParams(window.location.search);if(sp.has('start')){const s=parseInt(sp.get('start'));if(!isNaN(s)&&s>=0&&s<total){document.getElementById('track').style.transition='none';jump(s);requestAnimationFrame(()=>document.getElementById('track').style.transition='')}}
+</script>
+</body>
+</html>

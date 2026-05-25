@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 8: Growth & Utility</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink-900:#0A0A0F;--ink-brown:#211008;--brand-orange:#FF5E00;--forest-green:#34A853;--royal-purple:#7F24FF;--error-red:#F44336;--white:#FFFFFF;--phone-w:393px;--phone-h:852px;--bezel:12px;--frame-r:54px}
+html{font-family:'Sora',sans-serif;background:#090909;color:var(--white);overflow-x:hidden}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center}
+.page-header{text-align:center;padding:48px 24px 24px;width:100%;max-width:1200px}.page-header h1{font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}.page-header h2{font-size:32px;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 40%,var(--brand-orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.batch-label{display:inline-block;margin-top:12px;padding:6px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,94,0,.12);color:var(--brand-orange);border:1px solid rgba(255,94,0,.2)}
+.carousel-wrap{position:relative;width:100%;max-width:1200px;display:flex;flex-direction:column;align-items:center;padding:0 60px}.carousel-viewport{width:100%;overflow:hidden;position:relative}.carousel-track{display:flex;transition:transform .55s cubic-bezier(.22,1,.36,1);will-change:transform}.carousel-slide{min-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px 0 0}
+.screen-label{text-align:center;margin-bottom:20px}.screen-label .num{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-orange)}.screen-label .name{font-size:20px;font-weight:600;color:#fff;margin-top:4px}
+.nav-arrow{position:absolute;top:50%;transform:translateY(-70%);z-index:20;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(17,17,17,.85);backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;color:rgba(255,255,255,.6)}.nav-arrow:hover{border-color:var(--brand-orange);color:var(--brand-orange)}.nav-arrow.prev{left:4px}.nav-arrow.next{right:4px}.nav-arrow:disabled{opacity:.25;pointer-events:none}
+.thumb-strip{display:flex;gap:12px;justify-content:center;margin:32px 0 48px;flex-wrap:wrap}.thumb{width:56px;height:120px;border-radius:14px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .3s;position:relative;background:#1a1a1a;display:flex;align-items:center;justify-content:center}.thumb:hover{border-color:rgba(255,94,0,.4)}.thumb.active{border-color:var(--brand-orange);box-shadow:0 0 16px rgba(255,94,0,.2)}.thumb-num{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:rgba(255,255,255,.5)}
+.device{position:relative;width:calc(var(--phone-w) + var(--bezel)*2);height:calc(var(--phone-h) + var(--bezel)*2);border-radius:var(--frame-r);background:linear-gradient(165deg,#3a3a3c 0%,#1c1c1e 40%,#2c2c2e 100%);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1);padding:var(--bezel);flex-shrink:0}.device-inner{width:var(--phone-w);height:var(--phone-h);border-radius:calc(var(--frame-r) - var(--bezel));overflow:hidden;position:relative;background:var(--ink-900)}
+.dynamic-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#000;border-radius:24px;z-index:20}.home-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);z-index:10}
+.status-bar{position:absolute;top:0;left:0;right:0;height:44px;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 24px 0;font-size:15px;font-weight:600;color:#fff}.status-icons{display:flex;align-items:center;gap:6px}.status-icons svg{width:16px;height:16px;fill:#fff}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;font-family:'Sora',sans-serif;overflow-y:auto;overflow-x:hidden;background:var(--ink-900);scrollbar-width:none}.screen::-webkit-scrollbar{display:none}
+.card{background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;width:100%}
+.sia-card{border-left:3px solid var(--royal-purple)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.tab-bar{position:absolute;bottom:0;left:0;right:0;height:90px;background:var(--ink-900);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:flex-start;justify-content:space-around;padding-top:8px;z-index:15}.tab-item{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,.6);cursor:pointer}.tab-item.active{color:var(--brand-orange)}.tab-item svg{width:24px;height:24px}
+.xp-bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;width:100%}.xp-fill{height:100%;border-radius:4px;background:var(--brand-orange)}
+.fab{position:absolute;bottom:100px;right:16px;width:56px;height:56px;border-radius:50%;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;z-index:16;box-shadow:0 4px 16px rgba(255,94,0,.3);cursor:pointer}
+.progress-ring{position:relative;display:flex;align-items:center;justify-content:center}.progress-ring svg{transform:rotate(-90deg)}.progress-ring .label{position:absolute;font-weight:600;color:#fff}
+.domain-header{display:flex;align-items:center;gap:12px;padding:0 16px;height:56px}
+.domain-chip{height:24px;padding:0 10px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600}
+@media(max-width:520px){:root{--phone-w:340px;--phone-h:736px;--bezel:10px;--frame-r:48px}.page-header h2{font-size:24px}.carousel-wrap{padding:0 16px}.nav-arrow{width:36px;height:36px}.nav-arrow.prev{left:0}.nav-arrow.next{right:0}}
+</style>
+</head>
+<body>
+<header class="page-header"><h1>Balencia Design System</h1><h2>Batch 8 — Growth & Utility</h2><span class="batch-label">Screens 35 – 40</span></header>
+<section class="carousel-wrap">
+<button class="nav-arrow prev" onclick="go(-1)" disabled><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></button>
+<button class="nav-arrow next" onclick="go(1)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg></button>
+<div class="carousel-viewport"><div class="carousel-track" id="track">
+
+<!-- ═══ 35: LEARNING DASHBOARD ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 35</div><div class="name">Learning Dashboard</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="domain-header" style="border-bottom:2px solid #06B6D4">
+    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg>
+    <div style="flex:1;font-size:18px;font-weight:600;color:#fff">Learning & growth</div>
+    <div style="background:rgba(6,182,212,.15);color:#06B6D4;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px">Lv.2</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- SIA note -->
+    <div class="card sia-card" style="padding:12px 16px">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--royal-purple);margin-top:6px;flex-shrink:0"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.4">You're 3 chapters away from finishing "Atomic Habits." Try reading 20 min before bed tonight — your sleep pattern suggests that's your best focus window.</div>
+      </div>
+    </div>
+    <!-- Current book -->
+    <div class="eyebrow">CURRENTLY READING</div>
+    <div class="card" style="display:flex;gap:14px">
+      <div style="width:56px;height:80px;border-radius:8px;background:linear-gradient(135deg,rgba(6,182,212,.2),rgba(6,182,212,.05));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:24px">📚</div>
+      <div style="flex:1">
+        <div style="font-size:16px;font-weight:600;color:#fff">Atomic Habits</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">James Clear</div>
+        <div style="font-size:12px;color:#06B6D4;margin-top:6px;font-weight:500">Chapter 14 of 17</div>
+        <div class="xp-bar" style="height:4px;margin-top:6px"><div class="xp-fill" style="width:82%;background:#06B6D4"></div></div>
+      </div>
+    </div>
+    <!-- Learning path -->
+    <div class="eyebrow">AI LEARNING PATH</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Finish Part 3: Make It Easy</div></div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Apply 2-minute rule to one habit</div></div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;border:2px solid var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"></div><div style="font-size:14px;font-weight:500;color:#fff">Read Part 4: Make It Satisfying</div></div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0"></div><div style="font-size:14px;color:rgba(255,255,255,.4)">Write book summary & reflections</div></div>
+    </div>
+    <!-- Active goals -->
+    <div style="display:flex;justify-content:space-between;align-items:center"><div class="eyebrow">ACTIVE GOALS</div><div style="font-size:12px;color:#06B6D4;cursor:pointer">see all →</div></div>
+    <div class="card" style="display:flex;align-items:center;gap:12px">
+      <div class="progress-ring"><svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/><circle cx="18" cy="18" r="14" fill="none" stroke="#06B6D4" stroke-width="3" stroke-dasharray="87.96" stroke-dashoffset="26.4" stroke-linecap="round"/></svg><div class="label" style="font-size:9px">70%</div></div>
+      <div style="flex:1"><div style="font-size:14px;font-weight:600;color:#fff">Read 24 books in 2026</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">17 of 24 completed</div></div>
+    </div>
+    <!-- Streak -->
+    <div class="eyebrow">LEARNING STREAK</div>
+    <div style="display:flex;justify-content:space-between;padding:4px 8px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:10px;color:rgba(255,255,255,.3)">M</div><div style="width:10px;height:10px;border-radius:50%;background:#06B6D4"></div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:10px;color:rgba(255,255,255,.3)">T</div><div style="width:10px;height:10px;border-radius:50%;background:#06B6D4"></div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:10px;color:rgba(255,255,255,.3)">W</div><div style="width:10px;height:10px;border-radius:50%;background:#06B6D4"></div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:10px;color:#fff;font-weight:600">T</div><div style="width:10px;height:10px;border-radius:50%;background:var(--brand-orange)"></div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:10px;color:rgba(255,255,255,.3)">F</div><div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1)"></div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:10px;color:rgba(255,255,255,.3)">S</div><div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1)"></div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:10px;color:rgba(255,255,255,.3)">S</div><div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1)"></div></div>
+    </div>
+    <div style="text-align:center;font-size:13px;color:#06B6D4;font-weight:600">🔥 4 day streak</div>
+    <!-- Study prompt -->
+    <div class="card" style="border:1px dashed rgba(6,182,212,.3);background:transparent;text-align:center;padding:20px">
+      <div style="font-size:14px;color:rgba(255,255,255,.5)">Ready for today's study session?</div>
+      <div style="margin-top:8px;display:inline-flex;padding:8px 20px;border-radius:999px;background:rgba(6,182,212,.12);color:#06B6D4;font-size:13px;font-weight:600;cursor:pointer">Log session →</div>
+    </div>
+  </div>
+  <div class="fab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 36: CREATIVITY DASHBOARD ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 36</div><div class="name">Creativity Dashboard</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="domain-header" style="border-bottom:2px solid #F59E0B">
+    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg>
+    <div style="flex:1;font-size:18px;font-weight:600;color:#fff">Creativity</div>
+    <div style="background:rgba(245,158,11,.15);color:#F59E0B;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px">Lv.1</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- SIA note -->
+    <div class="card sia-card" style="padding:12px 16px">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--royal-purple);margin-top:6px;flex-shrink:0"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.4">You tend to create best in the morning. Block 7-8 AM tomorrow for your photography project.</div>
+      </div>
+    </div>
+    <!-- Active projects -->
+    <div class="eyebrow">ACTIVE PROJECTS</div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div><div style="font-size:16px;font-weight:600;color:#fff">Street photography series</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">12 of 30 photos</div></div>
+        <div style="font-size:12px;color:#F59E0B;font-weight:600">40%</div>
+      </div>
+      <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:40%;background:#F59E0B"></div></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div><div style="font-size:16px;font-weight:600;color:#fff">Learn guitar basics</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">Week 6 of 12</div></div>
+        <div style="font-size:12px;color:#F59E0B;font-weight:600">50%</div>
+      </div>
+      <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:50%;background:#F59E0B"></div></div>
+    </div>
+    <!-- Inspiration prompt -->
+    <div class="card" style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.02));border:1px solid rgba(245,158,11,.15);padding:20px;text-align:center">
+      <div style="font-size:16px;color:#F59E0B;margin-bottom:4px">✦</div>
+      <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:6px">Daily spark</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.5;font-style:italic">"Photograph something you walk past every day but never really look at."</div>
+      <div style="display:flex;justify-content:center;gap:8px;margin-top:12px">
+        <div style="padding:6px 16px;border-radius:999px;background:rgba(245,158,11,.12);color:#F59E0B;font-size:13px;font-weight:600;cursor:pointer">I'll try this</div>
+        <div style="padding:6px 16px;border-radius:999px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);font-size:13px;cursor:pointer">New prompt</div>
+      </div>
+    </div>
+    <!-- Practice heatmap -->
+    <div class="eyebrow">PRACTICE HEATMAP</div>
+    <div class="card" style="padding:16px">
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.6)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.8)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.2)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.4)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.6)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.05)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.2)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.4)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.05)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.8)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.6)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.4)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.2)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.05)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.2)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.6)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.8)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.4)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.05)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.6)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.4)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.8)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.4)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.2)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.05)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,.6)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(245,158,11,1)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.05)"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px"><div style="font-size:10px;color:rgba(255,255,255,.3)">4 weeks ago</div><div style="font-size:10px;color:rgba(255,255,255,.3)">Today</div></div>
+    </div>
+    <!-- Portfolio timeline -->
+    <div class="eyebrow">PORTFOLIO TIMELINE</div>
+    <div style="display:flex;align-items:center;gap:4px;padding:12px 0 0;overflow-x:auto;scrollbar-width:none">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0"><div style="width:12px;height:12px;border-radius:50%;background:var(--forest-green)"></div><div style="font-size:10px;color:rgba(255,255,255,.3)">Jan</div></div>
+      <div style="height:2px;width:40px;background:rgba(255,255,255,.1);flex-shrink:0;align-self:flex-start;margin-top:5px"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0"><div style="width:12px;height:12px;border-radius:50%;background:var(--forest-green)"></div><div style="font-size:10px;color:rgba(255,255,255,.3)">Feb</div></div>
+      <div style="height:2px;width:40px;background:rgba(255,255,255,.1);flex-shrink:0;align-self:flex-start;margin-top:5px"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0"><div style="width:12px;height:12px;border-radius:50%;background:var(--forest-green)"></div><div style="font-size:10px;color:rgba(255,255,255,.3)">Mar</div></div>
+      <div style="height:2px;width:40px;background:rgba(255,255,255,.1);flex-shrink:0;align-self:flex-start;margin-top:5px"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0"><div style="width:14px;height:14px;border-radius:50%;background:var(--brand-orange);box-shadow:0 0 8px rgba(255,94,0,.3)"></div><div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600">Apr</div></div>
+      <div style="height:2px;width:40px;background:rgba(255,255,255,.06);flex-shrink:0;align-self:flex-start;margin-top:6px"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0"><div style="width:10px;height:10px;border-radius:50%;border:2px dashed rgba(255,255,255,.15)"></div><div style="font-size:10px;color:rgba(255,255,255,.3)">May</div></div>
+      <div style="height:2px;width:40px;background:rgba(255,255,255,.06);flex-shrink:0;align-self:flex-start;margin-top:4px"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0"><div style="width:10px;height:10px;border-radius:50%;border:2px dashed rgba(255,255,255,.15)"></div><div style="font-size:10px;color:rgba(255,255,255,.3)">Jun</div></div>
+    </div>
+  </div>
+  <div class="fab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 37: JOURNAL ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 37</div><div class="name">Journal</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div style="display:flex;align-items:center;padding:0 16px;height:44px"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 12px"><div style="font-size:24px;font-weight:700;color:#fff">journal</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- SIA reflection prompt -->
+    <div class="card sia-card" style="padding:16px">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--royal-purple);margin-top:6px;flex-shrink:0"></div>
+        <div>
+          <div style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.4">What's one thing you're grateful for today? Research shows gratitude journaling improves sleep quality.</div>
+          <div style="margin-top:8px;display:inline-flex;padding:6px 14px;border-radius:999px;background:rgba(255,94,0,.1);border:1px solid rgba(255,94,0,.2);color:var(--brand-orange);font-size:12px;font-weight:500;cursor:pointer">Write about this →</div>
+        </div>
+      </div>
+    </div>
+    <!-- Mood selector row -->
+    <div style="display:flex;gap:8px;justify-content:center;padding:4px 0">
+      <div style="width:32px;height:28px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">😊</div>
+      <div style="width:32px;height:28px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">😌</div>
+      <div style="width:32px;height:28px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">😐</div>
+      <div style="width:32px;height:28px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">😔</div>
+      <div style="width:32px;height:28px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">😤</div>
+    </div>
+    <!-- Journal entries -->
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <div style="font-size:13px;color:rgba(255,255,255,.4)">May 20, 2026</div>
+        <div style="font-size:16px">😊</div>
+      </div>
+      <div style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Had a great morning run today. The weather was perfect and I beat my personal best on the 5K route. Feeling energized...</div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <div class="domain-chip" style="background:rgba(239,68,68,.15);color:#EF4444;font-size:10px;height:20px;padding:0 8px">fitness</div>
+        <div class="domain-chip" style="background:rgba(20,184,166,.15);color:#14B8A6;font-size:10px;height:20px;padding:0 8px">wellbeing</div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <div style="font-size:13px;color:rgba(255,255,255,.4)">May 19, 2026</div>
+        <div style="font-size:16px">😌</div>
+      </div>
+      <div style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Reflected on my career goals during the commute. I think I need to be more proactive about the leadership transition...</div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <div class="domain-chip" style="background:rgba(99,102,241,.15);color:#6366F1;font-size:10px;height:20px;padding:0 8px">career</div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <div style="font-size:13px;color:rgba(255,255,255,.4)">May 18, 2026</div>
+        <div style="font-size:16px">😐</div>
+      </div>
+      <div style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Tough day at work. The project deadline moved up and I'm feeling overwhelmed. Need to talk to my manager about priorities...</div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <div class="domain-chip" style="background:rgba(99,102,241,.15);color:#6366F1;font-size:10px;height:20px;padding:0 8px">career</div>
+        <div class="domain-chip" style="background:rgba(20,184,166,.15);color:#14B8A6;font-size:10px;height:20px;padding:0 8px">wellbeing</div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <div style="font-size:13px;color:rgba(255,255,255,.4)">May 17, 2026</div>
+        <div style="font-size:16px">😊</div>
+      </div>
+      <div style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Cooked a new recipe tonight — lamb tagine with couscous. It turned out amazing! Mom's recipe finally perfected...</div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <div class="domain-chip" style="background:rgba(132,204,22,.15);color:#84CC16;font-size:10px;height:20px;padding:0 8px">nutrition</div>
+        <div class="domain-chip" style="background:rgba(236,72,153,.15);color:#EC4899;font-size:10px;height:20px;padding:0 8px">relationships</div>
+      </div>
+    </div>
+  </div>
+  <div class="fab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M17 3a2.85 2.85 0 114 4L7.5 20.5 2 22l1.5-5.5z"/></svg></div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 38: HABITS ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 38</div><div class="name">Habits</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div style="display:flex;align-items:center;padding:0 16px;height:44px"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 12px"><div style="font-size:24px;font-weight:700;color:#fff">habits</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- Completion bar -->
+    <div class="card" style="padding:12px 16px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;font-weight:600;color:#fff">5 of 8 today</span><span style="font-size:14px;font-weight:600;color:var(--brand-orange)">63%</span></div>
+      <div class="xp-bar"><div class="xp-fill" style="width:63%"></div></div>
+    </div>
+    <!-- Segmented control -->
+    <div style="display:flex;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:var(--ink-brown);height:40px">
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:var(--brand-orange);color:#fff;border-radius:10px;cursor:pointer">Today</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer">Week</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer">Month</div>
+    </div>
+    <!-- Morning habits -->
+    <div class="eyebrow">MORNING</div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05);gap:12px">
+        <div style="width:22px;height:22px;border-radius:6px;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div style="flex:1"><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Morning run</div></div>
+        <div style="font-size:12px;color:var(--brand-orange);display:flex;align-items:center;gap:3px">🔥 7</div>
+        <div class="domain-chip" style="background:rgba(239,68,68,.15);color:#EF4444;font-size:9px;height:18px;padding:0 7px">fitness</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05);gap:12px">
+        <div style="width:22px;height:22px;border-radius:6px;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div style="flex:1"><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Read 20 minutes</div></div>
+        <div style="font-size:12px;color:var(--brand-orange);display:flex;align-items:center;gap:3px">🔥 4</div>
+        <div class="domain-chip" style="background:rgba(6,182,212,.15);color:#06B6D4;font-size:9px;height:18px;padding:0 7px">learning</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:14px 16px;gap:12px">
+        <div style="width:22px;height:22px;border-radius:6px;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div style="flex:1"><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Fajr prayer</div></div>
+        <div style="font-size:12px;color:var(--brand-orange);display:flex;align-items:center;gap:3px">🔥 30</div>
+        <div class="domain-chip" style="background:rgba(168,85,247,.15);color:#A855F7;font-size:9px;height:18px;padding:0 7px">spirit</div>
+      </div>
+    </div>
+    <!-- Afternoon habits -->
+    <div class="eyebrow">AFTERNOON</div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05);gap:12px">
+        <div style="width:22px;height:22px;border-radius:6px;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div style="flex:1"><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Log lunch</div></div>
+        <div style="font-size:12px;color:var(--brand-orange);display:flex;align-items:center;gap:3px">🔥 12</div>
+        <div class="domain-chip" style="background:rgba(132,204,22,.15);color:#84CC16;font-size:9px;height:18px;padding:0 7px">nutrition</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:14px 16px;gap:12px">
+        <div style="width:22px;height:22px;border-radius:6px;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div style="flex:1"><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Drink 4 glasses water</div></div>
+        <div style="font-size:12px;color:var(--brand-orange);display:flex;align-items:center;gap:3px">🔥 8</div>
+        <div class="domain-chip" style="background:rgba(20,184,166,.15);color:#14B8A6;font-size:9px;height:18px;padding:0 7px">wellbeing</div>
+      </div>
+    </div>
+    <!-- Evening habits -->
+    <div class="eyebrow">EVENING</div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05);gap:12px">
+        <div style="width:22px;height:22px;border-radius:6px;border:2px solid var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"></div>
+        <div style="flex:1"><div style="font-size:14px;font-weight:500;color:#fff">Journal entry</div></div>
+        <div style="font-size:12px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:3px">🔥 2</div>
+        <div class="domain-chip" style="background:rgba(20,184,166,.15);color:#14B8A6;font-size:9px;height:18px;padding:0 7px">wellbeing</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05);gap:12px">
+        <div style="width:22px;height:22px;border-radius:6px;border:2px solid var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"></div>
+        <div style="flex:1"><div style="font-size:14px;font-weight:500;color:#fff">Review budget</div></div>
+        <div style="font-size:12px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:3px">🔥 5</div>
+        <div class="domain-chip" style="background:rgba(16,185,129,.15);color:#10B981;font-size:9px;height:18px;padding:0 7px">finance</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:14px 16px;gap:12px">
+        <div style="width:22px;height:22px;border-radius:6px;border:2px solid var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"></div>
+        <div style="flex:1"><div style="font-size:14px;font-weight:500;color:#fff">No screens after 10pm</div></div>
+        <div style="font-size:12px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:3px">🔥 3</div>
+        <div class="domain-chip" style="background:rgba(20,184,166,.15);color:#14B8A6;font-size:9px;height:18px;padding:0 7px">wellbeing</div>
+      </div>
+    </div>
+    <!-- Calendar heatmap -->
+    <div class="eyebrow">4-WEEK OVERVIEW</div>
+    <div class="card" style="padding:16px">
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.8)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.6)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,1)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.4)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.6)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.8)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.2)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.6)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,1)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.4)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.8)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.6)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.4)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.8)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.4)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.6)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.8)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,1)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.6)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.4)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.2)"></div>
+        <div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.8)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.6)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,1)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,94,0,.6)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.05)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.05)"></div><div style="aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.05)"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 39: LEADERBOARD ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 39</div><div class="name">Leaderboard</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div style="display:flex;align-items:center;padding:0 16px;height:44px"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 12px"><div style="font-size:24px;font-weight:700;color:#fff">leaderboard</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none">
+    <!-- Time filter -->
+    <div style="display:flex;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:var(--ink-brown);height:36px">
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;background:var(--brand-orange);color:#fff;border-radius:10px">This week</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:rgba(255,255,255,.4)">Month</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:rgba(255,255,255,.4)">All time</div>
+    </div>
+    <!-- Own rank card -->
+    <div class="card" style="border:1.5px solid rgba(255,94,0,.4);display:flex;align-items:center;gap:12px;padding:14px 16px">
+      <div style="font-size:18px;font-weight:700;color:#fff;width:28px;text-align:center">#12</div>
+      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--brand-orange),rgba(255,94,0,.5));display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0">A</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:15px;font-weight:600;color:#fff">Amira</span><span style="font-size:10px;font-weight:600;color:var(--brand-orange);background:rgba(255,94,0,.15);padding:2px 6px;border-radius:999px">Lv.5</span></div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">1,240 XP · 🔥 7</div>
+      </div>
+      <div style="font-size:12px;color:var(--forest-green);font-weight:600">↑3</div>
+    </div>
+    <!-- Filter toggle -->
+    <div style="display:flex;gap:16px;border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:8px">
+      <div style="font-size:13px;font-weight:600;color:var(--brand-orange);border-bottom:2px solid var(--brand-orange);padding-bottom:6px;cursor:pointer">Global</div>
+      <div style="font-size:13px;font-weight:500;color:rgba(255,255,255,.4);padding-bottom:6px;cursor:pointer">Friends</div>
+    </div>
+    <!-- Leaderboard rows -->
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="font-size:16px;font-weight:700;color:#FFD700;width:28px;text-align:center">1</div>
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6366F1,rgba(99,102,241,.5));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">K</div>
+      <div style="flex:1"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:14px;font-weight:600;color:#fff">Khalid</span><span style="font-size:10px;color:rgba(255,255,255,.4)">Lv.18</span></div></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5);font-variant-numeric:tabular-nums">8,420 XP</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="font-size:16px;font-weight:700;color:#C0C0C0;width:28px;text-align:center">2</div>
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#EC4899,rgba(236,72,153,.5));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">L</div>
+      <div style="flex:1"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:14px;font-weight:600;color:#fff">Layla</span><span style="font-size:10px;color:rgba(255,255,255,.4)">Lv.16</span></div></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5);font-variant-numeric:tabular-nums">7,890 XP</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="font-size:16px;font-weight:700;color:#CD7F32;width:28px;text-align:center">3</div>
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#10B981,rgba(16,185,129,.5));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">O</div>
+      <div style="flex:1"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:14px;font-weight:600;color:#fff">Omar</span><span style="font-size:10px;color:rgba(255,255,255,.4)">Lv.15</span></div></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5);font-variant-numeric:tabular-nums">7,340 XP</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="font-size:14px;color:rgba(255,255,255,.4);width:28px;text-align:center">4</div>
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,rgba(245,158,11,.5));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">N</div>
+      <div style="flex:1"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:14px;font-weight:500;color:#fff">Nadia</span><span style="font-size:10px;color:rgba(255,255,255,.4)">Lv.14</span></div></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5);font-variant-numeric:tabular-nums">6,920 XP</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="font-size:14px;color:rgba(255,255,255,.4);width:28px;text-align:center">5</div>
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#06B6D4,rgba(6,182,212,.5));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">Y</div>
+      <div style="flex:1"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:14px;font-weight:500;color:#fff">Yusuf</span><span style="font-size:10px;color:rgba(255,255,255,.4)">Lv.13</span></div></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5);font-variant-numeric:tabular-nums">6,510 XP</div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 40: COMMUNITY ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 40</div><div class="name">Community</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div style="display:flex;align-items:center;padding:0 16px;height:44px"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 12px"><div style="font-size:24px;font-weight:700;color:#fff">community</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- Discover -->
+    <div class="eyebrow">DISCOVER</div>
+    <div style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px">
+      <div style="min-width:130px;height:100px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);padding:14px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer">
+        <div style="font-size:24px">🏃</div>
+        <div><div style="font-size:13px;font-weight:600;color:#fff">Runners Club</div><div style="font-size:11px;color:rgba(255,255,255,.4)">128 members</div></div>
+      </div>
+      <div style="min-width:130px;height:100px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);padding:14px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer">
+        <div style="font-size:24px">📚</div>
+        <div><div style="font-size:13px;font-weight:600;color:#fff">Book Worms</div><div style="font-size:11px;color:rgba(255,255,255,.4)">84 members</div></div>
+      </div>
+      <div style="min-width:130px;height:100px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);padding:14px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer">
+        <div style="font-size:24px">💰</div>
+        <div><div style="font-size:13px;font-weight:600;color:#fff">FIRE Journey</div><div style="font-size:11px;color:rgba(255,255,255,.4)">256 members</div></div>
+      </div>
+    </div>
+    <!-- Your rooms -->
+    <div class="eyebrow">YOUR ROOMS</div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05);gap:12px;cursor:pointer">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(239,68,68,.15);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏋️</div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px"><span style="font-size:15px;font-weight:600;color:#fff">Morning Athletes</span><span style="font-size:10px;color:rgba(255,255,255,.3)">5 members</span></div>
+          <div style="font-size:13px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">Alex: Just hit a PR on deadlifts! 💪</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+          <div style="font-size:11px;color:rgba(255,255,255,.3)">2m</div>
+          <div style="width:18px;height:18px;border-radius:50%;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">3</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05);gap:12px;cursor:pointer">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(168,85,247,.15);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🕌</div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px"><span style="font-size:15px;font-weight:600;color:#fff">Ramadan Support</span><span style="font-size:10px;color:rgba(255,255,255,.3)">12 members</span></div>
+          <div style="font-size:13px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">Sara: Sharing my iftar meal prep tips...</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+          <div style="font-size:11px;color:rgba(255,255,255,.3)">1h</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;padding:14px 16px;gap:12px;cursor:pointer">
+        <div style="width:44px;height:44px;border-radius:12px;background:rgba(6,182,212,.15);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📖</div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px"><span style="font-size:15px;font-weight:600;color:#fff">Study Buddies</span><span style="font-size:10px;color:rgba(255,255,255,.3)">8 members</span></div>
+          <div style="font-size:13px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">You: Just finished Atomic Habits ch.14</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+          <div style="font-size:11px;color:rgba(255,255,255,.3)">3h</div>
+        </div>
+      </div>
+    </div>
+    <!-- Shared achievement example -->
+    <div class="card" style="border-left:3px solid var(--forest-green);background:rgba(52,168,83,.05)">
+      <div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:4px">Morning Athletes</div>
+      <div style="font-size:14px;color:#fff;line-height:1.4">🎉 Alex completed <strong style="color:var(--forest-green)">"Run 100 miles"</strong> quest and earned <span style="color:var(--forest-green);font-weight:600">+300 XP</span></div>
+    </div>
+  </div>
+  <div class="fab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+</div></div>
+
+<div class="thumb-strip" id="thumbs">
+<div class="thumb active" onclick="jump(0)"><div style="font-size:14px;opacity:.5">📚</div><div class="thumb-num">35</div></div>
+<div class="thumb" onclick="jump(1)"><div style="font-size:14px;opacity:.5">🎨</div><div class="thumb-num">36</div></div>
+<div class="thumb" onclick="jump(2)"><div style="font-size:14px;opacity:.5">📓</div><div class="thumb-num">37</div></div>
+<div class="thumb" onclick="jump(3)"><div style="font-size:14px;opacity:.5">✅</div><div class="thumb-num">38</div></div>
+<div class="thumb" onclick="jump(4)"><div style="font-size:14px;opacity:.5">🏆</div><div class="thumb-num">39</div></div>
+<div class="thumb" onclick="jump(5)"><div style="font-size:14px;opacity:.5">👥</div><div class="thumb-num">40</div></div>
+</div>
+</section>
+
+<script>
+let cur=0;const total=6;
+const track=document.getElementById('track');
+const thumbs=document.getElementById('thumbs').children;
+function render(){track.style.transform=`translateX(-${cur*100}%)`;for(let i=0;i<total;i++){thumbs[i].classList.toggle('active',i===cur)}document.querySelector('.nav-arrow.prev').disabled=cur===0;document.querySelector('.nav-arrow.next').disabled=cur===total-1}
+function go(d){cur=Math.max(0,Math.min(total-1,cur+d));render()}
+function jump(i){cur=i;render()}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
+const sp=new URLSearchParams(window.location.search);if(sp.has('start')){const s=parseInt(sp.get('start'));if(!isNaN(s)&&s>=0&&s<total){document.getElementById('track').style.transition='none';jump(s);requestAnimationFrame(()=>document.getElementById('track').style.transition='')}}
+</script>
+</body>
+</html>

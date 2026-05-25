@@ -1,0 +1,59 @@
+<%# Admin Note Notification Email Template %>
+<%
+  const statusLabel = typeof status !== 'undefined' && status ? String(status).replace(/_/g, ' ') : '';
+  const signature = typeof adminName !== 'undefined' && adminName
+    ? `${escapeFn(adminName)}${typeof adminRole !== 'undefined' && adminRole ? `, ${escapeFn(adminRole)}` : ''}`
+    : 'Balencia Support';
+%>
+<%- include('./layouts/base', {
+  title: 'Update on Your Inquiry - Balencia',
+  preheader: `We have an update on your inquiry: ${subject}.`,
+  eyebrow: 'Support update',
+  greeting: `An update for you, ${name}.`,
+  content: `
+    <p style="margin:0 0 22px; font-size:16px; line-height:26px;">
+      Our team reviewed your inquiry and added the following update.
+    </p>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:26px 0; background:#f8fafc; border-radius:16px; border-left:5px solid #f97316;">
+      <tr>
+        <td style="padding:22px;">
+          <p style="margin:0 0 8px; font-size:12px; color:#9a3412; text-transform:uppercase; letter-spacing:1.5px; font-weight:800;">Original inquiry</p>
+          <p style="margin:0 0 8px; font-size:16px; color:#111827; font-weight:800;">${escapeFn(subject)}</p>
+          <p style="margin:0; font-size:14px; line-height:22px; color:#6b7280; white-space:pre-wrap;">${escapeFn(message)}</p>
+        </td>
+      </tr>
+    </table>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:26px 0; background:linear-gradient(135deg,#ecfdf5 0%,#fff7ed 100%); border-radius:16px; border:1px solid #a7f3d0;">
+      <tr>
+        <td style="padding:24px;">
+          <p style="margin:0 0 10px; font-size:12px; color:#047857; text-transform:uppercase; letter-spacing:1.5px; font-weight:800;">Team update</p>
+          <p style="margin:0; font-size:16px; line-height:26px; color:#111827; white-space:pre-wrap;">${escapeFn(adminNote)}</p>
+          <p style="margin:16px 0 0; font-size:13px; color:#78716c;">- ${signature}</p>
+        </td>
+      </tr>
+    </table>
+
+    ${statusLabel ? `
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:20px 0;">
+        <tr>
+          <td style="padding:16px; background:#fff7ed; border-radius:14px; border:1px solid #fed7aa;">
+            <p style="margin:0 0 4px; font-size:12px; color:#c2410c; text-transform:uppercase; letter-spacing:1.4px; font-weight:800;">Current status</p>
+            <p style="margin:0; font-size:16px; color:#111827; font-weight:800; text-transform:capitalize;">${escapeFn(statusLabel)}</p>
+          </td>
+        </tr>
+      </table>
+    ` : ''}
+  `,
+  ctaButton: {
+    text: 'View in Dashboard',
+    url: typeof dashboardUrl !== 'undefined' ? dashboardUrl : '#'
+  },
+  secondaryContent: `
+    <p style="margin:0; font-size:14px; line-height:22px;">
+      Need to add context? Reply to this email or <a href="${escapeFn(typeof contactUrl !== 'undefined' ? contactUrl : '#')}" style="color:#ea580c; font-weight:800;">contact support</a>.
+    </p>
+  `,
+  footerText: 'This is an automated notification about your Balencia inquiry.'
+}) %>

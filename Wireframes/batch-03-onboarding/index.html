@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 3: Onboarding</title>
+<link rel="stylesheet" href="../balencia-foundation.css">
+<style>
+/* ═══════════════════════════════════════
+   BATCH 03 — ONBOARDING SPECIFIC STYLES
+   ═══════════════════════════════════════ */
+
+/* ── Screen 07: SIA Onboarding Conversation ── */
+
+.onboarding-chat-screen {
+  display: flex; flex-direction: column; overflow: hidden;
+}
+
+/* visual brainstorming area */
+.visual-brainstorm-area {
+  position: relative; height: 280px; flex-shrink: 0; overflow: hidden;
+}
+.brainstorm-glow {
+  position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, rgba(255,94,0,.12) 0%, rgba(255,94,0,.04) 45%, transparent 70%);
+  pointer-events: none;
+}
+
+/* domain bubbles */
+.domain-bubble {
+  position: absolute; width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+}
+.domain-bubble .bubble-icon {
+  width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+}
+.domain-bubble .bubble-icon svg { width: 24px; height: 24px; }
+.domain-bubble .bubble-label {
+  position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; font-weight: 600; color: rgba(255,255,255,.6);
+  white-space: nowrap;
+}
+
+.domain-bubble.selected {
+  animation: bubble-drift 4s ease-in-out infinite;
+}
+.domain-bubble.faded {
+  opacity: 0.4;
+  animation: bubble-drift 5s ease-in-out infinite;
+}
+
+/* selected bubble colors */
+.bubble-fitness {
+  left: 30%; top: 32%;
+  background: rgba(239,68,68,.3); border: 1.5px solid #EF4444;
+  box-shadow: 0 0 20px rgba(239,68,68,.3);
+  animation-delay: 0s;
+}
+.bubble-finance {
+  left: 60%; top: 28%;
+  background: rgba(16,185,129,.3); border: 1.5px solid #10B981;
+  box-shadow: 0 0 20px rgba(16,185,129,.3);
+  animation-delay: -1.2s;
+}
+.bubble-learning {
+  left: 44%; top: 56%;
+  background: rgba(6,182,212,.3); border: 1.5px solid #06B6D4;
+  box-shadow: 0 0 20px rgba(6,182,212,.3);
+  animation-delay: -2.5s;
+}
+
+/* faded bubble colors */
+.bubble-nutrition {
+  left: 6%; top: 14%;
+  background: rgba(132,204,22,.05); border: 1.5px solid rgba(132,204,22,.3);
+  animation-delay: -0.8s;
+}
+.bubble-career {
+  left: 84%; top: 18%;
+  background: rgba(99,102,241,.05); border: 1.5px solid rgba(99,102,241,.3);
+  animation-delay: -2s;
+}
+.bubble-relationships {
+  left: 10%; top: 68%;
+  background: rgba(236,72,153,.05); border: 1.5px solid rgba(236,72,153,.3);
+  animation-delay: -3s;
+}
+
+/* goal example cards floating in visual area */
+.goal-example-card {
+  position: absolute; padding: 10px 12px;
+  background: var(--ink-brown); border-radius: var(--r-sm);
+  font-size: 13px; color: #fff; white-space: nowrap;
+  opacity: 0.9; pointer-events: none;
+}
+.goal-example-card.ge-fitness {
+  left: 8%; top: 48%; border-left: 3px solid #EF4444;
+}
+.goal-example-card.ge-finance {
+  left: 58%; top: 52%; border-left: 3px solid #10B981;
+}
+
+/* bubble drift animation */
+@keyframes bubble-drift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(3px, -4px); }
+  50% { transform: translate(-2px, 3px); }
+  75% { transform: translate(4px, 2px); }
+}
+
+/* progress dots */
+.progress-dots {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px; height: 24px; flex-shrink: 0;
+}
+.progress-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+.progress-dot.completed {
+  background: var(--brand-orange);
+}
+.progress-dot.current {
+  width: 8px; height: 8px; background: var(--brand-orange);
+  animation: pulse-dot 3s ease-in-out infinite;
+}
+.progress-dot.upcoming {
+  border: 1px solid rgba(255,255,255,.2); background: transparent;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,94,0,.4); }
+  50% { box-shadow: 0 0 6px 2px rgba(255,94,0,.3); }
+}
+
+/* chat divider */
+.chat-divider {
+  height: 1px; background: rgba(255,255,255,.05); flex-shrink: 0;
+}
+
+/* chat area */
+.chat-area {
+  flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0;
+}
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 12px 16px; display: flex;
+  flex-direction: column; gap: 12px;
+  scrollbar-width: none;
+}
+.chat-messages::-webkit-scrollbar { display: none; }
+
+/* SIA message row */
+.sia-msg-row {
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.chat-sia-avatar {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  background: var(--royal-purple);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 8px rgba(127,36,255,.25);
+  margin-top: 2px;
+}
+.chat-sia-avatar svg { width: 12px; height: 12px; }
+
+.sia-bubble {
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px 16px 16px 4px;
+  padding: 10px 12px; max-width: 80%;
+  font-size: 15px; line-height: 1.47; color: #fff;
+}
+
+/* user message row */
+.user-msg-row {
+  display: flex; justify-content: flex-end;
+}
+.user-bubble {
+  background: rgba(255,94,0,.15);
+  border-radius: 16px 16px 4px 16px;
+  padding: 10px 12px; max-width: 80%;
+  font-size: 15px; line-height: 1.47; color: #fff;
+}
+
+/* suggestion chips */
+.chip-row {
+  display: flex; gap: 8px; overflow-x: auto; padding-left: 32px;
+  scrollbar-width: none; flex-shrink: 0;
+}
+.chip-row::-webkit-scrollbar { display: none; }
+.chat-chip {
+  height: 36px; padding: 0 12px; border-radius: var(--r-pill);
+  background: var(--ink-brown); border: 1px solid rgba(255,94,0,.3);
+  color: var(--brand-orange); font-size: 14px; font-weight: 600;
+  white-space: nowrap; display: flex; align-items: center;
+  cursor: pointer; flex-shrink: 0;
+}
+.chat-chip.ghost {
+  border-color: rgba(255,255,255,.2); color: rgba(255,255,255,.5);
+}
+
+/* chat input bar */
+.chat-input-bar {
+  padding: 8px 16px 0; flex-shrink: 0;
+}
+.chat-input {
+  width: 100%; height: 44px; border-radius: var(--r-pill);
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  padding: 0 16px; font-size: 14px; font-family: 'Sora', sans-serif;
+  color: rgba(255,255,255,.3); display: flex; align-items: center;
+}
+
+
+/* ── Screen 08: Initial Plan Summary ── */
+
+.plan-summary-screen {
+  overflow-y: auto; scrollbar-width: none;
+}
+.plan-summary-screen::-webkit-scrollbar { display: none; }
+
+.plan-scroll {
+  padding: 24px 16px 34px;
+}
+
+/* SIA plan header */
+.sia-plan-header {
+  display: flex; align-items: center; gap: 12px;
+}
+.sia-plan-heading {
+  font-size: 20px; font-weight: 700; color: #fff;
+}
+.sia-plan-note {
+  margin-top: 8px; font-size: 15px; line-height: 1.47;
+  color: rgba(255,255,255,.7);
+}
+
+/* RPG status bar */
+.rpg-status-bar {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.08); padding: 16px;
+}
+.rpg-row {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.rpg-level {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--brand-orange);
+}
+.rpg-xp {
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,.5);
+}
+.rpg-bar-track {
+  width: 100%; height: 8px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.08); margin-top: 12px;
+}
+.rpg-bar-fill {
+  height: 100%; border-radius: var(--r-pill);
+  background: var(--brand-orange); width: 0%;
+}
+
+/* goal plan cards */
+.goal-plan-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 16px 16px 16px 20px;
+  position: relative; overflow: hidden;
+}
+.goal-plan-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; border-radius: 28px 0 0 28px;
+}
+.goal-plan-card.fitness::before { background: var(--fitness); }
+.goal-plan-card.finance::before { background: var(--finance); }
+.goal-plan-card.learning::before { background: var(--learning); }
+
+.goal-card-header {
+  display: flex; align-items: center; gap: 8px;
+}
+.goal-name {
+  font-size: 17px; font-weight: 600; color: #fff; flex: 1;
+}
+.goal-edit-icon {
+  width: 16px; height: 16px; flex-shrink: 0; opacity: .3; cursor: pointer;
+}
+.goal-edit-icon svg { width: 16px; height: 16px; }
+
+.goal-actions {
+  display: flex; flex-direction: column; gap: 8px; margin-top: 12px;
+}
+.goal-action {
+  display: flex; align-items: center; gap: 10px;
+}
+.action-circle {
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,.2);
+}
+.action-text {
+  font-size: 14px; color: rgba(255,255,255,.8); line-height: 1.43;
+}
+
+.goal-cross-domain {
+  margin-top: 10px; font-size: 12px; color: rgba(255,255,255,.4);
+  display: flex; align-items: center; gap: 6px;
+}
+.goal-cross-domain .link-domain { color: var(--nutrition); }
+
+/* CTA glow wrap */
+.cta-glow-wrap {
+  position: relative;
+}
+.cta-glow-wrap::before {
+  content: ''; position: absolute; inset: -8px;
+  background: rgba(255,94,0,.2); border-radius: var(--r-pill);
+  filter: blur(20px); z-index: 0;
+  animation: cta-glow-pulse 3s ease-in-out infinite;
+}
+.cta-glow-wrap .cta-btn { position: relative; z-index: 1; }
+
+@keyframes cta-glow-pulse {
+  0%, 100% { opacity: .6; }
+  50% { opacity: 1; }
+}
+
+/* customize link */
+.customize-link {
+  font-size: 15px; font-weight: 600; color: var(--brand-orange);
+  text-align: center; cursor: pointer; padding: 12px 0;
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>Balencia Design System</h1>
+  <h2>Batch 3 — Onboarding</h2>
+  <span class="batch-label">Screens 07 – 08</span>
+</header>
+
+<section class="carousel-wrap">
+  <button class="nav-arrow prev" onclick="go(-1)" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+  </button>
+  <button class="nav-arrow next" onclick="go(1)">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+  </button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="track">
+
+      <!-- ═══ SLIDE 01: SIA ONBOARDING CONVERSATION ═══ -->
+      <div class="carousel-slide">
+        <div class="screen-label"><div class="num">Screen 07</div><div class="name">SIA Onboarding Conversation</div></div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3C6.3 6 4.8 7 4 8.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6zm0 3c-.8 0-1.5.5-1.8 1.2L8 12l1.8-1.8C9.5 9.5 8.8 9 8 9z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M2 5h10a2 2 0 012 2v2a2 2 0 01-2 2H2a2 2 0 01-2-2V7a2 2 0 012-2zm0 1.5a.5.5 0 00-.5.5v2a.5.5 0 00.5.5h10a.5.5 0 00.5-.5V7a.5.5 0 00-.5-.5H2zm12.5 1v1a1 1 0 001-1h-1z"/><rect x="1.5" y="6" width="8" height="4" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+          <div class="screen onboarding-chat-screen">
+
+            <!-- visual brainstorming area -->
+            <div class="visual-brainstorm-area">
+              <div class="brainstorm-glow"></div>
+
+              <!-- selected domain bubbles (clustered center) -->
+              <div class="domain-bubble selected bubble-fitness">
+                <div class="bubble-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+                    <path d="M6 12h12M4 12a2 2 0 110-4h1v8H4a2 2 0 010-4zM20 12a2 2 0 100-4h-1v8h1a2 2 0 000-4z"/>
+                  </svg>
+                </div>
+                <div class="bubble-label">Fitness</div>
+              </div>
+
+              <div class="domain-bubble selected bubble-finance">
+                <div class="bubble-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 20L10 14L14 18L20 8"/>
+                    <path d="M16 8H20V12"/>
+                  </svg>
+                </div>
+                <div class="bubble-label">Finance</div>
+              </div>
+
+              <div class="domain-bubble selected bubble-learning">
+                <div class="bubble-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                  </svg>
+                </div>
+                <div class="bubble-label">Learning</div>
+              </div>
+
+              <!-- faded domain bubbles (edges) -->
+              <div class="domain-bubble faded bubble-nutrition">
+                <div class="bubble-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M12 2C9 7 5 10 5 14a7 7 0 0014 0c0-4-4-7-7-12z"/>
+                  </svg>
+                </div>
+                <div class="bubble-label">Nutrition</div>
+              </div>
+
+              <div class="domain-bubble faded bubble-career">
+                <div class="bubble-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2"/>
+                    <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+                  </svg>
+                </div>
+                <div class="bubble-label">Career</div>
+              </div>
+
+              <div class="domain-bubble faded bubble-relationships">
+                <div class="bubble-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                </div>
+                <div class="bubble-label">Relationships</div>
+              </div>
+
+              <!-- floating goal example cards -->
+              <div class="goal-example-card ge-fitness">run a half marathon</div>
+              <div class="goal-example-card ge-finance">save $5,000</div>
+            </div>
+
+            <!-- progress indicator -->
+            <div class="progress-dots">
+              <div class="progress-dot completed"></div>
+              <div class="progress-dot completed"></div>
+              <div class="progress-dot completed"></div>
+              <div class="progress-dot current"></div>
+              <div class="progress-dot upcoming"></div>
+              <div class="progress-dot upcoming"></div>
+              <div class="progress-dot upcoming"></div>
+            </div>
+
+            <!-- divider -->
+            <div class="chat-divider"></div>
+
+            <!-- chat area -->
+            <div class="chat-area">
+              <div class="chat-messages">
+
+                <!-- SIA message 1 -->
+                <div class="sia-msg-row">
+                  <div class="chat-sia-avatar">
+                    <svg viewBox="0 0 12 12" fill="none">
+                      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="#fff" font-family="Sora" font-size="8" font-weight="700">S</text>
+                    </svg>
+                  </div>
+                  <div class="sia-bubble">What areas of your life matter most to you right now?</div>
+                </div>
+
+                <!-- user message -->
+                <div class="user-msg-row">
+                  <div class="user-bubble">fitness and finance, maybe learning too</div>
+                </div>
+
+                <!-- SIA message 2 -->
+                <div class="sia-msg-row">
+                  <div class="chat-sia-avatar">
+                    <svg viewBox="0 0 12 12" fill="none">
+                      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="#fff" font-family="Sora" font-size="8" font-weight="700">S</text>
+                    </svg>
+                  </div>
+                  <div class="sia-bubble">Great choices. Let's start with fitness — what's your main goal there?</div>
+                </div>
+
+                <!-- suggestion chips -->
+                <div class="chip-row">
+                  <div class="chat-chip">Run a half marathon</div>
+                  <div class="chat-chip">Lose weight</div>
+                  <div class="chat-chip">Build muscle</div>
+                  <div class="chat-chip ghost">Something else</div>
+                </div>
+
+              </div>
+
+              <!-- chat input bar -->
+              <div class="chat-input-bar">
+                <div class="chat-input">Type a message</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ═══ SLIDE 02: INITIAL PLAN SUMMARY ═══ -->
+      <div class="carousel-slide">
+        <div class="screen-label"><div class="num">Screen 08</div><div class="name">Initial Plan Summary</div></div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3C6.3 6 4.8 7 4 8.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6zm0 3c-.8 0-1.5.5-1.8 1.2L8 12l1.8-1.8C9.5 9.5 8.8 9 8 9z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M2 5h10a2 2 0 012 2v2a2 2 0 01-2 2H2a2 2 0 01-2-2V7a2 2 0 012-2zm0 1.5a.5.5 0 00-.5.5v2a.5.5 0 00.5.5h10a.5.5 0 00.5-.5V7a.5.5 0 00-.5-.5H2zm12.5 1v1a1 1 0 001-1h-1z"/><rect x="1.5" y="6" width="8" height="4" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+          <div class="screen plan-summary-screen">
+            <div class="plan-scroll">
+
+              <!-- SIA header -->
+              <div class="sia-plan-header">
+                <div class="chat-sia-avatar">
+                  <svg viewBox="0 0 12 12" fill="none">
+                    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="#fff" font-family="Sora" font-size="8" font-weight="700">S</text>
+                  </svg>
+                </div>
+                <span class="sia-plan-heading">Here's your plan.</span>
+              </div>
+              <div class="sia-plan-note">I've broken down your goals into daily actions across 3 life areas. Let's go.</div>
+
+              <div class="sp-24"></div>
+
+              <!-- RPG status bar -->
+              <div class="rpg-status-bar">
+                <div class="rpg-row">
+                  <span class="rpg-level">level 1</span>
+                  <span class="rpg-xp">0 XP</span>
+                </div>
+                <div class="rpg-bar-track">
+                  <div class="rpg-bar-fill"></div>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- Goal Card 1: Fitness -->
+              <div class="goal-plan-card fitness">
+                <div class="goal-card-header">
+                  <span class="domain-tag tag-fitness">fitness</span>
+                  <span class="goal-name">run a half marathon</span>
+                  <div class="goal-edit-icon">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M11.5 1.5l3 3L5 14H2v-3L11.5 1.5z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="goal-actions">
+                  <div class="goal-action">
+                    <div class="action-circle"></div>
+                    <span class="action-text">run 3x/week</span>
+                  </div>
+                  <div class="goal-action">
+                    <div class="action-circle"></div>
+                    <span class="action-text">build to 5K first</span>
+                  </div>
+                  <div class="goal-action">
+                    <div class="action-circle"></div>
+                    <span class="action-text">register for a race</span>
+                  </div>
+                </div>
+                <div class="goal-cross-domain">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M2 6h8M4 4l-2 2 2 2M8 4l2 2-2 2"/></svg>
+                  connects to <span class="link-domain">nutrition</span>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- Goal Card 2: Finance -->
+              <div class="goal-plan-card finance">
+                <div class="goal-card-header">
+                  <span class="domain-tag tag-finance">finance</span>
+                  <span class="goal-name">save $5,000</span>
+                  <div class="goal-edit-icon">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M11.5 1.5l3 3L5 14H2v-3L11.5 1.5z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="goal-actions">
+                  <div class="goal-action">
+                    <div class="action-circle"></div>
+                    <span class="action-text">track all expenses</span>
+                  </div>
+                  <div class="goal-action">
+                    <div class="action-circle"></div>
+                    <span class="action-text">set a monthly budget</span>
+                  </div>
+                  <div class="goal-action">
+                    <div class="action-circle"></div>
+                    <span class="action-text">auto-save $200/month</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- Goal Card 3: Learning -->
+              <div class="goal-plan-card learning">
+                <div class="goal-card-header">
+                  <span class="domain-tag tag-learning">learning</span>
+                  <span class="goal-name">read 20 books this year</span>
+                  <div class="goal-edit-icon">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M11.5 1.5l3 3L5 14H2v-3L11.5 1.5z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="goal-actions">
+                  <div class="goal-action">
+                    <div class="action-circle"></div>
+                    <span class="action-text">read 30 min/day</span>
+                  </div>
+                  <div class="goal-action">
+                    <div class="action-circle"></div>
+                    <span class="action-text">finish 2 books/month</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-32"></div>
+
+              <!-- CTA -->
+              <div class="cta-glow-wrap">
+                <button class="cta-btn">start your journey</button>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- Customize link -->
+              <div class="customize-link">Customize</div>
+
+              <div class="sp-48"></div>
+
+            </div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- thumbnail strip -->
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goTo(0)"><div class="thumb-num">07</div></div>
+    <div class="thumb" onclick="goTo(1)"><div class="thumb-num">08</div></div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const total = 2;
+const track = document.getElementById('track');
+const thumbs = document.querySelectorAll('.thumb');
+const prevBtn = document.querySelector('.nav-arrow.prev');
+const nextBtn = document.querySelector('.nav-arrow.next');
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function go(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function renderThumbs() {
+  thumbs.forEach((thumb, i) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 56; canvas.height = 120;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0A0A0F';
+    ctx.fillRect(0, 0, 56, 120);
+
+    if (i === 0) {
+      // Screen 07: SIA Onboarding Conversation
+      // brainstorm area glow
+      const grd = ctx.createRadialGradient(28, 30, 0, 28, 30, 24);
+      grd.addColorStop(0, 'rgba(255,94,0,.12)');
+      grd.addColorStop(1, 'transparent');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, 56, 55);
+
+      // domain bubbles (selected)
+      ctx.fillStyle = 'rgba(239,68,68,.4)';
+      ctx.beginPath(); ctx.arc(18, 26, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(16,185,129,.4)';
+      ctx.beginPath(); ctx.arc(38, 24, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(6,182,212,.4)';
+      ctx.beginPath(); ctx.arc(28, 38, 6, 0, Math.PI * 2); ctx.fill();
+
+      // progress dots
+      ctx.fillStyle = '#FF5E00';
+      [12, 17, 22].forEach(x => { ctx.beginPath(); ctx.arc(x, 56, 1, 0, Math.PI*2); ctx.fill(); });
+      ctx.beginPath(); ctx.arc(27, 56, 1.5, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.2)';
+      [33, 38, 43].forEach(x => { ctx.beginPath(); ctx.arc(x, 56, 1, 0, Math.PI*2); ctx.fill(); });
+
+      // divider
+      ctx.fillStyle = 'rgba(255,255,255,.05)';
+      ctx.fillRect(0, 59, 56, 1);
+
+      // chat bubbles
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 64, 32, 8, 3); ctx.fill();
+      ctx.fillStyle = 'rgba(255,94,0,.15)';
+      ctx.beginPath(); ctx.roundRect(20, 76, 32, 8, 3); ctx.fill();
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 88, 36, 8, 3); ctx.fill();
+
+      // SIA avatars
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(4, 66, 2.5, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(4, 90, 2.5, 0, Math.PI*2); ctx.fill();
+
+      // suggestion chips
+      ctx.fillStyle = '#211008';
+      ctx.strokeStyle = 'rgba(255,94,0,.3)'; ctx.lineWidth = 0.5;
+      [6, 22, 38].forEach(x => {
+        ctx.beginPath(); ctx.roundRect(x, 101, 14, 5, 3); ctx.fill(); ctx.stroke();
+      });
+
+      // input bar
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 110, 48, 6, 3); ctx.fill();
+
+    } else if (i === 1) {
+      // Screen 08: Initial Plan Summary
+      // SIA avatar + heading
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(8, 10, 3, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = '5px Sora'; ctx.textAlign = 'left';
+      ctx.fillText("here's your plan.", 14, 12);
+
+      // coaching note
+      ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.font = '3px Sora';
+      ctx.fillText("3 life areas. let's go.", 4, 20);
+
+      // RPG bar
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 26, 48, 12, 4); ctx.fill();
+      ctx.fillStyle = '#FF5E00'; ctx.font = '3.5px Sora'; ctx.textAlign = 'left';
+      ctx.fillText('LEVEL 1', 8, 32);
+      ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.textAlign = 'right';
+      ctx.fillText('0 XP', 48, 32);
+      ctx.fillStyle = 'rgba(255,255,255,.08)';
+      ctx.beginPath(); ctx.roundRect(8, 34, 40, 2, 1); ctx.fill();
+
+      // goal cards
+      const cards = [
+        { y: 44, color: '#EF4444', label: 'fitness' },
+        { y: 66, color: '#10B981', label: 'finance' },
+        { y: 86, color: '#06B6D4', label: 'learning' }
+      ];
+      cards.forEach(c => {
+        ctx.fillStyle = '#211008';
+        ctx.beginPath(); ctx.roundRect(4, c.y, 48, 18, 4); ctx.fill();
+        ctx.fillStyle = c.color;
+        ctx.fillRect(4, c.y, 3, 18);
+        // domain tag
+        ctx.fillStyle = c.color + '33';
+        ctx.beginPath(); ctx.roundRect(10, c.y + 3, 18, 5, 2); ctx.fill();
+        ctx.fillStyle = c.color; ctx.font = '3px Sora'; ctx.textAlign = 'left';
+        ctx.fillText(c.label, 12, c.y + 7);
+        // action dots
+        ctx.fillStyle = 'rgba(255,255,255,.15)';
+        [0, 6].forEach(offset => {
+          ctx.beginPath(); ctx.arc(12, c.y + 13 + offset * 0, 1.5, 0, Math.PI*2); ctx.fill();
+        });
+      });
+
+      // CTA
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.roundRect(8, 108, 40, 8, 4); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = '3.5px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('start your journey', 28, 114);
+    }
+    thumb.prepend(canvas);
+  });
+}
+renderThumbs();
+
+const sp = new URLSearchParams(window.location.search);
+if (sp.has('start')) {
+  const s = parseInt(sp.get('start'));
+  if (!isNaN(s) && s >= 0 && s < total) {
+    track.style.transition = 'none';
+    goTo(s);
+    requestAnimationFrame(() => track.style.transition = '');
+  }
+}
+</script>
+</body>
+</html>

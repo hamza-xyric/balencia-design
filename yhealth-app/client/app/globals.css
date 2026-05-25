@@ -1,0 +1,1218 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "lenis/dist/lenis.css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar: hsl(var(--sidebar));
+  --color-chart-5: hsl(var(--chart-5));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-ring: hsl(var(--ring));
+  --color-input: hsl(var(--input));
+  --color-border: hsl(var(--border));
+  --color-destructive: hsl(var(--destructive));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card: hsl(var(--card));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  /* Layout — extended max-width */
+  --max-width-8xl: 90rem; /* 1440px */
+
+  /* ===================================== */
+  /* Balencia Design System Color Palette */
+  /* ===================================== */
+
+  /* Primary Brand - Warm Teal/Cyan */
+  --color-primary-50: #E0F7FA;
+  --color-primary-100: #B2EBF2;
+  --color-primary-200: #80DEEA;
+  --color-primary-300: #4DD0E1;
+  --color-primary-400: #26C6DA;
+  --color-primary-500: #00BCD4;
+  --color-primary-600: #00ACC1;
+  --color-primary-700: #0097A7;
+  --color-primary-800: #00838F;
+  --color-primary-900: #006064;
+
+  /* Fitness Pillar - Orange */
+  --color-fitness-50: #FFF3E0;
+  --color-fitness-100: #FFE0B2;
+  --color-fitness-200: #FFCC80;
+  --color-fitness-300: #FFB74D;
+  --color-fitness-400: #FFA726;
+  --color-fitness-500: #FF9800;
+  --color-fitness-600: #FB8C00;
+  --color-fitness-700: #F57C00;
+  --color-fitness-800: #EF6C00;
+  --color-fitness-900: #E65100;
+
+  /* Nutrition Pillar - Green */
+  --color-nutrition-50: #E8F5E9;
+  --color-nutrition-100: #C8E6C9;
+  --color-nutrition-200: #A5D6A7;
+  --color-nutrition-300: #81C784;
+  --color-nutrition-400: #66BB6A;
+  --color-nutrition-500: #4CAF50;
+  --color-nutrition-600: #43A047;
+  --color-nutrition-700: #388E3C;
+  --color-nutrition-800: #2E7D32;
+  --color-nutrition-900: #1B5E20;
+
+  /* Wellbeing Pillar - Soft Blue */
+  --color-wellbeing-50: #E3F2FD;
+  --color-wellbeing-100: #BBDEFB;
+  --color-wellbeing-200: #90CAF9;
+  --color-wellbeing-300: #64B5F6;
+  --color-wellbeing-400: #42A5F5;
+  --color-wellbeing-500: #5C9CE6;
+  --color-wellbeing-600: #1E88E5;
+  --color-wellbeing-700: #1976D2;
+  --color-wellbeing-800: #1565C0;
+  --color-wellbeing-900: #0D47A1;
+
+  /* Extended Color Palette for Gradients */
+  /* Purple */
+  --color-purple-50: #faf5ff;
+  --color-purple-100: #f3e8ff;
+  --color-purple-200: #e9d5ff;
+  --color-purple-300: #d8b4fe;
+  --color-purple-400: #c084fc;
+  --color-purple-500: #a855f7;
+  --color-purple-600: #9333ea;
+  --color-purple-700: #7e22ce;
+  --color-purple-800: #6b21a8;
+  --color-purple-900: #581c87;
+  --color-purple-950: #3b0764;
+
+  /* Emerald */
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+  --color-emerald-950: #022c22;
+
+  /* Cyan */
+  --color-cyan-50: #ecfeff;
+  --color-cyan-100: #cffafe;
+  --color-cyan-200: #a5f3fc;
+  --color-cyan-300: #67e8f9;
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-600: #0891b2;
+  --color-cyan-700: #0e7490;
+  --color-cyan-800: #155e75;
+  --color-cyan-900: #164e63;
+  --color-cyan-950: #083344;
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* ============================= */
+  /* Balencia Color System - Light Mode */
+  /* ============================= */
+
+  /* Base Colors - Light Mode */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 7%;
+  --card: 0 0% 96%;
+  --card-foreground: 0 0% 7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 7%;
+
+  /* Primary - Warm Teal/Cyan (#00BCD4) */
+  --primary: 187 100% 42%;
+  --primary-foreground: 0 0% 98%;
+
+  /* Secondary */
+  --secondary: 0 0% 93%;
+  --secondary-foreground: 0 0% 7%;
+
+  /* Muted */
+  --muted: 0 0% 93%;
+  --muted-foreground: 0 0% 40%;
+
+  /* Accent */
+  --accent: 0 0% 93%;
+  --accent-foreground: 0 0% 7%;
+
+  /* Destructive */
+  --destructive: 0 72% 51%;
+  --border: 0 0% 88%;
+  --input: 0 0% 88%;
+  --ring: 187 100% 42%;
+
+  /* Three Pillars - Light Mode */
+  --fitness: 36 100% 50%;
+  --nutrition: 122 39% 49%;
+  --wellbeing: 211 68% 63%;
+
+  /* Charts - Pillar Colors */
+  --chart-1: 187 100% 42%;
+  --chart-2: 36 100% 50%;
+  --chart-3: 122 39% 49%;
+  --chart-4: 211 68% 63%;
+  --chart-5: 0 72% 51%;
+
+  /* Sidebar */
+  --sidebar: 0 0% 96%;
+  --sidebar-foreground: 0 0% 7%;
+  --sidebar-primary: 187 100% 42%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 0 0% 93%;
+  --sidebar-accent-foreground: 0 0% 7%;
+  --sidebar-border: 0 0% 88%;
+  --sidebar-ring: 187 100% 42%;
+}
+
+.dark {
+  /* ============================= */
+  /* Balencia Color System - Dark Mode (Primary) */
+  /* ============================= */
+
+  /* ── Bioluminescent Dark Tokens ── */
+  --yh-primary:       #D97706;
+  --yh-primary-light: #F59E0B;
+  --yh-secondary:     #0EA5E9;
+  --yh-secondary-deep:#0284C7;
+  --yh-canvas:        #080C10;
+  --yh-surface:       #0F1419;
+  --yh-elevated:      #161D26;
+  --yh-glass:         rgba(14,165,233,0.04);
+  --yh-border-subtle: rgba(14,165,233,0.10);
+  --yh-border-active: rgba(217,119,6,0.45);
+  --yh-glow-ember:    0 0 24px rgba(217,119,6,0.30), 0 0 60px rgba(217,119,6,0.12);
+  --yh-glow-sky:      0 0 24px rgba(14,165,233,0.25), 0 0 60px rgba(14,165,233,0.08);
+  --yh-text-primary:  #F1F5F9;
+  --yh-text-secondary:#94A3B8;
+  --yh-text-muted:    #475569;
+  --yh-success:       #10B981;
+  --yh-warning:       #F59E0B;
+  --yh-danger:        #EF4444;
+  --yh-info:          #0EA5E9;
+
+  /* Surface Colors */
+  --background: 0 0% 7%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 12%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 15%;
+  --popover-foreground: 0 0% 98%;
+
+  /* Primary - Warm Teal/Cyan */
+  --primary: 187 100% 42%;
+  --primary-foreground: 0 0% 98%;
+
+  /* Secondary */
+  --secondary: 0 0% 17%;
+  --secondary-foreground: 0 0% 98%;
+
+  /* Muted */
+  --muted: 0 0% 17%;
+  --muted-foreground: 0 0% 70%;
+
+  /* Accent */
+  --accent: 0 0% 17%;
+  --accent-foreground: 0 0% 98%;
+
+  /* Destructive - Error */
+  --destructive: 0 68% 67%;
+
+  /* Borders */
+  --border: 0 0% 25%;
+  --input: 0 0% 25%;
+  --ring: 187 100% 42%;
+
+  /* Three Pillars - Dark Mode */
+  --fitness: 36 100% 67%;
+  --nutrition: 122 38% 64%;
+  --wellbeing: 211 72% 71%;
+
+  /* Charts */
+  --chart-1: 187 100% 42%;
+  --chart-2: 36 100% 67%;
+  --chart-3: 122 38% 64%;
+  --chart-4: 211 72% 71%;
+  --chart-5: 0 68% 67%;
+
+  /* Sidebar */
+  --sidebar: 0 0% 9%;
+  --sidebar-foreground: 0 0% 98%;
+  --sidebar-primary: 187 100% 42%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 0 0% 17%;
+  --sidebar-accent-foreground: 0 0% 98%;
+  --sidebar-border: 0 0% 25%;
+  --sidebar-ring: 187 100% 42%;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ===================================== */
+  /* Typography System – Global Rules      */
+  /* Headings: 16px–20px (16–18px mobile)  */
+  /* Body/UI: 13px–15px (default 14px)     */
+  /* Buttons/Tabs: 14px (13px mobile)      */
+  /* ===================================== */
+
+  h1 {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  h2 {
+    font-size: clamp(16px, 1.8vw, 19px);
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  h3 {
+    font-size: clamp(16px, 1.6vw, 18px);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  h4 {
+    font-size: clamp(16px, 1.5vw, 17px);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  h5, h6 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  p, span, label, li, a {
+    font-size: clamp(13px, 1.5vw, 15px);
+    line-height: 1.5;
+  }
+
+  input, select, textarea, option {
+    font-size: clamp(13px, 1.5vw, 15px);
+    line-height: 1.5;
+  }
+
+  button, [role="button"] {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Small/meta text */
+  small, .text-xs, .text-muted {
+    font-size: 13px;
+  }
+
+  /* Mobile: tighter heading cap, smaller buttons */
+  @media (max-width: 768px) {
+    h1 { font-size: clamp(16px, 2vw, 18px); }
+    h2 { font-size: clamp(16px, 1.8vw, 18px); }
+    h3 { font-size: clamp(16px, 1.6vw, 17px); }
+    h4, h5, h6 { font-size: 16px; }
+    button, [role="button"] { font-size: 13px; }
+  }
+
+  /* Global cursor pointer for interactive elements */
+  button,
+  [role="button"],
+  [type="button"],
+  [type="submit"],
+  [type="reset"],
+  a[href],
+  select,
+  [tabindex]:not([tabindex="-1"]),
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="file"],
+  label[for],
+  summary,
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  /* Disabled state */
+  button:disabled,
+  [role="button"][aria-disabled="true"],
+  [type="button"]:disabled,
+  [type="submit"]:disabled,
+  [type="reset"]:disabled,
+  select:disabled,
+  input:disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* ======================================== */
+/* Premium Dashboard Design System - 2025   */
+/* ======================================== */
+
+/* Premium Glassmorphism - Multi-layer blur effect */
+.glass-premium {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--card) / 0.85) 0%,
+    hsl(var(--card) / 0.6) 50%,
+    hsl(var(--card) / 0.85) 100%
+  );
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid hsl(var(--primary) / 0.2);
+  box-shadow:
+    0 0 40px hsl(var(--primary) / 0.08),
+    0 4px 6px rgba(0, 0, 0, 0.3),
+    0 12px 24px rgba(0, 0, 0, 0.4),
+    0 24px 48px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 hsl(var(--foreground) / 0.1),
+    inset 0 -1px 0 hsl(var(--foreground) / 0.03);
+}
+
+/* 3D Card with perspective tilt */
+.card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-3d:hover {
+  transform: translateY(-8px) rotateX(5deg) rotateY(-2deg);
+}
+
+/* Holographic Text Effect */
+.text-holographic {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary)) 0%,
+    hsl(190 90% 50%) 20%,
+    hsl(280 80% 60%) 40%,
+    hsl(330 80% 60%) 60%,
+    hsl(190 90% 50%) 80%,
+    hsl(var(--primary)) 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: holographic-shift 5s ease infinite;
+}
+
+@keyframes holographic-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Glow Pulse - Animated pulsing glow for live elements */
+.glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Hero morphing blob — very subtle organic breathing */
+@keyframes hero-morph {
+  0%, 100% { border-radius: 48% 52% 50% 50% / 50% 48% 52% 50%; }
+  33% { border-radius: 50% 50% 48% 52% / 52% 50% 50% 48%; }
+  66% { border-radius: 52% 48% 50% 50% / 48% 52% 50% 50%; }
+}
+
+.hero-morph-blob {
+  animation: hero-morph 10s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 20px hsl(var(--primary) / 0.4),
+      0 0 40px hsl(var(--primary) / 0.2),
+      0 0 60px hsl(var(--primary) / 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 30px hsl(var(--primary) / 0.6),
+      0 0 60px hsl(var(--primary) / 0.3),
+      0 0 90px hsl(var(--primary) / 0.15);
+  }
+}
+
+/* Color-specific glow effects */
+.glow-emerald {
+  box-shadow: 0 0 20px hsl(160 84% 39% / 0.4), 0 0 40px hsl(160 84% 39% / 0.2);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px hsl(187 100% 42% / 0.4), 0 0 40px hsl(187 100% 42% / 0.2);
+}
+
+.glow-orange {
+  box-shadow: 0 0 20px hsl(24 95% 53% / 0.4), 0 0 40px hsl(24 95% 53% / 0.2);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px hsl(271 91% 65% / 0.4), 0 0 40px hsl(271 91% 65% / 0.2);
+}
+
+.glow-pink {
+  box-shadow: 0 0 20px hsl(330 81% 60% / 0.4), 0 0 40px hsl(330 81% 60% / 0.2);
+}
+
+.glow-red {
+  box-shadow: 0 0 20px hsl(0 84% 60% / 0.4), 0 0 40px hsl(0 84% 60% / 0.2);
+}
+
+/* Elevated card shadow for depth */
+.card-elevated {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    0 16px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Shimmer effect */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--foreground) / 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Utility class for shimmer animation */
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+}
+
+/* ======================================== */
+/* Mind Observatory — Constellation CSS     */
+/* ======================================== */
+
+@keyframes constellation-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.82); }
+}
+
+@keyframes constellation-ripple-out {
+  0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
+}
+
+@keyframes constellation-spin-ring {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes constellation-spin-ring-rev {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes constellation-particle-orbit {
+  from { transform: rotate(var(--orbit-start, 0deg)) translateX(var(--orbit-r, 52px)) rotate(calc(-1 * var(--orbit-start, 0deg))); }
+  to   { transform: rotate(calc(var(--orbit-start, 0deg) + 360deg)) translateX(var(--orbit-r, 52px)) rotate(calc(-1 * (var(--orbit-start, 0deg) + 360deg))); }
+}
+
+@keyframes constellation-float-label {
+  0%, 100% { transform: translateY(0px); opacity: 0.85; }
+  50%      { transform: translateY(-3px); opacity: 1; }
+}
+
+@keyframes constellation-core-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); filter: brightness(1); }
+  50%      { transform: translate(-50%, -50%) scale(1.06); filter: brightness(1.12); }
+}
+
+@keyframes core-breathe {
+  0%, 100% { box-shadow: 0 0 100px 32px rgba(168,85,247,0.35), 0 0 200px 80px rgba(139,92,246,0.15); }
+  50%      { box-shadow: 0 0 120px 44px rgba(168,85,247,0.45), 0 0 240px 100px rgba(139,92,246,0.2); }
+}
+
+@keyframes constellation-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes constellation-modal-enter {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.25) rotate(-4deg); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+@keyframes observatory-ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50%      { transform: scale(1.25); opacity: 0.08; }
+}
+
+/* Observatory font utility classes */
+.observatory-font-display { font-family: var(--font-cinzel), 'Cinzel', serif; }
+.observatory-font-body    { font-family: var(--font-nunito), 'Nunito', sans-serif; }
+
+/* Journal rich content (detail view) */
+.journal-rich-content h1,
+.journal-rich-content h2,
+.journal-rich-content h3 {
+  font-family: var(--font-cinzel), 'Cinzel', serif;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+.journal-rich-content h1 { font-size: 1.5rem; }
+.journal-rich-content h2 { font-size: 1.25rem; }
+.journal-rich-content h3 { font-size: 1.1rem; }
+.journal-rich-content p { margin-bottom: 0.75em; line-height: 1.85; }
+.journal-rich-content ul,
+.journal-rich-content ol { padding-left: 1.5em; margin-bottom: 0.75em; }
+.journal-rich-content li { margin-bottom: 0.25em; }
+.journal-rich-content blockquote {
+  border-left: 2px solid rgba(139, 92, 246, 0.3);
+  padding-left: 1em;
+  color: rgba(255, 255, 255, 0.55);
+  font-style: italic;
+  margin: 1em 0;
+}
+.journal-rich-content img {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  margin: 1em 0;
+}
+.journal-rich-content a {
+  color: rgba(167, 139, 250, 0.8);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.journal-rich-content a:hover { color: rgba(196, 181, 253, 0.9); }
+.journal-rich-content pre {
+  background: rgba(14, 10, 34, 0.6);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.75em 1em;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+.journal-rich-content code {
+  font-size: 0.85em;
+  background: rgba(139, 92, 246, 0.08);
+  padding: 0.15em 0.3em;
+  border-radius: 0.25rem;
+  color: rgba(196, 181, 253, 0.8);
+}
+.journal-rich-content pre code { background: none; padding: 0; }
+.journal-rich-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
+  margin: 1.5em 0;
+}
+.journal-rich-content .drawing-block img,
+.journal-rich-content [data-type="drawing-block"] img {
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  background: rgba(14, 10, 34, 0.4);
+}
+
+/* Observatory scrollbar (ultra-thin, purple accent) */
+.observatory-scroll::-webkit-scrollbar { width: 4px; }
+.observatory-scroll::-webkit-scrollbar-track { background: transparent; }
+.observatory-scroll::-webkit-scrollbar-thumb { background: rgba(167, 139, 250, 0.3); border-radius: 4px; }
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .glass-premium,
+  .card-3d,
+  .text-holographic,
+  .glow-pulse,
+  .hover-lift,
+  .shimmer,
+  .star-twinkle,
+  .core-ripple,
+  .core-orbit-ring,
+  .core-particle,
+  .star-label-float,
+  .core-pulse {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .card-3d:hover {
+    transform: none;
+  }
+  
+  .hover-lift:hover {
+    transform: none;
+  }
+}
+
+/* ─── React Flow Controls (dark theme) ─── */
+.react-flow__controls {
+  background: rgba(13, 13, 20, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+  padding: 4px !important;
+}
+
+.react-flow__controls-button {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+  width: 28px !important;
+  height: 28px !important;
+  margin: 2px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background 0.15s ease !important;
+}
+
+.react-flow__controls-button:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.react-flow__controls-button svg {
+  fill: rgba(255, 255, 255, 0.6) !important;
+}
+
+.react-flow__controls-button:hover svg {
+  fill: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* MiniMap dark theme */
+.react-flow__minimap {
+  background: rgba(13, 13, 20, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ============================================================ */
+/* Scrollbar utilities — hide scrollbars while keeping scroll    */
+/* ============================================================ */
+
+/* Utility class: fully hide scrollbar (still scrollable) */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / Edge */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* Global: thin, near-invisible scrollbars everywhere by default */
+*::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+* {
+  scrollbar-width: none;
+}
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   GLOBAL BUTTON OVERRIDE — sky-600 with glass shine on hover
+   Applies to anything using Tailwind cyan→purple / blue→purple
+   gradient classes, plus a reusable .btn-sky utility.
+   ============================================================ */
+
+/* 1. Kill the cyan/blue → purple gradient pattern everywhere */
+[class*="from-cyan-"][class*="to-purple-"],
+[class*="from-blue-"][class*="to-purple-"],
+[class*="from-cyan-"][class*="to-blue-"],
+[class*="from-indigo-"][class*="to-purple-"],
+[class*="from-violet-"][class*="to-purple-"] {
+  background-image: none !important;
+  background-color: #0284c7 !important; /* sky-600 */
+  color: #ffffff !important;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: background-color 200ms ease, box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+/* Shine sweep — glass highlight moves L→R on hover */
+[class*="from-cyan-"][class*="to-purple-"]::before,
+[class*="from-blue-"][class*="to-purple-"]::before,
+[class*="from-cyan-"][class*="to-blue-"]::before,
+[class*="from-indigo-"][class*="to-purple-"]::before,
+[class*="from-violet-"][class*="to-purple-"]::before,
+.btn-sky::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+[class*="from-cyan-"][class*="to-purple-"]:hover::before,
+[class*="from-blue-"][class*="to-purple-"]:hover::before,
+[class*="from-cyan-"][class*="to-blue-"]:hover::before,
+[class*="from-indigo-"][class*="to-purple-"]:hover::before,
+[class*="from-violet-"][class*="to-purple-"]:hover::before,
+.btn-sky:hover::before {
+  transform: translateX(120%);
+}
+
+[class*="from-cyan-"][class*="to-purple-"]:hover,
+[class*="from-blue-"][class*="to-purple-"]:hover,
+[class*="from-cyan-"][class*="to-blue-"]:hover,
+[class*="from-indigo-"][class*="to-purple-"]:hover,
+[class*="from-violet-"][class*="to-purple-"]:hover,
+.btn-sky:hover {
+  background-color: #0369a1 !important; /* sky-700 */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+    0 8px 28px -6px rgba(14, 165, 233, 0.55),
+    0 0 0 3px rgba(14, 165, 233, 0.18);
+  transform: translateY(-1px);
+}
+
+/* 2. Reusable utility: any new button can just use class="btn-sky" */
+.btn-sky {
+  background-color: #0284c7;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  font-weight: 500;
+  transition: background-color 200ms ease, box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+/* 3. Keep hover children (text, icons) above the shine layer */
+[class*="from-cyan-"][class*="to-purple-"] > *,
+[class*="from-blue-"][class*="to-purple-"] > *,
+[class*="from-cyan-"][class*="to-blue-"] > *,
+[class*="from-indigo-"][class*="to-purple-"] > *,
+[class*="from-violet-"][class*="to-purple-"] > *,
+.btn-sky > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Shared auth CTA style - emerald base with reflective hover sweep */
+.auth-emerald-btn {
+  background-color: #059669 !important; /* emerald-600 */
+  color: #ffffff !important;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  box-shadow:
+    0 10px 24px -8px rgba(5, 150, 105, 0.55),
+    0 0 0 1px rgba(16, 185, 129, 0.2) inset;
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.auth-emerald-btn::before {
+  content: "";
+  position: absolute;
+  top: -140%;
+  left: -35%;
+  width: 42%;
+  height: 380%;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 30%,
+    rgba(255, 255, 255, 0.62) 50%,
+    rgba(255, 255, 255, 0.08) 70%,
+    transparent 100%
+  );
+  transform: translateX(-180%) rotate(18deg);
+  transition: transform 720ms cubic-bezier(0.2, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.auth-emerald-btn:hover {
+  background-color: #047857 !important; /* emerald-700 */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+    0 14px 30px -10px rgba(5, 150, 105, 0.65),
+    0 0 24px rgba(16, 185, 129, 0.35);
+  transform: translateY(-1px);
+}
+
+.auth-emerald-btn:hover::before {
+  transform: translateX(380%) rotate(18deg);
+}
+
+.auth-emerald-btn:disabled {
+  background-color: #047857 !important;
+  opacity: 0.7;
+}
+
+.auth-emerald-btn > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   Balencia Premium UI System (shared utilities)
+   ============================================================ */
+@layer utilities {
+  .bal-surface {
+    @apply rounded-2xl border border-white/10 bg-slate-900/55 backdrop-blur-xl;
+  }
+
+  .bal-surface-elevated {
+    @apply rounded-3xl border border-cyan-500/20 bg-slate-950/70 backdrop-blur-2xl shadow-[0_20px_60px_rgba(8,47,73,0.5)];
+  }
+
+  .bal-divider {
+    @apply border-white/10;
+  }
+
+  .bal-tab-trigger {
+    @apply rounded-xl border border-transparent px-3 py-2 text-slate-300 transition-all duration-200 hover:border-cyan-300/30 hover:bg-cyan-500/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
+  }
+
+  .bal-chip {
+    @apply inline-flex items-center gap-1 rounded-full border border-white/10 bg-slate-900/70 px-2.5 py-1 text-xs font-medium text-slate-200;
+  }
+
+  .bal-kpi {
+    @apply rounded-2xl border border-white/10 bg-slate-900/55 p-6 backdrop-blur-xl shadow-[0_12px_32px_rgba(2,6,23,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-300/35;
+  }
+
+  .bal-focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
+  }
+
+  .bal-empty-state {
+    @apply rounded-2xl border border-dashed border-white/15 bg-slate-900/45 p-10 text-center text-slate-300;
+  }
+
+  .bal-skeleton {
+    @apply animate-pulse rounded-2xl border border-white/10 bg-slate-900/40;
+  }
+
+  .bal-fab {
+    @apply h-14 w-14 rounded-full bg-linear-to-br from-emerald-500 via-cyan-500 to-indigo-500 text-white shadow-[0_12px_35px_rgba(6,182,212,0.42)] transition-all hover:from-emerald-400 hover:via-cyan-400 hover:to-indigo-400 hover:shadow-[0_14px_44px_rgba(14,165,233,0.52)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
+  }
+}
+
+/* ============================================================
+   AI Coach — Premium Markdown Prose
+   ============================================================ */
+.coach-prose {
+  --tw-prose-body: #cbd5e1;
+  --tw-prose-headings: #f1f5f9;
+  --tw-prose-bold: #f1f5f9;
+  --tw-prose-links: #22d3ee;
+  --tw-prose-counters: #64748b;
+  --tw-prose-bullets: #0ea5e9;
+  --tw-prose-hr: rgba(255,255,255,0.1);
+  --tw-prose-quotes: #94a3b8;
+  --tw-prose-quote-borders: #0ea5e9;
+  --tw-prose-code: #e2e8f0;
+  --tw-prose-th-borders: rgba(255,255,255,0.15);
+  --tw-prose-td-borders: rgba(255,255,255,0.08);
+}
+
+.coach-prose p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.7;
+}
+
+.coach-prose p:first-child {
+  margin-top: 0;
+}
+
+.coach-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.coach-prose strong {
+  color: var(--tw-prose-bold);
+  font-weight: 600;
+}
+
+.coach-prose em {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.coach-prose h1,
+.coach-prose h2,
+.coach-prose h3,
+.coach-prose h4 {
+  color: var(--tw-prose-headings);
+  font-weight: 700;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+  line-height: 1.3;
+}
+
+.coach-prose h1 { font-size: 1.25em; }
+.coach-prose h2 { font-size: 1.125em; }
+.coach-prose h3 { font-size: 1.05em; }
+
+.coach-prose ul,
+.coach-prose ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding-left: 1.25em;
+}
+
+.coach-prose ul {
+  list-style-type: none;
+}
+
+.coach-prose ul > li {
+  position: relative;
+  padding-left: 0.4em;
+  margin-bottom: 0.35em;
+}
+
+.coach-prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1em;
+  top: 0.6em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+.coach-prose ol {
+  list-style-type: none;
+  counter-reset: coach-counter;
+}
+
+.coach-prose ol > li {
+  position: relative;
+  padding-left: 0.4em;
+  margin-bottom: 0.35em;
+  counter-increment: coach-counter;
+}
+
+.coach-prose ol > li::before {
+  content: counter(coach-counter);
+  position: absolute;
+  left: -1.6em;
+  top: 0.15em;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  background: rgba(14, 165, 233, 0.15);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  color: #38bdf8;
+  font-size: 0.7em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.coach-prose a {
+  color: var(--tw-prose-links);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.coach-prose a:hover {
+  color: #67e8f9;
+  border-bottom-color: rgba(34, 211, 238, 0.6);
+}
+
+.coach-prose blockquote {
+  border-left: 3px solid;
+  border-image: linear-gradient(to bottom, #0ea5e9, #10b981) 1;
+  padding: 0.6em 1em;
+  margin: 0.75em 0;
+  background: rgba(14, 165, 233, 0.06);
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.coach-prose blockquote p {
+  margin: 0;
+}
+
+.coach-prose hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(14, 165, 233, 0.3), transparent);
+  margin: 1em 0;
+}
+
+.coach-prose code:not(pre code) {
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: 0.375rem;
+  padding: 0.15em 0.4em;
+  font-size: 0.85em;
+  color: #7dd3fc;
+  font-weight: 500;
+}
+
+.coach-prose pre {
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1em;
+  margin: 0.75em 0;
+  overflow-x: auto;
+  font-size: 0.85em;
+  line-height: 1.6;
+}
+
+.coach-prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #e2e8f0;
+  font-weight: 400;
+}
+
+.coach-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75em 0;
+  font-size: 0.9em;
+}
+
+.coach-prose thead th {
+  background: rgba(14, 165, 233, 0.08);
+  border-bottom: 1px solid rgba(14, 165, 233, 0.25);
+  padding: 0.5em 0.75em;
+  text-align: left;
+  color: #e2e8f0;
+  font-weight: 600;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.coach-prose tbody td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.5em 0.75em;
+  color: #cbd5e1;
+}
+
+.coach-prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.coach-prose tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+

@@ -1,0 +1,30 @@
+<%# Resend Verification Email Template %>
+<%- include('./layouts/base', {
+  title: 'New Verification Link - Balencia',
+  preheader: `${firstName}, here is your new verification link for Balencia.`,
+  eyebrow: 'Fresh verification link',
+  greeting: `Here is your new link, ${firstName}.`,
+  content: `
+    <p style="margin:0 0 22px; font-size:16px; line-height:26px;">
+      You requested a new verification link for your Balencia account. Use the button below to activate your account.
+    </p>
+
+    ${include('./partials/alert-box', {
+      type: 'warning',
+      message: 'This link expires in 24 hours. Any previous verification links may no longer work.'
+    })}
+  `,
+  ctaButton: {
+    text: 'Verify My Email',
+    url: verificationUrl
+  },
+  secondaryContent: `
+    <p style="margin:0 0 8px; font-size:13px; color:#6b7280;">
+      Button not working? Copy and paste this link into your browser:
+    </p>
+    <p style="margin:0; font-size:12px; word-break:break-all;">
+      <a href="${escapeFn(verificationUrl)}" style="color:#ea580c;">${escapeFn(verificationUrl)}</a>
+    </p>
+  `,
+  footerText: "Still having trouble? Contact support@balencia.app and we'll help."
+}) %>

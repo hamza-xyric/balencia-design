@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 11: Cross-Domain</title>
+<link rel="stylesheet" href="../balencia-foundation.css">
+<style>
+/* ═══════════════════════════════════════
+   BATCH 11 — CROSS-DOMAIN SPECIFIC STYLES
+   ═══════════════════════════════════════ */
+
+/* ── Shared ── */
+.nav-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px; min-height: 44px; position: relative; z-index: 5;
+}
+.back-chevron {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-left: -12px; flex-shrink: 0;
+}
+.back-chevron svg { width: 20px; height: 20px; }
+.nav-title { font-size: 17px; font-weight: 600; color: #fff; }
+
+.cross-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none; padding-bottom: 96px;
+}
+.cross-scroll::-webkit-scrollbar { display: none; }
+
+.fab-pill {
+  position: absolute; bottom: 72px; right: 16px; z-index: 15;
+  display: flex; align-items: center; gap: 8px;
+  height: 48px; padding: 0 20px; border-radius: var(--r-pill);
+  background: var(--brand-orange); border: none; cursor: pointer;
+  box-shadow: var(--shadow-2);
+  font-size: 15px; font-weight: 600; color: #fff; font-family: 'Sora', sans-serif;
+}
+.fab-pill svg { width: 16px; height: 16px; }
+
+.segmented-control .seg.active-orange {
+  background: var(--brand-orange); color: #fff;
+}
+
+.tab-icon { width: 24px; height: 24px; }
+
+/* ── Screen 37: Journal ── */
+.journal-screen { display: flex; flex-direction: column; padding-bottom: 56px; position: relative; }
+
+.sia-prompt-card {
+  background: var(--ink-brown); border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+  margin: 0 16px;
+}
+.sia-prompt-header { display: flex; align-items: flex-start; gap: 10px; }
+.sia-purple-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--royal-purple); flex-shrink: 0; margin-top: 7px;
+}
+.sia-prompt-text {
+  font-size: 17px; font-weight: 400; color: rgba(255,255,255,.9); line-height: 1.47; flex: 1;
+}
+.sia-prompt-chip {
+  display: inline-flex; align-items: center; padding: 0 12px;
+  height: 32px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,.7);
+  cursor: pointer; margin-top: 12px;
+}
+
+.journal-entries {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); margin: 0 16px;
+  overflow: hidden;
+}
+.journal-entry {
+  padding: 16px; border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.journal-entry:last-child { border-bottom: none; }
+.journal-entry-top {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.journal-date { font-size: 15px; font-weight: 600; color: #fff; }
+.journal-mood { font-size: 20px; line-height: 1; }
+.journal-preview {
+  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.6);
+  line-height: 1.47; margin-top: 4px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.journal-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+
+/* ── Screen 38: Habits ── */
+.habits-screen { display: flex; flex-direction: column; padding-bottom: 56px; position: relative; }
+
+.completion-rate { padding: 0 16px; }
+.completion-label {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.completion-text { font-size: 16px; font-weight: 600; color: #fff; }
+.completion-pct { font-size: 16px; font-weight: 600; color: rgba(255,255,255,.7); }
+.completion-track {
+  height: 8px; border-radius: 4px; background: rgba(255,255,255,.08); margin-top: 8px; overflow: hidden;
+}
+.completion-fill {
+  height: 100%; border-radius: 4px; background: var(--brand-orange);
+  transition: width var(--dur-base) var(--ease-out-soft);
+}
+
+.habit-group {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); margin: 0 16px;
+  overflow: hidden;
+}
+.habit-row {
+  display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.habit-row:last-child { border-bottom: none; }
+
+.habit-checkbox {
+  width: 24px; height: 24px; border-radius: var(--r-xs); flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,.2); margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+}
+.habit-checkbox.checked {
+  background: var(--brand-orange); border-color: var(--brand-orange);
+}
+.habit-info { flex: 1; min-width: 0; }
+.habit-name { font-size: 16px; font-weight: 400; color: #fff; }
+.habit-name.done { color: rgba(255,255,255,.5); }
+.habit-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.habit-streak {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,.6);
+}
+.habit-streak .flame { color: var(--brand-orange); font-size: 14px; }
+
+.heatmap-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px; margin: 0 16px;
+}
+.heatmap-header { display: flex; gap: 4px; margin-bottom: 8px; justify-content: center; }
+.heatmap-day-label {
+  width: 28px; text-align: center; font-size: 11px; font-weight: 400;
+  color: rgba(255,255,255,.3);
+}
+.heatmap-grid {
+  display: grid; grid-template-columns: repeat(7, 28px); gap: 4px; justify-content: center;
+}
+.heatmap-cell {
+  width: 28px; height: 28px; border-radius: var(--r-xs);
+  background: rgba(255,255,255,.05);
+}
+.heatmap-cell.low { background: rgba(255,94,0,.2); }
+.heatmap-cell.mid { background: rgba(255,94,0,.5); }
+.heatmap-cell.high { background: rgba(255,94,0,.75); }
+.heatmap-cell.full { background: var(--brand-orange); }
+.heatmap-cell.today { border: 1.5px dashed var(--brand-orange); }
+.heatmap-cell.future { background: rgba(255,255,255,.03); }
+.heatmap-month {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.4); margin-top: 8px;
+}
+
+.xp-summary-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px; margin: 0 16px;
+}
+.xp-earned { font-size: 15px; font-weight: 600; color: var(--forest-green); }
+.xp-encourage { font-size: 13px; font-weight: 400; color: rgba(255,255,255,.5); margin-top: 4px; }
+
+/* ── Screen 39: Leaderboard ── */
+.leaderboard-screen { display: flex; flex-direction: column; padding-bottom: 56px; }
+
+.own-rank-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1.5px solid rgba(255,94,0,.4); padding: 20px; margin: 0 16px;
+}
+.own-rank-top {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.own-rank-number { font-size: 24px; font-weight: 700; color: #fff; }
+.rank-change { font-size: 13px; font-weight: 600; }
+.rank-change.up { color: var(--forest-green); }
+
+.own-rank-middle {
+  display: flex; align-items: center; gap: 12px; margin-top: 12px;
+}
+.rank-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.rank-avatar.sm { width: 36px; height: 36px; font-size: 14px; }
+.rank-user-info { flex: 1; min-width: 0; }
+.rank-name { font-size: 16px; font-weight: 600; color: #fff; }
+.own-rank-stats {
+  display: flex; align-items: center; gap: 16px; margin-top: 4px;
+}
+.rank-xp {
+  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.7);
+  font-variant-numeric: tabular-nums;
+}
+.rank-streak {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.6);
+}
+.rank-streak .flame { color: var(--brand-orange); font-size: 14px; }
+.level-badge-sm {
+  display: inline-flex; align-items: center; padding: 0 8px;
+  height: 24px; border-radius: var(--r-pill);
+  background: var(--ink-900); border: 1px solid var(--brand-orange);
+  font-size: 13px; font-weight: 600; color: var(--brand-orange);
+  flex-shrink: 0;
+}
+.level-badge-other {
+  display: inline-flex; align-items: center; padding: 0 6px;
+  height: 22px; border-radius: var(--r-pill);
+  background: var(--ink-900); border: 1px solid rgba(255,255,255,.2);
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,.7);
+  flex-shrink: 0;
+}
+
+.filter-toggle { display: flex; gap: 24px; padding: 0 16px; }
+.filter-tab {
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  padding-bottom: 6px; position: relative;
+  color: rgba(255,255,255,.5); background: none; border: none;
+  font-family: 'Sora', sans-serif;
+}
+.filter-tab.active { color: #fff; }
+.filter-tab.active::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--brand-orange); border-radius: 1px;
+}
+
+.rank-list {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); margin: 0 16px;
+  overflow: hidden;
+}
+.rank-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.rank-row:last-child { border-bottom: none; }
+.rank-num {
+  width: 32px; font-size: 17px; font-weight: 700; color: #fff;
+  text-align: center; flex-shrink: 0;
+}
+.rank-num.gold { color: #FFD700; }
+.rank-num.silver { color: #C0C0C0; }
+.rank-num.bronze { color: #CD7F32; }
+.rank-row-info { flex: 1; min-width: 0; }
+.rank-row-name { font-size: 15px; font-weight: 600; color: #fff; }
+.rank-row-meta {
+  display: flex; align-items: center; gap: 8px; margin-top: 2px;
+}
+.rank-row-xp {
+  font-size: 13px; color: rgba(255,255,255,.5);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Screen 40a: Community Room List ── */
+.community-screen { display: flex; flex-direction: column; padding-bottom: 56px; position: relative; }
+
+.discover-scroll {
+  display: flex; gap: 12px; overflow-x: auto; padding: 0 16px;
+  scrollbar-width: none;
+}
+.discover-scroll::-webkit-scrollbar { display: none; }
+.discover-card {
+  min-width: 120px; max-width: 120px; height: 100px;
+  background: var(--ink-brown); border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.06); padding: 16px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 6px; flex-shrink: 0; cursor: pointer;
+}
+.dc-emoji { font-size: 24px; line-height: 1; }
+.dc-name { font-size: 14px; font-weight: 600; color: #fff; text-align: center; }
+.dc-members { font-size: 12px; color: rgba(255,255,255,.4); text-align: center; }
+
+.room-list-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); margin: 0 16px;
+  overflow: hidden;
+}
+.room-row {
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.05); position: relative;
+}
+.room-row:last-child { border-bottom: none; }
+.room-avatar {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; line-height: 1;
+}
+.room-row-body { flex: 1; min-width: 0; padding-right: 48px; }
+.room-name { font-size: 16px; font-weight: 600; color: #fff; }
+.room-members-label { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 2px; }
+.room-preview {
+  font-size: 14px; color: rgba(255,255,255,.5); margin-top: 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.room-time {
+  position: absolute; top: 12px; right: 16px;
+  font-size: 12px; color: rgba(255,255,255,.3);
+}
+.unread-badge {
+  position: absolute; bottom: 14px; right: 16px;
+  min-width: 20px; height: 20px; border-radius: 10px;
+  background: var(--brand-orange); display: flex; align-items: center;
+  justify-content: center; padding: 0 6px;
+  font-size: 11px; font-weight: 600; color: #fff;
+}
+
+/* ── Screen 40b: Room Interior ── */
+.room-chat-screen {
+  display: flex; flex-direction: column; padding-bottom: 56px;
+}
+.room-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px; min-height: 44px; position: relative; z-index: 5;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.room-header-title {
+  font-size: 16px; font-weight: 600; color: #fff; flex: 1;
+}
+.member-count-badge {
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,255,255,.1); font-size: 13px;
+  font-weight: 400; color: rgba(255,255,255,.5);
+}
+.gear-btn {
+  width: 44px; height: 44px; display: flex; align-items: center;
+  justify-content: center; cursor: pointer; margin-right: -12px;
+}
+.gear-btn svg { width: 20px; height: 20px; color: rgba(255,255,255,.6); }
+
+.chat-area {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 8px 16px; display: flex; flex-direction: column; gap: 0;
+  scrollbar-width: none;
+}
+.chat-area::-webkit-scrollbar { display: none; }
+
+.day-sep {
+  display: flex; align-items: center; gap: 12px; padding: 16px 0;
+}
+.day-sep::before, .day-sep::after {
+  content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.05);
+}
+.day-sep span {
+  font-size: 12px; font-weight: 400; color: rgba(255,255,255,.3);
+  white-space: nowrap;
+}
+
+.msg-group { margin-bottom: 16px; }
+.msg-group.other { display: flex; align-items: flex-start; gap: 8px; }
+.msg-group.own { display: flex; flex-direction: column; align-items: flex-end; }
+
+.community-avatar {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; margin-top: 4px;
+}
+.msg-sender {
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,.6);
+  margin-bottom: 4px;
+}
+.msg-content { display: flex; flex-direction: column; gap: 4px; max-width: 75%; }
+
+.msg-bubble-other {
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px 16px 16px 4px; padding: 12px 14px;
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,.9); line-height: 1.47;
+}
+.msg-bubble-own {
+  background: linear-gradient(135deg, rgba(33,16,8,1), rgba(255,94,0,.05));
+  border-radius: 16px 16px 4px 16px;
+  padding: 12px 14px; font-size: 15px; font-weight: 400; color: #fff;
+  line-height: 1.47; max-width: 75%;
+}
+.msg-time {
+  font-size: 11px; color: rgba(255,255,255,.3); margin-top: 4px;
+}
+
+.achievement-card-chat {
+  background: var(--ink-brown); border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-left: 3px solid var(--forest-green);
+  padding: 14px 16px; margin: 8px 0;
+}
+.ach-text {
+  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.8);
+  display: flex; align-items: center; gap: 8px;
+}
+.ach-xp { color: var(--forest-green); font-weight: 600; }
+
+.msg-input-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 12px 6px 16px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.msg-input {
+  flex: 1; height: 40px; border-radius: 20px;
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  padding: 0 14px; font-size: 15px; font-weight: 400;
+  color: rgba(255,255,255,.3); font-family: 'Sora', sans-serif;
+  display: flex; align-items: center;
+}
+.send-btn {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: var(--brand-orange); border: none;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.send-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<!-- page header -->
+<header class="page-header">
+  <h1>Wireframes</h1>
+  <h2>Cross-Domain</h2>
+  <span class="batch-label">Batch 11 · 5 screens</span>
+</header>
+
+<!-- carousel -->
+<section class="carousel-wrap">
+  <button class="nav-arrow prev" onclick="go(-1)" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+  </button>
+  <button class="nav-arrow next" onclick="go(1)">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+  </button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="track">
+
+      <!-- ════════════════════════════════════
+           SLIDE 1: Screen 37 — Journal
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 37</div>
+          <div class="name">Journal</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen journal-screen">
+            <!-- header -->
+            <div class="nav-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="nav-title">Journal</div>
+            </div>
+
+            <div class="cross-scroll">
+              <div class="sp-8"></div>
+
+              <!-- SIA reflection prompt -->
+              <div class="sia-prompt-card">
+                <div class="sia-prompt-header">
+                  <div class="sia-purple-dot"></div>
+                  <div class="sia-prompt-text">what made today different from yesterday?</div>
+                </div>
+                <div class="sia-prompt-chip">write about this</div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- journal entries -->
+              <div class="journal-entries">
+                <div class="journal-entry">
+                  <div class="journal-entry-top">
+                    <span class="journal-date">May 20, 2026</span>
+                    <span class="journal-mood">😌</span>
+                  </div>
+                  <div class="journal-preview">had a breakthrough with the project today. the creative block finally lifted and ideas started flowing naturally again...</div>
+                  <div class="journal-tags">
+                    <span class="domain-tag tag-creativity">creativity</span>
+                    <span class="domain-tag tag-career">career</span>
+                  </div>
+                </div>
+
+                <div class="journal-entry">
+                  <div class="journal-entry-top">
+                    <span class="journal-date">May 19, 2026</span>
+                    <span class="journal-mood">😐</span>
+                  </div>
+                  <div class="journal-preview">tough conversation with a friend about boundaries. it was uncomfortable but necessary and I think we both grew from it</div>
+                  <div class="journal-tags">
+                    <span class="domain-tag tag-relationships">relationships</span>
+                  </div>
+                </div>
+
+                <div class="journal-entry">
+                  <div class="journal-entry-top">
+                    <span class="journal-date">May 18, 2026</span>
+                    <span class="journal-mood">😊</span>
+                  </div>
+                  <div class="journal-preview">great workout morning, feel energised and clear-headed. the consistency is paying off and I can feel the difference</div>
+                  <div class="journal-tags">
+                    <span class="domain-tag tag-fitness">fitness</span>
+                    <span class="domain-tag tag-wellbeing">wellbeing</span>
+                  </div>
+                </div>
+
+                <div class="journal-entry">
+                  <div class="journal-entry-top">
+                    <span class="journal-date">May 17, 2026</span>
+                    <span class="journal-mood">📖</span>
+                  </div>
+                  <div class="journal-preview">started the new book SIA recommended. the first chapter on systems thinking was eye-opening and I took a lot of notes</div>
+                  <div class="journal-tags">
+                    <span class="domain-tag tag-learning">learning</span>
+                  </div>
+                </div>
+
+                <div class="journal-entry">
+                  <div class="journal-entry-top">
+                    <span class="journal-date">May 15, 2026</span>
+                    <span class="journal-mood">😤</span>
+                  </div>
+                  <div class="journal-preview">budget review revealed some impulse spending. need to set up better guardrails for online purchases this month</div>
+                  <div class="journal-tags">
+                    <span class="domain-tag tag-finance">finance</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+            </div>
+
+            <!-- FAB -->
+            <div class="fab-pill">
+              <svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg>
+              write
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+                </svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+                </svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" fill="#FF5E00"/><circle cx="12" cy="7" r="4" fill="#FF5E00"/>
+                </svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 2: Screen 38 — Habits
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 38</div>
+          <div class="name">Habits</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen habits-screen">
+            <!-- header -->
+            <div class="nav-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="nav-title">Habits</div>
+            </div>
+
+            <div class="cross-scroll">
+              <div class="sp-8"></div>
+
+              <!-- completion rate -->
+              <div class="completion-rate">
+                <div class="completion-label">
+                  <span class="completion-text">5 of 8 today</span>
+                  <span class="completion-pct">62%</span>
+                </div>
+                <div class="completion-track">
+                  <div class="completion-fill" style="width: 62%;"></div>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- segmented control -->
+              <div style="padding: 0 16px;">
+                <div class="segmented-control">
+                  <div class="seg active-orange">today</div>
+                  <div class="seg">week</div>
+                  <div class="seg">month</div>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- MORNING -->
+              <div class="section-eyebrow" style="padding: 0 16px;">morning</div>
+              <div class="sp-8"></div>
+              <div class="habit-group">
+                <div class="habit-row">
+                  <div class="habit-checkbox checked">
+                    <svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 7L5.5 10L11.5 4"/></svg>
+                  </div>
+                  <div class="habit-info">
+                    <div class="habit-name done">drink water</div>
+                    <div class="habit-meta">
+                      <span class="habit-streak"><span class="flame">🔥</span> 21 days</span>
+                      <span class="domain-tag tag-wellbeing">wellbeing</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="habit-row">
+                  <div class="habit-checkbox checked">
+                    <svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 7L5.5 10L11.5 4"/></svg>
+                  </div>
+                  <div class="habit-info">
+                    <div class="habit-name done">10 min meditation</div>
+                    <div class="habit-meta">
+                      <span class="habit-streak"><span class="flame">🔥</span> 14 days</span>
+                      <span class="domain-tag tag-spirituality">spirituality</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="habit-row">
+                  <div class="habit-checkbox"></div>
+                  <div class="habit-info">
+                    <div class="habit-name">morning journal</div>
+                    <div class="habit-meta">
+                      <span class="habit-streak"><span class="flame">🔥</span> 7 days</span>
+                      <span class="domain-tag tag-wellbeing">wellbeing</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- AFTERNOON -->
+              <div class="section-eyebrow" style="padding: 0 16px;">afternoon</div>
+              <div class="sp-8"></div>
+              <div class="habit-group">
+                <div class="habit-row">
+                  <div class="habit-checkbox checked">
+                    <svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 7L5.5 10L11.5 4"/></svg>
+                  </div>
+                  <div class="habit-info">
+                    <div class="habit-name done">30 min reading</div>
+                    <div class="habit-meta">
+                      <span class="habit-streak"><span class="flame">🔥</span> 12 days</span>
+                      <span class="domain-tag tag-learning">learning</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="habit-row">
+                  <div class="habit-checkbox"></div>
+                  <div class="habit-info">
+                    <div class="habit-name">review finances</div>
+                    <div class="habit-meta">
+                      <span class="habit-streak"><span class="flame">🔥</span> 3 days</span>
+                      <span class="domain-tag tag-finance">finance</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- EVENING -->
+              <div class="section-eyebrow" style="padding: 0 16px;">evening</div>
+              <div class="sp-8"></div>
+              <div class="habit-group">
+                <div class="habit-row">
+                  <div class="habit-checkbox checked">
+                    <svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 7L5.5 10L11.5 4"/></svg>
+                  </div>
+                  <div class="habit-info">
+                    <div class="habit-name done">log meals</div>
+                    <div class="habit-meta">
+                      <span class="habit-streak"><span class="flame">🔥</span> 9 days</span>
+                      <span class="domain-tag tag-nutrition">nutrition</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="habit-row">
+                  <div class="habit-checkbox checked">
+                    <svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 7L5.5 10L11.5 4"/></svg>
+                  </div>
+                  <div class="habit-info">
+                    <div class="habit-name done">gratitude list</div>
+                    <div class="habit-meta">
+                      <span class="habit-streak"><span class="flame">🔥</span> 5 days</span>
+                      <span class="domain-tag tag-spirituality">spirituality</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="habit-row">
+                  <div class="habit-checkbox"></div>
+                  <div class="habit-info">
+                    <div class="habit-name">screen off by 10pm</div>
+                    <div class="habit-meta">
+                      <span class="habit-streak"><span class="flame">🔥</span> 2 days</span>
+                      <span class="domain-tag tag-wellbeing">wellbeing</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- calendar heatmap -->
+              <div class="heatmap-card">
+                <div class="heatmap-header">
+                  <span class="heatmap-day-label">M</span>
+                  <span class="heatmap-day-label">T</span>
+                  <span class="heatmap-day-label">W</span>
+                  <span class="heatmap-day-label">T</span>
+                  <span class="heatmap-day-label">F</span>
+                  <span class="heatmap-day-label">S</span>
+                  <span class="heatmap-day-label">S</span>
+                </div>
+                <div class="heatmap-grid">
+                  <!-- week 1 (Apr 28 - May 4) -->
+                  <div class="heatmap-cell mid"></div>
+                  <div class="heatmap-cell high"></div>
+                  <div class="heatmap-cell full"></div>
+                  <div class="heatmap-cell low"></div>
+                  <div class="heatmap-cell mid"></div>
+                  <div class="heatmap-cell full"></div>
+                  <div class="heatmap-cell high"></div>
+                  <!-- week 2 (May 5 - 11) -->
+                  <div class="heatmap-cell full"></div>
+                  <div class="heatmap-cell high"></div>
+                  <div class="heatmap-cell mid"></div>
+                  <div class="heatmap-cell full"></div>
+                  <div class="heatmap-cell full"></div>
+                  <div class="heatmap-cell low"></div>
+                  <div class="heatmap-cell mid"></div>
+                  <!-- week 3 (May 12 - 18) -->
+                  <div class="heatmap-cell high"></div>
+                  <div class="heatmap-cell full"></div>
+                  <div class="heatmap-cell full"></div>
+                  <div class="heatmap-cell high"></div>
+                  <div class="heatmap-cell mid"></div>
+                  <div class="heatmap-cell full"></div>
+                  <div class="heatmap-cell full"></div>
+                  <!-- week 4 (May 19 - 25) -->
+                  <div class="heatmap-cell high"></div>
+                  <div class="heatmap-cell full"></div>
+                  <div class="heatmap-cell mid today"></div>
+                  <div class="heatmap-cell future"></div>
+                  <div class="heatmap-cell future"></div>
+                  <div class="heatmap-cell future"></div>
+                  <div class="heatmap-cell future"></div>
+                </div>
+                <div class="heatmap-month">May 2026</div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- XP summary -->
+              <div class="xp-summary-card">
+                <div class="xp-earned">+75 XP earned today</div>
+                <div class="xp-encourage">keep going — 3 habits left</div>
+              </div>
+
+              <div class="sp-24"></div>
+            </div>
+
+            <!-- FAB -->
+            <div class="fab-pill">
+              <svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg>
+              add habit
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+                </svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+                </svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" fill="#FF5E00"/><circle cx="12" cy="7" r="4" fill="#FF5E00"/>
+                </svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 3: Screen 39 — Leaderboard
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 39</div>
+          <div class="name">Leaderboard</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen leaderboard-screen">
+            <!-- header -->
+            <div class="nav-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="nav-title">Leaderboard</div>
+            </div>
+
+            <div class="cross-scroll">
+              <div class="sp-8"></div>
+
+              <!-- segmented time filter -->
+              <div style="padding: 0 16px;">
+                <div class="segmented-control">
+                  <div class="seg active-orange">This week</div>
+                  <div class="seg">This month</div>
+                  <div class="seg">All time</div>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- own rank card -->
+              <div class="own-rank-card">
+                <div class="own-rank-top">
+                  <span class="own-rank-number">#12</span>
+                  <span class="rank-change up">↑ 3 this week</span>
+                </div>
+                <div class="own-rank-middle">
+                  <div class="rank-avatar" style="background: linear-gradient(135deg, #FF5E00, #cc4b00);">H</div>
+                  <div class="rank-user-info">
+                    <div class="rank-name">Hamza</div>
+                    <div class="own-rank-stats">
+                      <span class="rank-xp">2,340 XP</span>
+                      <span class="rank-streak"><span class="flame">🔥</span> 21 days</span>
+                    </div>
+                  </div>
+                  <div class="level-badge-sm">Lv. 14</div>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- filter toggle -->
+              <div class="filter-toggle">
+                <button class="filter-tab active">Global</button>
+                <button class="filter-tab">Friends</button>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- rank list -->
+              <div class="rank-list">
+                <!-- #1 -->
+                <div class="rank-row">
+                  <span class="rank-num gold">#1</span>
+                  <div class="rank-avatar sm" style="background: #EF4444;">S</div>
+                  <div class="rank-row-info">
+                    <div class="rank-row-name">Sarah</div>
+                    <div class="rank-row-meta">
+                      <span class="rank-row-xp">4,120 XP</span>
+                      <span class="domain-tag tag-fitness">fitness</span>
+                    </div>
+                  </div>
+                  <div class="level-badge-other">Lv. 23</div>
+                </div>
+                <!-- #2 -->
+                <div class="rank-row">
+                  <span class="rank-num silver">#2</span>
+                  <div class="rank-avatar sm" style="background: #A855F7;">A</div>
+                  <div class="rank-row-info">
+                    <div class="rank-row-name">Ahmed</div>
+                    <div class="rank-row-meta">
+                      <span class="rank-row-xp">3,890 XP</span>
+                      <span class="domain-tag tag-spirituality">spirituality</span>
+                    </div>
+                  </div>
+                  <div class="level-badge-other">Lv. 21</div>
+                </div>
+                <!-- #3 -->
+                <div class="rank-row">
+                  <span class="rank-num bronze">#3</span>
+                  <div class="rank-avatar sm" style="background: #6366F1;">L</div>
+                  <div class="rank-row-info">
+                    <div class="rank-row-name">Lisa</div>
+                    <div class="rank-row-meta">
+                      <span class="rank-row-xp">3,650 XP</span>
+                      <span class="domain-tag tag-career">career</span>
+                    </div>
+                  </div>
+                  <div class="level-badge-other">Lv. 20</div>
+                </div>
+                <!-- #4 -->
+                <div class="rank-row">
+                  <span class="rank-num">#4</span>
+                  <div class="rank-avatar sm" style="background: #10B981;">O</div>
+                  <div class="rank-row-info">
+                    <div class="rank-row-name">Omar</div>
+                    <div class="rank-row-meta">
+                      <span class="rank-row-xp">3,410 XP</span>
+                      <span class="domain-tag tag-finance">finance</span>
+                    </div>
+                  </div>
+                  <div class="level-badge-other">Lv. 19</div>
+                </div>
+                <!-- #5 -->
+                <div class="rank-row">
+                  <span class="rank-num">#5</span>
+                  <div class="rank-avatar sm" style="background: #14B8A6;">P</div>
+                  <div class="rank-row-info">
+                    <div class="rank-row-name">Priya</div>
+                    <div class="rank-row-meta">
+                      <span class="rank-row-xp">3,200 XP</span>
+                      <span class="domain-tag tag-wellbeing">wellbeing</span>
+                    </div>
+                  </div>
+                  <div class="level-badge-other">Lv. 18</div>
+                </div>
+                <!-- #6 -->
+                <div class="rank-row">
+                  <span class="rank-num">#6</span>
+                  <div class="rank-avatar sm" style="background: #EF4444;">J</div>
+                  <div class="rank-row-info">
+                    <div class="rank-row-name">James</div>
+                    <div class="rank-row-meta">
+                      <span class="rank-row-xp">2,980 XP</span>
+                      <span class="domain-tag tag-fitness">fitness</span>
+                    </div>
+                  </div>
+                  <div class="level-badge-other">Lv. 17</div>
+                </div>
+                <!-- #7 -->
+                <div class="rank-row">
+                  <span class="rank-num">#7</span>
+                  <div class="rank-avatar sm" style="background: #06B6D4;">F</div>
+                  <div class="rank-row-info">
+                    <div class="rank-row-name">Fatima</div>
+                    <div class="rank-row-meta">
+                      <span class="rank-row-xp">2,750 XP</span>
+                      <span class="domain-tag tag-learning">learning</span>
+                    </div>
+                  </div>
+                  <div class="level-badge-other">Lv. 16</div>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+                </svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+                </svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" fill="#FF5E00"/><circle cx="12" cy="7" r="4" fill="#FF5E00"/>
+                </svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 4: Screen 40a — Community Rooms
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 40a</div>
+          <div class="name">Community rooms</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen community-screen">
+            <!-- header -->
+            <div class="nav-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="nav-title">Community</div>
+            </div>
+
+            <div class="cross-scroll">
+              <div class="sp-8"></div>
+
+              <!-- discover -->
+              <div class="section-eyebrow" style="padding: 0 16px;">discover</div>
+              <div class="sp-8"></div>
+              <div class="discover-scroll">
+                <div class="discover-card">
+                  <span class="dc-emoji">🏋️</span>
+                  <span class="dc-name">fitness lovers</span>
+                  <span class="dc-members">234 members</span>
+                </div>
+                <div class="discover-card">
+                  <span class="dc-emoji">📖</span>
+                  <span class="dc-name">book club</span>
+                  <span class="dc-members">89 members</span>
+                </div>
+                <div class="discover-card">
+                  <span class="dc-emoji">🧘</span>
+                  <span class="dc-name">mindfulness</span>
+                  <span class="dc-members">156 members</span>
+                </div>
+                <div class="discover-card">
+                  <span class="dc-emoji">💰</span>
+                  <span class="dc-name">budget buddies</span>
+                  <span class="dc-members">112 members</span>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- your rooms -->
+              <div class="section-eyebrow" style="padding: 0 16px;">your rooms</div>
+              <div class="sp-8"></div>
+              <div class="room-list-card">
+                <!-- morning crew -->
+                <div class="room-row">
+                  <div class="room-avatar" style="background: #34A853;">☀️</div>
+                  <div class="room-row-body">
+                    <div class="room-name">morning crew</div>
+                    <div class="room-members-label">5 members</div>
+                    <div class="room-preview">see you all tomorrow!</div>
+                  </div>
+                  <span class="room-time">10:32 am</span>
+                  <span class="unread-badge">3</span>
+                </div>
+                <!-- study group -->
+                <div class="room-row">
+                  <div class="room-avatar" style="background: #6366F1;">📚</div>
+                  <div class="room-row-body">
+                    <div class="room-name">study group</div>
+                    <div class="room-members-label">3 members</div>
+                    <div class="room-preview">finished chapter 4</div>
+                  </div>
+                  <span class="room-time">yesterday</span>
+                </div>
+                <!-- accountability pod -->
+                <div class="room-row">
+                  <div class="room-avatar" style="background: #F59E0B;">🎯</div>
+                  <div class="room-row-body">
+                    <div class="room-name">accountability pod</div>
+                    <div class="room-members-label">4 members</div>
+                    <div class="room-preview">great week everyone</div>
+                  </div>
+                  <span class="room-time">May 18</span>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+            </div>
+
+            <!-- FAB -->
+            <div class="fab-pill">
+              <svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg>
+              create room
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+                </svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+                </svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" fill="#FF5E00"/><circle cx="12" cy="7" r="4" fill="#FF5E00"/>
+                </svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 5: Screen 40b — Room Chat
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 40b</div>
+          <div class="name">Room chat</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen room-chat-screen">
+            <!-- room header -->
+            <div class="room-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="room-header-title">morning crew</div>
+              <div class="member-count-badge">5</div>
+              <div class="gear-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- chat area -->
+            <div class="chat-area">
+              <!-- day separator -->
+              <div class="day-sep"><span>May 20, 2026</span></div>
+
+              <!-- Sarah message -->
+              <div class="msg-group other">
+                <div class="community-avatar" style="background: #EF4444;">S</div>
+                <div class="msg-content">
+                  <div class="msg-sender">Sarah</div>
+                  <div class="msg-bubble-other">great workout this morning. feeling strong 💪</div>
+                  <div class="msg-time">9:15 am</div>
+                </div>
+              </div>
+
+              <!-- achievement card -->
+              <div class="achievement-card-chat">
+                <div class="ach-text">
+                  <span>🎉</span>
+                  <span>Sarah hit her fitness goal. <span class="ach-xp">+150 XP</span></span>
+                </div>
+              </div>
+
+              <!-- Ahmed message -->
+              <div class="msg-group other">
+                <div class="community-avatar" style="background: #6366F1;">A</div>
+                <div class="msg-content">
+                  <div class="msg-sender">Ahmed</div>
+                  <div class="msg-bubble-other">nice one Sarah! I'm about to start my study session.</div>
+                  <div class="msg-time">9:22 am</div>
+                </div>
+              </div>
+
+              <!-- own message -->
+              <div class="msg-group own">
+                <div class="msg-bubble-own">I already did my reading. 45 minutes this morning 📖</div>
+                <div class="msg-time" style="text-align: right;">9:45 am</div>
+              </div>
+
+              <!-- Omar message -->
+              <div class="msg-group other">
+                <div class="community-avatar" style="background: #10B981;">O</div>
+                <div class="msg-content">
+                  <div class="msg-sender">Omar</div>
+                  <div class="msg-bubble-other">accountability check: everyone logged their habits today?</div>
+                  <div class="msg-time">10:30 am</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- message input bar -->
+            <div class="msg-input-bar">
+              <div class="msg-input">message...</div>
+              <div class="send-btn">
+                <svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2L7 9M14 2l-4.5 12L7 9 2 6.5z"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+                </svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+                </svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" fill="#FF5E00"/><circle cx="12" cy="7" r="4" fill="#FF5E00"/>
+                </svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- thumbnail strip -->
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goTo(0)"><div class="thumb-num">37</div></div>
+    <div class="thumb" onclick="goTo(1)"><div class="thumb-num">38</div></div>
+    <div class="thumb" onclick="goTo(2)"><div class="thumb-num">39</div></div>
+    <div class="thumb" onclick="goTo(3)"><div class="thumb-num">40a</div></div>
+    <div class="thumb" onclick="goTo(4)"><div class="thumb-num">40b</div></div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const total = 5;
+const track = document.getElementById('track');
+const thumbs = document.querySelectorAll('.thumb');
+const prevBtn = document.querySelector('.nav-arrow.prev');
+const nextBtn = document.querySelector('.nav-arrow.next');
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function go(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function renderThumbs() {
+  thumbs.forEach((thumb, i) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 56; canvas.height = 120;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0A0A0F';
+    ctx.fillRect(0, 0, 56, 120);
+
+    if (i === 0) {
+      // Journal: purple dot + prompt card + entry rows with tags
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 16, 48, 16, 3); ctx.fill();
+      ctx.fillStyle = '#7F24FF';
+      ctx.beginPath(); ctx.arc(8, 22, 2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.font = '3px Sora';
+      ctx.fillText('what made today...', 12, 24);
+      // entry rows
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 38, 48, 68, 3); ctx.fill();
+      [42, 56, 70, 84].forEach(y => {
+        ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.fillRect(8, y, 24, 3);
+        ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(8, y + 5, 32, 2);
+      });
+      // domain tags
+      ctx.fillStyle = 'rgba(245,158,11,.3)'; ctx.beginPath(); ctx.roundRect(8, 49, 12, 4, 2); ctx.fill();
+      ctx.fillStyle = 'rgba(99,102,241,.3)'; ctx.beginPath(); ctx.roundRect(22, 49, 10, 4, 2); ctx.fill();
+      ctx.fillStyle = 'rgba(239,68,68,.3)'; ctx.beginPath(); ctx.roundRect(8, 77, 10, 4, 2); ctx.fill();
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(47, 114, 3, 0, Math.PI * 2); ctx.fill();
+    } else if (i === 1) {
+      // Habits: progress bar + checkbox rows + heatmap grid
+      ctx.fillStyle = '#FF5E00'; ctx.fillRect(4, 14, 30, 3);
+      ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(34, 14, 18, 3);
+      // segmented
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 22, 48, 7, 3); ctx.fill();
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.roundRect(5, 23, 15, 5, 2); ctx.fill();
+      // habit groups
+      ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.font = '3px Sora'; ctx.fillText('MORNING', 6, 38);
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 40, 48, 22, 3); ctx.fill();
+      [43, 50, 57].forEach(y => {
+        ctx.fillStyle = '#FF5E00'; ctx.fillRect(7, y, 4, 4);
+        ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.fillRect(14, y + 1, 20, 2);
+      });
+      // heatmap
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 70, 48, 30, 3); ctx.fill();
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 7; c++) {
+          const rnd = Math.random();
+          ctx.fillStyle = rnd > 0.7 ? '#FF5E00' : rnd > 0.4 ? 'rgba(255,94,0,.5)' : 'rgba(255,94,0,.2)';
+          ctx.fillRect(7 + c * 6, 74 + r * 6, 5, 5);
+        }
+      }
+      ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(47, 114, 3, 0, Math.PI * 2); ctx.fill();
+    } else if (i === 2) {
+      // Leaderboard: segmented + own card + rank rows
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 14, 48, 7, 3); ctx.fill();
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.roundRect(5, 15, 15, 5, 2); ctx.fill();
+      // own rank card
+      ctx.strokeStyle = 'rgba(255,94,0,.4)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.roundRect(4, 26, 48, 22, 3); ctx.stroke();
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 26, 48, 22, 3); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 5px Sora'; ctx.fillText('#12', 8, 36);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(8, 42, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.font = '3px Sora'; ctx.fillText('Hamza', 14, 43);
+      // rank rows
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 54, 48, 48, 3); ctx.fill();
+      ctx.fillStyle = '#FFD700'; ctx.font = 'bold 4px Sora'; ctx.fillText('#1', 8, 62);
+      ctx.fillStyle = '#C0C0C0'; ctx.fillText('#2', 8, 72);
+      ctx.fillStyle = '#CD7F32'; ctx.fillText('#3', 8, 82);
+      ctx.fillStyle = '#fff'; ctx.fillText('#4', 8, 92);
+      [60, 70, 80, 90].forEach(y => {
+        ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.fillRect(18, y - 2, 20, 2);
+      });
+      ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(47, 114, 3, 0, Math.PI * 2); ctx.fill();
+    } else if (i === 3) {
+      // Community rooms: discover cards + room rows
+      ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.font = '3px Sora'; ctx.fillText('DISCOVER', 6, 18);
+      // discover cards
+      [4, 18, 32, 46].forEach(x => {
+        ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(x, 22, 12, 16, 2); ctx.fill();
+      });
+      ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.fillText('YOUR ROOMS', 6, 48);
+      // room rows
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 52, 48, 48, 3); ctx.fill();
+      [56, 70, 84].forEach(y => {
+        ctx.fillStyle = '#34A853'; ctx.beginPath(); ctx.arc(10, y, 4, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.fillRect(16, y - 2, 24, 2);
+        ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(16, y + 2, 28, 2);
+      });
+      // unread badge
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(46, 56, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(47, 114, 3, 0, Math.PI * 2); ctx.fill();
+    } else if (i === 4) {
+      // Room chat: header + bubbles + input bar
+      ctx.fillStyle = '#211008'; ctx.fillRect(0, 12, 56, 10);
+      ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.font = '4px Sora'; ctx.fillText('morning crew', 8, 19);
+      // date sep
+      ctx.fillStyle = 'rgba(255,255,255,.1)'; ctx.fillRect(4, 28, 48, 1);
+      ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.font = '3px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('May 20', 28, 27); ctx.textAlign = 'left';
+      // other bubble
+      ctx.fillStyle = '#EF4444'; ctx.beginPath(); ctx.arc(8, 38, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(13, 34, 30, 10, 3); ctx.fill();
+      // achievement
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 50, 48, 10, 3); ctx.fill();
+      ctx.fillStyle = '#34A853'; ctx.fillRect(4, 50, 2, 10);
+      // other bubble 2
+      ctx.fillStyle = '#6366F1'; ctx.beginPath(); ctx.arc(8, 68, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(13, 64, 28, 10, 3); ctx.fill();
+      // own bubble
+      ctx.fillStyle = 'rgba(255,94,0,.15)'; ctx.beginPath(); ctx.roundRect(16, 80, 36, 10, 3); ctx.fill();
+      // other bubble 3
+      ctx.fillStyle = '#10B981'; ctx.beginPath(); ctx.arc(8, 98, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(13, 94, 32, 10, 3); ctx.fill();
+      // input bar
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 108, 38, 8, 4); ctx.fill();
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(48, 112, 4, 0, Math.PI * 2); ctx.fill();
+    }
+    thumb.prepend(canvas);
+  });
+}
+renderThumbs();
+
+const sp = new URLSearchParams(window.location.search);
+if (sp.has('start')) {
+  const s = parseInt(sp.get('start'));
+  if (!isNaN(s) && s >= 0 && s < total) {
+    track.style.transition = 'none';
+    goTo(s);
+    requestAnimationFrame(() => track.style.transition = '');
+  }
+}
+</script>
+</body>
+</html>

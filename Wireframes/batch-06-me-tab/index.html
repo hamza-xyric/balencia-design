@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 6: Me Tab</title>
+<link rel="stylesheet" href="../balencia-foundation.css">
+<style>
+/* ═══════════════════════════════════════
+   BATCH 06 — ME TAB SPECIFIC STYLES
+   ═══════════════════════════════════════ */
+
+/* ── Shared scroll wrappers ── */
+.me-scroll, .explore-content, .rpg-scroll, .wiki-scroll {
+  flex: 1; overflow-y: auto; display: flex; flex-direction: column;
+  scrollbar-width: none; padding-bottom: 96px;
+}
+.me-scroll::-webkit-scrollbar, .explore-content::-webkit-scrollbar,
+.rpg-scroll::-webkit-scrollbar, .wiki-scroll::-webkit-scrollbar { display: none; }
+
+/* ── Nav header (screens 18-20) ── */
+.nav-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px; min-height: 44px; position: relative; z-index: 5;
+}
+.nav-header .back-chevron {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-left: -12px;
+}
+.nav-header .back-chevron svg { width: 20px; height: 20px; }
+.nav-header .nav-title {
+  font-size: 17px; font-weight: 600; color: #fff;
+}
+
+/* ── Screen 17: Me Main ── */
+.me-screen { padding-top: 44px; }
+.settings-gear {
+  position: absolute; top: 48px; right: 16px; z-index: 10;
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.settings-gear svg { width: 22px; height: 22px; color: rgba(255,255,255,.6); }
+
+.profile-section {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 24px 16px 0;
+}
+.avatar-circle {
+  width: 64px; height: 64px; border-radius: 50%; position: relative;
+  background: linear-gradient(135deg, #FF5E00, #cc4b00);
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(255,255,255,.2);
+  cursor: pointer;
+}
+.avatar-circle .initials {
+  font-size: 22px; font-weight: 700; color: #fff;
+}
+.avatar-circle .camera-badge {
+  position: absolute; bottom: -2px; right: -2px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--brand-orange); border: 2px solid var(--ink-900);
+  display: flex; align-items: center; justify-content: center;
+}
+.avatar-circle .camera-badge svg { width: 10px; height: 10px; }
+
+.profile-name {
+  font-size: 20px; font-weight: 600; color: #fff; margin-top: 12px;
+}
+.rpg-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,94,0,.12); border-radius: 999px;
+  padding: 4px 12px; margin-top: 8px; cursor: pointer;
+}
+.rpg-badge .diamond { color: var(--brand-orange); font-size: 12px; }
+.rpg-badge .level-text { font-size: 13px; font-weight: 600; color: var(--brand-orange); }
+.xp-bar-wrap { width: 180px; margin-top: 10px; }
+.xp-label {
+  font-size: 12px; color: rgba(255,255,255,.5); text-align: center;
+  margin-top: 4px; font-variant-numeric: tabular-nums;
+}
+.member-since {
+  font-size: 13px; color: rgba(255,255,255,.4); margin-top: 4px;
+}
+
+.stats-row {
+  display: flex; margin: 20px 16px 0;
+  background: var(--ink-brown); border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.06); overflow: hidden;
+}
+.stat-cell {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 16px 8px; position: relative;
+}
+.stat-cell + .stat-cell::before {
+  content: ''; position: absolute; left: 0; top: 16px; bottom: 16px;
+  width: 1px; background: rgba(255,255,255,.08);
+}
+.stat-cell .stat-value {
+  font-size: 20px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums;
+}
+.stat-cell .stat-label {
+  font-size: 11px; color: rgba(255,255,255,.4); margin-top: 2px;
+}
+
+.quick-links-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin: 24px 16px 0;
+}
+.quick-link-card {
+  background: var(--ink-brown); border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.06); padding: 16px;
+  display: flex; flex-direction: column; gap: 6px; cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+.quick-link-card:active { transform: scale(.97); background: rgba(33,16,8,.9); }
+.quick-link-card .ql-icon {
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+}
+.quick-link-card .ql-icon svg { width: 22px; height: 22px; }
+.quick-link-card .ql-label {
+  font-size: 14px; font-weight: 600; color: #fff;
+}
+.quick-link-card .ql-sub {
+  font-size: 12px; color: rgba(255,255,255,.4);
+}
+
+.explore-preview { margin-top: 24px; padding: 0 16px; }
+.explore-scroll {
+  display: flex; gap: 12px; overflow-x: auto; margin-top: 12px;
+  scrollbar-width: none; padding-bottom: 4px;
+}
+.explore-scroll::-webkit-scrollbar { display: none; }
+
+.module-card {
+  min-width: 160px; max-width: 160px; height: 120px;
+  background: var(--ink-brown); border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.06); padding: 14px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  cursor: pointer; position: relative; flex-shrink: 0;
+  transition: transform .2s ease;
+}
+.module-card:active { transform: scale(.97); }
+.module-card .mc-domain {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; color: rgba(255,255,255,.4);
+}
+.module-card .mc-name {
+  font-size: 14px; font-weight: 600; color: #fff; margin-top: 6px;
+}
+.module-card .mc-desc {
+  font-size: 12px; color: rgba(255,255,255,.5); line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.module-badge {
+  position: absolute; top: 10px; right: 10px;
+  font-size: 9px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 999px;
+}
+.module-badge.suggested { background: rgba(255,94,0,.15); color: #FF5E00; }
+.module-badge.new { background: rgba(52,168,83,.15); color: #34A853; }
+
+/* ── Screen 18: Explore ── */
+.explore-screen { padding-top: 44px; }
+
+.domain-section { margin-top: 24px; }
+.domain-section-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 16px; margin-bottom: 10px;
+  position: sticky; top: 0; z-index: 3;
+  background: var(--ink-900); padding-top: 8px; padding-bottom: 8px;
+}
+.domain-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.domain-section-header .domain-name {
+  font-size: 14px; font-weight: 600; color: rgba(255,255,255,.7);
+}
+
+.module-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  padding: 0 16px;
+}
+.grid-module-card {
+  background: var(--ink-brown); border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.06); padding: 12px;
+  min-height: 72px; display: flex; flex-direction: column;
+  justify-content: center; cursor: pointer;
+  transition: transform .2s ease;
+}
+.grid-module-card:active { transform: scale(.97); }
+.grid-module-card .gm-name {
+  font-size: 13px; font-weight: 600; color: #fff;
+}
+.grid-module-card .gm-desc {
+  font-size: 11px; color: rgba(255,255,255,.4); margin-top: 3px;
+}
+
+.features-divider {
+  height: 1px; background: rgba(255,255,255,.08); margin: 28px 16px 0;
+}
+
+/* ── Screen 19: RPG Character ── */
+.rpg-screen { padding-top: 44px; }
+
+.character-card {
+  margin: 0 16px; padding: 28px 24px;
+  background: var(--ink-brown); border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 8px 32px rgba(33,16,8,.3);
+}
+.avatar-hero {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, #FF5E00, #cc4b00);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 3px rgba(255,94,0,.3), 0 0 24px rgba(255,94,0,.2);
+  cursor: pointer;
+}
+.avatar-hero .initials {
+  font-size: 28px; font-weight: 700; color: #fff;
+}
+.character-card .char-name {
+  font-size: 20px; font-weight: 600; color: #fff; margin-top: 14px;
+}
+.level-indicator {
+  display: flex; align-items: center; gap: 6px; margin-top: 8px;
+}
+.level-indicator .diamond { font-size: 14px; color: var(--brand-orange); }
+.level-indicator .level-text { font-size: 16px; font-weight: 700; color: #fff; }
+.rank-title {
+  font-size: 14px; color: rgba(255,255,255,.5); margin-top: 4px;
+}
+.character-card .xp-wrap { width: 100%; margin-top: 16px; }
+.character-card .xp-wrap .progress-bar { height: 8px; border-radius: 4px; }
+.character-card .xp-text {
+  font-size: 12px; color: rgba(255,255,255,.5); text-align: center;
+  margin-top: 6px; font-variant-numeric: tabular-nums;
+}
+
+.domain-skills-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+  margin: 0 16px;
+}
+.domain-skill-card {
+  background: var(--ink-brown); border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.06); padding: 10px;
+  display: flex; flex-direction: column; gap: 4px;
+  cursor: pointer; transition: transform .2s ease;
+}
+.domain-skill-card:active { transform: scale(.95); }
+.domain-skill-card .ds-header {
+  display: flex; align-items: center; gap: 4px;
+}
+.domain-skill-card .ds-name {
+  font-size: 10px; color: rgba(255,255,255,.5); text-transform: uppercase;
+  letter-spacing: .04em; font-weight: 600;
+}
+.domain-skill-card .ds-level {
+  font-size: 18px; font-weight: 700; color: #fff;
+}
+.domain-xp-bar {
+  width: 100%; height: 3px; border-radius: 2px;
+  background: rgba(255,255,255,.08); overflow: hidden;
+}
+.domain-xp-bar .fill { height: 100%; border-radius: 2px; }
+
+.streak-rewards {
+  margin: 0 16px; padding: 16px;
+  background: var(--ink-brown); border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.streak-top {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.streak-left { display: flex; align-items: center; gap: 8px; }
+.streak-left .flame-icon { font-size: 20px; }
+.streak-count { font-size: 24px; font-weight: 700; color: #fff; }
+.streak-label { font-size: 12px; color: rgba(255,255,255,.4); margin-left: 2px; }
+.xp-multiplier {
+  background: rgba(255,94,0,.15); border-radius: 999px;
+  padding: 4px 10px; font-size: 12px; font-weight: 600; color: var(--brand-orange);
+}
+.streak-right { display: flex; align-items: center; gap: 6px; }
+.freeze-text { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.6); }
+.badge-row {
+  display: flex; align-items: center; gap: 10px; margin-top: 14px;
+  padding-top: 14px; border-top: 1px solid rgba(255,255,255,.06);
+}
+.achievement-badge {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.badge-row .view-all {
+  font-size: 13px; color: var(--brand-orange); cursor: pointer; margin-left: auto;
+}
+
+.quest-section { margin: 0 16px; }
+.quest-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.quest-check {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  background: #34A853; display: flex; align-items: center; justify-content: center;
+}
+.quest-check svg { width: 12px; height: 12px; }
+.quest-info { flex: 1; min-width: 0; }
+.quest-name {
+  font-size: 14px; font-weight: 600; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.quest-meta {
+  display: flex; align-items: center; gap: 6px; margin-top: 3px;
+  font-size: 11px; color: rgba(255,255,255,.4);
+}
+.quest-meta .domain-dot { width: 6px; height: 6px; }
+.quest-xp {
+  font-size: 13px; font-weight: 600; color: #34A853; flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.show-more-link {
+  display: block; text-align: center; padding: 14px 0;
+  font-size: 13px; color: var(--brand-orange); cursor: pointer;
+}
+
+/* ── Screen 20: Personal Wiki ── */
+.wiki-screen { padding-top: 44px; }
+
+.chapter-tabs {
+  display: flex; gap: 8px; overflow-x: auto; padding: 0 16px;
+  scrollbar-width: none; margin-top: 12px;
+}
+.chapter-tabs::-webkit-scrollbar { display: none; }
+.chapter-tab {
+  display: inline-flex; align-items: center; white-space: nowrap;
+  padding: 7px 14px; border-radius: 999px;
+  font-size: 13px; cursor: pointer; flex-shrink: 0;
+  transition: all .2s ease;
+}
+.chapter-tab.active {
+  background: var(--brand-orange); color: #fff; font-weight: 600;
+}
+.chapter-tab:not(.active) {
+  background: transparent; border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.5);
+}
+.chapter-tab .count { margin-left: 4px; opacity: .6; }
+
+.chapter-meta {
+  font-size: 12px; color: rgba(255,255,255,.4); padding: 10px 16px 0;
+}
+
+.entry-card {
+  background: var(--ink-brown); border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.08); padding: 16px;
+  margin: 0 16px 12px;
+}
+.entry-title {
+  font-size: 15px; font-weight: 600; color: #fff;
+}
+.entry-content {
+  font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.5;
+  margin-top: 6px;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.entry-source {
+  display: flex; align-items: center; gap: 6px; margin-top: 12px;
+  font-size: 12px; color: rgba(255,255,255,.4);
+}
+.entry-source svg { width: 12px; height: 12px; flex-shrink: 0; }
+.entry-actions {
+  display: flex; align-items: center; gap: 0; margin-top: 12px;
+}
+.entry-actions .action-btn {
+  font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0;
+}
+.entry-actions .action-edit { color: rgba(255,255,255,.5); }
+.entry-actions .action-divider {
+  width: 1px; height: 14px; background: rgba(255,255,255,.15); margin: 0 12px;
+}
+.entry-actions .action-wrong { color: #f44336; }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>Balencia Design System</h1>
+  <h2>Batch 6 — Me Tab</h2>
+  <span class="batch-label">Screens 17 – 20</span>
+</header>
+
+<section class="carousel-wrap">
+  <button class="nav-arrow prev" onclick="go(-1)" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+  </button>
+  <button class="nav-arrow next" onclick="go(1)">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+  </button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="track">
+
+      <!-- ═══ SLIDE 1: SCREEN 17 — ME MAIN ═══ -->
+      <div class="carousel-slide">
+        <div class="screen-label"><div class="num">Screen 17</div><div class="name">Me Main</div></div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3C6.3 6 4.8 7 4 8.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6zm0 3c-.8 0-1.5.5-1.8 1.2L8 12l1.8-1.8C9.5 9.5 8.8 9 8 9z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M2 5h10a2 2 0 012 2v2a2 2 0 01-2 2H2a2 2 0 01-2-2V7a2 2 0 012-2zm0 1.5a.5.5 0 00-.5.5v2a.5.5 0 00.5.5h10a.5.5 0 00.5-.5V7a.5.5 0 00-.5-.5H2zm12.5 1v1a1 1 0 001-1h-1z"/><rect x="1.5" y="6" width="8" height="4" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen me-screen">
+            <!-- Settings gear -->
+            <div class="settings-gear">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+              </svg>
+            </div>
+
+            <div class="me-scroll">
+              <!-- Profile section -->
+              <div class="profile-section">
+                <div class="avatar-circle">
+                  <span class="initials">SC</span>
+                  <div class="camera-badge">
+                    <svg viewBox="0 0 12 12" fill="#fff"><path d="M2 4h1.5l1-1.5h3L8.5 4H10a1 1 0 011 1v4a1 1 0 01-1 1H2a1 1 0 01-1-1V5a1 1 0 011-1zm4 4.5a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                  </div>
+                </div>
+                <div class="profile-name">Sarah Chen</div>
+                <div class="rpg-badge">
+                  <span class="diamond">◆</span>
+                  <span class="level-text">Lv.14</span>
+                </div>
+                <div class="xp-bar-wrap">
+                  <div class="progress-bar"><div class="fill" style="width:49%"></div></div>
+                </div>
+                <div class="xp-label">2,450 / 5,000 XP</div>
+                <div class="member-since">member since Jan 2026</div>
+              </div>
+
+              <!-- Stats row -->
+              <div class="stats-row">
+                <div class="stat-cell">
+                  <div class="stat-value">42</div>
+                  <div class="stat-label">day streak</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="stat-value">12</div>
+                  <div class="stat-label">completed</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="stat-value">8,450</div>
+                  <div class="stat-label">total XP</div>
+                </div>
+              </div>
+
+              <!-- Quick links grid -->
+              <div class="quick-links-grid">
+                <div class="quick-link-card">
+                  <div class="ql-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FF5E00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                  </div>
+                  <div class="ql-label">RPG character</div>
+                  <div class="ql-sub">Lv.14 explorer</div>
+                </div>
+                <div class="quick-link-card">
+                  <div class="ql-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                    </svg>
+                  </div>
+                  <div class="ql-label">Book of life</div>
+                  <div class="ql-sub">what SIA knows</div>
+                </div>
+                <div class="quick-link-card">
+                  <div class="ql-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+                      <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+                    </svg>
+                  </div>
+                  <div class="ql-label">Connected apps</div>
+                  <div class="ql-sub">3 connected</div>
+                </div>
+                <div class="quick-link-card">
+                  <div class="ql-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                  </div>
+                  <div class="ql-label">Subscription</div>
+                  <div class="ql-sub">Plus plan</div>
+                </div>
+                <div class="quick-link-card">
+                  <div class="ql-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5"/>
+                      <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                  </div>
+                  <div class="ql-label">Progress photos</div>
+                  <div class="ql-sub">12 entries</div>
+                </div>
+                <div class="quick-link-card">
+                  <div class="ql-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FF5E00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 21c-4.97 0-9-2.69-9-6v-3c0-3.31 4.03-6 9-6s9 2.69 9 6v3c0 3.31-4.03 6-9 6z"/>
+                      <path d="M12 3c2.5 0 4.5 1.5 4.5 3.5S14.5 10 12 10 7.5 8.5 7.5 6.5 9.5 3 12 3z" fill="#FF5E00" opacity=".2"/>
+                    </svg>
+                  </div>
+                  <div class="ql-label">Streaks</div>
+                  <div class="ql-sub">42 days 🔥</div>
+                </div>
+              </div>
+
+              <!-- Explore preview -->
+              <div class="explore-preview">
+                <div class="section-heading-row">
+                  <span class="section-eyebrow">suggested for you</span>
+                  <span style="font-size:14px;color:var(--brand-orange);cursor:pointer">see all</span>
+                </div>
+                <div class="explore-scroll">
+                  <div class="module-card">
+                    <div class="module-badge suggested">suggested</div>
+                    <div>
+                      <div class="mc-domain"><div class="domain-dot" style="background:#EF4444"></div>fitness</div>
+                      <div class="mc-name">Strength basics</div>
+                    </div>
+                    <div class="mc-desc">build your foundation with guided programs</div>
+                  </div>
+                  <div class="module-card">
+                    <div class="module-badge new">new</div>
+                    <div>
+                      <div class="mc-domain"><div class="domain-dot" style="background:#06B6D4"></div>learning</div>
+                      <div class="mc-name">Speed reading</div>
+                    </div>
+                    <div class="mc-desc">double your reading pace in 30 days</div>
+                  </div>
+                  <div class="module-card">
+                    <div>
+                      <div class="mc-domain"><div class="domain-dot" style="background:#10B981"></div>finance</div>
+                      <div class="mc-name">Budget optimizer</div>
+                    </div>
+                    <div class="mc-desc">AI-powered spending insights and savings</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="height:32px"></div>
+            </div>
+
+            <!-- Tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ═══ SLIDE 2: SCREEN 18 — EXPLORE SECTION ═══ -->
+      <div class="carousel-slide">
+        <div class="screen-label"><div class="num">Screen 18</div><div class="name">Explore Section</div></div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3C6.3 6 4.8 7 4 8.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6zm0 3c-.8 0-1.5.5-1.8 1.2L8 12l1.8-1.8C9.5 9.5 8.8 9 8 9z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M2 5h10a2 2 0 012 2v2a2 2 0 01-2 2H2a2 2 0 01-2-2V7a2 2 0 012-2zm0 1.5a.5.5 0 00-.5.5v2a.5.5 0 00.5.5h10a.5.5 0 00.5-.5V7a.5.5 0 00-.5-.5H2zm12.5 1v1a1 1 0 001-1h-1z"/><rect x="1.5" y="6" width="8" height="4" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen explore-screen">
+            <!-- Nav header -->
+            <div class="nav-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="nav-title">Explore</div>
+            </div>
+
+            <div class="explore-content">
+              <!-- Search bar -->
+              <div style="padding:0 16px">
+                <div class="search-bar">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+                  <span style="color:rgba(255,255,255,.35);font-size:14px">search modules...</span>
+                </div>
+              </div>
+
+              <!-- Suggested for you -->
+              <div style="padding:0 16px;margin-top:20px">
+                <span class="section-eyebrow">suggested for you</span>
+              </div>
+              <div class="explore-scroll" style="padding-left:16px;margin-top:10px">
+                <div class="module-card">
+                  <div class="module-badge suggested">suggested</div>
+                  <div>
+                    <div class="mc-domain"><div class="domain-dot" style="background:#EF4444"></div>fitness</div>
+                    <div class="mc-name">workout planner</div>
+                  </div>
+                  <div class="mc-desc">plan and track your weekly training</div>
+                </div>
+                <div class="module-card">
+                  <div class="module-badge new">new</div>
+                  <div>
+                    <div class="mc-domain"><div class="domain-dot" style="background:#14B8A6"></div>wellbeing</div>
+                    <div class="mc-name">stress toolkit</div>
+                  </div>
+                  <div class="mc-desc">breathing, meditation, and relief tools</div>
+                </div>
+                <div class="module-card">
+                  <div>
+                    <div class="mc-domain"><div class="domain-dot" style="background:#84CC16"></div>nutrition</div>
+                    <div class="mc-name">meal prep guide</div>
+                  </div>
+                  <div class="mc-desc">weekly meal plans matched to your macros</div>
+                </div>
+              </div>
+
+              <!-- Domain: Fitness -->
+              <div class="domain-section">
+                <div class="domain-section-header">
+                  <div class="domain-dot" style="background:#EF4444"></div>
+                  <div class="domain-name">Fitness and movement</div>
+                </div>
+                <div class="module-grid">
+                  <div class="grid-module-card"><div class="gm-name">workouts</div><div class="gm-desc">track and plan</div></div>
+                  <div class="grid-module-card"><div class="gm-name">active workout</div><div class="gm-desc">guided sessions</div></div>
+                  <div class="grid-module-card"><div class="gm-name">progress photos</div><div class="gm-desc">visual tracking</div></div>
+                </div>
+              </div>
+
+              <!-- Domain: Nutrition -->
+              <div class="domain-section">
+                <div class="domain-section-header">
+                  <div class="domain-dot" style="background:#84CC16"></div>
+                  <div class="domain-name">Nutrition and diet</div>
+                </div>
+                <div class="module-grid">
+                  <div class="grid-module-card"><div class="gm-name">nutrition dashboard</div><div class="gm-desc">macros and meals</div></div>
+                  <div class="grid-module-card"><div class="gm-name">food logger</div><div class="gm-desc">quick meal logging</div></div>
+                  <div class="grid-module-card"><div class="gm-name">recipes</div><div class="gm-desc">healthy recipes</div></div>
+                  <div class="grid-module-card"><div class="gm-name">shopping list</div><div class="gm-desc">auto-generated</div></div>
+                </div>
+              </div>
+
+              <!-- Domain: Finance -->
+              <div class="domain-section">
+                <div class="domain-section-header">
+                  <div class="domain-dot" style="background:#10B981"></div>
+                  <div class="domain-name">Finance and money</div>
+                </div>
+                <div class="module-grid">
+                  <div class="grid-module-card"><div class="gm-name">money map</div><div class="gm-desc">budget overview</div></div>
+                  <div class="grid-module-card"><div class="gm-name">transactions</div><div class="gm-desc">spending detail</div></div>
+                </div>
+              </div>
+
+              <!-- Domain: Career -->
+              <div class="domain-section">
+                <div class="domain-section-header">
+                  <div class="domain-dot" style="background:#6366F1"></div>
+                  <div class="domain-name">Career and work</div>
+                </div>
+                <div class="module-grid">
+                  <div class="grid-module-card"><div class="gm-name">career dashboard</div><div class="gm-desc">skills and goals</div></div>
+                </div>
+              </div>
+
+              <!-- Domain: Relationships -->
+              <div class="domain-section">
+                <div class="domain-section-header">
+                  <div class="domain-dot" style="background:#EC4899"></div>
+                  <div class="domain-name">Relationships</div>
+                </div>
+                <div class="module-grid">
+                  <div class="grid-module-card"><div class="gm-name">relationships</div><div class="gm-desc">people and bonds</div></div>
+                </div>
+              </div>
+
+              <!-- Domain: Spirituality -->
+              <div class="domain-section">
+                <div class="domain-section-header">
+                  <div class="domain-dot" style="background:#A855F7"></div>
+                  <div class="domain-name">Spirituality</div>
+                </div>
+                <div class="module-grid">
+                  <div class="grid-module-card"><div class="gm-name">spirituality</div><div class="gm-desc">practice and prayer</div></div>
+                </div>
+              </div>
+
+              <!-- Domain: Learning -->
+              <div class="domain-section">
+                <div class="domain-section-header">
+                  <div class="domain-dot" style="background:#06B6D4"></div>
+                  <div class="domain-name">Learning and growth</div>
+                </div>
+                <div class="module-grid">
+                  <div class="grid-module-card"><div class="gm-name">learning</div><div class="gm-desc">courses and reading</div></div>
+                </div>
+              </div>
+
+              <!-- Domain: Creativity -->
+              <div class="domain-section">
+                <div class="domain-section-header">
+                  <div class="domain-dot" style="background:#F59E0B"></div>
+                  <div class="domain-name">Creativity</div>
+                </div>
+                <div class="module-grid">
+                  <div class="grid-module-card"><div class="gm-name">creativity</div><div class="gm-desc">projects and ideas</div></div>
+                </div>
+              </div>
+
+              <!-- Domain: Wellbeing -->
+              <div class="domain-section">
+                <div class="domain-section-header">
+                  <div class="domain-dot" style="background:#14B8A6"></div>
+                  <div class="domain-name">Wellbeing</div>
+                </div>
+                <div class="module-grid">
+                  <div class="grid-module-card"><div class="gm-name">water intake</div><div class="gm-desc">hydration tracking</div></div>
+                  <div class="grid-module-card"><div class="gm-name">stress management</div><div class="gm-desc">relief tools</div></div>
+                  <div class="grid-module-card"><div class="gm-name">breathing</div><div class="gm-desc">guided exercises</div></div>
+                  <div class="grid-module-card"><div class="gm-name">meditation</div><div class="gm-desc">mindfulness</div></div>
+                  <div class="grid-module-card"><div class="gm-name">yoga</div><div class="gm-desc">guided sessions</div></div>
+                  <div class="grid-module-card"><div class="gm-name">sleep tracking</div><div class="gm-desc">sleep quality</div></div>
+                  <div class="grid-module-card"><div class="gm-name">energy</div><div class="gm-desc">energy levels</div></div>
+                  <div class="grid-module-card"><div class="gm-name">medication</div><div class="gm-desc">med tracking</div></div>
+                </div>
+              </div>
+
+              <!-- Standalone features -->
+              <div class="features-divider"></div>
+              <div style="padding:16px 16px 0">
+                <span class="section-eyebrow">more features</span>
+              </div>
+              <div class="module-grid" style="margin-top:10px">
+                <div class="grid-module-card"><div class="gm-name">journal</div><div class="gm-desc">guided reflections</div></div>
+                <div class="grid-module-card"><div class="gm-name">habits</div><div class="gm-desc">daily tracking</div></div>
+                <div class="grid-module-card"><div class="gm-name">calendar</div><div class="gm-desc">schedule and plan</div></div>
+                <div class="grid-module-card"><div class="gm-name">leaderboard</div><div class="gm-desc">community rankings</div></div>
+                <div class="grid-module-card"><div class="gm-name">community</div><div class="gm-desc">chat rooms</div></div>
+                <div class="grid-module-card"><div class="gm-name">daily check-in</div><div class="gm-desc">mood and energy</div></div>
+              </div>
+
+              <div style="height:32px"></div>
+            </div>
+
+            <!-- Tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ═══ SLIDE 3: SCREEN 19 — RPG CHARACTER ═══ -->
+      <div class="carousel-slide">
+        <div class="screen-label"><div class="num">Screen 19</div><div class="name">RPG Character</div></div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3C6.3 6 4.8 7 4 8.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6zm0 3c-.8 0-1.5.5-1.8 1.2L8 12l1.8-1.8C9.5 9.5 8.8 9 8 9z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M2 5h10a2 2 0 012 2v2a2 2 0 01-2 2H2a2 2 0 01-2-2V7a2 2 0 012-2zm0 1.5a.5.5 0 00-.5.5v2a.5.5 0 00.5.5h10a.5.5 0 00.5-.5V7a.5.5 0 00-.5-.5H2zm12.5 1v1a1 1 0 001-1h-1z"/><rect x="1.5" y="6" width="8" height="4" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen rpg-screen">
+            <!-- Nav header -->
+            <div class="nav-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="nav-title">Your character</div>
+            </div>
+
+            <div class="rpg-scroll">
+              <!-- Character card hero -->
+              <div class="character-card">
+                <div class="avatar-hero">
+                  <span class="initials">SC</span>
+                </div>
+                <div class="char-name">Sarah Chen</div>
+                <div class="level-indicator">
+                  <span class="diamond">◆</span>
+                  <span class="level-text">Level 14</span>
+                </div>
+                <div class="rank-title">Dedicated explorer</div>
+                <div class="xp-wrap">
+                  <div class="progress-bar"><div class="fill" style="width:49%"></div></div>
+                  <div class="xp-text">2,450 / 5,000 XP to level 15</div>
+                </div>
+              </div>
+
+              <!-- Domain skills -->
+              <div style="padding:20px 0 0">
+                <div style="padding:0 16px;margin-bottom:10px"><span class="section-eyebrow">domain skills</span></div>
+                <div class="domain-skills-grid">
+                  <div class="domain-skill-card">
+                    <div class="ds-header"><div class="domain-dot" style="background:#EF4444"></div><span class="ds-name">fitness</span></div>
+                    <div class="ds-level">12</div>
+                    <div class="domain-xp-bar"><div class="fill" style="background:#EF4444;width:60%"></div></div>
+                  </div>
+                  <div class="domain-skill-card">
+                    <div class="ds-header"><div class="domain-dot" style="background:#14B8A6"></div><span class="ds-name">wellbeing</span></div>
+                    <div class="ds-level">11</div>
+                    <div class="domain-xp-bar"><div class="fill" style="background:#14B8A6;width:55%"></div></div>
+                  </div>
+                  <div class="domain-skill-card">
+                    <div class="ds-header"><div class="domain-dot" style="background:#84CC16"></div><span class="ds-name">nutrition</span></div>
+                    <div class="ds-level">9</div>
+                    <div class="domain-xp-bar"><div class="fill" style="background:#84CC16;width:45%"></div></div>
+                  </div>
+                  <div class="domain-skill-card">
+                    <div class="ds-header"><div class="domain-dot" style="background:#10B981"></div><span class="ds-name">finance</span></div>
+                    <div class="ds-level">8</div>
+                    <div class="domain-xp-bar"><div class="fill" style="background:#10B981;width:40%"></div></div>
+                  </div>
+                  <div class="domain-skill-card">
+                    <div class="ds-header"><div class="domain-dot" style="background:#EC4899"></div><span class="ds-name">Relationships</span></div>
+                    <div class="ds-level">7</div>
+                    <div class="domain-xp-bar"><div class="fill" style="background:#EC4899;width:35%"></div></div>
+                  </div>
+                  <div class="domain-skill-card">
+                    <div class="ds-header"><div class="domain-dot" style="background:#06B6D4"></div><span class="ds-name">learning</span></div>
+                    <div class="ds-level">6</div>
+                    <div class="domain-xp-bar"><div class="fill" style="background:#06B6D4;width:30%"></div></div>
+                  </div>
+                  <div class="domain-skill-card">
+                    <div class="ds-header"><div class="domain-dot" style="background:#6366F1"></div><span class="ds-name">career</span></div>
+                    <div class="ds-level">5</div>
+                    <div class="domain-xp-bar"><div class="fill" style="background:#6366F1;width:25%"></div></div>
+                  </div>
+                  <div class="domain-skill-card">
+                    <div class="ds-header"><div class="domain-dot" style="background:#A855F7"></div><span class="ds-name">spirit</span></div>
+                    <div class="ds-level">4</div>
+                    <div class="domain-xp-bar"><div class="fill" style="background:#A855F7;width:20%"></div></div>
+                  </div>
+                  <div class="domain-skill-card">
+                    <div class="ds-header"><div class="domain-dot" style="background:#F59E0B"></div><span class="ds-name">creativity</span></div>
+                    <div class="ds-level">3</div>
+                    <div class="domain-xp-bar"><div class="fill" style="background:#F59E0B;width:15%"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stats summary row -->
+              <div class="stats-row" style="margin-top:20px">
+                <div class="stat-cell">
+                  <div class="stat-value">42</div>
+                  <div class="stat-label">day streak</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="stat-value">12</div>
+                  <div class="stat-label">quests done</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="stat-value">5</div>
+                  <div class="stat-label">active quests</div>
+                </div>
+              </div>
+
+              <!-- Streak & rewards -->
+              <div style="padding:20px 0 0">
+                <div style="padding:0 16px;margin-bottom:10px"><span class="section-eyebrow">streak & rewards</span></div>
+                <div class="streak-rewards">
+                  <div class="streak-top">
+                    <div class="streak-left">
+                      <span class="flame-icon">🔥</span>
+                      <span class="streak-count">42</span>
+                      <span class="streak-label">days</span>
+                      <span class="xp-multiplier">2.5x XP</span>
+                    </div>
+                    <div class="streak-right">
+                      <span style="font-size:16px">❄️</span>
+                      <span class="freeze-text">2 freezes</span>
+                    </div>
+                  </div>
+                  <div class="badge-row">
+                    <div class="achievement-badge" style="background:rgba(239,68,68,.2)">💪</div>
+                    <div class="achievement-badge" style="background:rgba(6,182,212,.2)">📚</div>
+                    <div class="achievement-badge" style="background:rgba(16,185,129,.2)">💰</div>
+                    <span class="view-all">View all</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quest history -->
+              <div style="padding:20px 0 0">
+                <div style="padding:0 16px;margin-bottom:4px"><span class="section-eyebrow">quest history</span></div>
+                <div class="quest-section">
+                  <div class="quest-row">
+                    <div class="quest-check">
+                      <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6L5 8.5L9.5 3.5"/></svg>
+                    </div>
+                    <div class="quest-info">
+                      <div class="quest-name">save $2,000 emergency fund</div>
+                      <div class="quest-meta"><div class="domain-dot" style="background:#10B981"></div>finance · May 2026</div>
+                    </div>
+                    <div class="quest-xp">+350 XP</div>
+                  </div>
+                  <div class="quest-row">
+                    <div class="quest-check">
+                      <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6L5 8.5L9.5 3.5"/></svg>
+                    </div>
+                    <div class="quest-info">
+                      <div class="quest-name">run a half marathon</div>
+                      <div class="quest-meta"><div class="domain-dot" style="background:#EF4444"></div>fitness · Apr 2026</div>
+                    </div>
+                    <div class="quest-xp">+500 XP</div>
+                  </div>
+                  <div class="quest-row">
+                    <div class="quest-check">
+                      <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6L5 8.5L9.5 3.5"/></svg>
+                    </div>
+                    <div class="quest-info">
+                      <div class="quest-name">read 5 books this quarter</div>
+                      <div class="quest-meta"><div class="domain-dot" style="background:#06B6D4"></div>learning · Mar 2026</div>
+                    </div>
+                    <div class="quest-xp">+200 XP</div>
+                  </div>
+                  <div class="quest-row">
+                    <div class="quest-check">
+                      <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6L5 8.5L9.5 3.5"/></svg>
+                    </div>
+                    <div class="quest-info">
+                      <div class="quest-name">30-day meditation streak</div>
+                      <div class="quest-meta"><div class="domain-dot" style="background:#A855F7"></div>spirituality · Feb 2026</div>
+                    </div>
+                    <div class="quest-xp">+400 XP</div>
+                  </div>
+                  <div class="quest-row" style="border-bottom:none">
+                    <div class="quest-check">
+                      <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6L5 8.5L9.5 3.5"/></svg>
+                    </div>
+                    <div class="quest-info">
+                      <div class="quest-name">meal prep for 2 weeks</div>
+                      <div class="quest-meta"><div class="domain-dot" style="background:#84CC16"></div>nutrition · Jan 2026</div>
+                    </div>
+                    <div class="quest-xp">+150 XP</div>
+                  </div>
+                  <div class="show-more-link">Show earlier quests</div>
+                </div>
+              </div>
+
+              <div style="height:32px"></div>
+            </div>
+
+            <!-- Tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ═══ SLIDE 4: SCREEN 20 — BOOK OF LIFE ═══ -->
+      <div class="carousel-slide">
+        <div class="screen-label"><div class="num">Screen 20</div><div class="name">Book of Life</div></div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3C6.3 6 4.8 7 4 8.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6zm0 3c-.8 0-1.5.5-1.8 1.2L8 12l1.8-1.8C9.5 9.5 8.8 9 8 9z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M2 5h10a2 2 0 012 2v2a2 2 0 01-2 2H2a2 2 0 01-2-2V7a2 2 0 012-2zm0 1.5a.5.5 0 00-.5.5v2a.5.5 0 00.5.5h10a.5.5 0 00.5-.5V7a.5.5 0 00-.5-.5H2zm12.5 1v1a1 1 0 001-1h-1z"/><rect x="1.5" y="6" width="8" height="4" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen wiki-screen">
+            <!-- Nav header -->
+            <div class="nav-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="nav-title">Book of life</div>
+            </div>
+
+            <div class="wiki-scroll">
+              <!-- Search bar -->
+              <div style="padding:0 16px">
+                <div class="search-bar">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+                  <span style="color:rgba(255,255,255,.35);font-size:14px">search memories...</span>
+                </div>
+              </div>
+
+              <!-- Chapter tabs -->
+              <div class="chapter-tabs">
+                <div class="chapter-tab active">about you<span class="count"> (23)</span></div>
+                <div class="chapter-tab">preferences<span class="count"> (8)</span></div>
+                <div class="chapter-tab">patterns<span class="count"> (5)</span></div>
+                <div class="chapter-tab">correlations<span class="count"> (3)</span></div>
+                <div class="chapter-tab">goals history<span class="count"> (12)</span></div>
+                <div class="chapter-tab">life events<span class="count"> (4)</span></div>
+              </div>
+
+              <!-- Chapter meta -->
+              <div class="chapter-meta">23 entries · last updated today</div>
+
+              <!-- Entry cards -->
+              <div style="height:16px"></div>
+
+              <div class="entry-card">
+                <div class="entry-title">Morning person</div>
+                <div class="entry-content">you tend to be most productive and energetic between 6-10am. SIA has noticed you complete more tasks before noon.</div>
+                <div class="entry-source">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 10c0 .6-.4 1-1 1H5l-3 3V3c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v7z"/></svg>
+                  from conversation · May 3, 2026
+                </div>
+                <div class="entry-actions">
+                  <span class="action-btn action-edit">edit</span>
+                  <div class="action-divider"></div>
+                  <span class="action-btn action-wrong">this is wrong</span>
+                </div>
+              </div>
+
+              <div class="entry-card">
+                <div class="entry-title">Prefers strength over cardio</div>
+                <div class="entry-content">you consistently choose weight training over running or cycling. your workout logs show 80% strength sessions.</div>
+                <div class="entry-source">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><circle cx="8" cy="8" r="2"/><path d="M8 2v2M8 12v2M2 8h2M12 8h2" stroke-linecap="round"/></svg>
+                  detected from data · Apr 28, 2026
+                </div>
+                <div class="entry-actions">
+                  <span class="action-btn action-edit">edit</span>
+                  <div class="action-divider"></div>
+                  <span class="action-btn action-wrong">this is wrong</span>
+                </div>
+              </div>
+
+              <div class="entry-card">
+                <div class="entry-title">Lactose intolerant</div>
+                <div class="entry-content">you mentioned avoiding dairy products. SIA factors this into all nutrition and recipe suggestions.</div>
+                <div class="entry-source">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 10c0 .6-.4 1-1 1H5l-3 3V3c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v7z"/></svg>
+                  from conversation · Apr 15, 2026
+                </div>
+                <div class="entry-actions">
+                  <span class="action-btn action-edit">edit</span>
+                  <div class="action-divider"></div>
+                  <span class="action-btn action-wrong">this is wrong</span>
+                </div>
+              </div>
+
+              <div class="entry-card">
+                <div class="entry-title">Works in software engineering</div>
+                <div class="entry-content">senior software engineer at a tech startup. high screen time, sedentary work style, values deep focus blocks.</div>
+                <div class="entry-source">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 10c0 .6-.4 1-1 1H5l-3 3V3c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v7z"/></svg>
+                  from conversation · Mar 20, 2026
+                </div>
+                <div class="entry-actions">
+                  <span class="action-btn action-edit">edit</span>
+                  <div class="action-divider"></div>
+                  <span class="action-btn action-wrong">this is wrong</span>
+                </div>
+              </div>
+
+              <div class="entry-card">
+                <div class="entry-title">Practices gratitude journaling</div>
+                <div class="entry-content">you write in your journal most mornings. SIA has noticed a positive correlation with your daily mood scores.</div>
+                <div class="entry-source">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><circle cx="8" cy="8" r="2"/><path d="M8 2v2M8 12v2M2 8h2M12 8h2" stroke-linecap="round"/></svg>
+                  detected from data · Mar 10, 2026
+                </div>
+                <div class="entry-actions">
+                  <span class="action-btn action-edit">edit</span>
+                  <div class="action-divider"></div>
+                  <span class="action-btn action-wrong">this is wrong</span>
+                </div>
+              </div>
+
+              <div style="height:32px"></div>
+            </div>
+
+            <!-- Tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Thumbnail strip -->
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goTo(0)"><div class="thumb-num">17</div></div>
+    <div class="thumb" onclick="goTo(1)"><div class="thumb-num">18</div></div>
+    <div class="thumb" onclick="goTo(2)"><div class="thumb-num">19</div></div>
+    <div class="thumb" onclick="goTo(3)"><div class="thumb-num">20</div></div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const total = 4;
+const track = document.getElementById('track');
+const thumbs = document.querySelectorAll('.thumb');
+const prevBtn = document.querySelector('.nav-arrow.prev');
+const nextBtn = document.querySelector('.nav-arrow.next');
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function go(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function renderThumbs() {
+  const slides = document.querySelectorAll('.carousel-slide');
+  slides.forEach((slide, i) => {
+    if (!thumbs[i]) return;
+    const canvas = document.createElement('canvas');
+    canvas.width = 56; canvas.height = 120;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0A0A0F';
+    ctx.fillRect(0, 0, 56, 120);
+
+    if (i === 0) {
+      // Me Main: avatar circle, name, stats row, 2x3 grid, module scroll
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(28, 18, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = '4px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('Sarah Chen', 28, 32);
+      ctx.fillStyle = 'rgba(255,94,0,.3)';
+      ctx.beginPath(); ctx.roundRect(12, 36, 32, 4, 2); ctx.fill();
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.roundRect(12, 36, 16, 4, 2); ctx.fill();
+      // stats
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(6, 44, 44, 12, 3); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.font = '3px Sora';
+      ctx.fillText('42 | 12 | 8,450', 28, 52);
+      // quick links 2x3
+      ctx.fillStyle = '#211008';
+      [62, 76, 90].forEach(y => {
+        ctx.fillRect(6, y, 20, 11);
+        ctx.fillRect(30, y, 20, 11);
+      });
+    } else if (i === 1) {
+      // Explore: search bar, suggested scroll, domain grids
+      ctx.fillStyle = '#fff'; ctx.font = '4px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('explore', 28, 12);
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(6, 16, 44, 8, 4); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.25)'; ctx.font = '3px Sora';
+      ctx.fillText('search...', 28, 22);
+      // suggested cards
+      ctx.fillStyle = '#211008';
+      [6, 22, 38].forEach(x => { ctx.fillRect(x, 28, 14, 10); });
+      // domain sections
+      ctx.fillStyle = 'rgba(255,255,255,.3)';
+      [42, 60, 78, 96].forEach(y => {
+        ctx.fillRect(6, y, 3, 3);
+        ctx.fillStyle = 'rgba(255,255,255,.15)';
+        ctx.fillRect(12, y, 20, 3);
+        ctx.fillStyle = '#211008';
+        ctx.fillRect(6, y + 5, 22, 9);
+        ctx.fillRect(30, y + 5, 20, 9);
+        ctx.fillStyle = 'rgba(255,255,255,.3)';
+      });
+    } else if (i === 2) {
+      // RPG: avatar glow, character card, 3x3 grid, quest rows
+      ctx.fillStyle = 'rgba(255,94,0,.2)';
+      ctx.beginPath(); ctx.arc(28, 20, 14, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(28, 20, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = '5px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('SC', 28, 22);
+      ctx.font = '3px Sora'; ctx.fillStyle = 'rgba(255,255,255,.5)';
+      ctx.fillText('level 14', 28, 34);
+      // 3x3 domain grid
+      ctx.fillStyle = '#211008';
+      const colors = ['#EF4444','#14B8A6','#84CC16','#10B981','#EC4899','#06B6D4','#6366F1','#A855F7','#F59E0B'];
+      let gi = 0;
+      [44, 56, 68].forEach(y => {
+        [6, 22, 38].forEach(x => {
+          ctx.fillStyle = '#211008';
+          ctx.fillRect(x, y, 14, 10);
+          ctx.fillStyle = colors[gi]; gi++;
+          ctx.fillRect(x + 2, y + 7, 10 * (0.6 - gi * 0.05), 2);
+        });
+      });
+      // quest rows
+      ctx.fillStyle = '#34A853';
+      [84, 94, 104].forEach(y => {
+        ctx.beginPath(); ctx.arc(10, y + 3, 3, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,.3)';
+        ctx.fillRect(16, y + 1, 24, 2);
+        ctx.fillRect(16, y + 4, 16, 2);
+        ctx.fillStyle = '#34A853';
+      });
+    } else if (i === 3) {
+      // Wiki: search, chapter pills, entry cards
+      ctx.fillStyle = '#fff'; ctx.font = '4px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('book of life', 28, 12);
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(6, 16, 44, 8, 4); ctx.fill();
+      // chapter tabs
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.roundRect(6, 28, 18, 6, 3); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.15)';
+      ctx.beginPath(); ctx.roundRect(26, 28, 14, 6, 3); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(42, 28, 10, 6, 3); ctx.fill();
+      // entry cards
+      ctx.fillStyle = '#211008';
+      [38, 60, 82, 104].forEach(y => {
+        ctx.beginPath(); ctx.roundRect(6, y, 44, 18, 4); ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.font = '3px Sora'; ctx.textAlign = 'left';
+        ctx.fillText('memory entry', 10, y + 7);
+        ctx.fillStyle = 'rgba(255,255,255,.2)';
+        ctx.fillRect(10, y + 10, 36, 2);
+        ctx.fillRect(10, y + 13, 24, 2);
+        ctx.fillStyle = '#211008';
+      });
+    }
+    thumbs[i].prepend(canvas);
+  });
+}
+renderThumbs();
+
+const sp = new URLSearchParams(window.location.search);
+if (sp.has('start')) {
+  const s = parseInt(sp.get('start'));
+  if (!isNaN(s) && s >= 0 && s < total) {
+    track.style.transition = 'none';
+    goTo(s);
+    requestAnimationFrame(() => track.style.transition = '');
+  }
+}
+</script>
+</body>
+</html>

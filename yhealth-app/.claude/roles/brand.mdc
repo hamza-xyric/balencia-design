@@ -1,0 +1,132 @@
+---
+alwaysApply: true
+---
+
+# Balencia Design System — Source of Truth
+
+You are building **Balencia**, a premium AI life coaching platform. Dark mode first. Warm, grounded, never corporate. Every UI element must follow these rules. This supersedes ALL previous color/font guidance in any other skill or role file.
+
+## Design Register
+
+Detect automatically from the page's route group and layout:
+
+- **Brand Mode** (landing, marketing, public pages — no dashboard sidebar): Large hero type via `clamp()`, generous whitespace (64-96px between sections), ambient gradient blobs, continuous stroke line motif, full gradient heroes.
+- **Product Mode** (dashboard, authenticated pages with sidebar layout): Compact type (16-20px headings max), dense information display, cards as primary containers, restrained palette.
+
+## Color Tokens (60/30/10 Rule)
+
+| Role | Color | Hex | Usage |
+|------|-------|-----|-------|
+| **Primary (60%)** | Burnt Orange | `#FF5E00` | CTAs, buttons, hero accents, user voice, streaks, progress bars, active nav |
+| **Secondary (30%)** | Forest Green | `#34A853` | Growth, success, completion, recovery, milestones, positive deltas, health metrics |
+| **Accent (10%)** | Royal Purple | `#7F24FF` | Coach/AI voice, premium moments, projected data, sparkle accents ONLY |
+
+**Neutrals:**
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `ink-900` | `#0A0A0F` | Primary dark background |
+| `ink-warm-900` | `#0C0603` | Warm dark variant |
+| `ink-brown-900` | `#140A05` | Brown-warm dark |
+| `ink-brown-800` | `#211008` | Elevated dark surface, card bg |
+| `ink-700` | `#171717` | Secondary dark, card surface |
+| `paper-50` | `#FDFDFB` | Lightest paper (light mode) |
+| `paper-100` | `#FEFAF3` | Default light background |
+| `paper-200` | `#F9F3E6` | Warm surface |
+| `paper-300` | `#F2ECD8` | Warm border, card bg (light) |
+
+**Shadows** — Always warm-tinted (brown hue `rgba(33, 16, 8, ...)`), never cold black:
+- `--shadow-1`: `0 8px 24px rgba(33, 16, 8, .18)` (subtle)
+- `--shadow-2`: `0 18px 48px rgba(33, 16, 8, .22)` (mid)
+- `--shadow-3`: `0 32px 80px rgba(33, 16, 8, .28)` (high)
+- `--glow-orange`: `0 0 32px rgba(255, 94, 0, .45)`
+- `--glow-green`: `0 0 32px rgba(52, 168, 83, .40)`
+- `--glow-purple`: `0 0 32px rgba(127, 36, 255, .40)`
+
+**Gradients:**
+- `--grad-progress`: `linear-gradient(90deg, #19C9D2 0%, #FFB13D 100%)`
+- `--grad-growth`: `linear-gradient(90deg, #FFB33F 0%, #FF5E00 100%)`
+- `--grad-status`: `linear-gradient(90deg, #4EDB8C 0%, #FFB33F 100%)`
+- `--grad-hero-glow`: `radial-gradient(circle, rgba(255, 94, 0, .42) 0%, rgba(255, 94, 0, 0) 70%)`
+
+## Typography
+
+**Sora** is the ONLY UI font. All weights: 300-800. `font-family: "Sora", system-ui, sans-serif`.
+Chillax is for the logo wordmark ONLY — never in UI, headings, or body.
+
+**Product Mode scale** (dashboard pages):
+- Headings: `clamp(16px, 2vw, 20px)`, weight 600-700
+- Body: 14px default (range 13-15px)
+- Small/meta: 13px
+- Buttons/tabs: 14px desktop, 13px mobile
+
+**Brand Mode scale** (landing/marketing):
+- Hero h1: `clamp(2.8rem, 6vw, 4.5rem)`, weight 800, letter-spacing `-0.03em`
+- Section h2: `clamp(1.75rem, 4vw, 2.75rem)`, weight 700
+- Body: 16px, line-height 1.55
+
+Rules: Sentence case everywhere. No Title Case in UI. No exclamation marks. Max line length: 65ch.
+
+## Spacing (8pt Grid)
+
+Valid values: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128px. Never 5, 7, 10, 15, 18, 22, 30.
+
+| Token | Value |
+|-------|-------|
+| `--s-1` to `--s-10` | 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 |
+
+## Radii
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--r-xs` | 6px | Small details, inline badges |
+| `--r-sm` | 10px | Small chips |
+| `--r-md` | 14px | Inputs, small cards |
+| `--r-lg` | 20px | Buttons, mid cards |
+| `--r-xl` | 28px | Primary cards and panels |
+| `--r-2xl` | 40px | Large surfaces, hero cards |
+| `--r-pill` | 999px | CTA buttons, chips, segmented controls |
+
+Minimum radius on cards/buttons: `--r-md` (14px).
+
+## Motion
+
+**Never use `linear` easing.** All motion uses:
+- `--ease-flow`: `cubic-bezier(.65,.05,.36,1)` — signature curve
+- `--ease-out-soft`: `cubic-bezier(.22,.61,.36,1)` — UI default
+- `--ease-in-out`: `cubic-bezier(.65,0,.35,1)` — two-way transitions
+
+**Durations:** `--dur-fast` 160ms | `--dur-base` 280ms | `--dur-slow` 520ms | `--dur-flow` 1.2s
+
+Respect `prefers-reduced-motion` in all implementations.
+
+## Component Primitives
+
+- **Buttons**: Pill shape (`--r-pill`). Orange (primary CTA), Green (success/done), Ink-700 (neutral/skip), Ghost (transparent + border).
+- **Cards**: `ink-brown-800` bg (dark) or `paper-100` bg (light). `1px` soft border. `--r-xl` to `--r-2xl`. `--shadow-1` default, `--shadow-2` on hover. Padding `--s-5` to `--s-6`.
+- **Data viz**: Solid orange line (past/actual data), dashed purple line (AI projection), green dots (milestones). Use brand gradients for chart fills.
+
+## Voice/Copy Rules
+
+Grounded coach tone: warm, curious, playful, quietly confident. Never corporate, aggressive, or preachy.
+- Button labels: verb-first, max 3 words ("Start workout", "View details")
+- Never use: "Optimize", "Leverage", "Unlock potential", "Crush your goals", "AI-powered"
+- Signature prompt: "What's worth your attention today?"
+
+## Anti-Patterns (Hard Blocks)
+
+If any of these appear in generated code, fix immediately:
+
+1. Pure black `#000000` as background — use `ink-900` (#0A0A0F) or ink tones
+2. Cold shadows using `rgba(0,0,0,...)` — use warm `rgba(33, 16, 8, ...)`
+3. Gradient text on body copy — only display/heading text
+4. Purple used as background fill (>10% surface area) — accent only
+5. Any font other than Sora in component code
+6. Border-radius less than 14px on cards or buttons (badges: 6px min)
+7. Hardcoded hex values in JSX — use CSS variables or Tailwind token classes
+8. `linear` easing on any UI transition
+9. Spacing values not on the 8pt grid
+10. Exclamation marks in user-facing strings
+11. Title Case in labels, tabs, or buttons
+12. Nested cards (card inside a card) — use sections or dividers
+13. Missing hover state on any interactive element

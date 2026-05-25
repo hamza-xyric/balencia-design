@@ -1,0 +1,53 @@
+# Aggressively exclude non-essential files from Railway upload
+node_modules
+.next
+dist
+build
+out
+*.tsbuildinfo
+
+# Git history (large)
+.git
+
+# Tests
+coverage
+__tests__
+__mocks__
+tests
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# IDE
+.vscode
+.idea
+.cursor
+.claude
+
+# Docs (not needed for build)
+docs
+deployment
+progress
+scripts
+*.md
+
+# Presentation
+presentation
+
+# Logs & temp
+*.log
+logs
+tmp
+temp
+.cache
+.turbo
+.eslintcache
+
+# Large media (keep client/public assets — needed by Dockerfile COPY)
+*.mp4
+*.webm
+
+# Avatar models: only coach-avatar.vrm (~11 MB) is kept;
+# Char2/girl1/Alina were removed from disk to shrink the snapshot.
+

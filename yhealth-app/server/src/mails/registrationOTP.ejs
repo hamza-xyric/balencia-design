@@ -1,0 +1,33 @@
+<%# Registration OTP Template %>
+<%- include('./layouts/base', {
+  title: 'Your Verification Code - Balencia',
+  preheader: `${firstName}, use this code to finish setting up Balencia.`,
+  eyebrow: 'Secure verification',
+  greeting: `Confirm your email, ${firstName}.`,
+  content: `
+    <p style="margin:0 0 22px; font-size:16px; line-height:26px;">
+      Welcome to Balencia. Enter the code below to finish registration and activate your private coaching workspace.
+    </p>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:30px 0;">
+      <tr>
+        <td style="text-align:center; background:linear-gradient(135deg,#fff7ed 0%,#ecfdf5 100%); border-radius:18px; padding:34px 24px; border:2px dashed #f97316;">
+          <p style="margin:0 0 10px; font-size:12px; color:#c2410c; text-transform:uppercase; letter-spacing:2px; font-weight:800;">Verification code</p>
+          <p style="margin:0; font-size:48px; line-height:54px; font-weight:800; color:#9a3412; letter-spacing:10px; font-family:'Courier New',monospace;">${escapeFn(otpCode)}</p>
+        </td>
+      </tr>
+    </table>
+
+    ${include('./partials/alert-box', {
+      type: 'warning',
+      message: `This code expires in <strong>${escapeFn(expiresIn)}</strong>. Balencia will never ask you to share it outside the app.`
+    })}
+
+    <p style="margin:24px 0 0; font-size:14px; line-height:22px; color:#6b7280;">
+      If you did not create a Balencia account, you can ignore this message.
+    </p>
+  `,
+  footerText: 'This security email was sent to protect your Balencia account.',
+  showSocial: false,
+  showUnsubscribe: false
+}) %>

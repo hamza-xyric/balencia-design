@@ -1,0 +1,38 @@
+<%# Welcome Email Template %>
+<%
+  const feature = (icon, title, description) => include('./partials/feature-box', { icon, title, description });
+%>
+<%- include('./layouts/base', {
+  title: 'Welcome to Balencia',
+  preheader: `${firstName}, your premium AI Life Coach is ready.`,
+  eyebrow: 'Welcome to Balencia',
+  greeting: `Welcome, ${firstName}. Your coaching intelligence is ready.`,
+  content: `
+    <p style="margin:0 0 22px; font-size:16px; line-height:26px;">
+      You now have a private AI Life Coach built to connect the signals that matter: training, nutrition, sleep, recovery, mood, and the routines that hold everything together.
+    </p>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:26px 0; background:#fff7ed; border:1px solid #fed7aa; border-radius:16px;">
+      <tr>
+        <td style="padding:24px;">
+          <p style="margin:0 0 8px; font-size:12px; color:#c2410c; text-transform:uppercase; letter-spacing:1.5px; font-weight:800;">Your first move</p>
+          <p style="margin:0; font-size:20px; line-height:28px; color:#111827; font-weight:800;">Complete the assessment so your coach can personalize every recommendation.</p>
+        </td>
+      </tr>
+    </table>
+
+    ${feature('01', 'Personalized from the start', 'Your assessment calibrates goals, constraints, schedule, and coaching tone.')}
+    ${feature('02', 'One view of your health', 'Connect devices and logs so Balencia can find patterns across every domain.')}
+    ${feature('03', 'Coaching that compounds', 'The more context you add, the sharper your guidance becomes.')}
+  `,
+  ctaButton: {
+    text: 'Start Assessment',
+    url: typeof assessmentUrl !== 'undefined' ? assessmentUrl : dashboardUrl
+  },
+  secondaryContent: `
+    <p style="margin:0; font-size:14px; line-height:22px;">
+      Prefer to look around first? Open your dashboard anytime and your coach will meet you there.
+    </p>
+  `,
+  footerText: 'Welcome to Balencia. Reply to this email if you need help getting started.'
+}) %>

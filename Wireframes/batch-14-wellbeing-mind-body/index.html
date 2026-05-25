@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 14: Wellbeing Mind-Body</title>
+<link rel="stylesheet" href="../balencia-foundation.css">
+<style>
+/* ═══════════════════════════════════════
+   BATCH 14 — WELLBEING MIND-BODY STYLES
+   ═══════════════════════════════════════ */
+
+/* ── Domain dashboard header (shared 49, 52, 53) ── */
+.domain-header {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 52px 16px 12px;
+  background: rgba(10,10,15,.92);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+}
+.domain-header-left {
+  display: flex; align-items: center; gap: 12px;
+}
+.domain-back {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-left: -12px;
+}
+.domain-back svg { width: 20px; height: 20px; }
+.domain-title-wrap { position: relative; }
+.domain-title {
+  font-size: 20px; font-weight: 600; color: #fff; line-height: 1.3;
+}
+.domain-title::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 100%; height: 2px; border-radius: 1px;
+}
+.domain-title.fitness::after { background: var(--fitness); }
+.domain-title.wellbeing::after { background: var(--wellbeing); }
+
+.rpg-badge {
+  display: flex; align-items: center; justify-content: center;
+  height: 28px; padding: 0 12px; border-radius: var(--r-pill);
+  font-size: 13px; font-weight: 600; white-space: nowrap; flex-shrink: 0;
+}
+.rpg-badge.fitness {
+  background: rgba(239,68,68,.15); color: var(--fitness);
+  border: 1px solid rgba(239,68,68,.3);
+}
+.rpg-badge.wellbeing {
+  background: rgba(20,184,166,.15); color: var(--wellbeing);
+  border: 1px solid rgba(20,184,166,.3);
+}
+
+/* ── Nav header (screens 50, 51) ── */
+.nav-header {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 52px 16px 12px;
+  background: rgba(10,10,15,.92);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+}
+.nav-header-left {
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-title {
+  font-size: 17px; font-weight: 600; color: #fff;
+}
+.nav-action-right {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+
+/* ── SIA coaching note ── */
+.sia-note {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid var(--royal-purple); padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.sia-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--royal-purple);
+  flex-shrink: 0; margin-top: 7px;
+}
+.sia-msg {
+  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.85); line-height: 1.5;
+}
+
+/* ── Shared layout ── */
+.section-gap { height: 16px; }
+.section-gap-lg { height: 24px; }
+.section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: 16px; font-weight: 600; color: #fff;
+}
+.see-all {
+  font-size: 13px; font-weight: 600; color: var(--brand-orange); cursor: pointer;
+}
+
+.screen-body {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none; padding-bottom: 56px;
+}
+.screen-body::-webkit-scrollbar { display: none; }
+.content-pad { padding: 0 16px 24px; }
+.content-pad > * + * { margin-top: 16px; }
+.content-pad > .section-gap, .content-pad > .section-gap-lg { margin-top: 0; }
+.bottom-spacer { height: 64px; }
+
+.eyebrow-red {
+  font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--fitness); margin-bottom: 10px;
+}
+.eyebrow-teal {
+  font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--wellbeing); margin-bottom: 10px;
+}
+.eyebrow-purple {
+  font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(127,36,255,.6); margin-bottom: 10px;
+}
+
+.fab {
+  position: absolute; bottom: 72px; left: 50%; transform: translateX(-50%);
+  z-index: 40; height: 44px; padding: 0 24px;
+  border-radius: var(--r-pill); border: none; cursor: pointer;
+  background: var(--brand-orange); color: #fff;
+  font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 4px 20px rgba(255,94,0,.35);
+}
+.tab-icon { width: 24px; height: 24px; }
+
+/* ── Screen 49: Progress Photos ── */
+.weight-chart-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.chart-svg-area { width: 100%; margin: 12px 0 8px; }
+.time-range-pills { display: flex; gap: 6px; margin-top: 12px; }
+.time-pill {
+  height: 28px; padding: 0 12px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,.5);
+  background: transparent; border: 1px solid rgba(255,255,255,.08);
+  cursor: pointer; font-family: 'Sora', sans-serif;
+}
+.time-pill.active {
+  background: var(--brand-orange); color: #fff; font-weight: 600;
+  border-color: var(--brand-orange);
+}
+.stats-3col { display: flex; gap: 8px; }
+.stat-col {
+  flex: 1; text-align: center;
+  background: var(--ink-brown); border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px 8px;
+}
+.stat-col-value { font-size: 24px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
+.stat-col-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 4px; }
+.stat-col-delta { font-size: 12px; font-weight: 600; margin-top: 4px; }
+.delta-green { color: var(--forest-green); }
+.delta-neutral { color: rgba(255,255,255,.3); }
+
+.measurements-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.measurement-row {
+  display: flex; align-items: center; justify-content: space-between; padding: 10px 0;
+}
+.measurement-row + .measurement-row { border-top: 1px solid rgba(255,255,255,.05); }
+.measure-label { font-size: 15px; color: rgba(255,255,255,.8); }
+.measure-value { font-size: 15px; font-weight: 600; color: #fff; font-variant-numeric: tabular-nums; }
+.measure-delta { font-size: 12px; font-weight: 600; margin-left: 8px; }
+.last-updated { font-size: 12px; color: rgba(255,255,255,.3); margin-top: 8px; }
+
+.photo-timeline-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.photo-scroll {
+  display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.photo-scroll::-webkit-scrollbar { display: none; }
+.photo-thumb {
+  min-width: 100px; height: 140px; border-radius: var(--r-md);
+  background: linear-gradient(135deg, rgba(239,68,68,.1), rgba(255,255,255,.04));
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  flex-shrink: 0; border: 1px solid rgba(255,255,255,.06);
+}
+.photo-thumb-icon { font-size: 28px; color: rgba(255,255,255,.15); margin-bottom: 4px; }
+.photo-thumb-label { font-size: 11px; color: rgba(255,255,255,.4); }
+.photo-thumb-date { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 6px; }
+.ai-badge {
+  background: rgba(10,10,15,.6); border-radius: var(--r-md);
+  border: 1px solid rgba(127,36,255,.2); padding: 12px;
+  margin-top: 12px; display: flex; align-items: flex-start; gap: 8px;
+}
+.ai-badge-icon { font-size: 16px; flex-shrink: 0; }
+.ai-badge-text { flex: 1; }
+.ai-badge-title { font-size: 14px; font-weight: 600; color: #fff; }
+.ai-badge-sub { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 2px; }
+
+.privacy-notice {
+  background: var(--ink-brown); border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,.06); padding: 12px 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.privacy-icon { font-size: 16px; color: rgba(255,255,255,.4); flex-shrink: 0; }
+.privacy-text { font-size: 13px; color: rgba(255,255,255,.5); }
+.privacy-sub { font-size: 12px; color: rgba(255,255,255,.3); }
+
+/* ── Screen 50: Edit Profile ── */
+.avatar-section {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 24px 16px 0;
+}
+.avatar-circle {
+  width: 80px; height: 80px; border-radius: 50%; position: relative;
+  background: linear-gradient(135deg, #FF5E00, #cc4b00);
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(255,255,255,.15);
+}
+.avatar-initials { font-size: 28px; font-weight: 700; color: #fff; }
+.camera-badge {
+  position: absolute; bottom: -2px; right: -2px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(33,16,8,.9); border: 2px solid var(--ink-900);
+  display: flex; align-items: center; justify-content: center;
+}
+.change-link {
+  font-size: 13px; color: var(--brand-orange); margin-top: 10px; cursor: pointer;
+}
+
+.form-scroll {
+  flex: 1; overflow-y: auto; padding: 0 16px 48px;
+  scrollbar-width: none;
+}
+.form-scroll::-webkit-scrollbar { display: none; }
+.form-group { margin-bottom: 16px; }
+.field-label {
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,.5);
+  margin-bottom: 6px;
+}
+.input-box {
+  width: 100%; height: 52px; border-radius: var(--r-md);
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  padding: 0 14px; font-size: 16px; color: #fff;
+  display: flex; align-items: center;
+  font-family: 'Sora', sans-serif;
+}
+.input-box.readonly {
+  background: rgba(33,16,8,.6); border-color: rgba(255,255,255,.05);
+  color: rgba(255,255,255,.5);
+}
+.input-value { flex: 1; }
+.input-box .verified {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(52,168,83,.15);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.input-box .chevron-down {
+  color: rgba(255,255,255,.4); flex-shrink: 0;
+}
+.phone-split {
+  display: flex; width: 100%; height: 52px; border-radius: var(--r-md);
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  overflow: hidden;
+}
+.country-code {
+  width: 80px; display: flex; align-items: center; justify-content: center; gap: 4px;
+  font-size: 14px; color: #fff; border-right: 1px solid rgba(255,255,255,.1);
+  flex-shrink: 0;
+}
+.phone-value {
+  flex: 1; display: flex; align-items: center; padding: 0 14px;
+  font-size: 16px; color: #fff;
+}
+.auto-badge {
+  font-size: 10px; font-weight: 600; color: rgba(255,255,255,.4);
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  padding: 2px 8px; border-radius: var(--r-pill); margin-left: 8px;
+}
+.save-cta {
+  width: 100%; height: 56px; border-radius: var(--r-pill); border: none;
+  background: var(--brand-orange); color: #fff;
+  font-size: 17px; font-weight: 600; font-family: 'Sora', sans-serif;
+  cursor: pointer; margin-top: 32px; opacity: 0.4;
+}
+.delete-link {
+  font-size: 15px; color: var(--error-red); text-align: center;
+  cursor: pointer; margin-top: 48px; padding: 10px;
+}
+
+/* ── Screen 51: Voice Call History ── */
+.tab-switcher {
+  display: flex; background: rgba(255,255,255,.06); border-radius: var(--r-pill);
+  padding: 3px; margin: 12px 16px 0; gap: 2px;
+}
+.tab-seg {
+  flex: 1; text-align: center; padding: 8px 12px; border-radius: 999px;
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,.6);
+  cursor: pointer;
+}
+.tab-seg.active {
+  background: var(--royal-purple); color: #fff; font-weight: 600;
+}
+
+.upcoming-card {
+  background: var(--ink-brown); border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,.08); padding: 16px;
+  border-left: 3px solid var(--royal-purple); position: relative;
+}
+.upcoming-datetime {
+  font-size: 15px; font-weight: 600; color: #fff;
+}
+.upcoming-type {
+  font-size: 13px; color: rgba(255,255,255,.7); margin-top: 4px;
+}
+.upcoming-actions {
+  display: flex; gap: 24px; margin-top: 10px;
+}
+.upcoming-actions a {
+  font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.upcoming-actions .edit-link { color: rgba(127,36,255,.6); }
+.upcoming-actions .cancel-link { color: rgba(255,255,255,.4); }
+
+.schedule-cta {
+  width: 100%; height: 48px; border-radius: var(--r-pill); border: none;
+  background: var(--brand-orange); color: #fff;
+  font-size: 15px; font-weight: 600; font-family: 'Sora', sans-serif;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+
+.date-group-header {
+  font-size: 12px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.5);
+  padding: 16px 0 8px;
+}
+.call-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.05); padding: 16px;
+}
+.call-card + .call-card { margin-top: 10px; }
+.call-top-row { display: flex; align-items: center; gap: 8px; }
+.sia-ring {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid var(--royal-purple);
+  background: var(--ink-brown); flex-shrink: 0;
+}
+.call-time { font-size: 15px; font-weight: 600; color: #fff; }
+.duration-pill {
+  font-size: 12px; color: rgba(255,255,255,.5);
+  background: rgba(10,10,15,.4); padding: 3px 8px;
+  border-radius: var(--r-pill);
+}
+.session-type {
+  font-size: 13px; font-weight: 600; color: rgba(127,36,255,.6);
+  margin-top: 4px;
+}
+.call-summary-row {
+  display: flex; align-items: flex-start; gap: 8px; margin-top: 8px;
+}
+.call-emoji { font-size: 16px; }
+.call-snippet {
+  font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* ── Screen 52: Stress Management ── */
+.stress-card {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.gauge-wrap {
+  display: flex; flex-direction: column; align-items: center; padding: 8px 0;
+}
+.gauge-outer {
+  width: 180px; height: 90px; border-radius: 180px 180px 0 0;
+  overflow: hidden; position: relative;
+}
+.gauge-ring {
+  width: 180px; height: 180px; border-radius: 50%;
+  background: conic-gradient(
+    from 180deg,
+    #34A853 0deg,
+    #14B8A6 45deg,
+    #FF5E00 112deg,
+    #EF4444 180deg,
+    rgba(255,255,255,.08) 180deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 10px), #000 calc(100% - 10px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 10px), #000 calc(100% - 10px));
+}
+.gauge-needle {
+  position: absolute; bottom: 0; left: 50%;
+  width: 2px; height: 76px; background: #fff;
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(-26deg);
+  border-radius: 1px;
+}
+.gauge-center {
+  text-align: center; margin-top: -4px;
+}
+.gauge-value { font-size: 32px; font-weight: 700; color: #fff; }
+.gauge-label { font-size: 14px; color: rgba(255,255,255,.6); margin-top: 2px; }
+.sub-scores {
+  display: flex; justify-content: space-around; width: 100%; margin-top: 16px;
+}
+.sub-score { text-align: center; flex: 1; }
+.sub-score-label { font-size: 11px; color: rgba(255,255,255,.4); }
+.sub-score-value { font-size: 15px; font-weight: 600; color: #fff; margin-top: 4px; }
+.sub-score-dot {
+  width: 6px; height: 6px; border-radius: 50%; margin: 6px auto 0;
+}
+.gauge-timestamp {
+  font-size: 12px; color: rgba(255,255,255,.3); text-align: center; margin-top: 12px;
+}
+
+.slider-wrap { padding: 12px 0; }
+.slider-track {
+  width: 100%; height: 4px; border-radius: 2px;
+  background: linear-gradient(to right, #34A853, #FF5E00 50%, #EF4444);
+  position: relative;
+}
+.slider-unfilled {
+  position: absolute; right: 0; top: 0; width: 45%; height: 100%;
+  background: rgba(255,255,255,.06); border-radius: 0 2px 2px 0;
+}
+.slider-thumb {
+  position: absolute; top: 50%; left: 55%;
+  width: 28px; height: 28px; border-radius: 50%; background: #fff;
+  box-shadow: var(--shadow-1);
+  transform: translate(-50%, -50%);
+}
+.slider-value {
+  font-size: 20px; font-weight: 700; color: #fff; text-align: center;
+  margin-top: 10px;
+}
+.slider-labels {
+  display: flex; justify-content: space-between;
+  font-size: 13px; color: rgba(255,255,255,.4); margin-top: 4px;
+}
+
+.trigger-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.trigger-chip {
+  height: 32px; padding: 0 12px; border-radius: var(--r-pill);
+  font-size: 13px; font-weight: 600;
+  background: var(--ink-900); border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.6); cursor: pointer;
+  display: inline-flex; align-items: center;
+}
+.trigger-chip.selected {
+  background: rgba(20,184,166,.15);
+  border-color: rgba(20,184,166,.3);
+  color: var(--wellbeing);
+}
+
+.log-cta {
+  width: 100%; height: 48px; border-radius: var(--r-pill); border: none;
+  background: var(--brand-orange); color: #fff;
+  font-size: 16px; font-weight: 600; font-family: 'Sora', sans-serif;
+  cursor: pointer; margin-top: 16px;
+}
+
+/* Donut chart */
+.donut-wrap { display: flex; gap: 20px; align-items: center; }
+.donut-chart {
+  width: 120px; height: 120px; border-radius: 50%; position: relative; flex-shrink: 0;
+  background: conic-gradient(
+    #EF4444 0deg 126deg,
+    #14B8A6 126deg 198deg,
+    #F59E0B 198deg 252deg,
+    #FF5E00 252deg 295.2deg,
+    rgba(255,255,255,.3) 295.2deg 360deg
+  );
+}
+.donut-hole {
+  position: absolute; inset: 24px; border-radius: 50%;
+  background: var(--ink-brown);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.donut-center-val { font-size: 16px; font-weight: 600; color: #fff; }
+.donut-center-lbl { font-size: 11px; color: rgba(255,255,255,.4); }
+.legend { flex: 1; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.legend-row:last-child { margin-bottom: 0; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.legend-name { font-size: 13px; color: rgba(255,255,255,.7); flex: 1; }
+.legend-pct { font-size: 13px; font-weight: 600; color: #fff; }
+
+/* Trend chart */
+.trend-chips { display: flex; gap: 8px; margin-bottom: 12px; }
+.trend-chip {
+  height: 28px; padding: 0 12px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 600;
+  background: transparent; border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.6); cursor: pointer; font-family: 'Sora', sans-serif;
+}
+.trend-chip.active {
+  background: rgba(20,184,166,.15); border-color: rgba(20,184,166,.4);
+  color: var(--wellbeing);
+}
+.trend-summary {
+  display: flex; justify-content: space-between; margin-top: 8px;
+}
+.trend-avg { font-size: 15px; font-weight: 600; color: #fff; }
+.trend-delta { font-size: 13px; font-weight: 600; }
+
+/* Recovery gauge */
+.recovery-wrap { display: flex; align-items: center; gap: 20px; }
+.recovery-ring {
+  width: 96px; height: 96px; border-radius: 50%; position: relative;
+  flex-shrink: 0;
+  background: conic-gradient(
+    var(--wellbeing) 0deg 259.2deg,
+    rgba(255,255,255,.08) 259.2deg 360deg
+  );
+}
+.recovery-inner {
+  position: absolute; inset: 9px; border-radius: 50%;
+  background: var(--ink-brown);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.recovery-val { font-size: 28px; font-weight: 700; color: #fff; }
+.recovery-lbl { font-size: 12px; color: rgba(255,255,255,.4); }
+.recovery-info { flex: 1; }
+.recovery-trend { font-size: 14px; font-weight: 600; color: var(--forest-green); margin-bottom: 12px; }
+.component-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.comp-label { font-size: 11px; color: rgba(255,255,255,.4); }
+.comp-value { font-size: 15px; font-weight: 600; color: #fff; }
+.prev-compare { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 12px; }
+.prev-delta { color: var(--forest-green); font-weight: 600; }
+
+/* Relief tools */
+.relief-scroll {
+  display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.relief-scroll::-webkit-scrollbar { display: none; }
+.relief-card {
+  min-width: 110px; height: 100px; flex-shrink: 0;
+  background: var(--ink-brown); border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.06);
+  border-bottom: 2px solid rgba(20,184,166,.3);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  cursor: pointer;
+}
+.relief-icon { font-size: 28px; }
+.relief-label { font-size: 13px; font-weight: 600; color: #fff; }
+
+/* ── Screen 53: Breathing Exercises ── */
+.stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.stat-cell {
+  background: var(--ink-brown); border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,.06);
+  padding: 14px 12px; text-align: center;
+}
+.stat-cell-val { font-size: 20px; font-weight: 600; color: #fff; }
+.stat-cell-lbl { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px; }
+.stat-cell .flame { color: var(--brand-orange); }
+
+.filter-tags {
+  display: flex; gap: 8px; overflow-x: auto;
+  scrollbar-width: none;
+}
+.filter-tags::-webkit-scrollbar { display: none; }
+.filter-tag {
+  height: 36px; padding: 0 14px; border-radius: var(--r-pill);
+  font-size: 13px; font-weight: 600;
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.6); white-space: nowrap; cursor: pointer;
+  display: inline-flex; align-items: center;
+}
+.filter-tag.active {
+  background: rgba(20,184,166,.2); border-color: rgba(20,184,166,.4);
+  color: var(--wellbeing);
+}
+
+.exercise-card {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px;
+  display: flex; gap: 12px; cursor: pointer;
+}
+.exercise-card + .exercise-card { margin-top: 12px; }
+.exercise-icon-circle {
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(20,184,166,.15);
+  display: flex; align-items: center; justify-content: center;
+}
+.exercise-info { flex: 1; min-width: 0; }
+.exercise-name { font-size: 16px; font-weight: 600; color: #fff; }
+.exercise-rhythm { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 2px; }
+.exercise-desc { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 2px; }
+.exercise-bottom {
+  display: flex; align-items: center; gap: 6px; margin-top: 8px; flex-wrap: wrap;
+}
+.when-tag {
+  height: 20px; padding: 0 8px; border-radius: var(--r-pill);
+  background: rgba(20,184,166,.1); font-size: 11px; color: var(--wellbeing);
+  display: inline-flex; align-items: center;
+}
+.rec-badge {
+  background: rgba(255,94,0,.15); color: var(--brand-orange);
+  font-size: 11px; font-weight: 600; padding: 2px 8px;
+  border-radius: var(--r-pill);
+}
+.dur-options {
+  font-size: 12px; color: rgba(255,255,255,.4); margin-left: auto;
+}
+</style>
+</head>
+<body>
+
+<!-- page header -->
+<header class="page-header">
+  <h1>Wireframes</h1>
+  <h2>Wellbeing Mind-Body</h2>
+  <span class="batch-label">Batch 14 · 5 screens</span>
+</header>
+
+<!-- carousel -->
+<section class="carousel-wrap">
+  <button class="nav-arrow prev" onclick="go(-1)" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+  </button>
+  <button class="nav-arrow next" onclick="go(1)">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+  </button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="track">
+
+
+      <!-- ════════════════════════════════════
+           SLIDE 1: Screen 49 — Progress Photos
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 49</div>
+          <div class="name">Progress photos & body composition</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-body">
+
+              <!-- domain header -->
+              <div class="domain-header">
+                <div class="domain-header-left">
+                  <div class="domain-back">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+                  </div>
+                  <div class="domain-title-wrap">
+                    <div class="domain-title fitness">Progress & body comp</div>
+                  </div>
+                </div>
+                <div class="rpg-badge fitness">Lv.12</div>
+              </div>
+
+              <div class="content-pad">
+
+                <!-- SIA coaching note -->
+                <div class="sia-note">
+                  <div class="sia-dot"></div>
+                  <div class="sia-msg">Your weight dropped 1.2 kg this month. Sleep improvement may be driving it.</div>
+                </div>
+
+                <!-- Weight trend chart -->
+                <div class="weight-chart-card">
+                  <div class="eyebrow-red">Weight trend</div>
+                  <svg class="chart-svg-area" viewBox="0 0 320 120" fill="none" style="width:100%;height:auto;">
+                    <!-- grid lines -->
+                    <line x1="0" y1="20" x2="320" y2="20" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                    <line x1="0" y1="50" x2="320" y2="50" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                    <line x1="0" y1="80" x2="320" y2="80" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                    <!-- target dashed line -->
+                    <line x1="0" y1="72" x2="320" y2="72" stroke="rgba(255,255,255,.25)" stroke-width="1.5" stroke-dasharray="6 4"/>
+                    <text x="302" y="68" fill="rgba(255,255,255,.25)" font-size="9" font-family="Sora">70kg</text>
+                    <!-- area fill -->
+                    <polygon points="20,30 85,38 160,45 235,55 300,50 300,110 20,110" fill="url(#orangeFill49)"/>
+                    <defs><linearGradient id="orangeFill49" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF5E00" stop-opacity=".12"/><stop offset="1" stop-color="#FF5E00" stop-opacity="0"/></linearGradient></defs>
+                    <!-- weight line -->
+                    <polyline points="20,30 85,38 160,45 235,55 300,50" stroke="#FF5E00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <!-- data dots -->
+                    <circle cx="20" cy="30" r="4" fill="#FF5E00"/>
+                    <circle cx="85" cy="38" r="4" fill="#FF5E00"/>
+                    <circle cx="160" cy="45" r="4" fill="#FF5E00"/>
+                    <circle cx="235" cy="55" r="4" fill="#FF5E00"/>
+                    <circle cx="300" cy="50" r="4" fill="#FF5E00"/>
+                    <!-- y-axis labels -->
+                    <text x="4" y="18" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">76</text>
+                    <text x="4" y="48" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">74</text>
+                    <text x="4" y="78" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">72</text>
+                    <!-- x-axis labels -->
+                    <text x="20" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">Jan</text>
+                    <text x="85" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">Feb</text>
+                    <text x="160" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">Mar</text>
+                    <text x="235" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">Apr</text>
+                    <text x="300" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">May</text>
+                  </svg>
+                  <div class="time-range-pills">
+                    <div class="time-pill">1M</div>
+                    <div class="time-pill active">3M</div>
+                    <div class="time-pill">6M</div>
+                    <div class="time-pill">1Y</div>
+                    <div class="time-pill">All</div>
+                  </div>
+                </div>
+
+                <!-- Current stats (3-col) -->
+                <div class="stats-3col">
+                  <div class="stat-col">
+                    <div class="stat-col-value">72.4</div>
+                    <div class="stat-col-label">kg</div>
+                    <div class="stat-col-delta delta-green">↓ 1.2</div>
+                  </div>
+                  <div class="stat-col">
+                    <div class="stat-col-value">23.1</div>
+                    <div class="stat-col-label">BMI</div>
+                    <div class="stat-col-delta delta-neutral">—</div>
+                  </div>
+                  <div class="stat-col">
+                    <div class="stat-col-value">18%</div>
+                    <div class="stat-col-label">body fat</div>
+                    <div class="stat-col-delta delta-green">↓ 1</div>
+                  </div>
+                </div>
+
+                <!-- Measurements card -->
+                <div class="measurements-card">
+                  <div class="section-head">
+                    <div class="eyebrow-red" style="margin-bottom:0">Measurements</div>
+                    <div class="see-all">see all</div>
+                  </div>
+                  <div class="measurement-row">
+                    <div class="measure-label">Chest</div>
+                    <div style="display:flex;align-items:center;">
+                      <div class="measure-value">96 cm</div>
+                      <div class="measure-delta delta-green">↓ 2</div>
+                    </div>
+                  </div>
+                  <div class="measurement-row">
+                    <div class="measure-label">Waist</div>
+                    <div style="display:flex;align-items:center;">
+                      <div class="measure-value">82 cm</div>
+                      <div class="measure-delta delta-green">↓ 3</div>
+                    </div>
+                  </div>
+                  <div class="measurement-row">
+                    <div class="measure-label">Hips</div>
+                    <div style="display:flex;align-items:center;">
+                      <div class="measure-value">98 cm</div>
+                      <div class="measure-delta delta-neutral">— 0</div>
+                    </div>
+                  </div>
+                  <div class="measurement-row">
+                    <div class="measure-label">Arms</div>
+                    <div style="display:flex;align-items:center;">
+                      <div class="measure-value">34 cm</div>
+                      <div class="measure-delta" style="color:var(--fitness)">↑ 1</div>
+                    </div>
+                  </div>
+                  <div class="measurement-row">
+                    <div class="measure-label">Thighs</div>
+                    <div style="display:flex;align-items:center;">
+                      <div class="measure-value">56 cm</div>
+                      <div class="measure-delta delta-green">↓ 1</div>
+                    </div>
+                  </div>
+                  <div class="last-updated">Last updated: 3 days ago</div>
+                </div>
+
+                <!-- Photo timeline -->
+                <div class="photo-timeline-card">
+                  <div class="section-head">
+                    <div class="eyebrow-red" style="margin-bottom:0">Progress photos</div>
+                    <div class="see-all">compare</div>
+                  </div>
+                  <div class="photo-scroll">
+                    <div class="photo-thumb">
+                      <div class="photo-thumb-icon">📷</div>
+                      <div class="photo-thumb-label">front</div>
+                      <div class="photo-thumb-date">May 21</div>
+                    </div>
+                    <div class="photo-thumb">
+                      <div class="photo-thumb-icon">📷</div>
+                      <div class="photo-thumb-label">front</div>
+                      <div class="photo-thumb-date">Apr 15</div>
+                    </div>
+                    <div class="photo-thumb">
+                      <div class="photo-thumb-icon">📷</div>
+                      <div class="photo-thumb-label">front</div>
+                      <div class="photo-thumb-date">Mar 01</div>
+                    </div>
+                  </div>
+                  <div class="ai-badge">
+                    <div class="ai-badge-icon">🤖</div>
+                    <div class="ai-badge-text">
+                      <div class="ai-badge-title">AI analysis: 18% body fat</div>
+                      <div class="ai-badge-sub">Muscle gain detected in upper body</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Privacy notice -->
+                <div class="privacy-notice">
+                  <div class="privacy-icon">🔒</div>
+                  <div>
+                    <div class="privacy-text">Photos encrypted end-to-end</div>
+                    <div class="privacy-sub">Only visible to you</div>
+                  </div>
+                </div>
+
+                <div class="bottom-spacer"></div>
+              </div>
+            </div>
+
+            <!-- FAB -->
+            <button class="fab">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>
+              Add progress
+            </button>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="#FF5E00"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+
+      <!-- ════════════════════════════════════
+           SLIDE 2: Screen 50 — Edit Profile
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 50</div>
+          <div class="name">Profile edit</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-body" style="padding-bottom:0;">
+
+              <!-- nav header -->
+              <div class="nav-header">
+                <div class="nav-header-left">
+                  <div class="domain-back">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+                  </div>
+                  <div class="nav-title">Edit profile</div>
+                </div>
+              </div>
+
+              <!-- Avatar -->
+              <div class="avatar-section">
+                <div class="avatar-circle">
+                  <div class="avatar-initials">AK</div>
+                  <div class="camera-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  </div>
+                </div>
+                <div class="change-link">change photo</div>
+              </div>
+
+              <!-- Form fields -->
+              <div class="form-scroll">
+                <div style="height:24px"></div>
+
+                <div class="form-group">
+                  <div class="field-label">First name</div>
+                  <div class="input-box"><div class="input-value">Ahmad</div></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="field-label">Last name</div>
+                  <div class="input-box"><div class="input-value">Khan</div></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="field-label">Email</div>
+                  <div class="input-box readonly">
+                    <div class="input-value">ahmad@example.com</div>
+                    <div class="verified">
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 5" stroke="#34A853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="field-label">Date of birth</div>
+                  <div class="input-box">
+                    <div class="input-value">15 March 2000</div>
+                    <svg class="chevron-down" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="field-label">Gender</div>
+                  <div class="input-box">
+                    <div class="input-value">Male</div>
+                    <svg class="chevron-down" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="field-label">Phone</div>
+                  <div class="phone-split">
+                    <div class="country-code">🇦🇪 +971</div>
+                    <div class="phone-value">055 123 4567</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="field-label">Timezone</div>
+                  <div class="input-box">
+                    <div class="input-value" style="display:flex;align-items:center;">
+                      Asia/Dubai (GMT+4)
+                      <span class="auto-badge">auto</span>
+                    </div>
+                    <svg class="chevron-down" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+                  </div>
+                </div>
+
+                <button class="save-cta">Save changes</button>
+
+                <div class="delete-link">Delete account</div>
+
+                <div style="height:48px"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+
+      <!-- ════════════════════════════════════
+           SLIDE 3: Screen 51 — Voice Call History
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 51</div>
+          <div class="name">Voice call history</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-body">
+
+              <!-- nav header -->
+              <div class="nav-header">
+                <div class="nav-header-left">
+                  <div class="domain-back">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+                  </div>
+                  <div class="nav-title">Voice sessions</div>
+                </div>
+                <div class="nav-action-right">
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M11 5v12M5 11h12"/></svg>
+                </div>
+              </div>
+
+              <!-- Tab switcher -->
+              <div class="tab-switcher">
+                <div class="tab-seg active">history</div>
+                <div class="tab-seg">action items</div>
+              </div>
+
+              <div class="content-pad" style="margin-top:16px;">
+
+                <!-- Upcoming section -->
+                <div class="eyebrow-purple">Upcoming</div>
+                <div class="upcoming-card">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="sia-ring"></div>
+                    <div class="upcoming-datetime">Thu, May 22 — 3:00 PM</div>
+                  </div>
+                  <div class="upcoming-type">Weekly check-in</div>
+                  <div class="upcoming-actions">
+                    <a class="edit-link">edit</a>
+                    <a class="cancel-link">cancel</a>
+                  </div>
+                </div>
+
+                <button class="schedule-cta">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                  schedule a call
+                </button>
+
+                <!-- TODAY -->
+                <div class="date-group-header">Today</div>
+
+                <div class="call-card">
+                  <div class="call-top-row">
+                    <div class="sia-ring"></div>
+                    <div class="call-time">10:32 AM</div>
+                    <div class="duration-pill">18 min</div>
+                  </div>
+                  <div class="session-type">Morning check-in</div>
+                  <div class="call-summary-row">
+                    <div class="call-emoji">😊</div>
+                    <div class="call-snippet">Feeling energized after yesterday's workout. Discussed nutrition timing and sleep improvements.</div>
+                  </div>
+                </div>
+
+                <div class="call-card">
+                  <div class="call-top-row">
+                    <div class="sia-ring"></div>
+                    <div class="call-time">8:15 AM</div>
+                    <div class="duration-pill">7 min</div>
+                  </div>
+                  <div class="session-type">Quick question</div>
+                  <div class="call-summary-row">
+                    <div class="call-emoji">😐</div>
+                    <div class="call-snippet">Asked about meal timing before morning workout. Quick clarification on pre-workout nutrition.</div>
+                  </div>
+                </div>
+
+                <!-- YESTERDAY -->
+                <div class="date-group-header">Yesterday</div>
+
+                <div class="call-card">
+                  <div class="call-top-row">
+                    <div class="sia-ring"></div>
+                    <div class="call-time">6:45 PM</div>
+                    <div class="duration-pill">24 min</div>
+                  </div>
+                  <div class="session-type">Evening reflection</div>
+                  <div class="call-summary-row">
+                    <div class="call-emoji">😊</div>
+                    <div class="call-snippet">Great progress on weekly goals. Reviewed stress patterns and planned tomorrow's priorities.</div>
+                  </div>
+                </div>
+
+                <div class="bottom-spacer"></div>
+              </div>
+            </div>
+
+            <!-- bottom tab bar (SIA active) -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z" fill="#FF5E00"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+
+      <!-- ════════════════════════════════════
+           SLIDE 4: Screen 52 — Stress Management
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 52</div>
+          <div class="name">Stress management</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-body">
+
+              <!-- domain header -->
+              <div class="domain-header">
+                <div class="domain-header-left">
+                  <div class="domain-back">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+                  </div>
+                  <div class="domain-title-wrap">
+                    <div class="domain-title wellbeing">Stress management</div>
+                  </div>
+                </div>
+                <div class="rpg-badge wellbeing">Lv.5</div>
+              </div>
+
+              <div class="content-pad">
+
+                <!-- Stress gauge card -->
+                <div class="stress-card">
+                  <div class="eyebrow-teal">Current stress level</div>
+                  <div class="gauge-wrap">
+                    <div class="gauge-outer">
+                      <div class="gauge-ring"></div>
+                      <div class="gauge-needle"></div>
+                    </div>
+                    <div class="gauge-center">
+                      <div class="gauge-value">4.2</div>
+                      <div class="gauge-label">moderate</div>
+                    </div>
+                  </div>
+                  <div class="sub-scores">
+                    <div class="sub-score">
+                      <div class="sub-score-label">biometric</div>
+                      <div class="sub-score-value">3.8</div>
+                      <div class="sub-score-dot" style="background:#34A853"></div>
+                    </div>
+                    <div class="sub-score">
+                      <div class="sub-score-label">sentiment</div>
+                      <div class="sub-score-value">4.5</div>
+                      <div class="sub-score-dot" style="background:#14B8A6"></div>
+                    </div>
+                    <div class="sub-score">
+                      <div class="sub-score-label">behavioral</div>
+                      <div class="sub-score-value">4.1</div>
+                      <div class="sub-score-dot" style="background:#14B8A6"></div>
+                    </div>
+                  </div>
+                  <div class="gauge-timestamp">last updated: 2 hrs ago</div>
+                </div>
+
+                <!-- Quick log card -->
+                <div class="stress-card">
+                  <div class="eyebrow-teal">Quick log</div>
+                  <div style="font-size:17px;font-weight:600;color:#fff;margin-bottom:12px;">How stressed are you?</div>
+                  <div class="slider-wrap">
+                    <div class="slider-track">
+                      <div class="slider-unfilled"></div>
+                      <div class="slider-thumb"></div>
+                    </div>
+                    <div class="slider-value">6</div>
+                    <div class="slider-labels">
+                      <span>1</span>
+                      <span>10</span>
+                    </div>
+                  </div>
+                  <div class="trigger-chips">
+                    <div class="trigger-chip selected">Work</div>
+                    <div class="trigger-chip">Relationships</div>
+                    <div class="trigger-chip">Finances</div>
+                    <div class="trigger-chip">Health</div>
+                    <div class="trigger-chip">Family</div>
+                    <div class="trigger-chip">Uncertainty</div>
+                    <div class="trigger-chip selected">Time pressure</div>
+                    <div class="trigger-chip">Conflict</div>
+                    <div class="trigger-chip">Other</div>
+                  </div>
+                  <button class="log-cta">Log stress</button>
+                </div>
+
+                <!-- SIA coaching note -->
+                <div class="sia-note">
+                  <div class="sia-dot"></div>
+                  <div class="sia-msg">Work stress has been your top trigger this week. A 5-min breathing exercise after lunch could help break the pattern.</div>
+                </div>
+
+                <div class="section-gap-lg"></div>
+
+                <!-- Trigger analysis -->
+                <div class="stress-card">
+                  <div class="eyebrow-teal">Trigger analysis</div>
+                  <div class="donut-wrap">
+                    <div class="donut-chart">
+                      <div class="donut-hole">
+                        <div class="donut-center-val">47</div>
+                        <div class="donut-center-lbl">logs</div>
+                      </div>
+                    </div>
+                    <div class="legend">
+                      <div class="legend-row"><div class="legend-dot" style="background:#EF4444"></div><div class="legend-name">Work</div><div class="legend-pct">35%</div></div>
+                      <div class="legend-row"><div class="legend-dot" style="background:#14B8A6"></div><div class="legend-name">Health</div><div class="legend-pct">20%</div></div>
+                      <div class="legend-row"><div class="legend-dot" style="background:#F59E0B"></div><div class="legend-name">Family</div><div class="legend-pct">15%</div></div>
+                      <div class="legend-row"><div class="legend-dot" style="background:#FF5E00"></div><div class="legend-name">Time</div><div class="legend-pct">12%</div></div>
+                      <div class="legend-row"><div class="legend-dot" style="background:rgba(255,255,255,.3)"></div><div class="legend-name">Other</div><div class="legend-pct">18%</div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="section-gap-lg"></div>
+
+                <!-- Stress trend chart -->
+                <div class="stress-card">
+                  <div class="eyebrow-teal">Stress trend</div>
+                  <div class="trend-chips">
+                    <div class="trend-chip active">7d</div>
+                    <div class="trend-chip">14d</div>
+                    <div class="trend-chip">30d</div>
+                  </div>
+                  <svg viewBox="0 0 320 120" fill="none" style="width:100%;height:auto;">
+                    <!-- grid -->
+                    <line x1="0" y1="12" x2="320" y2="12" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                    <line x1="0" y1="42" x2="320" y2="42" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                    <line x1="0" y1="72" x2="320" y2="72" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                    <!-- safe zone -->
+                    <rect x="0" y="72" width="320" height="38" fill="rgba(52,168,83,.03)"/>
+                    <!-- area fill -->
+                    <polygon points="20,55 65,42 115,58 165,35 215,48 265,52 265,110 20,110" fill="url(#orangeFill52)"/>
+                    <defs><linearGradient id="orangeFill52" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF5E00" stop-opacity=".08"/><stop offset="1" stop-color="#FF5E00" stop-opacity="0"/></linearGradient></defs>
+                    <!-- past data line -->
+                    <polyline points="20,55 65,42 115,58 165,35 215,48 265,52" stroke="#FF5E00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <!-- projected line -->
+                    <line x1="265" y1="52" x2="310" y2="56" stroke="#7F24FF" stroke-width="2" stroke-dasharray="5 3" opacity=".6"/>
+                    <!-- dots -->
+                    <circle cx="20" cy="55" r="4" fill="#FF5E00"/>
+                    <circle cx="65" cy="42" r="4" fill="#FF5E00"/>
+                    <circle cx="115" cy="58" r="4" fill="#FF5E00"/>
+                    <circle cx="165" cy="35" r="4" fill="#FF5E00"/>
+                    <circle cx="215" cy="48" r="4" fill="#FF5E00"/>
+                    <circle cx="265" cy="52" r="4" fill="#FF5E00"/>
+                    <!-- y-axis -->
+                    <text x="4" y="10" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">10</text>
+                    <text x="4" y="40" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">5</text>
+                    <text x="4" y="70" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">3</text>
+                    <!-- x-axis -->
+                    <text x="20" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">M</text>
+                    <text x="65" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">T</text>
+                    <text x="115" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">W</text>
+                    <text x="165" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">T</text>
+                    <text x="215" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">F</text>
+                    <text x="265" y="110" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora" text-anchor="middle">S</text>
+                  </svg>
+                  <div class="trend-summary">
+                    <div class="trend-avg">avg: 4.8</div>
+                    <div class="trend-delta delta-green">↓ 12% vs last wk</div>
+                  </div>
+                </div>
+
+                <div class="section-gap-lg"></div>
+
+                <!-- Mental recovery -->
+                <div class="stress-card">
+                  <div class="eyebrow-teal">Mental recovery</div>
+                  <div class="recovery-wrap">
+                    <div class="recovery-ring">
+                      <div class="recovery-inner">
+                        <div class="recovery-val">72</div>
+                        <div class="recovery-lbl">of 100</div>
+                      </div>
+                    </div>
+                    <div class="recovery-info">
+                      <div class="recovery-trend">↑ improving</div>
+                      <div class="component-grid">
+                        <div><div class="comp-label">emotion</div><div class="comp-value">68</div></div>
+                        <div><div class="comp-label">sleep</div><div class="comp-value">78</div></div>
+                        <div><div class="comp-label">activity</div><div class="comp-value">71</div></div>
+                        <div><div class="comp-label">social</div><div class="comp-value">74</div></div>
+                      </div>
+                      <div class="prev-compare">prev: 65 <span class="prev-delta">(+7)</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="section-gap-lg"></div>
+
+                <!-- Relief tools -->
+                <div class="eyebrow-teal">Relief tools</div>
+                <div class="relief-scroll">
+                  <div class="relief-card">
+                    <div class="relief-icon">🫁</div>
+                    <div class="relief-label">Breathing</div>
+                  </div>
+                  <div class="relief-card">
+                    <div class="relief-icon">🧘</div>
+                    <div class="relief-label">Meditation</div>
+                  </div>
+                  <div class="relief-card">
+                    <div class="relief-icon">🧎</div>
+                    <div class="relief-label">Yoga</div>
+                  </div>
+                </div>
+
+                <div class="bottom-spacer"></div>
+              </div>
+            </div>
+
+            <!-- FAB -->
+            <button class="fab" style="left:auto;right:16px;transform:none;">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>
+              log
+            </button>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="#FF5E00"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+
+      <!-- ════════════════════════════════════
+           SLIDE 5: Screen 53 — Breathing Exercises
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 53</div>
+          <div class="name">Breathing exercises</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-body">
+
+              <!-- domain header -->
+              <div class="domain-header">
+                <div class="domain-header-left">
+                  <div class="domain-back">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+                  </div>
+                  <div class="domain-title-wrap">
+                    <div class="domain-title wellbeing">Breathing exercises</div>
+                  </div>
+                </div>
+                <div class="rpg-badge wellbeing">Lv.3</div>
+              </div>
+
+              <div class="content-pad">
+
+                <!-- Stats card (2x2) -->
+                <div class="stats-grid">
+                  <div class="stat-cell">
+                    <div class="stat-cell-val">42</div>
+                    <div class="stat-cell-lbl">sessions</div>
+                  </div>
+                  <div class="stat-cell">
+                    <div class="stat-cell-val">210</div>
+                    <div class="stat-cell-lbl">minutes</div>
+                  </div>
+                  <div class="stat-cell">
+                    <div class="stat-cell-val"><span class="flame">🔥</span> 8</div>
+                    <div class="stat-cell-lbl">day streak</div>
+                  </div>
+                  <div class="stat-cell">
+                    <div class="stat-cell-val" style="font-size:14px;font-weight:600;">box br.</div>
+                    <div class="stat-cell-lbl">most used</div>
+                  </div>
+                </div>
+
+                <!-- Filter tags -->
+                <div class="filter-tags">
+                  <div class="filter-tag active">all</div>
+                  <div class="filter-tag">before sleep</div>
+                  <div class="filter-tag">during stress</div>
+                  <div class="filter-tag">morning energy</div>
+                  <div class="filter-tag">focus</div>
+                </div>
+
+                <!-- Section heading -->
+                <div class="eyebrow-teal" style="margin-top:4px;">Exercises</div>
+
+                <!-- Exercise cards -->
+                <div class="exercise-card">
+                  <div class="exercise-icon-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18"/></svg>
+                  </div>
+                  <div class="exercise-info">
+                    <div class="exercise-name">Box breathing</div>
+                    <div class="exercise-rhythm">inhale 4s — hold 4s — exhale 4s — hold 4s</div>
+                    <div class="exercise-desc">equal rhythm for calm and focus</div>
+                    <div class="exercise-bottom">
+                      <div class="when-tag">during stress</div>
+                      <div class="when-tag">focus</div>
+                      <div class="rec-badge">recommended</div>
+                      <div class="dur-options">1/3/5/10 min</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="exercise-card">
+                  <div class="exercise-icon-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="2" stroke-linecap="round"><path d="M2 12c0-3 4-8 10-8s10 5 10 8-4 8-10 8S2 15 2 12z"/></svg>
+                  </div>
+                  <div class="exercise-info">
+                    <div class="exercise-name">4-7-8 relaxation</div>
+                    <div class="exercise-rhythm">inhale 4s — hold 7s — exhale 8s</div>
+                    <div class="exercise-desc">deep relaxation technique by Dr. Andrew Weil</div>
+                    <div class="exercise-bottom">
+                      <div class="when-tag">before sleep</div>
+                      <div class="when-tag">anxiety relief</div>
+                      <div class="dur-options">1/3/5 min</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="exercise-card">
+                  <div class="exercise-icon-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="12" rx="8" ry="10"/><path d="M12 2v20"/></svg>
+                  </div>
+                  <div class="exercise-info">
+                    <div class="exercise-name">Deep belly breathing</div>
+                    <div class="exercise-rhythm">inhale 6s — exhale 6s</div>
+                    <div class="exercise-desc">slow, grounding diaphragmatic breath</div>
+                    <div class="exercise-bottom">
+                      <div class="when-tag">during stress</div>
+                      <div class="when-tag">morning energy</div>
+                      <div class="dur-options">1/3/5 min</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="exercise-card">
+                  <div class="exercise-icon-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  </div>
+                  <div class="exercise-info">
+                    <div class="exercise-name">Wim Hof method</div>
+                    <div class="exercise-rhythm">30 power breaths — hold — recovery breath</div>
+                    <div class="exercise-desc">energizing breathwork for resilience</div>
+                    <div class="exercise-bottom">
+                      <div class="when-tag">morning energy</div>
+                      <div class="when-tag">focus</div>
+                      <div class="dur-options">3/5/10 min</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="exercise-card">
+                  <div class="exercise-icon-circle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="2" stroke-linecap="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/></svg>
+                  </div>
+                  <div class="exercise-info">
+                    <div class="exercise-name">Coherence breathing</div>
+                    <div class="exercise-rhythm">inhale 5.5s — exhale 5.5s</div>
+                    <div class="exercise-desc">heart rate variability optimization</div>
+                    <div class="exercise-bottom">
+                      <div class="when-tag">anxiety relief</div>
+                      <div class="when-tag">before sleep</div>
+                      <div class="dur-options">3/5/10 min</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bottom-spacer"></div>
+              </div>
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="#FF5E00"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- thumbnail strip -->
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goTo(0)"><div class="thumb-num">49</div></div>
+    <div class="thumb" onclick="goTo(1)"><div class="thumb-num">50</div></div>
+    <div class="thumb" onclick="goTo(2)"><div class="thumb-num">51</div></div>
+    <div class="thumb" onclick="goTo(3)"><div class="thumb-num">52</div></div>
+    <div class="thumb" onclick="goTo(4)"><div class="thumb-num">53</div></div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const total = 5;
+const track = document.getElementById('track');
+const thumbs = document.querySelectorAll('.thumb');
+const prevBtn = document.querySelector('.nav-arrow.prev');
+const nextBtn = document.querySelector('.nav-arrow.next');
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function go(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function renderThumbs() {
+  thumbs.forEach((thumb, i) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 56; canvas.height = 120;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0A0A0F';
+    ctx.fillRect(0, 0, 56, 120);
+
+    if (i === 0) {
+      // Screen 49: Progress Photos
+      ctx.fillStyle = '#EF4444'; ctx.fillRect(6, 10, 28, 2);
+      // SIA note
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 16, 48, 8, 3); ctx.fill();
+      ctx.fillStyle = 'rgba(127,36,255,.5)'; ctx.fillRect(4, 16, 2, 8);
+      // chart card
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 28, 48, 22, 4); ctx.fill();
+      ctx.strokeStyle = '#FF5E00'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(8, 42); ctx.lineTo(18, 38); ctx.lineTo(28, 36); ctx.lineTo(38, 40); ctx.lineTo(48, 38); ctx.stroke();
+      // stat tiles
+      ctx.fillStyle = '#211008';
+      [4, 22, 40].forEach(x => { ctx.beginPath(); ctx.roundRect(x, 54, 14, 14, 3); ctx.fill(); });
+      // measurements card
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 72, 48, 18, 3); ctx.fill();
+      [76, 80, 84].forEach(y => {
+        ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.fillRect(8, y, 40, 1);
+      });
+      // photo thumbs
+      [6, 20, 34].forEach(x => {
+        ctx.fillStyle = 'rgba(239,68,68,.1)'; ctx.beginPath(); ctx.roundRect(x, 94, 12, 14, 2); ctx.fill();
+      });
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(9, 114, 3, 0, Math.PI*2); ctx.fill();
+    } else if (i === 1) {
+      // Screen 50: Edit Profile
+      // avatar circle
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(28, 22, 10, 0, Math.PI*2); ctx.fill();
+      // form fields
+      [38, 50, 62, 74, 86].forEach(y => {
+        ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(6, y, 44, 8, 3); ctx.fill();
+      });
+      // save CTA
+      ctx.fillStyle = 'rgba(255,94,0,.4)'; ctx.beginPath(); ctx.roundRect(6, 98, 44, 8, 4); ctx.fill();
+      // delete text
+      ctx.fillStyle = 'rgba(244,67,54,.5)'; ctx.fillRect(18, 110, 20, 2);
+    } else if (i === 2) {
+      // Screen 51: Voice Call History
+      // purple tab switcher
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.beginPath(); ctx.roundRect(6, 12, 44, 8, 4); ctx.fill();
+      ctx.fillStyle = '#7F24FF'; ctx.beginPath(); ctx.roundRect(8, 13, 20, 6, 3); ctx.fill();
+      // upcoming card (purple left border)
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 24, 48, 12, 3); ctx.fill();
+      ctx.fillStyle = '#7F24FF'; ctx.fillRect(4, 24, 2, 12);
+      // schedule CTA
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.roundRect(4, 40, 48, 8, 4); ctx.fill();
+      // date header
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.fillRect(6, 54, 16, 2);
+      // call cards
+      [60, 78].forEach(y => {
+        ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, y, 48, 14, 4); ctx.fill();
+        ctx.fillStyle = 'rgba(127,36,255,.4)'; ctx.beginPath(); ctx.arc(10, y+4, 3, 0, Math.PI*2); ctx.fill();
+      });
+      // yesterday header + card
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.fillRect(6, 96, 20, 2);
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 100, 48, 10, 3); ctx.fill();
+      // tab bar (SIA active)
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(23, 114, 3, 0, Math.PI*2); ctx.fill();
+    } else if (i === 3) {
+      // Screen 52: Stress Management
+      ctx.fillStyle = '#14B8A6'; ctx.fillRect(6, 10, 28, 2);
+      // gauge semicircle
+      ctx.strokeStyle = '#14B8A6'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(28, 32, 14, Math.PI, 0); ctx.stroke();
+      ctx.strokeStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(28, 32, 14, Math.PI*1.4, Math.PI*1.7); ctx.stroke();
+      // sub-scores
+      [16, 28, 40].forEach(x => {
+        ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.beginPath(); ctx.arc(x, 40, 2, 0, Math.PI*2); ctx.fill();
+      });
+      // quick log card
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 46, 48, 20, 3); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(8, 52, 40, 2);
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(30, 52, 4, 0, Math.PI*2); ctx.fill();
+      // trigger chips
+      [8, 20, 32].forEach(x => {
+        ctx.fillStyle = 'rgba(20,184,166,.15)'; ctx.beginPath(); ctx.roundRect(x, 58, 10, 5, 3); ctx.fill();
+      });
+      // donut
+      ctx.strokeStyle = '#EF4444'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(20, 80, 8, 0, Math.PI*1.2); ctx.stroke();
+      ctx.strokeStyle = '#14B8A6'; ctx.beginPath(); ctx.arc(20, 80, 8, Math.PI*1.2, Math.PI*1.7); ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,.2)'; ctx.beginPath(); ctx.arc(20, 80, 8, Math.PI*1.7, Math.PI*2); ctx.stroke();
+      // legend dots
+      [36, 42, 48].forEach(y => {
+        ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.beginPath(); ctx.arc(38, y-28+76, 2, 0, Math.PI*2); ctx.fill();
+      });
+      // trend line
+      ctx.strokeStyle = '#FF5E00'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(8, 96); ctx.lineTo(18, 92); ctx.lineTo(28, 98); ctx.lineTo(38, 90); ctx.lineTo(48, 94); ctx.stroke();
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(9, 114, 3, 0, Math.PI*2); ctx.fill();
+    } else if (i === 4) {
+      // Screen 53: Breathing Exercises
+      ctx.fillStyle = '#14B8A6'; ctx.fillRect(6, 10, 28, 2);
+      // stats grid (2x2)
+      ctx.fillStyle = '#211008';
+      [4, 30].forEach(x => {
+        [16, 34].forEach(y => {
+          ctx.beginPath(); ctx.roundRect(x, y, 22, 14, 3); ctx.fill();
+        });
+      });
+      // filter tags
+      [6, 20, 34].forEach(x => {
+        ctx.fillStyle = x === 6 ? 'rgba(20,184,166,.2)' : 'rgba(255,255,255,.06)';
+        ctx.beginPath(); ctx.roundRect(x, 52, 12, 5, 3); ctx.fill();
+      });
+      // exercise cards
+      [62, 78, 94].forEach(y => {
+        ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, y, 48, 12, 3); ctx.fill();
+        ctx.fillStyle = 'rgba(20,184,166,.15)'; ctx.beginPath(); ctx.arc(12, y+6, 4, 0, Math.PI*2); ctx.fill();
+      });
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(9, 114, 3, 0, Math.PI*2); ctx.fill();
+    }
+    thumb.prepend(canvas);
+  });
+}
+renderThumbs();
+
+const sp = new URLSearchParams(window.location.search);
+if (sp.has('start')) {
+  const s = parseInt(sp.get('start'));
+  if (!isNaN(s) && s >= 0 && s < total) {
+    track.style.transition = 'none';
+    goTo(s);
+    requestAnimationFrame(() => track.style.transition = '');
+  }
+}
+</script>
+</body>
+</html>

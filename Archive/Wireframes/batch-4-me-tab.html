@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 4: Me Tab</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink-900:#0A0A0F;--ink-brown:#211008;--brand-orange:#FF5E00;--forest-green:#34A853;--royal-purple:#7F24FF;--error-red:#F44336;--white:#FFFFFF;--phone-w:393px;--phone-h:852px;--bezel:12px;--frame-r:54px}
+html{font-family:'Sora',sans-serif;background:#090909;color:var(--white);overflow-x:hidden}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center}
+.page-header{text-align:center;padding:48px 24px 24px;width:100%;max-width:1200px}.page-header h1{font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}.page-header h2{font-size:32px;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 40%,var(--brand-orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.batch-label{display:inline-block;margin-top:12px;padding:6px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,94,0,.12);color:var(--brand-orange);border:1px solid rgba(255,94,0,.2)}
+.carousel-wrap{position:relative;width:100%;max-width:1200px;display:flex;flex-direction:column;align-items:center;padding:0 60px}.carousel-viewport{width:100%;overflow:hidden;position:relative}.carousel-track{display:flex;transition:transform .55s cubic-bezier(.22,1,.36,1);will-change:transform}.carousel-slide{min-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px 0 0}
+.screen-label{text-align:center;margin-bottom:20px}.screen-label .num{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-orange)}.screen-label .name{font-size:20px;font-weight:600;color:#fff;margin-top:4px}
+.nav-arrow{position:absolute;top:50%;transform:translateY(-70%);z-index:20;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(17,17,17,.85);backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;color:rgba(255,255,255,.6)}.nav-arrow:hover{border-color:var(--brand-orange);color:var(--brand-orange)}.nav-arrow.prev{left:4px}.nav-arrow.next{right:4px}.nav-arrow:disabled{opacity:.25;pointer-events:none}
+.thumb-strip{display:flex;gap:12px;justify-content:center;margin:32px 0 48px;flex-wrap:wrap}.thumb{width:56px;height:120px;border-radius:14px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .3s;position:relative;background:#1a1a1a;display:flex;align-items:center;justify-content:center}.thumb:hover{border-color:rgba(255,94,0,.4)}.thumb.active{border-color:var(--brand-orange);box-shadow:0 0 16px rgba(255,94,0,.2)}.thumb-num{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:rgba(255,255,255,.5)}
+.device{position:relative;width:calc(var(--phone-w) + var(--bezel)*2);height:calc(var(--phone-h) + var(--bezel)*2);border-radius:var(--frame-r);background:linear-gradient(165deg,#3a3a3c 0%,#1c1c1e 40%,#2c2c2e 100%);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1);padding:var(--bezel);flex-shrink:0}.device-inner{width:var(--phone-w);height:var(--phone-h);border-radius:calc(var(--frame-r) - var(--bezel));overflow:hidden;position:relative;background:var(--ink-900)}
+.dynamic-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#000;border-radius:24px;z-index:20}.home-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);z-index:10}
+.status-bar{position:absolute;top:0;left:0;right:0;height:44px;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 24px 0;font-size:15px;font-weight:600;color:#fff}.status-icons{display:flex;align-items:center;gap:6px}.status-icons svg{width:16px;height:16px;fill:#fff}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;font-family:'Sora',sans-serif;overflow-y:auto;overflow-x:hidden;background:var(--ink-900);scrollbar-width:none}.screen::-webkit-scrollbar{display:none}
+.sp-4{height:4px}.sp-8{height:8px}.sp-12{height:12px}.sp-16{height:16px}.sp-24{height:24px}.sp-32{height:32px}
+.card{background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;width:100%}
+.sia-card{border-left:3px solid var(--royal-purple)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.cta-btn{width:100%;height:56px;border-radius:999px;border:none;cursor:pointer;font-size:17px;font-weight:600;font-family:'Sora',sans-serif;display:flex;align-items:center;justify-content:center;background:var(--brand-orange);color:#fff;box-shadow:0 4px 20px rgba(255,94,0,.25)}
+.tab-bar{position:absolute;bottom:0;left:0;right:0;height:90px;background:var(--ink-900);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:flex-start;justify-content:space-around;padding-top:8px;z-index:15}.tab-item{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,.6);cursor:pointer}.tab-item.active{color:var(--brand-orange)}.tab-item svg{width:24px;height:24px}
+.back-btn{position:absolute;left:16px;top:54px;width:44px;height:44px;z-index:10;display:flex;align-items:center;justify-content:center}
+.sia-avatar{width:28px;height:28px;min-width:28px;border-radius:50%;background:linear-gradient(135deg,var(--royal-purple),rgba(127,36,255,.5));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;box-shadow:0 0 12px rgba(127,36,255,.3)}
+.domain-chip{height:24px;padding:0 10px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600}
+.input-field{width:100%;height:52px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;padding:0 16px;font-size:16px;color:rgba(255,255,255,.4)}
+.xp-bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;width:100%}.xp-fill{height:100%;border-radius:4px;background:var(--brand-orange)}
+.filter-chip{height:36px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:600;display:flex;align-items:center;cursor:pointer;white-space:nowrap}
+.filter-chip.active{background:var(--brand-orange);color:#fff}
+.filter-chip.inactive{background:transparent;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+.progress-ring{position:relative;display:flex;align-items:center;justify-content:center}
+.progress-ring svg{transform:rotate(-90deg)}
+.progress-ring .label{position:absolute;font-weight:600;color:#fff}
+.fab{position:absolute;bottom:100px;right:16px;width:56px;height:56px;border-radius:50%;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;z-index:16;box-shadow:0 4px 16px rgba(255,94,0,.3);cursor:pointer}
+@media(max-width:520px){:root{--phone-w:340px;--phone-h:736px;--bezel:10px;--frame-r:48px}.page-header h2{font-size:24px}.carousel-wrap{padding:0 16px}.nav-arrow{width:36px;height:36px}.nav-arrow.prev{left:0}.nav-arrow.next{right:0}}
+</style>
+</head>
+<body>
+<header class="page-header"><h1>Balencia Design System</h1><h2>Batch 4 — Me Tab</h2><span class="batch-label">Screens 16 – 20</span></header>
+<section class="carousel-wrap">
+<button class="nav-arrow prev" onclick="go(-1)" disabled><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></button>
+<button class="nav-arrow next" onclick="go(1)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg></button>
+<div class="carousel-viewport"><div class="carousel-track" id="track">
+
+<!-- ═══ 16: LIFE AREAS OVERVIEW ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 16</div><div class="name">Life Areas Overview</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <!-- back + title -->
+  <div class="back-btn" style="position:relative;left:0;top:0;padding:0 16px"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 16px"><div style="font-size:24px;font-weight:700;color:#fff">life areas</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- Radar Chart -->
+    <div class="card" style="display:flex;align-items:center;justify-content:center;padding:24px">
+      <svg width="260" height="240" viewBox="0 0 260 240">
+        <!-- grid rings -->
+        <polygon points="130,20 220,60 240,130 220,200 130,220 40,200 20,130 40,60" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+        <polygon points="130,50 195,77 210,130 195,183 130,193 65,183 50,130 65,77" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+        <polygon points="130,80 170,95 180,130 170,165 130,173 90,165 80,130 90,95" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+        <!-- axes -->
+        <line x1="130" y1="130" x2="130" y2="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <line x1="130" y1="130" x2="220" y2="60" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <line x1="130" y1="130" x2="240" y2="130" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <line x1="130" y1="130" x2="220" y2="200" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <line x1="130" y1="130" x2="130" y2="220" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <line x1="130" y1="130" x2="40" y2="200" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <line x1="130" y1="130" x2="20" y2="130" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <line x1="130" y1="130" x2="40" y2="60" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <!-- data polygon -->
+        <polygon points="130,42 200,72 210,130 185,190 130,195 58,172 38,130 70,68" fill="rgba(255,94,0,.1)" stroke="var(--brand-orange)" stroke-width="2" stroke-linejoin="round"/>
+        <!-- domain dots -->
+        <circle cx="130" cy="42" r="5" fill="#EF4444"/><!-- fitness -->
+        <circle cx="200" cy="72" r="5" fill="#84CC16"/><!-- nutrition -->
+        <circle cx="210" cy="130" r="5" fill="#10B981"/><!-- finance -->
+        <circle cx="185" cy="190" r="5" fill="#6366F1"/><!-- career -->
+        <circle cx="130" cy="195" r="5" fill="#EC4899"/><!-- relationships -->
+        <circle cx="58" cy="172" r="5" fill="#A855F7"/><!-- spirituality -->
+        <circle cx="38" cy="130" r="5" fill="#06B6D4"/><!-- learning -->
+        <circle cx="70" cy="68" r="5" fill="#F59E0B"/><!-- creativity -->
+        <!-- labels -->
+        <text x="130" y="14" text-anchor="middle" fill="#EF4444" font-size="10" font-family="Sora" font-weight="600">fitness</text>
+        <text x="228" y="58" text-anchor="start" fill="#84CC16" font-size="10" font-family="Sora" font-weight="600">nutrition</text>
+        <text x="250" y="134" text-anchor="start" fill="#10B981" font-size="10" font-family="Sora" font-weight="600">finance</text>
+        <text x="228" y="210" text-anchor="start" fill="#6366F1" font-size="10" font-family="Sora" font-weight="600">career</text>
+        <text x="130" y="236" text-anchor="middle" fill="#EC4899" font-size="10" font-family="Sora" font-weight="600">relationships</text>
+        <text x="14" y="210" text-anchor="start" fill="#A855F7" font-size="10" font-family="Sora" font-weight="600">spirituality</text>
+        <text x="2" y="134" text-anchor="start" fill="#06B6D4" font-size="10" font-family="Sora" font-weight="600">learning</text>
+        <text x="40" y="50" text-anchor="start" fill="#F59E0B" font-size="10" font-family="Sora" font-weight="600">creativity</text>
+      </svg>
+    </div>
+    <!-- SIA Insight Card -->
+    <div class="card sia-card">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="sia-avatar" style="width:24px;height:24px;min-width:24px;font-size:10px">S</div>
+        <div><div style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.4">Your fitness area is your strongest this month. Career has dropped — consider scheduling a focus session this week.</div></div>
+      </div>
+    </div>
+    <!-- Time Range Segmented Control -->
+    <div style="display:flex;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:var(--ink-brown);height:40px">
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer">week</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:var(--brand-orange);color:#fff;border-radius:10px;cursor:pointer">month</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer">all time</div>
+    </div>
+    <!-- Domain List (sorted descending by progress) -->
+    <div class="eyebrow">DOMAIN BREAKDOWN</div>
+    <!-- fitness 82% -->
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="width:10px;height:10px;border-radius:50%;background:#EF4444;flex-shrink:0"></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Fitness</div></div>
+      <div style="width:100px;display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden"><div style="width:82%;height:100%;background:#EF4444;border-radius:3px"></div></div><div style="font-size:12px;color:rgba(255,255,255,.5);width:28px;text-align:right">82%</div></div>
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 2L8 8L2 14"/></svg>
+    </div>
+    <!-- nutrition 71% -->
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="width:10px;height:10px;border-radius:50%;background:#84CC16;flex-shrink:0"></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Nutrition</div></div>
+      <div style="width:100px;display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden"><div style="width:71%;height:100%;background:#84CC16;border-radius:3px"></div></div><div style="font-size:12px;color:rgba(255,255,255,.5);width:28px;text-align:right">71%</div></div>
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 2L8 8L2 14"/></svg>
+    </div>
+    <!-- finance 65% -->
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="width:10px;height:10px;border-radius:50%;background:#10B981;flex-shrink:0"></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Finance</div></div>
+      <div style="width:100px;display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden"><div style="width:65%;height:100%;background:#10B981;border-radius:3px"></div></div><div style="font-size:12px;color:rgba(255,255,255,.5);width:28px;text-align:right">65%</div></div>
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 2L8 8L2 14"/></svg>
+    </div>
+    <!-- relationships 58% -->
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="width:10px;height:10px;border-radius:50%;background:#EC4899;flex-shrink:0"></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Relationships</div></div>
+      <div style="width:100px;display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden"><div style="width:58%;height:100%;background:#EC4899;border-radius:3px"></div></div><div style="font-size:12px;color:rgba(255,255,255,.5);width:28px;text-align:right">58%</div></div>
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 2L8 8L2 14"/></svg>
+    </div>
+    <!-- learning 53% -->
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="width:10px;height:10px;border-radius:50%;background:#06B6D4;flex-shrink:0"></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Learning</div></div>
+      <div style="width:100px;display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden"><div style="width:53%;height:100%;background:#06B6D4;border-radius:3px"></div></div><div style="font-size:12px;color:rgba(255,255,255,.5);width:28px;text-align:right">53%</div></div>
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 2L8 8L2 14"/></svg>
+    </div>
+    <!-- career 45% -->
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="width:10px;height:10px;border-radius:50%;background:#6366F1;flex-shrink:0"></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Career</div></div>
+      <div style="width:100px;display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden"><div style="width:45%;height:100%;background:#6366F1;border-radius:3px"></div></div><div style="font-size:12px;color:rgba(255,255,255,.5);width:28px;text-align:right">45%</div></div>
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 2L8 8L2 14"/></svg>
+    </div>
+    <!-- spirituality 40% -->
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="width:10px;height:10px;border-radius:50%;background:#A855F7;flex-shrink:0"></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Spirituality</div></div>
+      <div style="width:100px;display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:#A855F7;border-radius:3px"></div></div><div style="font-size:12px;color:rgba(255,255,255,.5);width:28px;text-align:right">40%</div></div>
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 2L8 8L2 14"/></svg>
+    </div>
+    <!-- creativity 35% -->
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0">
+      <div style="width:10px;height:10px;border-radius:50%;background:#F59E0B;flex-shrink:0"></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Creativity</div></div>
+      <div style="width:100px;display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden"><div style="width:35%;height:100%;background:#F59E0B;border-radius:3px"></div></div><div style="font-size:12px;color:rgba(255,255,255,.5);width:28px;text-align:right">35%</div></div>
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 2L8 8L2 14"/></svg>
+    </div>
+  </div>
+  <!-- tab bar -->
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 17: ME MAIN ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 17</div><div class="name">Me Main</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <!-- settings gear -->
+  <div style="position:absolute;top:54px;right:16px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;z-index:10;cursor:pointer">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- Profile Section -->
+    <div style="display:flex;flex-direction:column;align-items:center;padding:24px 0 8px">
+      <!-- avatar -->
+      <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--brand-orange),rgba(255,94,0,.6));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;box-shadow:0 0 24px rgba(255,94,0,.2)">A</div>
+      <div class="sp-12"></div>
+      <div style="font-size:20px;font-weight:700;color:#fff">Amira</div>
+      <div class="sp-8"></div>
+      <!-- level badge -->
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="background:rgba(255,94,0,.15);color:var(--brand-orange);font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px;display:flex;align-items:center;gap:4px">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="var(--brand-orange)"><path d="M6 0L7.5 4.5H12L8.25 7.5L9.75 12L6 9L2.25 12L3.75 7.5L0 4.5H4.5Z"/></svg>
+          LVL 5 · apprentice
+        </div>
+      </div>
+      <div class="sp-12"></div>
+      <!-- XP progress bar -->
+      <div style="width:200px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><div style="font-size:11px;color:rgba(255,255,255,.4)">1,240 XP</div><div style="font-size:11px;color:rgba(255,255,255,.3)">2,000 XP</div></div>
+        <div class="xp-bar"><div class="xp-fill" style="width:62%"></div></div>
+      </div>
+      <div style="font-size:13px;color:rgba(255,255,255,.4);margin-top:10px">Member since May 2024</div>
+    </div>
+    <!-- SIA Weekly Insight -->
+    <div class="card sia-card">
+      <div style="display:flex;gap:10px;align-items:flex-start;padding-left:6px">
+        <div style="width:6px;height:6px;min-width:6px;border-radius:50%;background:#7F24FF;margin-top:6px"></div>
+        <div>
+          <div class="eyebrow" style="margin-bottom:6px">WEEKLY INSIGHT</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.4">Great week! You completed 12 actions and earned 280 XP. Your consistency in fitness is paying off — sleep quality up 18%.</div>
+          <div style="font-size:12px;color:var(--brand-orange);margin-top:8px;cursor:pointer">discuss with SIA →</div>
+        </div>
+      </div>
+    </div>
+    <!-- Stats Row -->
+    <div style="display:flex;gap:12px;align-items:center">
+      <div class="card" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:14px 8px">
+        <div style="font-size:24px;font-weight:700;color:var(--brand-orange)">7</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">day streak</div>
+      </div>
+      <div class="card" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:14px 8px">
+        <div style="font-size:24px;font-weight:700;color:var(--forest-green)">23</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">completed</div>
+      </div>
+      <div class="card" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:14px 8px">
+        <div style="font-size:24px;font-weight:700;color:#fff">1.2k</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">total XP</div>
+      </div>
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><path d="M2 2L8 8L2 14"/></svg>
+    </div>
+    <!-- Explore Preview -->
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div class="eyebrow">EXPLORE</div>
+      <div style="font-size:13px;color:var(--brand-orange);font-weight:500;cursor:pointer">see all →</div>
+    </div>
+    <div style="display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px">
+      <div class="card" style="min-width:140px;padding:14px">
+        <div style="font-size:22px;margin-bottom:8px">🏋️</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Fitness</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:4px">Workouts & tracking</div>
+      </div>
+      <div class="card" style="min-width:140px;padding:14px">
+        <div style="font-size:22px;margin-bottom:8px">💰</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Finance</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:4px">Budget & spending</div>
+      </div>
+      <div class="card" style="min-width:140px;padding:14px">
+        <div style="font-size:22px;margin-bottom:8px">📚</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Learning</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:4px">Books & courses</div>
+      </div>
+    </div>
+    <!-- Quick Links 2x2 -->
+    <div class="eyebrow">QUICK LINKS</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="card" style="display:flex;align-items:center;gap:10px;padding:14px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand-orange)" stroke-width="2"><path d="M12 2L15 8.5H22L16.5 13L18.5 20L12 16L5.5 20L7.5 13L2 8.5H9Z"/></svg>
+        <div><div style="font-size:14px;font-weight:600;color:#fff">RPG character</div><div style="font-size:12px;color:rgba(255,255,255,.4)">Lv.14 explorer</div></div>
+      </div>
+      <div class="card" style="display:flex;align-items:center;gap:10px;padding:14px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        <div><div style="font-size:14px;font-weight:600;color:#fff">Book of life</div><div style="font-size:12px;color:rgba(255,255,255,.4)">what SIA knows</div></div>
+      </div>
+      <div class="card" style="display:flex;align-items:center;gap:10px;padding:14px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand-orange)" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+        <div><div style="font-size:14px;font-weight:600;color:#fff">Connected</div><div style="font-size:12px;color:rgba(255,255,255,.4)">3 connected</div></div>
+      </div>
+      <div class="card" style="display:flex;align-items:center;gap:10px;padding:14px;cursor:pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand-orange)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <div><div style="font-size:14px;font-weight:600;color:#fff">Settings</div><div style="font-size:12px;color:rgba(255,255,255,.4)">account & preferences</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- tab bar -->
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 18: EXPLORE SECTION ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 18</div><div class="name">Explore Section</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <!-- back + title -->
+  <div class="back-btn" style="position:relative;left:0;top:0;padding:0 16px"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 12px"><div style="font-size:24px;font-weight:700;color:#fff">explore</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- Search bar -->
+    <div style="width:100%;height:44px;border-radius:999px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;padding:0 16px;gap:10px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <div style="font-size:15px;color:rgba(255,255,255,.35)">search modules...</div>
+    </div>
+    <!-- Suggested For You -->
+    <div class="eyebrow">SUGGESTED FOR YOU</div>
+    <div style="display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px">
+      <div style="min-width:160px;height:130px;border-radius:14px;background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(239,68,68,.05));border:1px solid rgba(239,68,68,.15);padding:14px;display:flex;flex-direction:column;justify-content:space-between;position:relative">
+        <div style="position:absolute;top:10px;right:10px;background:var(--brand-orange);font-size:9px;font-weight:700;color:#fff;padding:2px 8px;border-radius:999px">SUGGESTED</div>
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px"><div style="width:8px;height:8px;border-radius:50%;background:#EF4444"></div><div style="font-size:11px;color:rgba(255,255,255,.5)">Fitness</div></div>
+        <div style="font-size:22px">🏃</div>
+        <div><div style="font-size:14px;font-weight:600;color:#fff">Active Workout</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">Track sets & reps</div></div>
+      </div>
+      <div style="min-width:160px;height:130px;border-radius:14px;background:linear-gradient(135deg,rgba(132,204,22,.15),rgba(132,204,22,.05));border:1px solid rgba(132,204,22,.15);padding:14px;display:flex;flex-direction:column;justify-content:space-between;position:relative">
+        <div style="position:absolute;top:10px;right:10px;background:var(--forest-green);font-size:9px;font-weight:700;color:#fff;padding:2px 8px;border-radius:999px">NEW</div>
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px"><div style="width:8px;height:8px;border-radius:50%;background:#84CC16"></div><div style="font-size:11px;color:rgba(255,255,255,.5)">Nutrition</div></div>
+        <div style="font-size:22px">🥗</div>
+        <div><div style="font-size:14px;font-weight:600;color:#fff">Food Logger</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">Log meals & macros</div></div>
+      </div>
+      <div style="min-width:160px;height:130px;border-radius:14px;background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(16,185,129,.05));border:1px solid rgba(16,185,129,.15);padding:14px;display:flex;flex-direction:column;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px"><div style="width:8px;height:8px;border-radius:50%;background:#10B981"></div><div style="font-size:11px;color:rgba(255,255,255,.5)">Finance</div></div>
+        <div style="font-size:22px">💳</div>
+        <div><div style="font-size:14px;font-weight:600;color:#fff">Spending</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">Budget insights</div></div>
+      </div>
+    </div>
+    <!-- Fitness section -->
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;position:sticky;top:0;z-index:5;background:var(--ink-900)">
+      <div style="width:8px;height:8px;border-radius:50%;background:#EF4444"></div>
+      <div style="font-size:14px;font-weight:600;color:#fff">Fitness</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:18px">🏋️</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Dashboard</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Overview & stats</div>
+      </div>
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:18px">🏃</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Workout</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Track exercises</div>
+      </div>
+    </div>
+    <!-- Nutrition section -->
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;position:sticky;top:0;z-index:5;background:var(--ink-900)">
+      <div style="width:8px;height:8px;border-radius:50%;background:#84CC16"></div>
+      <div style="font-size:14px;font-weight:600;color:#fff">Nutrition</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:18px">🥗</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Dashboard</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Macros & meals</div>
+      </div>
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:18px">📝</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Food Logger</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Quick add foods</div>
+      </div>
+    </div>
+    <!-- Finance section -->
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;position:sticky;top:0;z-index:5;background:var(--ink-900)">
+      <div style="width:8px;height:8px;border-radius:50%;background:#10B981"></div>
+      <div style="font-size:14px;font-weight:600;color:#fff">Finance</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:18px">💰</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Dashboard</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Net position</div>
+      </div>
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px;position:relative">
+        <div style="position:absolute;top:10px;right:10px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <div style="font-size:18px">📊</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Investments</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Portfolio view</div>
+      </div>
+    </div>
+    <!-- Standalone Features -->
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;position:sticky;top:0;z-index:5;background:var(--ink-900)">
+      <div style="font-size:14px;font-weight:600;color:#fff">Standalone Features</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:18px">📓</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Journal</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Daily reflection</div>
+      </div>
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:18px">✅</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Habits</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Track routines</div>
+      </div>
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:18px">📅</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Calendar</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Schedule & plan</div>
+      </div>
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:18px">🏆</div>
+        <div style="font-size:13px;font-weight:600;color:#fff">Leaderboard</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">Compete & grow</div>
+      </div>
+    </div>
+  </div>
+  <!-- tab bar -->
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 19: RPG CHARACTER ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 19</div><div class="name">RPG Character</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <!-- back + title -->
+  <div class="back-btn" style="position:relative;left:0;top:0;padding:0 16px"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 16px"><div style="font-size:24px;font-weight:700;color:#fff">your character</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- Character Hero Card -->
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;padding:24px;position:relative;overflow:hidden">
+      <div style="position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(255,94,0,.1) 0%,transparent 70%);pointer-events:none"></div>
+      <!-- avatar -->
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--brand-orange),rgba(255,94,0,.6));display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#fff;box-shadow:0 0 32px rgba(255,94,0,.25);position:relative;z-index:1">A</div>
+      <div class="sp-12"></div>
+      <!-- level diamond + rank -->
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--brand-orange)"><path d="M8 0L10 6H16L11 10L13 16L8 12L3 16L5 10L0 6H6Z"/></svg>
+        <div style="font-size:18px;font-weight:700;color:var(--brand-orange)">Level 5</div>
+      </div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:4px">apprentice</div>
+      <div class="sp-12"></div>
+      <!-- XP bar -->
+      <div style="width:100%">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><div style="font-size:11px;color:rgba(255,255,255,.5)">1,240 / 2,000 XP</div><div style="font-size:11px;color:var(--brand-orange)">760 to level 6</div></div>
+        <div class="xp-bar" style="height:10px"><div class="xp-fill" style="width:62%"></div></div>
+      </div>
+    </div>
+    <!-- Domain Skills Grid -->
+    <div class="eyebrow">DOMAIN SKILLS</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+      <!-- fitness -->
+      <div class="card" style="padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;border-top:2px solid #EF4444">
+        <div style="font-size:11px;font-weight:600;color:#EF4444">fitness</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">Lv.4</div>
+        <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:70%;background:#EF4444"></div></div>
+      </div>
+      <!-- nutrition -->
+      <div class="card" style="padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;border-top:2px solid #84CC16">
+        <div style="font-size:11px;font-weight:600;color:#84CC16">nutrition</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">Lv.3</div>
+        <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:45%;background:#84CC16"></div></div>
+      </div>
+      <!-- finance -->
+      <div class="card" style="padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;border-top:2px solid #10B981">
+        <div style="font-size:11px;font-weight:600;color:#10B981">finance</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">Lv.3</div>
+        <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:55%;background:#10B981"></div></div>
+      </div>
+      <!-- career -->
+      <div class="card" style="padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;border-top:2px solid #6366F1">
+        <div style="font-size:11px;font-weight:600;color:#6366F1">career</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">Lv.2</div>
+        <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:80%;background:#6366F1"></div></div>
+      </div>
+      <!-- relationships -->
+      <div class="card" style="padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;border-top:2px solid #EC4899">
+        <div style="font-size:11px;font-weight:600;color:#EC4899">social</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">Lv.2</div>
+        <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:30%;background:#EC4899"></div></div>
+      </div>
+      <!-- spirituality -->
+      <div class="card" style="padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;border-top:2px solid #A855F7">
+        <div style="font-size:11px;font-weight:600;color:#A855F7">spirit</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">Lv.1</div>
+        <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:60%;background:#A855F7"></div></div>
+      </div>
+      <!-- learning -->
+      <div class="card" style="padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;border-top:2px solid #06B6D4">
+        <div style="font-size:11px;font-weight:600;color:#06B6D4">learning</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">Lv.2</div>
+        <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:40%;background:#06B6D4"></div></div>
+      </div>
+      <!-- creativity -->
+      <div class="card" style="padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;border-top:2px solid #F59E0B">
+        <div style="font-size:11px;font-weight:600;color:#F59E0B">creativity</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">Lv.1</div>
+        <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:20%;background:#F59E0B"></div></div>
+      </div>
+      <!-- wellbeing -->
+      <div class="card" style="padding:10px;display:flex;flex-direction:column;align-items:center;gap:6px;border-top:2px solid #14B8A6">
+        <div style="font-size:11px;font-weight:600;color:#14B8A6">wellbeing</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">Lv.2</div>
+        <div class="xp-bar" style="height:4px"><div class="xp-fill" style="width:50%;background:#14B8A6"></div></div>
+      </div>
+    </div>
+    <!-- Stats Row -->
+    <div style="display:flex;gap:12px">
+      <div class="card" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:14px 8px">
+        <div style="font-size:24px;font-weight:700;color:var(--brand-orange)">7</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">day streak</div>
+      </div>
+      <div class="card" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:14px 8px">
+        <div style="font-size:24px;font-weight:700;color:var(--forest-green)">12</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">quests done</div>
+      </div>
+      <div class="card" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:14px 8px">
+        <div style="font-size:24px;font-weight:700;color:#fff">3</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">active</div>
+      </div>
+    </div>
+    <!-- Quest History -->
+    <div class="eyebrow">QUEST HISTORY</div>
+    <!-- quest row 1 -->
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;color:#fff">Eat clean for 30 days</div>
+        <div style="display:flex;gap:6px;margin-top:4px;align-items:center">
+          <div class="domain-chip" style="background:rgba(132,204,22,.15);color:#84CC16;font-size:10px;height:18px;padding:0 7px">nutrition</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.3)">Apr 12</div>
+        </div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--forest-green)">+150 XP</div>
+    </div>
+    <!-- quest row 2 -->
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;color:#fff">Read 2 books this month</div>
+        <div style="display:flex;gap:6px;margin-top:4px;align-items:center">
+          <div class="domain-chip" style="background:rgba(6,182,212,.15);color:#06B6D4;font-size:10px;height:18px;padding:0 7px">learning</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.3)">Mar 28</div>
+        </div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--forest-green)">+200 XP</div>
+    </div>
+    <!-- quest row 3 -->
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 0">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;color:#fff">Save $500 emergency fund</div>
+        <div style="display:flex;gap:6px;margin-top:4px;align-items:center">
+          <div class="domain-chip" style="background:rgba(16,185,129,.15);color:#10B981;font-size:10px;height:18px;padding:0 7px">finance</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.3)">Mar 15</div>
+        </div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--forest-green)">+250 XP</div>
+    </div>
+    <div style="text-align:center;padding:12px 0"><div style="font-size:13px;color:var(--brand-orange);cursor:pointer">show earlier quests</div></div>
+    <!-- My Rewards -->
+    <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4)">MY REWARDS</div>
+    <!-- reward card 1 -->
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-direction:row">
+      <div style="font-size:15px;font-weight:600;color:#fff">Movie night</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:13px;font-weight:600;color:var(--brand-orange)">250 XP</div>
+        <div style="height:36px;width:100px;border-radius:999px;background:#34A853;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer">claim</div>
+      </div>
+    </div>
+    <!-- reward card 2 -->
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-direction:row">
+      <div style="font-size:15px;font-weight:600;color:#fff">New running shoes</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:13px;font-weight:600;color:var(--brand-orange)">1,500 XP</div>
+        <div style="height:36px;width:100px;border-radius:999px;background:rgba(255,255,255,.2);color:rgba(255,255,255,.3);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:default">claim</div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:8px 0"><div style="font-size:14px;font-weight:600;color:var(--brand-orange);cursor:pointer">+ add a reward</div></div>
+  </div>
+  <!-- tab bar -->
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 20: PERSONAL WIKI / SIA MEMORY ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 20</div><div class="name">Personal Wiki · Book of Life</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <!-- back + title -->
+  <div class="back-btn" style="position:relative;left:0;top:0;padding:0 16px"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="padding:0 16px 12px"><div style="font-size:24px;font-weight:700;color:#fff">book of life</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- Search bar -->
+    <div style="width:100%;height:44px;border-radius:999px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;padding:0 16px;gap:10px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <div style="font-size:15px;color:rgba(255,255,255,.35)">search memories...</div>
+    </div>
+    <!-- Chapter tabs -->
+    <div style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px">
+      <div class="filter-chip active" style="font-size:12px;height:32px;padding:0 14px">about you (8)</div>
+      <div class="filter-chip inactive" style="font-size:12px;height:32px;padding:0 14px">preferences (5)</div>
+      <div class="filter-chip inactive" style="font-size:12px;height:32px;padding:0 14px">patterns (4)</div>
+      <div class="filter-chip inactive" style="font-size:12px;height:32px;padding:0 14px">correlations (3)</div>
+      <div class="filter-chip inactive" style="font-size:12px;height:32px;padding:0 14px">goals (6)</div>
+      <div class="filter-chip inactive" style="font-size:12px;height:32px;padding:0 14px">life events (2)</div>
+    </div>
+    <!-- Chapter meta -->
+    <div style="font-size:12px;color:rgba(255,255,255,.35)">8 entries · last updated today</div>
+    <!-- Entry cards -->
+    <!-- entry 1 -->
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:6px">Full name</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.5">Amira Hassan — goes by Amira. Prefers informal communication.</div>
+      <div style="display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05)">
+        <div style="font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;font-weight:500">edit</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.35);cursor:pointer">this is wrong</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:8px"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"><circle cx="5" cy="5" r="4"/></svg><div style="font-size:10px;color:rgba(255,255,255,.2)">from onboarding</div></div>
+    </div>
+    <!-- entry 2 -->
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:6px">Location & timezone</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.5">Based in Dubai, UAE. GMT+4 timezone. Often travels for work to London and Singapore.</div>
+      <div style="display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05)">
+        <div style="font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;font-weight:500">edit</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.35);cursor:pointer">this is wrong</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:8px"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"><circle cx="5" cy="5" r="4"/></svg><div style="font-size:10px;color:rgba(255,255,255,.2)">from conversation</div></div>
+    </div>
+    <!-- entry 3 -->
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:6px">Fitness background</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.5">Runs 3-4x per week, training for first half marathon. Prefers morning workouts (6-7 AM). No gym...</div>
+      <div style="font-size:12px;color:var(--brand-orange);cursor:pointer;margin-top:4px">show more</div>
+      <div style="display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05)">
+        <div style="font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;font-weight:500">edit</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.35);cursor:pointer">this is wrong</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:8px"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"><circle cx="5" cy="5" r="4"/></svg><div style="font-size:10px;color:rgba(255,255,255,.2)">from SIA analysis</div></div>
+    </div>
+    <!-- entry 4 -->
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:6px">Career goals</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.5">Works in product management at a fintech startup. Wants to transition to a leadership role within 2...</div>
+      <div style="font-size:12px;color:var(--brand-orange);cursor:pointer;margin-top:4px">show more</div>
+      <div style="display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05)">
+        <div style="font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;font-weight:500">edit</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.35);cursor:pointer">this is wrong</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:8px"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"><circle cx="5" cy="5" r="4"/></svg><div style="font-size:10px;color:rgba(255,255,255,.2)">from onboarding</div></div>
+    </div>
+    <!-- entry 5 -->
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:6px">Dietary preferences</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.5">Halal diet. Avoids dairy (mild intolerance). Intermittent fasting 16:8 on weekdays.</div>
+      <div style="display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05)">
+        <div style="font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;font-weight:500">edit</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.35);cursor:pointer">this is wrong</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:8px"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"><circle cx="5" cy="5" r="4"/></svg><div style="font-size:10px;color:rgba(255,255,255,.2)">from conversation</div></div>
+    </div>
+    <!-- correlation entry 1 -->
+    <div class="card" style="position:relative">
+      <div style="position:absolute;top:12px;right:12px;background:rgba(52,168,83,.2);color:#34A853;font-size:10px;font-weight:600;padding:4px 8px;border-radius:999px">high confidence</div>
+      <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:6px;padding-right:100px">Sleep ↔ Exercise performance</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.5">Your workout intensity drops 40% on days with less than 6 hours of sleep.</div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:10px"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"><circle cx="5" cy="5" r="4"/></svg><div style="font-size:12px;color:rgba(255,255,255,.4)">detected from data · May 12</div></div>
+    </div>
+    <!-- correlation entry 2 -->
+    <div class="card" style="position:relative">
+      <div style="position:absolute;top:12px;right:12px;background:rgba(52,168,83,.2);color:#34A853;font-size:10px;font-weight:600;padding:4px 8px;border-radius:999px">high confidence</div>
+      <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:6px;padding-right:100px">Hydration ↔ Focus levels</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.5">Your afternoon focus scores are 35% higher on days you drink more than 2L of water before noon.</div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:10px"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"><circle cx="5" cy="5" r="4"/></svg><div style="font-size:12px;color:rgba(255,255,255,.4)">detected from data · May 12</div></div>
+    </div>
+  </div>
+  <!-- tab bar -->
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+</div></div><!-- end carousel -->
+
+<!-- Thumbnail strip -->
+<div class="thumb-strip" id="thumbs">
+<div class="thumb active" onclick="jump(0)"><div style="font-size:14px;opacity:.5">📊</div><div class="thumb-num">16</div></div>
+<div class="thumb" onclick="jump(1)"><div style="font-size:14px;opacity:.5">👤</div><div class="thumb-num">17</div></div>
+<div class="thumb" onclick="jump(2)"><div style="font-size:14px;opacity:.5">🧭</div><div class="thumb-num">18</div></div>
+<div class="thumb" onclick="jump(3)"><div style="font-size:14px;opacity:.5">⚔️</div><div class="thumb-num">19</div></div>
+<div class="thumb" onclick="jump(4)"><div style="font-size:14px;opacity:.5">📖</div><div class="thumb-num">20</div></div>
+</div>
+</section>
+
+<script>
+let cur=0;const total=5;
+const track=document.getElementById('track');
+const thumbs=document.getElementById('thumbs').children;
+function render(){track.style.transform=`translateX(-${cur*100}%)`;for(let i=0;i<total;i++){thumbs[i].classList.toggle('active',i===cur)}document.querySelector('.nav-arrow.prev').disabled=cur===0;document.querySelector('.nav-arrow.next').disabled=cur===total-1}
+function go(d){cur=Math.max(0,Math.min(total-1,cur+d));render()}
+function jump(i){cur=i;render()}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
+const sp=new URLSearchParams(window.location.search);if(sp.has('start')){const s=parseInt(sp.get('start'));if(!isNaN(s)&&s>=0&&s<total){document.getElementById('track').style.transition='none';jump(s);requestAnimationFrame(()=>document.getElementById('track').style.transition='')}}
+</script>
+</body>
+</html>

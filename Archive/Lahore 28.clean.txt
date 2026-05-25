@@ -1,0 +1,402 @@
+BALENCIA UI/UX COMPILED FINAL QUESTIONNAIRE — MEETING TRANSCRIPT (CLEANED)
+Participants: Hamza (CEO), Salman (Team Member), Tehreem (Designer)
+Source: Lahore 28.txt (MLX-Whisper raw transcript)
+Cleaned: 2026-05-19
+
+================================================================================
+
+--- Section 1.1: What is Balencia? (Single Sentence Definition) ---
+
+We compile them together. Jo alayne, walayne [Those that are separate, those that are together]. 17 need review and 13 are contradictory. Key contradictions ko chhoro [leave those aside] zutayn abhi ke liye [for now]. Let's start.
+
+Why is a single sentence that describes what Balencia is?
+
+[Hamza]: Balencia is your clarity and your guide for anyone struggling with discipline, productivity, structure, or needing motivation. Core principle, Balencia sees what we can't see. Balencia connects different parts of our lives if we move together.
+
+[Salman]: Balencia is your AI life coach that connects your fitness, finances, faith, career, and relationships into one system. And shows you patterns you would never spot alone.
+
+[Merged]: Balencia is your AI life coach that sees what you can't see, connecting every part of your life into one system and guiding you to be better in all of it.
+
+[Hamza]: Acha bas [Okay so], ek cheez hai [one thing], ki one thing that I do want to mention — when you say "connects your fitness, finance, faith, career, and relationships," what example? Example. But in life? Example. Exactly. Woye ke liye [That's why] if you write, for example, just these are some of the other ones, toh phir sahi ho hai [then it's correct]. Warna masla kya hota hai [Otherwise the problem becomes], what AI thinks is, this is it. Yes.
+
+Toh [So], main usko bolte rehta hoon [I keep telling it] ki like, 8 modules abhi hai [there are 8 modules right now], in the future there might be 20.
+
+One thing that we're missing out on is psychology, mental health, therapist. Ek therapist ka kamra toh hona chahiye [There should be a therapist's room], ki if you just want to go and vent. For whatever reason.
+
+Do you have a receptionist? Nahi [No], therapist. Yoga, yoga is... Section ki nahi aje ki? [Not a section for today?] No, no, no, no, therapist and yoga is very different. Yoga is meditation. I feel like I need yoga, America mar raha hai tarah [America is killing me in this way], kahin se soya nahi hoon [haven't slept properly].
+
+Yoga helps you get your body in shape in one perspective, it's like similar to going to the gym. Yoga is like that. What do therapists do? To go to a therapist, ideally you should first go to a psychiatrist. Psychiatrist will tell you that you have these issues. It can be small issues, it can be big issues. Anxiety. A psychiatrist will diagnose you that you have anxiety. Physiotherapist is there. Are you giving meaning to it? No. Physiotherapist is physical.
+
+Psychiatrist and therapist are different. Psychiatrist diagnose you. The therapists don't have the ability to diagnose you. They just think that you have anxiety, let's work together to fix it. So I think that's also something we can mention. It's the same thing, it's not like that. But I think we can add that as a module.
+
+So you're saying that the mental health is different. Okay, so merged, that's fine. Should we keep — I think it's one single sentence. But "sees what we can't see," what does it mean?
+
+Both agree on multi-layered approach. Conversational insights. The question I asked, I have developed it, I have answered it. Like system management.
+
+--- Section 1.2: Core Principle & Life Correlation ---
+
+Life is made up of a lot of things so we need to keep it simple — connecting every part of your life into one system and guiding you to be better in all of it. Whether you want to talk about — I don't know, like the most simple thing I can talk about is groceries. Like, you mentioned groceries is not a module but it's part of life that you need to be a bit disciplined to get groceries in time and so on. Using the same modules which are made, it would be able to kind of just schedule your groceries. Yeah, exactly. Yeah.
+
+Okay, Balencia. The frequency. Conversational insights. Visual intelligence. Clear knowledge graph. Life correlation matrix.
+
+Okay, what's knowledge graph? Knowledge graph and what's the difference between knowledge graph and Balencia wiki and life correlation matrix?
+
+This is the document for the memory layer of the LLM-PI coach. Like this is a simple summary of the overview of the list of followers. So it's not wiki? It's the wiki. Okay. And knowledge graph is — everything is 3D application with the features. It will be detailed view as well. Like if you see here, for example. Okay, interactive drill down — clicking in the main shows its correlation with others.
+
+Layered delivery — daily via SIA, weekly via digest, on demand via graphs insights.
+
+[Hamza]: Life correlation is systems, commercial differentiator, and marketing tool. I fully believe this is the billion dollar thing — life correlation system.
+
+[Salman]: Adds the "holy shit" moment — the first time SIA tells you something true about your life you didn't know.
+
+Okay, yeah! I think this will be answered later.
+
+--- Section 1.3: Emotional Arc of User's First Five Minutes ---
+
+What is the emotional arc of the user's first five minutes?
+
+[Hamza]: Recognition, reliability, motivation, hope, excitement, anticipation. TikTok style relatability. What I'm thinking in my heart, he's saying it. Islamic motivational content as inspiration for the fire Balencia should ignite.
+
+32% of users say yes! Landing page where they would feel something, where relatability hoti hai [there's relatability], it's already working.
+
+Kaise hoti hai [How does it happen]? Kiske na ke video hoti [Whose video is it]? Like I'm thinking ke pehle toh hai ke [first there is a] landing page hoti [there's a landing page] jo Balencia city ke [of Balencia city] — when you click on it you can see the connection between your life. Phir uske saath [Then along with that] in the onboarding, I feel like there needs to be some kind of examples of pehle log kaise gaye wahan ke [how people went there before] — like it can be examples of goals. Like hai goals hai toh agar pehle pehle [if there are goals and before] application use kar hai [if you use the application], separate separate hai [they are separate], ki har cheez dekhi kar combine hoti [that every thing seen together combines] ki hai related to all life. Hmm.
+
+Kaise hoti hai gaya? [How does it happen?] I think mujhe mujhe video ni hogi, video ki jagah frames honge, landing page ki jagah [I think it won't be a video, instead of video there'll be frames, instead of landing page].
+
+Okay I think over here there is this voice — emotional hai [it's emotional]. Ye nahi bata raha hai kaise hoga [This isn't telling how it will happen], he is just saying ke ye hume chahiye [that we need this]. And I think it's fine.
+
+To resolve: emotional goals are — relate, motivate, incite. The difference is execution. Hamza wants heavier video content opening. Salman wants a faster UX intervention. Connects to question 3.4.
+
+Intro video. Ho baad mein [We'll do it later], I think aake dekhte [we'll come and see]. But, ek toh hai landing page [one thing is the landing page]. But I'm thinking from an onboarding ki jagah [perspective]. Jab hum onboard kar rahe hain na [When we are onboarding]. And when there is a chatbot where it thinks to talk. Uske open, uske paas [Its open, next to it] some examples hain mujhe hai [there are examples I think]. It's not a video. But it's kind of like cues ke [that] you can do this. Additions, you can do this. Examples of what others have done.
+
+I don't know how to visually say this. But, chatbot at the bottom. Up there is some motion. Video hi bana di hai [Just make a video]. Pehle se video bana di [Pre-made video]. Where someone is typing their goal. And it's like, "oh I wanna improve myself with this." Or woh goal banate pe [when they make that goal], it goes ahead. It's kind of like an example. Jo humne pehle se banaya hota [That we've pre-made]. That's being shown in the top. Usse hoti hai gaye ki like [Then it happens that], "Oh shit, this is exactly what I wanted."
+
+Okay. Okay fine.
+
+For now let's do 1.3: Landing page is the whole — "This feels different. It's talking to me. It gets me. It's already working." And then the UX for landing page is a bit more simpler. Fine. Let's do it for now. I think it's a bit more easier.
+
+I think we can still keep AI suggestions at the bottom. Ki hai ke main likhti hoon [Like she writes] "I want to..." Thodi si cheezein bataan nahi [Tell me a few things]. Suggestions and some kind of QA. Pre-recommendation. Pre-recommendation. But up there it's flow. Like, you know, just... yes, flow karate hai [they do the flow]. Yes, exactly. If we want to make it cool. Maybe we don't. It's just like brainstorming. You can just... "oh I want to do this." Something like that. I don't know. But that was my idea.
+
+Okay, let me just say that in English now so AI captures it: Suggestions at the bottom next to the chatbot. And above it can be kind of like a brainstorming bubble. Where the questions are just going here and there. And you can just click on it. And it just adds it.
+
+--- Section 1.4: User Persona ---
+
+Who is the user persona? Age: 25 to 45. Someone struggling who wants to improve but needs guidance. Has tried other apps but found them too narrow. Wants a coach, not another tool. Would leave if content feels generic or if app feels overwhelming.
+
+[Primary Persona] Amira, 28, Muslim professional juggling career, marriage, fitness, and faith. Not tech-forward. Downloaded because everything feels disconnected.
+
+[Secondary Persona] Khalid, 35, high achiever with Whoop. Wants cross-domain intelligence.
+
+Um. I think we should stick with what I said mainly because — I think, okay. We are aligned with this. We are aligned with this because yours fit in mine as well. I'm just a bit more specific. Because I tried this a lot before. If I write career, marriage, faith, fitness, faith — it will focus on that. AI is like that. So... it will stay the same.
+
+--- Section 1.5: Three Apps That Feel Like Balencia ---
+
+Okay. What are the three apps that feel like the vibe you want for Balencia?
+
+[Hamza]: Bevel, Habitica, ChatGPT.
+
+[Salman]: Aura Ring, Calm, Arc Browser.
+
+Arc Browser, okay. Why this matters? These pull in very different directions. Hamza's list — warmer, gamified, chat-centric. Salman's list — premium, dark, calm, motion-rich. The RPG direction (Habitica) is absent from Salman's. Premium cinematic (Aura, Arc) is absent from Hamza's. This sets the entire visual interaction direction. Consider picking which app inspires which part of Balencia.
+
+--- Section 1.6: App Inspirations Deep Dive ---
+
+Again, this is the landing page. I think Aura and Bevel are similar in terms of design perspective. Epel is different in terms of design perspective.
+
+Okay, so we can go with — look at Habitica, I think it's very interesting. I'm searching it up. You have used it? How is it? It's good. Tell me about it. It was a good experience, but it was expensive. So I deleted it. Like, it was a little gamified to keep you engaged. Yes.
+
+If you see the pictures, you will see. You've seen this before? Yes.
+
+So if it dies, what happens? So I thought this is nice. Bevel and ChatGPT — I chose those. I just love Bevel. I think Bevel is basically us. The benefit we have is they just focus on fitness. Reminders — I think we should go towards this but the only difference is we can remove these simple characters. We have a bit of AI, we can make it a bit nicer. And some people like it. It's not that this is low quality. It was quite high level — you can level up, gain gold, collect equipment. You can get a lot of things. Starting with chronic games and this is a bit more — basically we go to space on a mission and that's what we mean.
+
+No? No? Yes. For us it's more interesting. I think that's something I would have spent my whole life. I played World of Warcraft and — did you say the same about gaming? About gaming? Yes. I played a lot of games. I remember when I was in my spare time I would go to places like Spider-Man. I played with my mom and we played a lot of games and I have a lot of memories.
+
+I asked Omar last night because I love it, because I like gaming. I don't play games anymore, I just don't have time to play, but I love them. I asked Omar — if Omar doesn't play games, so if there's someone who is not a gamer, he should see this app. Would he be against it? Like, "what is this weird thing?" Stuff like that.
+
+But yeah, basically we give the user options. Like if you go to settings and select the character, add that. Then when the graphics are selected, then the popup will show up. Yeah, it won't explode — in settings there are options.
+
+No, no, no. For everyone. This is for now what can be done. Gaming man, I love the concept that you are in this world and you are the main character. If you want to improve your character and level up, do this, do this, do this — which is achieve your goals. If not, then don't.
+
+--- Section 1.7: Gamification & HUD Concept ---
+
+Nice. Nice. What's that sound? Um, sorry, what were you saying?
+
+Uh, yes. With the pre-file, it's like when we play a game, we have a headset that we use to see the users in the gameplay. In the playground. In Call of Duty? Yes, in Call of Duty. So, we have a section where all the users have a single, like health, yes. Users have a HUD. How much XP they have, how much health they have. Definitely. Because it's the exact same thing as this.
+
+The users, we show the users on Google Maps, we show the location on Google Maps, privacy issues. No. We also show the location on Snapchat. No, no. We show the location on one user. Yes. It's not even in Pokemon Go. It's in the user though.
+
+Um, let's go here. I don't like this.
+
+And what was very nice is — sometimes recovery. If it becomes... So my friends messaged me, "Are you dying? Do you need me to call an ambulance?" This is optionality. So this — I love this feature. Like this is something we should have. But now we're thinking — it's also about privacy.
+
+Okay, so yeah, let's move ahead. We still have a lot of questions. Habitica is nice.
+
+--- Section 1.8: App Inspiration Rationale ---
+
+Reasons for Bevel. Okay. Reasons for Bevel and ChatGPT — very simple. ChatGPT, I think it's very clear. Yes. ChatGPT — chat focus. Um, you have the left... I think Bevel and ChatGPT are very similar. It doesn't matter what you want to do. Bevel has been inspired by ChatGPT. And it's there. I like how it's very simple, chat-focused. Like, non-professional spies and all that stuff. But it's nice. So we can do this. Let's move ahead with this. I think Bevel, Habitica, ChatGPT is fine. The others are also supporting, that's okay.
+
+--- Section 2.1: How to Describe Balencia in 10 Seconds ---
+
+How do you describe Balencia to someone in 10 seconds?
+
+Both hit the same notes — AI life coach, all life domains connected, hidden patterns. Hamza adds: "without over-complicating anything." Simplicity promised.
+
+Mark Zuckerberg said something and I like that. I think I mentioned this. Uses the informal "mother test" to evaluate if an AI product is simple enough for everyday use. And then he says — what I do is, to see if it's simple or not, he would say: "If my mother is having issues using it, then it's complicated. It's not simple." AI is supposed to make it simpler. But people are failing to do that. Yes, I think so.
+
+So I think this thing of this "mother test" — I think I had this in my mind for the last... a month ago. Yes. And I was like, this is nice. It's a very nice criterion. "I told my mother to use Balencia. Will my mother be able to use it? Or should she be like, 'Hamza, I'll go and use it'?"
+
+So simplicity is something very aligned.
+
+--- Section 2.2: SIA's Personality in Three Adjectives ---
+
+SIA's personality in three adjectives.
+
+[Hamza]: Adaptive, accountable, empathetic. Will range — accountable when slacking, kind when struggling, pushy when user needs a push. Like a real coach with different modes.
+
+[Salman]: Warm, perceptive, and direct. Warm — genuinely cares, remembers details. Perceptive — notices patterns, a differentiator. Direct — clear recommendations, not many options.
+
+Will it be friendly from here? Yes. Warm. The user is just exhausted, then warm will be the setting — will be more...
+
+I think this is nice. What AI is saying: Both want SIA to feel like a real coach. Hamza emphasizes adaptability — changes per user. Salman emphasizes perception — notices what you want. Consider combining: perceptive, adaptive, direct.
+
+--- Section 2.3: Tone Adaptation & Coaching Philosophy ---
+
+Yes, it will change. Based on the goals, it will change the tone. Yes, based on the goals. Yes, I think tone needs to be linked to motivation.
+
+Yes, for example, she selects strict. Her goal is simple. Her goal is "I want 3000 calories." The next day she wakes up and she is like "I am done with life." And he is still strict because of the goals she selected. She will most probably be like, "What a strange nonsense. Why are you getting angry at me? I don't want to listen to this." And then she throws away her phone.
+
+But I think the key differentiator should be that AI should be able to make decisions. She is low motivated. I am not saying anything that is not beneficial. It is not beneficial. Yes, it is.
+
+If you are sick, if you have a workout plan, what are you going to do? Not sick — different. Think of it from this perspective.
+
+[Hamza]: First of all, I am very motivated. So you are yelling at me. You are like, "Hamza do this, Hamza do this, Hamza do this." I will show you a piece of shit, I will do everything. I did it. Second day, you are like, "Hamza do this, Hamza do this." I am like, "What is the problem? I will do it." Third day, you can see that first day I did 100%, second day I did 90%, third day I did 80%. So I am going downhill in terms of motivation.
+
+Now when the fourth day comes, you can kind of be like, "Hey, is everything okay? Do you want to take it easier? Do you want to...?" Your motivation is declining. "Should we revisit the plan? Should we, you know..." Change is the way he is talking.
+
+If you say — if he also sees that I am yelling at him for three days, it will not be useful. Fourth day he says, okay, I will talk to you nicely. The goal is the same.
+
+Some person might — basically, what does this "strict" word mean? Strict, right? The user has set it there that you have to go strict. You have to speak like that. That's important. But then different word, I would change that.
+
+I think automatically. That's fine. I think from a goal perspective, strict read. That's okay. If he's like strict, he's strict. It's okay. If today I'm like, "My goal for next month is to lose [weight]," then it should say strict.
+
+Will your tone change automatically or not? No, it won't change automatically. No, you have to be adaptive on your tone. Tone has to be somewhere within.
+
+[Hamza]: I'll give an example. I have a friend. I'm basically trying to improve him as a person. I think for 5 days I'll be very angry. Even if he does something good, I'll be like, "I don't care. You're still shit." But then, I'll tell him — I haven't shown him love yet. He'll leave me. He'll be like, "Shit, what's this? Why am I doing all this?" Then I'll tell him, "Bro, it's fine. We're getting there." And stuff like that.
+
+Same thing. It's not always like this. If he makes a mistake, I won't say "I'm a coach," but it's a coaching kind of thing. If he makes a mistake 2 times, I'll be very angry. I'll say, "I'm disappointed. What the shit? Why would you do this?" Third time he'll do this, I'll be like, "Let me try a different approach." I'll take an approach of like, "Think about your family. Think about Islam." I'll be on his side. Instead of taking his side, I'll be like, "No, no, bro. We're on the same boat. This happened." And then he'll get motivated again. I tried twice. It didn't work out. So I was like, let me change my tone of talking to him. That should happen.
+
+That's a coaching thing. I did pro and con. I did it. What you're doing — what's pro, what's con, what will motivate you. Goals are the same. I'm both. Goals are the same. This is to motivate you.
+
+Think from this perspective. The goal is you want to run 20 kilometers tomorrow. I come to you, I'm like, "You piece of shit. Remember, you have 20 kilometers. Run or else I'm gonna kill you." That's the most strictest way you can say it. And then before I go to sleep, I say it again: "Remember, or else." You're doing it out of fear.
+
+"I'm going to the army. And if I'm not practicing for it, I'm just saying — if you don't do it, you won't be selected. If you do it, you'll be selected." Yes. This is the thing. This is pro and con. Then you can do it.
+
+Okay, pro and con in that sense — you will tell him what his pros and cons are if he doesn't do it.
+
+[Tehreem]: No, my concern is — when I talk to my child, I tell him that he's going to be strict. I told him that I'm 12 years old, I told him that I'm going to be strict. But he said he'll go to school and this and that. And he'll change his tone. Automatically. I don't think there's any setting in the application. I tell him to warm up. He'll talk to me about his problems. He'll eat more sweets. So he'll change his mood automatically. He'll say, "Why did you take more calories? What was the tension?" That's my concern. He has chosen a personality to be strict. But the tone of that person will change as he changes his mood. I think it should be more of an automatic thing.
+
+[Hamza]: In this home, I shared this video of me working with teachers when I said that I ate pizza and red cheese. We're going very off topic. It's fine. These are the features. We're talking about UI/UX, we need to make screens. If it's not fine-tuning, we will figure it out and we can change the tone. It's fine. It's okay.
+
+I think Salman, Hamza, it's very similar. We just want SIA to be like a real coach. I think that's more than enough.
+
+--- Section 2.4: Chat Screen Design ---
+
+What does the chat screen look like?
+
+Clean chat as foundation with charts, goal progress, new plans and financials — sometimes appearing inline when relevant. Sometimes text only, sometimes visual only, sometimes navigational.
+
+This is fine. So basically you're chatting with SIA. I will see, I can give you analysis — chat can read this, random tables or something. That might be like, "Here you go, go over here," which is the redirect to our pages, your modules and like fitness and so on. I think that's fine.
+
+--- Section 2.5: SIA Naming & Wordplay ---
+
+Making a proper name, it's wordplay. Enough, it's nicer as well because someone would be like, "SIA, SIA, oh SIA Balencia." Like Balencia is "balance" and "SIA" together. A balance — maybe we're not using A, we're using E. So "balance, be balanced" actually. And SIA is with a C. It's subtle. It's not like we gave it on the face what we're thinking.
+
+And Noman mentioned from a design perspective, if it's very obvious it looks low quality. I don't think it matters so much. SIA.
+
+--- Section 2.6: How SIA Connects Live Domains ---
+
+SIA — how does SIA connect live domains in conversation?
+
+Proactively — all this visual domain colored tags built in chats. Frequency — when meaning will not force. All of the above — rich inline curves.
+
+--- Section 2.7: SIA Visual Avatar ---
+
+Should SIA have a visual avatar face?
+
+[Option A]: Yes, 3D animated avatar that speaks and reacts. Creates personal, human-like coaching. Leverages existing VRM avatar system. Builds trust and emotion connection.
+
+[Option B]: Simple animated icon/logo that pulses when thinking/speaking. 3D is expensive. Uncanny valley risk, dates quickly. Abstract icon gives presence without risk — like talking to an intelligence, not a cartoon person.
+
+Yeah, answer — but this name, would you mean? Differences? This is one of the things — you look at this topic. Avatar. 3D animated avatar.
+
+I think what we should be doing is — I feel like when it's speaking and the conversation or enough, it should be simple. Like Gemini — like your job. But the SIA avatar should exist on the landing page, in the application, and so on. This is SIA. SIA should have a 3D face but it should not be what we are speaking to live. For now, while mesh... I tell them. But for now I don't think you should... What do you think? Yeah, yeah. Okay, yes. This Bevel is also the same. Yes, yes. They become a model.
+
+--- Section 3.1: Onboarding — Chatbot-Driven vs Traditional ---
+
+Chatbot-driven or traditional screen-based onboarding?
+
+[Hamza]: Primary chat-driven with visual enhancements. SIA drives conversation, enriched with visual guidance, recommendations, and pop-up cards.
+
+[Hybrid]: SIA introduces each step with personality, but UI structure — not pre-formed. Chat. Your chatbot is slow and unpredictable.
+
+You often find here, this conversation is going on and visual guidance is going on. No, but think of it from this perspective. You have screen 1, screen 2, screen 3. It's the same thing but it's coming on chatbot. Basically, the question's reply is the current structure. It has reviewed your question and filled it. If you do this, it will slow down. Meaning? Basically, the application is filled. We have to compromise the application. From that point of view.
+
+I am thinking that you have... What do you want to do? I don't understand. Okay. SIA introduces each step with a personality but UI structure — not pre-formed. The current step is the key. But you said that there should be visual guidance. Like a video or something. No, I said visual guidance. Something like brainstorming.
+
+The question's reply is based on this. What's the reply? The question's... This is yours? Hybrid. Yes. This is what you want.
+
+So, we have analyzed your question. Your question and your answers. Why? So, when you answered these questions — did UI/UX, QA. Salman. This is after inputting. Mind. Yes. It has reviewed. And your question has been reviewed.
+
+I thought it was independently done. I just want to say that the same thing can be done in the form of questions in chatbot. So you answer one question, second question, third question. Now you have the option to do chatbot or the suggestions that we have. And then above, like there is a chatbot in the chat, so above you can just have like some flowy, flowy brainstorming goals.
+
+Yes, this will come. Basically, what I understood is that it is in the video form. Yeah, yeah, yeah — I did not. We just sat down and discussed it. I thought it was something. We just took something visually, something to guide them.
+
+--- Section 3.2: Required Information Before User Can Start ---
+
+But okay, what information do you absolutely need before the user can start?
+
+Name, life areas of interest, age, gender, integration, subscription plan. You say name, life areas of interest, primary life goals. Subscription plan, email, up front.
+
+Question: What information do you absolutely need before the user can start? Your onboarding time. Yes. Onboarding time. Yeah.
+
+Here is the subscription — show me the program. Hmm. Now the user does not even have the idea how to start his experience. Onboarding time, yes. So first we will give him free plan, right? Hmm. For demo. Hmm.
+
+So first we will give him the experience. First we will show him the subscription plan. He will go back there. It will be expensive. "Leave it, I will not give him the experience."
+
+Okay. Subscriptions can be removed. Integrations — the rest is same.
+
+I don't know what my life goal is. I don't know what I want.
+
+So, you can choose to do the diet and daily routine, you can choose to do the diet or not. No, no, it is written as it is. Same like that — you can choose to do it or not, you can skip it.
+
+So, this suggestion is from the CEO or you have shown the options? The CEO will ask the question. He will ask the question.
+
+Okay, I wasn't really listening. But — no, I mean we are talking about UI/UX. Yes. I was not listening. But I hope both of you are aligned.
+
+Okay, we will do this — what Salman mentioned: Name, life areas of interest, primary life goals — instead of the other one.
+
+--- Section 3.4: Intro Video / Animation ---
+
+Should there be an intro video and animation?
+
+[Hamza]: 30 seconds, pre-recorded video showing first domain intelligence and actions. Cinematic, high quality, wow moment.
+
+[Salman]: 5 to 10 seconds motion sequence. Motion graphics, not video. Abstract, dark, premium, Apple video. Product reveal feel. Skippable. 30 seconds is too long. The wow should come from the AI experience itself.
+
+Hmm. 5 to 10 seconds — that is the onboarding? Or is this a landing page? This is 5 to 10 seconds onboarding. Oh, the pop-up. The pop-up. In the intro, basically, we go to the application. Like currently, you go to the intro and then you move. The video is going on. No, the video is not going on. In this, it basically takes you to the next, next. Carousel kind of, 5 to 10 seconds.
+
+Okay, I think carousel is 5 to 10 seconds. That does make sense. Let's do that.
+
+I'm still hoping I can capture everything we're speaking about. What was the high cap? It doesn't. I should have written notes.
+
+The AI assessment — how deep? Carousel. We're doing 5 to 10 seconds. We're not doing 30 seconds pre-recorded. We're doing 5 to 10 seconds motion sequence. And there would be like skip, skip, next, next. Carousel.
+
+--- Section 3.5: AI Assessment Depth ---
+
+The AI assessment, how deep?
+
+Depends on motivation level. Low motivation gets faster assessment, high gets deeper conversation. 2 to 3 follow-up questions for goals. What a first note pass — deep assessment offered after one week.
+
+--- Section 3.6: Guest Mode / Demo Experience ---
+
+I just want to try it. User guest mode with sample dummy data. With SIA — conversation. "Skip, no worries. Let's just start. Tell me one thing on your mind." SIA captures context from that single response. Immediate coaching.
+
+[Response]: They still need to give their life goals, right? You know — just immediately started. They still need to spend a bit of time and think. Like, "What is my primary life goal in life? What do I want to do?"
+
+[Hamza]: How do you handle that? I just want to try to use it. He's like, "My get party girl. My poor addict." Because bringing your life — when it is a big thing. It's not a simple thing. You like, "I want to be a building." I said, as any life goals, okay. You need to really think about them.
+
+So I agree. The thing is, it requires building a separate demo experience. But I was thinking — if we have dummy data with a dummy user, so predefined data. Someone is like, "I just want to try it," and they can just play around with the app. He can see fitness, he can see whatever, and see what kind of insights he can get. He has access to these kind of things for a bit and then they're like, "Working on it." It's all there. But it might be a lot of effort to create this demo experience.
+
+You will get a deeper understanding of the goals and you will learn to lean on the deep aspects. In the quick assessment you will get 5-6 questions based on your goals.
+
+This is what it is right now. Forget what is there right now. I want to know from a logical perspective, how can this happen? How can I capture context from a single response? If SIA tells me "one thing on my mind," I tell them "I am tired." What context is it going to understand? There are many things behind the tiredness. Like drinking water, high nutrition. You cannot start without answering the question.
+
+This thing that "no worries, let's just start" — that is not possible. I think that... this option should just not be there. We should still be asking primary life goal, interests, name. Name is just looking for the name. Yeah, yeah, yeah. Primary life goal and life interest. We cannot just have SIA capture context from that single response. It's not God. It cannot. I can feel it. This, I think, would take a lot of time. I don't think it's possible.
+
+So, you choose. Either it's this or the thing is puri onboarding gurni zaroori hai [full onboarding is necessary]. You need to tell your life goals. You need to tell your life interests. And if you still want to describe, look at the video. I don't care. Yeah. You just need it to know.
+
+I thought he can interact with it. It's just a dummy. I think JSCash has this function. Like, you have to interact with it first with onboarding. In the video you have to see the demo and see how I have to interact. I think that...
+
+Okay, this is like this. JSCash — no login. I have not logged in. I have not done anything. Explore as a guest. I have done this. I have all the apps — explore as a guest. I think that you can try this. But it can't try much. But the features they accept.
+
+Okay. Explore as a guest. And... yeah. Okay.
+
+And then immediate coaching still requires the minimum onboarding that's required — the life goals and the life interests. I think that's fine.
+
+Okay. Oh my God. We are very slow.
+
+--- Section 4.1: Navigation & Information Architecture ---
+
+Navigation, information architecture. Five items, four items. What did we miss? Explore. You are saying "explore." Why not? Explore inside me. Okay. Yes. Fine. Okay.
+
+I think what Salman mentioned about "explore within me" — that's okay.
+
+[Salman]: Argues for building stronger muscle memory. Let's do that.
+
+How do life do that? We don't care. Pin-to-sidebar system. Yes. Notion style, multiple pins, no strict. Yes, but desktop only. Let's remove desktop. That's our mobile app. Desktop is a network.
+
+No, basically, some features are there that are improved in desktop. Which? Like, in detail. Which? We will see the features later.
+
+Like what? Which features? In desktop, like, we have the schedule. We have made it from N8N. If we take it later, we have to enhance it. Will it not come in mobile? Will it not? It will not be like that. We will not make mobile app of N8N. Yes. We have to make mobile app of N8N. We don't need N8N anymore. Yes.
+
+Like, we have added some features. No, everything is possible. Bro, now we have all the phones. Yes. But there are some things in detail which are more effective in web app. There will be dashboard in web app. And there will be user-friendly software which are more effective. Yes. I have done it. I have done it.
+
+There are all the features. There is WhatsApp integration. WhatsApp integration. I can talk about my application. Hmm? I can talk about my application. Okay. You can do whatever you want for desktop. Apart from that, that's on you.
+
+--- Section 4.2: Home Screen Design ---
+
+What is the home screen?
+
+I have started this thing when I was a kid. I used to work with mobile apps. Mostly mobile apps. Today, hmmm, I am a little bit crazy, a little bit slow. I have seen this. I am starting this. I am doing it now. I will do it later.
+
+We click on SIA and we go to the chatbox — message whatever you want. We want to make it simple. Across the main — inside cards. We are already... like you want to do something quickly. We send equity. Please talk to SIA — and a recent activity feed or upcoming event. Whatever you want to do, it would be either related to this or either related to this.
+
+Go Bevel. Okay, you want to message something about that? Yeah. Oh no, I don't want to message something about that.
+
+Proactive message — inside card. Today's AI suggested action. Yes, yes. Today's AI suggested action. Smith — proactive message and today's AI suggested actions includes inside cards. Okay.
+
+And quick check-in prompts is included in upcoming events, activity feed.
+
+Activity feed, upcoming events. I think we should... what do you think? Yes, yes, okay, done.
+
+--- Section 4.3: Cross-Domain Surfacing ---
+
+How do cross-domains surface?
+
+Subtly woven. Domain tag is baseline, always inside character. I don't know what I was thinking. I think cross-domain connections don't really need to always be shown — like, that's why it's subtle. It doesn't need to be... it doesn't need to show that everything is separate. Okay, it kind of merged together. That's why I want it to be subtle. Upside of the day — when high confidence. Yeah, mentions and greetings.
+
+I think this is features as well. You can see my job, as you are actually...
+
+--- Section 4.4: AI-First vs Manual Approach ---
+
+First not for all. Spiritually and relationships are deeply personal. "You should pray this way" is very different from "here's your workout."
+
+[Salman]: Graduated approach respects domain sensitivity.
+
+No, I think everything should be AI-first. The whole idea is these are eight domains that you have worked on at the moment, but they can be as many domains as they want.
+
+Yeah. I am like — yeah. I have a domain. I could not... Supportive way to user control ratios. Yeah. Yeah! Yeah, fixed the ratio.
+
+What you're talking... Okay, we need to be AI-first for everything. But AI-first for everything — SIA is there to assist you for everything.
+
+I would assume that these would be — at least, I have been, as a policy, you have created these modules and populated them. You would have to be just fine. Workouts and so on — that's more manually done. That's possible.
+
+But let's assume none of those features are available. Just the background monitoring. But you can still talk to AI. You can still talk to... Yeah.
+
+[Hamza]: I decided — then push-ups — and then it would still collect it. I can say "I did 10 push-ups" and that comes in workouts. I can say "I prayed five times" — that comes in prayers. I can say "I had a fight with my wife" — that comes in relationships. It doesn't have to be — I don't need to journal. I have to see about the UX and then I would journal.
+
+I think — I don't know — tell me, do you believe it's AI-first for everything? Yes.
+
+So what is this 80, 50, 20? This is the suggestion. Okay, tabled. Let's go.
+
+--- Section 4.5: V1 Priority Domains ---
+
+Which domains are V1 priority?
+
+All domains full at V1. Prioritize fitness, nutrition, mental health — equals full. We will review it later. Later? I will refresh my mind.
+
+Okay, let's pause.
+
+================================================================================
+END OF CLEANED TRANSCRIPT
+================================================================================

@@ -1,0 +1,75 @@
+<%# Weekly Progress Report Template %>
+<%
+  const safeHighlights = Array.isArray(highlights) ? highlights : [];
+  const safeInsights = Array.isArray(insights) ? insights : [];
+  const highlightHtml = safeHighlights.map((highlight) => include('./partials/feature-box', {
+    icon: highlight.icon || 'OK',
+    title: highlight.title,
+    description: highlight.description
+  })).join('');
+  const insightHtml = safeInsights.map((insight) => `
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:12px 0;">
+      <tr>
+        <td style="padding:16px; background:#fff7ed; border-radius:12px; border-left:4px solid #f97316;">
+          <p style="margin:0; font-size:14px; color:#4b5563; line-height:22px;">${escapeFn(insight)}</p>
+        </td>
+      </tr>
+    </table>
+  `).join('');
+%>
+<%- include('./layouts/base', {
+  title: 'Your Weekly Progress - Balencia',
+  preheader: `${firstName}, here is your health journey update for the week.`,
+  eyebrow: 'Weekly progress',
+  greeting: `Strong work this week, ${firstName}.`,
+  content: `
+    <p style="margin:0 0 8px; font-size:13px; color:#9a3412; text-transform:uppercase; letter-spacing:1.6px; font-weight:800;">
+      Week of ${escapeFn(weekStart)} to ${escapeFn(weekEnd)}
+    </p>
+    <p style="margin:0 0 24px; font-size:16px; line-height:26px;">
+      ${escapeFn(typeof coachMessage !== 'undefined' ? coachMessage : "You are making progress. Keep the next step visible and repeatable.")}
+    </p>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:24px 0;">
+      <tr>
+        <td style="background:linear-gradient(135deg,#fff7ed 0%,#ecfdf5 100%); border-radius:16px; padding:24px; border:1px solid #fed7aa;">
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+              <td width="33%" style="text-align:center; padding:12px;">
+                <p style="margin:0 0 4px; font-size:28px; font-weight:800; color:#ea580c;">${escapeFn(typeof checkIns !== 'undefined' ? checkIns : '0')}</p>
+                <p style="margin:0; font-size:12px; color:#6b7280;">Check-ins</p>
+              </td>
+              <td width="33%" style="text-align:center; padding:12px; border-left:1px solid #fed7aa; border-right:1px solid #fed7aa;">
+                <p style="margin:0 0 4px; font-size:28px; font-weight:800; color:#10b981;">${escapeFn(typeof goalsProgress !== 'undefined' ? goalsProgress : '0')}%</p>
+                <p style="margin:0; font-size:12px; color:#6b7280;">Goal progress</p>
+              </td>
+              <td width="33%" style="text-align:center; padding:12px;">
+                <p style="margin:0 0 4px; font-size:28px; font-weight:800; color:#f59e0b;">${escapeFn(typeof streak !== 'undefined' ? streak : '0')}</p>
+                <p style="margin:0; font-size:12px; color:#6b7280;">Day streak</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    ${highlightHtml ? `<h2 style="margin:30px 0 16px; font-size:18px; color:#111827;">This week's highlights</h2>${highlightHtml}` : ''}
+    ${insightHtml ? `<h2 style="margin:30px 0 16px; font-size:18px; color:#111827;">AI coach insights</h2>${insightHtml}` : ''}
+
+    ${nextWeekFocus ? `
+      <h2 style="margin:30px 0 16px; font-size:18px; color:#111827;">Focus for next week</h2>
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:12px 0;">
+        <tr>
+          <td style="padding:20px; background:#ecfdf5; border-radius:14px; border:1px solid #a7f3d0;">
+            <p style="margin:0; font-size:15px; color:#065f46; line-height:24px;">${escapeFn(nextWeekFocus)}</p>
+          </td>
+        </tr>
+      </table>
+    ` : ''}
+  `,
+  ctaButton: {
+    text: 'View Full Report',
+    url: dashboardUrl
+  },
+  footerText: 'Keep up the work. Your AI coach is here whenever you need guidance.'
+}) %>

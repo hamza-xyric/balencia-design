@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 12: Supporting + Overlays</title>
+<link rel="stylesheet" href="../balencia-foundation.css">
+<style>
+/* ═══════════════════════════════════════
+   BATCH 12 — SUPPORTING + OVERLAYS
+   ═══════════════════════════════════════ */
+
+/* ── Shared ── */
+.nav-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px; min-height: 44px; position: relative; z-index: 5;
+}
+.back-chevron {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-left: -12px; flex-shrink: 0;
+}
+.back-chevron svg { width: 20px; height: 20px; }
+.nav-title { font-size: 17px; font-weight: 600; color: #fff; flex: 1; }
+.nav-action {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; margin-right: -12px;
+}
+.nav-action svg { width: 22px; height: 22px; }
+
+.tab-icon { width: 24px; height: 24px; }
+
+.segmented-control .seg.active-orange {
+  background: var(--brand-orange); color: #fff;
+}
+
+/* ── Screen 41: Schedule / Calendar ── */
+.schedule-screen {
+  display: flex; flex-direction: column; padding-bottom: 56px; position: relative;
+}
+.schedule-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none;
+}
+.schedule-scroll::-webkit-scrollbar { display: none; }
+
+.date-navigator {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; height: 40px; padding: 0 16px;
+}
+.date-arrow {
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border-radius: 50%;
+}
+.date-arrow svg { width: 16px; height: 16px; }
+.date-label { font-size: 16px; font-weight: 600; color: #fff; }
+
+.unscheduled-section {
+  margin: 0 16px; background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06); overflow: hidden;
+}
+.unscheduled-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; cursor: pointer;
+}
+.unscheduled-title {
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,.5);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.unscheduled-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 20px; height: 20px; border-radius: 10px;
+  background: rgba(255,255,255,.08); font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,.6); padding: 0 6px; margin-left: 6px;
+}
+.unscheduled-task {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; border-top: 1px solid rgba(255,255,255,.05);
+}
+.task-checkbox {
+  width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,.2); background: transparent;
+}
+.task-name { font-size: 15px; font-weight: 400; color: #fff; flex: 1; }
+
+.time-grid {
+  position: relative; padding-left: 52px; padding-right: 16px;
+  margin-top: 8px;
+}
+.time-slot {
+  height: 60px; position: relative;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+.time-label {
+  position: absolute; left: -48px; top: -8px;
+  font-size: 12px; font-weight: 400; color: rgba(255,255,255,.3);
+  width: 40px; text-align: right;
+}
+.event-card {
+  position: absolute; left: 0; right: 0;
+  background: var(--ink-brown); border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 8px 12px 8px 14px; overflow: hidden; z-index: 2;
+}
+.event-card .accent-bar {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+}
+.event-title { font-size: 14px; font-weight: 600; color: #fff; }
+.event-time { font-size: 12px; font-weight: 400; color: rgba(255,255,255,.5); margin-top: 2px; }
+.event-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+
+.event-card-sia {
+  position: absolute; left: 0; right: 0;
+  background: transparent; border-radius: 10px;
+  border: 1.5px dashed rgba(255,94,0,.4);
+  padding: 8px 12px; z-index: 2;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.sia-dot-sm {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--royal-purple); flex-shrink: 0; margin-top: 6px;
+}
+.sia-event-info { flex: 1; }
+
+.current-time-line {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: var(--brand-orange); z-index: 4;
+}
+.current-time-dot {
+  position: absolute; left: -5px; top: -4px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--brand-orange);
+}
+
+.schedule-fab {
+  position: absolute; bottom: 72px; right: 16px; z-index: 15;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--brand-orange); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-2);
+}
+.schedule-fab svg { width: 24px; height: 24px; }
+
+/* ── Screen 42: Celebration / Achievement Overlay ── */
+.celebration-screen {
+  position: absolute; inset: 0; overflow: hidden;
+}
+.celebration-backdrop {
+  position: absolute; inset: 0; z-index: 1;
+  background: rgba(10,10,15,.95);
+  background-image: radial-gradient(ellipse at center, rgba(255,94,0,.08) 0%, transparent 70%);
+}
+.confetti-container {
+  position: absolute; top: 0; left: 0; right: 0; height: 100%;
+  overflow: hidden; z-index: 2; pointer-events: none;
+}
+.confetti-particle {
+  position: absolute;
+  animation: confetti-fall var(--fall-dur, 3s) var(--fall-delay, 0s) ease-in forwards;
+}
+
+@keyframes confetti-fall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+  25%  { transform: translateY(100px) rotate(180deg) translateX(15px); opacity: 0.9; }
+  50%  { transform: translateY(200px) rotate(360deg) translateX(-10px); opacity: 0.7; }
+  75%  { transform: translateY(300px) rotate(540deg) translateX(8px); opacity: 0.4; }
+  100% { transform: translateY(420px) rotate(720deg) translateX(-5px); opacity: 0; }
+}
+
+.small-win-toast {
+  position: absolute; top: 52px; left: 16px; right: 16px;
+  height: 48px; z-index: 5;
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: var(--shadow-2);
+  display: flex; align-items: center; padding: 0 16px; gap: 10px;
+  animation: slide-in-top 0.4s ease-out;
+}
+@keyframes slide-in-top {
+  from { transform: translateY(-60px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.toast-check {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--forest-green);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.toast-check svg { width: 14px; height: 14px; }
+.toast-text { font-size: 15px; font-weight: 600; color: #fff; flex: 1; }
+.toast-xp { font-size: 15px; font-weight: 700; color: var(--brand-orange); white-space: nowrap; }
+
+.celebration-content {
+  position: relative; z-index: 3;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 120px 32px 40px; text-align: center;
+}
+.achievement-badge {
+  width: 96px; height: 96px; border-radius: 50%;
+  border: 2px solid var(--brand-orange);
+  background: rgba(255,94,0,.12);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 40px rgba(255,94,0,.3);
+  animation: badge-glow 2s ease-in-out infinite alternate;
+}
+@keyframes badge-glow {
+  from { box-shadow: 0 0 30px rgba(255,94,0,.2); }
+  to   { box-shadow: 0 0 50px rgba(255,94,0,.45); }
+}
+.achievement-badge svg { width: 44px; height: 44px; }
+
+.xp-counter {
+  display: flex; align-items: baseline; gap: 4px; margin-top: 24px;
+}
+.xp-plus { font-size: 20px; font-weight: 400; color: rgba(255,255,255,.6); }
+.xp-number { font-size: 28px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
+.xp-label { font-size: 20px; font-weight: 600; color: var(--brand-orange); }
+
+.achievement-title { font-size: 20px; font-weight: 600; color: #fff; margin-top: 16px; }
+.achievement-subtitle { font-size: 16px; font-weight: 400; color: rgba(255,255,255,.7); margin-top: 4px; }
+
+.continuous-stroke { margin: 20px auto; display: block; }
+
+.sia-congrats { max-width: 280px; margin: 16px auto 0; text-align: center; }
+.sia-congrats-msg {
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,.8);
+  font-style: italic; line-height: 1.47;
+}
+.sia-congrats-attr {
+  font-size: 13px; font-weight: 600; color: rgba(127,36,255,.6);
+  margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.sia-attr-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--royal-purple);
+}
+
+.share-btn {
+  width: 160px; height: 44px; border-radius: var(--r-pill);
+  border: 1px solid rgba(255,255,255,.2); background: transparent;
+  color: #fff; font-size: 15px; font-weight: 600; font-family: 'Sora', sans-serif;
+  cursor: pointer; margin-top: 24px;
+}
+.dismiss-hint {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.4);
+  margin-top: 24px;
+  animation: pulse-hint 2s ease-in-out infinite;
+}
+@keyframes pulse-hint {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 0.55; }
+}
+
+/* ── Screen 43: Paywall / Upgrade Prompt ── */
+.paywall-screen {
+  position: absolute; inset: 0; overflow: hidden;
+}
+.paywall-bg-content {
+  position: absolute; inset: 0; z-index: 1; opacity: 0.3;
+  padding: 60px 16px 0;
+}
+.paywall-bg-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  height: 80px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,.04);
+}
+.paywall-backdrop {
+  position: absolute; inset: 0; z-index: 20;
+  background: rgba(10,10,15,.6);
+}
+.paywall-modal {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 30;
+  background: var(--ink-brown); border-radius: 40px 40px 0 0;
+  padding: 8px 16px 36px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-left: 1px solid rgba(255,255,255,.08);
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+.drag-handle {
+  width: 40px; height: 4px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.2); margin: 0 auto 16px;
+}
+.paywall-headline {
+  font-size: 24px; font-weight: 700; color: #fff; line-height: 1.25;
+  margin-bottom: 16px;
+}
+.blurred-preview {
+  width: 100%; height: 140px; border-radius: var(--r-xl);
+  background: var(--ink-900); border: 1px solid rgba(255,255,255,.08);
+  position: relative; overflow: hidden;
+}
+.blur-content {
+  position: absolute; inset: 0; filter: blur(12px); padding: 20px;
+}
+.blur-bar {
+  height: 10px; border-radius: 5px; margin-bottom: 10px;
+  background: rgba(255,255,255,.12);
+}
+.blur-bar.short { width: 60%; }
+.blur-bar.med   { width: 80%; }
+.blur-bar.long  { width: 95%; }
+.blur-circle {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(127,36,255,.2); margin-top: 8px;
+}
+.blur-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(33,16,8,.5) 100%);
+}
+
+.feature-list { margin-top: 16px; }
+.feature-eyebrow {
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,.5);
+  text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px;
+}
+.feature-item {
+  display: flex; align-items: center; gap: 10px; padding: 5px 0;
+}
+.feature-check { width: 18px; height: 18px; flex-shrink: 0; color: var(--brand-orange); }
+.feature-text { font-size: 15px; font-weight: 400; color: #fff; }
+
+.paywall-tier {
+  background: var(--ink-900); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,94,0,.3); padding: 16px 20px;
+  margin-top: 16px; position: relative;
+}
+.tier-name-label {
+  font-size: 12px; font-weight: 600; color: var(--brand-orange);
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+.tier-price { font-size: 24px; font-weight: 700; color: #fff; margin-top: 4px; }
+.tier-desc { font-size: 14px; font-weight: 400; color: rgba(255,255,255,.7); margin-top: 2px; }
+.recommended-chip {
+  position: absolute; top: 14px; right: 16px;
+  padding: 3px 10px; border-radius: var(--r-pill);
+  background: var(--brand-orange); font-size: 11px; font-weight: 600; color: #fff;
+}
+.paywall-cta {
+  width: 100%; height: 56px; border-radius: var(--r-pill);
+  background: var(--brand-orange); border: none; cursor: pointer;
+  font-size: 17px; font-weight: 600; color: #fff; font-family: 'Sora', sans-serif;
+  margin-top: 16px;
+}
+.maybe-later {
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,.5);
+  text-align: center; margin-top: 14px; cursor: pointer;
+}
+.see-all-plans {
+  font-size: 15px; font-weight: 600; color: var(--brand-orange);
+  text-align: center; margin-top: 8px; cursor: pointer;
+}
+
+/* ── Screen 16: Life Areas Overview ── */
+.life-areas-screen {
+  display: flex; flex-direction: column; padding-bottom: 56px;
+}
+.life-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none; padding-bottom: 32px;
+}
+.life-scroll::-webkit-scrollbar { display: none; }
+
+.radar-chart-wrap {
+  display: flex; justify-content: center; padding: 8px 0 16px;
+}
+.radar-chart-wrap svg { width: 280px; height: 280px; }
+.radar-label {
+  font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 600;
+  fill: rgba(255,255,255,.7);
+}
+
+.sia-insight-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid var(--royal-purple);
+  padding: 14px 16px; margin: 0 16px;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.sia-insight-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--royal-purple); flex-shrink: 0; margin-top: 5px;
+}
+.sia-insight-text {
+  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.8);
+  line-height: 1.47; flex: 1;
+}
+.sia-insight-chevron {
+  width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+  color: rgba(255,255,255,.3);
+}
+
+.domain-list { margin: 0 16px; }
+.domain-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.domain-row:last-child { border-bottom: none; }
+.domain-color-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.domain-name {
+  font-size: 15px; font-weight: 600; color: #fff;
+  width: 100px; flex-shrink: 0;
+}
+.domain-progress-track {
+  flex: 1; height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,.08); overflow: hidden;
+}
+.domain-progress-fill {
+  height: 100%; border-radius: 2px;
+}
+.domain-goals {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.5);
+  white-space: nowrap; flex-shrink: 0;
+}
+.domain-chevron {
+  width: 14px; height: 14px; flex-shrink: 0;
+  color: rgba(255,255,255,.2);
+}
+
+</style>
+</head>
+<body>
+
+<!-- page header -->
+<header class="page-header">
+  <h1>Wireframes</h1>
+  <h2>Supporting + Overlays</h2>
+  <span class="batch-label">Batch 12 · 4 screens</span>
+</header>
+
+<!-- carousel -->
+<section class="carousel-wrap">
+  <button class="nav-arrow prev" onclick="go(-1)" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+  </button>
+  <button class="nav-arrow next" onclick="go(1)">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+  </button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="track">
+
+      <!-- ════════════════════════════════════
+           SLIDE 1: Screen 41 — Schedule / Calendar
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 41</div>
+          <div class="name">Schedule / calendar</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen schedule-screen">
+            <!-- header -->
+            <div class="nav-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="nav-title">Schedule</div>
+              <div class="nav-action">
+                <svg viewBox="0 0 22 22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M11 4v14M4 11h14"/></svg>
+              </div>
+            </div>
+
+            <!-- segmented control -->
+            <div style="padding: 0 16px;">
+              <div class="segmented-control">
+                <div class="seg active-orange">Day</div>
+                <div class="seg">Week</div>
+                <div class="seg">Month</div>
+              </div>
+            </div>
+
+            <div class="sp-8"></div>
+
+            <!-- date navigator -->
+            <div class="date-navigator">
+              <div class="date-arrow">
+                <svg viewBox="0 0 16 16" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2" stroke-linecap="round"><path d="M10 3L5 8L10 13"/></svg>
+              </div>
+              <div class="date-label">Tue, May 20, 2026</div>
+              <div class="date-arrow">
+                <svg viewBox="0 0 16 16" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2" stroke-linecap="round"><path d="M6 3L11 8L6 13"/></svg>
+              </div>
+            </div>
+
+            <div class="schedule-scroll">
+              <!-- unscheduled section -->
+              <div class="unscheduled-section">
+                <div class="unscheduled-header">
+                  <div style="display:flex;align-items:center;">
+                    <span class="unscheduled-title">unscheduled</span>
+                    <span class="unscheduled-count">2</span>
+                  </div>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-linecap="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+                </div>
+                <div class="unscheduled-task">
+                  <div class="task-checkbox"></div>
+                  <div class="task-name">read 20 min</div>
+                  <span class="domain-tag tag-learning">learning</span>
+                </div>
+                <div class="unscheduled-task">
+                  <div class="task-checkbox"></div>
+                  <div class="task-name">log expenses</div>
+                  <span class="domain-tag tag-finance">finance</span>
+                </div>
+              </div>
+
+              <div class="sp-12"></div>
+
+              <!-- time grid -->
+              <div class="time-grid">
+                <!-- 6 AM -->
+                <div class="time-slot">
+                  <div class="time-label">6 AM</div>
+                </div>
+                <!-- 7 AM -->
+                <div class="time-slot">
+                  <div class="time-label">7 AM</div>
+                  <!-- morning run: 7-8 AM -->
+                  <div class="event-card" style="top:0;height:58px;">
+                    <div class="accent-bar" style="background:#EF4444;"></div>
+                    <div class="event-title">morning run</div>
+                    <div class="event-time">7:00 – 8:00 AM</div>
+                    <div class="event-meta">
+                      <span class="domain-tag tag-fitness">fitness</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- 8 AM -->
+                <div class="time-slot">
+                  <div class="time-label">8 AM</div>
+                </div>
+                <!-- 9 AM -->
+                <div class="time-slot">
+                  <div class="time-label">9 AM</div>
+                  <!-- SIA-suggested: meditate 15m -->
+                  <div class="event-card-sia" style="top:0;height:36px;">
+                    <div class="sia-dot-sm"></div>
+                    <div class="sia-event-info">
+                      <div class="event-title" style="font-size:13px;">meditate 15 min</div>
+                      <div class="event-meta">
+                        <span class="domain-tag tag-spirituality">spirituality</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 10 AM -->
+                <div class="time-slot">
+                  <div class="time-label">10 AM</div>
+                  <!-- current time at 10:30 -->
+                  <div class="current-time-line" style="top:30px;">
+                    <div class="current-time-dot"></div>
+                  </div>
+                </div>
+                <!-- 11 AM -->
+                <div class="time-slot">
+                  <div class="time-label">11 AM</div>
+                  <!-- team standup: 11-12 -->
+                  <div class="event-card" style="top:0;height:58px;">
+                    <div class="accent-bar" style="background:#6366F1;"></div>
+                    <div class="event-title">team standup</div>
+                    <div class="event-time">11:00 – 12:00 PM</div>
+                    <div class="event-meta">
+                      <span class="domain-tag tag-career">career</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- 12 PM -->
+                <div class="time-slot">
+                  <div class="time-label">12 PM</div>
+                </div>
+                <!-- 1 PM -->
+                <div class="time-slot">
+                  <div class="time-label">1 PM</div>
+                  <!-- meal prep: 1-2 PM -->
+                  <div class="event-card" style="top:0;height:58px;">
+                    <div class="accent-bar" style="background:#84CC16;"></div>
+                    <div class="event-title">meal prep</div>
+                    <div class="event-time">1:00 – 2:00 PM</div>
+                    <div class="event-meta">
+                      <span class="domain-tag tag-nutrition">nutrition</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- 2 PM -->
+                <div class="time-slot">
+                  <div class="time-label">2 PM</div>
+                </div>
+                <!-- 3 PM -->
+                <div class="time-slot">
+                  <div class="time-label">3 PM</div>
+                  <!-- SIA-suggested: log expenses -->
+                  <div class="event-card-sia" style="top:0;height:36px;">
+                    <div class="sia-dot-sm"></div>
+                    <div class="sia-event-info">
+                      <div class="event-title" style="font-size:13px;">log expenses</div>
+                      <div class="event-meta">
+                        <span class="domain-tag tag-finance">finance</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 4 PM -->
+                <div class="time-slot">
+                  <div class="time-label">4 PM</div>
+                </div>
+                <!-- 5 PM -->
+                <div class="time-slot">
+                  <div class="time-label">5 PM</div>
+                </div>
+                <!-- 6 PM -->
+                <div class="time-slot">
+                  <div class="time-label">6 PM</div>
+                </div>
+              </div>
+
+              <div class="sp-64"></div>
+            </div>
+
+            <!-- FAB -->
+            <div class="schedule-fab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="#FF5E00"/>
+                </svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+                </svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 2: Screen 42 — Celebration / Achievement Overlay
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 42</div>
+          <div class="name">Celebration / achievement overlay</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen celebration-screen">
+            <!-- backdrop -->
+            <div class="celebration-backdrop"></div>
+
+            <!-- confetti particles -->
+            <div class="confetti-container">
+              <!-- orange circles -->
+              <div class="confetti-particle" style="left:8%;top:-10px;width:6px;height:6px;border-radius:50%;background:#FF5E00;--fall-dur:3.2s;--fall-delay:0.1s;"></div>
+              <div class="confetti-particle" style="left:22%;top:-15px;width:5px;height:5px;border-radius:50%;background:#FF5E00;--fall-dur:2.8s;--fall-delay:0.3s;"></div>
+              <div class="confetti-particle" style="left:45%;top:-8px;width:7px;height:7px;border-radius:50%;background:#FF5E00;--fall-dur:3.5s;--fall-delay:0s;"></div>
+              <div class="confetti-particle" style="left:68%;top:-12px;width:5px;height:5px;border-radius:50%;background:#FF5E00;--fall-dur:3s;--fall-delay:0.5s;"></div>
+              <div class="confetti-particle" style="left:85%;top:-10px;width:6px;height:6px;border-radius:50%;background:#FF5E00;--fall-dur:2.6s;--fall-delay:0.2s;"></div>
+              <div class="confetti-particle" style="left:35%;top:-20px;width:4px;height:4px;border-radius:50%;background:#FF5E00;--fall-dur:3.8s;--fall-delay:0.7s;"></div>
+              <div class="confetti-particle" style="left:55%;top:-5px;width:6px;height:6px;border-radius:50%;background:#FF5E00;--fall-dur:2.9s;--fall-delay:0.4s;"></div>
+              <!-- green circles -->
+              <div class="confetti-particle" style="left:15%;top:-18px;width:5px;height:5px;border-radius:50%;background:#34A853;--fall-dur:3.4s;--fall-delay:0.2s;"></div>
+              <div class="confetti-particle" style="left:42%;top:-10px;width:6px;height:6px;border-radius:50%;background:#34A853;--fall-dur:2.7s;--fall-delay:0.6s;"></div>
+              <div class="confetti-particle" style="left:75%;top:-14px;width:4px;height:4px;border-radius:50%;background:#34A853;--fall-dur:3.6s;--fall-delay:0.1s;"></div>
+              <div class="confetti-particle" style="left:58%;top:-22px;width:5px;height:5px;border-radius:50%;background:#34A853;--fall-dur:3.1s;--fall-delay:0.8s;"></div>
+              <!-- gold squares -->
+              <div class="confetti-particle" style="left:12%;top:-16px;width:5px;height:5px;border-radius:1px;background:#F59E0B;--fall-dur:3.3s;--fall-delay:0.4s;"></div>
+              <div class="confetti-particle" style="left:50%;top:-12px;width:4px;height:4px;border-radius:1px;background:#F59E0B;--fall-dur:2.5s;--fall-delay:0.3s;"></div>
+              <div class="confetti-particle" style="left:78%;top:-8px;width:6px;height:6px;border-radius:1px;background:#F59E0B;--fall-dur:3.7s;--fall-delay:0.6s;"></div>
+              <div class="confetti-particle" style="left:30%;top:-20px;width:5px;height:5px;border-radius:1px;background:#F59E0B;--fall-dur:3s;--fall-delay:0.9s;"></div>
+              <!-- white dots -->
+              <div class="confetti-particle" style="left:20%;top:-14px;width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.6);--fall-dur:3.2s;--fall-delay:0.5s;"></div>
+              <div class="confetti-particle" style="left:62%;top:-18px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.5);--fall-dur:2.8s;--fall-delay:0.7s;"></div>
+              <div class="confetti-particle" style="left:88%;top:-10px;width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.6);--fall-dur:3.5s;--fall-delay:0.2s;"></div>
+              <!-- orange pills -->
+              <div class="confetti-particle" style="left:28%;top:-8px;width:4px;height:10px;border-radius:2px;background:#FF5E00;--fall-dur:3.1s;--fall-delay:0.3s;"></div>
+              <div class="confetti-particle" style="left:72%;top:-15px;width:3px;height:9px;border-radius:2px;background:#FF5E00;--fall-dur:2.9s;--fall-delay:0.8s;"></div>
+              <div class="confetti-particle" style="left:48%;top:-20px;width:4px;height:10px;border-radius:2px;background:#34A853;--fall-dur:3.4s;--fall-delay:0.1s;"></div>
+              <!-- more orange -->
+              <div class="confetti-particle" style="left:5%;top:-12px;width:5px;height:5px;border-radius:50%;background:#FF5E00;--fall-dur:3.6s;--fall-delay:1s;"></div>
+              <div class="confetti-particle" style="left:92%;top:-16px;width:4px;height:4px;border-radius:50%;background:#FF5E00;--fall-dur:2.7s;--fall-delay:1.1s;"></div>
+              <div class="confetti-particle" style="left:38%;top:-6px;width:6px;height:6px;border-radius:50%;background:#FF5E00;--fall-dur:3.3s;--fall-delay:1.2s;"></div>
+            </div>
+
+            <!-- small win toast -->
+            <div class="small-win-toast">
+              <div class="toast-check">
+                <svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M2.5 7L5.5 10L11.5 4"/></svg>
+              </div>
+              <div class="toast-text">habit done</div>
+              <div class="toast-xp">+25 XP</div>
+            </div>
+
+            <!-- celebration content -->
+            <div class="celebration-content">
+              <!-- badge -->
+              <div class="achievement-badge">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <path d="M22 4l5.1 10.3L38 15.9l-8 7.8 1.9 11L22 29.5 12.1 34.7 14 23.7l-8-7.8 10.9-1.6z" fill="#FF5E00" stroke="#FF5E00" stroke-width="1"/>
+                </svg>
+              </div>
+
+              <!-- xp counter -->
+              <div class="xp-counter">
+                <span class="xp-plus">+</span>
+                <span class="xp-number">150</span>
+                <span class="xp-label">XP</span>
+              </div>
+
+              <!-- title -->
+              <div class="achievement-title">quest completed.</div>
+              <div class="achievement-subtitle">"run 5km three times a week"</div>
+
+              <!-- continuous stroke -->
+              <svg class="continuous-stroke" width="200" height="20" viewBox="0 0 200 20" fill="none">
+                <path d="M0 10C20 2 40 18 60 10S100 2 120 10S160 18 180 10L200 10" stroke="rgba(255,94,0,.6)" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+
+              <!-- SIA message -->
+              <div class="sia-congrats">
+                <div class="sia-congrats-msg">"three weeks strong. your recovery is up 15% since you started."</div>
+                <div class="sia-congrats-attr">
+                  <div class="sia-attr-dot"></div>
+                  — SIA
+                </div>
+              </div>
+
+              <!-- share button -->
+              <button class="share-btn">share</button>
+
+              <!-- dismiss hint -->
+              <div class="dismiss-hint">tap anywhere to continue</div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 3: Screen 43 — Paywall / Upgrade Prompt
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 43</div>
+          <div class="name">Paywall / upgrade prompt</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen paywall-screen">
+            <!-- dimmed background content -->
+            <div class="paywall-bg-content">
+              <div class="paywall-bg-card"></div>
+              <div class="paywall-bg-card" style="height:60px;"></div>
+              <div class="paywall-bg-card" style="height:100px;"></div>
+            </div>
+
+            <!-- backdrop overlay -->
+            <div class="paywall-backdrop"></div>
+
+            <!-- bottom sheet modal -->
+            <div class="paywall-modal">
+              <div class="drag-handle"></div>
+
+              <div class="paywall-headline">unlock SIA's <span style="color:var(--brand-orange);">full</span> coaching.</div>
+
+              <!-- blurred preview -->
+              <div class="blurred-preview">
+                <div class="blur-content">
+                  <div class="blur-bar long"></div>
+                  <div class="blur-bar med"></div>
+                  <div class="blur-bar short"></div>
+                  <div style="display:flex;gap:12px;margin-top:8px;">
+                    <div class="blur-circle"></div>
+                    <div style="flex:1;">
+                      <div class="blur-bar long"></div>
+                      <div class="blur-bar med"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="blur-overlay"></div>
+              </div>
+
+              <!-- feature list -->
+              <div class="feature-list">
+                <div class="feature-eyebrow">what you'll get</div>
+                <div class="feature-item">
+                  <svg class="feature-check" viewBox="0 0 18 18" fill="none">
+                    <path d="M3.5 9.5L7 13L14.5 5.5" stroke="#FF5E00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="feature-text">unlimited SIA messages</span>
+                </div>
+                <div class="feature-item">
+                  <svg class="feature-check" viewBox="0 0 18 18" fill="none">
+                    <path d="M3.5 9.5L7 13L14.5 5.5" stroke="#FF5E00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="feature-text">cross-domain insights</span>
+                </div>
+                <div class="feature-item">
+                  <svg class="feature-check" viewBox="0 0 18 18" fill="none">
+                    <path d="M3.5 9.5L7 13L14.5 5.5" stroke="#FF5E00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="feature-text">voice coaching mode</span>
+                </div>
+                <div class="feature-item">
+                  <svg class="feature-check" viewBox="0 0 18 18" fill="none">
+                    <path d="M3.5 9.5L7 13L14.5 5.5" stroke="#FF5E00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="feature-text">advanced goal planning</span>
+                </div>
+              </div>
+
+              <!-- tier card -->
+              <div class="paywall-tier">
+                <div class="recommended-chip">recommended</div>
+                <div class="tier-name-label">plus</div>
+                <div class="tier-price">$20/mo</div>
+                <div class="tier-desc">full SIA coaching, all 9 domains, unlimited voice</div>
+              </div>
+
+              <!-- primary CTA -->
+              <button class="paywall-cta">start free trial</button>
+
+              <!-- easy-out links -->
+              <div class="maybe-later">maybe later</div>
+              <div class="see-all-plans">see all plans</div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 4: Screen 16 — Life Areas Overview
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 16</div>
+          <div class="name">Life areas overview</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen life-areas-screen">
+            <!-- header -->
+            <div class="nav-header">
+              <div class="back-chevron">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="nav-title">Life areas</div>
+            </div>
+
+            <div class="life-scroll">
+              <!-- radar chart -->
+              <div class="radar-chart-wrap">
+                <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+                  <!-- grid rings -->
+                  <!-- 33% ring -->
+                  <polygon points="140,103.7 163.3,112.2 175.7,133.7 171.4,158.2 152.4,174.1 127.6,174.1 108.6,158.2 104.3,133.7 116.7,112.2" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <!-- 66% ring -->
+                  <polygon points="140,67.4 186.7,84.4 211.5,127.4 202.9,176.3 164.8,208.2 115.2,208.2 77.1,176.3 68.5,127.4 93.3,84.4" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <!-- 100% ring -->
+                  <polygon points="140,30 210.7,55.7 248.3,120.9 235.3,195 177.6,243.4 102.4,243.4 44.7,195 31.7,120.9 69.3,55.7" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+                  <!-- axis lines -->
+                  <line x1="140" y1="140" x2="140" y2="30" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                  <line x1="140" y1="140" x2="210.7" y2="55.7" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                  <line x1="140" y1="140" x2="248.3" y2="120.9" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                  <line x1="140" y1="140" x2="235.3" y2="195" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                  <line x1="140" y1="140" x2="177.6" y2="243.4" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                  <line x1="140" y1="140" x2="102.4" y2="243.4" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                  <line x1="140" y1="140" x2="44.7" y2="195" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                  <line x1="140" y1="140" x2="31.7" y2="120.9" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                  <line x1="140" y1="140" x2="69.3" y2="55.7" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+
+                  <!-- data polygon -->
+                  <polygon points="140,46.5 190.9,79.3 177.9,133.3 159.1,151 164.5,207.2 119.3,196.9 101.9,162 123.8,137.1 84.9,74.3" fill="rgba(255,94,0,.15)" stroke="rgba(255,94,0,.8)" stroke-width="2"/>
+
+                  <!-- vertex dots -->
+                  <circle cx="140" cy="46.5" r="3.5" fill="#EF4444"/><!-- fitness -->
+                  <circle cx="190.9" cy="79.3" r="3.5" fill="#84CC16"/><!-- nutrition -->
+                  <circle cx="177.9" cy="133.3" r="3.5" fill="#10B981"/><!-- finance -->
+                  <circle cx="159.1" cy="151" r="3.5" fill="#6366F1"/><!-- career -->
+                  <circle cx="164.5" cy="207.2" r="3.5" fill="#14B8A6"/><!-- wellbeing -->
+                  <circle cx="119.3" cy="196.9" r="3.5" fill="#EC4899"/><!-- relationships -->
+                  <circle cx="101.9" cy="162" r="3.5" fill="#06B6D4"/><!-- learning -->
+                  <circle cx="123.8" cy="137.1" r="3.5" fill="#F59E0B"/><!-- creativity -->
+                  <circle cx="84.9" cy="74.3" r="3.5" fill="#A855F7"/><!-- spirituality -->
+
+                  <!-- domain labels -->
+                  <text x="140" y="18" text-anchor="middle" class="radar-label">fitness</text>
+                  <text x="220" y="49" text-anchor="start" class="radar-label">nutrition</text>
+                  <text x="256" y="122" text-anchor="start" class="radar-label">finance</text>
+                  <text x="244" y="204" text-anchor="start" class="radar-label">career</text>
+                  <text x="182" y="260" text-anchor="middle" class="radar-label">wellbeing</text>
+                  <text x="96" y="260" text-anchor="middle" class="radar-label">relationships</text>
+                  <text x="24" y="204" text-anchor="end" class="radar-label">learning</text>
+                  <text x="18" y="122" text-anchor="end" class="radar-label">creativity</text>
+                  <text x="58" y="49" text-anchor="end" class="radar-label">spirituality</text>
+                </svg>
+              </div>
+
+              <!-- SIA insight card -->
+              <div class="sia-insight-card">
+                <div class="sia-insight-dot"></div>
+                <div class="sia-insight-text">your fitness and nutrition are thriving. career could use attention.</div>
+                <svg class="sia-insight-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3L11 8L6 13"/></svg>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- time range selector -->
+              <div style="padding: 0 16px;">
+                <div class="segmented-control">
+                  <div class="seg">Week</div>
+                  <div class="seg active-orange">Month</div>
+                  <div class="seg">All-time</div>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- domain list -->
+              <div class="domain-list">
+                <!-- fitness 85% -->
+                <div class="domain-row">
+                  <div class="domain-color-dot" style="background:#EF4444;"></div>
+                  <div class="domain-name">fitness</div>
+                  <div class="domain-progress-track">
+                    <div class="domain-progress-fill" style="width:85%;background:#EF4444;"></div>
+                  </div>
+                  <div class="domain-goals">4 goals</div>
+                  <svg class="domain-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3L10 7L5 11"/></svg>
+                </div>
+                <!-- spirituality 78% -->
+                <div class="domain-row">
+                  <div class="domain-color-dot" style="background:#A855F7;"></div>
+                  <div class="domain-name">spirituality</div>
+                  <div class="domain-progress-track">
+                    <div class="domain-progress-fill" style="width:78%;background:#A855F7;"></div>
+                  </div>
+                  <div class="domain-goals">3 goals</div>
+                  <svg class="domain-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3L10 7L5 11"/></svg>
+                </div>
+                <!-- nutrition 72% -->
+                <div class="domain-row">
+                  <div class="domain-color-dot" style="background:#84CC16;"></div>
+                  <div class="domain-name">nutrition</div>
+                  <div class="domain-progress-track">
+                    <div class="domain-progress-fill" style="width:72%;background:#84CC16;"></div>
+                  </div>
+                  <div class="domain-goals">3 goals</div>
+                  <svg class="domain-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3L10 7L5 11"/></svg>
+                </div>
+                <!-- wellbeing 65% -->
+                <div class="domain-row">
+                  <div class="domain-color-dot" style="background:#14B8A6;"></div>
+                  <div class="domain-name">wellbeing</div>
+                  <div class="domain-progress-track">
+                    <div class="domain-progress-fill" style="width:65%;background:#14B8A6;"></div>
+                  </div>
+                  <div class="domain-goals">2 goals</div>
+                  <svg class="domain-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3L10 7L5 11"/></svg>
+                </div>
+                <!-- relationships 55% -->
+                <div class="domain-row">
+                  <div class="domain-color-dot" style="background:#EC4899;"></div>
+                  <div class="domain-name">relationships</div>
+                  <div class="domain-progress-track">
+                    <div class="domain-progress-fill" style="width:55%;background:#EC4899;"></div>
+                  </div>
+                  <div class="domain-goals">2 goals</div>
+                  <svg class="domain-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3L10 7L5 11"/></svg>
+                </div>
+                <!-- learning 40% -->
+                <div class="domain-row">
+                  <div class="domain-color-dot" style="background:#06B6D4;"></div>
+                  <div class="domain-name">learning</div>
+                  <div class="domain-progress-track">
+                    <div class="domain-progress-fill" style="width:40%;background:#06B6D4;"></div>
+                  </div>
+                  <div class="domain-goals">1 goal</div>
+                  <svg class="domain-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3L10 7L5 11"/></svg>
+                </div>
+                <!-- finance 35% -->
+                <div class="domain-row">
+                  <div class="domain-color-dot" style="background:#10B981;"></div>
+                  <div class="domain-name">finance</div>
+                  <div class="domain-progress-track">
+                    <div class="domain-progress-fill" style="width:35%;background:#10B981;"></div>
+                  </div>
+                  <div class="domain-goals">1 goal</div>
+                  <svg class="domain-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3L10 7L5 11"/></svg>
+                </div>
+                <!-- career 20% -->
+                <div class="domain-row">
+                  <div class="domain-color-dot" style="background:#6366F1;"></div>
+                  <div class="domain-name">career</div>
+                  <div class="domain-progress-track">
+                    <div class="domain-progress-fill" style="width:20%;background:#6366F1;"></div>
+                  </div>
+                  <div class="domain-goals">1 goal</div>
+                  <svg class="domain-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3L10 7L5 11"/></svg>
+                </div>
+                <!-- creativity 15% -->
+                <div class="domain-row">
+                  <div class="domain-color-dot" style="background:#F59E0B;"></div>
+                  <div class="domain-name">creativity</div>
+                  <div class="domain-progress-track">
+                    <div class="domain-progress-fill" style="width:15%;background:#F59E0B;"></div>
+                  </div>
+                  <div class="domain-goals">0 goals</div>
+                  <svg class="domain-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 3L10 7L5 11"/></svg>
+                </div>
+              </div>
+
+              <div class="sp-32"></div>
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="#FF5E00"/>
+                </svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+                </svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- thumbnail strip -->
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goTo(0)"><div class="thumb-num">41</div></div>
+    <div class="thumb" onclick="goTo(1)"><div class="thumb-num">42</div></div>
+    <div class="thumb" onclick="goTo(2)"><div class="thumb-num">43</div></div>
+    <div class="thumb" onclick="goTo(3)"><div class="thumb-num">16</div></div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const total = 4;
+const track = document.getElementById('track');
+const thumbs = document.querySelectorAll('.thumb');
+const prevBtn = document.querySelector('.nav-arrow.prev');
+const nextBtn = document.querySelector('.nav-arrow.next');
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function go(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function renderThumbs() {
+  thumbs.forEach((thumb, i) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 56; canvas.height = 120;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0A0A0F';
+    ctx.fillRect(0, 0, 56, 120);
+
+    if (i === 0) {
+      // Schedule: segmented + time grid + events + FAB
+      // segmented control
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 14, 48, 7, 3); ctx.fill();
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.roundRect(5, 15, 15, 5, 2); ctx.fill();
+      // date nav
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.font = '3px Sora';
+      ctx.textAlign = 'center'; ctx.fillText('Tue, May 20', 28, 30); ctx.textAlign = 'left';
+      // unscheduled section
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 34, 48, 14, 3); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.font = '2.5px Sora';
+      ctx.fillText('UNSCHEDULED', 8, 40);
+      // time grid lines
+      for (let h = 0; h < 8; h++) {
+        const y = 52 + h * 8;
+        ctx.fillStyle = 'rgba(255,255,255,.05)';
+        ctx.fillRect(14, y, 38, 0.5);
+        ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.font = '2.5px Sora';
+        ctx.fillText((6+h)+'', 6, y + 3);
+      }
+      // event cards
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(14, 52+8, 38, 7, 2); ctx.fill(); // 7AM
+      ctx.fillStyle = '#EF4444'; ctx.fillRect(14, 52+8, 2, 7);
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(14, 52+40, 38, 7, 2); ctx.fill(); // 11AM
+      ctx.fillStyle = '#6366F1'; ctx.fillRect(14, 52+40, 2, 7);
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(14, 52+56, 38, 7, 2); ctx.fill(); // 1PM
+      ctx.fillStyle = '#84CC16'; ctx.fillRect(14, 52+56, 2, 7);
+      // SIA suggested (dashed)
+      ctx.strokeStyle = 'rgba(255,94,0,.4)'; ctx.lineWidth = 0.5;
+      ctx.setLineDash([2, 1]);
+      ctx.beginPath(); ctx.roundRect(14, 52+24, 38, 5, 2); ctx.stroke(); // 9AM
+      ctx.beginPath(); ctx.roundRect(14, 52+72, 38, 5, 2); ctx.stroke(); // 3PM
+      ctx.setLineDash([]);
+      // current time line
+      ctx.fillStyle = '#FF5E00'; ctx.fillRect(14, 52+36, 38, 1);
+      // FAB
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(46, 100, 5, 0, Math.PI * 2); ctx.fill();
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(7, 114, 3, 0, Math.PI * 2); ctx.fill();
+
+    } else if (i === 1) {
+      // Celebration: dark bg + confetti + badge + XP
+      ctx.fillStyle = 'rgba(10,10,15,.95)';
+      ctx.fillRect(0, 0, 56, 120);
+      // confetti dots
+      const confettiColors = ['#FF5E00','#FF5E00','#34A853','#F59E0B','#FF5E00','rgba(255,255,255,.5)','#FF5E00','#34A853'];
+      confettiColors.forEach((c, j) => {
+        ctx.fillStyle = c;
+        ctx.beginPath();
+        ctx.arc(5 + Math.random() * 46, 10 + Math.random() * 25, 1.5 + Math.random(), 0, Math.PI * 2);
+        ctx.fill();
+      });
+      // badge
+      ctx.strokeStyle = '#FF5E00'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(28, 50, 10, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,94,0,.12)';
+      ctx.beginPath(); ctx.arc(28, 50, 10, 0, Math.PI * 2); ctx.fill();
+      // star inside
+      ctx.fillStyle = '#FF5E00'; ctx.font = '10px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('★', 28, 54); ctx.textAlign = 'left';
+      // XP
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 5px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('+150', 24, 70);
+      ctx.fillStyle = '#FF5E00'; ctx.font = 'bold 4px Sora';
+      ctx.fillText('XP', 40, 70); ctx.textAlign = 'left';
+      // title
+      ctx.fillStyle = 'rgba(255,255,255,.7)'; ctx.font = '3px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('quest completed.', 28, 78);
+      // wavy line
+      ctx.strokeStyle = 'rgba(255,94,0,.5)'; ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(10, 84);
+      ctx.bezierCurveTo(18, 80, 22, 88, 28, 84);
+      ctx.bezierCurveTo(34, 80, 38, 88, 46, 84);
+      ctx.stroke();
+      // SIA text
+      ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.font = '2.5px Sora';
+      ctx.fillText('"three weeks strong..."', 28, 92);
+      // share button
+      ctx.strokeStyle = 'rgba(255,255,255,.2)'; ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.roundRect(14, 98, 28, 7, 3); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.font = '3px Sora';
+      ctx.fillText('share', 28, 103);
+      ctx.textAlign = 'left';
+      // no tab bar
+
+    } else if (i === 2) {
+      // Paywall: dimmed bg + bottom sheet modal
+      // dimmed bg cards
+      ctx.fillStyle = 'rgba(33,16,8,.3)';
+      ctx.beginPath(); ctx.roundRect(4, 16, 48, 14, 3); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(4, 34, 48, 10, 3); ctx.fill();
+      // backdrop
+      ctx.fillStyle = 'rgba(10,10,15,.4)';
+      ctx.fillRect(0, 0, 56, 120);
+      // bottom sheet
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(0, 48, 56, 72, [6, 6, 0, 0]); ctx.fill();
+      // drag handle
+      ctx.fillStyle = 'rgba(255,255,255,.2)';
+      ctx.beginPath(); ctx.roundRect(20, 51, 16, 2, 1); ctx.fill();
+      // headline text
+      ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.font = '3px Sora';
+      ctx.fillText('unlock SIA\'s', 6, 60);
+      ctx.fillStyle = '#FF5E00'; ctx.fillText('full', 36, 60);
+      // blurred preview
+      ctx.fillStyle = 'rgba(255,255,255,.06)';
+      ctx.beginPath(); ctx.roundRect(4, 64, 48, 16, 3); ctx.fill();
+      // feature checks
+      [82, 87, 92].forEach(y => {
+        ctx.fillStyle = '#FF5E00'; ctx.font = '3px Sora'; ctx.fillText('✓', 6, y);
+        ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.fillRect(12, y - 2, 28, 2);
+      });
+      // tier card
+      ctx.fillStyle = 'var(--ink-900)';
+      ctx.strokeStyle = 'rgba(255,94,0,.3)'; ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.roundRect(4, 96, 48, 10, 3); ctx.stroke();
+      ctx.fillStyle = '#0A0A0F';
+      ctx.beginPath(); ctx.roundRect(4, 96, 48, 10, 3); ctx.fill();
+      ctx.fillStyle = '#FF5E00'; ctx.font = '2.5px Sora'; ctx.fillText('PLUS', 7, 101);
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 3px Sora'; ctx.fillText('$20/mo', 7, 105);
+      // CTA
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.roundRect(4, 108, 48, 7, 3); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = '3px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('start free trial', 28, 113); ctx.textAlign = 'left';
+      // no tab bar
+
+    } else if (i === 3) {
+      // Life Areas: radar chart + domain rows
+      // radar polygon (simplified)
+      ctx.strokeStyle = 'rgba(255,94,0,.6)'; ctx.fillStyle = 'rgba(255,94,0,.12)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      // simplified 9-point polygon at miniature scale
+      const cx = 28, cy = 38, r = 16;
+      const pcts = [0.85, 0.72, 0.35, 0.20, 0.65, 0.55, 0.40, 0.15, 0.78];
+      pcts.forEach((p, j) => {
+        const a = (-Math.PI/2) + (j * 2 * Math.PI / 9);
+        const x = cx + r * p * Math.cos(a);
+        const y = cy + r * p * Math.sin(a);
+        if (j === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      // grid rings
+      ctx.strokeStyle = 'rgba(255,255,255,.05)'; ctx.lineWidth = 0.5;
+      [0.33, 0.66, 1.0].forEach(s => {
+        ctx.beginPath();
+        for (let j = 0; j < 9; j++) {
+          const a = (-Math.PI/2) + (j * 2 * Math.PI / 9);
+          const x = cx + r * s * Math.cos(a);
+          const y = cy + r * s * Math.sin(a);
+          if (j === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath(); ctx.stroke();
+      });
+      // vertex dots
+      const domainColors = ['#EF4444','#84CC16','#10B981','#6366F1','#14B8A6','#EC4899','#06B6D4','#F59E0B','#A855F7'];
+      pcts.forEach((p, j) => {
+        const a = (-Math.PI/2) + (j * 2 * Math.PI / 9);
+        const x = cx + r * p * Math.cos(a);
+        const y = cy + r * p * Math.sin(a);
+        ctx.fillStyle = domainColors[j];
+        ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2); ctx.fill();
+      });
+      // SIA insight card
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 60, 48, 12, 3); ctx.fill();
+      ctx.fillStyle = '#7F24FF'; ctx.fillRect(4, 60, 2, 12);
+      ctx.beginPath(); ctx.arc(10, 65, 2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.font = '2.5px Sora';
+      ctx.fillText('fitness thriving...', 14, 67);
+      // segmented
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 76, 48, 7, 3); ctx.fill();
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.roundRect(20, 77, 17, 5, 2); ctx.fill();
+      // domain rows
+      domainColors.forEach((c, j) => {
+        const y = 88 + j * 3;
+        if (y > 108) return;
+        ctx.fillStyle = c;
+        ctx.beginPath(); ctx.arc(7, y, 1.5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = c;
+        ctx.globalAlpha = 0.6;
+        ctx.fillRect(14, y - 0.5, pcts[j] * 28, 1);
+        ctx.globalAlpha = 1;
+      });
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(7, 114, 3, 0, Math.PI * 2); ctx.fill();
+    }
+    thumb.prepend(canvas);
+  });
+}
+renderThumbs();
+
+const sp = new URLSearchParams(window.location.search);
+if (sp.has('start')) {
+  const s = parseInt(sp.get('start'));
+  if (!isNaN(s) && s >= 0 && s < total) {
+    track.style.transition = 'none';
+    goTo(s);
+    requestAnimationFrame(() => track.style.transition = '');
+  }
+}
+</script>
+</body>
+</html>

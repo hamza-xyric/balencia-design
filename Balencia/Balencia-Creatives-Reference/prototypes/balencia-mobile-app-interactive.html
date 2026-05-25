@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Balencia mobile app. Interactive single-phone prototype. Ten core screens, tap to navigate." />
+<title>Balencia. Mobile prototype.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=chillax@800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   BALENCIA. — INTERACTIVE MOBILE PROTOTYPE
+   One phone. Ten screens. Tap to move.
+   Anchored in DESIGN.md: warm ink, burnt orange CTA, royal
+   purple reserved for SIA, forest green for arrival, continuous
+   stroke line as signature, Sora throughout, Chillax for logo.
+   ============================================================ */
+
+:root {
+  --orange: #FF5E00;
+  --orange-2: #FF7A2D;
+  --orange-soft: rgba(255, 94, 0, .18);
+  --orange-faint: rgba(255, 94, 0, .08);
+  --green: #34A853;
+  --green-soft: rgba(52, 168, 83, .20);
+  --purple: #7F24FF;
+  --purple-2: #A663FF;
+  --purple-soft: rgba(127, 36, 255, .22);
+  --purple-faint: rgba(127, 36, 255, .10);
+
+  --ink-900: #0A0A0F;
+  --ink-warm-900: #0C0603;
+  --ink-brown-900: #140A05;
+  --ink-brown-800: #211008;
+  --ink-700: #171717;
+  --ink-line: rgba(254, 250, 243, .10);
+  --ink-line-strong: rgba(254, 250, 243, .18);
+
+  --paper-50: #FDFDFB;
+  --paper-100: #FEFAF3;
+  --paper-150: #FDFBF0;
+  --paper-200: #F9F3E6;
+  --paper-300: #F2ECD8;
+  --paper-mute: #BBA99C;
+  --paper-quiet: #8C7E72;
+
+  --font: 'Sora', system-ui, sans-serif;
+  --logo: 'Chillax', 'Sora', system-ui, sans-serif;
+
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
+
+  --r-xs: 6px;  --r-sm: 10px; --r-md: 14px; --r-lg: 20px;
+  --r-xl: 28px; --r-2xl: 40px; --r-pill: 999px;
+
+  --shadow-1: 0 4px 14px rgba(33, 16, 8, .28);
+  --shadow-2: 0 10px 30px rgba(33, 16, 8, .42);
+  --shadow-3: 0 30px 80px -20px rgba(0, 0, 0, .7);
+  --glow-orange: 0 0 38px rgba(255, 94, 0, .32);
+  --glow-purple: 0 0 36px rgba(127, 36, 255, .32);
+  --glow-green:  0 0 28px rgba(52, 168, 83, .26);
+
+  --ease-out-quart: cubic-bezier(.22, 1, .36, 1);
+  --ease-out-quint: cubic-bezier(.23, 1, .32, 1);
+  --ease-out-expo:  cubic-bezier(.16, 1, .3, 1);
+  --ease-flow:      cubic-bezier(.65, 0, .35, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+html { background: var(--ink-warm-900); }
+body {
+  font-family: var(--font);
+  color: var(--paper-50);
+  background:
+    radial-gradient(1100px 700px at 16% 8%, rgba(255, 94, 0, .14), transparent 60%),
+    radial-gradient(900px 600px at 88% 12%, rgba(127, 36, 255, .12), transparent 62%),
+    radial-gradient(820px 600px at 60% 110%, rgba(52, 168, 83, .07), transparent 60%),
+    linear-gradient(180deg, #0C0603 0%, #0A0503 50%, #0C0603 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.45;
+  overflow: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(254, 250, 243, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(254, 250, 243, .025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+img, svg { display: block; max-width: 100%; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+a { color: inherit; text-decoration: none; }
+[data-go]:not(button):not(a) { cursor: pointer; }
+[data-toggle]:not(button) { cursor: pointer; }
+
+/* ─────────── Stage ─────────── */
+
+.stage {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr) minmax(280px, 360px);
+  gap: clamp(24px, 3vw, 56px);
+  align-items: center;
+  padding: clamp(24px, 3vw, 48px) clamp(28px, 4vw, 64px);
+  min-height: 100vh;
+  height: 100vh;
+}
+
+/* Atmospheric stroke that draws across the backdrop */
+.atmos {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: .55;
+}
+.atmos path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 2800;
+  stroke-dashoffset: 2800;
+  animation: atmosDraw 6s var(--ease-flow) .2s forwards;
+}
+@keyframes atmosDraw { to { stroke-dashoffset: 0; } }
+
+/* ─────────── Left rail (screen index) ─────────── */
+
+.rail-left {
+  align-self: stretch;
+  display: flex; flex-direction: column;
+  padding: clamp(8px, 1.4vw, 24px) 0;
+  min-width: 0;
+}
+.brand {
+  display: inline-flex; align-items: baseline; gap: var(--s-3);
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+.brand .wordmark {
+  font-family: var(--logo);
+  font-weight: 800;
+  font-size: clamp(28px, 2.2vw, 34px);
+  letter-spacing: -.025em;
+  line-height: .94;
+  color: var(--paper-50);
+}
+.brand .wordmark .dot { color: var(--orange); }
+.brand .tag {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--paper-mute);
+}
+
+.rail-title {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--paper-mute);
+  margin-bottom: var(--s-4);
+}
+
+.screen-list {
+  display: flex; flex-direction: column;
+  gap: 2px;
+  flex: 1; min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(254, 250, 243, .14) transparent;
+  margin: 0 calc(-1 * var(--s-3));
+  padding: var(--s-1) var(--s-3);
+}
+.screen-list::-webkit-scrollbar { width: 4px; }
+.screen-list::-webkit-scrollbar-thumb { background: rgba(254, 250, 243, .14); border-radius: 99px; }
+
+.screen-item {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: var(--s-3);
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  text-align: left;
+  color: rgba(254, 250, 243, .58);
+  transition: background .25s var(--ease-out-quart), color .25s var(--ease-out-quart);
+  font-size: 13px; font-weight: 500;
+  letter-spacing: -.005em;
+  width: 100%;
+}
+.screen-item .num {
+  font-family: var(--logo);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -.02em;
+  color: rgba(254, 250, 243, .42);
+  width: 28px;
+}
+.screen-item .meta {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(254, 250, 243, .32);
+}
+.screen-item:hover { background: rgba(254, 250, 243, .04); color: var(--paper-50); }
+.screen-item.is-on {
+  background: rgba(255, 94, 0, .10);
+  color: var(--paper-50);
+}
+.screen-item.is-on .num { color: var(--orange); }
+.screen-item.is-on .meta { color: var(--orange); }
+.screen-item.is-on.is-cia { background: rgba(127, 36, 255, .12); }
+.screen-item.is-on.is-cia .num,
+.screen-item.is-on.is-cia .meta { color: var(--purple-2); }
+.screen-item.is-on.is-green { background: rgba(52, 168, 83, .12); }
+.screen-item.is-on.is-green .num,
+.screen-item.is-on.is-green .meta { color: var(--green); }
+
+.rail-tour {
+  margin-top: var(--s-4);
+  display: flex; flex-direction: column; gap: var(--s-2);
+}
+.tour-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--r-pill);
+  background: rgba(254, 250, 243, .06);
+  color: var(--paper-50);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .04em;
+  box-shadow: inset 0 0 0 1px rgba(254, 250, 243, .10);
+  transition: background .25s var(--ease-out-quart), transform .25s var(--ease-out-quart);
+}
+.tour-btn:hover { background: rgba(254, 250, 243, .10); transform: translateY(-1px); }
+.tour-btn .play {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--orange);
+  display: grid; place-items: center;
+  color: var(--paper-50);
+}
+.tour-btn[data-playing="true"] .play { background: var(--green); }
+.tour-btn[data-playing="true"] .label::before { content: 'Pause tour'; }
+.tour-btn[data-playing="false"] .label::before { content: 'Play tour'; }
+
+.rail-foot {
+  margin-top: var(--s-4);
+  font-size: 11px; line-height: 1.55;
+  color: var(--paper-quiet);
+  letter-spacing: -.005em;
+}
+.rail-foot strong { color: var(--paper-mute); font-weight: 600; }
+
+/* ─────────── Center: phone ─────────── */
+
+.rail-center {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 0;
+  position: relative;
+}
+
+.phone {
+  --phone-w: min(390px, 32vw);
+  --phone-h: min(844px, calc(var(--phone-w) * 2.164));
+  width: var(--phone-w);
+  height: var(--phone-h);
+  position: relative;
+  border-radius: 56px;
+  background: linear-gradient(160deg, #2a160c, #140a05 60%);
+  padding: 14px;
+  box-shadow:
+    0 0 0 1px rgba(254, 250, 243, .06),
+    var(--shadow-3),
+    0 14px 28px -8px rgba(33, 16, 8, .45),
+    0 0 80px -10px rgba(255, 94, 0, .10);
+  isolation: isolate;
+}
+.phone::before {
+  content: '';
+  position: absolute; inset: 4px;
+  border-radius: 53px;
+  background: linear-gradient(160deg, rgba(254, 250, 243, .06), rgba(254, 250, 243, 0) 50%);
+  pointer-events: none;
+  z-index: 2;
+}
+.phone-screen {
+  position: relative;
+  width: 100%; height: 100%;
+  border-radius: 44px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Dynamic island */
+.island {
+  position: absolute;
+  top: 10px; left: 50%; transform: translateX(-50%);
+  width: 118px; height: 34px;
+  border-radius: 999px;
+  background: #000;
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* Home indicator */
+.home-bar {
+  position: absolute;
+  bottom: 8px; left: 50%; transform: translateX(-50%);
+  width: 134px; height: 5px;
+  border-radius: 999px;
+  background: rgba(254, 250, 243, .32);
+  z-index: 30;
+  pointer-events: none;
+}
+.screen[data-surface="paper"] ~ .home-bar,
+.screen.is-active[data-surface="paper"] ~ .home-bar { background: rgba(20, 10, 5, .22); }
+
+/* Each screen is a stacked, absolutely positioned panel */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex; flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(24px);
+  transition:
+    opacity .42s var(--ease-out-quart),
+    transform .5s var(--ease-out-quint),
+    visibility 0s linear .5s;
+  background: var(--ink-brown-800);
+  color: var(--paper-50);
+}
+.screen[data-surface="deep"]    { background: var(--ink-warm-900); }
+.screen[data-surface="dark"]    { background: var(--ink-brown-800); }
+.screen[data-surface="darker"]  { background: var(--ink-900); }
+.screen[data-surface="paper"]   { background: var(--paper-100); color: var(--ink-warm-900); }
+.screen[data-surface="hero"]    {
+  background:
+    radial-gradient(220px 160px at 80% 8%, rgba(127, 36, 255, .22), transparent 70%),
+    radial-gradient(280px 200px at 14% 8%, rgba(255, 94, 0, .14), transparent 70%),
+    var(--ink-warm-900);
+}
+
+.screen.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition-delay: 0s;
+}
+.screen.is-leaving {
+  opacity: 0;
+  transform: translateX(-24px);
+}
+
+/* Modal / bottom-sheet style transition for Add Feature */
+.screen[data-enter="sheet"] {
+  transform: translateY(60px) scale(.96);
+}
+.screen[data-enter="sheet"].is-active {
+  transform: translateY(0) scale(1);
+}
+.screen[data-enter="sheet"].is-leaving {
+  transform: translateY(60px) scale(.96);
+}
+
+/* Status bar */
+.statusbar {
+  height: 44px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 26px 0 28px;
+  font-size: 14px; font-weight: 600;
+  letter-spacing: -.01em;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 5;
+}
+.statusbar .icons {
+  display: inline-flex; gap: 6px; align-items: center;
+}
+
+/* Screen body */
+.screen-body {
+  flex: 1; min-height: 0;
+  padding: 0 22px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.screen-body.scroll {
+  overflow-y: auto;
+  padding-bottom: 110px;
+  scrollbar-width: none;
+}
+.screen-body.scroll::-webkit-scrollbar { display: none; }
+
+/* Typography inside phone */
+.h-display {
+  font-family: var(--font);
+  font-weight: 700;
+  letter-spacing: -.022em;
+  line-height: 1.02;
+}
+.h1 { font-weight: 700; font-size: 34px; line-height: 1.08; letter-spacing: -.018em; }
+.h2 { font-weight: 700; font-size: 26px; line-height: 1.12; letter-spacing: -.015em; }
+.h3 { font-weight: 600; font-size: 20px; line-height: 1.22; letter-spacing: -.01em; }
+.lead { font-size: 16px; line-height: 1.5; color: rgba(254, 250, 243, .78); }
+.body { font-size: 14px; line-height: 1.55; }
+.meta { font-size: 12px; line-height: 1.5; color: rgba(254, 250, 243, .58); }
+.eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(254, 250, 243, .55);
+}
+.screen[data-surface="paper"] .lead { color: rgba(20, 10, 5, .74); }
+.screen[data-surface="paper"] .meta { color: rgba(20, 10, 5, .62); }
+.screen[data-surface="paper"] .eyebrow { color: rgba(20, 10, 5, .55); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 52px;
+  padding: 0 26px;
+  border-radius: var(--r-pill);
+  font-size: 15px; font-weight: 600;
+  letter-spacing: -.005em;
+  transition:
+    transform .28s var(--ease-out-quart),
+    box-shadow .28s var(--ease-out-quart),
+    background .2s var(--ease-out-quart);
+  white-space: nowrap;
+  width: auto;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+.btn--primary {
+  background: var(--orange);
+  color: var(--paper-50);
+  box-shadow: 0 10px 30px -8px rgba(255, 94, 0, .55);
+}
+.btn--primary:hover { transform: translateY(-1px); box-shadow: 0 14px 36px -8px rgba(255, 94, 0, .65); }
+.btn--green {
+  background: var(--green);
+  color: var(--paper-50);
+  box-shadow: 0 10px 28px -10px rgba(52, 168, 83, .55);
+}
+.btn--ghost { background: var(--ink-700); color: var(--paper-50); }
+.btn--ghost:hover { background: #1f1f1f; }
+.btn--quiet { background: transparent; color: var(--paper-50); }
+.btn--quiet:hover { background: rgba(254, 250, 243, .06); }
+.btn--block { width: 100%; }
+.btn--lg { height: 58px; padding: 0 32px; font-size: 16px; }
+.btn--sm { height: 40px; padding: 0 16px; font-size: 13px; }
+
+.screen[data-surface="paper"] .btn--ghost { background: var(--ink-warm-900); color: var(--paper-50); }
+.screen[data-surface="paper"] .btn--quiet { color: var(--ink-warm-900); }
+.screen[data-surface="paper"] .btn--quiet:hover { background: rgba(20, 10, 5, .04); }
+
+/* Chip */
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 12px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  border-radius: var(--r-pill);
+  background: var(--ink-700);
+  color: var(--paper-50);
+}
+.chip--orange { background: var(--orange); }
+.chip--green  { background: var(--green); }
+.chip--purple { background: var(--purple); }
+.chip--outline {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ink-line-strong);
+  color: var(--paper-100);
+}
+
+/* Need chip (selectable) */
+.need {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: -.005em;
+  border-radius: var(--r-pill);
+  background: rgba(254, 250, 243, .06);
+  color: var(--paper-50);
+  box-shadow: inset 0 0 0 1px rgba(254, 250, 243, .08);
+  text-transform: none;
+  transition:
+    background .22s var(--ease-out-quart),
+    box-shadow .22s var(--ease-out-quart),
+    transform .22s var(--ease-out-quart);
+}
+.need[data-on="true"] {
+  background: var(--orange);
+  color: var(--paper-50);
+  box-shadow: 0 8px 22px -8px var(--orange-soft);
+  transform: translateY(-1px);
+}
+.need:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.need:hover { background: rgba(254, 250, 243, .10); }
+.need[data-on="true"]:hover { background: var(--orange-2); }
+
+/* Cards */
+.card {
+  background: var(--ink-warm-900);
+  border-radius: var(--r-xl);
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.card--paper { background: var(--paper-100); color: var(--ink-warm-900); }
+.card--ink { background: var(--ink-900); }
+.card--ghost {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ink-line);
+}
+.card .title {
+  font-size: 16px; font-weight: 600; letter-spacing: -.01em;
+}
+.card .desc {
+  font-size: 13px; line-height: 1.55;
+  color: rgba(254, 250, 243, .62);
+}
+.card--paper .desc { color: rgba(20, 10, 5, .66); }
+
+/* SIA bubble */
+.cia-bubble {
+  position: relative;
+  background: var(--ink-900);
+  color: var(--paper-50);
+  border-radius: 20px 20px 20px 6px;
+  padding: 16px 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: inset 0 0 0 1px var(--purple-faint);
+}
+.cia-bubble::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(127, 36, 255, .55), rgba(127, 36, 255, 0) 60%);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+.user-bubble {
+  background: var(--orange);
+  color: var(--paper-50);
+  border-radius: 20px 20px 6px 20px;
+  padding: 13px 16px;
+  font-size: 14px;
+  line-height: 1.45;
+  margin-left: auto;
+  max-width: 78%;
+}
+
+.avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--logo);
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.avatar--cia {
+  background: radial-gradient(circle at 30% 30%, var(--purple-2), var(--purple) 70%);
+  color: var(--paper-50);
+  box-shadow: 0 0 22px rgba(127, 36, 255, .45);
+}
+.avatar--user {
+  background: var(--ink-700);
+  color: var(--paper-50);
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Input */
+.input {
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+  background: var(--ink-700);
+  color: var(--paper-50);
+  border-radius: var(--r-md);
+  font-family: inherit;
+  font-size: 15px;
+  border: 0;
+  outline: 2px solid transparent;
+  transition: outline-color .15s var(--ease-out-quart);
+}
+.input::placeholder { color: rgba(254, 250, 243, .4); }
+.input:focus { outline-color: var(--orange); }
+.input--lg { height: 58px; font-size: 17px; }
+.input--area {
+  height: auto; min-height: 96px;
+  padding: 14px 16px;
+  line-height: 1.5;
+  resize: none;
+}
+
+/* Bottom nav */
+.bottomnav {
+  position: absolute;
+  left: 14px; right: 14px; bottom: 14px;
+  height: 72px;
+  background: rgba(12, 6, 3, .85);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border-radius: 26px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  z-index: 20;
+  box-shadow: inset 0 0 0 1px rgba(254, 250, 243, .08), 0 8px 28px -8px rgba(0, 0, 0, .5);
+  padding-bottom: 12px;
+}
+.screen[data-surface="paper"] .bottomnav,
+.bottomnav.is-light {
+  background: rgba(254, 250, 243, .94);
+  color: var(--ink-warm-900);
+  box-shadow: inset 0 0 0 1px rgba(20, 10, 5, .08), 0 8px 28px -8px rgba(33, 16, 8, .25);
+}
+.navitem {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 600; letter-spacing: -.005em;
+  color: rgba(254, 250, 243, .55);
+  position: relative;
+  height: 100%;
+  justify-content: center;
+}
+.screen[data-surface="paper"] .navitem { color: rgba(20, 10, 5, .55); }
+.navitem.is-on { color: var(--orange); }
+.navitem.is-on::after {
+  content: '';
+  position: absolute; bottom: -6px; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 4px; border-radius: 99px;
+  background: var(--orange);
+}
+.navitem svg { width: 22px; height: 22px; }
+
+/* FAB */
+.fab {
+  position: absolute;
+  right: 24px; bottom: 102px;
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: var(--paper-50);
+  display: grid; place-items: center;
+  box-shadow: 0 14px 32px -6px rgba(255, 94, 0, .55);
+  z-index: 15;
+  transition: transform .25s var(--ease-out-quart), box-shadow .25s var(--ease-out-quart);
+}
+.fab:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -6px rgba(255, 94, 0, .65); }
+
+/* Stroke (signature) */
+.stroke {
+  width: 100%;
+  overflow: visible;
+}
+.stroke path, .stroke polyline {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.draw {
+  stroke-dasharray: var(--len, 800);
+  stroke-dashoffset: var(--len, 800);
+  animation: draw 1.4s var(--ease-flow) forwards;
+}
+.draw.delay-1 { animation-delay: .15s; }
+.draw.delay-2 { animation-delay: .45s; }
+.draw.delay-3 { animation-delay: .75s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.screen:not(.is-active) .draw {
+  stroke-dashoffset: var(--len, 800);
+  animation: none;
+}
+
+/* Toggle */
+.toggle {
+  width: 42px; height: 24px;
+  border-radius: 999px;
+  background: rgba(254, 250, 243, .16);
+  position: relative;
+  flex-shrink: 0;
+  transition: background .2s var(--ease-out-quart);
+}
+.toggle::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--paper-50);
+  top: 3px; left: 3px;
+  transition: left .22s var(--ease-out-quart);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+}
+.toggle[data-on="true"] { background: var(--green); }
+.toggle[data-on="true"]::after { left: 21px; }
+
+/* Segmented control */
+.segmented {
+  display: inline-flex; padding: 4px;
+  background: var(--ink-700);
+  border-radius: var(--r-pill);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+}
+.segmented .seg {
+  padding: 7px 13px;
+  border-radius: var(--r-pill);
+  color: rgba(254, 250, 243, .58);
+  transition: background .2s, color .2s;
+}
+.segmented .seg.is-on {
+  background: var(--paper-100);
+  color: var(--ink-warm-900);
+}
+
+/* Feature row (selectable) */
+.feature-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px;
+  background: var(--ink-warm-900);
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 0 0 1px var(--ink-line);
+  transition: background .2s, box-shadow .2s, transform .2s;
+}
+.feature-row:hover { background: rgba(254, 250, 243, .04); }
+.feature-row[data-on="true"] {
+  box-shadow: inset 0 0 0 1.5px var(--orange);
+  background: rgba(255, 94, 0, .07);
+}
+.feature-row .check {
+  width: 22px; height: 22px;
+  border-radius: 999px;
+  background: rgba(254, 250, 243, .06);
+  box-shadow: inset 0 0 0 1px rgba(254, 250, 243, .18);
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: grid; place-items: center;
+  color: var(--paper-50);
+  font-size: 11px;
+  transition: background .2s, box-shadow .2s;
+}
+.feature-row[data-on="true"] .check {
+  background: var(--orange);
+  box-shadow: none;
+}
+.feature-row .body-col {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.feature-row .meta-row {
+  display: flex; gap: 10px; align-items: center;
+  font-size: 11px;
+  color: rgba(254, 250, 243, .55);
+  margin-top: 3px;
+}
+.feature-row .meta-row .why { color: var(--purple-2); font-weight: 600; }
+.feature-row .meta-row .dot-sep { opacity: .4; }
+
+/* Step progress pill */
+.steps {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.steps .pip {
+  width: 16px; height: 3px; border-radius: 99px;
+  background: rgba(254, 250, 243, .18);
+  transition: background .25s, width .25s;
+}
+.steps .pip.is-on { background: var(--orange); width: 26px; }
+.steps .pip.is-done { background: rgba(254, 250, 243, .42); }
+
+/* Top bar inside phone */
+.topbar-in {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 4px 0 14px;
+  flex-shrink: 0;
+}
+.topbar-in .back {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(254, 250, 243, .06);
+  color: var(--paper-50);
+  transition: background .2s;
+}
+.topbar-in .back:hover { background: rgba(254, 250, 243, .12); }
+.screen[data-surface="paper"] .topbar-in .back { background: rgba(20, 10, 5, .06); color: var(--ink-warm-900); }
+
+/* Compact stat */
+.stat {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.stat .v {
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+.stat .v .unit { font-size: 12px; color: rgba(254, 250, 243, .55); font-weight: 500; margin-left: 3px; }
+.stat .k {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(254, 250, 243, .55);
+}
+.screen[data-surface="paper"] .stat .k { color: rgba(20, 10, 5, .55); }
+.screen[data-surface="paper"] .stat .v .unit { color: rgba(20, 10, 5, .55); }
+
+/* Quick action chip */
+.quick {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 13px;
+  background: rgba(254, 250, 243, .06);
+  border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 500;
+  color: var(--paper-50);
+}
+.quick svg { width: 14px; height: 14px; color: var(--orange); }
+
+/* SIA card (home) */
+.cia-card {
+  position: relative;
+  background: var(--ink-900);
+  border-radius: var(--r-xl);
+  padding: 18px;
+  display: flex; gap: 14px;
+  isolation: isolate;
+  overflow: hidden;
+}
+.cia-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(220px 140px at 90% 0%, rgba(127, 36, 255, .35), transparent 65%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* SIA suggest card (purple-tinted) */
+.cia-suggest {
+  border-radius: var(--r-xl);
+  padding: 16px;
+  background: linear-gradient(160deg, rgba(127, 36, 255, .16), rgba(127, 36, 255, .04) 70%);
+  box-shadow: inset 0 0 0 1px rgba(127, 36, 255, .30);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cia-suggest .pill-cia {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  background: var(--purple);
+  color: var(--paper-50);
+  padding: 4px 9px;
+  border-radius: 99px;
+}
+
+/* Legend */
+.legend {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .04em;
+  color: rgba(254, 250, 243, .66);
+}
+.legend .dash {
+  width: 16px; height: 2px; border-radius: 99px;
+}
+.legend .dash.orange { background: var(--orange); }
+.legend .dash.purple {
+  background: repeating-linear-gradient(90deg, var(--purple) 0 4px, transparent 4px 8px);
+  height: 2px;
+}
+.legend .dash.green-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green);
+}
+
+/* Permission row */
+.perm-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  background: var(--ink-warm-900);
+  border-radius: var(--r-lg);
+}
+.perm-row .icon-wrap {
+  width: 38px; height: 38px;
+  border-radius: var(--r-md);
+  background: var(--orange-faint);
+  color: var(--orange);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.perm-row .icon-wrap.is-purple { background: var(--purple-faint); color: var(--purple-2); }
+.perm-row .icon-wrap.is-green { background: var(--green-soft); color: var(--green); }
+.perm-row .body-col { flex: 1; min-width: 0; }
+
+/* Settings row */
+.set-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--ink-line);
+}
+.set-row:last-child { border-bottom: 0; }
+.set-row .label-col { display: flex; flex-direction: column; gap: 3px; }
+.set-row .label-col .l { font-size: 14px; font-weight: 500; }
+.set-row .label-col .s { font-size: 11px; color: rgba(254, 250, 243, .55); }
+.set-row .chev {
+  color: rgba(254, 250, 243, .42);
+}
+
+/* ─────────── Right rail (screen notes) ─────────── */
+
+.rail-right {
+  align-self: stretch;
+  display: flex; flex-direction: column;
+  padding: clamp(8px, 1.4vw, 24px) 0;
+  min-width: 0;
+}
+.rail-right .eyebrow-r {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--paper-mute);
+  margin-bottom: var(--s-3);
+}
+.note-card {
+  background: rgba(254, 250, 243, .04);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  box-shadow: inset 0 0 0 1px var(--ink-line);
+  display: flex; flex-direction: column; gap: 14px;
+  transition: opacity .35s var(--ease-out-quart);
+}
+.note-card[data-fading="true"] { opacity: 0; }
+.note-card .num {
+  font-family: var(--logo);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--orange);
+  letter-spacing: -.02em;
+}
+.note-card .num.is-cia { color: var(--purple-2); }
+.note-card .num.is-green { color: var(--green); }
+.note-card .title-r {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.012em;
+}
+.note-card .desc-r {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(254, 250, 243, .72);
+}
+.note-card .desc-r strong { color: var(--paper-50); font-weight: 600; }
+.note-card .kvs {
+  display: grid; gap: 8px;
+}
+.note-card .kv {
+  display: grid; grid-template-columns: 88px 1fr; gap: 12px;
+  font-size: 11px; line-height: 1.5;
+}
+.note-card .kv .k {
+  font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--paper-mute);
+}
+.note-card .kv .v { color: var(--paper-50); }
+.rail-right .tip {
+  font-size: 11px; line-height: 1.6;
+  color: var(--paper-quiet);
+  margin-top: var(--s-4);
+}
+.rail-right .tip kbd {
+  font-family: var(--font);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .04em;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(254, 250, 243, .08);
+  color: var(--paper-50);
+  box-shadow: inset 0 0 0 1px rgba(254, 250, 243, .12);
+}
+
+/* ─────────── Responsive ─────────── */
+
+@media (max-width: 1200px) {
+  .stage { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr); padding-right: clamp(20px, 3vw, 32px); }
+  .rail-right { display: none; }
+  .phone { --phone-w: min(380px, 42vw); }
+}
+@media (max-width: 820px) {
+  body { overflow-y: auto; }
+  .stage {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100vh;
+    padding: clamp(16px, 4vw, 24px);
+    gap: 24px;
+  }
+  .rail-left {
+    flex-direction: row; align-items: center; justify-content: space-between;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+  }
+  .rail-title, .rail-foot, .rail-tour { display: none; }
+  .screen-list {
+    flex-direction: row; flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+  }
+  .screen-item { width: auto; flex-shrink: 0; }
+  .screen-item .meta { display: none; }
+  .rail-center { padding-bottom: 24px; }
+  .phone { --phone-w: min(380px, 90vw); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .screen,
+  .screen.is-active,
+  .screen.is-leaving {
+    transition-property: opacity;
+    transform: none !important;
+  }
+  .draw {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .atmos path {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ─────────── Icon defs ─────────── -->
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-signal" viewBox="0 0 18 12">
+      <rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/>
+      <rect x="5" y="5" width="3" height="7" rx="1" fill="currentColor"/>
+      <rect x="10" y="2" width="3" height="10" rx="1" fill="currentColor"/>
+      <rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-wifi" viewBox="0 0 16 12">
+      <path d="M8 11.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="currentColor"/>
+      <path d="M3.2 7.1a6 6 0 019.6 0" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path d="M.5 4.6a10 10 0 0115 0" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-battery" viewBox="0 0 26 12">
+      <rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" fill="none"/>
+      <rect x="23.5" y="3.5" width="2" height="5" rx="1" fill="currentColor"/>
+      <rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor"/>
+    </symbol>
+    <symbol id="n-home" viewBox="0 0 24 24">
+      <path d="M3 11.2L12 4l9 7.2V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-8.8z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="n-cia" viewBox="0 0 24 24">
+      <path d="M12 3a8 8 0 018 8c0 4.5-4 8.5-9.5 9a.5.5 0 01-.5-.6L11 17a8 8 0 011-14z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+      <circle cx="9.5" cy="11" r="1.2" fill="currentColor"/>
+      <circle cx="14.5" cy="11" r="1.2" fill="currentColor"/>
+    </symbol>
+    <symbol id="n-progress" viewBox="0 0 24 24">
+      <path d="M4 17l4-5 4 3 7-8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="19" cy="7" r="1.6" fill="currentColor"/>
+    </symbol>
+    <symbol id="n-profile" viewBox="0 0 24 24">
+      <circle cx="12" cy="9" r="3.4" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <path d="M5 20c1.4-3.4 4-5 7-5s5.6 1.6 7 5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24">
+      <rect x="9" y="3" width="6" height="12" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24">
+      <rect x="3" y="6" width="18" height="13" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <circle cx="12" cy="12.5" r="3.4" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <path d="M9 6l1.5-2h3L15 6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-send" viewBox="0 0 24 24">
+      <path d="M4 12L20 4l-5 16-3-7-8-1z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24">
+      <path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24">
+      <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24">
+      <path d="M20.5 14.5a8 8 0 11-11-11 7 7 0 0011 11z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24">
+      <path d="M5 19c0-9 6-14 15-14-1 9-5 14-15 14z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+      <path d="M5 19c4-3 7-6 9-10" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-water" viewBox="0 0 24 24">
+      <path d="M12 3s7 8 7 13a7 7 0 11-14 0c0-5 7-13 7-13z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h14m-6-6l6 6-6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <path d="M5 12l5 5 9-11" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-back" viewBox="0 0 24 24">
+      <path d="M19 12H5m6-6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-x" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24">
+      <path d="M12 3v6m0 6v6M3 12h6m6 0h6M6 6l3 3m6 6l3 3M6 18l3-3m6-6l3-3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24">
+      <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24">
+      <path d="M6 16V11a6 6 0 1112 0v5l1.5 2H4.5L6 16z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+      <path d="M10 20a2 2 0 004 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24">
+      <path d="M12 3c1 3 4 5 4 8a4 4 0 11-8 0c0-1 .6-2 1.4-2.6C8 11 8 13.6 10 15c-1-3 1.5-4 2-7-.4 1 .4 2 1.6 3.4C14 9 13 5 12 3z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24">
+      <path d="M3 9h11a3 3 0 100-6M3 15h15a3 3 0 110 6M3 12h8" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-mood" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <circle cx="9" cy="10" r="1" fill="currentColor"/>
+      <circle cx="15" cy="10" r="1" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ─────────── Atmospheric backdrop stroke ─────────── -->
+<svg class="atmos" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M-40 230 C 240 120, 520 360, 800 240 S 1340 80, 1660 280"
+        stroke="rgba(255, 94, 0, .14)" stroke-width="1.4" fill="none"/>
+  <path d="M-40 640 C 280 480, 600 760, 900 600 S 1340 720, 1660 540"
+        stroke="rgba(127, 36, 255, .12)" stroke-width="1.4" fill="none"/>
+</svg>
+
+<!-- ─────────── Stage ─────────── -->
+<div class="stage" role="application" aria-label="Balencia mobile prototype">
+
+  <!-- LEFT RAIL -->
+  <aside class="rail-left" aria-label="Screen navigator">
+    <div class="brand">
+      <span class="wordmark">balencia<span class="dot">.</span></span>
+    </div>
+    <div class="brand" style="margin-top: -16px;">
+      <span class="tag">Mobile prototype</span>
+    </div>
+
+    <div class="rail-title">Ten core screens.</div>
+    <div class="screen-list" id="screen-list" role="tablist">
+      <button class="screen-item is-on" role="tab" data-go="s-welcome">
+        <span class="num">01</span>
+        <span class="lbl">Welcome</span>
+        <span class="meta">Onboard</span>
+      </button>
+      <button class="screen-item" role="tab" data-go="s-identity">
+        <span class="num">02</span>
+        <span class="lbl">Identity</span>
+        <span class="meta">Onboard</span>
+      </button>
+      <button class="screen-item" role="tab" data-go="s-needs">
+        <span class="num">03</span>
+        <span class="lbl">What helps?</span>
+        <span class="meta">Onboard</span>
+      </button>
+      <button class="screen-item is-cia" role="tab" data-go="s-stack">
+        <span class="num">04</span>
+        <span class="lbl">SIA suggests</span>
+        <span class="meta">SIA</span>
+      </button>
+      <button class="screen-item is-cia" role="tab" data-go="s-plan">
+        <span class="num">05</span>
+        <span class="lbl">Plan ready</span>
+        <span class="meta">SIA</span>
+      </button>
+      <button class="screen-item" role="tab" data-go="s-home">
+        <span class="num">06</span>
+        <span class="lbl">Adaptive home</span>
+        <span class="meta">Daily</span>
+      </button>
+      <button class="screen-item is-cia" role="tab" data-go="s-coach">
+        <span class="num">07</span>
+        <span class="lbl">SIA chat</span>
+        <span class="meta">SIA</span>
+      </button>
+      <button class="screen-item is-green" role="tab" data-go="s-progress">
+        <span class="num">08</span>
+        <span class="lbl">Weekly recap</span>
+        <span class="meta">Review</span>
+      </button>
+      <button class="screen-item" role="tab" data-go="s-profile">
+        <span class="num">09</span>
+        <span class="lbl">Profile</span>
+        <span class="meta">Manage</span>
+      </button>
+      <button class="screen-item is-cia" role="tab" data-go="s-addfeature">
+        <span class="num">10</span>
+        <span class="lbl">Add feature</span>
+        <span class="meta">Sheet</span>
+      </button>
+    </div>
+
+    <div class="rail-tour">
+      <button class="tour-btn" id="tour-toggle" data-playing="false" aria-label="Play guided tour">
+        <span class="play" aria-hidden="true">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9" /></svg>
+        </span>
+        <span class="label"></span>
+      </button>
+      <div class="rail-foot">
+        <strong>Tip.</strong> Tap any screen in the list, or use the in-phone buttons. Press <kbd>&larr;</kbd> / <kbd>&rarr;</kbd> to step.
+      </div>
+    </div>
+  </aside>
+
+  <!-- CENTER: PHONE -->
+  <main class="rail-center">
+    <div class="phone" id="phone" role="region" aria-label="Phone preview">
+      <div class="phone-screen" id="phone-screen">
+
+        <!-- ═══════════ 01 — WELCOME ═══════════ -->
+        <section class="screen is-active" id="s-welcome" data-surface="hero" data-step="1">
+          <div class="island"></div>
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body" style="justify-content: space-between; padding-top: 24px; padding-bottom: 32px;">
+            <div style="display: flex; flex-direction: column; gap: 18px;">
+              <div style="font-family: var(--logo); font-weight: 800; font-size: 32px; letter-spacing: -.025em; line-height: .94;">
+                balencia<span style="color: var(--orange);">.</span>
+              </div>
+              <div class="eyebrow">A coach. In your corner.</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 22px;">
+              <h1 class="h1" style="font-size: 38px; line-height: 1.04; max-width: 13ch;">
+                We adapt to what you need most<em style="font-style: normal; color: var(--orange);">.</em>
+              </h1>
+              <svg class="stroke" viewBox="0 0 320 28" style="height: 22px;" aria-hidden="true">
+                <path class="draw" style="--len: 360;" d="M4 16 C 60 4, 120 22, 180 10 S 280 24, 316 8" stroke="var(--orange)" stroke-width="3"/>
+              </svg>
+              <p class="lead" style="max-width: 26ch;">
+                SIA will help you find a small place to start. No long forms. No pillars to learn.
+              </p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <button class="btn btn--primary btn--lg btn--block" data-go="s-identity">
+                Get started<span style="opacity: .85;">.</span>
+              </button>
+              <p class="meta" style="text-align: center;">
+                Have an account? <a href="#" style="color: var(--paper-50); font-weight: 600;">Sign in.</a>
+              </p>
+            </div>
+          </div>
+          <div class="home-bar"></div>
+        </section>
+
+        <!-- ═══════════ 02 — IDENTITY ═══════════ -->
+        <section class="screen" id="s-identity" data-surface="deep" data-step="2">
+          <div class="island"></div>
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body" style="padding-top: 8px;">
+            <div class="topbar-in">
+              <button class="back" data-go="s-welcome" aria-label="Back">
+                <svg width="18" height="18"><use href="#i-back"/></svg>
+              </button>
+              <div class="steps">
+                <span class="pip is-on"></span>
+                <span class="pip"></span>
+                <span class="pip"></span>
+                <span class="pip"></span>
+              </div>
+              <span style="width: 40px;"></span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
+              <div class="eyebrow">Step 1 of 4</div>
+              <h2 class="h2">First, your name<em style="font-style: normal; color: var(--orange);">.</em></h2>
+              <p class="lead">We keep it light. You can change anything later.</p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 32px;">
+              <input class="input input--lg" type="text" placeholder="What should SIA call you?" value="Maya" />
+              <div class="eyebrow" style="margin-top: 14px;">Optional age range</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <button class="need" data-toggle>18&ndash;24</button>
+                <button class="need" data-toggle data-on="true">25&ndash;34</button>
+                <button class="need" data-toggle>35&ndash;44</button>
+                <button class="need" data-toggle>45&ndash;54</button>
+                <button class="need" data-toggle>55+</button>
+              </div>
+            </div>
+
+            <div style="flex: 1;"></div>
+            <div style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 32px;">
+              <button class="btn btn--primary btn--lg btn--block" data-go="s-needs">
+                Continue<span style="opacity: .85;">.</span>
+              </button>
+              <button class="btn btn--quiet btn--block" data-go="s-needs">Skip for now</button>
+            </div>
+          </div>
+          <div class="home-bar"></div>
+        </section>
+
+        <!-- ═══════════ 03 — NEED SELECTION ═══════════ -->
+        <section class="screen" id="s-needs" data-surface="dark" data-step="3">
+          <div class="island"></div>
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body scroll" style="padding-top: 8px;">
+            <div class="topbar-in">
+              <button class="back" data-go="s-identity" aria-label="Back">
+                <svg width="18" height="18"><use href="#i-back"/></svg>
+              </button>
+              <div class="steps">
+                <span class="pip is-done"></span>
+                <span class="pip is-on"></span>
+                <span class="pip"></span>
+                <span class="pip"></span>
+              </div>
+              <span style="width: 40px;"></span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
+              <div class="eyebrow">Step 2 of 4</div>
+              <h2 class="h2" style="max-width: 12ch;">What do you want help with<em style="font-style: normal; color: var(--orange);">?</em></h2>
+              <p class="lead">Pick one or a few. SIA will start from there.</p>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px;" id="needs-grid">
+              <button class="need" data-toggle data-on="true">Sleep better</button>
+              <button class="need" data-toggle>Reduce stress</button>
+              <button class="need" data-toggle data-on="true">Improve energy</button>
+              <button class="need" data-toggle>Eat healthier</button>
+              <button class="need" data-toggle>Track meals</button>
+              <button class="need" data-toggle>Build a routine</button>
+              <button class="need" data-toggle>Move more</button>
+              <button class="need" data-toggle>Improve focus</button>
+              <button class="need" data-toggle>Manage mood</button>
+              <button class="need" data-toggle>Lose weight</button>
+              <button class="need" data-toggle>Build strength</button>
+              <button class="need" data-toggle>Feel balanced</button>
+              <button class="need" data-toggle>Recover better</button>
+              <button class="need" data-toggle>Stay consistent</button>
+            </div>
+
+            <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 12px;">
+              <button class="btn btn--primary btn--lg btn--block" data-go="s-stack">
+                Continue<span style="opacity: .85;">.</span>
+              </button>
+              <p class="meta" style="text-align: center;">You can add more later.</p>
+            </div>
+          </div>
+          <div class="home-bar"></div>
+        </section>
+
+        <!-- ═══════════ 04 — CIA SUGGESTS STACK ═══════════ -->
+        <section class="screen" id="s-stack" data-surface="dark" data-step="4">
+          <div class="island"></div>
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body scroll" style="padding-top: 8px;">
+            <div class="topbar-in">
+              <button class="back" data-go="s-needs" aria-label="Back">
+                <svg width="18" height="18"><use href="#i-back"/></svg>
+              </button>
+              <div class="steps">
+                <span class="pip is-done"></span>
+                <span class="pip is-done"></span>
+                <span class="pip is-on"></span>
+                <span class="pip"></span>
+              </div>
+              <span style="width: 40px;"></span>
+            </div>
+
+            <div style="display: flex; gap: 12px; align-items: flex-start; margin-top: 8px;">
+              <div class="avatar avatar--cia">C</div>
+              <div class="cia-bubble" style="flex: 1;">
+                Sleep and energy usually go together. I'd start small &mdash; these five tools work as a stack.
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 18px;" id="stack-list">
+              <button class="feature-row" data-toggle data-on="true">
+                <span class="check"><svg width="11" height="11"><use href="#i-check"/></svg></span>
+                <span class="body-col">
+                  <span class="title" style="font-weight: 600; font-size: 14px;">Sleep check-ins.</span>
+                  <span class="desc" style="font-size: 12px;">Two taps each morning. Builds your sleep picture in a week.</span>
+                  <span class="meta-row"><span class="why">Why SIA recommends.</span><span class="dot-sep">&middot;</span><span>15 sec a day</span></span>
+                </span>
+              </button>
+              <button class="feature-row" data-toggle data-on="true">
+                <span class="check"><svg width="11" height="11"><use href="#i-check"/></svg></span>
+                <span class="body-col">
+                  <span class="title" style="font-weight: 600; font-size: 14px;">Bedtime reminder.</span>
+                  <span class="desc" style="font-size: 12px;">A quiet ping when your wind-down should begin. Adjusts with you.</span>
+                  <span class="meta-row"><span>Notification</span><span class="dot-sep">&middot;</span><span>10:15 PM</span></span>
+                </span>
+              </button>
+              <button class="feature-row" data-toggle data-on="true">
+                <span class="check"><svg width="11" height="11"><use href="#i-check"/></svg></span>
+                <span class="body-col">
+                  <span class="title" style="font-weight: 600; font-size: 14px;">Evening wind-down.</span>
+                  <span class="desc" style="font-size: 12px;">A 7-minute guided sequence. Breath, light, low-stim screens.</span>
+                  <span class="meta-row"><span>Routine</span><span class="dot-sep">&middot;</span><span>7 min</span></span>
+                </span>
+              </button>
+              <button class="feature-row" data-toggle>
+                <span class="check"><svg width="11" height="11"><use href="#i-check"/></svg></span>
+                <span class="body-col">
+                  <span class="title" style="font-weight: 600; font-size: 14px;">Stress check-in.</span>
+                  <span class="desc" style="font-size: 12px;">A one-minute pulse to surface what's actually loud right now.</span>
+                  <span class="meta-row"><span class="why">Why SIA recommends.</span><span class="dot-sep">&middot;</span><span>1 min</span></span>
+                </span>
+              </button>
+              <button class="feature-row" data-toggle data-on="true">
+                <span class="check"><svg width="11" height="11"><use href="#i-check"/></svg></span>
+                <span class="body-col">
+                  <span class="title" style="font-weight: 600; font-size: 14px;">Breathing break.</span>
+                  <span class="desc" style="font-size: 12px;">Box breath, 4&middot;4&middot;4&middot;4. Anywhere, eyes open or closed.</span>
+                  <span class="meta-row"><span>On demand</span><span class="dot-sep">&middot;</span><span>2 min</span></span>
+                </span>
+              </button>
+            </div>
+
+            <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px;">
+              <button class="btn btn--primary btn--lg btn--block" data-go="s-plan">
+                Add to my app<span style="opacity: .85;">.</span>
+              </button>
+              <button class="btn btn--quiet btn--block" data-go="s-plan">Browse more</button>
+            </div>
+          </div>
+          <div class="home-bar"></div>
+        </section>
+
+        <!-- ═══════════ 05 — PLAN READY ═══════════ -->
+        <section class="screen" id="s-plan" data-surface="hero" data-step="5">
+          <div class="island"></div>
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body" style="padding-top: 8px;">
+            <div class="topbar-in">
+              <span style="width: 40px;"></span>
+              <div class="steps">
+                <span class="pip is-done"></span>
+                <span class="pip is-done"></span>
+                <span class="pip is-done"></span>
+                <span class="pip is-on"></span>
+              </div>
+              <span style="width: 40px;"></span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 8px;">
+              <div class="eyebrow" style="color: var(--purple-2);">Ready when you are</div>
+              <h2 class="h2" style="font-size: 30px; max-width: 13ch;">
+                Your first plan is set<em style="font-style: normal; color: var(--purple-2);">.</em>
+              </h2>
+              <svg class="stroke" viewBox="0 0 320 22" style="height: 18px;" aria-hidden="true">
+                <path class="draw" style="--len: 360;" d="M4 12 C 60 -2, 140 22, 200 10 S 280 16, 316 6" stroke="var(--purple)" stroke-width="2.5" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 24px;">
+              <div class="card card--ink" style="gap: 14px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <div class="avatar avatar--cia" style="width: 32px; height: 32px; font-size: 13px;">C</div>
+                  <span class="eyebrow" style="color: var(--purple-2);">SIA &middot; coach</span>
+                </div>
+                <div style="font-size: 14px; line-height: 1.5;">
+                  Sleep check-ins, bedtime reminder, evening wind-down, and a breathing break. Small, daily, and adjustable. Let's start tonight.
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div class="card" style="padding: 14px; gap: 4px;">
+                  <span class="eyebrow">Daily</span>
+                  <span style="font-size: 18px; font-weight: 700; letter-spacing: -.01em;">3 tools</span>
+                </div>
+                <div class="card" style="padding: 14px; gap: 4px;">
+                  <span class="eyebrow">Effort</span>
+                  <span style="font-size: 18px; font-weight: 700; letter-spacing: -.01em;">~6 min/day</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="flex: 1;"></div>
+            <div style="display: flex; flex-direction: column; gap: 10px; padding-bottom: 32px;">
+              <button class="btn btn--primary btn--lg btn--block" data-go="s-home">
+                <svg width="16" height="16" style="opacity: .9;"><use href="#i-moon"/></svg>
+                Start with sleep check-in<span style="opacity: .85;">.</span>
+              </button>
+              <button class="btn btn--quiet btn--block" data-go="s-home">Show me home</button>
+            </div>
+          </div>
+          <div class="home-bar"></div>
+        </section>
+
+        <!-- ═══════════ 06 — ADAPTIVE HOME ═══════════ -->
+        <section class="screen" id="s-home" data-surface="deep" data-step="6" data-tab="home">
+          <div class="island"></div>
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body scroll" style="padding-top: 8px;">
+            <!-- Greeting -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0 14px;">
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <span class="eyebrow">Tuesday evening</span>
+                <span style="font-size: 22px; font-weight: 700; letter-spacing: -.014em;">Hey, Maya<span style="color: var(--orange);">.</span></span>
+              </div>
+              <div style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; background: rgba(255, 94, 0, .12); border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(255, 94, 0, .28);">
+                <svg width="14" height="14" style="color: var(--orange);"><use href="#i-flame"/></svg>
+                <span style="font-size: 12px; font-weight: 700; letter-spacing: -.005em;">4 days</span>
+              </div>
+            </div>
+
+            <!-- SIA card -->
+            <div class="cia-card">
+              <div class="avatar avatar--cia">C</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+                <span class="eyebrow" style="color: var(--purple-2);">SIA &middot; tonight</span>
+                <span style="font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -.005em;">Protect your wind-down.</span>
+                <span style="font-size: 13px; color: rgba(254, 250, 243, .68); line-height: 1.5;">You slept 6 of 7 nights this week. The hard part is starting on time.</span>
+                <div style="display: flex; gap: 8px; margin-top: 10px;">
+                  <button class="btn btn--sm" style="background: var(--purple); color: var(--paper-50);" data-go="s-coach">Ask SIA</button>
+                  <button class="btn btn--sm btn--quiet" style="padding: 0 12px;">Snooze</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Today focus -->
+            <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="eyebrow">Today &middot; focus</span>
+                <span class="meta">3 small things</span>
+              </div>
+              <div class="card" style="padding: 18px; gap: 14px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 94, 0, .14); display: grid; place-items: center; color: var(--orange);">
+                    <svg width="18" height="18"><use href="#i-moon"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600;">Start wind-down at 10:15 PM.</span>
+                    <span style="font-size: 12px; color: rgba(254, 250, 243, .56);">7 minutes &middot; guided</span>
+                  </div>
+                  <button class="btn btn--sm" style="background: var(--orange); color: var(--paper-50);">Start</button>
+                </div>
+                <div style="height: 1px; background: var(--ink-line);"></div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(127, 36, 255, .14); display: grid; place-items: center; color: var(--purple-2);">
+                    <svg width="18" height="18"><use href="#i-mood"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600;">Stress check-in.</span>
+                    <span style="font-size: 12px; color: rgba(254, 250, 243, .56);">1 minute &middot; one tap</span>
+                  </div>
+                  <button class="btn btn--sm btn--ghost" style="padding: 0 12px;">Log</button>
+                </div>
+                <div style="height: 1px; background: var(--ink-line);"></div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(52, 168, 83, .14); display: grid; place-items: center; color: var(--green);">
+                    <svg width="18" height="18"><use href="#i-check"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600; text-decoration: line-through; opacity: .55;">Morning sleep check-in.</span>
+                    <span style="font-size: 12px; color: rgba(52, 168, 83, .85);">Done at 7:12 AM.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick actions -->
+            <div style="margin-top: 18px;">
+              <span class="eyebrow" style="display: block; margin-bottom: 10px;">Quick log</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <button class="quick"><svg><use href="#i-leaf"/></svg> Mood</button>
+                <button class="quick"><svg><use href="#i-water"/></svg> Water</button>
+                <button class="quick"><svg><use href="#i-wind"/></svg> Breathe</button>
+                <button class="quick"><svg><use href="#i-bolt"/></svg> Energy</button>
+              </div>
+            </div>
+
+            <!-- Add feature -->
+            <div class="cia-suggest" style="margin-top: 18px;" data-go="s-addfeature">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="pill-cia">SIA &middot; suggests</span>
+                <span style="font-size: 11px; color: rgba(254, 250, 243, .58);">Based on your week</span>
+              </div>
+              <div style="font-size: 14px; line-height: 1.5;">
+                Energy dipped on Wed and Fri afternoons. Want to add a quick <strong>morning energy review</strong>?
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn--sm" style="background: var(--purple); color: var(--paper-50);" data-go="s-addfeature">Add feature</button>
+                <button class="btn btn--sm btn--quiet" style="padding: 0 12px;">Not now</button>
+              </div>
+            </div>
+
+            <div style="height: 8px;"></div>
+          </div>
+
+          <button class="fab" aria-label="Quick log" data-go="s-coach">
+            <svg width="22" height="22"><use href="#i-plus"/></svg>
+          </button>
+
+          <nav class="bottomnav" aria-label="Primary">
+            <button class="navitem is-on" data-go="s-home"><svg><use href="#n-home"/></svg> Home</button>
+            <button class="navitem" data-go="s-coach"><svg><use href="#n-cia"/></svg> SIA</button>
+            <button class="navitem" data-go="s-progress"><svg><use href="#n-progress"/></svg> Progress</button>
+            <button class="navitem" data-go="s-profile"><svg><use href="#n-profile"/></svg> Profile</button>
+          </nav>
+          <div class="home-bar"></div>
+        </section>
+
+        <!-- ═══════════ 07 — CIA CHAT ═══════════ -->
+        <section class="screen" id="s-coach" data-surface="darker" data-step="7" data-tab="cia">
+          <div class="island"></div>
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body scroll" style="padding-top: 8px; padding-bottom: 200px;">
+            <!-- SIA header -->
+            <div style="display: flex; align-items: center; gap: 12px; padding: 8px 0 18px;">
+              <div class="avatar avatar--cia" style="width: 44px; height: 44px; font-size: 16px;">C</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                <span style="font-family: var(--logo); font-weight: 800; font-size: 19px; letter-spacing: -.02em;">SIA<span style="color: var(--purple-2);">.</span></span>
+                <span style="font-size: 11px; color: rgba(254, 250, 243, .58); display: inline-flex; align-items: center; gap: 6px;">
+                  <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--green);"></span>
+                  Listening &middot; voice on
+                </span>
+              </div>
+              <button style="width: 40px; height: 40px; border-radius: 50%; background: rgba(254, 250, 243, .06); color: var(--paper-50); display: grid; place-items: center;">
+                <svg width="18" height="18"><use href="#i-sparkle"/></svg>
+              </button>
+            </div>
+
+            <!-- Conversation -->
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="display: flex; gap: 10px; align-items: flex-start;">
+                <div class="avatar avatar--cia" style="width: 30px; height: 30px; font-size: 12px;">C</div>
+                <div class="cia-bubble" style="max-width: 78%;">
+                  Hey Maya. How did last night land<span style="color: var(--purple-2);">?</span>
+                </div>
+              </div>
+
+              <div class="user-bubble" style="margin-left: auto; max-width: 75%;">
+                Slept okay. Woke up at 3 again though.
+              </div>
+
+              <div style="display: flex; gap: 10px; align-items: flex-start;">
+                <div class="avatar avatar--cia" style="width: 30px; height: 30px; font-size: 12px;">C</div>
+                <div class="cia-bubble" style="max-width: 82%;">
+                  Third time this week. Want to look at what's been louder in the evenings<span style="color: var(--purple-2);">?</span>
+                </div>
+              </div>
+
+              <!-- SIA recommendation card -->
+              <div style="margin-left: 40px;">
+                <div class="cia-suggest" style="margin-top: 4px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="pill-cia">Suggestion</span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <span style="font-size: 14px; font-weight: 600;">Evening reflection.</span>
+                    <span style="font-size: 12px; color: rgba(254, 250, 243, .68); line-height: 1.5;">A 2-minute prompt before bed. Often surfaces what's keeping you up.</span>
+                  </div>
+                  <div style="display: flex; gap: 8px;">
+                    <button class="btn btn--sm" style="background: var(--purple); color: var(--paper-50);" data-go="s-addfeature">Add feature</button>
+                    <button class="btn btn--sm btn--quiet" style="padding: 0 12px;">Tell me more</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick replies -->
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; margin-left: 40px;">
+                <button class="need" style="font-size: 12px; padding: 8px 12px;">Yeah, let's look</button>
+                <button class="need" style="font-size: 12px; padding: 8px 12px;">Maybe tomorrow</button>
+                <button class="need" style="font-size: 12px; padding: 8px 12px;">It's just stress</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SIA input dock -->
+          <div style="position: absolute; left: 14px; right: 14px; bottom: 100px; background: rgba(10, 5, 3, .9); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-radius: 22px; padding: 12px 14px; box-shadow: inset 0 0 0 1px rgba(254, 250, 243, .10); z-index: 18;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button style="width: 36px; height: 36px; border-radius: 50%; background: rgba(254, 250, 243, .08); display: grid; place-items: center; color: var(--paper-50);">
+                <svg width="18" height="18"><use href="#i-camera"/></svg>
+              </button>
+              <input class="input" style="height: 40px; flex: 1; background: transparent; padding: 0 4px;" placeholder="What's worth your attention?" />
+              <button style="width: 36px; height: 36px; border-radius: 50%; background: var(--orange); display: grid; place-items: center; color: var(--paper-50);">
+                <svg width="16" height="16"><use href="#i-mic"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <nav class="bottomnav" aria-label="Primary">
+            <button class="navitem" data-go="s-home"><svg><use href="#n-home"/></svg> Home</button>
+            <button class="navitem is-on" data-go="s-coach"><svg><use href="#n-cia"/></svg> SIA</button>
+            <button class="navitem" data-go="s-progress"><svg><use href="#n-progress"/></svg> Progress</button>
+            <button class="navitem" data-go="s-profile"><svg><use href="#n-profile"/></svg> Profile</button>
+          </nav>
+          <div class="home-bar"></div>
+        </section>
+
+        <!-- ═══════════ 08 — PROGRESS / WEEKLY RECAP ═══════════ -->
+        <section class="screen" id="s-progress" data-surface="paper" data-step="8" data-tab="progress">
+          <div class="island"></div>
+          <div class="statusbar" style="color: var(--ink-warm-900);">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body scroll" style="padding-top: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0 14px;">
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <span class="eyebrow">Week 47</span>
+                <span style="font-size: 24px; font-weight: 700; letter-spacing: -.015em;">This week<span style="color: var(--orange);">.</span></span>
+              </div>
+              <div class="segmented" style="background: rgba(20, 10, 5, .08);">
+                <span class="seg is-on" style="background: var(--ink-warm-900); color: var(--paper-50);">Week</span>
+                <span class="seg" style="color: rgba(20, 10, 5, .5);">Month</span>
+              </div>
+            </div>
+
+            <!-- SIA recap -->
+            <div class="card card--ink" style="gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="avatar avatar--cia" style="width: 30px; height: 30px; font-size: 12px;">C</div>
+                <span class="eyebrow" style="color: var(--purple-2);">SIA &middot; recap</span>
+              </div>
+              <div style="font-size: 14px; line-height: 1.5;">
+                You logged sleep 6 of 7 nights. Consistency is building &mdash; the next thing worth attention is your wake-up time.
+              </div>
+            </div>
+
+            <!-- Stats -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 16px;">
+              <div class="card card--paper" style="background: var(--paper-200); padding: 14px; gap: 6px;">
+                <span class="k" style="font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(20, 10, 5, .55);">Sleep avg</span>
+                <span style="font-size: 22px; font-weight: 700; letter-spacing: -.018em; line-height: 1;">7.2<span style="font-size: 11px; color: rgba(20, 10, 5, .55); font-weight: 500; margin-left: 3px;">hrs</span></span>
+                <span style="font-size: 10px; color: var(--green); font-weight: 600;">+0.4 vs last</span>
+              </div>
+              <div class="card card--paper" style="background: var(--paper-200); padding: 14px; gap: 6px;">
+                <span class="k" style="font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(20, 10, 5, .55);">Wind-downs</span>
+                <span style="font-size: 22px; font-weight: 700; letter-spacing: -.018em; line-height: 1;">5<span style="font-size: 11px; color: rgba(20, 10, 5, .55); font-weight: 500; margin-left: 3px;">of 7</span></span>
+                <span style="font-size: 10px; color: var(--green); font-weight: 600;">+2 nights</span>
+              </div>
+              <div class="card card--paper" style="background: var(--paper-200); padding: 14px; gap: 6px;">
+                <span class="k" style="font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(20, 10, 5, .55);">Stress</span>
+                <span style="font-size: 22px; font-weight: 700; letter-spacing: -.018em; line-height: 1;">Mid<span style="font-size: 11px; color: rgba(20, 10, 5, .55); font-weight: 500; margin-left: 3px;">avg</span></span>
+                <span style="font-size: 10px; color: rgba(20, 10, 5, .5); font-weight: 600;">steady</span>
+              </div>
+            </div>
+
+            <!-- Stroke chart -->
+            <div style="margin-top: 18px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <span class="eyebrow">Sleep across the week</span>
+                <div style="display: inline-flex; gap: 10px;">
+                  <span class="legend" style="color: rgba(20, 10, 5, .65);"><span class="dash orange"></span>You</span>
+                  <span class="legend" style="color: rgba(20, 10, 5, .65);"><span class="dash purple"></span>SIA</span>
+                </div>
+              </div>
+              <div style="position: relative; background: var(--paper-200); border-radius: 20px; padding: 18px 14px 14px;">
+                <svg viewBox="0 0 280 130" style="width: 100%; height: 140px; overflow: visible;" aria-hidden="true">
+                  <!-- Y guides -->
+                  <line x1="0" y1="20" x2="280" y2="20" stroke="rgba(20, 10, 5, .08)" stroke-width="1"/>
+                  <line x1="0" y1="65" x2="280" y2="65" stroke="rgba(20, 10, 5, .08)" stroke-width="1"/>
+                  <line x1="0" y1="110" x2="280" y2="110" stroke="rgba(20, 10, 5, .08)" stroke-width="1"/>
+                  <!-- User orange line -->
+                  <path class="draw" style="--len: 340;"
+                        d="M10 80 C 40 70, 60 50, 80 55 S 130 30, 160 40 S 220 25, 270 28"
+                        stroke="var(--orange)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- SIA projection (dashed purple) -->
+                  <path class="draw delay-2" style="--len: 220;"
+                        d="M160 40 C 200 35, 240 28, 270 22"
+                        stroke="var(--purple)" stroke-width="2" stroke-dasharray="4 5" fill="none" stroke-linecap="round"/>
+                  <!-- Milestone green dot -->
+                  <circle class="draw delay-3" style="--len: 30;" cx="160" cy="40" r="6" fill="var(--green)" stroke="var(--paper-100)" stroke-width="2"/>
+                </svg>
+                <div style="display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(20, 10, 5, .45); margin-top: 6px;">
+                  <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Milestones -->
+            <div style="margin-top: 18px;">
+              <span class="eyebrow" style="display: block; margin-bottom: 10px;">Milestones</span>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: rgba(52, 168, 83, .12); border-radius: 14px;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--green);"></span>
+                  <span style="flex: 1; font-size: 13px; font-weight: 600; color: var(--ink-warm-900);">First 7+ hour night.</span>
+                  <span style="font-size: 11px; color: rgba(20, 10, 5, .55);">Thu</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: rgba(20, 10, 5, .05); border-radius: 14px;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--orange);"></span>
+                  <span style="flex: 1; font-size: 13px; font-weight: 600; color: var(--ink-warm-900);">4-day streak on wind-down.</span>
+                  <span style="font-size: 11px; color: rgba(20, 10, 5, .55);">Now</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="height: 8px;"></div>
+          </div>
+
+          <nav class="bottomnav" aria-label="Primary">
+            <button class="navitem" data-go="s-home"><svg><use href="#n-home"/></svg> Home</button>
+            <button class="navitem" data-go="s-coach"><svg><use href="#n-cia"/></svg> SIA</button>
+            <button class="navitem is-on" data-go="s-progress"><svg><use href="#n-progress"/></svg> Progress</button>
+            <button class="navitem" data-go="s-profile"><svg><use href="#n-profile"/></svg> Profile</button>
+          </nav>
+          <div class="home-bar"></div>
+        </section>
+
+        <!-- ═══════════ 09 — PROFILE / MANAGE ═══════════ -->
+        <section class="screen" id="s-profile" data-surface="dark" data-step="9" data-tab="profile">
+          <div class="island"></div>
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body scroll" style="padding-top: 8px;">
+            <!-- Identity -->
+            <div style="display: flex; align-items: center; gap: 14px; padding: 8px 0 18px;">
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(160deg, var(--orange), #c44600); display: grid; place-items: center; font-family: var(--logo); font-weight: 800; font-size: 22px; color: var(--paper-50); letter-spacing: -.02em; box-shadow: 0 0 24px rgba(255, 94, 0, .35);">M</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
+                <span style="font-size: 18px; font-weight: 700; letter-spacing: -.012em;">Maya<span style="color: var(--orange);">.</span></span>
+                <span style="font-size: 12px; color: rgba(254, 250, 243, .58);">3 weeks with Balencia &middot; sleep, energy</span>
+              </div>
+              <button style="font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--paper-mute); padding: 8px 12px; background: rgba(254, 250, 243, .06); border-radius: 999px;">Edit</button>
+            </div>
+
+            <!-- Goals -->
+            <div style="margin-top: 6px;">
+              <span class="eyebrow" style="display: block; margin-bottom: 10px;">Goals</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span class="chip chip--orange">Sleep better</span>
+                <span class="chip chip--orange">Improve energy</span>
+                <button class="need need--add" style="font-size: 11px; padding: 8px 12px;">+ Add goal</button>
+              </div>
+            </div>
+
+            <!-- Active features -->
+            <div style="margin-top: 22px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <span class="eyebrow">Active features</span>
+                <button class="btn btn--sm btn--ghost" style="padding: 0 12px;" data-go="s-addfeature">+ Add</button>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--ink-warm-900); border-radius: 16px;">
+                  <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255, 94, 0, .14); display: grid; place-items: center; color: var(--orange);">
+                    <svg width="16" height="16"><use href="#i-moon"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600;">Sleep check-ins.</span>
+                    <span style="font-size: 11px; color: rgba(254, 250, 243, .55);">Daily &middot; morning</span>
+                  </div>
+                  <span class="toggle" data-on="true" data-toggle></span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--ink-warm-900); border-radius: 16px;">
+                  <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255, 94, 0, .14); display: grid; place-items: center; color: var(--orange);">
+                    <svg width="16" height="16"><use href="#i-bell"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600;">Bedtime reminder.</span>
+                    <span style="font-size: 11px; color: rgba(254, 250, 243, .55);">10:15 PM</span>
+                  </div>
+                  <span class="toggle" data-on="true" data-toggle></span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--ink-warm-900); border-radius: 16px;">
+                  <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(127, 36, 255, .14); display: grid; place-items: center; color: var(--purple-2);">
+                    <svg width="16" height="16"><use href="#i-wind"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600;">Evening wind-down.</span>
+                    <span style="font-size: 11px; color: rgba(254, 250, 243, .55);">7 min &middot; guided</span>
+                  </div>
+                  <span class="toggle" data-on="true" data-toggle></span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--ink-warm-900); border-radius: 16px;">
+                  <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(254, 250, 243, .08); display: grid; place-items: center; color: var(--paper-mute);">
+                    <svg width="16" height="16"><use href="#i-mood"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600; opacity: .7;">Stress check-in.</span>
+                    <span style="font-size: 11px; color: rgba(254, 250, 243, .55);">Off &middot; SIA may suggest later</span>
+                  </div>
+                  <span class="toggle" data-on="false" data-toggle></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Settings -->
+            <div style="margin-top: 22px;">
+              <span class="eyebrow" style="display: block; margin-bottom: 4px;">Settings</span>
+              <div class="set-row">
+                <div class="label-col">
+                  <span class="l">Notifications.</span>
+                  <span class="s">Quiet hours 11 PM &mdash; 7 AM</span>
+                </div>
+                <svg class="chev" width="16" height="16"><use href="#i-chev"/></svg>
+              </div>
+              <div class="set-row">
+                <div class="label-col">
+                  <span class="l">Integrations.</span>
+                  <span class="s">Apple Health &middot; connected</span>
+                </div>
+                <svg class="chev" width="16" height="16"><use href="#i-chev"/></svg>
+              </div>
+              <div class="set-row">
+                <div class="label-col">
+                  <span class="l">Privacy.</span>
+                  <span class="s">What SIA remembers</span>
+                </div>
+                <svg class="chev" width="16" height="16"><use href="#i-chev"/></svg>
+              </div>
+              <div class="set-row">
+                <div class="label-col">
+                  <span class="l">Sign out.</span>
+                </div>
+                <svg class="chev" width="16" height="16"><use href="#i-chev"/></svg>
+              </div>
+            </div>
+
+            <div style="height: 8px;"></div>
+          </div>
+
+          <nav class="bottomnav" aria-label="Primary">
+            <button class="navitem" data-go="s-home"><svg><use href="#n-home"/></svg> Home</button>
+            <button class="navitem" data-go="s-coach"><svg><use href="#n-cia"/></svg> SIA</button>
+            <button class="navitem" data-go="s-progress"><svg><use href="#n-progress"/></svg> Progress</button>
+            <button class="navitem is-on" data-go="s-profile"><svg><use href="#n-profile"/></svg> Profile</button>
+          </nav>
+          <div class="home-bar"></div>
+        </section>
+
+        <!-- ═══════════ 10 — ADD FEATURE (bottom sheet style) ═══════════ -->
+        <section class="screen" id="s-addfeature" data-surface="darker" data-step="10" data-enter="sheet">
+          <div class="island"></div>
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="icons" aria-hidden="true">
+              <svg width="18" height="12"><use href="#i-signal"/></svg>
+              <svg width="16" height="12"><use href="#i-wifi"/></svg>
+              <svg width="26" height="12"><use href="#i-battery"/></svg>
+            </span>
+          </div>
+          <div class="screen-body scroll" style="padding-top: 8px;">
+            <div class="topbar-in">
+              <button class="back" data-go="s-home" aria-label="Close">
+                <svg width="18" height="18"><use href="#i-x"/></svg>
+              </button>
+              <span class="eyebrow">Add feature</span>
+              <span style="width: 40px;"></span>
+            </div>
+
+            <!-- SIA recommendation hero -->
+            <div class="cia-suggest" style="margin-top: 8px; padding: 18px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="avatar avatar--cia" style="width: 32px; height: 32px; font-size: 13px;">C</div>
+                <span class="pill-cia">Recommended for you</span>
+              </div>
+              <div style="font-size: 15px; font-weight: 600; line-height: 1.35; letter-spacing: -.008em;">
+                Morning energy review.
+              </div>
+              <div style="font-size: 13px; color: rgba(254, 250, 243, .72); line-height: 1.5;">
+                Track how rested you feel after sleep. Two taps. We'll connect it to your sleep picture and look for patterns.
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span class="chip chip--outline" style="font-size: 9px;">15 sec/day</span>
+                <span class="chip chip--outline" style="font-size: 9px;">SIA-led</span>
+                <span class="chip chip--outline" style="font-size: 9px;">Pairs with sleep</span>
+              </div>
+              <div style="font-size: 12px; color: rgba(254, 250, 243, .62); padding-top: 4px; line-height: 1.5;">
+                <strong style="color: var(--purple-2); font-weight: 600;">Why this.</strong> Your energy dipped on Wed and Fri afternoons. Sleep alone won't explain it.
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn--sm" style="background: var(--green); color: var(--paper-50); padding: 0 14px;" data-go="s-home">Add to my app</button>
+                <button class="btn btn--sm btn--quiet" style="padding: 0 12px;">Tell me more</button>
+              </div>
+            </div>
+
+            <!-- Browse -->
+            <div style="margin-top: 22px;">
+              <span class="eyebrow" style="display: block; margin-bottom: 10px;">Browse all</span>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--ink-brown-800); border-radius: 16px;">
+                  <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255, 94, 0, .14); display: grid; place-items: center; color: var(--orange);">
+                    <svg width="16" height="16"><use href="#i-water"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600;">Hydration tracker.</span>
+                    <span style="font-size: 11px; color: rgba(254, 250, 243, .55);">Quick logs &middot; gentle reminders</span>
+                  </div>
+                  <button class="btn btn--sm btn--ghost" style="padding: 0 14px;">Add</button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--ink-brown-800); border-radius: 16px;">
+                  <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(127, 36, 255, .14); display: grid; place-items: center; color: var(--purple-2);">
+                    <svg width="16" height="16"><use href="#i-leaf"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600;">Reflection journal.</span>
+                    <span style="font-size: 11px; color: rgba(254, 250, 243, .55);">SIA-prompted &middot; 2 min</span>
+                  </div>
+                  <button class="btn btn--sm btn--ghost" style="padding: 0 14px;">Add</button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--ink-brown-800); border-radius: 16px;">
+                  <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(52, 168, 83, .14); display: grid; place-items: center; color: var(--green);">
+                    <svg width="16" height="16"><use href="#i-bolt"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600;">Focus session.</span>
+                    <span style="font-size: 11px; color: rgba(254, 250, 243, .55);">25 min &middot; on demand</span>
+                  </div>
+                  <button class="btn btn--sm btn--ghost" style="padding: 0 14px;">Add</button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--ink-brown-800); border-radius: 16px;">
+                  <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255, 94, 0, .14); display: grid; place-items: center; color: var(--orange);">
+                    <svg width="16" height="16"><use href="#i-check"/></svg>
+                  </div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                    <span style="font-size: 14px; font-weight: 600;">Habit builder.</span>
+                    <span style="font-size: 11px; color: rgba(254, 250, 243, .55);">Small streaks &middot; flexible</span>
+                  </div>
+                  <button class="btn btn--sm btn--ghost" style="padding: 0 14px;">Add</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="height: 8px;"></div>
+          </div>
+          <div class="home-bar"></div>
+        </section>
+
+      </div>
+      <div class="home-bar"></div>
+    </div>
+  </main>
+
+  <!-- RIGHT RAIL: SCREEN NOTES -->
+  <aside class="rail-right" aria-label="Screen notes">
+    <div class="eyebrow-r">Now showing</div>
+    <div class="note-card" id="note-card">
+      <span class="num" id="note-num">01</span>
+      <div class="title-r" id="note-title">A coach. In your corner.</div>
+      <div class="desc-r" id="note-desc">
+        Welcome leads with the proposition, not a value-prop deck. One headline, one line of context, one CTA. No exclamation marks, no hustle copy.
+      </div>
+      <div class="kvs" id="note-kvs">
+        <div class="kv"><span class="k">Surface</span><span class="v">Hero ink &middot; warm</span></div>
+        <div class="kv"><span class="k">Hero color</span><span class="v">Orange</span></div>
+        <div class="kv"><span class="k">Signature</span><span class="v">Stroke draw</span></div>
+      </div>
+    </div>
+    <div class="tip">
+      Use <kbd>&larr;</kbd> / <kbd>&rarr;</kbd> to step. Tap the bottom-nav inside the phone to switch tabs. Toggles, chips, and feature rows are live.
+    </div>
+  </aside>
+
+</div>
+
+<!-- ─────────── JS: navigation, tour, toggles ─────────── -->
+<script>
+(() => {
+  const order = [
+    's-welcome', 's-identity', 's-needs', 's-stack', 's-plan',
+    's-home', 's-coach', 's-progress', 's-profile', 's-addfeature'
+  ];
+
+  const notes = {
+    's-welcome': {
+      num: '01', cls: '', title: 'A coach. In your corner.',
+      desc: 'Welcome leads with the proposition, not a value-prop deck. One headline, one line of context, one CTA. No exclamation marks, no hustle copy.',
+      kvs: [['Surface', 'Hero ink · warm'], ['Hero color', 'Orange'], ['Signature', 'Stroke draw']]
+    },
+    's-identity': {
+      num: '02', cls: '', title: 'First, your name.',
+      desc: 'Identity is one short field plus an optional age chip. No multi-step form. Skipping is honoured. The brand period closes the headline.',
+      kvs: [['Step', '1 of 4'], ['Required', 'Nothing'], ['Surface', 'Warm ink, deep']]
+    },
+    's-needs': {
+      num: '03', cls: '', title: 'What helps you most?',
+      desc: 'Need-led, not pillar-led. A grid of selectable chips. Two are pre-selected to model how the page reshapes once SIA has something to work with.',
+      kvs: [['Pattern', 'Multi-select chips'], ['Min', '1 selection'], ['Replaces', 'Pillar picker']]
+    },
+    's-stack': {
+      num: '04', cls: 'is-cia', title: 'SIA suggests a starter stack.',
+      desc: 'SIA recommends features that work together for the chosen needs. Each row has a benefit, an effort estimate, and a "Why SIA recommends" link. The user decides.',
+      kvs: [['SIA voice', 'Purple bubble'], ['Suggestion', '5 tools'], ['User decides', 'Always']]
+    },
+    's-plan': {
+      num: '05', cls: 'is-cia', title: 'Plan ready. Start small.',
+      desc: 'A SIA recap of what was activated, then one big next action. The dashed purple stroke is SIA\'s projection — the visual language of the coach\'s voice.',
+      kvs: [['Hero color', 'Purple → orange'], ['CTA', 'One specific action'], ['Effort', '~6 min/day']]
+    },
+    's-home': {
+      num: '06', cls: '', title: 'Home reshapes around you.',
+      desc: 'Greeting, SIA card, today focus, quick log, SIA suggestion. No fitness, no nutrition, no meditation modules — only what was activated. The home that shows up is the home that\'s relevant.',
+      kvs: [['Tab', 'Home'], ['Rule', 'Nothing irrelevant'], ['SIA card', 'One per day']]
+    },
+    's-coach': {
+      num: '07', cls: 'is-cia', title: 'SIA listens, then suggests.',
+      desc: 'Conversation-first. SIA recommends inline via a purple-tinted suggestion card. The signature dock at the bottom carries voice, photo, and text in one place.',
+      kvs: [['Tab', 'SIA'], ['Input', 'Text · voice · photo'], ['Tone', 'Calm, specific']]
+    },
+    's-progress': {
+      num: '08', cls: 'is-green', title: 'This week, in your voice.',
+      desc: 'A coach recap, not a dashboard. The orange line is the user\'s actual data, dashed purple is SIA\'s projection, the green dot is the moment of arrival. Paper surface for reflective reading.',
+      kvs: [['Tab', 'Progress'], ['Surface', 'Paper · warm cream'], ['Chart', 'Continuous stroke']]
+    },
+    's-profile': {
+      num: '09', cls: '', title: 'You decide what stays.',
+      desc: 'Goals as chips, active features as toggles. The user can turn anything off without losing context. SIA may suggest re-activating later — but the user always decides.',
+      kvs: [['Tab', 'Profile'], ['Control', 'Per-feature toggle'], ['Add', 'Always one tap away']]
+    },
+    's-addfeature': {
+      num: '10', cls: 'is-cia', title: 'Add a feature, when SIA spots a pattern.',
+      desc: 'A bottom-sheet that opens from anywhere. The top card is SIA\'s recommendation with the "Why this" reason. The list below is for manual browsing. Nothing is forced.',
+      kvs: [['Pattern', 'Bottom sheet'], ['Hero', 'SIA recommendation'], ['Manual', 'Browse all']]
+    }
+  };
+
+  let currentId = 's-welcome';
+  let isAnimating = false;
+  let tourTimer = null;
+
+  const phoneScreen = document.getElementById('phone-screen');
+  const screenList = document.getElementById('screen-list');
+  const noteCard = document.getElementById('note-card');
+  const noteNum = document.getElementById('note-num');
+  const noteTitle = document.getElementById('note-title');
+  const noteDesc = document.getElementById('note-desc');
+  const noteKvs = document.getElementById('note-kvs');
+  const tourBtn = document.getElementById('tour-toggle');
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function goTo(id, { instant = false } = {}) {
+    if (id === currentId || !document.getElementById(id)) return;
+    if (isAnimating && !instant) return;
+    isAnimating = true;
+
+    const fromEl = document.getElementById(currentId);
+    const toEl = document.getElementById(id);
+
+    // Outgoing
+    fromEl.classList.add('is-leaving');
+    fromEl.classList.remove('is-active');
+
+    // Trigger reflow so stroke animation re-runs when re-entering
+    void toEl.offsetWidth;
+
+    // Incoming
+    toEl.classList.remove('is-leaving');
+    toEl.classList.add('is-active');
+
+    // Update screen list
+    const items = screenList.querySelectorAll('.screen-item');
+    items.forEach(it => {
+      it.classList.toggle('is-on', it.dataset.go === id);
+    });
+
+    // Update notes (with fade)
+    if (reduceMotion) {
+      writeNotes(id);
+    } else {
+      noteCard.dataset.fading = 'true';
+      setTimeout(() => {
+        writeNotes(id);
+        noteCard.dataset.fading = 'false';
+      }, 200);
+    }
+
+    currentId = id;
+    setTimeout(() => { isAnimating = false; }, instant ? 0 : 520);
+  }
+
+  function writeNotes(id) {
+    const n = notes[id];
+    if (!n) return;
+    noteNum.textContent = n.num;
+    noteNum.className = 'num ' + n.cls;
+    noteTitle.textContent = n.title;
+    noteDesc.textContent = n.desc;
+    noteKvs.innerHTML = n.kvs.map(([k, v]) => `<div class="kv"><span class="k">${k}</span><span class="v">${v}</span></div>`).join('');
+  }
+
+  // Wire data-go on all elements (delegated)
+  document.body.addEventListener('click', (e) => {
+    const goEl = e.target.closest('[data-go]');
+    if (goEl) {
+      const target = goEl.dataset.go;
+      goTo(target);
+      stopTour();
+      return;
+    }
+
+    // Toggle behaviour for [data-toggle] elements
+    const tgEl = e.target.closest('[data-toggle]');
+    if (tgEl) {
+      const isOn = tgEl.dataset.on === 'true';
+      tgEl.dataset.on = isOn ? 'false' : 'true';
+      // Inner check icon visibility (for feature-row check)
+      const checkSvg = tgEl.querySelector('.check svg');
+      if (checkSvg) {
+        checkSvg.style.opacity = !isOn ? '1' : '0';
+      }
+    }
+  });
+
+  // Initialize feature-row check icons
+  document.querySelectorAll('.feature-row').forEach(row => {
+    const svg = row.querySelector('.check svg');
+    if (svg) svg.style.opacity = row.dataset.on === 'true' ? '1' : '0';
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.target.matches('input, textarea')) return;
+    const idx = order.indexOf(currentId);
+    if (e.key === 'ArrowRight' && idx < order.length - 1) {
+      goTo(order[idx + 1]); stopTour();
+    } else if (e.key === 'ArrowLeft' && idx > 0) {
+      goTo(order[idx - 1]); stopTour();
+    } else if (e.key === ' ') {
+      e.preventDefault();
+      tourBtn.click();
+    }
+  });
+
+  // Tour
+  function startTour() {
+    if (tourTimer) return;
+    tourBtn.dataset.playing = 'true';
+    const step = () => {
+      const idx = order.indexOf(currentId);
+      const next = order[(idx + 1) % order.length];
+      goTo(next);
+    };
+    tourTimer = setInterval(step, 4200);
+  }
+  function stopTour() {
+    if (!tourTimer) return;
+    clearInterval(tourTimer);
+    tourTimer = null;
+    tourBtn.dataset.playing = 'false';
+  }
+  tourBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (tourTimer) { stopTour(); } else { startTour(); }
+  });
+
+  // Set initial note
+  writeNotes(currentId);
+})();
+</script>
+
+</body>
+</html>

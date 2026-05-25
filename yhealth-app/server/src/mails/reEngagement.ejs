@@ -1,0 +1,58 @@
+<%# Re-engagement Email Template %>
+<%
+  const feature = (icon, title, description) => include('./partials/feature-box', { icon, title, description });
+  const newFeatureRows = Array.isArray(newFeatures) ? newFeatures.map((featureName) => `
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:10px 0;">
+      <tr>
+        <td style="padding:14px 16px; background:#fff7ed; border:1px solid #fed7aa; border-radius:12px;">
+          <p style="margin:0; font-size:14px; color:#4b5563; font-weight:700;">${escapeFn(featureName)}</p>
+        </td>
+      </tr>
+    </table>
+  `).join('') : '';
+%>
+<%- include('./layouts/base', {
+  title: 'We Miss You - Balencia',
+  preheader: `${firstName}, your AI Life Coach is ready when you are.`,
+  eyebrow: 'Come back gently',
+  greeting: `Ready for a clean restart, ${firstName}?`,
+  content: `
+    <p style="margin:0 0 24px; font-size:16px; line-height:26px;">
+      It has been <strong>${escapeFn(daysAway)}</strong> days since your last Balencia session. No guilt, no reset penalty. Your progress is saved and your coach is ready to help you continue from here.
+    </p>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:24px 0;">
+      <tr>
+        <td style="padding:24px; background:linear-gradient(135deg,#fff7ed 0%,#ecfdf5 100%); border-radius:16px; text-align:center; border:1px solid #fed7aa;">
+          <p style="margin:0 0 8px; font-size:14px; color:#78716c;">Your progress is still saved</p>
+          <p style="margin:0; font-size:20px; line-height:28px; font-weight:800; color:#111827;">Pick up right where you left off</p>
+        </td>
+      </tr>
+    </table>
+
+    ${typeof lastActivity !== 'undefined' && lastActivity ? `
+      <p style="margin:0 0 24px; font-size:14px; color:#6b7280;"><strong>Last activity:</strong> ${escapeFn(lastActivity)}</p>
+    ` : ''}
+
+    <h2 style="margin:30px 0 16px; font-size:18px; color:#111827;">A 30-second restart</h2>
+    ${feature('01', 'Quick check-in', 'Tell your AI coach how you feel today and what has changed.')}
+    ${feature('02', 'Review your goals', 'Keep what still fits and adjust anything that no longer matches your life.')}
+    ${feature('03', 'Read the latest insight', 'Your coach can help identify a simple next action from your saved context.')}
+
+    ${newFeatureRows ? `<h2 style="margin:30px 0 16px; font-size:18px; color:#111827;">New since you were away</h2>${newFeatureRows}` : ''}
+
+    ${include('./partials/alert-box', {
+      type: 'success',
+      message: 'Every day is a fresh chance to invest in your health. Start small and let the system rebuild momentum.'
+    })}
+  `,
+  ctaButton: {
+    text: 'Come Back & Check In',
+    url: dashboardUrl
+  },
+  secondaryContent: `
+    <p style="margin:0 0 8px; font-size:14px; color:#111827; font-weight:800;">Need a fresh start?</p>
+    <p style="margin:0; font-size:13px; color:#78716c;">Your goals can change. Log in and your coach will help reshape the plan around your current life.</p>
+  `,
+  footerText: 'Your AI Life Coach is always here when you are ready.'
+}) %>

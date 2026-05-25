@@ -1,0 +1,35 @@
+<%# Goal Set Celebration Template %>
+<%
+  const feature = (icon, title, description) => include('./partials/feature-box', { icon, title, description });
+%>
+<%- include('./layouts/base', {
+  title: 'Goal Set - Balencia',
+  preheader: `${firstName}, your new goal is ready for coaching support.`,
+  eyebrow: 'Goal created',
+  greeting: `A strong first move, ${firstName}.`,
+  content: `
+    <p style="margin:0 0 22px; font-size:16px; line-height:26px;">
+      You created a clear target. Balencia will now help you turn it into practical milestones, reminders, and weekly adjustments.
+    </p>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:26px 0; background:linear-gradient(135deg,#fff7ed 0%,#ecfdf5 100%); border-radius:16px; border:1px solid #fed7aa;">
+      <tr>
+        <td style="padding:26px; text-align:center;">
+          <p style="margin:0 0 8px; font-size:12px; color:#c2410c; text-transform:uppercase; letter-spacing:1.5px; font-weight:800;">Your goal</p>
+          <p style="margin:0 0 8px; font-size:22px; line-height:30px; font-weight:800; color:#111827;">${escapeFn(goalTitle)}</p>
+          <p style="margin:0; font-size:14px; color:#047857; font-weight:800;">${escapeFn(goalCategory)}</p>
+        </td>
+      </tr>
+    </table>
+
+    ${feature('01', 'Break it into milestones', 'Your coach will help convert the goal into realistic next actions.')}
+    ${feature('02', 'Protect consistency', 'Daily prompts and check-ins keep the work visible without becoming noisy.')}
+    ${feature('03', 'Adjust intelligently', 'Your plan can shift as your progress, schedule, and recovery change.')}
+  `,
+  ctaButton: {
+    text: 'View My Dashboard',
+    url: dashboardUrl,
+    color: 'linear-gradient(135deg,#10b981 0%,#059669 100%)'
+  },
+  footerText: 'Great goals become durable when the next action is clear.'
+}) %>

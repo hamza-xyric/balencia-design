@@ -1,0 +1,30 @@
+<%# Assessment Reminder Template %>
+<%
+  const feature = (icon, title, description) => include('./partials/feature-box', { icon, title, description });
+%>
+<%- include('./layouts/base', {
+  title: 'Complete Your Assessment - Balencia',
+  preheader: `${firstName}, complete your assessment to unlock personalized AI coaching.`,
+  eyebrow: 'Personalization step',
+  greeting: `Your coach is waiting for context, ${firstName}.`,
+  content: `
+    <p style="margin:0 0 22px; font-size:16px; line-height:26px;">
+      Your assessment takes just a few minutes and gives Balencia the baseline it needs to make coaching specific, practical, and relevant to your life.
+    </p>
+
+    ${include('./partials/alert-box', {
+      type: 'info',
+      message: 'Choose a fast assessment for momentum, or a deeper conversation when you want richer personalization.'
+    })}
+
+    <h2 style="margin:30px 0 16px; font-size:18px; color:#111827;">What the assessment unlocks</h2>
+    ${feature('01', 'Sharper recommendations', 'Guidance adapts to your goals, schedule, constraints, and current habits.')}
+    ${feature('02', 'Better coaching memory', 'Your AI coach uses your answers to keep advice consistent across future sessions.')}
+    ${feature('03', 'A useful baseline', 'You will have a starting point for progress, routines, and health signals.')}
+  `,
+  ctaButton: {
+    text: 'Complete Assessment',
+    url: assessmentUrl
+  },
+  footerText: `You have been with us for ${daysRegistered} day${daysRegistered > 1 ? 's' : ''}. Let's make the first week count.`
+}) %>

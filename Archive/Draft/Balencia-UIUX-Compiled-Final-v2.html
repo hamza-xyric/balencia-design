@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia UI/UX Vision — Compiled Final V2</title>
+<style>
+  :root {
+    --bg: #0A0A0F;
+    --surface: #131318;
+    --elevated: #1C1C24;
+    --border: #2A2A35;
+    --text: #E8E6E3;
+    --text-muted: #8A8A96;
+    --text-dim: #5C5C6A;
+    --accent: #D4A574;
+    --accent-dim: #8B6E4E;
+    --green: #34D399;
+    --green-bg: rgba(52, 211, 153, 0.08);
+    --green-border: rgba(52, 211, 153, 0.2);
+    --yellow: #FBBF24;
+    --yellow-bg: rgba(251, 191, 36, 0.08);
+    --yellow-border: rgba(251, 191, 36, 0.2);
+    --red: #F87171;
+    --red-bg: rgba(248, 113, 113, 0.08);
+    --red-border: rgba(248, 113, 113, 0.2);
+    --blue: #60A5FA;
+    --blue-bg: rgba(96, 165, 250, 0.08);
+    --blue-border: rgba(96, 165, 250, 0.2);
+    --purple: #A78BFA;
+    --fitness: #ef4444;
+    --nutrition: #f97316;
+    --mental: #8b5cf6;
+    --spirituality: #8b5cf6;
+    --finance: #10b981;
+    --career: #6366f1;
+    --relationships: #ec4899;
+    --learning: #06b6d4;
+    --creativity: #f59e0b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 120px;
+  }
+
+  /* Header */
+  .doc-header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .doc-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--text), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .doc-header .version-badge {
+    display: inline-block;
+    background: var(--accent-dim);
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+
+  .doc-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .doc-meta strong { color: var(--text); }
+
+  /* Changelog */
+  .changelog {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 24px 0 48px;
+  }
+
+  .changelog h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .changelog ul {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .changelog li {
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .changelog li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 12px;
+    margin: 24px 0 40px;
+    flex-wrap: wrap;
+  }
+
+  .stat-card {
+    flex: 1;
+    min-width: 140px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .stat-card .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .stat-card .stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+  }
+
+  .stat-aligned .stat-num { color: var(--green); }
+  .stat-review .stat-num { color: var(--yellow); }
+  .stat-contradicting .stat-num { color: var(--red); }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* Section headers */
+  .section-group {
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 10;
+    padding-top: 12px;
+  }
+
+  .section-num {
+    color: var(--accent-dim);
+    margin-right: 8px;
+  }
+
+  /* Question cards */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .q-card:hover { border-color: #3A3A48; }
+
+  .q-card.status-aligned { border-left: 3px solid var(--green); }
+  .q-card.status-review { border-left: 3px solid var(--yellow); }
+  .q-card.status-contradicting { border-left: 3px solid var(--red); }
+  .q-card.status-open { border-left: 3px solid var(--blue); }
+
+  .q-header {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    user-select: none;
+  }
+
+  .q-header:hover { background: rgba(255,255,255,0.02); }
+
+  .q-toggle {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    transition: transform 0.2s;
+    margin-top: 2px;
+  }
+
+  .q-card.open .q-toggle { transform: rotate(90deg); }
+
+  .q-title-area { flex: 1; }
+
+  .q-number {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .q-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .q-badges {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .badge-aligned {
+    background: var(--green-bg);
+    color: var(--green);
+    border: 1px solid var(--green-border);
+  }
+
+  .badge-review {
+    background: var(--yellow-bg);
+    color: var(--yellow);
+    border: 1px solid var(--yellow-border);
+  }
+
+  .badge-contradicting {
+    background: var(--red-bg);
+    color: var(--red);
+    border: 1px solid var(--red-border);
+  }
+
+  .badge-open {
+    background: var(--blue-bg);
+    color: var(--blue);
+    border: 1px solid var(--blue-border);
+  }
+
+  .badge-resolved {
+    background: rgba(167, 139, 250, 0.08);
+    color: var(--purple);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+  }
+
+  .badge-new {
+    background: rgba(212, 165, 116, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(212, 165, 116, 0.25);
+  }
+
+  .badge-deferred {
+    background: rgba(96, 165, 250, 0.08);
+    color: var(--blue);
+    border: 1px solid var(--blue-border);
+  }
+
+  /* Content area */
+  .q-content {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .q-card.open .q-content { display: block; padding-top: 16px; }
+
+  .q-content p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .q-content strong { color: var(--text); }
+
+  .q-content em { color: var(--text-dim); font-style: italic; }
+
+  /* Person blocks */
+  .person-block {
+    background: var(--elevated);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+
+  .person-name {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+
+  .person-name.hamza { color: var(--accent); }
+  .person-name.salman { color: var(--blue); }
+  .person-name.merged { color: var(--green); }
+  .person-name.decision { color: var(--purple); }
+
+  .person-block p, .person-block ul {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+
+  .person-block ul {
+    padding-left: 18px;
+    margin-top: 6px;
+  }
+
+  .person-block li { margin-bottom: 4px; }
+
+  /* Resolution block */
+  .resolution-block {
+    background: rgba(167, 139, 250, 0.06);
+    border: 1px solid rgba(167, 139, 250, 0.15);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+  }
+
+  .resolution-block .res-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--purple);
+    margin-bottom: 6px;
+  }
+
+  .resolution-block p {
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .resolution-block p:last-child { margin-bottom: 0; }
+
+  /* New idea block */
+  .new-block {
+    background: rgba(212, 165, 116, 0.06);
+    border: 1px solid rgba(212, 165, 116, 0.15);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+  }
+
+  .new-block .new-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .new-block p {
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .new-block p:last-child { margin-bottom: 0; }
+
+  /* Pending note */
+  .pending-note {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* Quote block */
+  .quote-block {
+    border-left: 3px solid var(--accent-dim);
+    padding: 10px 16px;
+    margin: 12px 0;
+    background: rgba(212, 165, 116, 0.04);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: var(--text);
+    font-style: italic;
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+
+  .data-table th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    background: var(--elevated);
+  }
+
+  .data-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--text-muted);
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+
+  /* Checklist */
+  .checklist {
+    margin: 16px 0;
+  }
+
+  .checklist-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .check-item:last-child { border-bottom: none; }
+
+  .check-box {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .check-box.checked {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .check-box.checked svg { display: block; }
+  .check-box svg { display: none; }
+
+  .check-item.done { color: var(--text-dim); text-decoration: line-through; }
+
+  /* ToC */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 48px;
+  }
+
+  .toc h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  .toc-section {
+    margin-bottom: 12px;
+  }
+
+  .toc-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    display: block;
+    padding: 4px 0;
+    text-decoration: none;
+  }
+
+  .toc-section-title:hover { color: var(--accent); }
+
+  .toc-items {
+    padding-left: 16px;
+    margin-top: 4px;
+  }
+
+  .toc-item {
+    font-size: 12px;
+    color: var(--text-dim);
+    padding: 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .toc-item:hover { color: var(--text-muted); }
+
+  .toc-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .toc-dot.green { background: var(--green); }
+  .toc-dot.yellow { background: var(--yellow); }
+  .toc-dot.red { background: var(--red); }
+  .toc-dot.blue { background: var(--blue); }
+
+  /* Filter bar */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    padding: 12px 0;
+    z-index: 20;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-btn {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover {
+    border-color: #4A4A58;
+    color: var(--text);
+  }
+
+  .filter-btn.active {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+
+  .filter-btn.active-green {
+    background: var(--green-bg);
+    color: var(--green);
+    border-color: var(--green-border);
+  }
+
+  .filter-btn.active-yellow {
+    background: var(--yellow-bg);
+    color: var(--yellow);
+    border-color: var(--yellow-border);
+  }
+
+  .filter-btn.active-red {
+    background: var(--red-bg);
+    color: var(--red);
+    border-color: var(--red-border);
+  }
+
+  .filter-btn .filter-count {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 10px;
+    opacity: 0.7;
+  }
+
+  /* Expand/collapse all */
+  .controls {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .ctrl-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+
+  .ctrl-btn:hover {
+    color: var(--text-muted);
+    border-color: #4A4A58;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .container { padding: 24px 16px 80px; }
+    .doc-header h1 { font-size: 22px; }
+    .stats-bar { gap: 8px; }
+    .stat-card { min-width: 100px; padding: 12px; }
+    .stat-card .stat-num { font-size: 22px; }
+    .q-header { padding: 14px 16px; }
+    .q-content { padding: 0 16px 16px; }
+    .q-card.open .q-content { padding-top: 14px; }
+    .legend { gap: 16px; }
+    .filter-bar { gap: 6px; }
+    .filter-btn { padding: 5px 10px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <span class="version-badge">V2 -- May 19, 2026</span>
+    <h1>Balencia UI/UX Vision -- Compiled Final Questionnaire</h1>
+    <div class="doc-meta">
+      <strong>Compiled from:</strong> Hamza's answers + Salman's answers (May 2026)<br>
+      <strong>Updated:</strong> Based on Lahore 28 alignment meeting
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-card stat-aligned">
+      <div class="stat-num" id="stat-aligned">35</div>
+      <div class="stat-label">Aligned</div>
+    </div>
+    <div class="stat-card stat-review">
+      <div class="stat-num" id="stat-review">13</div>
+      <div class="stat-label">Review</div>
+    </div>
+    <div class="stat-card stat-contradicting">
+      <div class="stat-num" id="stat-contradicting">7</div>
+      <div class="stat-label">Contradicting</div>
+    </div>
+  </div>
+
+  <!-- Changelog -->
+  <div class="changelog">
+    <h3>V2 Changelog</h3>
+    <ul>
+      <li>6 CONTRADICTING items resolved to ALIGNED (1.5, 2.6, 3.3, 3.4, 3.6, 6.2)</li>
+      <li>5 REVIEW items resolved to ALIGNED (2.1, 3.2, 4.1, 5.2, 5.5)</li>
+      <li>1 CONTRADICTING moved to REVIEW with deferral note (6.5)</li>
+      <li>8 new ideas added from meeting discussion</li>
+      <li>7 CONTRADICTING + 13 REVIEW items unchanged (not reached in meeting)</li>
+    </ul>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item">
+      <span class="badge badge-aligned">Aligned</span> Both agree
+    </div>
+    <div class="legend-item">
+      <span class="badge badge-review">Review</span> Needs alignment
+    </div>
+    <div class="legend-item">
+      <span class="badge badge-contradicting">Contradicting</span> Must resolve
+    </div>
+    <div class="legend-item">
+      <span class="badge badge-resolved">Resolved in L28</span> Decided in meeting
+    </div>
+    <div class="legend-item">
+      <span class="badge badge-new">New</span> Added from meeting
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All <span class="filter-count">55</span></button>
+    <button class="filter-btn" data-filter="aligned">Aligned <span class="filter-count">35</span></button>
+    <button class="filter-btn" data-filter="review">Review <span class="filter-count">13</span></button>
+    <button class="filter-btn" data-filter="contradicting">Contradicting <span class="filter-count">7</span></button>
+    <button class="filter-btn" data-filter="resolved">Resolved in L28</button>
+    <div class="controls">
+      <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+      <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 1 ========== -->
+  <div class="section-group" id="section-1">
+    <div class="section-title"><span class="section-num">1.</span> Core Philosophy & Identity</div>
+
+    <!-- 1.1 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">1.1</div>
+          <div class="q-title">What is the single sentence that describes what Balencia IS?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="quote-block">"Balencia is your AI life coach that sees what you can't -- connecting every part of your life into one system and guiding you to be better in all of it."</div>
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>Balencia is your clarity and your guide. For anyone struggling with discipline, productivity, structure, or needing motivation. Core principle: "Balencia sees what we can't see. Balencia connects different parts of your life system together."</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>"Balencia is your AI life coach that connects your fitness, finances, faith, career, and relationships into one system -- and shows you the patterns you'd never spot alone."</p>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Update</div>
+          <p>Approved as-is. Added note: don't list specific domains exhaustively (e.g. "fitness, finances, faith, career, relationships") -- there are 8 domains now but could be 20+ in the future. Domain examples should be illustrative, not exhaustive.</p>
+        </div>
+        <div class="new-block">
+          <div class="new-label">New -- Mental Health/Therapy as Distinct Concern</div>
+          <p>Hamza raised that psychology/mental health/therapy should be treated as a distinct concern from yoga/meditation. "A therapist room should exist, where if you just want to go and vent." Yoga is physical/spiritual wellness; therapy is clinical mental health counseling.</p>
+        </div>
+        <div class="new-block">
+          <div class="new-label">New -- Balencia Name Wordplay</div>
+          <p>"Balencia" is a deliberate combination of "Balance" and "SIA" (with a C). Using "E" (balanced) rather than "A" (balance). The wordplay is intentionally subtle -- obvious branding looks low quality.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.2 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">1.2</div>
+          <div class="q-title">"Balencia sees what we can't see" -- what does this mean in the UI?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Both agree on a multi-layered approach:</p>
+        <div class="person-block">
+          <div class="person-name merged">Merged</div>
+          <ul>
+            <li><strong>SIA's conversational insights</strong> -- Proactive cross-domain observations</li>
+            <li><strong>Visual intelligence layer</strong> -- Knowledge Graph, Life Correlation Matrix, domain-colored connections</li>
+            <li><strong>Interactive drill-down</strong> -- Click a domain to see correlations with others</li>
+            <li><strong>Layered delivery</strong> -- Daily via SIA, weekly via digest, on-demand via graphs</li>
+          </ul>
+        </div>
+        <p><strong>Hamza adds:</strong> Life Correlation system is Balencia's commercial differentiator and marketing tool -- proprietary data positioning.</p>
+        <p><strong>Salman adds:</strong> The "holy shit" moment -- first time SIA tells you something true about your life you didn't know.</p>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Update</div>
+          <p>Life Correlation confirmed as "the billion-dollar thing" -- both founders align this is the core commercial differentiator.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.3 -->
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">1.3</div>
+          <div class="q-title">What is the emotional arc of a user's first 5 minutes?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>Recognition/Relatability (0-60s) -> Motivation/Hope (1-3 min) -> Excitement/Anticipation (3-5 min). TikTok-style relatability. Islamic motivational content as inspiration.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>"This feels different" (0-15s) -> "It's talking to me" (15-45s) -> "It gets me" (45s-2min) -> "It's already working" (2-3:30) -> "I want to come back" (3:30-5:00). Never show empty state.</p>
+        </div>
+        <p><strong>To resolve:</strong> Emotional goals aligned (relate -> motivate -> excite). Difference is execution -- heavier video content (Hamza) vs faster UX flow (Salman). Connects to 3.4 intro video (now resolved as 5-10s carousel).</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <!-- 1.4 -->
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">1.4</div>
+          <div class="q-title">Who is the primary user persona we're designing for?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>Age 18-45. Someone struggling who wants to improve but needs guidance. Tried other apps but found them too narrow. Wants a coach, not another tool.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>"Amira, 28" -- Muslim professional juggling career, marriage, fitness, faith. Not tech-forward. Secondary: "Khalid, 35" -- High-achiever with WHOOP, wants cross-domain intelligence.</p>
+        </div>
+        <p><strong>Consider:</strong> Use Hamza's age range + Salman's named personas as design anchors.</p>
+        <div class="new-block">
+          <div class="new-label">New -- "Mother Test" for Simplicity</div>
+          <p>Hamza introduced Mark Zuckerberg's "mother test": if his mother cannot use the app, it's too complicated. AI is supposed to make things simpler -- Balencia must pass this test.</p>
+        </div>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion on persona specificity.</div>
+      </div>
+    </div>
+
+    <!-- 1.5 -->
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">1.5</div>
+          <div class="q-title">What are the 3 apps whose feel/vibe you want Balencia to channel?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision</div>
+          <p><strong>Primary inspiration:</strong></p>
+          <ul>
+            <li><strong>Bevel</strong> -- Simplicity, visual clarity, warm AI coaching</li>
+            <li><strong>Habitica</strong> -- RPG gamification, quests, XP, meaningful consequences</li>
+            <li><strong>ChatGPT</strong> -- Conversational AI polish, clean chat with rich inline content</li>
+          </ul>
+          <p style="margin-top:8px"><strong>Supplementary:</strong> Oura Ring (premium dark UI), Calm (emotional warmth), Arc Browser (modern AI-first feel)</p>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution</div>
+          <p>Salman reviewed Habitica during the meeting and was impressed. Both agreed: Bevel + Habitica + ChatGPT as primary references, with Salman's picks as supplementary influences.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.6 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">1.6</div>
+          <div class="q-title">How do you describe Balencia to someone in 10 seconds?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <div class="quote-block">"A coach in your pocket that guides you to a better life in all aspects -- without overcomplicating anything, and giving you hidden insights about how it all connects."</div>
+        <p>Both hit the same notes. Hamza adds "without overcomplicating anything" (simplicity promise). Salman is more concise.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2 ========== -->
+  <div class="section-group" id="section-2">
+    <div class="section-title"><span class="section-num">2.</span> The AI Coach (SIA) Experience</div>
+
+    <!-- 2.1 -->
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">2.1</div>
+          <div class="q-title">What is SIA's personality in 3 adjectives?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- Perceptive, Adaptive, Direct</div>
+          <p>Captures Salman's differentiator (perception), Hamza's key trait (adaptive), and shared trait (direct/accountable).</p>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution -- Tone Behavior (Critical)</div>
+          <p>SIA's tone automatically adapts based on AI-detected motivation levels, not just user-selected personality mode:</p>
+          <ul style="font-size:13px;padding-left:18px;margin-top:6px;color:var(--text)">
+            <li>Monitors task completion trends (100% -> 90% -> 80% = declining motivation)</li>
+            <li>When decline detected, shifts from strict to supportive ("Is everything okay? Should we revisit the plan?")</li>
+            <li>Goal-level strictness settings remain valid</li>
+            <li>Uses pro-and-con framing: benefits of doing AND not doing a task</li>
+            <li>Same goal, different motivation levels = different tone needed</li>
+          </ul>
+          <p style="margin-top:8px"><strong>Key principle:</strong> Real coaching uses varied approaches. Pure strictness would backfire. SIA reads the room.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.2 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">2.2</div>
+          <div class="q-title">What does the SIA chat screen look like?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name merged">Merged</div>
+          <p><strong>Chat with rich inline cards</strong> -- clean chat messages as foundation, with charts, goal progress, meal plans, financial summaries inline when relevant. Sometimes text-only, sometimes visual, sometimes navigational (redirecting to full-screen features).</p>
+        </div>
+        <p>Confirmed in Lahore 28 meeting. SIA can redirect to module pages when full-screen experience is needed.</p>
+      </div>
+    </div>
+
+    <!-- 2.3 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">2.3</div>
+          <div class="q-title">How does SIA connect life domains in conversation?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-new">New Content</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name merged">Merged</div>
+          <ul>
+            <li><strong>Proactively, always</strong> -- SIA surfaces connections without being asked</li>
+            <li><strong>Visual domain tags</strong> -- Domain-colored tags/pills in chat</li>
+            <li><strong>Frequency</strong> -- When meaningful, not forced</li>
+          </ul>
+        </div>
+        <div class="new-block">
+          <div class="new-label">New -- Conversational Domain Input</div>
+          <p>Users can report activities conversationally to SIA without separate module interfaces or journaling:</p>
+          <ul style="font-size:13px;padding-left:18px;margin-top:6px;color:var(--text)">
+            <li>"I did 10 pushups" -> automatically logged in Fitness/Workouts</li>
+            <li>"I prayed 5 times" -> automatically logged in Spirituality/Prayers</li>
+            <li>"I had a fight with my wife" -> automatically logged in Relationships</li>
+          </ul>
+          <p>SIA IS the input method -- eliminates need for separate journaling interfaces.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.4 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">2.4</div>
+          <div class="q-title">How does SIA deep-link into features?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Both chose <strong>D) All of the above depending on context</strong>: Rich inline cards for quick reference, direct navigation for full features, task creation for future actions. SIA decides based on context.</p>
+      </div>
+    </div>
+
+    <!-- 2.5 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">2.5</div>
+          <div class="q-title">Voice interaction -- how prominent?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Both chose <strong>A) Prominent mic button + dedicated full-screen voice mode</strong>. Voice is first-class. Similar to Gemini Live experience.</p>
+      </div>
+    </div>
+
+    <!-- 2.6 -->
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">2.6</div>
+          <div class="q-title">Should SIA have a visual avatar/face?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- Simple Animated Icon for V1</div>
+          <p>Simple animated icon/logo that pulses when thinking/speaking. Like Gemini's approach. For voice calls, icon expands with ambient motion -- "like talking to an intelligence, not a cartoon person."</p>
+          <p style="margin-top:8px"><strong>3D avatar deferred:</strong> May appear on landing page for marketing/emotional impact, but NOT what users interact with during conversations. Deferred as future enhancement.</p>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution</div>
+          <p>Hamza: "It should be simple like Gemini... the 3D avatar should exist on the landing page... but it should not be what we are speaking to for now."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.7 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">2.7</div>
+          <div class="q-title">What's the difference between "AI Coach" and "Chat"?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Both: <strong>Merge into one unified SIA experience.</strong> One SIA, one conversation thread, one entry point. Multiple interaction modes within it (text, voice, check-in, deep dive).</p>
+      </div>
+    </div>
+
+    <!-- 2.8 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">2.8</div>
+          <div class="q-title">Proactive messages from SIA -- where do they appear?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Both chose <strong>C) Both -- push notification + home card</strong>. Push notifications open SIA chat when tapped. Home screen shows latest observations as cards.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3 ========== -->
+  <div class="section-group" id="section-3">
+    <div class="section-title"><span class="section-num">3.</span> Onboarding & First Experience</div>
+
+    <!-- 3.1 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">3.1</div>
+          <div class="q-title">How many screens should onboarding have?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Both say ~5 steps. Hamza: Welcome/Account -> Life Assessment -> Goal Setting -> Preferences -> Plan Generation. Salman: Welcome+Name -> Life Focus -> Quick Assessment -> Plan Preview -> You're In.</p>
+      </div>
+    </div>
+
+    <!-- 3.2 -->
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">3.2</div>
+          <div class="q-title">Chatbot-driven or traditional screen-based onboarding?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- Hybrid</div>
+          <p>Chatbot at the bottom + visual guidance above:</p>
+          <ul>
+            <li>Chat bot interface at the bottom for answering questions</li>
+            <li>Above: flowing visual content -- brainstorming bubbles, examples of goals, demos</li>
+            <li>Brainstorming bubbles are clickable -- tap to add ideas/goals</li>
+            <li>AI suggestions appear as recommendation chips next to chatbot</li>
+            <li>Visual content creates the "wow" while chatbot drives structured data collection</li>
+          </ul>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution</div>
+          <p>Hamza clarified his vision is NOT a pure chatbot (slow/unpredictable), but chatbot enhanced with visual elements above. Salman accepted this hybrid approach.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.3 -->
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">3.3</div>
+          <div class="q-title">What information do you absolutely need before the user can start?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- Minimal Onboarding</div>
+          <ul>
+            <li><strong>Name</strong></li>
+            <li><strong>Life areas of interest</strong></li>
+            <li><strong>Primary life goals</strong></li>
+          </ul>
+          <p style="margin-top:8px"><strong>Deferred:</strong> Age/gender, integrations, subscription plan, motivation level, obstacles.</p>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution</div>
+          <p>Hamza explicitly agreed to Salman's position. Key reasoning: showing subscription wall before the user experiences value discourages exploration. Free plan demo first, then subscription later.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.4 -->
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">3.4</div>
+          <div class="q-title">Should there be an intro video/animation from SIA?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- 5-10 Second Motion Carousel</div>
+          <p>Motion graphics (not pre-recorded video). Abstract, dark, premium aesthetic (Apple product reveal feel). Skippable with skip/next buttons.</p>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution</div>
+          <p>Both agreed explicitly. Hamza: "Carousel. We're doing 5 to 10 seconds. We're not doing 30 seconds pre-recorded. We're doing 5 to 10 seconds motion sequence." The "wow" moment should come from SIA's first cross-domain insight, not an intro video.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.5 -->
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">3.5</div>
+          <div class="q-title">The AI assessment conversation -- how deep does it go?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>Depends on motivation tier -- low gets fast start, high gets deeper conversation. Adaptive depth.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>2-3 follow-up questions per goal. Deep assessment offered after 1 week.</p>
+        </div>
+        <p><strong>Consider:</strong> Start with moderate for everyone, let SIA offer deeper assessment later.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <!-- 3.6 -->
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">3.6</div>
+          <div class="q-title">How do you handle the "I just want to try it" user?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- "Explore as Guest"</div>
+          <p>Guest mode with dummy/predefined data. Users can browse the full app -- fitness, finance, insights -- with sample data. Actual AI coaching requires minimum onboarding (name, life goals, life interests).</p>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution</div>
+          <p>Salman's "conversational skip" rejected as impractical: "How can I capture context from a single response? It's not God. It cannot." Guest mode with dummy data approved in principle.</p>
+          <p><strong>Caveat:</strong> Building the demo experience "might be a lot of effort" -- feasibility TBD.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4 ========== -->
+  <div class="section-group" id="section-4">
+    <div class="section-title"><span class="section-num">4.</span> Navigation & Information Architecture</div>
+
+    <!-- 4.1 -->
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">4.1</div>
+          <div class="q-title">What are the primary navigation items?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- 4 Items</div>
+          <ul>
+            <li><strong>Today</strong> (Home)</li>
+            <li><strong>SIA</strong></li>
+            <li><strong>Goals</strong></li>
+            <li><strong>Me</strong> (Profile + Settings + Explore merged)</li>
+          </ul>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution</div>
+          <p>Salman's 4-item proposal accepted. Hamza: "I think what Salman mentioned about explore within me, that's okay. Salman argues for build stronger muscle memory. Let's do that."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4.2 -->
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">4.2</div>
+          <div class="q-title">How do 8 life domains organize in the UI?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Both chose <strong>D) Hybrid</strong> -- Goals are the primary user-facing layer, drill into domain dashboards from Explore. Domains are organizational scaffolding; goals are the user experience.</p>
+      </div>
+    </div>
+
+    <!-- 4.3-4.6 abbreviated -->
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">4.3</div>
+          <div class="q-title">Pin-to-sidebar system -- still want it?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>Yes, Notion-style pin system on mobile. Multiple pins, no strict cap.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>Yes, but desktop only. Mobile nav is fixed. Max 5 pins.</p>
+        </div>
+        <p>Briefly discussed in Lahore 28. Hamza dismissed desktop pins ("Let's remove desktop"), but no mobile alternative decided.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">4.4</div>
+          <div class="q-title">The Explore page -- what does it look like?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Grid of module cards by life domain, AI recommendations at top. Now lives within Me tab (see 4.1).</p>
+      </div>
+    </div>
+
+    <div class="q-card status-contradicting" data-status="contradicting">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">4.5</div>
+          <div class="q-title">How does navigation differ between mobile and desktop?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-contradicting">Contradicting</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>Mobile app only. No desktop.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>Mobile + Desktop. Collapsible sidebar on desktop.</p>
+        </div>
+        <p>Lahore 28 note: Hamza said "You can do whatever you want for desktop. Apart from that, that's on you." De facto split: mobile = product, desktop = Salman's operational concern. See 13.1.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">4.6</div>
+          <div class="q-title">Where does the admin panel live?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Both: Not a priority. Separate layout, minimal UI/UX investment. Focus on customer experience.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5 ========== -->
+  <div class="section-group" id="section-5">
+    <div class="section-title"><span class="section-num">5.</span> Home Screen / Daily Experience</div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">5.1</div>
+          <div class="q-title">What IS the home screen?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>A <strong>"Today" view</strong> that is SIA-forward. SIA's greeting + proactive message first. AI-suggested actions across life domains. Active goals visible.</p>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">5.2</div>
+          <div class="q-title">Top 5 things on the home/today screen?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- Merged List</div>
+          <table class="data-table">
+            <tr><th>#</th><th>Item</th></tr>
+            <tr><td>1</td><td>SIA's greeting / proactive message</td></tr>
+            <tr><td>2</td><td>Today's AI-suggested actions</td></tr>
+            <tr><td>3</td><td>Active life goals with progress</td></tr>
+            <tr><td>4</td><td>Activity feed / upcoming events</td></tr>
+            <tr><td>5</td><td>Proactive insight cards</td></tr>
+          </table>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution</div>
+          <p>Both lists merged. Proactive messages + AI-suggested actions appear as inline cards. Check-in woven into activity feed. Cross-domain insights surface as proactive cards at high confidence.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">5.3</div>
+          <div class="q-title">How much data density is appropriate?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Adaptive by motivation tier: Low = minimal, Medium = moderate, High = dense.</p>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">5.4</div>
+          <div class="q-title">Should there be a daily check-in?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Part of SIA's greeting -- conversational, not a form. Woven into the morning greeting naturally.</p>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">5.5</div>
+          <div class="q-title">How do cross-domain connections surface on home?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- Subtle & Layered</div>
+          <ul>
+            <li><strong>Domain-colored tags as baseline</strong> -- always visible</li>
+            <li><strong>Insight cards only at high confidence</strong> -- periodically when significant connections found</li>
+            <li><strong>Subtle weaving</strong> -- "It kind of merged together. That's why I want to be subtle."</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6 ========== -->
+  <div class="section-group" id="section-6">
+    <div class="section-title"><span class="section-num">6.</span> Life Domains & Feature Organization</div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">6.1</div>
+          <div class="q-title">How do the 8 life domains present themselves?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-new">New Content</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <p>Combination: Colored tags everywhere + Domain dashboards in Explore + Life wheel visualization. Feel like managing <strong>one life</strong> with many dimensions.</p>
+        <div class="new-block">
+          <div class="new-label">New -- Future Domain Expansion</div>
+          <p>Currently 8 domains, but system should accommodate 20+ in the future. Domain architecture must be extensible, not hard-coded.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">6.2</div>
+          <div class="q-title">AI-first interaction -- applies to ALL domains?</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-resolved">Resolved in L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- AI-First for ALL Domains Equally</div>
+          <p>Same pattern everywhere: AI suggests -> user reviews -> accepts/edits/skips -> AI learns. The 80/50/20 graduated ratios were explicitly rejected.</p>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Resolution</div>
+          <p>Hamza: "I think everything should be AI-first. The whole idea is these are eight domains... they can be as many domains as they want." When 80/50/20 ratios read aloud: "Okay, failed. Let's go."</p>
+          <p><strong>Nuance:</strong> AI-first doesn't mean AI-prescriptive for personal domains. Tone differs ("Here's your workout" vs "Let's pray together"), but the AI-first pattern stays consistent.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">6.3-6.5</div>
+          <div class="q-title">Domain depth & V1 priority</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-review">Review</span>
+          <span class="badge badge-deferred">Deferred</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>ALL domains Full at V1. Features already built (220+ services, 60+ pages). Redesign improves UI/UX, doesn't cut scope.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>Prioritized: Full (Fitness, Nutrition, Mental Health), Moderate (Spirituality, Finance), Light (Career, Relationships, Learning), Later (Creativity).</p>
+        </div>
+        <div class="resolution-block">
+          <div class="res-label">Lahore 28 Update -- Explicitly Deferred</div>
+          <p>Discussed but paused. Leaning toward all domains at V1 with fitness/nutrition/mental health priority. Meeting ended with: "We will review it later. I will refresh my mind. Okay, let's pause."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">6.4</div>
+          <div class="q-title">Custom life domains -- how to add one?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>User sets a goal, AI figures out the domain. No explicit domain creation.</p>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">6.6-6.7</div>
+          <div class="q-title">Cross-domain intelligence & wellbeing consolidation</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>6.6:</strong> All delivery channels (SIA, home cards, insights view, Knowledge Graph, notifications). Life Correlation Matrix is proprietary differentiator.</p>
+        <p><strong>6.7:</strong> Core features (journal, mood, habits) get standalone screens. Lighter features become SIA-invoked. Reduce 10+ sub-module sprawl.</p>
+      </div>
+    </div>
+
+    <div class="q-card status-contradicting" data-status="contradicting">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">6.8</div>
+          <div class="q-title">Finance depth -- how much of a finance app?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-contradicting">Contradicting</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>Full finance dashboard (Mint/YNAB level) -- transactions, budgets, savings, receipt scanning, analytics.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>Goal-oriented finance tracking -- savings goals, spending patterns, NOT full budgeting. "Balencia is a life coach, not a finance app."</p>
+        </div>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">6.9</div>
+          <div class="q-title">Spirituality -- how explicitly religious?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>Let AI handle it -- no rigid religion-specific UI. SIA adapts to user's stated beliefs.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>Islamic-first with future extensibility. Build great Islamic features first (prayer times, Quran, fasting).</p>
+        </div>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-contradicting" data-status="contradicting">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">6.10</div>
+          <div class="q-title">Features to REMOVE from the app?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-contradicting">Contradicting</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>No features cut. Progressive disclosure + SIA as navigator.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>Cut: HIPAA page, Careers, Blogs, Webinars. Deprioritize: Knowledge Graph, Competitions, Leaderboard, Soundscapes. Simplify: Quick Notes, Voice Calls, Money Map.</p>
+        </div>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTIONS 7-18 (Compact) ========== -->
+  <div class="section-group" id="section-7">
+    <div class="section-title"><span class="section-num">7.</span> Goals & Plans System</div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">7.1</div>
+          <div class="q-title">Goal decomposition -- how much does user see?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Summary with expandable detail. Default: "7 actions across 3 life areas" -> tap for full breakdown. Casual users see today's actions only.</p>
+      </div>
+    </div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">7.2</div>
+          <div class="q-title">Goal card design -- minimal or rich?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> Minimal -- progress ring only. <strong>Salman:</strong> 4 elements (progress + domain colors + next action + AI coaching note).</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-contradicting" data-status="contradicting">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">7.3</div>
+          <div class="q-title">Motivation tiers -- user-controlled or automatic?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-contradicting">Contradicting</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> User chooses view density independently. <strong>Salman:</strong> Content density adapts automatically by tier.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">7.4-7.5</div>
+          <div class="q-title">Progress visualization & celebrations</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>7.4:</strong> Multiple views (per-goal, life wheel, per-domain). No unified "Life Score." <strong>7.5:</strong> Size-dependent celebrations. Tier-adapted intensity.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sections 8-16 compact -->
+  <div class="section-group" id="section-8">
+    <div class="section-title"><span class="section-num">8.</span> Knowledge System & Intelligence</div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">8.1</div>
+          <div class="q-title">Knowledge Graph -- user-facing or behind the scenes?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> Hybrid with "Balencia City" vision (deferred). <strong>Salman:</strong> Power-user feature in Explore only.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">8.2-8.4</div>
+          <div class="q-title">Personal Wiki, insights delivery, memory transparency</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>8.2:</strong> Personal Wiki visible and editable. "What SIA knows about me" with edit/delete. <strong>8.3:</strong> All delivery channels. <strong>8.4:</strong> Full access to view/edit/delete memories.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-9">
+    <div class="section-title"><span class="section-num">9.</span> Social & Community</div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">9.1</div>
+          <div class="q-title">Social feature prominence</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> Available as enhancement. <strong>Salman:</strong> Minimal for v1 (basic accountability only).</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-contradicting" data-status="contradicting">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">9.2</div>
+          <div class="q-title">Leaderboard -- motivating or anxiety-inducing?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-contradicting">Contradicting</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> Keep prominent, Duolingo-style, tied to RPG system. <strong>Salman:</strong> Remove for v1 -- "ranking sleep vs prayer is nonsensical and harmful."</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">9.3-9.4</div>
+          <div class="q-title">Competitions & accountability</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-review">9.4 Review</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <p><strong>9.3:</strong> Competitions deprioritized (both agree). <strong>9.4:</strong> SIA as primary. Hamza wants human partners now; Salman defers to v2.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-10">
+    <div class="section-title"><span class="section-num">10.</span> Gamification & Motivation</div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">10.1</div>
+          <div class="q-title">Streak prominence</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> Duolingo-prominent with consequences. <strong>Salman:</strong> Present but not central.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-contradicting" data-status="contradicting">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">10.2</div>
+          <div class="q-title">Achievement system -- full RPG or standard?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-contradicting">Contradicting</span></div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name hamza">Hamza</div>
+          <p>Full RPG (WoW/Habitica): quests, XP, skill trees, equipment, HP loss. Must feel premium, not cartoonish.</p>
+        </div>
+        <div class="person-block">
+          <div class="person-name salman">Salman</div>
+          <p>Standard achievements: cross-domain badges, domain streaks. No RPG framework.</p>
+        </div>
+        <p>Lahore 28 note: Discussed extensively, Salman intrigued by Habitica. Settings-based opt-in explored (RPG only if enabled). No formal decision.</p>
+        <div class="new-block">
+          <div class="new-label">New -- Call of Duty Profile Analogy</div>
+          <p>User stats card like CoD gaming profiles -- health, XP, level, domain stats. Could integrate with RPG system if approved.</p>
+        </div>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">10.3-10.4</div>
+          <div class="q-title">Micro-wins & gamification intensity</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>10.3:</strong> Adapted by tier/context. Low-motivation gets more celebration. <strong>10.4:</strong> Low = heavy gamification, High = lighter/data-focused.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-11">
+    <div class="section-title"><span class="section-num">11.</span> Subscription & Monetization</div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">11.1</div>
+          <div class="q-title">Free tier -- restrictive or generous?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> Restrictive (minimize free AI costs). <strong>Salman:</strong> Generous (10 msgs/day, 1 insight/week to drive upgrades).</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">11.2-11.4</div>
+          <div class="q-title">Subscription model, locked features, AI limits</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>11.2:</strong> Pre-built tiers (Free/Pro/Premium). No modular pricing. <strong>11.3:</strong> Multi-strategy (SIA upsell + visual lock indicators). <strong>11.4:</strong> Tiered messages (Free: limited, Paid: generous). No credit system.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-12">
+    <div class="section-title"><span class="section-num">12.</span> Visual & Emotional Design</div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">12.1-12.6</div>
+          <div class="q-title">Dark mode, light mode, animation, stroke line, assets, icons</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-review">12.3 Minor diff</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <p><strong>12.1:</strong> Dark primary. Mix of pure dark base + warm elevated surfaces.</p>
+        <p><strong>12.2:</strong> Light mode available as toggle, not priority.</p>
+        <p><strong>12.3:</strong> Minor diff on SIA chat (Hamza: Polished, Salman: Minimal). Now leaning minimal given simple avatar decision.</p>
+        <p><strong>12.4:</strong> Continuous stroke line for "connecting what you can't see" -- onboarding, hero, transitions, celebrations. NOT data-heavy screens.</p>
+        <p><strong>12.5:</strong> Mix -- warm photography (marketing), custom illustrations (empty states), abstract gradients (data).</p>
+        <p><strong>12.6:</strong> Rounded, 2px stroke, outlined default. Filled for active states.</p>
+        <p style="margin-top:12px"><strong>Domain colors:</strong></p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+          <span style="background:var(--fitness);color:#fff;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Fitness</span>
+          <span style="background:#f97316;color:#fff;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Nutrition</span>
+          <span style="background:var(--mental);color:#fff;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Mental Health</span>
+          <span style="background:var(--spirituality);color:#fff;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Spirituality</span>
+          <span style="background:var(--finance);color:#fff;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Finance</span>
+          <span style="background:var(--career);color:#fff;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Career</span>
+          <span style="background:var(--relationships);color:#fff;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Relationships</span>
+          <span style="background:var(--learning);color:#fff;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Learning</span>
+          <span style="background:var(--creativity);color:#fff;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Creativity</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-13">
+    <div class="section-title"><span class="section-num">13.</span> Platform & Responsiveness</div>
+
+    <div class="q-card status-contradicting" data-status="contradicting">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">13.1-13.2</div>
+          <div class="q-title">Primary platform & mobile/desktop features</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-contradicting">Contradicting</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> Mobile app only. <strong>Salman:</strong> Mobile-first + desktop.</p>
+        <div class="new-block">
+          <div class="new-label">New -- Desktop as Separate Concern</div>
+          <p>Hamza in Lahore 28: "You can do whatever you want for desktop. Apart from that, that's on you." De facto split: mobile = product, desktop = Salman's operational tool (N8N scheduler, WhatsApp integration, analytics).</p>
+        </div>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending formal resolution.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">13.3</div>
+          <div class="q-title">Native app feel</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Yes. Bottom tab bar, swipe gestures, pull-to-refresh, smooth transitions, haptic feedback.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-14">
+    <div class="section-title"><span class="section-num">14.</span> Notifications & Engagement</div>
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">14.1-14.3</div>
+          <div class="q-title">Notification types, push/in-app balance, AI timing</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Top 3:</strong> SIA proactive insights, reminders/streak alerts, daily check-in prompts. <strong>Balance:</strong> Adapted by tier (Low: 1/day, Medium: 2-3, High: 5+). <strong>Timing:</strong> Adapts by tier and engagement patterns (8 cycles/day, 4 msgs/day cap).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-15">
+    <div class="section-title"><span class="section-num">15.</span> Data, Privacy & Transparency</div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">15.1</div>
+          <div class="q-title">AI transparency -- selective or full?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> Selective (protect correlation algorithms as IP). <strong>Salman:</strong> Full per-insight (data sources, time period, confidence).</p>
+        <p><strong>Consider:</strong> Show data inputs without revealing the algorithm.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-contradicting" data-status="contradicting">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">15.2</div>
+          <div class="q-title">Data export -- feature or not?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-contradicting">Contradicting</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> No, not v1. <strong>Salman:</strong> Yes, GDPR compliance required if targeting EU. May be a legal question, not product question.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">15.3</div>
+          <div class="q-title">Integration data presentation</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Connected Services dashboard in settings. Status, sync info, connect/disconnect controls.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-16">
+    <div class="section-title"><span class="section-num">16.</span> Content & Education</div>
+
+    <div class="q-card status-contradicting" data-status="contradicting">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">16.1</div>
+          <div class="q-title">Blogs -- in-app or marketing site?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-contradicting">Contradicting</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> In-app, SIA recommends articles. <strong>Salman:</strong> Marketing site only, SIA can link out.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">16.2</div>
+          <div class="q-title">Webinars -- recorded or cut?</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Hamza:</strong> Recorded libraries, on-demand. <strong>Salman:</strong> Cut for v1 entirely.</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">16.3</div>
+          <div class="q-title">Help center</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p>Both: Traditional FAQ + SIA-powered help in conversation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-17">
+    <div class="section-title"><span class="section-num">17.</span> Screen Priority Ranking</div>
+
+    <div class="q-card status-review" data-status="review">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">17</div>
+          <div class="q-title">Screen design priority order</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-review">Review</span></div>
+      </div>
+      <div class="q-content">
+        <table class="data-table">
+          <tr><th>Screen</th><th>Hamza</th><th>Salman</th></tr>
+          <tr><td>Landing page</td><td><strong>#1</strong></td><td>#5</td></tr>
+          <tr><td>Onboarding</td><td>#2</td><td><strong>#1</strong></td></tr>
+          <tr><td>Home / Today</td><td>#3</td><td>#3</td></tr>
+          <tr><td>AI Coach (SIA)</td><td>#4</td><td><strong>#2</strong></td></tr>
+          <tr><td>Goals & Plans</td><td>#5</td><td>#4</td></tr>
+        </table>
+        <p><strong>Key tension:</strong> Public-facing first (Hamza: Landing -> Onboarding) vs core product first (Salman: Onboarding -> SIA).</p>
+        <div class="pending-note">Not reached in Lahore 28 meeting -- pending future discussion.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-group" id="section-18">
+    <div class="section-title"><span class="section-num">18.</span> Open Questions & Wild Card</div>
+
+    <div class="q-card status-aligned" data-status="aligned">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">18.1-18.5</div>
+          <div class="q-title">Pioneer experience, what to keep, what must change, tell-a-friend</div>
+        </div>
+        <div class="q-badges"><span class="badge badge-aligned">Aligned</span></div>
+      </div>
+      <div class="q-content">
+        <p><strong>Pioneer:</strong> Cross-life-domain causal intelligence. No app does this.</p>
+        <p><strong>Keep:</strong> AI intelligence backend (memory engine, cross-pillar intelligence, proactive messaging).</p>
+        <p><strong>Change:</strong> Simplicity. Reduce 30+ sidebar items via progressive disclosure.</p>
+        <p><strong>Tell-a-friend moment:</strong> SIA reveals a cross-domain connection so accurate it shocks you. "My spending spikes on days I skip the gym -- and it was right."</p>
+      </div>
+    </div>
+
+    <div class="q-card status-aligned" data-status="aligned resolved">
+      <div class="q-header" onclick="toggleCard(this)">
+        <div class="q-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="q-title-area">
+          <div class="q-number">18.6</div>
+          <div class="q-title">Landing page vision</div>
+        </div>
+        <div class="q-badges">
+          <span class="badge badge-aligned">Aligned</span>
+          <span class="badge badge-new">New from L28</span>
+        </div>
+      </div>
+      <div class="q-content">
+        <div class="person-block">
+          <div class="person-name decision">Decision -- Landing Page UX</div>
+          <ul>
+            <li><strong>Chat bot at the bottom</strong> of the landing page</li>
+            <li><strong>Brainstorming bubbles floating above</strong> -- clickable, tap to add goals</li>
+            <li><strong>AI suggestions next to chatbot</strong> as recommendation chips</li>
+            <li><strong>Flowing visual content above</strong> -- pre-built examples of goals being achieved</li>
+          </ul>
+          <p style="margin-top:8px">Core feeling: "This feels different. It's talking to me. It gets me. It's already working."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== RESOLUTION CHECKLIST ========== -->
+  <div class="section-group" id="checklist">
+    <div class="section-title"><span class="section-num"></span> Resolution Checklist</div>
+
+    <div class="checklist">
+      <div class="checklist-title" style="color:var(--green)">Resolved in Lahore 28 Meeting</div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>1.5</strong> Design inspiration -- Bevel + Habitica + ChatGPT primary</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>2.6</strong> SIA avatar -- Simple animated icon for v1</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>3.3</strong> Onboarding data -- Name, life areas, primary goals only</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>3.4</strong> Intro -- 5-10s motion carousel</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>6.2</strong> AI control -- AI-first for all domains equally</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>2.1</strong> SIA tone -- Adaptive based on motivation detection</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>3.2</strong> Onboarding style -- Hybrid chatbot + visual guidance</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>3.6</strong> "Try it" user -- Guest mode with dummy data</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>4.1</strong> Bottom nav -- 4 items (Today, SIA, Goals, Me)</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>5.2</strong> Home screen -- Both lists merged with inline cards</span>
+      </div>
+      <div class="check-item done">
+        <div class="check-box checked"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="#0A0A0F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span><strong>5.5</strong> Cross-domain -- Domain tags baseline + insight cards at high confidence</span>
+      </div>
+    </div>
+
+    <div class="checklist">
+      <div class="checklist-title" style="color:var(--red)">Must Resolve -- CONTRADICTING (Not Reached in Meeting)</div>
+      <div class="check-item"><div class="check-box"></div><span><strong>6.8</strong> Finance depth -- Full Mint/YNAB vs goal-oriented</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>6.10</strong> Features to remove -- Cut nothing vs cut/deprioritize</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>9.2</strong> Leaderboard -- Prominent vs remove for v1</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>10.2</strong> Gamification -- Full RPG vs standard achievements</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>13.1</strong> Platform -- Mobile-only vs mobile + desktop</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>15.2</strong> Data export -- No vs yes (GDPR)</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>16.1</strong> Blogs -- In-app vs marketing site</span></div>
+    </div>
+
+    <div class="checklist">
+      <div class="checklist-title" style="color:var(--yellow)">Should Align -- REVIEW (Not Reached in Meeting)</div>
+      <div class="check-item"><div class="check-box"></div><span><strong>1.3</strong> Emotional arc execution</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>1.4</strong> User persona specificity</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>3.5</strong> Assessment depth</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>6.5</strong> Domain depth V1 priority (deferred)</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>6.9</strong> Spirituality approach</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>7.2</strong> Goal card design</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>7.3</strong> Motivation tier UI</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>9.1</strong> Social prominence</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>10.1</strong> Streak prominence</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>11.1</strong> Free tier generosity</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>12.3</strong> SIA chat animation level</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>15.1</strong> AI transparency depth</span></div>
+      <div class="check-item"><div class="check-box"></div><span><strong>17</strong> Screen priority ranking</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleCard(header) {
+  const card = header.closest('.q-card');
+  card.classList.toggle('open');
+}
+
+function expandAll() {
+  document.querySelectorAll('.q-card').forEach(c => {
+    if (c.style.display !== 'none') c.classList.add('open');
+  });
+}
+
+function collapseAll() {
+  document.querySelectorAll('.q-card').forEach(c => c.classList.remove('open'));
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.remove('active', 'active-green', 'active-yellow', 'active-red');
+    });
+
+    const filter = btn.dataset.filter;
+
+    if (filter === 'aligned') btn.classList.add('active-green');
+    else if (filter === 'review') btn.classList.add('active-yellow');
+    else if (filter === 'contradicting') btn.classList.add('active-red');
+    else btn.classList.add('active');
+
+    document.querySelectorAll('.q-card').forEach(card => {
+      const status = card.dataset.status || '';
+      if (filter === 'all') {
+        card.style.display = '';
+      } else if (filter === 'resolved') {
+        card.style.display = status.includes('resolved') ? '' : 'none';
+      } else {
+        card.style.display = status.includes(filter) ? '' : 'none';
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<%# Integration Reminder Template %>
+<%
+  const connectedText = connectedCount > 0
+    ? `You have connected ${connectedCount} device${connectedCount > 1 ? 's' : ''}. Add more signals to unlock richer cross-domain insights.`
+    : "Connect your health devices and apps to unlock Balencia's cross-domain intelligence.";
+  const integrations = Array.isArray(availableIntegrations) && availableIntegrations.length
+    ? availableIntegrations
+    : ['WHOOP', 'Fitbit', 'Garmin', 'Oura', 'Apple Health', 'Google Fit'];
+  const integrationItems = integrations.slice(0, 6).map((item) => `
+    <td width="50%" style="padding:8px;">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#ffffff; border:1px solid #ffedd5; border-radius:12px;">
+        <tr>
+          <td style="padding:14px; text-align:center; font-size:13px; color:#111827; font-weight:800;">${escapeFn(item)}</td>
+        </tr>
+      </table>
+    </td>
+  `);
+  const integrationRows = [];
+  for (let index = 0; index < integrationItems.length; index += 2) {
+    integrationRows.push(`<tr>${integrationItems[index]}${integrationItems[index + 1] || '<td width="50%" style="padding:8px;"></td>'}</tr>`);
+  }
+%>
+<%- include('./layouts/base', {
+  title: 'Connect Your Devices - Balencia',
+  preheader: `${firstName}, connect devices to unlock stronger health insights.`,
+  eyebrow: 'Connected intelligence',
+  greeting: `Bring your health signals together, ${firstName}.`,
+  content: `
+    <p style="margin:0 0 22px; font-size:16px; line-height:26px;">
+      ${escapeFn(connectedText)}
+    </p>
+
+    ${include('./partials/alert-box', {
+      type: 'success',
+      message: 'The strongest recommendations come from seeing sleep, recovery, training, nutrition, and routine in one place.'
+    })}
+
+    <h2 style="margin:30px 0 16px; font-size:18px; color:#111827;">Available integrations</h2>
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#fff7ed; border-radius:16px; padding:8px; margin:0 0 22px;">
+      ${integrationRows.join('')}
+    </table>
+
+    <p style="margin:0; font-size:14px; line-height:22px; color:#6b7280; text-align:center;">
+      You stay in control. Your connected data is used to personalize coaching and can be disconnected anytime.
+    </p>
+  `,
+  ctaButton: {
+    text: 'Connect Devices',
+    url: integrationsUrl
+  },
+  footerText: 'Your data is encrypted and always under your control.'
+}) %>

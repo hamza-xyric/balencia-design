@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 7: Finance, Career & Social</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink-900:#0A0A0F;--ink-brown:#211008;--brand-orange:#FF5E00;--forest-green:#34A853;--royal-purple:#7F24FF;--error-red:#F44336;--white:#FFFFFF;--phone-w:393px;--phone-h:852px;--bezel:12px;--frame-r:54px}
+html{font-family:'Sora',sans-serif;background:#090909;color:var(--white);overflow-x:hidden}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center}
+.page-header{text-align:center;padding:48px 24px 24px;width:100%;max-width:1200px}.page-header h1{font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}.page-header h2{font-size:32px;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 40%,var(--brand-orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.batch-label{display:inline-block;margin-top:12px;padding:6px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,94,0,.12);color:var(--brand-orange);border:1px solid rgba(255,94,0,.2)}
+.carousel-wrap{position:relative;width:100%;max-width:1200px;display:flex;flex-direction:column;align-items:center;padding:0 60px}.carousel-viewport{width:100%;overflow:hidden;position:relative}.carousel-track{display:flex;transition:transform .55s cubic-bezier(.22,1,.36,1);will-change:transform}.carousel-slide{min-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px 0 0}
+.screen-label{text-align:center;margin-bottom:20px}.screen-label .num{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-orange)}.screen-label .name{font-size:20px;font-weight:600;color:#fff;margin-top:4px}
+.nav-arrow{position:absolute;top:50%;transform:translateY(-70%);z-index:20;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(17,17,17,.85);backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;color:rgba(255,255,255,.6)}.nav-arrow:hover{border-color:var(--brand-orange);color:var(--brand-orange)}.nav-arrow.prev{left:4px}.nav-arrow.next{right:4px}.nav-arrow:disabled{opacity:.25;pointer-events:none}
+.thumb-strip{display:flex;gap:12px;justify-content:center;margin:32px 0 48px;flex-wrap:wrap}.thumb{width:56px;height:120px;border-radius:14px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .3s;position:relative;background:#1a1a1a;display:flex;align-items:center;justify-content:center}.thumb:hover{border-color:rgba(255,94,0,.4)}.thumb.active{border-color:var(--brand-orange);box-shadow:0 0 16px rgba(255,94,0,.2)}.thumb-num{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:rgba(255,255,255,.5)}
+.device{position:relative;width:calc(var(--phone-w) + var(--bezel)*2);height:calc(var(--phone-h) + var(--bezel)*2);border-radius:var(--frame-r);background:linear-gradient(165deg,#3a3a3c 0%,#1c1c1e 40%,#2c2c2e 100%);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1);padding:var(--bezel);flex-shrink:0}.device-inner{width:var(--phone-w);height:var(--phone-h);border-radius:calc(var(--frame-r) - var(--bezel));overflow:hidden;position:relative;background:var(--ink-900)}
+.dynamic-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#000;border-radius:24px;z-index:20}.home-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);z-index:10}
+.status-bar{position:absolute;top:0;left:0;right:0;height:44px;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 24px 0;font-size:15px;font-weight:600;color:#fff}.status-icons{display:flex;align-items:center;gap:6px}.status-icons svg{width:16px;height:16px;fill:#fff}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;font-family:'Sora',sans-serif;overflow-y:auto;overflow-x:hidden;background:var(--ink-900);scrollbar-width:none}.screen::-webkit-scrollbar{display:none}
+.sp-8{height:8px}.sp-12{height:12px}.sp-16{height:16px}
+.card{background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;width:100%}
+.sia-card{border-left:3px solid var(--royal-purple)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.tab-bar{position:absolute;bottom:0;left:0;right:0;height:90px;background:var(--ink-900);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:flex-start;justify-content:space-around;padding-top:8px;z-index:15}.tab-item{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,.6);cursor:pointer}.tab-item.active{color:var(--brand-orange)}.tab-item svg{width:24px;height:24px}
+.xp-bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;width:100%}.xp-fill{height:100%;border-radius:4px;background:var(--brand-orange)}
+.fab{position:absolute;bottom:100px;right:16px;width:56px;height:56px;border-radius:50%;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;z-index:16;box-shadow:0 4px 16px rgba(255,94,0,.3);cursor:pointer}
+.progress-ring{position:relative;display:flex;align-items:center;justify-content:center}.progress-ring svg{transform:rotate(-90deg)}.progress-ring .label{position:absolute;font-weight:600;color:#fff}
+.domain-header{display:flex;align-items:center;gap:12px;padding:0 16px;height:56px}
+@media(max-width:520px){:root{--phone-w:340px;--phone-h:736px;--bezel:10px;--frame-r:48px}.page-header h2{font-size:24px}.carousel-wrap{padding:0 16px}.nav-arrow{width:36px;height:36px}.nav-arrow.prev{left:0}.nav-arrow.next{right:0}}
+</style>
+</head>
+<body>
+<header class="page-header"><h1>Balencia Design System</h1><h2>Batch 7 — Finance, Career & Social</h2><span class="batch-label">Screens 30 – 34 (incl. 31b)</span></header>
+<section class="carousel-wrap">
+<button class="nav-arrow prev" onclick="go(-1)" disabled><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></button>
+<button class="nav-arrow next" onclick="go(1)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg></button>
+<div class="carousel-viewport"><div class="carousel-track" id="track">
+
+<!-- ═══ 30: FINANCE DASHBOARD ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 30</div><div class="name">Finance Dashboard</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="domain-header" style="border-bottom:2px solid #10B981">
+    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg>
+    <div style="flex:1;font-size:18px;font-weight:600;color:#fff">Finance & money</div>
+    <div style="background:rgba(16,185,129,.15);color:#10B981;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px">Lv.3</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- Net Position Hero -->
+    <div style="text-align:center;padding:16px 0 8px">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)">NET POSITION</div>
+      <div style="font-size:32px;font-weight:700;color:#fff;margin-top:4px">$12,480</div>
+      <div style="font-size:13px;color:var(--forest-green);margin-top:4px">↑ $340 this month</div>
+    </div>
+    <!-- KPI strip -->
+    <div style="display:flex;gap:8px">
+      <div class="card" style="flex:1;text-align:center;padding:12px 6px"><div style="font-size:16px;font-weight:700;color:#fff">$4,200</div><div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">income</div></div>
+      <div class="card" style="flex:1;text-align:center;padding:12px 6px"><div style="font-size:16px;font-weight:700;color:var(--brand-orange)">$2,890</div><div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">spent</div></div>
+      <div class="card" style="flex:1;text-align:center;padding:12px 6px"><div style="font-size:16px;font-weight:700;color:var(--forest-green)">$1,310</div><div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">saved</div></div>
+    </div>
+    <!-- SIA note -->
+    <div class="card sia-card" style="padding:12px 16px">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--royal-purple);margin-top:6px;flex-shrink:0"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.4">Your dining spending is 40% above last month. This correlates with your stress levels — consider meal prepping on weekends.</div>
+      </div>
+    </div>
+    <!-- Budget rows -->
+    <div class="eyebrow">BUDGETS</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;color:#fff">Groceries</span><span style="font-size:13px;color:rgba(255,255,255,.5)">$420 / $500</span></div><div class="xp-bar" style="height:6px"><div class="xp-fill" style="width:84%;background:#FF5E00"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;color:#fff">Dining out</span><span style="font-size:13px;color:rgba(255,255,255,.5)">$380 / $300</span></div><div class="xp-bar" style="height:6px"><div class="xp-fill" style="width:100%;background:var(--error-red)"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;color:#fff">Transport</span><span style="font-size:13px;color:rgba(255,255,255,.5)">$180 / $250</span></div><div class="xp-bar" style="height:6px"><div class="xp-fill" style="width:72%;background:#FF5E00"></div></div></div>
+    </div>
+    <!-- Savings Goals -->
+    <div class="eyebrow" style="font-size:11px;letter-spacing:.1em">SAVINGS GOALS</div>
+    <div class="card" style="background:var(--ink-brown);border-radius:14px;padding:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:14px;font-weight:600;color:#fff">Emergency fund</span>
+        <span style="font-size:14px;color:rgba(255,255,255,.6)">$3,400 / $10,000</span>
+      </div>
+      <div style="height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;width:100%">
+        <div style="height:100%;width:34%;background:#10B981;border-radius:2px"></div>
+      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:6px">Target: Dec 2026</div>
+    </div>
+    <!-- Recent transactions -->
+    <div style="display:flex;justify-content:space-between;align-items:center"><div class="eyebrow">RECENT TRANSACTIONS</div><div style="font-size:12px;color:var(--brand-orange);cursor:pointer">see all →</div></div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,.1);display:flex;align-items:center;justify-content:center;margin-right:12px;font-size:16px">🛒</div>
+        <div style="flex:1"><div style="font-size:14px;color:#fff">Whole Foods</div><div style="font-size:11px;color:rgba(255,255,255,.4)">Groceries · Today</div></div>
+        <div style="font-size:14px;font-weight:600;color:#fff">-$62</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,.1);display:flex;align-items:center;justify-content:center;margin-right:12px;font-size:16px">☕</div>
+        <div style="flex:1"><div style="font-size:14px;color:#fff">Starbucks</div><div style="font-size:11px;color:rgba(255,255,255,.4)">Dining · Yesterday</div></div>
+        <div style="font-size:14px;font-weight:600;color:#fff">-$7</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:12px 16px">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(52,168,83,.1);display:flex;align-items:center;justify-content:center;margin-right:12px;font-size:16px">💼</div>
+        <div style="flex:1"><div style="font-size:14px;color:#fff">Salary deposit</div><div style="font-size:11px;color:rgba(255,255,255,.4)">Income · May 1</div></div>
+        <div style="font-size:14px;font-weight:600;color:var(--forest-green)">+$4,200</div>
+      </div>
+    </div>
+    <!-- Spending trend chart -->
+    <div class="eyebrow">SPENDING TREND</div>
+    <div class="card" style="padding:20px">
+      <svg width="100%" height="80" viewBox="0 0 320 80" preserveAspectRatio="none">
+        <path d="M0 60 Q40 50 80 45 T160 35 T240 40 T320 30" fill="none" stroke="var(--brand-orange)" stroke-width="2"/>
+        <path d="M0 55 Q40 48 80 50 T160 45 T240 42 T320 38" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-dasharray="4 4"/>
+        <path d="M200 38 Q240 34 280 28 T320 20" fill="none" stroke="#7F24FF" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="0" y="78" fill="rgba(255,255,255,.3)" font-size="10" font-family="Sora">Jan</text>
+        <text x="80" y="78" fill="rgba(255,255,255,.3)" font-size="10" font-family="Sora">Feb</text>
+        <text x="160" y="78" fill="rgba(255,255,255,.3)" font-size="10" font-family="Sora">Mar</text>
+        <text x="240" y="78" fill="rgba(255,255,255,.3)" font-size="10" font-family="Sora">Apr</text>
+        <text x="300" y="78" fill="rgba(255,255,255,.3)" font-size="10" font-family="Sora">May</text>
+      </svg>
+      <div style="display:flex;gap:16px;margin-top:8px">
+        <div style="display:flex;align-items:center;gap:4px"><div style="width:16px;height:2px;background:var(--brand-orange)"></div><span style="font-size:10px;color:rgba(255,255,255,.4)">Actual</span></div>
+        <div style="display:flex;align-items:center;gap:4px"><div style="width:16px;height:2px;background:rgba(255,255,255,.2);border-top:1px dashed rgba(255,255,255,.2)"></div><span style="font-size:10px;color:rgba(255,255,255,.4)">Budget</span></div>
+        <div style="display:flex;align-items:center;gap:4px"><div style="width:16px;height:2px;border-top:2px dashed #7F24FF"></div><span style="font-size:10px;color:rgba(255,255,255,.4)">AI Projected</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="fab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 31: TRANSACTION DETAIL ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 31</div><div class="name">Transaction Detail</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div style="display:flex;align-items:center;padding:0 16px;height:44px"><svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- Hero amount -->
+    <div style="text-align:center;padding:24px 0 8px">
+      <div style="font-size:40px;font-weight:700;color:#fff">-$62.40</div>
+      <div style="font-size:15px;color:rgba(255,255,255,.5);margin-top:4px">Whole Foods Market</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.35);margin-top:4px">May 21, 2026 · 2:34 PM</div>
+    </div>
+    <!-- Category chip -->
+    <div style="display:flex;justify-content:center">
+      <div style="padding:6px 16px;border-radius:999px;background:rgba(16,185,129,.12);color:#10B981;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px">
+        <span style="font-size:14px">🛒</span> Groceries
+      </div>
+    </div>
+    <!-- Details card -->
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;justify-content:space-between"><span style="font-size:14px;color:rgba(255,255,255,.5)">Payment method</span><span style="font-size:14px;color:#fff">Visa ····4242</span></div>
+      <div style="display:flex;justify-content:space-between"><span style="font-size:14px;color:rgba(255,255,255,.5)">Budget impact</span><span style="font-size:14px;color:#fff">$420 / $500 groceries</span></div>
+      <div style="display:flex;justify-content:space-between"><span style="font-size:14px;color:rgba(255,255,255,.5)">Frequency</span><span style="font-size:14px;color:rgba(255,255,255,.6)">Weekly (~$58 avg)</span></div>
+    </div>
+    <!-- Receipt photo -->
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:24px">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <div style="font-size:13px;color:rgba(255,255,255,.35)">Tap to add receipt photo</div>
+    </div>
+    <!-- Related transactions -->
+    <div class="eyebrow">RELATED</div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="flex:1"><div style="font-size:14px;color:#fff">Whole Foods</div><div style="font-size:11px;color:rgba(255,255,255,.4)">May 14</div></div>
+        <div style="font-size:14px;color:rgba(255,255,255,.6)">-$58</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:12px 16px">
+        <div style="flex:1"><div style="font-size:14px;color:#fff">Whole Foods</div><div style="font-size:11px;color:rgba(255,255,255,.4)">May 7</div></div>
+        <div style="font-size:14px;color:rgba(255,255,255,.6)">-$54</div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 31b: BUDGET DETAIL VIEW ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 31b</div><div class="name">Budget Detail View</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div style="display:flex;align-items:center;padding:0 16px;height:44px;gap:12px">
+    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg>
+    <div style="font-size:18px;font-weight:600;color:#fff">Dining out</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- Summary card -->
+    <div class="card" style="display:flex;gap:0;padding:0">
+      <div style="flex:1;text-align:center;padding:16px 8px;border-right:1px solid rgba(255,255,255,.05)">
+        <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Allocated</div>
+        <div style="font-size:18px;font-weight:700;color:#fff">$200</div>
+      </div>
+      <div style="flex:1;text-align:center;padding:16px 8px;border-right:1px solid rgba(255,255,255,.05)">
+        <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Spent</div>
+        <div style="font-size:18px;font-weight:700;color:var(--brand-orange)">$162</div>
+      </div>
+      <div style="flex:1;text-align:center;padding:16px 8px">
+        <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Remaining</div>
+        <div style="font-size:18px;font-weight:700;color:#10B981">$38</div>
+      </div>
+    </div>
+    <!-- Progress bar -->
+    <div class="xp-bar" style="height:6px"><div class="xp-fill" style="width:81%;background:#FF5E00"></div></div>
+    <!-- Transactions -->
+    <div class="eyebrow">TRANSACTIONS</div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,94,0,.1);display:flex;align-items:center;justify-content:center;margin-right:12px;font-size:16px">🍕</div>
+        <div style="flex:1"><div style="font-size:14px;color:#fff">Pizza Hut</div><div style="font-size:11px;color:rgba(255,255,255,.4)">May 20</div></div>
+        <div style="font-size:14px;font-weight:600;color:#fff">-$34.50</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,94,0,.1);display:flex;align-items:center;justify-content:center;margin-right:12px;font-size:16px">☕</div>
+        <div style="flex:1"><div style="font-size:14px;color:#fff">Starbucks</div><div style="font-size:11px;color:rgba(255,255,255,.4)">May 19</div></div>
+        <div style="font-size:14px;font-weight:600;color:#fff">-$7.20</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,94,0,.1);display:flex;align-items:center;justify-content:center;margin-right:12px;font-size:16px">🍱</div>
+        <div style="flex:1"><div style="font-size:14px;color:#fff">Chipotle</div><div style="font-size:11px;color:rgba(255,255,255,.4)">May 17</div></div>
+        <div style="font-size:14px;font-weight:600;color:#fff">-$18.90</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:12px 16px">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,94,0,.1);display:flex;align-items:center;justify-content:center;margin-right:12px;font-size:16px">🍽️</div>
+        <div style="flex:1"><div style="font-size:14px;color:#fff">The Olive Garden</div><div style="font-size:11px;color:rgba(255,255,255,.4)">May 14</div></div>
+        <div style="font-size:14px;font-weight:600;color:#fff">-$62.40</div>
+      </div>
+    </div>
+    <!-- Edit budget button -->
+    <div style="display:flex;justify-content:center;padding:8px 0">
+      <div style="padding:12px 32px;border-radius:999px;background:transparent;border:1px solid var(--brand-orange);color:var(--brand-orange);font-size:15px;font-weight:600;cursor:pointer;text-align:center">Edit budget</div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 32: CAREER DASHBOARD ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 32</div><div class="name">Career Dashboard</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="domain-header" style="border-bottom:2px solid #6366F1">
+    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg>
+    <div style="flex:1;font-size:18px;font-weight:600;color:#fff">Career & work</div>
+    <div style="background:rgba(99,102,241,.15);color:#6366F1;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px">Lv.2</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- SIA note -->
+    <div class="card sia-card" style="padding:12px 16px">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--royal-purple);margin-top:6px;flex-shrink:0"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.4">You've completed 3 of 5 leadership actions this month. Schedule a 1-on-1 with your manager this week to stay on track.</div>
+      </div>
+    </div>
+    <!-- Career Goals -->
+    <div class="eyebrow">CAREER GOALS</div>
+    <div class="card" style="display:flex;align-items:center;gap:12px">
+      <div class="progress-ring"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="4"/><circle cx="24" cy="24" r="20" fill="none" stroke="var(--brand-orange)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="62.8" stroke-linecap="round"/></svg><div class="label" style="font-size:11px">50%</div></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Transition to leadership</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">3 of 6 milestones</div><div style="font-size:15px;color:var(--brand-orange);margin-top:4px">Next: update portfolio</div></div>
+    </div>
+    <div class="card" style="display:flex;align-items:center;gap:12px">
+      <div class="progress-ring"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="4"/><circle cx="24" cy="24" r="20" fill="none" stroke="var(--brand-orange)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="88" stroke-linecap="round"/></svg><div class="label" style="font-size:11px">30%</div></div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Complete PM certification</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">Due Aug 2026</div><div style="font-size:15px;color:var(--brand-orange);margin-top:4px">Next: finish Module 4</div></div>
+    </div>
+    <!-- AI Action Cards -->
+    <div class="eyebrow">AI-SUGGESTED ACTIONS</div>
+    <div class="card" style="border-left:3px solid #6366F1">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div style="width:22px;height:22px;border-radius:6px;border:2px solid var(--brand-orange);flex-shrink:0;display:flex;align-items:center;justify-content:center"></div>
+        <div style="flex:1"><div style="font-size:14px;font-weight:600;color:#fff">Schedule 1-on-1 with manager</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">Leadership milestone</div></div>
+        <div style="font-size:13px;font-weight:600;color:var(--brand-orange);white-space:nowrap">+30 XP</div>
+      </div>
+    </div>
+    <div class="card" style="border-left:3px solid #6366F1">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div style="width:22px;height:22px;border-radius:6px;border:2px solid var(--brand-orange);flex-shrink:0;display:flex;align-items:center;justify-content:center"></div>
+        <div style="flex:1"><div style="font-size:14px;font-weight:600;color:#fff">Complete Module 4: Stakeholder Mgmt</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px">PM certification</div></div>
+        <div style="font-size:13px;font-weight:600;color:var(--brand-orange);white-space:nowrap">+50 XP</div>
+      </div>
+    </div>
+    <!-- Skills snapshot -->
+    <div class="eyebrow">SKILLS SNAPSHOT</div>
+    <div style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none">
+      <div class="card" style="min-width:120px;text-align:center;padding:14px 12px"><div style="font-size:13px;color:#fff;margin-bottom:2px">Leadership</div><div style="font-size:18px;font-weight:700;color:#6366F1">Lv.7</div></div>
+      <div class="card" style="min-width:120px;text-align:center;padding:14px 12px"><div style="font-size:13px;color:#fff;margin-bottom:2px">Communication</div><div style="font-size:18px;font-weight:700;color:#6366F1">Lv.9</div></div>
+      <div class="card" style="min-width:120px;text-align:center;padding:14px 12px"><div style="font-size:13px;color:#fff;margin-bottom:2px">Strategy</div><div style="font-size:18px;font-weight:700;color:#6366F1">Lv.6</div></div>
+    </div>
+    <!-- Deadlines -->
+    <div class="eyebrow">UPCOMING DEADLINES</div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="flex:1"><div style="font-size:14px;font-weight:500;color:#fff">PM certification exam</div></div>
+        <div style="font-size:12px;color:var(--brand-orange);font-weight:600">Aug 15</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:12px 16px">
+        <div style="flex:1"><div style="font-size:14px;font-weight:500;color:#fff">Quarterly review</div></div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4)">Jun 30</div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 33: RELATIONSHIPS ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 33</div><div class="name">Relationships</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="domain-header" style="border-bottom:2px solid #EC4899">
+    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg>
+    <div style="flex:1;font-size:18px;font-weight:600;color:#fff">Relationships</div>
+    <div style="background:rgba(236,72,153,.15);color:#EC4899;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px">Lv.2</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- CHECK IN / AI Reminders -->
+    <div class="eyebrow" style="font-size:11px;letter-spacing:.1em">CHECK IN</div>
+    <div class="card" style="background:var(--ink-brown);border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px">
+      <div style="font-size:18px;flex-shrink:0">&#9888;&#65039;</div>
+      <div style="flex:1;font-size:14px;color:#fff;line-height:1.4">Call Mom — it's been 2 weeks</div>
+      <div style="padding:6px 14px;border-radius:999px;background:var(--brand-orange);font-size:12px;font-weight:600;color:#fff;cursor:pointer;white-space:nowrap">check in</div>
+    </div>
+    <div class="card" style="background:var(--ink-brown);border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px">
+      <div style="font-size:18px;flex-shrink:0">&#9888;&#65039;</div>
+      <div style="flex:1;font-size:14px;color:#fff;line-height:1.4">Plan date night with Sarah — monthly goal</div>
+      <div style="padding:6px 14px;border-radius:999px;background:var(--brand-orange);font-size:12px;font-weight:600;color:#fff;cursor:pointer;white-space:nowrap">check in</div>
+    </div>
+    <!-- KEY PEOPLE -->
+    <div class="eyebrow" style="font-size:11px;letter-spacing:.1em">KEY PEOPLE</div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--ink-brown);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;margin-right:12px">M</div>
+        <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Mom</div><div style="font-size:13px;color:rgba(255,255,255,.4)">Family</div></div>
+        <div style="font-size:12px;color:rgba(255,255,255,.3);white-space:nowrap">Last: 14 days ago</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--ink-brown);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;margin-right:12px">S</div>
+        <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Sarah</div><div style="font-size:13px;color:rgba(255,255,255,.4)">Partner</div></div>
+        <div style="font-size:12px;color:rgba(255,255,255,.3);white-space:nowrap">Last: 1 day ago</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:14px 16px">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--ink-brown);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;margin-right:12px">A</div>
+        <div style="flex:1"><div style="font-size:15px;font-weight:600;color:#fff">Ahmed</div><div style="font-size:13px;color:rgba(255,255,255,.4)">Friend</div></div>
+        <div style="font-size:12px;color:rgba(255,255,255,.3);white-space:nowrap">Last: 3 days ago</div>
+      </div>
+    </div>
+    <!-- Quality Time Log -->
+    <div class="eyebrow">QUALITY TIME THIS WEEK</div>
+    <div class="card" style="display:flex;justify-content:center;padding:20px">
+      <div style="text-align:center"><div style="font-size:28px;font-weight:700;color:#EC4899">4.5h</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px">of 10h weekly goal</div><div class="xp-bar" style="height:6px;margin-top:8px;width:140px"><div class="xp-fill" style="width:45%;background:#EC4899"></div></div></div>
+    </div>
+    <!-- SIA suggestion -->
+    <div class="card sia-card" style="padding:12px 16px">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--royal-purple);margin-top:6px;flex-shrink:0"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.4">Your friend Alex has a birthday next week. Want me to help plan something?</div>
+      </div>
+    </div>
+    <!-- UPCOMING DATES -->
+    <div class="eyebrow" style="font-size:11px;letter-spacing:.1em">UPCOMING DATES</div>
+    <div class="card" style="padding:0">
+      <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05)">
+        <div style="flex:1"><div style="font-size:14px;font-weight:500;color:#fff"><span style="margin-right:6px">&#127874;</span>Alex's birthday <span style="font-size:12px;color:rgba(255,255,255,.4);margin-left:4px">Jun 8</span></div></div>
+        <div style="font-size:12px;color:var(--brand-orange);font-weight:600;white-space:nowrap">18 days away</div>
+      </div>
+      <div style="display:flex;align-items:center;padding:12px 16px">
+        <div style="flex:1"><div style="font-size:14px;font-weight:500;color:#fff"><span style="margin-right:6px">&#128141;</span>Parents' anniversary <span style="font-size:12px;color:rgba(255,255,255,.4);margin-left:4px">Jul 15</span></div></div>
+        <div style="font-size:12px;color:rgba(255,255,255,.4);font-weight:600;white-space:nowrap">55 days away</div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 34: SPIRITUALITY ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 34</div><div class="name">Spirituality</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="domain-header" style="border-bottom:2px solid #A855F7">
+    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 1L1 9l8 8"/></svg>
+    <div style="flex:1;font-size:18px;font-weight:600;color:#fff">Spirituality</div>
+    <div style="background:rgba(168,85,247,.15);color:#A855F7;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px">Lv.1</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none">
+    <!-- SIA note -->
+    <div class="card sia-card" style="padding:12px 16px">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--royal-purple);margin-top:6px;flex-shrink:0"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.4">You've completed 4 out of 5 prayers today. Isha is at 8:42 PM — I'll remind you.</div>
+      </div>
+    </div>
+    <!-- Practice tracker -->
+    <div class="eyebrow">TODAY'S PRACTICES</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Fajr</div><div style="flex:1"></div><div style="font-size:11px;color:rgba(255,255,255,.3)">5:12 AM</div></div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Dhuhr</div><div style="flex:1"></div><div style="font-size:11px;color:rgba(255,255,255,.3)">12:30 PM</div></div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Asr</div><div style="flex:1"></div><div style="font-size:11px;color:rgba(255,255,255,.3)">3:45 PM</div></div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Maghrib</div><div style="flex:1"></div><div style="font-size:11px;color:rgba(255,255,255,.3)">6:58 PM</div></div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:22px;height:22px;border-radius:6px;border:2px solid var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0"></div><div style="font-size:14px;font-weight:600;color:#fff">Isha</div><div style="flex:1"></div><div style="font-size:11px;color:var(--brand-orange);font-weight:600">8:42 PM</div></div>
+    </div>
+    <!-- Reading progress -->
+    <div class="eyebrow">READING PROGRESS</div>
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:center">
+        <div style="width:48px;height:64px;border-radius:6px;background:rgba(168,85,247,.15);display:flex;align-items:center;justify-content:center;font-size:20px">📖</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:#fff">Quran — Juz 15</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px">Page 262 of 604</div>
+          <div class="xp-bar" style="height:4px;margin-top:6px"><div class="xp-fill" style="width:43%;background:#A855F7"></div></div>
+        </div>
+      </div>
+      <div style="margin-top:12px;text-align:right">
+        <span style="font-size:14px;font-weight:600;color:var(--brand-orange);cursor:pointer">log reading →</span>
+      </div>
+    </div>
+    <!-- Fasting countdown -->
+    <div class="eyebrow">FASTING</div>
+    <div class="card" style="text-align:center;padding:20px">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px">IFTAR IN</div>
+      <div style="font-size:32px;font-weight:700;color:var(--brand-orange)">2h 14m</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.4);margin-top:4px">Maghrib at 6:58 PM</div>
+    </div>
+    <!-- Daily reflection -->
+    <div class="eyebrow">DAILY REFLECTION</div>
+    <div class="card" style="border-left:3px solid #A855F7">
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.5;font-style:italic">"Verily, with hardship comes ease." — Quran 94:6</div>
+      <div style="margin-top:12px;padding:8px 16px;border-radius:999px;background:rgba(168,85,247,.12);color:#A855F7;font-size:13px;font-weight:600;display:inline-flex;cursor:pointer">Reflect on this →</div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+</div></div>
+
+<div class="thumb-strip" id="thumbs">
+<div class="thumb active" onclick="jump(0)"><div style="font-size:14px;opacity:.5">💰</div><div class="thumb-num">30</div></div>
+<div class="thumb" onclick="jump(1)"><div style="font-size:14px;opacity:.5">💳</div><div class="thumb-num">31</div></div>
+<div class="thumb" onclick="jump(2)"><div style="font-size:14px;opacity:.5">📊</div><div class="thumb-num">31b</div></div>
+<div class="thumb" onclick="jump(3)"><div style="font-size:14px;opacity:.5">💼</div><div class="thumb-num">32</div></div>
+<div class="thumb" onclick="jump(4)"><div style="font-size:14px;opacity:.5">❤️</div><div class="thumb-num">33</div></div>
+<div class="thumb" onclick="jump(5)"><div style="font-size:14px;opacity:.5">🕌</div><div class="thumb-num">34</div></div>
+</div>
+</section>
+
+<script>
+let cur=0;const total=6;
+const track=document.getElementById('track');
+const thumbs=document.getElementById('thumbs').children;
+function render(){track.style.transform=`translateX(-${cur*100}%)`;for(let i=0;i<total;i++){thumbs[i].classList.toggle('active',i===cur)}document.querySelector('.nav-arrow.prev').disabled=cur===0;document.querySelector('.nav-arrow.next').disabled=cur===total-1}
+function go(d){cur=Math.max(0,Math.min(total-1,cur+d));render()}
+function jump(i){cur=i;render()}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(-1);if(e.key==='ArrowRight')go(1)});
+const sp=new URLSearchParams(window.location.search);if(sp.has('start')){const s=parseInt(sp.get('start'));if(!isNaN(s)&&s>=0&&s<total){document.getElementById('track').style.transition='none';jump(s);requestAnimationFrame(()=>document.getElementById('track').style.transition='')}}
+</script>
+</body>
+</html>

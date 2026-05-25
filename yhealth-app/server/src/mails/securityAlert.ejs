@@ -1,0 +1,73 @@
+<%# Security Alert Template %>
+<%
+  const activityRows = [
+    ['When', activityTime],
+    typeof ipAddress !== 'undefined' && ipAddress ? ['IP address', ipAddress] : null,
+    typeof location !== 'undefined' && location ? ['Location', location] : null,
+    typeof device !== 'undefined' && device ? ['Device', device] : null
+  ].filter(Boolean).map(([label, value]) => `
+    <tr>
+      <td style="padding:10px 0; border-top:1px solid #fee2e2;">
+        <span style="color:#78716c; font-size:14px;">${escapeFn(label)}:</span>
+        <span style="color:#111827; font-size:14px; font-weight:800; float:right;">${escapeFn(value)}</span>
+      </td>
+    </tr>
+  `).join('');
+%>
+<%- include('./layouts/base', {
+  title: 'Security Alert - Balencia',
+  preheader: `${firstName}, we detected account activity on Balencia.`,
+  eyebrow: 'Security alert',
+  greeting: `Please review this account activity, ${firstName}.`,
+  content: `
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:0 0 24px;">
+      <tr>
+        <td style="padding:20px; background:#fef2f2; border-radius:16px; border:1px solid #fecaca;">
+          <p style="margin:0; font-size:16px; color:#991b1b; font-weight:800;">
+            We detected ${escapeFn(alertType)} on your account.
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <p style="margin:0 0 22px; font-size:16px; line-height:26px;">
+      We are sending this notice to help keep your account secure. Review the details below and secure your account if this activity was not yours.
+    </p>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:24px 0; background:#fff7ed; border-radius:16px; border:1px solid #fed7aa;">
+      <tr>
+        <td style="padding:22px;">
+          <p style="margin:0 0 8px; font-size:12px; color:#c2410c; text-transform:uppercase; letter-spacing:1.5px; font-weight:800;">Activity details</p>
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+            ${activityRows}
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    ${include('./partials/alert-box', {
+      type: 'success',
+      message: 'If this was you, no action is needed.'
+    })}
+    ${include('./partials/alert-box', {
+      type: 'error',
+      message: 'If this was not you, secure your account immediately and review recent activity.'
+    })}
+  `,
+  ctaButton: {
+    text: 'Secure My Account',
+    url: secureAccountUrl,
+    color: 'linear-gradient(135deg,#ef4444 0%,#dc2626 100%)'
+  },
+  secondaryContent: `
+    <p style="margin:0 0 12px; font-size:14px; color:#111827; font-weight:800;">Security recommendations</p>
+    <ul style="margin:0; padding:0 0 0 20px; font-size:13px; color:#6b7280; line-height:22px;">
+      <li>Change your password if you do not recognize this activity.</li>
+      <li>Enable two-factor authentication when available.</li>
+      <li>Review active sessions and connected devices.</li>
+    </ul>
+  `,
+  footerText: 'If you have concerns about account security, contact support@balencia.app immediately.',
+  showSocial: false,
+  showUnsubscribe: false
+}) %>

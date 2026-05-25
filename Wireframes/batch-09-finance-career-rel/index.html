@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 9: Finance + Career + Relationships</title>
+<link rel="stylesheet" href="../balencia-foundation.css">
+<style>
+/* ═══════════════════════════════════════
+   BATCH 09 — FINANCE + CAREER + REL
+   ═══════════════════════════════════════ */
+
+/* ── Shared: domain header ── */
+.domain-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 52px 16px 12px; position: relative; z-index: 5;
+  background: var(--ink-900); flex-shrink: 0;
+}
+.domain-header .back-arrow {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+}
+.domain-header .back-arrow svg { width: 20px; height: 20px; }
+.domain-title {
+  font-size: 20px; font-weight: 600; color: #fff; flex: 1;
+}
+.level-badge-domain {
+  display: flex; align-items: center; gap: 4px;
+  height: 28px; padding: 0 12px; border-radius: var(--r-pill);
+  font-size: 13px; font-weight: 600; white-space: nowrap; flex-shrink: 0;
+}
+.level-badge-domain.finance {
+  color: var(--finance); background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.25);
+}
+.level-badge-domain.career {
+  color: var(--career); background: rgba(99,102,241,.15); border: 1px solid rgba(99,102,241,.25);
+}
+.level-badge-domain.rel {
+  color: var(--relationships); background: rgba(236,72,153,.15); border: 1px solid rgba(236,72,153,.25);
+}
+.accent-line {
+  position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px;
+}
+.accent-line.finance { background: var(--finance); }
+.accent-line.career { background: var(--career); }
+.accent-line.rel { background: var(--relationships); }
+
+/* ── Shared: scrollable dashboard ── */
+.dash-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden; padding: 16px 16px 130px;
+  scrollbar-width: none;
+}
+.dash-scroll::-webkit-scrollbar { display: none; }
+
+/* ── Shared: FAB ── */
+.fab {
+  position: absolute; bottom: 72px; right: 16px; z-index: 15;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--brand-orange); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-2);
+}
+.fab svg { width: 24px; height: 24px; }
+
+/* ── Shared: section gaps ── */
+.section-gap { height: 24px; }
+.section-gap-sm { height: 16px; }
+
+/* ── Shared: SIA coaching note (batch override for icon) ── */
+.sia-note {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid rgba(127,36,255,.6);
+  padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start;
+}
+.sia-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--royal-purple);
+  flex-shrink: 0; margin-top: 6px;
+}
+.sia-note-text {
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,.9); line-height: 1.47; flex: 1;
+}
+.sia-link {
+  font-size: 13px; font-weight: 500; color: var(--royal-purple); margin-top: 6px; cursor: pointer;
+}
+
+/* ── Shared: section heading row ── */
+.sec-head {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sec-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+}
+.sec-link {
+  font-size: 13px; font-weight: 500; color: var(--brand-orange); cursor: pointer;
+}
+
+/* ── Shared: content card ── */
+.content-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.content-card-sm {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px;
+}
+
+/* ── Shared: row divider ── */
+.row-div {
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+/* ── Shared: tab icon ── */
+.tab-icon { width: 24px; height: 24px; }
+
+/* ── Shared: detail header ── */
+.detail-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 52px 16px 12px; position: relative;
+  background: var(--ink-900); flex-shrink: 0;
+}
+.detail-title {
+  font-size: 17px; font-weight: 600; color: #fff; flex: 1;
+}
+.header-action {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 18px;
+}
+
+/* ═══════════════════════════════════════
+   SCREEN 30: FINANCE DASHBOARD
+   ═══════════════════════════════════════ */
+
+/* KPI strip */
+.kpi-strip { display: flex; gap: 8px; }
+.kpi-card {
+  flex: 1; background: var(--ink-brown); border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,.06); padding: 14px 12px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.kpi-label {
+  font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+}
+.kpi-amount {
+  font-size: 22px; font-weight: 700; color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.kpi-delta {
+  font-size: 12px; font-weight: 600;
+}
+.delta-up { color: var(--forest-green); }
+.delta-down { color: var(--brand-orange); }
+.net-summary {
+  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.5);
+  padding: 8px 0 0;
+}
+
+/* budget rows */
+.budget-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  padding: 14px 0;
+}
+.budget-row + .budget-row { border-top: 1px solid rgba(255,255,255,.06); }
+.budget-icon { font-size: 18px; width: 28px; text-align: center; }
+.budget-name {
+  font-size: 15px; font-weight: 600; color: #fff; flex: 1;
+}
+.budget-amounts {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.6);
+  font-variant-numeric: tabular-nums;
+}
+.budget-bar-wrap {
+  width: 100%; height: 6px; border-radius: 3px; background: rgba(255,255,255,.08);
+  overflow: hidden;
+}
+.budget-bar-fill {
+  height: 100%; border-radius: 3px; background: var(--brand-orange);
+  transition: width var(--dur-slow) var(--ease-flow);
+}
+.budget-bar-fill.over { background: var(--error-red); }
+.budget-pct {
+  width: 100%; text-align: right; font-size: 11px; font-weight: 500;
+  color: rgba(255,255,255,.4); margin-top: 2px;
+}
+
+/* transaction rows */
+.txn-row {
+  display: flex; align-items: center; gap: 12px; padding: 14px 0;
+}
+.txn-row + .txn-row { border-top: 1px solid rgba(255,255,255,.06); }
+.txn-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.txn-info { flex: 1; min-width: 0; }
+.txn-merchant {
+  font-size: 15px; font-weight: 600; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.txn-date {
+  font-size: 12px; font-weight: 400; color: rgba(255,255,255,.45); margin-top: 2px;
+}
+.txn-amount {
+  font-size: 16px; font-weight: 600; color: #fff; flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.txn-amount.income { color: var(--forest-green); }
+
+/* savings goal */
+.savings-label {
+  font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px;
+}
+.savings-amounts {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.6);
+  font-variant-numeric: tabular-nums; margin-bottom: 10px;
+}
+.savings-bar-wrap {
+  width: 100%; height: 8px; border-radius: 4px; background: rgba(255,255,255,.08);
+  overflow: hidden;
+}
+.savings-bar-fill {
+  height: 100%; border-radius: 4px; background: var(--forest-green);
+  transition: width var(--dur-slow) var(--ease-flow);
+}
+
+/* spending trend chart */
+.trend-chart-wrap {
+  position: relative; padding: 8px 0;
+}
+.trend-toggle {
+  display: flex; gap: 0; position: absolute; top: 8px; right: 0;
+  background: rgba(255,255,255,.06); border-radius: var(--r-pill); overflow: hidden;
+}
+.trend-seg {
+  padding: 4px 12px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,.45);
+  cursor: pointer; border: none; background: none;
+}
+.trend-seg.active {
+  background: var(--brand-orange); color: #fff; border-radius: var(--r-pill);
+}
+.trend-chart-svg {
+  width: 100%; height: 80px; margin-top: 32px;
+}
+
+/* ═══════════════════════════════════════
+   SCREEN 31: TRANSACTION DETAIL
+   ═══════════════════════════════════════ */
+.amount-hero {
+  text-align: center; padding: 24px 0 8px;
+}
+.amount-value {
+  font-size: 36px; font-weight: 700; color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.amount-label {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.5); margin-top: 4px;
+}
+
+.category-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 18px; border-radius: var(--r-pill);
+  font-size: 15px; font-weight: 600; margin: 12px auto; cursor: pointer;
+}
+.category-chip.dining {
+  background: rgba(16,185,129,.12); color: var(--finance);
+  border: 1px solid rgba(16,185,129,.25);
+}
+.chip-center { text-align: center; }
+
+.detail-card {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.detail-field + .detail-field { margin-top: 16px; }
+.detail-field-label {
+  font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin-bottom: 4px;
+}
+.detail-field-value {
+  font-size: 16px; font-weight: 400; color: #fff;
+}
+.detail-field-value.note {
+  color: rgba(255,255,255,.8);
+}
+.receipt-placeholder {
+  width: 100%; height: 140px; border-radius: var(--r-md);
+  background: rgba(255,255,255,.04); border: 1px dashed rgba(255,255,255,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: rgba(255,255,255,.3); flex-direction: column; gap: 8px;
+}
+.receipt-placeholder svg { width: 32px; height: 32px; color: rgba(255,255,255,.2); }
+.recat-btn {
+  display: block; width: 100%; height: 48px; border-radius: var(--r-pill);
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.12);
+  color: #fff; font-size: 15px; font-weight: 600; font-family: 'Sora', sans-serif;
+  cursor: pointer; text-align: center;
+}
+
+/* ═══════════════════════════════════════
+   SCREEN 32: CAREER DASHBOARD
+   ═══════════════════════════════════════ */
+
+/* goal cards with progress rings */
+.goal-card-row {
+  display: flex; gap: 14px; align-items: flex-start; padding: 14px 0;
+}
+.goal-card-row + .goal-card-row { border-top: 1px solid rgba(255,255,255,.06); }
+.goal-ring {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.goal-ring::after {
+  content: ''; position: absolute; inset: 6px; border-radius: 50%;
+  background: var(--ink-brown);
+}
+.goal-ring .ring-pct {
+  position: relative; z-index: 1; font-size: 10px; font-weight: 700; color: #fff;
+}
+.goal-info { flex: 1; min-width: 0; }
+.goal-name {
+  font-size: 15px; font-weight: 600; color: #fff; line-height: 1.3;
+}
+.goal-meta {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.5); margin-top: 2px;
+}
+.goal-next {
+  font-size: 14px; font-weight: 500; color: var(--brand-orange); margin-top: 4px;
+  cursor: pointer;
+}
+
+/* AI action rows */
+.action-row {
+  display: flex; gap: 12px; align-items: flex-start; padding: 14px 0;
+}
+.action-row + .action-row { border-top: 1px solid rgba(255,255,255,.06); }
+.action-checkbox {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,.25); margin-top: 1px; cursor: pointer;
+}
+.action-text { flex: 1; }
+.action-desc {
+  font-size: 15px; font-weight: 400; color: #fff; line-height: 1.4;
+}
+.action-meta-row {
+  display: flex; gap: 8px; align-items: center; margin-top: 4px;
+}
+.action-type {
+  font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+.action-xp {
+  font-size: 13px; font-weight: 600; color: var(--brand-orange);
+}
+
+/* skill pills */
+.skills-row {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+}
+.skill-pill {
+  padding: 10px 16px; border-radius: var(--r-lg);
+  background: rgba(99,102,241,.12); display: flex; flex-direction: column;
+  align-items: center; gap: 2px;
+}
+.skill-name {
+  font-size: 11px; font-weight: 600; color: rgba(255,255,255,.7);
+}
+.skill-level {
+  font-size: 18px; font-weight: 700; color: #fff;
+}
+.skills-assessment {
+  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.6); margin-top: 12px;
+  line-height: 1.4;
+}
+
+/* deadline rows */
+.deadline-row {
+  display: flex; gap: 12px; align-items: center; padding: 14px 0;
+}
+.deadline-row + .deadline-row { border-top: 1px solid rgba(255,255,255,.06); }
+.deadline-icon {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(99,102,241,.12); display: flex; align-items: center; justify-content: center;
+}
+.deadline-icon svg { width: 16px; height: 16px; color: var(--career); }
+.deadline-info { flex: 1; }
+.deadline-name {
+  font-size: 15px; font-weight: 600; color: #fff;
+}
+.deadline-date {
+  font-size: 12px; font-weight: 400; color: rgba(255,255,255,.45); margin-top: 2px;
+}
+.deadline-date.approaching { color: var(--brand-orange); font-weight: 600; }
+.deadline-date.urgent { color: var(--error-red); font-weight: 600; }
+
+/* ═══════════════════════════════════════
+   SCREEN 33: RELATIONSHIPS DASHBOARD
+   ═══════════════════════════════════════ */
+
+/* reminder rows */
+.reminder-row {
+  display: flex; gap: 12px; align-items: center; padding: 14px 0;
+}
+.reminder-row + .reminder-row { border-top: 1px solid rgba(255,255,255,.06); }
+.reminder-icon {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,94,0,.12); display: flex; align-items: center; justify-content: center;
+}
+.reminder-icon svg { width: 16px; height: 16px; color: var(--brand-orange); }
+.reminder-text {
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,.85); flex: 1; line-height: 1.4;
+}
+.reminder-chevron {
+  width: 20px; height: 20px; color: rgba(255,255,255,.25); flex-shrink: 0;
+}
+
+/* person rows */
+.person-row {
+  display: flex; gap: 12px; align-items: center; padding: 14px 0;
+}
+.person-row + .person-row { border-top: 1px solid rgba(255,255,255,.06); }
+.person-avatar {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(236,72,153,.12); display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 600; color: var(--relationships);
+}
+.person-info { flex: 1; min-width: 0; }
+.person-name {
+  font-size: 15px; font-weight: 600; color: #fff;
+}
+.person-meta {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.45); margin-top: 2px;
+}
+.person-meta.fading { color: var(--brand-orange); }
+.person-chevron {
+  width: 20px; height: 20px; color: rgba(255,255,255,.2); flex-shrink: 0;
+}
+.add-person-link {
+  font-size: 14px; font-weight: 500; color: var(--brand-orange); padding: 12px 0; cursor: pointer;
+}
+
+/* quality time entries */
+.qt-entry {
+  display: flex; gap: 12px; align-items: center; padding: 14px 0;
+}
+.qt-entry + .qt-entry { border-top: 1px solid rgba(255,255,255,.06); }
+.qt-icon {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(236,72,153,.12); display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.qt-info { flex: 1; }
+.qt-desc {
+  font-size: 15px; font-weight: 600; color: #fff;
+}
+.qt-meta {
+  font-size: 12px; font-weight: 400; color: rgba(255,255,255,.45); margin-top: 2px;
+}
+
+/* SIA suggestion card */
+.sia-suggest {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px;
+}
+.sia-suggest-top {
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.suggest-bulb {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,94,0,.12); display: flex; align-items: center; justify-content: center;
+}
+.suggest-bulb svg { width: 14px; height: 14px; color: var(--brand-orange); }
+.suggest-text {
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,.85); line-height: 1.4; flex: 1;
+}
+.suggest-actions {
+  display: flex; gap: 8px; margin-top: 14px; padding-left: 38px;
+}
+.btn-do {
+  height: 36px; padding: 0 20px; border-radius: var(--r-pill); border: none;
+  background: var(--brand-orange); color: #fff; font-size: 13px; font-weight: 600;
+  font-family: 'Sora', sans-serif; cursor: pointer;
+}
+.btn-skip {
+  height: 36px; padding: 0 20px; border-radius: var(--r-pill);
+  background: transparent; border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.45); font-size: 13px; font-weight: 600;
+  font-family: 'Sora', sans-serif; cursor: pointer;
+}
+
+/* upcoming date rows */
+.date-row {
+  display: flex; gap: 12px; align-items: center; padding: 14px 0;
+}
+.date-row + .date-row { border-top: 1px solid rgba(255,255,255,.06); }
+.date-emoji { font-size: 20px; width: 28px; text-align: center; flex-shrink: 0; }
+.date-info { flex: 1; }
+.date-name {
+  font-size: 15px; font-weight: 600; color: #fff;
+}
+.date-countdown {
+  font-size: 12px; font-weight: 400; color: rgba(255,255,255,.45); margin-top: 2px;
+}
+.date-countdown.approaching { color: var(--brand-orange); font-weight: 600; }
+.date-countdown.urgent { color: var(--error-red); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- page header -->
+<header class="page-header">
+  <h1>Wireframes</h1>
+  <h2>Finance + Career + Relationships</h2>
+  <span class="batch-label">Batch 9 · 4 screens</span>
+</header>
+
+<!-- carousel -->
+<section class="carousel-wrap">
+  <button class="nav-arrow prev" onclick="go(-1)" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+  </button>
+  <button class="nav-arrow next" onclick="go(1)">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+  </button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="track">
+
+      <!-- ════════════════════════════════════
+           SLIDE 1: Screen 30 — Finance Dashboard
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 30</div>
+          <div class="name">Finance / money map</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <!-- domain header -->
+            <div class="domain-header">
+              <div class="back-arrow">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="domain-title">Finance</div>
+              <div class="level-badge-domain finance">Lv.8 ⚡</div>
+              <div class="accent-line finance"></div>
+            </div>
+
+            <!-- scrollable content -->
+            <div class="dash-scroll">
+
+              <!-- SIA coaching note -->
+              <div class="sia-note">
+                <div class="sia-dot"></div>
+                <div>
+                  <div class="sia-note-text">Your dining spending is up 20% this week. Connected to stress?</div>
+                  <div class="sia-link">Ask SIA →</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- may overview KPI strip -->
+              <div class="sec-eyebrow">may overview</div>
+              <div class="section-gap-sm"></div>
+              <div class="kpi-strip">
+                <div class="kpi-card">
+                  <div class="kpi-label">income</div>
+                  <div class="kpi-amount">$4,280</div>
+                  <div class="kpi-delta delta-up">↑ 3.2%</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">spent</div>
+                  <div class="kpi-amount">$2,150</div>
+                  <div class="kpi-delta delta-down">↓ 8.1%</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">saved</div>
+                  <div class="kpi-amount">$930</div>
+                  <div class="kpi-delta delta-up">↑ 12%</div>
+                </div>
+              </div>
+              <div class="net-summary">net: +$2,130 vs last month</div>
+
+              <div class="section-gap"></div>
+
+              <!-- budgets -->
+              <div class="sec-head">
+                <div class="sec-eyebrow">budgets</div>
+                <div class="sec-link">View all</div>
+              </div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div class="budget-row">
+                  <div class="budget-icon">🍽️</div>
+                  <div class="budget-name">Dining</div>
+                  <div class="budget-amounts">$320 / $500</div>
+                  <div class="budget-bar-wrap"><div class="budget-bar-fill" style="width:64%"></div></div>
+                  <div class="budget-pct">64%</div>
+                </div>
+                <div class="budget-row">
+                  <div class="budget-icon">🏠</div>
+                  <div class="budget-name">Housing</div>
+                  <div class="budget-amounts">$1,200 / $1,200</div>
+                  <div class="budget-bar-wrap"><div class="budget-bar-fill over" style="width:100%"></div></div>
+                  <div class="budget-pct">100%</div>
+                </div>
+                <div class="budget-row">
+                  <div class="budget-icon">🚗</div>
+                  <div class="budget-name">Transport</div>
+                  <div class="budget-amounts">$180 / $300</div>
+                  <div class="budget-bar-wrap"><div class="budget-bar-fill" style="width:60%"></div></div>
+                  <div class="budget-pct">60%</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- recent transactions -->
+              <div class="sec-head">
+                <div class="sec-eyebrow">recent transactions</div>
+                <div class="sec-link">View all</div>
+              </div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div class="txn-row">
+                  <div class="txn-icon" style="background:rgba(16,185,129,.12)">🛒</div>
+                  <div class="txn-info">
+                    <div class="txn-merchant">Whole Foods</div>
+                    <div class="txn-date">May 20</div>
+                  </div>
+                  <div class="txn-amount">-$47.80</div>
+                </div>
+                <div class="txn-row">
+                  <div class="txn-icon" style="background:rgba(52,168,83,.12)">💰</div>
+                  <div class="txn-info">
+                    <div class="txn-merchant">Salary</div>
+                    <div class="txn-date">May 19</div>
+                  </div>
+                  <div class="txn-amount income">+$4,280</div>
+                </div>
+                <div class="txn-row">
+                  <div class="txn-icon" style="background:rgba(255,94,0,.12)">🚕</div>
+                  <div class="txn-info">
+                    <div class="txn-merchant">Uber</div>
+                    <div class="txn-date">May 19</div>
+                  </div>
+                  <div class="txn-amount">-$12.50</div>
+                </div>
+                <div class="txn-row">
+                  <div class="txn-icon" style="background:rgba(127,36,255,.12)">🎬</div>
+                  <div class="txn-info">
+                    <div class="txn-merchant">Netflix</div>
+                    <div class="txn-date">May 18</div>
+                  </div>
+                  <div class="txn-amount">-$15.99</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- savings goals -->
+              <div class="sec-eyebrow">savings goals</div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card-sm">
+                <div class="savings-label">Emergency fund</div>
+                <div class="savings-amounts">$2,400 / $5,000 · 48%</div>
+                <div class="savings-bar-wrap"><div class="savings-bar-fill" style="width:48%"></div></div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- spending trend -->
+              <div class="sec-eyebrow">spending trend</div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card-sm">
+                <div class="trend-chart-wrap">
+                  <div class="trend-toggle">
+                    <button class="trend-seg active">7d</button>
+                    <button class="trend-seg">30d</button>
+                  </div>
+                  <svg class="trend-chart-svg" viewBox="0 0 320 80" fill="none" preserveAspectRatio="none">
+                    <polyline points="0,65 53,50 107,58 160,35 213,42 267,28 320,20" stroke="#FF5E00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <polyline points="267,28 320,20" stroke="none"/>
+                    <polyline points="267,28 293,18 320,14" stroke="#7F24FF" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" fill="none"/>
+                    <circle cx="0" cy="65" r="3" fill="#FF5E00"/>
+                    <circle cx="53" cy="50" r="3" fill="#FF5E00"/>
+                    <circle cx="107" cy="58" r="3" fill="#FF5E00"/>
+                    <circle cx="160" cy="35" r="3" fill="#FF5E00"/>
+                    <circle cx="213" cy="42" r="3" fill="#FF5E00"/>
+                    <circle cx="267" cy="28" r="3" fill="#FF5E00"/>
+                    <circle cx="320" cy="20" r="3" fill="#FF5E00"/>
+                  </svg>
+                </div>
+              </div>
+
+            </div><!-- /dash-scroll -->
+          </div><!-- /screen -->
+
+          <!-- FAB -->
+          <div class="fab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+
+          <!-- tab bar -->
+          <div class="bottom-tab-bar">
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+              </svg>
+              <span>Today</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+              </svg>
+              <span>SIA</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+              </svg>
+              <span>Goals</span>
+            </div>
+            <div class="tab-item active">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Me</span>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 2: Screen 31 — Transaction Detail
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 31</div>
+          <div class="name">Transaction detail</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <!-- detail header -->
+            <div class="detail-header">
+              <div class="back-arrow" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="detail-title">Transaction</div>
+              <div class="header-action">✏️</div>
+              <div class="header-action">🗑️</div>
+            </div>
+
+            <!-- scrollable content -->
+            <div class="dash-scroll">
+
+              <!-- amount display -->
+              <div class="amount-hero">
+                <div class="amount-value">-$32.50</div>
+                <div class="amount-label">expense</div>
+              </div>
+
+              <!-- category chip -->
+              <div class="chip-center">
+                <div class="category-chip dining">🍽️ Dining</div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- details card -->
+              <div class="detail-card">
+                <div class="detail-field">
+                  <div class="detail-field-label">merchant</div>
+                  <div class="detail-field-value">Shake Shack</div>
+                </div>
+                <div class="detail-field">
+                  <div class="detail-field-label">date & time</div>
+                  <div class="detail-field-value">May 20, 2026 · 12:34 PM</div>
+                </div>
+                <div class="detail-field">
+                  <div class="detail-field-label">note</div>
+                  <div class="detail-field-value note">Lunch with Ali</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- receipt photo placeholder -->
+              <div class="receipt-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+                </svg>
+                receipt photo
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- SIA context -->
+              <div class="sia-note">
+                <div class="sia-dot"></div>
+                <div>
+                  <div class="sia-note-text">You've spent $120 on dining this week, 38% of your monthly budget.</div>
+                  <div class="sia-link">Ask SIA →</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- recategorize button -->
+              <button class="recat-btn">Recategorize</button>
+
+            </div><!-- /dash-scroll -->
+          </div><!-- /screen -->
+
+          <!-- tab bar -->
+          <div class="bottom-tab-bar">
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+              </svg>
+              <span>Today</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+              </svg>
+              <span>SIA</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+              </svg>
+              <span>Goals</span>
+            </div>
+            <div class="tab-item active">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Me</span>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 3: Screen 32 — Career Dashboard
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 32</div>
+          <div class="name">Career & work</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <!-- domain header -->
+            <div class="domain-header">
+              <div class="back-arrow">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="domain-title">Career & work</div>
+              <div class="level-badge-domain career">Lv.5 ⚡</div>
+              <div class="accent-line career"></div>
+            </div>
+
+            <!-- scrollable content -->
+            <div class="dash-scroll">
+
+              <!-- SIA coaching note -->
+              <div class="sia-note">
+                <div class="sia-dot"></div>
+                <div>
+                  <div class="sia-note-text">Your productivity peaks after morning workouts. Schedule deep work for 10am?</div>
+                  <div class="sia-link">Ask SIA →</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- active goals -->
+              <div class="sec-eyebrow">active goals</div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div class="goal-card-row">
+                  <div class="goal-ring" style="background:conic-gradient(#FF5E00 0% 65%, rgba(255,255,255,.1) 65% 100%)">
+                    <span class="ring-pct">65%</span>
+                  </div>
+                  <div class="goal-info">
+                    <div class="goal-name">Get promoted to senior</div>
+                    <div class="goal-meta">3 of 8 actions done</div>
+                    <div class="goal-next">next: update portfolio</div>
+                  </div>
+                </div>
+                <div class="goal-card-row">
+                  <div class="goal-ring" style="background:conic-gradient(#FF5E00 0% 40%, rgba(255,255,255,.1) 40% 100%)">
+                    <span class="ring-pct">40%</span>
+                  </div>
+                  <div class="goal-info">
+                    <div class="goal-name">Learn Python basics</div>
+                    <div class="goal-meta">8 of 20 actions done</div>
+                    <div class="goal-next">next: complete chapter 5</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- suggested actions -->
+              <div class="sec-eyebrow">suggested actions</div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div class="action-row">
+                  <div class="action-checkbox"></div>
+                  <div class="action-text">
+                    <div class="action-desc">Reach out to mentor for feedback</div>
+                    <div class="action-meta-row">
+                      <span class="action-type">networking</span>
+                      <span class="action-xp">+15 XP</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="action-row">
+                  <div class="action-checkbox"></div>
+                  <div class="action-text">
+                    <div class="action-desc">Review quarterly goals document</div>
+                    <div class="action-meta-row">
+                      <span class="action-type">planning</span>
+                      <span class="action-xp">+20 XP</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="action-row">
+                  <div class="action-checkbox"></div>
+                  <div class="action-text">
+                    <div class="action-desc">Read 1 chapter of Deep Work</div>
+                    <div class="action-meta-row">
+                      <span class="action-type">skill</span>
+                      <span class="action-xp">+10 XP</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- growth trajectory -->
+              <div class="sec-eyebrow">growth trajectory</div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div style="font-size:15px;font-weight:600;color:#fff;">Skills snapshot</div>
+                <div class="skills-row">
+                  <div class="skill-pill">
+                    <div class="skill-name">Leadership</div>
+                    <div class="skill-level">7</div>
+                  </div>
+                  <div class="skill-pill">
+                    <div class="skill-name">Communication</div>
+                    <div class="skill-level">6</div>
+                  </div>
+                  <div class="skill-pill">
+                    <div class="skill-name">Python</div>
+                    <div class="skill-level">3</div>
+                  </div>
+                  <div class="skill-pill">
+                    <div class="skill-name">Management</div>
+                    <div class="skill-level">5</div>
+                  </div>
+                </div>
+                <div class="skills-assessment">Communication is your strongest area. Python is growing fast.</div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- upcoming deadlines -->
+              <div class="sec-eyebrow">upcoming</div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div class="deadline-row">
+                  <div class="deadline-icon">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                      <rect x="2" y="3" width="12" height="12" rx="2"/><path d="M5 1v4M11 1v4M2 7h12"/>
+                    </svg>
+                  </div>
+                  <div class="deadline-info">
+                    <div class="deadline-name">Performance review</div>
+                    <div class="deadline-date">Jun 15 · 26 days away</div>
+                  </div>
+                </div>
+                <div class="deadline-row">
+                  <div class="deadline-icon">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                      <rect x="2" y="3" width="12" height="12" rx="2"/><path d="M5 1v4M11 1v4M2 7h12"/>
+                    </svg>
+                  </div>
+                  <div class="deadline-info">
+                    <div class="deadline-name">Project deadline</div>
+                    <div class="deadline-date approaching">May 28 · 8 days away</div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /dash-scroll -->
+          </div><!-- /screen -->
+
+          <!-- tab bar -->
+          <div class="bottom-tab-bar">
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+              </svg>
+              <span>Today</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+              </svg>
+              <span>SIA</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+              </svg>
+              <span>Goals</span>
+            </div>
+            <div class="tab-item active">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Me</span>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 4: Screen 33 — Relationships Dashboard
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 33</div>
+          <div class="name">Relationships</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <!-- domain header -->
+            <div class="domain-header">
+              <div class="back-arrow">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="domain-title">Relationships</div>
+              <div class="level-badge-domain rel">Lv.6 ⚡</div>
+              <div class="accent-line rel"></div>
+            </div>
+
+            <!-- scrollable content -->
+            <div class="dash-scroll">
+
+              <!-- SIA coaching note -->
+              <div class="sia-note">
+                <div class="sia-dot"></div>
+                <div>
+                  <div class="sia-note-text">You feel more energized after time with friends. You haven't seen anyone socially in 10 days.</div>
+                  <div class="sia-link">Ask SIA →</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- check-in reminders -->
+              <div class="sec-eyebrow">check in</div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div class="reminder-row">
+                  <div class="reminder-icon">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                      <path d="M8 5v3M8 11h.01"/><circle cx="8" cy="8" r="7"/>
+                    </svg>
+                  </div>
+                  <div class="reminder-text">It's been 2 weeks since you connected with Ahmed</div>
+                  <svg class="reminder-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+                </div>
+                <div class="reminder-row">
+                  <div class="reminder-icon">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                      <path d="M8 5v3M8 11h.01"/><circle cx="8" cy="8" r="7"/>
+                    </svg>
+                  </div>
+                  <div class="reminder-text">Mom's birthday is in 3 days</div>
+                  <svg class="reminder-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- key people -->
+              <div class="sec-eyebrow">key people</div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div class="person-row">
+                  <div class="person-avatar">S</div>
+                  <div class="person-info">
+                    <div class="person-name">Sarah</div>
+                    <div class="person-meta">wife · 2 days ago</div>
+                  </div>
+                  <svg class="person-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+                </div>
+                <div class="person-row">
+                  <div class="person-avatar">A</div>
+                  <div class="person-info">
+                    <div class="person-name">Ahmed</div>
+                    <div class="person-meta fading">friend · 14 days ago</div>
+                  </div>
+                  <svg class="person-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+                </div>
+                <div class="person-row">
+                  <div class="person-avatar">M</div>
+                  <div class="person-info">
+                    <div class="person-name">Mom</div>
+                    <div class="person-meta">family · 5 days ago</div>
+                  </div>
+                  <svg class="person-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+                </div>
+                <div class="person-row">
+                  <div class="person-avatar">A</div>
+                  <div class="person-info">
+                    <div class="person-name">Ali</div>
+                    <div class="person-meta">colleague · 1 day ago</div>
+                  </div>
+                  <svg class="person-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+                </div>
+                <div class="add-person-link">+ Add person</div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- recent quality time -->
+              <div class="sec-head">
+                <div class="sec-eyebrow">recent quality time</div>
+                <div class="sec-link">View all</div>
+              </div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div class="qt-entry">
+                  <div class="qt-icon">☕</div>
+                  <div class="qt-info">
+                    <div class="qt-desc">Coffee with Ahmed</div>
+                    <div class="qt-meta">May 6 · 45 min</div>
+                  </div>
+                </div>
+                <div class="qt-entry">
+                  <div class="qt-icon">🍽️</div>
+                  <div class="qt-info">
+                    <div class="qt-desc">Dinner with Sarah</div>
+                    <div class="qt-meta">May 18 · 1.5 hrs</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- SIA suggestion -->
+              <div class="sec-eyebrow">sia suggests</div>
+              <div class="section-gap-sm"></div>
+              <div class="sia-suggest">
+                <div class="sia-suggest-top">
+                  <div class="suggest-bulb">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                      <path d="M6 13h4M6.5 14h3M8 1a5 5 0 00-2 9.58V12h4v-1.42A5 5 0 008 1z"/>
+                    </svg>
+                  </div>
+                  <div class="suggest-text">Call Ahmed this week. You always feel better after catching up.</div>
+                </div>
+                <div class="suggest-actions">
+                  <button class="btn-do">Do it</button>
+                  <button class="btn-skip">Skip</button>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- upcoming dates -->
+              <div class="sec-eyebrow">upcoming dates</div>
+              <div class="section-gap-sm"></div>
+              <div class="content-card">
+                <div class="date-row">
+                  <div class="date-emoji">🎂</div>
+                  <div class="date-info">
+                    <div class="date-name">Mom's birthday</div>
+                    <div class="date-countdown approaching">May 23 · 3 days away</div>
+                  </div>
+                </div>
+                <div class="date-row">
+                  <div class="date-emoji">💍</div>
+                  <div class="date-info">
+                    <div class="date-name">Anniversary with Sarah</div>
+                    <div class="date-countdown">Jun 12 · 23 days away</div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /dash-scroll -->
+          </div><!-- /screen -->
+
+          <!-- FAB -->
+          <div class="fab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+
+          <!-- tab bar -->
+          <div class="bottom-tab-bar">
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+              </svg>
+              <span>Today</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+              </svg>
+              <span>SIA</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+              </svg>
+              <span>Goals</span>
+            </div>
+            <div class="tab-item active">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Me</span>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- thumbnail strip -->
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goTo(0)"><div class="thumb-num">30</div></div>
+    <div class="thumb" onclick="goTo(1)"><div class="thumb-num">31</div></div>
+    <div class="thumb" onclick="goTo(2)"><div class="thumb-num">32</div></div>
+    <div class="thumb" onclick="goTo(3)"><div class="thumb-num">33</div></div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const total = 4;
+const track = document.getElementById('track');
+const thumbs = document.querySelectorAll('.thumb');
+const prevBtn = document.querySelector('.nav-arrow.prev');
+const nextBtn = document.querySelector('.nav-arrow.next');
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function go(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function renderThumbs() {
+  const slides = document.querySelectorAll('.carousel-slide');
+  slides.forEach((slide, i) => {
+    if (!thumbs[i]) return;
+    const canvas = document.createElement('canvas');
+    canvas.width = 56; canvas.height = 120;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0A0A0F';
+    ctx.fillRect(0, 0, 56, 120);
+
+    if (i === 0) {
+      // Finance: emerald accent, KPI strip, budget bars, txn lines
+      ctx.fillStyle = '#10B981'; ctx.fillRect(4, 8, 48, 2);
+      ctx.fillStyle = '#211008';
+      [16, 16, 16].forEach((w, j) => { ctx.fillRect(4 + j * 17, 18, 15, 18); });
+      ctx.fillStyle = '#FF5E00';
+      ctx.fillRect(4, 32, 9, 2); ctx.fillRect(4+17, 32, 12, 2); ctx.fillRect(4+34, 32, 8, 2);
+      ctx.fillStyle = 'rgba(255,255,255,.15)';
+      [44, 54, 64].forEach(y => { ctx.fillRect(4, y, 48, 6); });
+      ctx.fillStyle = '#FF5E00';
+      ctx.fillRect(4, 44, 31, 6); ctx.fillRect(4, 54, 48, 6); ctx.fillRect(4, 64, 29, 6);
+      ctx.fillStyle = 'rgba(255,255,255,.08)';
+      [78, 86, 94, 102].forEach(y => { ctx.fillRect(4, y, 48, 5); });
+    } else if (i === 1) {
+      // Transaction: big amount, category chip, detail lines
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 8px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('-$32.50', 28, 35);
+      ctx.fillStyle = 'rgba(16,185,129,.15)';
+      ctx.beginPath(); ctx.roundRect(14, 42, 28, 10, 5); ctx.fill();
+      ctx.fillStyle = '#10B981'; ctx.font = '5px Sora';
+      ctx.fillText('Dining', 28, 50);
+      ctx.fillStyle = '#211008';
+      ctx.fillRect(6, 58, 44, 36);
+      ctx.fillStyle = 'rgba(255,255,255,.1)';
+      [64, 74, 84].forEach(y => { ctx.fillRect(10, y, 36, 1); });
+      ctx.fillStyle = 'rgba(255,255,255,.06)';
+      ctx.fillRect(6, 100, 44, 12);
+    } else if (i === 2) {
+      // Career: indigo accent, progress rings, action lines, skill pills
+      ctx.fillStyle = '#6366F1'; ctx.fillRect(4, 8, 48, 2);
+      ctx.strokeStyle = 'rgba(255,255,255,.1)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(16, 28, 6, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(16, 28, 6, -Math.PI/2, -Math.PI/2 + Math.PI*1.3); ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,.1)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(16, 46, 6, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(16, 46, 6, -Math.PI/2, -Math.PI/2 + Math.PI*0.8); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,.1)';
+      ctx.fillRect(26, 24, 24, 3); ctx.fillRect(26, 42, 24, 3);
+      ctx.fillStyle = 'rgba(255,255,255,.08)';
+      [60, 70, 80].forEach(y => { ctx.fillRect(4, y, 48, 6); });
+      ctx.fillStyle = 'rgba(99,102,241,.2)';
+      [92, 92, 92, 92].forEach((y, j) => { ctx.beginPath(); ctx.roundRect(4 + j*12, y, 10, 14, 3); ctx.fill(); });
+    } else if (i === 3) {
+      // Relationships: pink accent, avatar circles, person lines, date rows
+      ctx.fillStyle = '#EC4899'; ctx.fillRect(4, 8, 48, 2);
+      ctx.fillStyle = 'rgba(236,72,153,.15)';
+      [22, 36, 50, 64].forEach(y => {
+        ctx.beginPath(); ctx.arc(14, y, 6, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.fillStyle = 'rgba(255,255,255,.15)';
+      [19, 33, 47, 61].forEach(y => { ctx.fillRect(24, y, 26, 3); ctx.fillRect(24, y+5, 18, 2); });
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.roundRect(4, 82, 48, 18, 4); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = '5px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('do it', 28, 94);
+    }
+    thumbs[i].prepend(canvas);
+  });
+}
+renderThumbs();
+
+const sp = new URLSearchParams(window.location.search);
+if (sp.has('start')) {
+  const s = parseInt(sp.get('start'));
+  if (!isNaN(s) && s >= 0 && s < total) {
+    track.style.transition = 'none';
+    goTo(s);
+    requestAnimationFrame(() => track.style.transition = '');
+  }
+}
+</script>
+</body>
+</html>

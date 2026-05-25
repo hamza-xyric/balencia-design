@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-18T16:11:00Z",
+  "title": "Design System: Balencia",
+  "extensions": {
+    "colorMeta": {
+      "orange": {
+        "role": "primary",
+        "displayName": "Burnt Orange",
+        "canonical": "oklch(64% 0.21 38)",
+        "tonalRamp": [
+          "oklch(20% 0.06 38)",
+          "oklch(30% 0.10 38)",
+          "oklch(40% 0.14 38)",
+          "oklch(48% 0.17 38)",
+          "oklch(57% 0.20 38)",
+          "oklch(64% 0.21 38)",
+          "oklch(76% 0.16 38)",
+          "oklch(92% 0.07 38)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Forest Green",
+        "canonical": "oklch(63% 0.16 145)",
+        "tonalRamp": [
+          "oklch(18% 0.04 145)",
+          "oklch(28% 0.07 145)",
+          "oklch(38% 0.10 145)",
+          "oklch(48% 0.13 145)",
+          "oklch(56% 0.15 145)",
+          "oklch(63% 0.16 145)",
+          "oklch(75% 0.13 145)",
+          "oklch(92% 0.05 145)"
+        ]
+      },
+      "purple": {
+        "role": "tertiary",
+        "displayName": "Royal Purple",
+        "canonical": "oklch(50% 0.30 290)",
+        "tonalRamp": [
+          "oklch(15% 0.10 290)",
+          "oklch(25% 0.16 290)",
+          "oklch(35% 0.22 290)",
+          "oklch(42% 0.27 290)",
+          "oklch(50% 0.30 290)",
+          "oklch(60% 0.26 290)",
+          "oklch(75% 0.18 290)",
+          "oklch(92% 0.08 290)"
+        ]
+      },
+      "ink-900": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(13% 0.005 280)",
+        "tonalRamp": [
+          "oklch(6% 0.005 280)",
+          "oklch(10% 0.005 280)",
+          "oklch(13% 0.005 280)",
+          "oklch(18% 0.008 280)",
+          "oklch(28% 0.010 280)",
+          "oklch(45% 0.010 280)",
+          "oklch(70% 0.008 280)",
+          "oklch(92% 0.005 280)"
+        ]
+      },
+      "ink-brown-800": {
+        "role": "neutral",
+        "displayName": "Warm Brown Ink",
+        "canonical": "oklch(15% 0.025 50)",
+        "tonalRamp": [
+          "oklch(8% 0.012 50)",
+          "oklch(12% 0.018 50)",
+          "oklch(15% 0.025 50)",
+          "oklch(20% 0.030 50)",
+          "oklch(28% 0.035 50)",
+          "oklch(45% 0.030 50)",
+          "oklch(72% 0.020 50)",
+          "oklch(92% 0.010 50)"
+        ]
+      },
+      "ink-700": {
+        "role": "neutral",
+        "displayName": "Panel Ink",
+        "canonical": "oklch(20% 0.005 280)",
+        "tonalRamp": [
+          "oklch(10% 0.005 280)",
+          "oklch(15% 0.005 280)",
+          "oklch(20% 0.005 280)",
+          "oklch(28% 0.008 280)",
+          "oklch(40% 0.010 280)",
+          "oklch(58% 0.008 280)",
+          "oklch(78% 0.006 280)",
+          "oklch(94% 0.005 280)"
+        ]
+      },
+      "paper-100": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "oklch(98% 0.010 80)",
+        "tonalRamp": [
+          "oklch(20% 0.005 80)",
+          "oklch(38% 0.008 80)",
+          "oklch(55% 0.010 80)",
+          "oklch(70% 0.012 80)",
+          "oklch(82% 0.012 80)",
+          "oklch(90% 0.012 80)",
+          "oklch(95% 0.010 80)",
+          "oklch(98% 0.010 80)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display-xl": { "displayName": "Display XL", "purpose": "Hero and billboard moments. One per surface, often a single accent word ending in a period." },
+      "display-l":  { "displayName": "Display L",  "purpose": "Section title on hero pages." },
+      "h1":         { "displayName": "H1",         "purpose": "Page heading." },
+      "h2":         { "displayName": "H2",         "purpose": "Section heading." },
+      "h3":         { "displayName": "H3",         "purpose": "Card title." },
+      "lead":       { "displayName": "Lead",       "purpose": "Intro paragraph. Line length 65–75ch." },
+      "body":       { "displayName": "Body",       "purpose": "Default paragraph. Line length 65–75ch." },
+      "eyebrow":    { "displayName": "Eyebrow",    "purpose": "Section label, meta label, segmented-control item. The only uppercase exception." },
+      "logo":       { "displayName": "Logo",       "purpose": "Monda 800. Reserved exclusively for the wordmark. Never enters UI text." }
+    },
+    "shadows": [
+      { "name": "shadow-1",     "value": "0 8px 24px rgba(33, 16, 8, 0.18)",  "purpose": "Lifted card on hover, soft ambient warm-brown drop." },
+      { "name": "shadow-2",     "value": "0 18px 48px rgba(33, 16, 8, 0.22)", "purpose": "Bottom sheet at rest." },
+      { "name": "shadow-3",     "value": "0 32px 80px rgba(33, 16, 8, 0.28)", "purpose": "Modal and hero surface drop." },
+      { "name": "glow-orange",  "value": "0 0 32px rgba(255, 94, 0, 0.45)",   "purpose": "Primary-action moment. Halo on primary button hover, streak chip arrival." },
+      { "name": "glow-green",   "value": "0 0 32px rgba(52, 168, 83, 0.40)",  "purpose": "Arrival moment. Halo on milestone dot at the instant of completion." },
+      { "name": "glow-purple",  "value": "0 0 32px rgba(127, 36, 255, 0.40)", "purpose": "Cia entering. Halo on the coach avatar when Cia speaks." }
+    ],
+    "motion": [
+      { "name": "ease-flow",      "value": "cubic-bezier(0.65, 0.05, 0.36, 1)", "purpose": "Signature non-linear journey. Stroke-line draw, hero entrances." },
+      { "name": "ease-out-soft",  "value": "cubic-bezier(0.22, 0.61, 0.36, 1)", "purpose": "UI default. Buttons, chips, inputs, hover states." },
+      { "name": "ease-in-out",    "value": "cubic-bezier(0.65, 0, 0.35, 1)",    "purpose": "Two-way transitions. Open/close, expand/collapse." },
+      { "name": "dur-fast",       "value": "160ms",  "purpose": "Tiny feedback: taps, chip toggle, focus ring." },
+      { "name": "dur-base",       "value": "280ms",  "purpose": "Default UI transition. Buttons, cards, inputs." },
+      { "name": "dur-slow",       "value": "520ms",  "purpose": "Panels and surface transitions, bottom sheet." },
+      { "name": "dur-flow",       "value": "1200ms", "purpose": "Continuous-stroke line drawing itself. Hero choreography only." }
+    ],
+    "strokes": [
+      { "name": "stroke-thin",   "value": "2px",  "purpose": "Inline annotation, fine projection." },
+      { "name": "stroke-base",   "value": "4px",  "purpose": "Default body line, chart user-path." },
+      { "name": "stroke-bold",   "value": "8px",  "purpose": "Section header stroke, hero." },
+      { "name": "stroke-poster", "value": "12px", "purpose": "Hero / billboard line on brand color." }
+    ],
+    "gradients": [
+      { "name": "grad-progress",   "value": "linear-gradient(90deg, #19C9D2 0%, #FFB13D 100%)",                       "purpose": "Progress: teal-green movement into warm progress color." },
+      { "name": "grad-growth",     "value": "linear-gradient(90deg, #FFB33F 0%, #FF5E00 100%)",                       "purpose": "Growth: warm yellow/orange into stronger orange." },
+      { "name": "grad-status",     "value": "linear-gradient(90deg, #4EDB8C 0%, #FFB33F 100%)",                       "purpose": "0%→100% status scale for completion/progress." },
+      { "name": "grad-hero-glow",  "value": "radial-gradient(circle, rgba(255, 94, 0, 0.42) 0%, rgba(255, 94, 0, 0) 70%)", "purpose": "Dark-to-orange radial glow for atmosphere and hero depth." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "360px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The start-the-session moment. Burnt orange pill, paper-50 text, lifts on hover with an orange glow.",
+      "html": "<button class=\"ds-btn-primary\">Start session.</button>",
+      "css": ".ds-btn-primary { font-family: \"Sora\", system-ui, sans-serif; font-size: 16px; font-weight: 600; line-height: 1; color: #FDFDFB; background: #FF5E00; border: none; border-radius: 999px; padding: 16px 32px; min-height: 54px; cursor: pointer; transition: transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 280ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 32px rgba(255, 94, 0, 0.45); } .ds-btn-primary:focus-visible { outline: 2px solid #FF5E00; outline-offset: 2px; } .ds-btn-primary:active { transform: translateY(0); box-shadow: none; }"
+    },
+    {
+      "name": "Completion Button",
+      "kind": "button",
+      "refersTo": "button-completion",
+      "description": "Arrival moment: Done, Confirm, Saved. Forest green pill, paper-50 text.",
+      "html": "<button class=\"ds-btn-completion\">Done.</button>",
+      "css": ".ds-btn-completion { font-family: \"Sora\", system-ui, sans-serif; font-size: 16px; font-weight: 600; line-height: 1; color: #FDFDFB; background: #34A853; border: none; border-radius: 999px; padding: 16px 32px; min-height: 54px; cursor: pointer; transition: transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 280ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-btn-completion:hover { transform: translateY(-1px); box-shadow: 0 0 32px rgba(52, 168, 83, 0.40); } .ds-btn-completion:focus-visible { outline: 2px solid #34A853; outline-offset: 2px; }"
+    },
+    {
+      "name": "Skip Button",
+      "kind": "button",
+      "refersTo": "button-skip",
+      "description": "Low-emphasis neutral action. Used when the user is allowed to defer without losing context.",
+      "html": "<button class=\"ds-btn-skip\">Skip</button>",
+      "css": ".ds-btn-skip { font-family: \"Sora\", system-ui, sans-serif; font-size: 16px; font-weight: 600; line-height: 1; color: #FDFDFB; background: #171717; border: none; border-radius: 999px; padding: 16px 32px; min-height: 54px; cursor: pointer; transition: background-color 160ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-btn-skip:hover { background: #211008; } .ds-btn-skip:focus-visible { outline: 2px solid #FF5E00; outline-offset: 2px; }"
+    },
+    {
+      "name": "Coach Insight Chip",
+      "kind": "chip",
+      "refersTo": "chip-coach",
+      "description": "Cia's voice. Purple pill with eyebrow type, used to label AI-interpreted moments. Sparingly — purple carries 10%.",
+      "html": "<span class=\"ds-chip-coach\">Cia insight</span>",
+      "css": ".ds-chip-coach { display: inline-flex; align-items: center; font-family: \"Sora\", system-ui, sans-serif; font-size: 12px; font-weight: 600; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; color: #FDFDFB; background: #7F24FF; border-radius: 999px; padding: 8px 14px; min-height: 28px; }"
+    },
+    {
+      "name": "Streak Chip",
+      "kind": "chip",
+      "refersTo": "chip-action",
+      "description": "User-voice moment: streaks, consistency, activity in motion. Burnt orange pill.",
+      "html": "<span class=\"ds-chip-action\">12-day streak</span>",
+      "css": ".ds-chip-action { display: inline-flex; align-items: center; gap: 6px; font-family: \"Sora\", system-ui, sans-serif; font-size: 12px; font-weight: 600; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; color: #FDFDFB; background: #FF5E00; border-radius: 999px; padding: 8px 14px; min-height: 28px; }"
+    },
+    {
+      "name": "Daily Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "The default daily surface: warm-brown ink background, paper-100 text, 28px radius. Flat at rest, lifts with shadow-1 on hover. Never nest cards.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-card-eyebrow\">TODAY'S SESSION · 18 MIN</span><h3 class=\"ds-card-title\">A steady walk.</h3><p class=\"ds-card-body\">Recovery is improving. Keep the pace gentle.</p></article>",
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 12px; background: #211008; color: #FEFAF3; border-radius: 28px; padding: 24px; transition: transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 280ms cubic-bezier(0.22, 0.61, 0.36, 1); } .ds-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(33, 16, 8, 0.18); } .ds-card-eyebrow { font-family: \"Sora\", system-ui, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #F2ECD8; opacity: 0.7; } .ds-card-title { font-family: \"Sora\", system-ui, sans-serif; font-size: 28px; font-weight: 600; line-height: 34px; margin: 0; color: #FEFAF3; } .ds-card-body { font-family: \"Sora\", system-ui, sans-serif; font-size: 16px; font-weight: 400; line-height: 25px; margin: 0; color: #F2ECD8; }"
+    },
+    {
+      "name": "Coach Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Signature element. The single large field where the user types to Cia. Carries the prompt \"What's worth your attention today?\" Sentence-case placeholder, brand period closes it.",
+      "html": "<label class=\"ds-coach-input\"><span class=\"ds-coach-input-eyebrow\">Cia</span><input type=\"text\" placeholder=\"What's worth your attention today?\" aria-label=\"Tell Cia what's worth your attention today\" /></label>",
+      "css": ".ds-coach-input { display: flex; align-items: center; gap: 12px; background: #171717; border-radius: 14px; padding: 14px 16px; min-height: 48px; transition: outline 160ms cubic-bezier(0.22, 0.61, 0.36, 1); outline: 2px solid transparent; outline-offset: 0; } .ds-coach-input:focus-within { outline: 2px solid #FF5E00; } .ds-coach-input-eyebrow { font-family: \"Sora\", system-ui, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #7F24FF; flex-shrink: 0; } .ds-coach-input input { flex: 1; min-width: 0; background: transparent; border: none; outline: none; font-family: \"Sora\", system-ui, sans-serif; font-size: 20px; font-weight: 400; line-height: 29px; color: #FDFDFB; } .ds-coach-input input::placeholder { color: #FDFDFB; opacity: 0.45; }"
+    },
+    {
+      "name": "Continuous Stroke Line",
+      "kind": "custom",
+      "refersTo": "stroke-base",
+      "description": "Balencia's signature. A single continuous SVG stroke representing voice, journey, breath, progress. The line draws itself — never fades. One motif per surface, maximum.",
+      "html": "<svg class=\"ds-stroke\" viewBox=\"0 0 320 80\" fill=\"none\" stroke=\"#FF5E00\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 60 C 60 60, 80 12, 130 28 S 220 64, 260 32 S 312 40, 312 40\" pathLength=\"1\" stroke-dasharray=\"1\" stroke-dashoffset=\"1\"><animate attributeName=\"stroke-dashoffset\" from=\"1\" to=\"0\" dur=\"1.2s\" begin=\"0s\" fill=\"freeze\" calcMode=\"spline\" keySplines=\"0.65 0.05 0.36 1\" keyTimes=\"0;1\" values=\"1;0\" /></path></svg>",
+      "css": ".ds-stroke { display: block; width: 100%; height: auto; max-width: 320px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Corner Coach",
+    "overview": "Balencia is the calm presence standing at the user's corner of the ring — not on the floor with them, not above them. The system speaks with the person, never at them. It sits between calm clarity and forward motion: grounded enough that nothing shouts, alive enough that nothing feels static. The audience is adults 25–45 navigating real change — career pivots, new parenthood, burnout recovery, identity shifts — who are allergic to wellness-influencer aesthetics and want a coach that questions before it answers and listens before it suggests.\n\nThe system is dark-primary. The default scene is a 32-year-old new parent at 6:47am, lit only by a phone screen on the kitchen counter, scanning Balencia for the first quiet signal of the day. Warm ink backgrounds carry the daily app surface; warm paper carries long-form coaching content and journal moments. Whitespace is generous (we call it the grid you don't see); the line motif draws itself across the interface as the visual signature of voice, breath, and progress. Hierarchy is built from size and weight, not from coloring every heading. The brand period is sacred — energy comes from the dot, not from punctuation.\n\nWhat this system explicitly rejects: the gym-challenge app, the hustle dashboard, the meditation cliché, the supplement-brand poster, the generic health-SaaS marketing site, and the wellness-influencer's saturated lifestyle palette. We do not crush goals — we ask what is worth your attention today.",
+    "keyCharacteristics": [
+      "Dark-primary surfaces with warm-brown ink tones, never cool gray",
+      "Generous spacing on an 8-pt scale; capsule-friendly radii",
+      "One geometric sans (Sora) carrying display, body, and accent — paired with Monda only for the logo",
+      "60% orange / 30% green / 10% purple, with one hero color per surface",
+      "The continuous stroke line as the system's signature, animated by drawing itself",
+      "Sentence case everywhere; the brand period closes every wordmark and accent moment",
+      "Cia — the coach voice — speaks in purple, conversationally, second person"
+    ],
+    "rules": [
+      { "name": "The 60/30/10 Rule",        "body": "Orange carries 60% of the visual weight, green 30%, purple 10%. One hero color per surface — never two at full saturation competing. All three brand colors at full saturation in one composition is forbidden, except in the four named journey gradients (grad-progress, grad-growth, grad-status, grad-hero-glow).", "section": "colors" },
+      { "name": "The One Voice Rule",       "body": "Royal Purple belongs to Cia. It is reserved for the coach's voice, AI insight, projected lines, and premium transformation moments. Purple is never decoration, never wallpaper, never the primary CTA. If purple appears for any other reason, it is wrong.", "section": "colors" },
+      { "name": "The Warm Ink Rule",        "body": "Neutrals tint toward warm-brown ink, never toward cool gray. The default daily surface is ink-brown-800 (#211008), not #1a1a1a. The paper family tints toward warm cream, not bluish white.", "section": "colors" },
+      { "name": "The Contrast Honesty Rule","body": "Brand orange and brand green do not meet WCAG AA as text on paper-100. When orange must carry text on a light surface, use it as a button background with paper-50 text only at body weight or larger, or substitute a darker accessible shade for body text. On ink-900 and ink-brown-800, orange and green pass AA cleanly. Purple needs a lighter dark-mode variant for sustained text.", "section": "colors" },
+      { "name": "The Sentence Case Rule",   "body": "Sentence case everywhere in UI: buttons, navigation, titles, cards, filters, tabs. Title Case is forbidden. The Eyebrow style is the only uppercase exception.", "section": "typography" },
+      { "name": "The Brand Period Rule",    "body": "Every wordmark, every accent word, every headline that carries identity weight ends with a period. The dot is the punctuation of confidence. Exclamation marks are forbidden in UI copy — energy comes from rhythm, layout, and the dot, never from !.", "section": "typography" },
+      { "name": "The Single-Family Rule",   "body": "Sora carries display, body, and accent. No display/body pairing. Monda is reserved exclusively for the logo wordmark.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Shadows appear only as a response to state (hover, elevation, focus). If the surface needs a shadow to be legible, the surface is wrong.", "section": "elevation" },
+      { "name": "The Soft Warm Rule",       "body": "All ambient shadows tint warm brown (rgba(33, 16, 8, 0.18) at shadow-1). Cold-gray shadows and harsh rgba(0, 0, 0, 0.5) drops are forbidden.", "section": "elevation" },
+      { "name": "The Glow-Per-Pillar Rule", "body": "Each pillar glow belongs to its semantic — glow-orange for action moments, glow-green for arrival moments, glow-purple for Cia insight. Glows never decorate; they punctuate a moment.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use orange as the primary 60% color: action, CTA, streaks, the user's voice on charts.",
+      "Do use green for arrival: completion buttons, milestone dots, success confirmations.",
+      "Do reserve purple for Cia: AI insights, the dashed projection line, premium transformation moments.",
+      "Do keep one hero color per surface. The journey gradient is the only place all three may meet.",
+      "Do use Sora for everything in UI: display, body, accent. Monda only for the wordmark.",
+      "Do build hierarchy through size and weight (≥1.25 ratio between steps), never by coloring headings.",
+      "Do use sentence case everywhere — buttons, titles, navigation, cards, filters, tabs.",
+      "Do end every wordmark and identity headline with the brand period.",
+      "Do use round caps and round joins on every stroke line; animate by drawing the line, never by fading.",
+      "Do verify contrast on light surfaces: brand orange and green need a darker shade for body text on paper-100.",
+      "Do respect prefers-reduced-motion: replace stroke-draw and slide motion with opacity-only alternatives."
+    ],
+    "donts": [
+      "Don't sound preachy, motivational, or hustle-flavored. \"Crush your goals today!\" is forbidden; ask \"What's worth your attention today?\" instead.",
+      "Don't use wellness-influencer aesthetics, gym-challenge UI, hustle-dashboard patterns, meditation clichés, supplement-brand visuals, or generic health-SaaS marketing language. These are Balencia's named anti-references.",
+      "Don't use exclamation marks anywhere in UI. Energy comes from rhythm and the brand period.",
+      "Don't use Title Case. Sentence case everywhere except the Eyebrow style.",
+      "Don't place orange, green, and purple all at full saturation in one composition. The journey gradient is the only exception.",
+      "Don't use purple as a wallpaper or for primary CTAs. Purple is Cia's voice — small quantities or it's wrong.",
+      "Don't use #000 or #fff. Use ink-900 and paper-50 (warm-tinted) instead.",
+      "Don't use side-stripe borders (border-left >1px as a colored accent on cards, list items, callouts). Never intentional.",
+      "Don't use gradient text (background-clip: text over a gradient). Use a single solid color; emphasis via weight or size.",
+      "Don't use glassmorphism as a default. Rare and purposeful, or nothing.",
+      "Don't ship identical card grids: six same-sized cards with icon + heading + one-line description, repeated. Vary composition or use chips.",
+      "Don't nest cards inside cards.",
+      "Don't use modals as the first thought for a flow — exhaust inline and progressive alternatives first.",
+      "Don't break the continuous stroke line into fragments, fade it in, center it symmetrically, use it as an input border, or wrap it around the logo.",
+      "Don't use a three-color gradient for data visualization (only the four named journey gradients are allowed).",
+      "Don't use dark color gradients in charts.",
+      "Don't use AI-generated stock photography, overly polished wellness stock, influencer posing, or cold clinical imagery.",
+      "Don't remove the brand period from the wordmark.",
+      "Don't wrap the continuous stroke line around the logo or recolor the brand mark randomly."
+    ]
+  }
+}

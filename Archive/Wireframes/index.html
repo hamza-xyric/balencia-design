@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — All Screens Navigator</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink-900:#0A0A0F;--ink-brown:#211008;--brand-orange:#FF5E00;--forest-green:#34A853;--royal-purple:#7F24FF;--white:#FFFFFF}
+html{font-family:'Sora',sans-serif;background:#090909;color:var(--white);overflow-x:hidden}
+body{min-height:100vh;padding:0 0 80px}
+
+/* Hero */
+.hero{text-align:center;padding:64px 24px 48px;max-width:800px;margin:0 auto}
+.hero-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:32px}
+.hero-logo svg{width:48px;height:48px}
+.hero-logo .wordmark{font-size:28px;font-weight:800;letter-spacing:-.025em;color:#fff}
+.hero-logo .wordmark .dot{color:var(--brand-orange)}
+.hero h1{font-size:42px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,#fff 30%,var(--brand-orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:16px;color:rgba(255,255,255,.5);line-height:1.6;max-width:500px;margin:0 auto}
+.stats-row{display:flex;gap:32px;justify-content:center;margin-top:32px}
+.stat{text-align:center}
+.stat .num{font-size:28px;font-weight:700;color:var(--brand-orange)}
+.stat .label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:4px}
+
+/* Batch Section */
+.batch-section{max-width:1200px;margin:0 auto;padding:0 24px}
+.batch-header{display:flex;align-items:center;gap:16px;margin:56px 0 24px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.batch-num{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-orange);background:rgba(255,94,0,.1);border:1px solid rgba(255,94,0,.2);padding:4px 12px;border-radius:999px;white-space:nowrap}
+.batch-title{font-size:20px;font-weight:700;color:#fff}
+.batch-desc{font-size:13px;color:rgba(255,255,255,.4);margin-left:auto}
+
+/* Screen Grid */
+.screen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.screen-card{background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .3s ease;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.screen-card:hover{border-color:rgba(255,94,0,.4);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.screen-card:active{transform:translateY(-2px)}
+.card-preview{height:140px;background:var(--ink-900);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.card-preview .mini-phone{width:56px;height:112px;border-radius:12px;background:var(--ink-900);border:2px solid rgba(255,255,255,.1);position:relative;overflow:hidden}
+.card-preview .mini-phone .mini-island{width:24px;height:7px;background:rgba(0,0,0,.8);border-radius:4px;position:absolute;top:3px;left:50%;transform:translateX(-50%)}
+.card-preview .mini-phone .mini-content{position:absolute;top:14px;left:3px;right:3px;bottom:3px;border-radius:0 0 8px 8px;overflow:hidden}
+.card-info{padding:12px 14px 14px}
+.card-info .screen-num{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-orange);margin-bottom:2px}
+.card-info .screen-name{font-size:14px;font-weight:600;color:#fff;line-height:1.3}
+.card-info .screen-tab{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px}
+
+/* Domain colors for mini previews */
+.preview-fitness{background:linear-gradient(135deg,rgba(239,68,68,.1),var(--ink-900))}
+.preview-nutrition{background:linear-gradient(135deg,rgba(132,204,22,.1),var(--ink-900))}
+.preview-finance{background:linear-gradient(135deg,rgba(16,185,129,.1),var(--ink-900))}
+.preview-career{background:linear-gradient(135deg,rgba(99,102,241,.1),var(--ink-900))}
+.preview-relationships{background:linear-gradient(135deg,rgba(236,72,153,.1),var(--ink-900))}
+.preview-spirituality{background:linear-gradient(135deg,rgba(168,85,247,.1),var(--ink-900))}
+.preview-learning{background:linear-gradient(135deg,rgba(6,182,212,.1),var(--ink-900))}
+.preview-creativity{background:linear-gradient(135deg,rgba(245,158,11,.1),var(--ink-900))}
+.preview-brand{background:linear-gradient(135deg,rgba(255,94,0,.1),var(--ink-900))}
+.preview-purple{background:linear-gradient(135deg,rgba(127,36,255,.1),var(--ink-900))}
+.preview-system{background:linear-gradient(135deg,rgba(255,255,255,.03),var(--ink-900))}
+
+/* Color strip at top of preview */
+.card-preview .color-strip{position:absolute;top:0;left:0;right:0;height:3px}
+
+/* Footer */
+.footer{text-align:center;padding:64px 24px 32px;max-width:600px;margin:0 auto}
+.footer p{font-size:13px;color:rgba(255,255,255,.25);line-height:1.6}
+.footer .brand{color:var(--brand-orange);font-weight:600}
+
+@media(max-width:640px){.hero h1{font-size:28px}.screen-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.batch-header{flex-wrap:wrap}.batch-desc{margin-left:0;width:100%}.stats-row{gap:20px}.stat .num{font-size:22px}}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-logo">
+    <svg viewBox="0 0 48 48" fill="none">
+      <path d="M24 6C18 6 14 10 12 14c-2 4-1 9 2 12l10 14 10-14c3-3 4-8 2-12-2-4-6-8-12-8z" fill="var(--brand-orange)" opacity=".9"/>
+      <path d="M24 10c-4 0-7 3-8.5 6-1.5 3-.5 7 1.5 9.5L24 36l7-10.5c2-2.5 3-6.5 1.5-9.5S28 10 24 10z" fill="var(--brand-orange)"/>
+    </svg>
+    <div class="wordmark">Balencia<span class="dot">.</span></div>
+  </div>
+  <h1>Screen Wireframes</h1>
+  <p>High-fidelity wireframes for all screens of the Balencia AI life coaching app. Click any screen to view it in an interactive iPhone 15 Pro device frame.</p>
+  <div class="stats-row">
+    <div class="stat"><div class="num">44</div><div class="label">Screens</div></div>
+    <div class="stat"><div class="num">9</div><div class="label">Batches</div></div>
+    <div class="stat"><div class="num">9</div><div class="label">Life Domains</div></div>
+    <div class="stat"><div class="num">4</div><div class="label">Tab Bars</div></div>
+  </div>
+</div>
+
+<div class="batch-section">
+
+<!-- ══════ BATCH 1: Onboarding & Auth ══════ -->
+<div class="batch-header">
+  <span class="batch-num">Batch 1</span>
+  <span class="batch-title">Onboarding & Auth</span>
+  <span class="batch-desc">Splash, carousel, sign up, sign in, forgot password</span>
+</div>
+<div class="screen-grid">
+  <a class="screen-card" href="batch-1-onboarding-auth.html#screen-0"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 20 20" fill="var(--brand-orange)"><path d="M10 2C7 2 5 4 4 6c-1 2-.5 5 1 6.5L10 19l5-6.5c1.5-1.5 2-4.5 1-6.5C15 4 13 2 10 2z"/></svg></div></div></div><div class="card-info"><div class="screen-num">Screen 01</div><div class="screen-name">Splash Screen</div><div class="screen-tab">Pre-auth</div></div></a>
+  <a class="screen-card" href="batch-1-onboarding-auth.html#screen-1"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px"><div style="width:30px;height:16px;border-radius:3px;background:rgba(255,94,0,.2)"></div><div style="width:6px;height:6px;border-radius:50%;background:var(--brand-orange)"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 02</div><div class="screen-name">Motion Carousel</div><div class="screen-tab">Pre-auth</div></div></a>
+  <a class="screen-card" href="batch-1-onboarding-auth.html#screen-2"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:12px 4px;gap:3px"><div style="height:6px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="height:8px;background:rgba(255,94,0,.4);border-radius:4px;margin-top:4px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 03</div><div class="screen-name">Sign Up</div><div class="screen-tab">Pre-auth</div></div></a>
+  <a class="screen-card" href="batch-1-onboarding-auth.html#screen-3"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:12px 4px;gap:3px"><div style="height:6px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="height:8px;background:rgba(255,94,0,.4);border-radius:4px;margin-top:4px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 04</div><div class="screen-name">Sign In</div><div class="screen-tab">Pre-auth</div></div></a>
+  <a class="screen-card" href="batch-1-onboarding-auth.html#screen-4"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:14px 4px;gap:3px"><div style="height:6px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="height:8px;background:rgba(255,94,0,.4);border-radius:4px;margin-top:8px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 05</div><div class="screen-name">Forgot Password</div><div class="screen-tab">Pre-auth</div></div></a>
+</div>
+
+<!-- ══════ BATCH 2: SIA Setup ══════ -->
+<div class="batch-header">
+  <span class="batch-num">Batch 2</span>
+  <span class="batch-title">SIA Setup</span>
+  <span class="batch-desc">Guest mode, SIA onboarding, plan summary, chat, voice</span>
+</div>
+<div class="screen-grid">
+  <a class="screen-card" href="batch-2-sia-setup.html#screen-0"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-top:2px"><div style="height:8px;background:rgba(255,94,0,.15);border-radius:2px"></div><div style="height:8px;background:rgba(52,168,83,.15);border-radius:2px"></div><div style="height:8px;background:rgba(127,36,255,.15);border-radius:2px"></div></div></div></div></div><div class="card-info"><div class="screen-num">Screen 06</div><div class="screen-name">Guest Mode</div><div class="screen-tab">Onboarding</div></div></a>
+  <a class="screen-card" href="batch-2-sia-setup.html#screen-1"><div class="card-preview preview-purple"><div class="color-strip" style="background:var(--royal-purple)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:20px;background:rgba(127,36,255,.1);border-radius:3px"></div><div style="height:5px;width:70%;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="height:5px;width:50%;background:rgba(127,36,255,.15);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 07</div><div class="screen-name">SIA Onboarding</div><div class="screen-tab">Onboarding</div></div></a>
+  <a class="screen-card" href="batch-2-sia-setup.html#screen-2"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:8px;background:rgba(255,94,0,.15);border-radius:2px"></div><div style="height:12px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:12px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 08</div><div class="screen-name">Plan Summary</div><div class="screen-tab">Onboarding</div></div></a>
+  <a class="screen-card" href="batch-2-sia-setup.html#screen-3"><div class="card-preview preview-purple"><div class="color-strip" style="background:var(--royal-purple)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;justify-content:flex-end;padding:3px;gap:2px"><div style="height:5px;width:60%;background:rgba(127,36,255,.2);border-radius:2px"></div><div style="height:5px;width:80%;background:rgba(255,255,255,.08);border-radius:2px;align-self:flex-end"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 09</div><div class="screen-name">SIA Chat</div><div class="screen-tab">SIA Tab</div></div></a>
+  <a class="screen-card" href="batch-2-sia-setup.html#screen-4"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;justify-content:flex-end;padding:3px;gap:2px"><div style="height:5px;width:70%;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="display:flex;gap:1px;height:12px;align-items:flex-end;justify-content:center"><div style="width:2px;height:6px;background:rgba(255,94,0,.4);border-radius:1px"></div><div style="width:2px;height:10px;background:rgba(255,94,0,.6);border-radius:1px"></div><div style="width:2px;height:8px;background:rgba(255,94,0,.5);border-radius:1px"></div><div style="width:2px;height:12px;background:rgba(255,94,0,.7);border-radius:1px"></div><div style="width:2px;height:7px;background:rgba(255,94,0,.4);border-radius:1px"></div></div></div></div></div><div class="card-info"><div class="screen-num">Screen 10</div><div class="screen-name">Voice In-Chat</div><div class="screen-tab">SIA Tab</div></div></a>
+</div>
+
+<!-- ══════ BATCH 3: Core Product ══════ -->
+<div class="batch-header">
+  <span class="batch-num">Batch 3</span>
+  <span class="batch-title">Core Product</span>
+  <span class="batch-desc">Voice full-screen, home, goals list, goal detail, create goal</span>
+</div>
+<div class="screen-grid">
+  <a class="screen-card" href="batch-3-core-product.html#screen-0"><div class="card-preview preview-purple"><div class="color-strip" style="background:var(--royal-purple)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;align-items:center;justify-content:center;background:rgba(127,36,255,.05)"><div style="width:24px;height:24px;border-radius:50%;background:rgba(127,36,255,.3);border:1px solid rgba(127,36,255,.4)"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 11</div><div class="screen-name">Voice Full-Screen</div><div class="screen-tab">Overlay</div></div></a>
+  <a class="screen-card" href="batch-3-core-product.html#screen-1"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:4px;width:50%;background:rgba(255,255,255,.1);border-radius:1px"></div><div style="height:10px;background:rgba(127,36,255,.1);border-radius:2px;border-left:1px solid rgba(127,36,255,.4)"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 12</div><div class="screen-name">Home Screen</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-3-core-product.html#screen-2"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:5px;width:70%;background:rgba(255,255,255,.1);border-radius:1px"></div><div style="display:flex;gap:2px"><div style="height:5px;flex:1;background:rgba(255,94,0,.3);border-radius:8px"></div><div style="height:5px;flex:1;background:rgba(255,255,255,.06);border-radius:8px"></div></div><div style="height:10px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:10px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 13</div><div class="screen-name">Goals List</div><div class="screen-tab">Goals Tab</div></div></a>
+  <a class="screen-card" href="batch-3-core-product.html#screen-3"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;align-items:center;padding:10px 3px;gap:3px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--brand-orange)"></div><div style="height:4px;width:60%;background:rgba(255,255,255,.1);border-radius:1px"></div><div style="height:8px;width:100%;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 14</div><div class="screen-name">Goal Detail</div><div class="screen-tab">Goals Tab</div></div></a>
+  <a class="screen-card" href="batch-3-core-product.html#screen-4"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:3px;width:30px;background:rgba(255,255,255,.15);border-radius:1px;align-self:center"></div><div style="height:16px;background:rgba(255,255,255,.04);border-radius:2px"></div><div style="height:8px;background:rgba(255,94,0,.3);border-radius:4px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 15</div><div class="screen-name">Create / Edit Goal</div><div class="screen-tab">Modal</div></div></a>
+</div>
+
+<!-- ══════ BATCH 4: Me Tab ══════ -->
+<div class="batch-header">
+  <span class="batch-num">Batch 4</span>
+  <span class="batch-title">Me Tab</span>
+  <span class="batch-desc">Life areas, profile, explore, RPG character, personal wiki</span>
+</div>
+<div class="screen-grid">
+  <a class="screen-card" href="batch-4-me-tab.html#screen-0"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><polygon points="14,2 18,9 26,10 20,16 22,24 14,20 6,24 8,16 2,10 10,9" stroke="rgba(255,94,0,.3)" stroke-width=".5" fill="none"/></svg></div></div></div><div class="card-info"><div class="screen-num">Screen 16</div><div class="screen-name">Life Areas</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-4-me-tab.html#screen-1"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;align-items:center;padding:10px 3px;gap:3px"><div style="width:16px;height:16px;border-radius:50%;background:rgba(255,94,0,.2)"></div><div style="height:4px;width:50%;background:rgba(255,94,0,.3);border-radius:2px"></div><div style="height:8px;width:100%;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 17</div><div class="screen-name">Me Main</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-4-me-tab.html#screen-2"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:2px"><div style="height:14px;background:rgba(255,255,255,.05);border-radius:2px"></div><div style="height:14px;background:rgba(255,255,255,.05);border-radius:2px"></div></div></div></div></div><div class="card-info"><div class="screen-num">Screen 18</div><div class="screen-name">Explore</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-4-me-tab.html#screen-3"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;align-items:center;padding:8px 3px;gap:2px"><div style="width:16px;height:16px;border-radius:50%;background:rgba(255,94,0,.2);border:1px solid rgba(255,94,0,.3)"></div><div style="height:4px;width:40%;background:rgba(255,94,0,.3);border-radius:2px"></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;width:100%"><div style="height:10px;background:rgba(255,255,255,.05);border-radius:2px"></div><div style="height:10px;background:rgba(255,255,255,.05);border-radius:2px"></div><div style="height:10px;background:rgba(255,255,255,.05);border-radius:2px"></div></div></div></div></div><div class="card-info"><div class="screen-num">Screen 19</div><div class="screen-name">RPG Character</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-4-me-tab.html#screen-4"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="display:flex;gap:2px"><div style="height:4px;flex:1;background:rgba(255,94,0,.2);border-radius:8px"></div><div style="height:4px;flex:1;background:rgba(255,255,255,.06);border-radius:8px"></div></div><div style="height:10px;background:rgba(255,255,255,.05);border-radius:2px"></div><div style="height:10px;background:rgba(255,255,255,.05);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 20</div><div class="screen-name">Personal Wiki</div><div class="screen-tab">Me Tab</div></div></a>
+</div>
+
+<!-- ══════ BATCH 5: Settings ══════ -->
+<div class="batch-header">
+  <span class="batch-num">Batch 5</span>
+  <span class="batch-title">Settings</span>
+  <span class="batch-desc">Settings, integrations, subscription, notifications, help</span>
+</div>
+<div class="screen-grid">
+  <a class="screen-card" href="batch-5-settings.html#screen-0"><div class="card-preview preview-system"><div class="color-strip" style="background:rgba(255,255,255,.15)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 21</div><div class="screen-name">Settings</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-5-settings.html#screen-1"><div class="card-preview preview-system"><div class="color-strip" style="background:rgba(255,255,255,.15)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:10px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:10px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:10px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 22</div><div class="screen-name">Connected Services</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-5-settings.html#screen-2"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:12px;background:rgba(255,94,0,.1);border:1px solid rgba(255,94,0,.2);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 23</div><div class="screen-name">Subscription</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-5-settings.html#screen-3"><div class="card-preview preview-system"><div class="color-strip" style="background:rgba(255,255,255,.15)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 24</div><div class="screen-name">Notifications</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-5-settings.html#screen-4"><div class="card-preview preview-purple"><div class="color-strip" style="background:var(--royal-purple)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:10px;background:rgba(127,36,255,.1);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 25</div><div class="screen-name">Help Center</div><div class="screen-tab">Me Tab</div></div></a>
+</div>
+
+<!-- ══════ BATCH 6: Fitness & Nutrition ══════ -->
+<div class="batch-header">
+  <span class="batch-num">Batch 6</span>
+  <span class="batch-title">Fitness & Nutrition</span>
+  <span class="batch-desc">Fitness dashboard, active workout, nutrition dashboard, food logger</span>
+</div>
+<div class="screen-grid">
+  <a class="screen-card" href="batch-6-fitness-nutrition.html#screen-0"><div class="card-preview preview-fitness"><div class="color-strip" style="background:#EF4444"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:2px;background:#EF4444;border-radius:1px"></div><div style="height:8px;background:rgba(239,68,68,.1);border-radius:2px"></div><div style="height:10px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:10px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 26</div><div class="screen-name">Fitness Dashboard</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-6-fitness-nutrition.html#screen-1"><div class="card-preview preview-fitness"><div class="color-strip" style="background:#EF4444"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:10px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:10px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,94,0,.3);align-self:center"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 27</div><div class="screen-name">Active Workout</div><div class="screen-tab">Immersive</div></div></a>
+  <a class="screen-card" href="batch-6-fitness-nutrition.html#screen-2"><div class="card-preview preview-nutrition"><div class="color-strip" style="background:#84CC16"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:2px;background:#84CC16;border-radius:1px"></div><div style="display:flex;align-items:center;justify-content:center;height:18px"><div style="width:16px;height:16px;border-radius:50%;border:2px solid rgba(132,204,22,.3)"></div></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 28</div><div class="screen-name">Nutrition Dashboard</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-6-fitness-nutrition.html#screen-3"><div class="card-preview preview-nutrition"><div class="color-strip" style="background:#84CC16"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:6px;background:rgba(255,255,255,.08);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 29</div><div class="screen-name">Food Logger</div><div class="screen-tab">Today Tab</div></div></a>
+</div>
+
+<!-- ══════ BATCH 7: Finance, Career & Social ══════ -->
+<div class="batch-header">
+  <span class="batch-num">Batch 7</span>
+  <span class="batch-title">Finance, Career & Social</span>
+  <span class="batch-desc">Finance, transaction detail, career, relationships, spirituality</span>
+</div>
+<div class="screen-grid">
+  <a class="screen-card" href="batch-7-finance-career-social.html#screen-0"><div class="card-preview preview-finance"><div class="color-strip" style="background:#10B981"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:2px;background:#10B981;border-radius:1px"></div><div style="height:10px;background:rgba(16,185,129,.1);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(16,185,129,.5)">$</div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 30</div><div class="screen-name">Finance Dashboard</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-7-finance-career-social.html#screen-1"><div class="card-preview preview-finance"><div class="color-strip" style="background:#10B981"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;align-items:center;padding:12px 3px;gap:3px"><div style="font-size:8px;color:rgba(16,185,129,.5)">$</div><div style="height:8px;width:100%;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:8px;width:100%;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 31</div><div class="screen-name">Transaction Detail</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-7-finance-career-social.html#screen-2"><div class="card-preview preview-career"><div class="color-strip" style="background:#6366F1"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:2px;background:#6366F1;border-radius:1px"></div><div style="height:10px;background:rgba(99,102,241,.1);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 32</div><div class="screen-name">Career Dashboard</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-7-finance-career-social.html#screen-3"><div class="card-preview preview-relationships"><div class="color-strip" style="background:#EC4899"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:2px;background:#EC4899;border-radius:1px"></div><div style="height:10px;background:rgba(236,72,153,.1);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 33</div><div class="screen-name">Relationships</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-7-finance-career-social.html#screen-4"><div class="card-preview preview-spirituality"><div class="color-strip" style="background:#A855F7"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:2px;background:#A855F7;border-radius:1px"></div><div style="height:10px;background:rgba(168,85,247,.1);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 34</div><div class="screen-name">Spirituality</div><div class="screen-tab">Today Tab</div></div></a>
+</div>
+
+<!-- ══════ BATCH 8: Growth & Utility ══════ -->
+<div class="batch-header">
+  <span class="batch-num">Batch 8</span>
+  <span class="batch-title">Growth & Utility</span>
+  <span class="batch-desc">Learning, creativity, journal, habits, leaderboard, community</span>
+</div>
+<div class="screen-grid">
+  <a class="screen-card" href="batch-8-growth-utility.html#screen-0"><div class="card-preview preview-learning"><div class="color-strip" style="background:#06B6D4"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:2px;background:#06B6D4;border-radius:1px"></div><div style="height:10px;background:rgba(6,182,212,.1);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 35</div><div class="screen-name">Learning Dashboard</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-8-growth-utility.html#screen-1"><div class="card-preview preview-creativity"><div class="color-strip" style="background:#F59E0B"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:2px;background:#F59E0B;border-radius:1px"></div><div style="height:10px;background:rgba(245,158,11,.1);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 36</div><div class="screen-name">Creativity Dashboard</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-8-growth-utility.html#screen-2"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:10px;background:rgba(127,36,255,.1);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 37</div><div class="screen-name">Journal</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-8-growth-utility.html#screen-3"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:2px"><div style="height:4px;background:rgba(255,94,0,.2);border-radius:1px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 38</div><div class="screen-name">Habits</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-8-growth-utility.html#screen-4"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:10px 3px;gap:3px"><div style="height:8px;background:rgba(255,94,0,.15);border:1px solid rgba(255,94,0,.2);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 39</div><div class="screen-name">Leaderboard</div><div class="screen-tab">Me Tab</div></div></a>
+  <a class="screen-card" href="batch-8-growth-utility.html#screen-5"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;justify-content:flex-end;padding:3px;gap:2px"><div style="height:5px;width:60%;background:rgba(255,255,255,.06);border-radius:2px"></div><div style="height:5px;width:80%;background:rgba(255,255,255,.06);border-radius:2px;align-self:flex-end"></div><div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 40</div><div class="screen-name">Community</div><div class="screen-tab">Me Tab</div></div></a>
+</div>
+
+<!-- ══════ BATCH 9: System & Overlays ══════ -->
+<div class="batch-header">
+  <span class="batch-num">Batch 9</span>
+  <span class="batch-title">System & Overlays</span>
+  <span class="batch-desc">Calendar, celebration overlay, paywall, global search</span>
+</div>
+<div class="screen-grid">
+  <a class="screen-card" href="batch-9-system-overlays.html#screen-0"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:8px 3px;gap:2px"><div style="display:flex;gap:1px"><div style="flex:1;height:4px;background:rgba(255,94,0,.3);border-radius:8px"></div><div style="flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:8px"></div><div style="flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:8px"></div></div><div style="height:3px;width:60%;align-self:center;background:rgba(255,255,255,.1);border-radius:1px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px;border-left:1px solid #EF4444"></div><div style="height:6px;background:transparent;border:1px dashed rgba(255,94,0,.3);border-radius:2px"></div><div style="height:8px;background:rgba(255,255,255,.06);border-radius:2px;border-left:1px solid #6366F1"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 41</div><div class="screen-name">Calendar</div><div class="screen-tab">Today Tab</div></div></a>
+  <a class="screen-card" href="batch-9-system-overlays.html#screen-1"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:radial-gradient(circle,rgba(255,94,0,.08) 0%,transparent 70%)"><div style="width:18px;height:18px;border-radius:50%;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);display:flex;align-items:center;justify-content:center"><span style="font-size:6px;color:#EF4444">★</span></div><div style="font-size:6px;font-weight:700;color:rgba(255,255,255,.6)">+150 XP</div></div></div></div><div class="card-info"><div class="screen-num">Screen 42</div><div class="screen-name">Celebration Overlay</div><div class="screen-tab">Overlay</div></div></a>
+  <a class="screen-card" href="batch-9-system-overlays.html#screen-2"><div class="card-preview preview-brand"><div class="color-strip" style="background:var(--brand-orange)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;justify-content:flex-end;padding:0"><div style="flex:1;background:rgba(255,255,255,.03)"></div><div style="background:var(--ink-brown);border-radius:6px 6px 0 0;padding:4px 3px;display:flex;flex-direction:column;gap:2px;height:55%"><div style="width:10px;height:2px;background:rgba(255,255,255,.15);border-radius:1px;align-self:center;margin-bottom:2px"></div><div style="height:4px;width:70%;background:rgba(255,255,255,.1);border-radius:1px"></div><div style="height:12px;background:rgba(255,255,255,.04);border-radius:2px"></div><div style="height:6px;background:rgba(255,94,0,.3);border-radius:3px"></div></div></div></div></div><div class="card-info"><div class="screen-num">Screen 43</div><div class="screen-name">Paywall</div><div class="screen-tab">Modal</div></div></a>
+  <a class="screen-card" href="batch-9-system-overlays.html#screen-3"><div class="card-preview preview-system"><div class="color-strip" style="background:rgba(255,255,255,.15)"></div><div class="mini-phone"><div class="mini-island"></div><div class="mini-content" style="display:flex;flex-direction:column;padding:8px 3px;gap:3px"><div style="height:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,94,0,.3);border-radius:2px"></div><div style="display:flex;gap:2px"><div style="height:4px;flex:1;background:rgba(255,94,0,.3);border-radius:8px"></div><div style="height:4px;flex:1;background:rgba(255,255,255,.06);border-radius:8px"></div><div style="height:4px;flex:1;background:rgba(255,255,255,.06);border-radius:8px"></div></div><div style="height:6px;background:rgba(255,255,255,.05);border-radius:2px"></div><div style="height:6px;background:rgba(255,255,255,.05);border-radius:2px"></div></div></div></div><div class="card-info"><div class="screen-num">Screen 44</div><div class="screen-name">Global Search</div><div class="screen-tab">Overlay</div></div></a>
+</div>
+
+</div>
+
+<div class="footer">
+  <p><span class="brand">Balencia.</span> — AI Life Coaching App<br>44 screens across 9 life domains. Designed for React Native.</p>
+</div>
+
+<script>
+document.querySelectorAll('.screen-card').forEach(card=>{
+  card.addEventListener('click',function(e){
+    const hash=this.getAttribute('href');
+    if(hash){
+      const[file,frag]=hash.split('#');
+      if(frag){
+        const idx=parseInt(frag.replace('screen-',''));
+        if(!isNaN(idx)){
+          e.preventDefault();
+          const url=file+'?start='+idx;
+          window.location.href=url;
+        }
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+export const xpRewards = {
+  workout: 75,
+  meal: 25,
+  habit: 10,
+  routineComplete: 25,
+  meditation: 50,
+  journal: 25,
+  waterGoal: 25,
+  checkin: 15,
+  breathing: 20,
+  yoga: 45,
+  prayer: 20,
+  reading: 35,
+  financialLog: 15,
+  qualityTime: 25,
+  sleepGoal: 25,
+  bedtimeConsistency: 15,
+  creativePractice: 35,
+  challengeComplete: 100,
+  missionComplete: 150,
+  scheduleFollowed: 15,
+  domainLevelUp: 25,
+  communityAchievement: 150,
+  competitionPrize: 500,
+  streakMilestone7: 50,
+  streakMilestone14: 100,
+  streakMilestone30: 250,
+  streakMilestone60: 500,
+  streakMilestone90: 1000,
+  streakMilestone180: 2500,
+  streakMilestone365: 5000,
+} as const
+
+export const levelThresholds = [
+  0, 100, 250, 500, 850, 1300, 1850, 2500, 3300, 4200,
+  5250, 6450, 7800, 9300, 10950, 12750, 14700, 16800, 19050, 21450,
+  24000, 26700, 29550, 32550, 35700,
+] as const
+
+export const streakMultipliers = {
+  7: 1.1,
+  14: 1.2,
+  30: 1.5,
+  60: 1.75,
+  100: 2.0,
+} as const

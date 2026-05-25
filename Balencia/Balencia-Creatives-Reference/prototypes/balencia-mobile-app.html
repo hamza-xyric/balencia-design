@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Balencia mobile app. Adaptive wellness, coach-first. Need-led architecture v2 visualized as a full mobile prototype." />
+<title>Balencia. Mobile app.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=chillax@800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   BALENCIA. — MOBILE APP PROTOTYPE
+   Need-led architecture v2 · SIA-first · ten core screens
+   Anchored in DESIGN.md: warm ink, burnt orange CTA, royal purple
+   reserved for SIA, forest green for arrival, continuous stroke
+   line as signature, Sora throughout, Chillax for the wordmark.
+   ============================================================ */
+
+:root {
+  /* Brand */
+  --orange: #FF5E00;
+  --orange-soft: rgba(255, 94, 0, .18);
+  --orange-faint: rgba(255, 94, 0, .08);
+  --green:  #34A853;
+  --green-soft: rgba(52, 168, 83, .20);
+  --purple: #7F24FF;
+  --purple-2:#A663FF;
+  --purple-soft: rgba(127, 36, 255, .22);
+  --purple-faint: rgba(127, 36, 255, .10);
+
+  /* Ink (warm-brown family) */
+  --ink-900:        #0A0A0F;
+  --ink-warm-900:   #0C0603;
+  --ink-brown-900:  #140A05;
+  --ink-brown-800:  #211008;
+  --ink-700:        #171717;
+  --ink-line:       rgba(254, 250, 243, .10);
+  --ink-line-strong:rgba(254, 250, 243, .18);
+
+  /* Paper (warm cream) */
+  --paper-50:   #FDFDFB;
+  --paper-100:  #FEFAF3;
+  --paper-150:  #FDFBF0;
+  --paper-200:  #F9F3E6;
+  --paper-300:  #F2ECD8;
+  --paper-mute: #BBA99C;
+  --paper-quiet:#8C7E72;
+
+  /* Type */
+  --font:   'Sora', system-ui, sans-serif;
+  --logo:   'Chillax', 'Sora', system-ui, sans-serif;
+
+  /* Spacing (8pt with two small steps) */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
+  --s-9: 96px; --s-10:128px;
+
+  /* Radii */
+  --r-xs: 6px;  --r-sm:10px; --r-md:14px; --r-lg:20px;
+  --r-xl:28px;  --r-2xl:40px; --r-pill:999px;
+
+  /* Shadow & glow */
+  --shadow-1: 0 4px 14px rgba(33, 16, 8, .28);
+  --shadow-2: 0 10px 30px rgba(33, 16, 8, .42);
+  --glow-orange: 0 0 38px rgba(255, 94, 0, .32);
+  --glow-green:  0 0 28px rgba(52, 168, 83, .26);
+  --glow-purple: 0 0 36px rgba(127, 36, 255, .32);
+
+  /* Motion */
+  --ease-out-quart: cubic-bezier(.22, 1, .36, 1);
+  --ease-out-quint: cubic-bezier(.23, 1, .32, 1);
+  --ease-flow:      cubic-bezier(.65, 0, .35, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--ink-warm-900); }
+body {
+  font-family: var(--font);
+  color: var(--paper-50);
+  background:
+    radial-gradient(900px 600px at 12% -10%, rgba(255, 94, 0, .12), transparent 60%),
+    radial-gradient(820px 520px at 92% -4%, rgba(127, 36, 255, .10), transparent 62%),
+    radial-gradient(720px 520px at 60% 110%, rgba(52, 168, 83, .06), transparent 60%),
+    linear-gradient(180deg, #0C0603 0%, #0A0503 50%, #0C0603 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.45;
+  font-feature-settings: 'ss01' 1, 'cv11' 1;
+  overflow-x: hidden;
+}
+body::before {
+  /* The grid you don't see. */
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(254,250,243,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(254,250,243,.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 18%, black 82%, transparent 100%);
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+/* ─────────── Page chrome ─────────── */
+
+.page {
+  position: relative; z-index: 1;
+  max-width: 1640px;
+  margin: 0 auto;
+  padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 56px) clamp(48px, 6vw, 96px);
+}
+
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: clamp(48px, 6vw, 96px);
+}
+.wordmark {
+  font-family: var(--logo);
+  font-weight: 800;
+  font-size: clamp(28px, 3vw, 40px);
+  letter-spacing: -.025em;
+  line-height: .94;
+}
+.wordmark .dot { color: var(--orange); }
+.topbar-meta {
+  display: flex; gap: var(--s-3); align-items: center;
+  color: var(--paper-mute);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+}
+.topbar-meta .pip {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--orange); box-shadow: 0 0 12px var(--orange);
+}
+
+/* Page intro */
+.page-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+  gap: clamp(24px, 5vw, 96px);
+  align-items: end;
+  margin-bottom: clamp(56px, 7vw, 112px);
+  padding-bottom: clamp(40px, 5vw, 72px);
+  border-bottom: 1px solid var(--ink-line);
+}
+.page-intro h1 {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 72px);
+  letter-spacing: -.02em;
+  line-height: 1;
+  max-width: 14ch;
+}
+.page-intro h1 em {
+  font-style: normal;
+  color: var(--orange);
+  font-weight: 800;
+}
+.page-intro p {
+  color: var(--paper-mute);
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.6;
+  max-width: 38ch;
+  margin-left: auto;
+}
+.page-intro p .accent { color: var(--paper-50); font-weight: 600; }
+
+/* ─────────── Sections ─────────── */
+
+.section { margin-bottom: clamp(64px, 9vw, 144px); }
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
+  gap: clamp(24px, 4vw, 80px);
+  align-items: end;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--paper-mute);
+  margin-bottom: var(--s-3);
+}
+.eyebrow .count {
+  background: var(--orange); color: var(--paper-50);
+  padding: 2px 8px; border-radius: 999px;
+  font-size: 11px; letter-spacing: .08em;
+}
+.eyebrow.is-cia .count { background: var(--purple); }
+.eyebrow.is-green .count { background: var(--green); }
+.section-title {
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 52px);
+  letter-spacing: -.02em;
+  line-height: 1.05;
+  max-width: 18ch;
+}
+.section-desc {
+  color: var(--paper-mute);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 56ch;
+}
+.section-desc strong { color: var(--paper-50); font-weight: 600; }
+
+/* ─────────── Phone grid ─────────── */
+
+.phones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: clamp(32px, 4vw, 64px) clamp(32px, 4vw, 56px);
+  align-items: end;
+}
+.phone-wrap {
+  display: flex; flex-direction: column;
+  gap: var(--s-4);
+  min-width: 0;
+}
+.phone-label {
+  display: flex; align-items: baseline; gap: var(--s-3);
+  padding-left: 8px;
+}
+.phone-label .step {
+  font-family: var(--logo);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--orange);
+  letter-spacing: -.02em;
+}
+.phone-label .step.cia    { color: var(--purple); }
+.phone-label .step.green  { color: var(--green); }
+.phone-label .name {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -.01em;
+  color: var(--paper-50);
+}
+.phone-label .name .dot { color: var(--orange); }
+.phone-note {
+  color: var(--paper-mute);
+  font-size: 13px;
+  padding-left: 8px;
+  max-width: 36ch;
+  line-height: 1.55;
+}
+
+/* ─────────── Phone frame ─────────── */
+
+.phone {
+  --phone-w: 390px;
+  --phone-h: 844px;
+  width: var(--phone-w);
+  max-width: 100%;
+  aspect-ratio: 390 / 844;
+  position: relative;
+  border-radius: 56px;
+  background: var(--ink-brown-800);
+  padding: 14px;
+  box-shadow:
+    0 0 0 1px rgba(254, 250, 243, .06),
+    0 30px 80px -20px rgba(0, 0, 0, .65),
+    0 14px 28px -8px rgba(33, 16, 8, .45);
+  isolation: isolate;
+}
+.phone::before {
+  content: '';
+  position: absolute; inset: 4px;
+  border-radius: 53px;
+  background: linear-gradient(160deg, rgba(254, 250, 243, .06), rgba(254, 250, 243, 0) 50%);
+  pointer-events: none;
+  z-index: 2;
+}
+.phone-screen {
+  position: relative;
+  width: 100%; height: 100%;
+  border-radius: 44px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  isolation: isolate;
+}
+
+/* Surface variants */
+.surf-dark   { background: var(--ink-brown-800); color: var(--paper-100); }
+.surf-darker { background: var(--ink-warm-900);  color: var(--paper-50);  }
+.surf-deep   { background: var(--ink-900);       color: var(--paper-50);  }
+.surf-paper  { background: var(--paper-100);     color: var(--ink-warm-900); }
+
+/* Status bar */
+.statusbar {
+  height: 44px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 26px 0 28px;
+  font-size: 14px; font-weight: 600;
+  letter-spacing: -.01em;
+  flex-shrink: 0;
+}
+.statusbar .icons { display: inline-flex; gap: 6px; align-items: center; }
+.statusbar svg { opacity: .92; }
+
+/* Bottom safe area / home indicator */
+.home-indicator {
+  position: absolute;
+  bottom: 8px; left: 50%; transform: translateX(-50%);
+  width: 134px; height: 5px;
+  border-radius: 999px;
+  background: rgba(254, 250, 243, .28);
+  z-index: 5;
+  pointer-events: none;
+}
+.surf-paper ~ .home-indicator,
+.surf-paper .home-indicator { background: rgba(20, 10, 5, .22); }
+
+/* Dynamic island */
+.island {
+  position: absolute;
+  top: 10px; left: 50%; transform: translateX(-50%);
+  width: 120px; height: 35px;
+  border-radius: 999px;
+  background: #000;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ─────────── Inside-phone shared ─────────── */
+
+.screen-body {
+  flex: 1; min-height: 0;
+  padding: 0 24px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.screen-body.scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(254,250,243,.18) transparent;
+}
+.screen-body::-webkit-scrollbar { width: 6px; }
+.screen-body::-webkit-scrollbar-thumb { background: rgba(254,250,243,.18); border-radius: 99px; }
+
+.h-display {
+  font-family: var(--font);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.02;
+}
+.h1 { font-weight: 700; font-size: 36px; line-height: 1.08; letter-spacing: -.018em; }
+.h2 { font-weight: 700; font-size: 28px; line-height: 1.12; letter-spacing: -.015em; }
+.h3 { font-weight: 600; font-size: 22px; line-height: 1.2; letter-spacing: -.01em; }
+.lead { font-size: 17px; line-height: 1.5; color: rgba(254,250,243,.78); }
+.body { font-size: 15px; line-height: 1.55; }
+.meta { font-size: 13px; line-height: 1.5; color: rgba(254,250,243,.6); }
+.eyebrow-in {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(254,250,243,.55);
+}
+
+.surf-paper .lead { color: rgba(20,10,5,.74); }
+.surf-paper .meta { color: rgba(20,10,5,.62); }
+.surf-paper .eyebrow-in { color: rgba(20,10,5,.55); }
+
+/* Pill button */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 54px;
+  padding: 0 28px;
+  border-radius: var(--r-pill);
+  font-size: 16px; font-weight: 600;
+  letter-spacing: -.005em;
+  transition: transform .28s var(--ease-out-quart), box-shadow .28s var(--ease-out-quart);
+  white-space: nowrap;
+}
+.btn--primary { background: var(--orange); color: var(--paper-50); box-shadow: 0 8px 24px -8px var(--orange-soft); }
+.btn--primary:hover { transform: translateY(-1px); box-shadow: 0 12px 32px -8px rgba(255,94,0,.42); }
+.btn--green   { background: var(--green); color: var(--paper-50); }
+.btn--ghost   { background: var(--ink-700); color: var(--paper-50); }
+.btn--quiet   { background: transparent; color: var(--paper-50); }
+.btn--block   { width: 100%; }
+.btn--lg      { height: 60px; padding: 0 32px; font-size: 17px; }
+
+.surf-paper .btn--ghost  { background: var(--ink-warm-900); color: var(--paper-50); }
+.surf-paper .btn--quiet  { color: var(--ink-warm-900); }
+
+/* Chip */
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 14px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  border-radius: var(--r-pill);
+  background: var(--ink-700);
+  color: var(--paper-50);
+}
+.chip--orange { background: var(--orange); }
+.chip--green  { background: var(--green); }
+.chip--purple { background: var(--purple); }
+.chip--outline {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ink-line-strong);
+  color: var(--paper-100);
+}
+
+/* Selectable need chip */
+.need {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: -.005em;
+  border-radius: var(--r-pill);
+  background: rgba(254,250,243,.06);
+  color: var(--paper-50);
+  box-shadow: inset 0 0 0 1px rgba(254,250,243,.08);
+  text-transform: none;
+  transition: background .2s var(--ease-out-quart);
+}
+.need[data-on="true"] {
+  background: var(--orange);
+  color: var(--paper-50);
+  box-shadow: 0 0 0 0 transparent, 0 8px 22px -8px var(--orange-soft);
+}
+.need .x {
+  width: 16px; height: 16px;
+  display: inline-grid; place-items: center;
+  border-radius: 99px;
+  background: rgba(254, 250, 243, .22);
+  font-size: 10px;
+  margin-right: -4px;
+}
+.need--add {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(254,250,243,.22);
+  color: var(--paper-100);
+  font-weight: 600;
+}
+.need--add::before {
+  content: '+';
+  font-size: 16px; line-height: 1;
+  color: var(--orange);
+}
+
+/* Step pill */
+.steps {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.steps .step-pip {
+  width: 18px; height: 4px; border-radius: 99px;
+  background: rgba(254,250,243,.18);
+}
+.steps .step-pip.is-on { background: var(--orange); width: 28px; }
+.steps .step-pip.is-done { background: rgba(254,250,243,.42); }
+
+/* Card */
+.card {
+  background: var(--ink-warm-900);
+  border-radius: var(--r-xl);
+  padding: 22px;
+  display: flex; flex-direction: column; gap: var(--s-3);
+}
+.card--paper { background: var(--paper-100); color: var(--ink-warm-900); }
+.card--ink   { background: var(--ink-900); }
+.card--ghost {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ink-line);
+}
+.card .title {
+  font-size: 17px; font-weight: 600; letter-spacing: -.01em;
+}
+.card .desc {
+  font-size: 13px; line-height: 1.55;
+  color: rgba(254,250,243,.62);
+}
+.card--paper .desc { color: rgba(20,10,5,.66); }
+
+/* SIA bubble */
+.cia-bubble {
+  position: relative;
+  background: var(--ink-900);
+  color: var(--paper-50);
+  border-radius: 22px 22px 22px 6px;
+  padding: 18px 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  box-shadow: inset 0 0 0 1px var(--purple-faint);
+}
+.cia-bubble::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(127,36,255,.55), rgba(127,36,255,0) 60%);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+.user-bubble {
+  background: var(--orange);
+  color: var(--paper-50);
+  border-radius: 22px 22px 6px 22px;
+  padding: 14px 18px;
+  font-size: 15px;
+  line-height: 1.45;
+  margin-left: auto;
+  max-width: 78%;
+}
+
+.avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--logo);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.avatar--cia {
+  background: radial-gradient(circle at 30% 30%, var(--purple-2), var(--purple) 70%);
+  color: var(--paper-50);
+  box-shadow: 0 0 22px rgba(127,36,255,.45);
+}
+.avatar--user {
+  background: var(--ink-700);
+  color: var(--paper-50);
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Input */
+.input {
+  width: 100%;
+  height: 54px;
+  padding: 0 18px;
+  background: var(--ink-700);
+  color: var(--paper-50);
+  border-radius: var(--r-md);
+  font-family: inherit;
+  font-size: 16px;
+  border: 0;
+  outline: 2px solid transparent;
+  transition: outline-color .15s var(--ease-out-quart);
+}
+.input::placeholder { color: rgba(254,250,243,.4); }
+.input:focus { outline-color: var(--orange); }
+.input--lg { height: 62px; font-size: 18px; }
+.input--area {
+  height: auto; min-height: 100px;
+  padding: 16px 18px;
+  line-height: 1.5;
+  resize: none;
+}
+
+/* Bottom nav */
+.bottomnav {
+  position: absolute;
+  left: 14px; right: 14px; bottom: 14px;
+  height: 76px;
+  background: rgba(12, 6, 3, .82);
+  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+  border-radius: 28px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  z-index: 4;
+  box-shadow: inset 0 0 0 1px var(--ink-line);
+  padding-bottom: 14px;
+}
+.surf-paper + .bottomnav,
+.bottomnav.is-light {
+  background: rgba(254, 250, 243, .92);
+  color: var(--ink-warm-900);
+  box-shadow: inset 0 0 0 1px rgba(20,10,5,.08);
+}
+.bottomnav .navitem {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600; letter-spacing: -.005em;
+  color: rgba(254,250,243,.55);
+  position: relative;
+}
+.bottomnav .navitem.is-on { color: var(--orange); }
+.bottomnav .navitem.is-on::after {
+  content: '';
+  position: absolute; bottom: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 4px; border-radius: 99px;
+  background: var(--orange);
+}
+
+/* FAB */
+.fab {
+  position: absolute;
+  right: 26px; bottom: 110px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: var(--paper-50);
+  display: grid; place-items: center;
+  box-shadow: 0 12px 30px -6px rgba(255,94,0,.4);
+  z-index: 5;
+}
+
+/* Continuous stroke (signature) */
+.stroke {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.stroke path,
+.stroke polyline {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.stroke .draw {
+  stroke-dasharray: var(--len, 800);
+  stroke-dashoffset: var(--len, 800);
+  animation: draw 1.6s var(--ease-flow) forwards;
+}
+.stroke .draw.delay-1 { animation-delay: .2s; }
+.stroke .draw.delay-2 { animation-delay: .5s; }
+.stroke .draw.delay-3 { animation-delay: .8s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .stroke .draw {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
+
+/* Toggle */
+.toggle {
+  width: 44px; height: 26px;
+  border-radius: 999px;
+  background: rgba(254,250,243,.16);
+  position: relative;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+.toggle::after {
+  content: '';
+  position: absolute;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--paper-50);
+  top: 3px; left: 3px;
+  transition: left .2s var(--ease-out-quart);
+}
+.toggle[data-on="true"] { background: var(--green); }
+.toggle[data-on="true"]::after { left: 21px; }
+
+/* Segmented */
+.segmented {
+  display: inline-flex; padding: 4px;
+  background: var(--ink-700);
+  border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+}
+.segmented .seg {
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  color: rgba(254,250,243,.58);
+}
+.segmented .seg.is-on {
+  background: var(--paper-100);
+  color: var(--ink-warm-900);
+}
+
+/* Selectable feature row */
+.feature-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 18px;
+  background: var(--ink-warm-900);
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 0 0 1px var(--ink-line);
+}
+.feature-row[data-on="true"] {
+  box-shadow: inset 0 0 0 1.5px var(--orange);
+  background: rgba(255, 94, 0, .07);
+}
+.feature-row .check {
+  width: 22px; height: 22px;
+  border-radius: 999px;
+  background: rgba(254,250,243,.06);
+  box-shadow: inset 0 0 0 1px rgba(254,250,243,.18);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: grid; place-items: center;
+  color: var(--paper-50);
+  font-size: 11px;
+}
+.feature-row[data-on="true"] .check {
+  background: var(--orange);
+  box-shadow: none;
+  color: var(--paper-50);
+}
+.feature-row .meta-row {
+  display: flex; gap: 12px; align-items: center;
+  font-size: 12px;
+  color: rgba(254,250,243,.55);
+}
+.feature-row .meta-row a { color: var(--orange); }
+.feature-row .meta-row .dot-sep { opacity: .4; }
+
+/* Quick action chip (Home) */
+.quick {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
+  background: rgba(254, 250, 243, .06);
+  border-radius: var(--r-pill);
+  font-size: 13px; font-weight: 500;
+  color: var(--paper-50);
+}
+.quick svg { color: var(--orange); }
+
+/* Sleep coach card (SIA) on Home */
+.cia-card {
+  position: relative;
+  background: var(--ink-900);
+  border-radius: var(--r-xl);
+  padding: 18px;
+  display: flex; gap: 14px;
+  isolation: isolate;
+  overflow: hidden;
+}
+.cia-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(220px 140px at 90% 0%, rgba(127, 36, 255, .35), transparent 65%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Footer link strip in onboarding */
+.helper-line {
+  font-size: 13px; color: rgba(254,250,243,.6);
+  text-align: center;
+}
+.helper-line a { color: var(--paper-50); font-weight: 600; }
+
+/* Captions inside Progress */
+.legend {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .04em;
+  color: rgba(254,250,243,.66);
+}
+.legend .dash {
+  width: 18px; height: 2px; border-radius: 99px;
+}
+.legend .dash.orange { background: var(--orange); }
+.legend .dash.purple {
+  background: repeating-linear-gradient(90deg, var(--purple) 0 4px, transparent 4px 8px);
+  height: 2px;
+}
+.legend .dash.green-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green);
+}
+
+/* "Why" link */
+.why {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--purple-2);
+  letter-spacing: -.005em;
+}
+.surf-paper .why { color: var(--purple); }
+
+/* Add Feature suggestion (SIA) */
+.cia-suggest {
+  border-radius: var(--r-xl);
+  padding: 16px;
+  background: linear-gradient(160deg, rgba(127,36,255,.16), rgba(127,36,255,.04) 70%);
+  box-shadow: inset 0 0 0 1px rgba(127,36,255,.30);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cia-suggest .row {
+  display: flex; align-items: center; gap: 12px;
+}
+.cia-suggest .row .pill-cia {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  background: var(--purple);
+  color: var(--paper-50);
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+/* Compact stat row */
+.stat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.stat .v {
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+.stat .v .unit { font-size: 14px; color: rgba(254,250,243,.55); font-weight: 500; margin-left: 4px; }
+.stat .k {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(254,250,243,.55);
+}
+
+/* Footer */
+.page-foot {
+  margin-top: clamp(64px, 8vw, 128px);
+  padding-top: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--ink-line);
+  display: grid; gap: var(--s-4);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.page-foot p { color: var(--paper-mute); font-size: 13px; line-height: 1.6; max-width: 64ch; }
+.page-foot p strong { color: var(--paper-50); font-weight: 600; }
+
+/* Stroke-line accent (page intro) */
+.intro-stroke {
+  height: 18px;
+  margin-top: var(--s-5);
+}
+
+/* Tooltip-style note tag (page) */
+.tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--paper-mute);
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: rgba(254,250,243,.04);
+  box-shadow: inset 0 0 0 1px var(--ink-line);
+}
+.tag .dot-orange { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+.tag .dot-purple { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); }
+.tag .dot-green  { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+/* Smaller screens — collapse phone size */
+@media (max-width: 720px) {
+  .phone { --phone-w: 100%; max-width: 380px; }
+  .page-intro,
+  .section-head { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Status bar SVG icons reused -->
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <!-- signal -->
+    <symbol id="i-signal" viewBox="0 0 18 12">
+      <rect x="0"  y="8" width="3" height="4" rx="1" fill="currentColor"/>
+      <rect x="5"  y="5" width="3" height="7" rx="1" fill="currentColor"/>
+      <rect x="10" y="2" width="3" height="10" rx="1" fill="currentColor"/>
+      <rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-wifi" viewBox="0 0 16 12">
+      <path d="M8 11.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="currentColor"/>
+      <path d="M3.2 7.1a6 6 0 019.6 0" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path d="M.5 4.6a10 10 0 0115 0" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-battery" viewBox="0 0 26 12">
+      <rect x="0.5" y="0.5" width="22" height="11" rx="3" stroke="currentColor" fill="none"/>
+      <rect x="23.5" y="3.5" width="2" height="5" rx="1" fill="currentColor"/>
+      <rect x="2.5" y="2.5" width="16" height="7" rx="1.5" fill="currentColor"/>
+    </symbol>
+
+    <!-- nav -->
+    <symbol id="n-home" viewBox="0 0 24 24">
+      <path d="M3 11.2L12 4l9 7.2V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-8.8z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="n-cia" viewBox="0 0 24 24">
+      <path d="M12 3a8 8 0 018 8c0 4.5-4 8.5-9.5 9a.5.5 0 01-.5-.6L11 17a8 8 0 011-14z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+      <circle cx="9.5" cy="11" r="1.2" fill="currentColor"/>
+      <circle cx="14.5" cy="11" r="1.2" fill="currentColor"/>
+    </symbol>
+    <symbol id="n-progress" viewBox="0 0 24 24">
+      <path d="M4 17l4-5 4 3 7-8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="19" cy="7" r="1.6" fill="currentColor"/>
+    </symbol>
+    <symbol id="n-profile" viewBox="0 0 24 24">
+      <circle cx="12" cy="9" r="3.4" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <path d="M5 20c1.4-3.4 4-5 7-5s5.6 1.6 7 5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- general -->
+    <symbol id="i-mic" viewBox="0 0 24 24">
+      <rect x="9" y="3" width="6" height="12" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24">
+      <rect x="3" y="6" width="18" height="13" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <circle cx="12" cy="12.5" r="3.4" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <path d="M9 6l1.5-2h3L15 6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-send" viewBox="0 0 24 24">
+      <path d="M4 12L20 4l-5 16-3-7-8-1z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24">
+      <path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24">
+      <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24">
+      <path d="M20.5 14.5a8 8 0 11-11-11 7 7 0 0011 11z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24">
+      <path d="M5 19c0-9 6-14 15-14-1 9-5 14-15 14z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+      <path d="M5 19c4-3 7-6 9-10" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-water" viewBox="0 0 24 24">
+      <path d="M12 3s7 8 7 13a7 7 0 11-14 0c0-5 7-13 7-13z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h14m-6-6l6 6-6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <path d="M5 12l5 5 9-11" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-back" viewBox="0 0 24 24">
+      <path d="M19 12H5m6-6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-x" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24">
+      <path d="M12 3v6m0 6v6M3 12h6m6 0h6M6 6l3 3m6 6l3 3M6 18l3-3m6-6l3-3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Status bar partial via JS-free repeating include -->
+<template id="t-statusbar">
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="icons" aria-hidden="true">
+      <svg width="18" height="12"><use href="#i-signal"/></svg>
+      <svg width="16" height="12"><use href="#i-wifi"/></svg>
+      <svg width="26" height="12"><use href="#i-battery"/></svg>
+    </span>
+  </div>
+</template>
+
+<div class="page">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="wordmark">balencia<span class="dot">.</span></div>
+    <div class="topbar-meta">
+      <span class="pip" aria-hidden="true"></span>
+      <span>Mobile app · prototype v2</span>
+    </div>
+  </header>
+
+  <!-- Page intro -->
+  <section class="page-intro">
+    <div>
+      <h1>A coach<em>.</em><br>In your corner<em>.</em></h1>
+      <svg class="intro-stroke stroke" viewBox="0 0 540 18" preserveAspectRatio="none">
+        <path class="draw" style="--len: 560" d="M2 13 C 90 -2, 220 18, 320 8 S 500 16, 538 4" stroke="#FF5E00" stroke-width="3"/>
+      </svg>
+    </div>
+    <p>
+      Ten core screens from the <span class="accent">need-led architecture v2</span>.
+      SIA recommends. The user decides. Home reshapes around what's actually
+      worth attention today.
+    </p>
+  </section>
+
+  <!-- ─────────── ONBOARDING ─────────── -->
+  <section class="section" id="s-onboarding">
+    <header class="section-head">
+      <div>
+        <div class="eyebrow">
+          <span class="count">01</span> Onboarding · under 2 minutes
+        </div>
+        <h2 class="section-title">From "I'm new here" to your first action<em style="color: var(--orange); font-style: normal;">.</em></h2>
+      </div>
+      <p class="section-desc">
+        Five screens, no long forms. The user names what they need and SIA
+        proposes a starter stack from a library of small, low-effort tools.
+        <strong>One clear next action</strong> by the end of the flow.
+      </p>
+    </header>
+
+    <div class="phones">
+
+      <!-- 01. Welcome -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step">01</span>
+          <span class="name">Welcome<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">Identity moment. The brand stroke draws across; one CTA, one quiet link. No checklist.</p>
+        <div class="phone">
+          <div class="phone-screen surf-darker">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <div class="screen-body" style="padding-top: 48px; padding-bottom: 36px;">
+              <!-- Hero -->
+              <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-family: var(--logo); font-weight: 800; font-size: 84px; letter-spacing: -.03em; line-height: .92;">
+                  balencia<span style="color: var(--orange);">.</span>
+                </div>
+
+                <svg class="stroke" viewBox="0 0 340 22" preserveAspectRatio="none" style="height: 22px; margin-top: 16px;">
+                  <path class="draw delay-1" style="--len: 360" d="M2 15 C 60 -2, 140 22, 200 10 S 320 18, 338 6" stroke="#FF5E00" stroke-width="3"/>
+                </svg>
+
+                <div style="margin-top: 56px;">
+                  <div class="h1" style="max-width: 11ch;">A coach<span style="color: var(--orange);">.</span><br>In your corner<span style="color: var(--orange);">.</span></div>
+                  <p class="lead" style="margin-top: 16px; max-width: 28ch;">
+                    Balencia adapts to what you need most. SIA will help you choose where to start.
+                  </p>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <button class="btn btn--primary btn--block">Get started <svg width="18" height="18"><use href="#i-arrow"/></svg></button>
+                <p class="helper-line">Already with us? <a>Sign in</a></p>
+              </div>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02. Identity -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step">02</span>
+          <span class="name">Identity<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">Name only. Age optional. We resist the long-form gravity here.</p>
+        <div class="phone">
+          <div class="phone-screen surf-dark">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <!-- Top bar -->
+            <div style="padding: 8px 24px 0; display: flex; align-items: center; justify-content: space-between;">
+              <button class="btn btn--quiet" style="height: 40px; padding: 0; gap: 6px;"><svg width="20" height="20"><use href="#i-back"/></svg></button>
+              <div class="steps">
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-on"></span>
+                <span class="step-pip"></span>
+                <span class="step-pip"></span>
+                <span class="step-pip"></span>
+              </div>
+              <button class="btn btn--quiet" style="height: 40px; padding: 0 4px; font-size: 13px; color: rgba(254,250,243,.6);">Skip</button>
+            </div>
+
+            <div class="screen-body" style="padding-top: 36px;">
+              <div class="eyebrow-in" style="color: var(--orange);">Step 2 of 5</div>
+
+              <div style="margin-top: 18px;">
+                <div class="h1" style="max-width: 12ch;">Welcome<span style="color: var(--orange);">.</span></div>
+                <p class="lead" style="margin-top: 12px; max-width: 30ch;">
+                  What should SIA call you when she checks in?
+                </p>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 36px;">
+                <label class="eyebrow-in" style="color: rgba(254,250,243,.55);">Your name</label>
+                <input class="input input--lg" value="Adam" />
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px;">
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <label class="eyebrow-in">Age (optional)</label>
+                  <input class="input" value="32" />
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <label class="eyebrow-in">Pronouns</label>
+                  <input class="input" placeholder="he / she / they" />
+                </div>
+              </div>
+
+              <div style="flex: 1;"></div>
+
+              <p class="meta" style="margin-bottom: 12px;">
+                We only use this to make SIA feel like she's talking to you. You can change it anytime.
+              </p>
+              <button class="btn btn--primary btn--block" style="margin-bottom: 16px;">Continue <svg width="18" height="18"><use href="#i-arrow"/></svg></button>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03. Build Your Plan -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step">03</span>
+          <span class="name">Build your plan<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">Need-led, not pillar-led. Predefined chips plus a single "Add your own" pill that opens a custom plan field.</p>
+        <div class="phone">
+          <div class="phone-screen surf-dark">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <div style="padding: 8px 24px 0; display: flex; align-items: center; justify-content: space-between;">
+              <button class="btn btn--quiet" style="height: 40px; padding: 0;"><svg width="20" height="20"><use href="#i-back"/></svg></button>
+              <div class="steps">
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-on"></span>
+                <span class="step-pip"></span>
+                <span class="step-pip"></span>
+              </div>
+              <span style="font-size: 13px; color: rgba(254,250,243,.6); font-weight: 600;">3 / 5</span>
+            </div>
+
+            <div class="screen-body scroll" style="padding-top: 28px;">
+              <div class="eyebrow-in" style="color: var(--orange);">Build your plan</div>
+
+              <div style="margin-top: 14px;">
+                <div class="h2" style="max-width: 16ch;">What do you want Balencia to help you with<span style="color: var(--orange);">?</span></div>
+                <p class="lead" style="margin-top: 12px; max-width: 32ch;">
+                  Pick what's true for you right now. One to three is usually enough.
+                </p>
+              </div>
+
+              <!-- Chips wrap -->
+              <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px;">
+                <span class="need" data-on="true">Sleep better <span class="x">×</span></span>
+                <span class="need" data-on="true">Reduce stress <span class="x">×</span></span>
+                <span class="need">Improve energy</span>
+                <span class="need">Eat healthier</span>
+                <span class="need">Track meals</span>
+                <span class="need" data-on="true">Build a routine <span class="x">×</span></span>
+                <span class="need">Move more</span>
+                <span class="need">Strength &amp; fitness</span>
+                <span class="need">Lose weight</span>
+                <span class="need">Improve focus</span>
+                <span class="need">Feel more balanced</span>
+              </div>
+
+              <!-- Add your own -->
+              <div style="margin-top: 22px;">
+                <div class="eyebrow-in" style="margin-bottom: 10px;">Or, in your own words</div>
+                <textarea class="input input--area" placeholder='e.g. "I want to stop scrolling in bed and actually sleep before midnight."'></textarea>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding-bottom: 16px;">
+                <span class="meta"><strong style="color: var(--paper-50);">3 selected</strong> &middot; 1–3 recommended</span>
+                <span class="why">Why this?</span>
+              </div>
+
+              <button class="btn btn--primary btn--block" style="margin-bottom: 16px;">See SIA's suggestion <svg width="18" height="18"><use href="#i-arrow"/></svg></button>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04. SIA suggests -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step cia">04</span>
+          <span class="name">SIA suggests<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">First voice from SIA. Purple is reserved here. Stack is editable; user activates only what fits.</p>
+        <div class="phone">
+          <div class="phone-screen surf-dark">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <div style="padding: 8px 24px 0; display: flex; align-items: center; justify-content: space-between;">
+              <button class="btn btn--quiet" style="height: 40px; padding: 0;"><svg width="20" height="20"><use href="#i-back"/></svg></button>
+              <div class="steps">
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-on"></span>
+                <span class="step-pip"></span>
+              </div>
+              <span style="font-size: 13px; color: rgba(254,250,243,.6); font-weight: 600;">4 / 5</span>
+            </div>
+
+            <div class="screen-body scroll" style="padding-top: 24px;">
+              <!-- SIA bubble -->
+              <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <div class="avatar avatar--cia">C</div>
+                <div style="flex: 1; min-width: 0;">
+                  <div class="eyebrow-in" style="color: var(--purple-2); margin-bottom: 6px;">SIA<span style="color: var(--purple-2);">.</span></div>
+                  <div class="cia-bubble">
+                    Sleep is a great place to start. I've drawn up five tools that usually work together for evenings. Choose what fits your week.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stack -->
+              <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
+
+                <div class="feature-row" data-on="true">
+                  <div class="check"><svg width="12" height="12"><use href="#i-check"/></svg></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                      <svg width="16" height="16" style="color: var(--orange);"><use href="#i-moon"/></svg>
+                      <span style="font-weight: 600; font-size: 15px;">Sleep check-in</span>
+                    </div>
+                    <p class="meta">A 20-second tap each morning, on how the night actually felt.</p>
+                    <div class="meta-row" style="margin-top: 6px;">
+                      <span>20 sec / day</span><span class="dot-sep">·</span><a>Why this?</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="feature-row" data-on="true">
+                  <div class="check"><svg width="12" height="12"><use href="#i-check"/></svg></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                      <svg width="16" height="16" style="color: var(--orange);"><use href="#i-bolt"/></svg>
+                      <span style="font-weight: 600; font-size: 15px;">Evening wind-down</span>
+                    </div>
+                    <p class="meta">A short, gentle script for the last 30 minutes before bed.</p>
+                    <div class="meta-row" style="margin-top: 6px;">
+                      <span>3–5 min</span><span class="dot-sep">·</span><a>Why this?</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="feature-row" data-on="true">
+                  <div class="check"><svg width="12" height="12"><use href="#i-check"/></svg></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                      <svg width="16" height="16" style="color: var(--orange);"><use href="#i-leaf"/></svg>
+                      <span style="font-weight: 600; font-size: 15px;">Bedtime reminder</span>
+                    </div>
+                    <p class="meta">A nudge 30 minutes before your target bedtime.</p>
+                    <div class="meta-row" style="margin-top: 6px;">
+                      <span>10 sec setup</span><span class="dot-sep">·</span><a>Why this?</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="feature-row">
+                  <div class="check"></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                      <svg width="16" height="16" style="color: var(--paper-mute);"><use href="#i-sparkle"/></svg>
+                      <span style="font-weight: 600; font-size: 15px;">Stress pulse</span>
+                    </div>
+                    <p class="meta">A one-tap stress check that pairs with sleep over time.</p>
+                    <div class="meta-row" style="margin-top: 6px;">
+                      <span>15 sec / day</span><span class="dot-sep">·</span><a>Why this?</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="feature-row" style="margin-bottom: 16px;">
+                  <div class="check"></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                      <svg width="16" height="16" style="color: var(--paper-mute);"><use href="#i-leaf"/></svg>
+                      <span style="font-weight: 600; font-size: 15px;">Breathing break</span>
+                    </div>
+                    <p class="meta">A 1-minute reset when the day gets loud.</p>
+                    <div class="meta-row" style="margin-top: 6px;">
+                      <span>1 min</span><span class="dot-sep">·</span><a>Why this?</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+                <button class="btn btn--ghost" style="flex: 1;">Edit picks</button>
+                <button class="btn btn--primary" style="flex: 1.5;">Activate 3</button>
+              </div>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05. Plan Ready -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step green">05</span>
+          <span class="name">Plan ready<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">Arrival moment. Green stroke draws through the active stack; the first action is small and obvious.</p>
+        <div class="phone">
+          <div class="phone-screen surf-darker" style="background: radial-gradient(380px 260px at 80% 12%, rgba(255,94,0,.15), transparent 65%), var(--ink-warm-900);">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <div style="padding: 8px 24px 0; display: flex; align-items: center; justify-content: space-between;">
+              <span></span>
+              <div class="steps">
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-done"></span>
+                <span class="step-pip is-on"></span>
+              </div>
+              <span style="font-size: 13px; color: rgba(254,250,243,.6); font-weight: 600;">5 / 5</span>
+            </div>
+
+            <div class="screen-body" style="padding-top: 40px;">
+              <div class="eyebrow-in" style="color: var(--green);">Your plan is ready</div>
+              <div class="h1" style="margin-top: 14px; max-width: 14ch;">Three small tools to start with<span style="color: var(--orange);">.</span></div>
+
+              <!-- Stack with green stroke down the side -->
+              <div style="position: relative; margin-top: 32px;">
+                <!-- Continuous green line down the list -->
+                <svg class="stroke" viewBox="0 0 12 220" preserveAspectRatio="none" style="position: absolute; left: 4px; top: 8px; height: 200px; width: 12px;">
+                  <path class="draw delay-1" style="--len: 230" d="M6 4 V 216" stroke="#34A853" stroke-width="3"/>
+                  <circle cx="6" cy="14"  r="4" fill="#34A853"/>
+                  <circle cx="6" cy="78"  r="4" fill="#34A853"/>
+                  <circle cx="6" cy="142" r="4" fill="#34A853"/>
+                </svg>
+
+                <div style="display: flex; flex-direction: column; gap: 16px; padding-left: 28px;">
+                  <div>
+                    <div style="font-weight: 600; font-size: 16px;">Sleep check-in</div>
+                    <p class="meta">Each morning, 20 seconds.</p>
+                  </div>
+                  <div>
+                    <div style="font-weight: 600; font-size: 16px;">Evening wind-down</div>
+                    <p class="meta">Tonight, 10:15 PM.</p>
+                  </div>
+                  <div>
+                    <div style="font-weight: 600; font-size: 16px;">Bedtime reminder</div>
+                    <p class="meta">10:45 PM, every day.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SIA narrative -->
+              <div class="cia-suggest" style="margin-top: 32px;">
+                <div class="row">
+                  <span class="pill-cia">SIA<span style="opacity:.7">.</span></span>
+                  <span class="meta">A note from your coach</span>
+                </div>
+                <p class="body" style="color: var(--paper-100);">
+                  Let's keep it gentle. We'll start with one quick check-in tonight and see what the next week tells us.
+                </p>
+              </div>
+
+              <div style="flex: 1;"></div>
+
+              <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+                <button class="btn btn--primary btn--block">Start my first check-in <svg width="18" height="18"><use href="#i-arrow"/></svg></button>
+                <button class="btn btn--quiet btn--block" style="height: 44px;">Take a quick tour first</button>
+              </div>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────── DAILY ─────────── -->
+  <section class="section" id="s-daily">
+    <header class="section-head">
+      <div>
+        <div class="eyebrow">
+          <span class="count">02</span> Daily · adaptive home
+        </div>
+        <h2 class="section-title">The home that reshapes itself<em style="color: var(--orange); font-style: normal;">.</em></h2>
+      </div>
+      <p class="section-desc">
+        No tabs for features. Active tools live as varied cards inside Home,
+        sized by what matters now. <strong>One obvious next action</strong>
+        from SIA, surrounded by the user's current stack and one quiet
+        suggestion for tomorrow.
+      </p>
+    </header>
+
+    <div class="phones">
+
+      <!-- 06. Adaptive Home -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step">06</span>
+          <span class="name">Home<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">Greeting · SIA card · today focus · varied feature tiles · SIA suggestion · quick-log FAB · 4-tab nav.</p>
+        <div class="phone">
+          <div class="phone-screen surf-dark">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <div class="screen-body scroll" style="padding-top: 14px; padding-bottom: 110px;">
+              <!-- Greeting -->
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <div class="eyebrow-in" style="color: rgba(254,250,243,.55);">Tuesday morning</div>
+                  <div style="font-size: 24px; font-weight: 700; letter-spacing: -.015em; margin-top: 4px;">Hey Adam<span style="color: var(--orange);">.</span></div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; background: rgba(255,94,0,.12); color: var(--orange); padding: 8px 12px; border-radius: 99px; font-size: 12px; font-weight: 700; letter-spacing: .06em;">
+                  <svg width="14" height="14"><use href="#i-bolt"/></svg> 3 day streak
+                </div>
+              </div>
+
+              <!-- SIA coach card -->
+              <div class="cia-card" style="margin-top: 18px;">
+                <div class="avatar avatar--cia" style="width: 36px; height: 36px;">C</div>
+                <div style="flex: 1; min-width: 0;">
+                  <div class="eyebrow-in" style="color: var(--purple-2); margin-bottom: 4px;">SIA<span>.</span></div>
+                  <p style="font-size: 15px; line-height: 1.45;">Tonight, protect your wind-down. We'll start the 30-min cue at 10:15.</p>
+                  <div style="display: flex; gap: 8px; margin-top: 12px;">
+                    <span class="chip chip--purple">Open chat</span>
+                    <span class="chip chip--outline" style="color: var(--paper-50);">Snooze</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Today focus -->
+              <div style="margin-top: 22px;">
+                <div class="eyebrow-in" style="margin-bottom: 10px;">Today focus</div>
+                <div class="card card--ink" style="padding: 20px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                      <div style="font-size: 13px; color: rgba(254,250,243,.55); font-weight: 600; letter-spacing: -.005em;">Evening wind-down</div>
+                      <div style="font-size: 22px; font-weight: 700; letter-spacing: -.012em; margin-top: 6px;">Starts at 10:15 PM</div>
+                    </div>
+                    <button class="btn btn--primary" style="height: 44px; font-size: 14px; padding: 0 18px;">Start <svg width="14" height="14"><use href="#i-arrow"/></svg></button>
+                  </div>
+
+                  <!-- Progress stroke -->
+                  <svg class="stroke" viewBox="0 0 320 14" preserveAspectRatio="none" style="height: 14px; margin-top: 18px;">
+                    <path d="M2 7 H 318" stroke="rgba(254,250,243,.10)" stroke-width="4"/>
+                    <path class="draw" style="--len: 220" d="M2 7 H 220" stroke="#FF5E00" stroke-width="4"/>
+                  </svg>
+                  <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                    <span class="meta">14h until bedtime</span>
+                    <span class="meta" style="color: var(--orange);">on track</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Active tools (bento, varied sizes) -->
+              <div style="margin-top: 24px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                  <span class="eyebrow-in">Your tools</span>
+                  <span class="meta" style="font-weight: 600;">Edit</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px;">
+                  <!-- Tall card -->
+                  <div class="card" style="padding: 16px; gap: 8px;">
+                    <svg width="22" height="22" style="color: var(--orange);"><use href="#i-moon"/></svg>
+                    <div class="title">Sleep check-in</div>
+                    <p class="desc">Last night, you marked it <strong style="color: var(--paper-100);">restless</strong>.</p>
+                    <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 6px;">
+                      <span style="font-weight: 700; font-size: 24px;">6h 42m</span>
+                      <span class="meta">avg this week</span>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div class="card" style="padding: 14px; gap: 6px;">
+                      <svg width="20" height="20" style="color: var(--orange);"><use href="#i-leaf"/></svg>
+                      <div style="font-weight: 600; font-size: 14px;">Breathing</div>
+                      <div style="font-size: 18px; font-weight: 700;">1-min reset</div>
+                    </div>
+                    <div class="card" style="padding: 14px; gap: 6px;">
+                      <svg width="20" height="20" style="color: var(--orange);"><use href="#i-sparkle"/></svg>
+                      <div style="font-weight: 600; font-size: 14px;">Stress pulse</div>
+                      <div style="font-size: 18px; font-weight: 700;">Tap to log</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick actions row -->
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px;">
+                <span class="quick"><svg width="14" height="14"><use href="#i-water"/></svg> Log water</span>
+                <span class="quick"><svg width="14" height="14"><use href="#i-mic"/></svg> Voice note</span>
+                <span class="quick"><svg width="14" height="14"><use href="#i-leaf"/></svg> Breathe</span>
+              </div>
+
+              <!-- SIA suggests -->
+              <div class="cia-suggest" style="margin-top: 24px;">
+                <div class="row">
+                  <span class="pill-cia">SIA<span style="opacity:.7">.</span></span>
+                  <span class="meta">Suggested for tomorrow</span>
+                </div>
+                <div style="font-weight: 600; font-size: 16px;">Add a morning energy review</div>
+                <p class="meta">Your last three mornings ran a little flat. A 15-second check would help us see what's behind it.</p>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn--primary" style="height: 40px; font-size: 13px; padding: 0 16px;">Add</button>
+                  <button class="btn btn--quiet" style="height: 40px; font-size: 13px; padding: 0 14px; color: var(--paper-100);">Tell me more</button>
+                  <button class="btn btn--quiet" style="height: 40px; font-size: 13px; padding: 0 14px; color: rgba(254,250,243,.55); margin-left: auto;">Not now</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAB -->
+            <button class="fab" aria-label="Quick log">
+              <svg width="22" height="22"><use href="#i-plus"/></svg>
+            </button>
+
+            <!-- Bottom nav -->
+            <div class="bottomnav">
+              <span class="navitem is-on"><svg width="22" height="22"><use href="#n-home"/></svg>Home</span>
+              <span class="navitem"><svg width="22" height="22"><use href="#n-cia"/></svg>SIA<span style="color: var(--orange);">.</span></span>
+              <span class="navitem"><svg width="22" height="22"><use href="#n-progress"/></svg>Progress</span>
+              <span class="navitem"><svg width="22" height="22"><use href="#n-profile"/></svg>Profile</span>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────── COACH + INSIGHT ─────────── -->
+  <section class="section" id="s-coach">
+    <header class="section-head">
+      <div>
+        <div class="eyebrow is-cia">
+          <span class="count">03</span> Coach &amp; insight
+        </div>
+        <h2 class="section-title">SIA listens, then suggests<em style="color: var(--purple); font-style: normal;">.</em></h2>
+      </div>
+      <p class="section-desc">
+        SIA is the engine: chat, recommendations, weekly recap. The user's
+        voice is orange. SIA's projection is the dashed purple line. The week
+        is summarised in plain language, never a dashboard.
+      </p>
+    </header>
+
+    <div class="phones">
+
+      <!-- 07. SIA Chat -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step cia">07</span>
+          <span class="name">SIA chat<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">Voice, photo, quick replies, and an in-line feature suggestion when SIA notices a pattern.</p>
+        <div class="phone">
+          <div class="phone-screen surf-dark">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <!-- Chat header -->
+            <div style="padding: 8px 24px 14px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--ink-line);">
+              <button class="btn btn--quiet" style="height: 40px; padding: 0;"><svg width="20" height="20"><use href="#i-back"/></svg></button>
+              <div class="avatar avatar--cia" style="width: 36px; height: 36px;">C</div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-weight: 700; font-size: 16px;">SIA<span style="color: var(--purple-2);">.</span></div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(254,250,243,.55); font-weight: 600;">
+                  <span style="width: 6px; height: 6px; border-radius: 99px; background: var(--green); box-shadow: 0 0 10px var(--green);"></span>
+                  Listening
+                </div>
+              </div>
+              <button class="btn btn--quiet" style="height: 40px; padding: 0;"><svg width="20" height="20"><use href="#i-sparkle"/></svg></button>
+            </div>
+
+            <!-- Chat body -->
+            <div class="screen-body scroll" style="padding-top: 18px; padding-bottom: 0; gap: 14px;">
+
+              <!-- Timestamp -->
+              <div class="meta" style="text-align: center;">Today &middot; 9:38 AM</div>
+
+              <!-- User -->
+              <div class="user-bubble">I'm feeling a bit overwhelmed lately.</div>
+
+              <!-- SIA -->
+              <div style="display: flex; gap: 10px; align-items: flex-start;">
+                <div class="avatar avatar--cia" style="width: 30px; height: 30px; font-size: 14px;">C</div>
+                <div class="cia-bubble" style="max-width: 84%;">
+                  That's worth paying attention to. What's contributing most right now: sleep, schedule, or something at work?
+                </div>
+              </div>
+
+              <!-- Quick chips -->
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; padding-left: 40px;">
+                <span class="chip chip--outline" style="text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; padding: 8px 14px;">Sleep</span>
+                <span class="chip chip--outline" style="text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; padding: 8px 14px;">Schedule</span>
+                <span class="chip chip--outline" style="text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; padding: 8px 14px;">Work</span>
+                <span class="chip chip--outline" style="text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; padding: 8px 14px;">Something else</span>
+              </div>
+
+              <!-- User -->
+              <div class="user-bubble" style="margin-top: 6px;">Sleep, mostly. Three nights of broken sleep this week.</div>
+
+              <!-- SIA suggestion card -->
+              <div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 2px;">
+                <div class="avatar avatar--cia" style="width: 30px; height: 30px; font-size: 14px;">C</div>
+                <div class="cia-suggest" style="flex: 1; min-width: 0;">
+                  <div class="row">
+                    <span class="pill-cia">Suggestion</span>
+                    <span class="meta">Based on your last 7 days</span>
+                  </div>
+                  <div style="font-weight: 600; font-size: 15px;">Add a 2-minute evening reflection</div>
+                  <p class="meta">A short note before bed often surfaces the one or two things sitting under the surface.</p>
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn--primary" style="height: 38px; font-size: 13px; padding: 0 14px;">Add feature</button>
+                    <button class="btn btn--ghost"   style="height: 38px; font-size: 13px; padding: 0 14px;">Tell me more</button>
+                    <button class="btn btn--quiet"   style="height: 38px; font-size: 13px; padding: 0 12px; color: rgba(254,250,243,.55); margin-left: auto;">Not now</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Spacer for input -->
+              <div style="height: 90px;"></div>
+            </div>
+
+            <!-- Input -->
+            <div style="position: absolute; left: 14px; right: 14px; bottom: 14px; padding: 12px; background: rgba(12,6,3,.86); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); border-radius: 28px; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 0 0 1px var(--ink-line); z-index: 4;">
+              <button class="btn btn--quiet" style="height: 40px; padding: 0; width: 40px;"><svg width="22" height="22"><use href="#i-camera"/></svg></button>
+              <input class="input" placeholder="Tell SIA something" style="background: transparent; height: 40px; padding: 0;"/>
+              <button class="btn btn--quiet" style="height: 40px; padding: 0; width: 40px;"><svg width="22" height="22"><use href="#i-mic"/></svg></button>
+              <button class="btn btn--primary" style="height: 40px; width: 40px; padding: 0; border-radius: 99px;"><svg width="18" height="18"><use href="#i-send"/></svg></button>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08. Progress -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step">08</span>
+          <span class="name">Progress<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">Coach recap, not analytics. Orange = the user. Purple dashed = SIA's projection. Green dots = arrivals.</p>
+        <div class="phone">
+          <div class="phone-screen surf-dark">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <div class="screen-body scroll" style="padding-top: 14px; padding-bottom: 110px;">
+              <!-- Top -->
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div class="eyebrow-in" style="color: rgba(254,250,243,.55);">Week of Apr 28</div>
+                <div class="segmented">
+                  <span class="seg is-on">Week</span>
+                  <span class="seg">Month</span>
+                  <span class="seg">Year</span>
+                </div>
+              </div>
+
+              <!-- Headline -->
+              <div class="h1" style="margin-top: 14px; max-width: 12ch;">This week<span style="color: var(--orange);">.</span></div>
+
+              <!-- SIA narrative -->
+              <div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 18px;">
+                <div class="avatar avatar--cia" style="width: 30px; height: 30px; font-size: 14px;">C</div>
+                <p class="lead" style="flex: 1; font-size: 15px; line-height: 1.55;">
+                  You completed <strong style="color: var(--paper-50);">5 evening routines</strong> and slept <strong style="color: var(--paper-50);">42 minutes</strong> longer on average. Stress was lower on days you used breathing.
+                </p>
+              </div>
+
+              <!-- Chart -->
+              <div class="card card--ink" style="margin-top: 22px; padding: 18px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                  <div>
+                    <div class="eyebrow-in">Sleep</div>
+                    <div style="font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin-top: 4px;">7h 12m <span style="font-size: 12px; color: var(--green); font-weight: 700; letter-spacing: .04em;">+42m</span></div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
+                    <span class="legend"><span class="dash orange"></span>You</span>
+                    <span class="legend"><span class="dash purple"></span>SIA's path</span>
+                    <span class="legend"><span class="dash green-dot"></span>Arrival</span>
+                  </div>
+                </div>
+
+                <!-- Stroke chart -->
+                <svg class="stroke" viewBox="0 0 320 140" preserveAspectRatio="none" style="height: 130px; margin-top: 14px; width: 100%;">
+                  <!-- grid lines -->
+                  <line x1="0" y1="35"  x2="320" y2="35"  stroke="rgba(254,250,243,.08)" stroke-width="1"/>
+                  <line x1="0" y1="70"  x2="320" y2="70"  stroke="rgba(254,250,243,.08)" stroke-width="1"/>
+                  <line x1="0" y1="105" x2="320" y2="105" stroke="rgba(254,250,243,.08)" stroke-width="1"/>
+
+                  <!-- SIA projection (dashed purple) -->
+                  <path class="draw delay-2"
+                        style="--len: 360"
+                        d="M0 95 C 40 80, 80 78, 130 62 S 220 32, 320 22"
+                        stroke="#7F24FF" stroke-width="2.5"
+                        stroke-dasharray="6 6"/>
+
+                  <!-- User line (solid orange) -->
+                  <path class="draw delay-1"
+                        style="--len: 360"
+                        d="M0 110 C 40 100, 70 92, 110 80 S 180 60, 230 55 S 290 38, 320 45"
+                        stroke="#FF5E00" stroke-width="3.5"/>
+
+                  <!-- Milestones -->
+                  <circle cx="110" cy="80" r="5" fill="#34A853"/>
+                  <circle cx="230" cy="55" r="5" fill="#34A853"/>
+                </svg>
+
+                <!-- Days -->
+                <div style="display: flex; justify-content: space-between; font-size: 11px; color: rgba(254,250,243,.45); font-weight: 600; letter-spacing: .08em; margin-top: 8px;">
+                  <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                </div>
+              </div>
+
+              <!-- Stat trio -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 18px;">
+                <div class="card" style="padding: 14px;">
+                  <div class="stat">
+                    <span class="k">Streak</span>
+                    <span class="v">12<span class="unit">days</span></span>
+                  </div>
+                </div>
+                <div class="card" style="padding: 14px;">
+                  <div class="stat">
+                    <span class="k">Wind-down</span>
+                    <span class="v">5<span class="unit">/ 7</span></span>
+                  </div>
+                </div>
+                <div class="card" style="padding: 14px;">
+                  <div class="stat">
+                    <span class="k">Mood</span>
+                    <span class="v" style="color: var(--green);">+0.6</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Patterns -->
+              <div style="margin-top: 22px;">
+                <div class="eyebrow-in" style="margin-bottom: 10px;">Pattern of the week</div>
+                <div class="card card--ghost" style="padding: 16px;">
+                  <div style="display: flex; gap: 12px; align-items: flex-start;">
+                    <svg width="22" height="22" style="color: var(--purple-2); flex-shrink: 0;"><use href="#i-sparkle"/></svg>
+                    <div>
+                      <div style="font-weight: 600; font-size: 15px;">Breathing days have calmer evenings.</div>
+                      <p class="meta" style="margin-top: 4px;">On the 3 days you used the breathing break, evening stress was 38% lower.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SIA suggest -->
+              <div class="cia-suggest" style="margin-top: 18px;">
+                <div class="row">
+                  <span class="pill-cia">SIA<span style="opacity:.7">.</span></span>
+                  <span class="meta">Next refinement</span>
+                </div>
+                <div style="font-weight: 600; font-size: 15px;">Add a morning energy review</div>
+                <p class="meta">It'll help us see how sleep changes the next day's mood.</p>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn--primary" style="height: 38px; font-size: 13px; padding: 0 16px;">Add</button>
+                  <button class="btn btn--quiet"   style="height: 38px; font-size: 13px; padding: 0 14px; color: rgba(254,250,243,.6);">Not now</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottomnav">
+              <span class="navitem"><svg width="22" height="22"><use href="#n-home"/></svg>Home</span>
+              <span class="navitem"><svg width="22" height="22"><use href="#n-cia"/></svg>SIA<span>.</span></span>
+              <span class="navitem is-on"><svg width="22" height="22"><use href="#n-progress"/></svg>Progress</span>
+              <span class="navitem"><svg width="22" height="22"><use href="#n-profile"/></svg>Profile</span>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────── MANAGE ─────────── -->
+  <section class="section" id="s-manage">
+    <header class="section-head">
+      <div>
+        <div class="eyebrow is-green">
+          <span class="count">04</span> Manage · control &amp; growth
+        </div>
+        <h2 class="section-title">User decides; app grows<em style="color: var(--green); font-style: normal;">.</em></h2>
+      </div>
+      <p class="section-desc">
+        Features are added and removed in plain sight. SIA recommends with
+        evidence. Profile carries memory controls, privacy, and connected
+        devices. <strong>No hidden settings.</strong>
+      </p>
+    </header>
+
+    <div class="phones">
+
+      <!-- 09. Profile -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step green">09</span>
+          <span class="name">Profile<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">Needs, active features, SIA memory, privacy. Every toggle is visible. Nothing's "locked."</p>
+        <div class="phone">
+          <div class="phone-screen surf-dark">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <div class="screen-body scroll" style="padding-top: 14px; padding-bottom: 110px;">
+              <!-- Header row -->
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="avatar avatar--user" style="width: 56px; height: 56px; font-size: 20px;">A</div>
+                <div style="flex: 1; min-width: 0;">
+                  <div class="h2" style="font-size: 24px; letter-spacing: -.01em;">Adam Mitchell<span style="color: var(--orange);">.</span></div>
+                  <p class="meta">Member since April · 12-day streak</p>
+                </div>
+                <button class="btn btn--quiet" style="height: 36px; padding: 0;"><svg width="22" height="22"><use href="#i-sparkle"/></svg></button>
+              </div>
+
+              <!-- Current needs -->
+              <div style="margin-top: 28px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                  <span class="eyebrow-in">Your current needs</span>
+                  <span class="meta" style="font-weight: 600; color: var(--orange);">Edit</span>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                  <span class="need" data-on="true">Sleep better <span class="x">×</span></span>
+                  <span class="need" data-on="true">Reduce stress <span class="x">×</span></span>
+                  <span class="need" data-on="true">Build a routine <span class="x">×</span></span>
+                  <span class="need--add need">Add</span>
+                </div>
+              </div>
+
+              <!-- Active features -->
+              <div style="margin-top: 26px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                  <span class="eyebrow-in">Active features <span style="color: var(--orange);">· 4</span></span>
+                  <span class="meta" style="font-weight: 600; color: var(--paper-50);">Manage</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--ink-warm-900); border-radius: var(--r-lg);">
+                    <svg width="20" height="20" style="color: var(--orange);"><use href="#i-moon"/></svg>
+                    <div style="flex: 1;">
+                      <div style="font-weight: 600; font-size: 15px;">Sleep check-in</div>
+                      <div class="meta">Daily · 7:00 AM</div>
+                    </div>
+                    <span class="toggle" data-on="true"></span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--ink-warm-900); border-radius: var(--r-lg);">
+                    <svg width="20" height="20" style="color: var(--orange);"><use href="#i-bolt"/></svg>
+                    <div style="flex: 1;">
+                      <div style="font-weight: 600; font-size: 15px;">Evening wind-down</div>
+                      <div class="meta">Daily · 10:15 PM</div>
+                    </div>
+                    <span class="toggle" data-on="true"></span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--ink-warm-900); border-radius: var(--r-lg);">
+                    <svg width="20" height="20" style="color: var(--orange);"><use href="#i-sparkle"/></svg>
+                    <div style="flex: 1;">
+                      <div style="font-weight: 600; font-size: 15px;">Stress pulse</div>
+                      <div class="meta">When you tap · no reminders</div>
+                    </div>
+                    <span class="toggle" data-on="true"></span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--ink-warm-900); border-radius: var(--r-lg);">
+                    <svg width="20" height="20" style="color: rgba(254,250,243,.55);"><use href="#i-leaf"/></svg>
+                    <div style="flex: 1;">
+                      <div style="font-weight: 600; font-size: 15px; color: rgba(254,250,243,.6);">Breathing break</div>
+                      <div class="meta">Paused</div>
+                    </div>
+                    <span class="toggle"></span>
+                  </div>
+                </div>
+
+                <button class="btn btn--ghost btn--block" style="margin-top: 12px; height: 48px;"><svg width="18" height="18"><use href="#i-plus"/></svg> Add a feature</button>
+              </div>
+
+              <!-- Coach & memory -->
+              <div style="margin-top: 28px;">
+                <span class="eyebrow-in">SIA &amp; memory</span>
+                <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--ink-warm-900); border-radius: var(--r-lg);">
+                    <div>
+                      <div style="font-weight: 600; font-size: 14px;">Coach tone</div>
+                      <div class="meta">Gentle</div>
+                    </div>
+                    <svg width="18" height="18" style="color: rgba(254,250,243,.55);"><use href="#i-arrow"/></svg>
+                  </div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--ink-warm-900); border-radius: var(--r-lg);">
+                    <div>
+                      <div style="font-weight: 600; font-size: 14px;">What SIA remembers</div>
+                      <div class="meta">11 facts &middot; review or clear</div>
+                    </div>
+                    <svg width="18" height="18" style="color: rgba(254,250,243,.55);"><use href="#i-arrow"/></svg>
+                  </div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--ink-warm-900); border-radius: var(--r-lg);">
+                    <div>
+                      <div style="font-weight: 600; font-size: 14px;">Pause recommendations</div>
+                      <div class="meta">Currently on</div>
+                    </div>
+                    <span class="toggle" data-on="true"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Privacy quick link -->
+              <div style="margin-top: 26px; display: flex; gap: 8px;">
+                <button class="btn btn--ghost" style="flex: 1; height: 48px; font-size: 13px;">Privacy</button>
+                <button class="btn btn--ghost" style="flex: 1; height: 48px; font-size: 13px;">Devices</button>
+                <button class="btn btn--ghost" style="flex: 1; height: 48px; font-size: 13px;">Sign out</button>
+              </div>
+            </div>
+
+            <div class="bottomnav">
+              <span class="navitem"><svg width="22" height="22"><use href="#n-home"/></svg>Home</span>
+              <span class="navitem"><svg width="22" height="22"><use href="#n-cia"/></svg>SIA<span>.</span></span>
+              <span class="navitem"><svg width="22" height="22"><use href="#n-progress"/></svg>Progress</span>
+              <span class="navitem is-on"><svg width="22" height="22"><use href="#n-profile"/></svg>Profile</span>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Add Feature -->
+      <div class="phone-wrap">
+        <div class="phone-label">
+          <span class="step">10</span>
+          <span class="name">Add a feature<span class="dot">.</span></span>
+        </div>
+        <p class="phone-note">SIA's recommendation lands first, with reasoning. Below: varied card sizes, never a uniform grid.</p>
+        <div class="phone">
+          <div class="phone-screen surf-dark">
+            <div class="island"></div>
+            <div class="statusbar">
+              <span>9:41</span>
+              <span class="icons" aria-hidden="true">
+                <svg width="18" height="12"><use href="#i-signal"/></svg>
+                <svg width="16" height="12"><use href="#i-wifi"/></svg>
+                <svg width="26" height="12"><use href="#i-battery"/></svg>
+              </span>
+            </div>
+
+            <div style="padding: 8px 24px 0; display: flex; align-items: center; justify-content: space-between;">
+              <button class="btn btn--quiet" style="height: 40px; padding: 0;"><svg width="20" height="20"><use href="#i-back"/></svg></button>
+              <span style="font-weight: 600; font-size: 15px;">Add a feature</span>
+              <button class="btn btn--quiet" style="height: 40px; padding: 0;"><svg width="20" height="20"><use href="#i-x"/></svg></button>
+            </div>
+
+            <div class="screen-body scroll" style="padding-top: 22px; padding-bottom: 30px;">
+              <!-- Search -->
+              <input class="input" placeholder="Search features" style="background: var(--ink-warm-900);">
+
+              <!-- Category chips -->
+              <div style="display: flex; gap: 8px; overflow-x: auto; padding: 16px 0 4px; margin: 0 -24px; padding-left: 24px;">
+                <span class="chip chip--orange">All</span>
+                <span class="chip chip--outline">Sleep</span>
+                <span class="chip chip--outline">Mind</span>
+                <span class="chip chip--outline">Energy</span>
+                <span class="chip chip--outline">Food</span>
+                <span class="chip chip--outline">Move</span>
+                <span class="chip chip--outline" style="margin-right: 24px;">Focus</span>
+              </div>
+
+              <!-- Recommended-for-you (featured SIA card) -->
+              <div class="cia-suggest" style="margin-top: 18px; padding: 18px;">
+                <div class="row">
+                  <span class="pill-cia">SIA recommends</span>
+                  <span class="meta">For you, this week</span>
+                </div>
+                <div style="font-weight: 700; font-size: 20px; letter-spacing: -.01em;">Morning energy review</div>
+                <p class="meta">Track how rested you feel after sleep. 15 seconds a day.</p>
+                <p class="meta" style="color: var(--purple-2);">
+                  Recommended because your last three mornings ran flat, and you're working on sleep consistency.
+                </p>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn--primary" style="height: 42px; font-size: 14px; padding: 0 18px;">Add to my app</button>
+                  <button class="btn btn--ghost"   style="height: 42px; font-size: 14px; padding: 0 16px;">Why this?</button>
+                </div>
+              </div>
+
+              <!-- Bento of features -->
+              <div style="margin-top: 22px;">
+                <div class="eyebrow-in" style="margin-bottom: 10px;">More that fit you</div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+
+                  <!-- Wide card spanning 2 -->
+                  <div class="card" style="grid-column: span 2; padding: 18px; flex-direction: row; align-items: center; gap: 14px;">
+                    <svg width="28" height="28" style="color: var(--orange);"><use href="#i-water"/></svg>
+                    <div style="flex: 1; min-width: 0;">
+                      <div class="title">Hydration tracker</div>
+                      <p class="desc">Soft daily target, with one-tap logging from Home.</p>
+                    </div>
+                    <button class="btn btn--ghost" style="height: 38px; font-size: 13px; padding: 0 14px;"><svg width="14" height="14"><use href="#i-plus"/></svg> Add</button>
+                  </div>
+
+                  <!-- Tall card -->
+                  <div class="card" style="padding: 16px; gap: 10px;">
+                    <svg width="22" height="22" style="color: var(--orange);"><use href="#i-leaf"/></svg>
+                    <div class="title">Reflection journal</div>
+                    <p class="desc">Two minutes before bed. Voice or type.</p>
+                    <button class="btn btn--ghost" style="height: 36px; font-size: 13px; padding: 0 14px; align-self: flex-start; margin-top: auto;">Add</button>
+                  </div>
+
+                  <div class="card" style="padding: 16px; gap: 10px;">
+                    <svg width="22" height="22" style="color: var(--orange);"><use href="#i-bolt"/></svg>
+                    <div class="title">Focus session</div>
+                    <p class="desc">A 25-min protected block with a soft start cue.</p>
+                    <button class="btn btn--ghost" style="height: 36px; font-size: 13px; padding: 0 14px; align-self: flex-start; margin-top: auto;">Add</button>
+                  </div>
+
+                  <!-- Wide -->
+                  <div class="card" style="grid-column: span 2; padding: 18px; flex-direction: row; align-items: center; gap: 14px;">
+                    <svg width="28" height="28" style="color: var(--orange);"><use href="#i-sparkle"/></svg>
+                    <div style="flex: 1; min-width: 0;">
+                      <div class="title">Photo meal log</div>
+                      <p class="desc">A snapshot at the table; SIA reads it and asks one quick follow-up.</p>
+                    </div>
+                    <button class="btn btn--ghost" style="height: 38px; font-size: 13px; padding: 0 14px;"><svg width="14" height="14"><use href="#i-plus"/></svg> Add</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────── Foot ─────────── -->
+  <footer class="page-foot">
+    <div>
+      <div class="eyebrow"><span class="count" style="background: var(--paper-mute);">·</span> System notes</div>
+      <p>
+        <strong>Layout language.</strong> Generous outer breathing space; tight
+        intra-card grouping; varied tile sizes on Home and Add Feature to break
+        the 6-identical-card reflex. No nested cards. No side-stripe borders.
+        Sentence case throughout; the brand period closes identity moments.
+      </p>
+    </div>
+    <div>
+      <div class="eyebrow"><span class="count" style="background: var(--paper-mute);">·</span> Colour discipline</div>
+      <p>
+        <strong>Orange</strong> carries the user's voice and primary action.
+        <strong>Green</strong> carries arrival. <strong>Purple</strong> is
+        reserved for SIA. Projection lines are always dashed; her surface is
+        always ink-900 with a soft purple halo, never wallpaper.
+      </p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Replay stroke-draw animations on intersection.
+  // Avoids the issue of strokes appearing already-drawn when the user scrolls in.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const seen = new WeakSet();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (!isIntersecting || seen.has(target)) return;
+        seen.add(target);
+        // Re-trigger the keyframe by toggling the class.
+        target.querySelectorAll('.draw').forEach((node) => {
+          node.style.animation = 'none';
+          void node.offsetWidth; // reflow
+          node.style.animation = '';
+        });
+      });
+    }, { threshold: 0.25 });
+    document.querySelectorAll('.phone').forEach((p) => io.observe(p));
+  }
+</script>
+
+</body>
+</html>

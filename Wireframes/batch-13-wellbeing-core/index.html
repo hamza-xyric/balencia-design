@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 13: Wellbeing Core</title>
+<link rel="stylesheet" href="../balencia-foundation.css">
+<style>
+/* ═══════════════════════════════════════
+   BATCH 13 — WELLBEING CORE STYLES
+   ═══════════════════════════════════════ */
+
+/* ── Shared patterns ── */
+.wb-header {
+  position: sticky; top: 44px; z-index: 15;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; padding: 0 16px;
+  background: var(--ink-900);
+}
+.wb-header .back {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  margin-left: -12px;
+}
+.wb-header .back svg { width: 20px; height: 20px; }
+.wb-header .title { font-size: 17px; font-weight: 600; color: #fff; }
+.wb-header .right-icon {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  margin-right: -12px;
+}
+.wb-header .right-icon svg { width: 20px; height: 20px; color: rgba(255,255,255,.5); }
+.wb-accent { height: 2px; background: var(--wellbeing); margin: 0 16px; border-radius: 1px; }
+.wb-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden; padding: 0 16px 64px;
+  scrollbar-width: none;
+}
+.wb-scroll::-webkit-scrollbar { display: none; }
+.wb-pad-bottom { padding-bottom: 56px; }
+
+/* ════════════════════════════════════════
+   SCREEN 44: WATER INTAKE TRACKER
+   ════════════════════════════════════════ */
+.water-ring-wrap {
+  display: flex; flex-direction: column; align-items: center; padding: 24px 0 8px;
+}
+.water-ring-svg { width: 200px; height: 200px; transform: rotate(-90deg); }
+.water-ring-center {
+  display: flex; flex-direction: column; align-items: center;
+  margin-top: -128px; margin-bottom: 24px;
+}
+.water-ring-count { font-size: 36px; font-weight: 700; color: #fff; line-height: 1; }
+.water-ring-count span { font-size: 14px; font-weight: 400; color: rgba(255,255,255,.5); }
+.water-ring-ml { font-size: 14px; font-weight: 500; color: var(--wellbeing); margin-top: 4px; }
+.water-ring-pct { font-size: 15px; font-weight: 600; color: rgba(255,255,255,.7); margin-top: 16px; }
+
+.quick-add-row { display: flex; gap: 8px; }
+.quick-add-pill {
+  flex: 1; height: 48px; border-radius: var(--r-pill); border: none; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: 'Sora', sans-serif; transition: transform var(--dur-fast);
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.7);
+}
+.quick-add-pill:active { transform: scale(.95); }
+.quick-add-pill .amt { font-size: 15px; font-weight: 600; line-height: 1.2; }
+.quick-add-pill .unit { font-size: 10px; font-weight: 400; opacity: .6; }
+.quick-add-pill.primary {
+  background: var(--brand-orange); border-color: var(--brand-orange); color: #fff;
+  box-shadow: 0 4px 16px rgba(255,94,0,.25);
+}
+
+.drink-log-card { background: var(--ink-brown); border-radius: var(--r-xl); border: 1px solid rgba(255,255,255,.06); overflow: hidden; }
+.drink-entry {
+  display: flex; align-items: center; gap: 12px; padding: 14px 20px;
+}
+.drink-entry + .drink-entry { border-top: 1px solid rgba(255,255,255,.06); }
+.drink-icon { font-size: 18px; flex-shrink: 0; }
+.drink-info { flex: 1; }
+.drink-time { font-size: 13px; font-weight: 400; color: rgba(255,255,255,.5); }
+.drink-amount { font-size: 15px; font-weight: 600; color: #fff; }
+
+.weekly-chart-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.weekly-bars {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 8px;
+  height: 100px; position: relative; padding-top: 8px;
+}
+.weekly-target-line {
+  position: absolute; left: 0; right: 0; top: 28px;
+  border-top: 1px dashed rgba(255,255,255,.15);
+}
+.weekly-bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+.weekly-bar {
+  width: 100%; border-radius: 4px 4px 0 0; min-height: 4px;
+  background: var(--wellbeing);
+}
+.weekly-bar.below { opacity: .4; }
+.weekly-day { font-size: 11px; font-weight: 400; color: rgba(255,255,255,.4); }
+
+.stats-strip {
+  display: flex; gap: 12px;
+}
+.stat-col {
+  flex: 1; background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.stat-icon { font-size: 20px; }
+.stat-value { font-size: 20px; font-weight: 700; color: #fff; }
+.stat-label { font-size: 11px; font-weight: 400; color: rgba(255,255,255,.4); }
+
+/* ════════════════════════════════════════
+   SCREEN 45: DAILY CHECK-IN (MODAL)
+   ════════════════════════════════════════ */
+.checkin-screen { display: flex; flex-direction: column; }
+.checkin-handle {
+  width: 36px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.2);
+  margin: 14px auto 0;
+}
+.checkin-header {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 44px; padding: 0 20px;
+}
+.checkin-cancel { font-size: 15px; font-weight: 400; color: rgba(255,255,255,.5); cursor: pointer; }
+.checkin-save { font-size: 15px; font-weight: 600; color: var(--wellbeing); cursor: pointer; }
+.checkin-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden; padding: 0 20px 32px;
+  scrollbar-width: none;
+}
+.checkin-scroll::-webkit-scrollbar { display: none; }
+
+.checkin-greeting { font-size: 24px; font-weight: 700; color: #fff; line-height: 1.3; }
+.checkin-sub { font-size: 15px; font-weight: 400; color: rgba(255,255,255,.5); margin-top: 4px; }
+
+.mood-grid {
+  display: flex; justify-content: space-between; gap: 8px; padding: 8px 0;
+}
+.mood-option {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  cursor: pointer; transition: transform var(--dur-fast);
+  width: 48px;
+}
+.mood-emoji {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; background: transparent;
+  border: 2px solid transparent;
+  transition: all var(--dur-fast);
+}
+.mood-option.selected .mood-emoji {
+  transform: scale(1.15);
+  border-color: var(--wellbeing);
+  background: rgba(20,184,166,.1);
+  box-shadow: 0 0 16px rgba(20,184,166,.2);
+}
+.mood-label { font-size: 11px; font-weight: 400; color: rgba(255,255,255,.5); }
+.mood-option.selected .mood-label { color: var(--wellbeing); font-weight: 500; }
+
+.slider-section { padding: 4px 0; }
+.slider-row { position: relative; height: 44px; display: flex; align-items: center; }
+.slider-track {
+  width: 100%; height: 6px; border-radius: 3px;
+  background: rgba(255,255,255,.1); position: relative;
+}
+.slider-fill {
+  height: 100%; border-radius: 3px;
+  background: var(--wellbeing);
+}
+.slider-thumb {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  width: 24px; height: 24px; border-radius: 50%; background: #fff;
+  box-shadow: 0 2px 8px rgba(33,16,8,.3);
+}
+.slider-value {
+  position: absolute; top: -6px; transform: translateX(-50%);
+  font-size: 13px; font-weight: 600; color: var(--wellbeing);
+  background: rgba(20,184,166,.15); padding: 2px 8px; border-radius: var(--r-pill);
+}
+.slider-labels {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: rgba(255,255,255,.4); margin-top: 4px;
+}
+
+.intention-input {
+  width: 100%; min-height: 52px; border-radius: var(--r-md);
+  background: var(--ink-brown); border: 1px solid rgba(20,184,166,.3);
+  padding: 14px 16px;
+  font-size: 16px; color: rgba(255,255,255,.4); font-family: 'Sora', sans-serif;
+}
+
+.emotion-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.emotion-tag {
+  height: 32px; padding: 0 14px; border-radius: var(--r-pill);
+  display: flex; align-items: center;
+  font-size: 13px; font-weight: 400; cursor: pointer;
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.6);
+  transition: all var(--dur-fast);
+}
+.emotion-tag.selected {
+  background: rgba(20,184,166,.12); border-color: rgba(20,184,166,.3);
+  color: var(--wellbeing); font-weight: 600;
+}
+
+.add-note-trigger {
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,.4); cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* ════════════════════════════════════════
+   SCREEN 46: ACCOUNTABILITY PARTNERS
+   ════════════════════════════════════════ */
+.acct-header {
+  position: sticky; top: 44px; z-index: 15;
+  display: flex; align-items: center; gap: 8px;
+  height: 56px; padding: 0 16px;
+  background: var(--ink-900);
+}
+.acct-header .back {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-left: -12px;
+}
+.acct-header .back svg { width: 20px; height: 20px; }
+.acct-header .title { font-size: 17px; font-weight: 600; color: #fff; }
+
+.consent-banner {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid var(--brand-orange);
+  padding: 16px 20px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.consent-icon {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,94,0,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.consent-body { flex: 1; }
+.consent-text { font-size: 14px; font-weight: 400; color: rgba(255,255,255,.7); line-height: 1.47; }
+.consent-link { font-size: 14px; font-weight: 600; color: var(--brand-orange); cursor: pointer; margin-top: 6px; }
+
+.acct-seg { margin: 0; }
+.acct-seg .seg.active {
+  background: var(--brand-orange); color: #fff;
+}
+
+.partner-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); overflow: hidden;
+}
+.partner-row {
+  display: flex; align-items: center; gap: 12px; padding: 14px 20px;
+}
+.partner-row + .partner-row { border-top: 1px solid rgba(255,255,255,.06); }
+.partner-avatar {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; color: #fff;
+}
+.partner-info { flex: 1; min-width: 0; }
+.partner-name-row { display: flex; align-items: center; gap: 8px; }
+.partner-name { font-size: 15px; font-weight: 600; color: #fff; }
+.role-badge {
+  height: 22px; padding: 0 10px; border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 600; display: flex; align-items: center;
+  text-transform: lowercase;
+}
+.role-badge.coach { background: rgba(255,94,0,.15); color: var(--brand-orange); }
+.role-badge.buddy { background: rgba(52,168,83,.15); color: var(--forest-green); }
+.role-badge.mentor { background: rgba(6,182,212,.15); color: #06B6D4; }
+.perm-chips {
+  display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap;
+}
+.perm-chip {
+  font-size: 11px; font-weight: 400; color: rgba(255,255,255,.4);
+  padding: 2px 8px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.06);
+}
+.partner-chevron { color: rgba(255,255,255,.3); font-size: 16px; flex-shrink: 0; }
+
+.add-partner-btn {
+  width: 100%; height: 56px; border-radius: var(--r-xl); cursor: pointer;
+  border: 2px dashed rgba(255,94,0,.3); background: transparent;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 15px; font-weight: 600; color: var(--brand-orange);
+  font-family: 'Sora', sans-serif;
+  transition: border-color var(--dur-fast);
+}
+.add-partner-btn:hover { border-color: var(--brand-orange); }
+
+.group-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px 20px;
+}
+.group-header {
+  display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+}
+.group-name { font-size: 15px; font-weight: 600; color: #fff; }
+.group-count { font-size: 13px; font-weight: 400; color: rgba(255,255,255,.5); }
+.avatar-stack { display: flex; margin-top: 12px; }
+.avatar-stack .stack-av {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--ink-brown); margin-left: -8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600; color: #fff;
+}
+.avatar-stack .stack-av:first-child { margin-left: 0; }
+
+.emergency-row {
+  display: flex; align-items: center; gap: 12px; padding: 14px 20px;
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid var(--error-red);
+}
+.emergency-icon {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(244,67,54,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.emergency-info { flex: 1; }
+.emergency-name { font-size: 15px; font-weight: 600; color: #fff; }
+.emergency-rule { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+/* ════════════════════════════════════════
+   SCREEN 47: COMPETITIONS
+   ════════════════════════════════════════ */
+.comp-header {
+  position: sticky; top: 44px; z-index: 15;
+  display: flex; align-items: center; gap: 8px;
+  height: 56px; padding: 0 16px;
+  background: var(--ink-900);
+}
+.comp-header .back {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-left: -12px;
+}
+.comp-header .back svg { width: 20px; height: 20px; }
+.comp-header .title { font-size: 17px; font-weight: 600; color: #fff; }
+
+.hero-banner {
+  background: var(--ink-brown); border-radius: var(--r-2xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 24px;
+  position: relative; overflow: hidden;
+}
+.hero-banner::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(255,94,0,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-banner > * { position: relative; }
+.hero-featured-label {
+  font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--brand-orange); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.hero-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.hero-dates { font-size: 14px; color: rgba(255,255,255,.6); margin-bottom: 12px; }
+.hero-meta-row {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 12px;
+}
+.hero-participants {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; color: rgba(255,255,255,.6);
+}
+.hero-countdown {
+  font-size: 14px; font-weight: 600; color: var(--brand-orange);
+}
+.hero-prize {
+  font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.filter-chips-row {
+  display: flex; gap: 8px; overflow-x: auto; padding: 4px 0;
+  scrollbar-width: none;
+}
+.filter-chips-row::-webkit-scrollbar { display: none; }
+
+.invite-badge {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,94,0,.2); padding: 14px 16px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: rgba(255,255,255,.7);
+}
+.invite-icon {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,94,0,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+
+.suggestion-scroll {
+  display: flex; gap: 12px; overflow-x: auto; padding: 4px 0;
+  scrollbar-width: none;
+}
+.suggestion-scroll::-webkit-scrollbar { display: none; }
+.suggestion-card-sm {
+  min-width: 140px; width: 140px; background: var(--ink-brown);
+  border-radius: var(--r-lg); border: 1px solid rgba(255,255,255,.06);
+  padding: 14px; display: flex; flex-direction: column; gap: 8px;
+}
+.suggestion-card-sm .sc-icon { font-size: 24px; }
+.suggestion-card-sm .sc-name { font-size: 14px; font-weight: 600; color: #fff; line-height: 1.3; }
+.suggestion-card-sm .sc-meta { font-size: 12px; color: rgba(255,255,255,.5); }
+.sc-ai-badge {
+  font-size: 10px; font-weight: 600; color: var(--royal-purple);
+  background: rgba(127,36,255,.12); padding: 2px 6px; border-radius: var(--r-pill);
+  align-self: flex-start;
+}
+
+.comp-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 18px 20px;
+}
+.comp-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.comp-name { font-size: 16px; font-weight: 600; color: #fff; }
+.comp-type-badge {
+  height: 22px; padding: 0 10px; border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 600; display: flex; align-items: center;
+  flex-shrink: 0;
+}
+.comp-type-badge.team { background: rgba(99,102,241,.15); color: var(--career); }
+.comp-type-badge.solo { background: rgba(255,94,0,.12); color: var(--brand-orange); }
+.comp-type-badge.community { background: rgba(52,168,83,.15); color: var(--forest-green); }
+.comp-meta {
+  display: flex; align-items: center; gap: 12px; margin-top: 6px;
+  font-size: 13px; color: rgba(255,255,255,.5);
+}
+.comp-status-dot {
+  width: 6px; height: 6px; border-radius: 50%; display: inline-block;
+}
+.comp-status-dot.active { background: var(--forest-green); }
+.comp-status-dot.upcoming { background: var(--brand-orange); }
+.comp-bottom-row {
+  display: flex; align-items: center; justify-content: space-between; margin-top: 12px;
+}
+.comp-rank { font-size: 14px; font-weight: 600; color: var(--brand-orange); }
+.comp-cta-link { font-size: 14px; font-weight: 600; color: var(--brand-orange); cursor: pointer; }
+
+/* ════════════════════════════════════════
+   SCREEN 48: INTELLIGENCE DASHBOARD
+   ════════════════════════════════════════ */
+.intel-header {
+  position: sticky; top: 44px; z-index: 15;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; padding: 0 16px;
+  background: var(--ink-900);
+}
+.intel-header .back {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-left: -12px;
+}
+.intel-header .back svg { width: 20px; height: 20px; }
+.intel-header .title { font-size: 17px; font-weight: 600; color: #fff; }
+.intel-header .overflow {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; margin-right: -12px;
+}
+.intel-accent { height: 3px; background: var(--royal-purple); margin: 0 16px; border-radius: 2px; }
+.intel-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden; padding: 0 16px 64px;
+  scrollbar-width: none;
+}
+.intel-scroll::-webkit-scrollbar { display: none; }
+
+.score-hero {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 24px;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center;
+}
+.score-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(127,36,255,.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+.score-hero > * { position: relative; }
+.score-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--royal-purple); margin-bottom: 16px;
+}
+.score-ring-container { position: relative; width: 120px; height: 120px; }
+.score-ring-svg { width: 120px; height: 120px; transform: rotate(-90deg); }
+.score-ring-value {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 36px; font-weight: 700; color: #fff;
+}
+.score-trend {
+  display: flex; align-items: center; gap: 6px; margin-top: 12px;
+  font-size: 14px; font-weight: 600;
+}
+.score-trend.up { color: var(--forest-green); }
+.pillar-row {
+  display: flex; gap: 16px; margin-top: 16px; width: 100%; justify-content: center;
+}
+.pillar-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.pillar-spark { width: 64px; height: 24px; }
+.pillar-label { font-size: 11px; font-weight: 500; color: rgba(255,255,255,.4); }
+.score-updated { font-size: 12px; color: rgba(255,255,255,.3); margin-top: 12px; }
+
+.contradiction-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px 20px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.contradiction-alert {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,94,0,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--brand-orange);
+}
+.contradiction-body { flex: 1; }
+.contradiction-text { font-size: 14px; color: rgba(255,255,255,.85); line-height: 1.47; }
+.contradiction-sources {
+  display: flex; gap: 6px; margin-top: 6px;
+}
+.source-tag {
+  font-size: 11px; padding: 2px 8px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.06); color: rgba(255,255,255,.5);
+}
+.contradiction-actions { display: flex; gap: 8px; margin-top: 10px; }
+.resolve-chip {
+  height: 28px; padding: 0 14px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  background: rgba(127,36,255,.15); color: var(--royal-purple);
+  border: none; font-family: 'Sora', sans-serif;
+}
+.dismiss-chip {
+  height: 28px; padding: 0 14px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  background: transparent; color: rgba(255,255,255,.5);
+  border: 1px solid rgba(255,255,255,.1); font-family: 'Sora', sans-serif;
+}
+
+.trend-chart-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.time-range-row { display: flex; gap: 8px; margin-bottom: 16px; }
+.time-chip {
+  height: 28px; padding: 0 14px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  background: transparent; color: rgba(255,255,255,.5);
+  border: 1px solid rgba(255,255,255,.1);
+}
+.time-chip.active {
+  background: var(--royal-purple); color: #fff; border-color: var(--royal-purple);
+}
+.trend-chart-svg { width: 100%; height: 100px; }
+
+.correlation-row {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px 20px;
+}
+.correlation-text { font-size: 14px; color: rgba(255,255,255,.85); line-height: 1.47; margin-bottom: 10px; }
+.strength-label-row {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;
+}
+.strength-label { font-size: 12px; color: rgba(255,255,255,.4); }
+.strength-pct { font-size: 12px; font-weight: 600; color: var(--royal-purple); }
+.strength-bar { width: 100%; height: 6px; border-radius: 3px; background: rgba(255,255,255,.08); }
+.strength-fill { height: 100%; border-radius: 3px; background: var(--royal-purple); }
+.correlation-feedback {
+  display: flex; gap: 8px; margin-top: 10px; justify-content: flex-end;
+}
+.thumb-btn {
+  width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(255,255,255,.1);
+  background: transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: rgba(255,255,255,.4);
+}
+
+.best-day-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+  position: relative; overflow: hidden;
+}
+.best-day-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--royal-purple), rgba(127,36,255,.2));
+}
+.best-day-item {
+  display: flex; align-items: center; gap: 12px; padding: 8px 0;
+}
+.best-day-check {
+  width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+}
+.best-day-check.done { background: var(--royal-purple); border-color: var(--royal-purple); }
+.best-day-check.done::after { content: '✓'; font-size: 12px; color: #fff; }
+.best-day-label { font-size: 14px; color: rgba(255,255,255,.7); flex: 1; }
+.best-day-status { font-size: 12px; font-weight: 500; }
+.best-day-status.done { color: var(--forest-green); }
+.best-day-status.pending { color: rgba(255,255,255,.4); }
+.best-day-summary {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.06);
+}
+.best-day-summary-text { font-size: 13px; color: rgba(255,255,255,.5); }
+.best-day-progress {
+  width: 100%; height: 6px; border-radius: 3px; background: rgba(255,255,255,.08);
+  margin-top: 8px;
+}
+.best-day-fill { height: 100%; border-radius: 3px; background: var(--brand-orange); }
+
+.weekly-report-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.report-header {
+  display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+}
+.report-title { font-size: 15px; font-weight: 600; color: #fff; }
+.report-chevron { font-size: 14px; color: rgba(255,255,255,.4); transition: transform var(--dur-fast); }
+.report-body { margin-top: 12px; }
+.report-text { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.47; }
+.report-link { font-size: 14px; font-weight: 600; color: var(--royal-purple); margin-top: 8px; cursor: pointer; }
+
+.prediction-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.prediction-label { font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 8px; }
+.prediction-value { font-size: 40px; font-weight: 700; color: #fff; }
+.prediction-basis { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 4px; }
+.accuracy-badge {
+  margin-top: 8px; height: 24px; padding: 0 12px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 600;
+  background: rgba(52,168,83,.12); color: var(--forest-green);
+  display: flex; align-items: center;
+}
+
+/* ── Tab bar icon helper ── */
+.tab-icon { width: 24px; height: 24px; }
+</style>
+</head>
+<body>
+
+<!-- page header -->
+<header class="page-header">
+  <h1>Wireframes</h1>
+  <h2>Wellbeing Core</h2>
+  <span class="batch-label">Batch 13 · 5 screens</span>
+</header>
+
+<!-- carousel -->
+<section class="carousel-wrap">
+  <button class="nav-arrow prev" onclick="go(-1)" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+  </button>
+  <button class="nav-arrow next" onclick="go(1)">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+  </button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="track">
+
+      <!-- ════════════════════════════════════
+           SLIDE 1: Screen 44 — Water Intake
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 44</div>
+          <div class="name">Water intake tracker</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="padding-bottom:56px;">
+            <!-- header -->
+            <div class="wb-header">
+              <div class="back">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <span class="title">Water intake</span>
+              <div class="right-icon">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="10" cy="10" r="2.5"/><path d="M16.2 12.8a1.3 1.3 0 00.26 1.43l.05.05a1.57 1.57 0 11-2.22 2.22l-.05-.05a1.3 1.3 0 00-1.43-.26 1.3 1.3 0 00-.79 1.19v.14a1.57 1.57 0 11-3.14 0v-.07a1.3 1.3 0 00-.85-1.19 1.3 1.3 0 00-1.43.26l-.05.05a1.57 1.57 0 11-2.22-2.22l.05-.05A1.3 1.3 0 004.64 13a1.3 1.3 0 00-1.19-.79h-.14a1.57 1.57 0 010-3.14h.07A1.3 1.3 0 004.57 8a1.3 1.3 0 00-.26-1.43L4.26 6.52a1.57 1.57 0 112.22-2.22l.05.05A1.3 1.3 0 008 4.61h.12A1.3 1.3 0 009.2 3.5v-.14a1.57 1.57 0 013.14 0v.07a1.3 1.3 0 00.79 1.19 1.3 1.3 0 001.43-.26l.05-.05a1.57 1.57 0 012.22 2.22l-.05.05a1.3 1.3 0 00-.26 1.43V8.12a1.3 1.3 0 001.19.79h.14a1.57 1.57 0 010 3.14h-.07a1.3 1.3 0 00-1.19.79z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="wb-accent"></div>
+
+            <div class="wb-scroll">
+              <!-- progress ring -->
+              <div class="water-ring-wrap">
+                <svg class="water-ring-svg" viewBox="0 0 200 200">
+                  <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="12"/>
+                  <circle cx="100" cy="100" r="90" fill="none" stroke="#14B8A6" stroke-width="12"
+                    stroke-dasharray="565.49" stroke-dashoffset="209.23" stroke-linecap="round"/>
+                </svg>
+                <div class="water-ring-center">
+                  <div class="water-ring-count">5 <span>/ 8</span></div>
+                  <div style="font-size:14px;color:rgba(255,255,255,.5);">glasses</div>
+                  <div class="water-ring-ml">1,250 ml</div>
+                </div>
+                <div class="water-ring-pct">63% of daily goal</div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- quick add -->
+              <div class="quick-add-row">
+                <div class="quick-add-pill primary"><span class="amt">1</span><span class="unit">glass</span></div>
+                <div class="quick-add-pill"><span class="amt">250</span><span class="unit">ml</span></div>
+                <div class="quick-add-pill"><span class="amt">500</span><span class="unit">ml</span></div>
+                <div class="quick-add-pill"><span class="amt">+</span><span class="unit">custom</span></div>
+              </div>
+
+              <div class="sp-32"></div>
+
+              <!-- today's log -->
+              <div class="section-eyebrow">today's log</div>
+              <div class="sp-12"></div>
+              <div class="drink-log-card">
+                <div class="drink-entry">
+                  <span class="drink-icon">💧</span>
+                  <div class="drink-info">
+                    <div class="drink-time">8:15 AM</div>
+                    <div class="drink-amount">1 glass · 250 ml</div>
+                  </div>
+                </div>
+                <div class="drink-entry">
+                  <span class="drink-icon">💧</span>
+                  <div class="drink-info">
+                    <div class="drink-time">9:30 AM</div>
+                    <div class="drink-amount">1 glass · 250 ml</div>
+                  </div>
+                </div>
+                <div class="drink-entry">
+                  <span class="drink-icon">💧</span>
+                  <div class="drink-info">
+                    <div class="drink-time">11:00 AM</div>
+                    <div class="drink-amount">500 ml bottle</div>
+                  </div>
+                </div>
+                <div class="drink-entry">
+                  <span class="drink-icon">💧</span>
+                  <div class="drink-info">
+                    <div class="drink-time">1:45 PM</div>
+                    <div class="drink-amount">1 glass · 250 ml</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-32"></div>
+
+              <!-- weekly chart -->
+              <div class="section-eyebrow">this week</div>
+              <div class="sp-12"></div>
+              <div class="weekly-chart-card">
+                <div class="weekly-bars">
+                  <div class="weekly-target-line"></div>
+                  <div class="weekly-bar-col">
+                    <div class="weekly-bar" style="height:90%;"></div>
+                    <span class="weekly-day">Mon</span>
+                  </div>
+                  <div class="weekly-bar-col">
+                    <div class="weekly-bar" style="height:75%;"></div>
+                    <span class="weekly-day">Tue</span>
+                  </div>
+                  <div class="weekly-bar-col">
+                    <div class="weekly-bar" style="height:100%;"></div>
+                    <span class="weekly-day">Wed</span>
+                  </div>
+                  <div class="weekly-bar-col">
+                    <div class="weekly-bar" style="height:60%; opacity:.5;"></div>
+                    <span class="weekly-day">Thu</span>
+                  </div>
+                  <div class="weekly-bar-col">
+                    <div class="weekly-bar" style="height:85%;"></div>
+                    <span class="weekly-day">Fri</span>
+                  </div>
+                  <div class="weekly-bar-col">
+                    <div class="weekly-bar below" style="height:40%;"></div>
+                    <span class="weekly-day">Sat</span>
+                  </div>
+                  <div class="weekly-bar-col">
+                    <div class="weekly-bar" style="height:63%;"></div>
+                    <span class="weekly-day">Sun</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- stats -->
+              <div class="stats-strip">
+                <div class="stat-col">
+                  <div class="stat-icon">🔥</div>
+                  <div class="stat-value">12</div>
+                  <div class="stat-label">day streak</div>
+                </div>
+                <div class="stat-col">
+                  <div class="stat-icon">📊</div>
+                  <div class="stat-value">6.5</div>
+                  <div class="stat-label">avg / day</div>
+                </div>
+                <div class="stat-col">
+                  <div class="stat-icon">🏆</div>
+                  <div class="stat-value">9</div>
+                  <div class="stat-label">best day</div>
+                </div>
+              </div>
+
+              <div class="sp-32"></div>
+            </div>
+
+            <!-- tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="#FF5E00"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 2: Screen 45 — Daily Check-in
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 45</div>
+          <div class="name">Daily check-in</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen checkin-screen">
+            <div class="checkin-handle"></div>
+
+            <!-- modal header -->
+            <div class="checkin-header">
+              <span class="checkin-cancel">cancel</span>
+              <span class="checkin-save">save</span>
+            </div>
+
+            <div class="checkin-scroll">
+              <!-- greeting -->
+              <div class="checkin-greeting">Good morning, Amira.</div>
+              <div class="checkin-sub">How are you starting today?</div>
+
+              <div class="sp-24"></div>
+
+              <!-- mood selector -->
+              <div class="section-eyebrow">how are you feeling?</div>
+              <div class="sp-12"></div>
+              <div class="mood-grid">
+                <div class="mood-option selected">
+                  <div class="mood-emoji">😊</div>
+                  <span class="mood-label">great</span>
+                </div>
+                <div class="mood-option">
+                  <div class="mood-emoji">😐</div>
+                  <span class="mood-label">okay</span>
+                </div>
+                <div class="mood-option">
+                  <div class="mood-emoji">😔</div>
+                  <span class="mood-label">sad</span>
+                </div>
+                <div class="mood-option">
+                  <div class="mood-emoji">😤</div>
+                  <span class="mood-label">angry</span>
+                </div>
+                <div class="mood-option">
+                  <div class="mood-emoji">😰</div>
+                  <span class="mood-label">anxious</span>
+                </div>
+                <div class="mood-option">
+                  <div class="mood-emoji">😴</div>
+                  <span class="mood-label">tired</span>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- energy slider -->
+              <div class="section-eyebrow">energy</div>
+              <div class="sp-8"></div>
+              <div class="slider-section">
+                <div class="slider-row">
+                  <div class="slider-track">
+                    <div class="slider-fill" style="width:70%;"></div>
+                    <div class="slider-thumb" style="left:70%;">
+                      <div class="slider-value" style="left:50%;">7</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slider-labels">
+                  <span>low</span><span>high</span>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- stress slider -->
+              <div class="section-eyebrow">stress</div>
+              <div class="sp-8"></div>
+              <div class="slider-section">
+                <div class="slider-row">
+                  <div class="slider-track">
+                    <div class="slider-fill" style="width:40%;"></div>
+                    <div class="slider-thumb" style="left:40%;">
+                      <div class="slider-value" style="left:50%;">4</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slider-labels">
+                  <span>low</span><span>high</span>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- daily intention -->
+              <div class="section-eyebrow">daily intention</div>
+              <div class="sp-8"></div>
+              <div class="intention-input">What's your focus today?</div>
+
+              <div class="sp-24"></div>
+
+              <!-- emotion tags -->
+              <div class="section-eyebrow">how would you describe it?</div>
+              <div class="sp-8"></div>
+              <div class="emotion-tags">
+                <div class="emotion-tag selected">grateful</div>
+                <div class="emotion-tag">excited</div>
+                <div class="emotion-tag">anxious</div>
+                <div class="emotion-tag selected">calm</div>
+                <div class="emotion-tag">hopeful</div>
+                <div class="emotion-tag">restless</div>
+                <div class="emotion-tag">focused</div>
+                <div class="emotion-tag">overwhelmed</div>
+                <div class="emotion-tag">content</div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- add note -->
+              <div class="add-note-trigger">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+                add a note
+              </div>
+
+              <div class="sp-32"></div>
+
+              <!-- submit -->
+              <button class="cta-btn" style="width:100%;">check in</button>
+
+              <div class="sp-24"></div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 3: Screen 46 — Accountability
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 46</div>
+          <div class="name">Accountability partners</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="padding-bottom:56px;">
+            <!-- header -->
+            <div class="acct-header">
+              <div class="back">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <span class="title">Accountability</span>
+            </div>
+
+            <div class="wb-scroll">
+              <!-- consent banner -->
+              <div class="consent-banner">
+                <div class="consent-icon">⚠️</div>
+                <div class="consent-body">
+                  <div class="consent-text">Set up your consent preferences to enable accountability features</div>
+                  <div class="consent-link">configure</div>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- segmented control -->
+              <div class="segmented-control acct-seg">
+                <div class="seg active">Partners</div>
+                <div class="seg">Contracts</div>
+                <div class="seg">Triggers</div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- partners section -->
+              <div class="section-eyebrow">partners</div>
+              <div class="sp-12"></div>
+              <div class="partner-card">
+                <div class="partner-row">
+                  <div class="partner-avatar" style="background:linear-gradient(135deg,#FF5E00,#FF8A3D);">SK</div>
+                  <div class="partner-info">
+                    <div class="partner-name-row">
+                      <span class="partner-name">Sarah K.</span>
+                      <span class="role-badge coach">coach</span>
+                    </div>
+                    <div class="perm-chips">
+                      <span class="perm-chip">motivation</span>
+                      <span class="perm-chip">failure</span>
+                      <span class="perm-chip">SOS</span>
+                    </div>
+                  </div>
+                  <span class="partner-chevron">›</span>
+                </div>
+                <div class="partner-row">
+                  <div class="partner-avatar" style="background:linear-gradient(135deg,#34A853,#5BC97A);">AM</div>
+                  <div class="partner-info">
+                    <div class="partner-name-row">
+                      <span class="partner-name">Ahmed M.</span>
+                      <span class="role-badge buddy">buddy</span>
+                    </div>
+                    <div class="perm-chips">
+                      <span class="perm-chip">motivation</span>
+                      <span class="perm-chip">failure</span>
+                    </div>
+                  </div>
+                  <span class="partner-chevron">›</span>
+                </div>
+                <div class="partner-row">
+                  <div class="partner-avatar" style="background:linear-gradient(135deg,#06B6D4,#22D3EE);">LR</div>
+                  <div class="partner-info">
+                    <div class="partner-name-row">
+                      <span class="partner-name">Lisa R.</span>
+                      <span class="role-badge mentor">mentor</span>
+                    </div>
+                    <div class="perm-chips">
+                      <span class="perm-chip">motivation</span>
+                    </div>
+                  </div>
+                  <span class="partner-chevron">›</span>
+                </div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- add partner -->
+              <button class="add-partner-btn">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#FF5E00" stroke-width="2" stroke-linecap="round"><line x1="9" y1="3" x2="9" y2="15"/><line x1="3" y1="9" x2="15" y2="9"/></svg>
+                add partner
+              </button>
+
+              <div class="sp-24"></div>
+
+              <!-- groups -->
+              <div class="section-eyebrow">groups</div>
+              <div class="sp-12"></div>
+
+              <div class="group-card" style="margin-bottom:12px;">
+                <div class="group-header">
+                  <div>
+                    <div class="group-name">Morning crew</div>
+                    <div class="group-count">3 members</div>
+                  </div>
+                  <span style="color:rgba(255,255,255,.4);font-size:14px;">▾</span>
+                </div>
+                <div class="avatar-stack">
+                  <div class="stack-av" style="background:linear-gradient(135deg,#FF5E00,#FF8A3D);">SK</div>
+                  <div class="stack-av" style="background:linear-gradient(135deg,#34A853,#5BC97A);">AM</div>
+                  <div class="stack-av" style="background:linear-gradient(135deg,#6366F1,#818CF8);">JT</div>
+                </div>
+              </div>
+
+              <div class="group-card">
+                <div class="group-header">
+                  <div>
+                    <div class="group-name">Fitness pod</div>
+                    <div class="group-count">4 members</div>
+                  </div>
+                  <span style="color:rgba(255,255,255,.4);font-size:14px;">▸</span>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- emergency contacts -->
+              <div class="section-eyebrow">emergency contacts</div>
+              <div class="sp-12"></div>
+              <div class="emergency-row">
+                <div class="emergency-icon">🚨</div>
+                <div class="emergency-info">
+                  <div class="emergency-name">Lisa R.</div>
+                  <div class="emergency-rule">SOS after 5 days inactive</div>
+                </div>
+                <span style="color:rgba(255,255,255,.3);font-size:16px;">›</span>
+              </div>
+
+              <div class="sp-32"></div>
+            </div>
+
+            <!-- tab bar (Me active) -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#FF5E00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" fill="#FF5E00"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 4: Screen 47 — Competitions
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 47</div>
+          <div class="name">Competitions</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="padding-bottom:56px;">
+            <!-- header -->
+            <div class="comp-header">
+              <div class="back">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <span class="title">Competitions</span>
+            </div>
+
+            <div class="wb-scroll">
+              <!-- hero banner -->
+              <div class="hero-banner">
+                <div class="hero-featured-label">
+                  🏆 featured
+                </div>
+                <div class="hero-title">Step challenge</div>
+                <div class="hero-dates">May 25 – Jun 8, 2026</div>
+                <div class="hero-meta-row">
+                  <span class="hero-participants">👥 234 participants</span>
+                  <span class="hero-countdown">02d : 14h : 32m</span>
+                </div>
+                <div class="hero-prize">🎁 Prize: 500 XP + Gold badge</div>
+                <button class="in-card-cta" style="width:100%;">join now</button>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- filter chips -->
+              <div class="filter-chips-row">
+                <div class="filter-chip active">All</div>
+                <div class="filter-chip">Active</div>
+                <div class="filter-chip">Upcoming</div>
+                <div class="filter-chip">Past</div>
+                <div class="filter-chip">My</div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- invitation badge -->
+              <div class="invite-badge">
+                <div class="invite-icon">🔔</div>
+                <span>2 competition invitations from Sarah, Ahmed</span>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- AI suggestions -->
+              <div class="section-eyebrow">suggested for you</div>
+              <div class="sp-12"></div>
+              <div class="suggestion-scroll">
+                <div class="suggestion-card-sm">
+                  <div class="sc-icon">🧘</div>
+                  <div class="sc-ai-badge">AI</div>
+                  <div class="sc-name">7-day mindful</div>
+                  <div class="sc-meta">Starts Jun 1 · 45 joined</div>
+                </div>
+                <div class="suggestion-card-sm">
+                  <div class="sc-icon">🏃</div>
+                  <div class="sc-ai-badge">AI</div>
+                  <div class="sc-name">Fit Feb 10K</div>
+                  <div class="sc-meta">Starts Jun 5 · 128 joined</div>
+                </div>
+                <div class="suggestion-card-sm">
+                  <div class="sc-icon">📚</div>
+                  <div class="sc-ai-badge">AI</div>
+                  <div class="sc-name">Read-a-thon</div>
+                  <div class="sc-meta">Starts Jun 3 · 67 joined</div>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- all competitions -->
+              <div class="section-eyebrow">all competitions</div>
+              <div class="sp-12"></div>
+
+              <div class="comp-card" style="margin-bottom:12px;">
+                <div class="comp-top-row">
+                  <div class="comp-name">Hydration heroes</div>
+                  <span class="comp-type-badge team">team</span>
+                </div>
+                <div class="comp-meta">
+                  <span class="comp-status-dot active"></span>
+                  <span>Active · May 18 – Jun 1</span>
+                  <span>👥 56</span>
+                </div>
+                <div class="comp-bottom-row">
+                  <span class="comp-rank">#4 of 56</span>
+                  <span class="comp-cta-link">view details</span>
+                </div>
+              </div>
+
+              <div class="comp-card" style="margin-bottom:12px;">
+                <div class="comp-top-row">
+                  <div class="comp-name">Savings sprint</div>
+                  <span class="comp-type-badge solo">1v1</span>
+                </div>
+                <div class="comp-meta">
+                  <span class="comp-status-dot upcoming"></span>
+                  <span>Upcoming · Jun 10 – Jun 24</span>
+                  <span>👥 12</span>
+                </div>
+                <div class="comp-bottom-row">
+                  <span></span>
+                  <span class="comp-cta-link">join</span>
+                </div>
+              </div>
+
+              <div class="comp-card">
+                <div class="comp-top-row">
+                  <div class="comp-name">Meditation marathon</div>
+                  <span class="comp-type-badge community">community</span>
+                </div>
+                <div class="comp-meta">
+                  <span class="comp-status-dot active"></span>
+                  <span>Active · May 15 – May 29</span>
+                  <span>👥 312</span>
+                </div>
+                <div class="comp-bottom-row">
+                  <span class="comp-rank">#23 of 312</span>
+                  <span class="comp-cta-link">view details</span>
+                </div>
+              </div>
+
+              <div class="sp-32"></div>
+            </div>
+
+            <!-- tab bar (Me active) -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#FF5E00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" fill="#FF5E00"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 5: Screen 48 — Intelligence
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 48</div>
+          <div class="name">Intelligence dashboard</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="padding-bottom:56px;">
+            <!-- header -->
+            <div class="intel-header">
+              <div class="back">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <span class="title">Intelligence</span>
+              <div class="overflow">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="#fff"><circle cx="4" cy="10" r="1.5"/><circle cx="10" cy="10" r="1.5"/><circle cx="16" cy="10" r="1.5"/></svg>
+              </div>
+            </div>
+            <div class="intel-accent"></div>
+
+            <div class="intel-scroll">
+              <div class="sp-16"></div>
+
+              <!-- score hero -->
+              <div class="score-hero">
+                <div class="score-eyebrow">daily score</div>
+                <div class="score-ring-container">
+                  <svg class="score-ring-svg" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="8"/>
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="#7F24FF" stroke-width="8"
+                      stroke-dasharray="326.73" stroke-dashoffset="71.88" stroke-linecap="round"/>
+                  </svg>
+                  <div class="score-ring-value">78</div>
+                </div>
+                <div class="score-trend up">↑ +3 from yesterday</div>
+
+                <!-- pillar sparklines -->
+                <div class="pillar-row">
+                  <div class="pillar-item">
+                    <svg class="pillar-spark" viewBox="0 0 64 24" fill="none">
+                      <polyline points="2,18 12,14 22,16 32,10 42,12 52,6 62,8" stroke="var(--fitness)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <span class="pillar-label">fitness</span>
+                  </div>
+                  <div class="pillar-item">
+                    <svg class="pillar-spark" viewBox="0 0 64 24" fill="none">
+                      <polyline points="2,12 12,16 22,10 32,14 42,8 52,12 62,6" stroke="var(--nutrition)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <span class="pillar-label">nutrition</span>
+                  </div>
+                  <div class="pillar-item">
+                    <svg class="pillar-spark" viewBox="0 0 64 24" fill="none">
+                      <polyline points="2,16 12,10 22,12 32,8 42,14 52,10 62,4" stroke="var(--wellbeing)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <span class="pillar-label">wellbeing</span>
+                  </div>
+                </div>
+                <div class="score-updated">updated 2 hours ago</div>
+              </div>
+
+              <div class="sp-16"></div>
+
+              <!-- contradictions -->
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span class="section-eyebrow" style="color:var(--royal-purple);">contradictions</span>
+                <span style="font-size:12px;font-weight:600;color:var(--brand-orange);">(2)</span>
+              </div>
+              <div class="sp-12"></div>
+
+              <div class="contradiction-card" style="margin-bottom:12px;">
+                <div class="contradiction-alert">!</div>
+                <div class="contradiction-body">
+                  <div class="contradiction-text">You reported high energy but slept only 4.5 hours</div>
+                  <div class="contradiction-sources">
+                    <span class="source-tag">sleep</span>
+                    <span class="source-tag">check-in</span>
+                  </div>
+                  <div class="contradiction-actions">
+                    <button class="resolve-chip">resolve</button>
+                    <button class="dismiss-chip">dismiss</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contradiction-card">
+                <div class="contradiction-alert">!</div>
+                <div class="contradiction-body">
+                  <div class="contradiction-text">Stress level decreasing but meditation streak broken</div>
+                  <div class="contradiction-sources">
+                    <span class="source-tag">stress</span>
+                    <span class="source-tag">habits</span>
+                  </div>
+                  <div class="contradiction-actions">
+                    <button class="resolve-chip">resolve</button>
+                    <button class="dismiss-chip">dismiss</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- score trend chart -->
+              <div class="section-eyebrow" style="color:var(--royal-purple);">score trend</div>
+              <div class="sp-12"></div>
+              <div class="trend-chart-card">
+                <div class="time-range-row">
+                  <div class="time-chip active">7d</div>
+                  <div class="time-chip">14d</div>
+                  <div class="time-chip">30d</div>
+                </div>
+                <svg class="trend-chart-svg" viewBox="0 0 320 100">
+                  <defs>
+                    <linearGradient id="purpleFade" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#7F24FF" stop-opacity=".15"/>
+                      <stop offset="100%" stop-color="#7F24FF" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- grid lines -->
+                  <line x1="0" y1="25" x2="320" y2="25" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <line x1="0" y1="50" x2="320" y2="50" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <line x1="0" y1="75" x2="320" y2="75" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <!-- area fill -->
+                  <polygon points="10,60 55,50 105,55 155,35 205,40 255,28 305,22 305,95 10,95" fill="url(#purpleFade)"/>
+                  <!-- line -->
+                  <polyline points="10,60 55,50 105,55 155,35 205,40 255,28 305,22" fill="none" stroke="#7F24FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- dots -->
+                  <circle cx="10" cy="60" r="4" fill="#7F24FF"/>
+                  <circle cx="55" cy="50" r="4" fill="#7F24FF"/>
+                  <circle cx="105" cy="55" r="4" fill="#7F24FF"/>
+                  <circle cx="155" cy="35" r="4" fill="#7F24FF"/>
+                  <circle cx="205" cy="40" r="4" fill="#7F24FF"/>
+                  <circle cx="255" cy="28" r="4" fill="#7F24FF"/>
+                  <circle cx="305" cy="22" r="5" fill="#7F24FF" stroke="#fff" stroke-width="2"/>
+                  <!-- day labels -->
+                  <text x="10" y="95" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">Mon</text>
+                  <text x="55" y="95" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">Tue</text>
+                  <text x="105" y="95" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">Wed</text>
+                  <text x="155" y="95" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">Thu</text>
+                  <text x="205" y="95" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">Fri</text>
+                  <text x="255" y="95" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">Sat</text>
+                  <text x="299" y="95" fill="rgba(255,255,255,.3)" font-size="9" font-family="Sora">Sun</text>
+                </svg>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- correlations -->
+              <div class="section-eyebrow" style="color:var(--royal-purple);">correlations</div>
+              <div class="sp-12"></div>
+
+              <div class="correlation-row" style="margin-bottom:12px;">
+                <div class="correlation-text">Exercise duration strongly predicts next-day energy levels</div>
+                <div class="strength-label-row">
+                  <span class="strength-label">correlation strength</span>
+                  <span class="strength-pct">87%</span>
+                </div>
+                <div class="strength-bar"><div class="strength-fill" style="width:87%;"></div></div>
+                <div class="correlation-feedback">
+                  <button class="thumb-btn">👍</button>
+                  <button class="thumb-btn">👎</button>
+                </div>
+              </div>
+
+              <div class="correlation-row">
+                <div class="correlation-text">Screen time after 10pm reduces sleep quality by ~22%</div>
+                <div class="strength-label-row">
+                  <span class="strength-label">correlation strength</span>
+                  <span class="strength-pct">72%</span>
+                </div>
+                <div class="strength-bar"><div class="strength-fill" style="width:72%;"></div></div>
+                <div class="correlation-feedback">
+                  <button class="thumb-btn">👍</button>
+                  <button class="thumb-btn">👎</button>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- best day formula -->
+              <div class="section-eyebrow" style="color:var(--royal-purple);">your best day</div>
+              <div class="sp-12"></div>
+              <div class="best-day-card">
+                <div class="best-day-item">
+                  <div class="best-day-check done"></div>
+                  <span class="best-day-label">Sleep 7+ hours</span>
+                  <span class="best-day-status done">done</span>
+                </div>
+                <div class="best-day-item">
+                  <div class="best-day-check done"></div>
+                  <span class="best-day-label">Exercise 30 min</span>
+                  <span class="best-day-status done">done</span>
+                </div>
+                <div class="best-day-item">
+                  <div class="best-day-check done"></div>
+                  <span class="best-day-label">Drink 8 glasses water</span>
+                  <span class="best-day-status done">5/8</span>
+                </div>
+                <div class="best-day-item">
+                  <div class="best-day-check"></div>
+                  <span class="best-day-label">Meditate 10 min</span>
+                  <span class="best-day-status pending">pending</span>
+                </div>
+                <div class="best-day-item">
+                  <div class="best-day-check"></div>
+                  <span class="best-day-label">No screen after 10pm</span>
+                  <span class="best-day-status pending">pending</span>
+                </div>
+                <div class="best-day-summary">
+                  <span class="best-day-summary-text">Today: 3/5 factors matched</span>
+                </div>
+                <div class="best-day-progress"><div class="best-day-fill" style="width:60%;"></div></div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- weekly report -->
+              <div class="weekly-report-card">
+                <div class="report-header">
+                  <span class="report-title">Week of May 12–18</span>
+                  <span class="report-chevron">▾</span>
+                </div>
+                <div class="report-body">
+                  <div class="report-text">Overall score improved 8% this week. Your strongest domain was fitness (+12%). Nutrition dipped midweek but recovered Saturday.</div>
+                  <div class="report-link">see full report</div>
+                </div>
+              </div>
+
+              <div class="sp-24"></div>
+
+              <!-- predictions -->
+              <div class="section-eyebrow" style="color:var(--royal-purple);">predictions</div>
+              <div class="sp-12"></div>
+              <div class="prediction-card">
+                <div class="prediction-label">Tomorrow's predicted score</div>
+                <div class="prediction-value">~75</div>
+                <div class="prediction-basis">Based on your Wednesday patterns</div>
+                <div class="accuracy-badge">87% accurate</div>
+              </div>
+
+              <div class="sp-48"></div>
+            </div>
+
+            <!-- tab bar (Today active) -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="#FF5E00"/></svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- thumbnail strip -->
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goTo(0)"><div class="thumb-num">44</div></div>
+    <div class="thumb" onclick="goTo(1)"><div class="thumb-num">45</div></div>
+    <div class="thumb" onclick="goTo(2)"><div class="thumb-num">46</div></div>
+    <div class="thumb" onclick="goTo(3)"><div class="thumb-num">47</div></div>
+    <div class="thumb" onclick="goTo(4)"><div class="thumb-num">48</div></div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const total = 5;
+const track = document.getElementById('track');
+const thumbs = document.querySelectorAll('.thumb');
+const prevBtn = document.querySelector('.nav-arrow.prev');
+const nextBtn = document.querySelector('.nav-arrow.next');
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function go(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function renderThumbs() {
+  thumbs.forEach((thumb, i) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 56; canvas.height = 120;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0A0A0F';
+    ctx.fillRect(0, 0, 56, 120);
+
+    if (i === 0) {
+      // Water intake — teal ring + pills + bars
+      ctx.strokeStyle = '#14B8A6'; ctx.lineWidth = 1;
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.font = '4px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('Water intake', 28, 14);
+      ctx.fillStyle = '#14B8A6'; ctx.fillRect(4, 16, 48, 1.5);
+      // ring
+      ctx.beginPath(); ctx.arc(28, 40, 14, 0, Math.PI * 2); ctx.strokeStyle = 'rgba(255,255,255,.08)'; ctx.lineWidth = 2.5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(28, 40, 14, -Math.PI/2, -Math.PI/2 + Math.PI*2*0.63); ctx.strokeStyle = '#14B8A6'; ctx.stroke();
+      // pills
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.roundRect(4, 62, 10, 5, 2); ctx.fill();
+      ctx.fillStyle = '#211008';
+      [16, 28, 40].forEach(x => { ctx.beginPath(); ctx.roundRect(x, 62, 10, 5, 2); ctx.fill(); });
+      // bars
+      const barH = [12, 10, 14, 8, 11, 6, 9];
+      barH.forEach((h, j) => {
+        ctx.fillStyle = j === 5 ? 'rgba(20,184,166,.4)' : '#14B8A6';
+        ctx.fillRect(5 + j * 7, 90 - h, 5, h);
+      });
+      // stats
+      ctx.fillStyle = '#211008';
+      [4, 20, 36].forEach(x => { ctx.beginPath(); ctx.roundRect(x, 96, 14, 12, 2); ctx.fill(); });
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(9, 114, 3, 0, Math.PI*2); ctx.fill();
+    } else if (i === 1) {
+      // Check-in — drag handle + emojis + sliders + CTA
+      ctx.fillStyle = 'rgba(255,255,255,.2)';
+      ctx.beginPath(); ctx.roundRect(22, 8, 12, 2, 1); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.font = '4px Sora'; ctx.textAlign = 'left';
+      ctx.fillText('Good morning', 6, 22);
+      // emoji dots
+      ctx.fillStyle = '#14B8A6';
+      ctx.beginPath(); ctx.arc(10, 36, 4, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.15)';
+      [20, 28, 36, 44].forEach(x => { ctx.beginPath(); ctx.arc(x, 36, 3, 0, Math.PI*2); ctx.fill(); });
+      // sliders
+      ctx.fillStyle = 'rgba(255,255,255,.08)';
+      ctx.fillRect(6, 50, 44, 3);
+      ctx.fillStyle = '#14B8A6'; ctx.fillRect(6, 50, 30, 3);
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(36, 51.5, 3, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.08)';
+      ctx.fillRect(6, 62, 44, 3);
+      ctx.fillStyle = '#14B8A6'; ctx.fillRect(6, 62, 18, 3);
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(24, 63.5, 3, 0, Math.PI*2); ctx.fill();
+      // input
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(6, 74, 44, 8, 2); ctx.fill();
+      // tags
+      ctx.fillStyle = 'rgba(20,184,166,.15)';
+      [6, 20, 34].forEach(x => { ctx.beginPath(); ctx.roundRect(x, 88, 12, 5, 2); ctx.fill(); });
+      // CTA
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.roundRect(6, 100, 44, 7, 3); ctx.fill();
+    } else if (i === 2) {
+      // Accountability — consent banner + segments + rows
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.font = '4px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('Accountability', 28, 14);
+      // consent
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 20, 48, 12, 3); ctx.fill();
+      ctx.fillStyle = '#FF5E00'; ctx.fillRect(4, 20, 2, 12);
+      // segments
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.beginPath(); ctx.roundRect(4, 38, 48, 8, 2); ctx.fill();
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.roundRect(5, 39, 15, 6, 2); ctx.fill();
+      // partner rows
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 52, 48, 30, 3); ctx.fill();
+      ctx.fillStyle = 'rgba(255,94,0,.5)'; ctx.beginPath(); ctx.arc(12, 58, 3, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(52,168,83,.5)'; ctx.beginPath(); ctx.arc(12, 66, 3, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(6,182,212,.5)'; ctx.beginPath(); ctx.arc(12, 74, 3, 0, Math.PI*2); ctx.fill();
+      // add
+      ctx.strokeStyle = 'rgba(255,94,0,.3)'; ctx.lineWidth = 1; ctx.setLineDash([3, 2]);
+      ctx.beginPath(); ctx.roundRect(4, 88, 48, 8, 3); ctx.stroke();
+      ctx.setLineDash([]);
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(47, 114, 3, 0, Math.PI*2); ctx.fill();
+    } else if (i === 3) {
+      // Competitions — hero + chips + cards
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.font = '4px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('Competitions', 28, 14);
+      // hero banner
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 20, 48, 32, 4); ctx.fill();
+      const grd = ctx.createRadialGradient(38, 28, 2, 38, 28, 24);
+      grd.addColorStop(0, 'rgba(255,94,0,.15)'); grd.addColorStop(1, 'transparent');
+      ctx.fillStyle = grd; ctx.beginPath(); ctx.roundRect(4, 20, 48, 32, 4); ctx.fill();
+      ctx.fillStyle = '#FF5E00'; ctx.font = '3px Sora'; ctx.textAlign = 'left';
+      ctx.fillText('FEATURED', 8, 28);
+      ctx.fillStyle = '#fff'; ctx.font = '5px Sora'; ctx.fillText('Step challenge', 8, 36);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.roundRect(8, 42, 40, 5, 2); ctx.fill();
+      // chips
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.roundRect(4, 58, 10, 5, 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.06)';
+      [16, 28, 40].forEach(x => { ctx.beginPath(); ctx.roundRect(x, 58, 10, 5, 2); ctx.fill(); });
+      // cards
+      ctx.fillStyle = '#211008';
+      [68, 82, 96].forEach(y => { ctx.beginPath(); ctx.roundRect(4, y, 48, 10, 2); ctx.fill(); });
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(47, 114, 3, 0, Math.PI*2); ctx.fill();
+    } else if (i === 4) {
+      // Intelligence — purple ring + chart + cards
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.font = '4px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('Intelligence', 28, 14);
+      ctx.fillStyle = '#7F24FF'; ctx.fillRect(4, 16, 48, 2);
+      // ring
+      ctx.beginPath(); ctx.arc(28, 36, 10, 0, Math.PI*2); ctx.strokeStyle = 'rgba(255,255,255,.08)'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.beginPath(); ctx.arc(28, 36, 10, -Math.PI/2, -Math.PI/2 + Math.PI*2*0.78); ctx.strokeStyle = '#7F24FF'; ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.font = '6px Sora'; ctx.fillText('78', 28, 38);
+      // contradiction cards
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 52, 48, 10, 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,94,0,.3)'; ctx.beginPath(); ctx.arc(10, 57, 3, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(4, 64, 48, 10, 2); ctx.fillStyle = '#211008'; ctx.fill();
+      // line chart
+      ctx.strokeStyle = '#7F24FF'; ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(6, 86); ctx.lineTo(16, 82); ctx.lineTo(26, 84); ctx.lineTo(36, 78); ctx.lineTo(46, 80); ctx.lineTo(52, 76);
+      ctx.stroke();
+      // best day
+      ctx.fillStyle = '#211008'; ctx.beginPath(); ctx.roundRect(4, 92, 48, 10, 2); ctx.fill();
+      // tab bar
+      ctx.fillStyle = 'rgba(255,255,255,.06)'; ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00'; ctx.beginPath(); ctx.arc(9, 114, 3, 0, Math.PI*2); ctx.fill();
+    }
+    thumb.prepend(canvas);
+  });
+}
+renderThumbs();
+
+const sp = new URLSearchParams(window.location.search);
+if (sp.has('start')) {
+  const s = parseInt(sp.get('start'));
+  if (!isNaN(s) && s >= 0 && s < total) {
+    track.style.transition = 'none';
+    goTo(s);
+    requestAnimationFrame(() => track.style.transition = '');
+  }
+}
+</script>
+</body>
+</html>

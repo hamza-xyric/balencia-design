@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia UI/UX Vision — Compiled Final Questionnaire</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0A0A0F;
+    --surface: #141419;
+    --elevated: #1C1C24;
+    --border: #2A2A35;
+    --text: #E8E8ED;
+    --text-muted: #9898A6;
+    --accent: #A78BFA;
+    --aligned: #34D399;
+    --aligned-bg: rgba(52, 211, 153, 0.08);
+    --aligned-border: rgba(52, 211, 153, 0.25);
+    --review: #FBBF24;
+    --review-bg: rgba(251, 191, 36, 0.08);
+    --review-border: rgba(251, 191, 36, 0.25);
+    --contradicting: #F87171;
+    --contradicting-bg: rgba(248, 113, 113, 0.08);
+    --contradicting-border: rgba(248, 113, 113, 0.25);
+    --hamza: #60A5FA;
+    --salman: #C084FC;
+    --merged: #34D399;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #A78BFA, #60A5FA, #34D399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  .header .subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .header .meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .header .meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 32px;
+    padding: 20px;
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .legend-dot.aligned { background: var(--aligned); }
+  .legend-dot.review { background: var(--review); }
+  .legend-dot.contradicting { background: var(--contradicting); }
+
+  /* Stats bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .stat-card .number {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-card .label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .stat-card.aligned .number { color: var(--aligned); }
+  .stat-card.aligned .label { color: var(--aligned); }
+  .stat-card.review .number { color: var(--review); }
+  .stat-card.review .label { color: var(--review); }
+  .stat-card.contradicting .number { color: var(--contradicting); }
+  .stat-card.contradicting .label { color: var(--contradicting); }
+
+  /* Contradictions table */
+  .contradictions-summary {
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--contradicting-border);
+    padding: 24px;
+    margin-bottom: 48px;
+  }
+  .contradictions-summary h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--contradicting);
+    margin-bottom: 16px;
+  }
+  .contradictions-summary table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .contradictions-summary th {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .contradictions-summary td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(42,42,53,0.5);
+    vertical-align: top;
+  }
+  .contradictions-summary tr:last-child td { border-bottom: none; }
+  .contradictions-summary .topic { font-weight: 600; color: var(--text); }
+  .hamza-col { color: var(--hamza); }
+  .salman-col { color: var(--salman); }
+
+  /* Section headers */
+  .section-header {
+    margin-top: 56px;
+    margin-bottom: 32px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent);
+  }
+  .section-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .section-header .section-num {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Question cards */
+  .question-card {
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+  }
+  .question-card.aligned { border-left: 4px solid var(--aligned); }
+  .question-card.review { border-left: 4px solid var(--review); }
+  .question-card.contradicting { border-left: 4px solid var(--contradicting); }
+
+  .question-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .question-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .status-badge {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .status-badge.aligned {
+    background: var(--aligned-bg);
+    color: var(--aligned);
+    border: 1px solid var(--aligned-border);
+  }
+  .status-badge.review {
+    background: var(--review-bg);
+    color: var(--review);
+    border: 1px solid var(--review-border);
+  }
+  .status-badge.contradicting {
+    background: var(--contradicting-bg);
+    color: var(--contradicting);
+    border: 1px solid var(--contradicting-border);
+  }
+
+  .person-block {
+    background: var(--elevated);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .person-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .person-label.hamza { color: var(--hamza); }
+  .person-label.salman { color: var(--salman); }
+  .person-label.merged { color: var(--merged); }
+
+  .person-block p, .person-block li {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+  .person-block ul, .person-block ol {
+    padding-left: 20px;
+    margin-top: 6px;
+  }
+  .person-block li { margin-bottom: 4px; }
+
+  .resolve-note {
+    background: rgba(167, 139, 250, 0.08);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .resolve-note strong { color: var(--accent); }
+
+  .merged-block {
+    background: rgba(52, 211, 153, 0.06);
+    border: 1px solid rgba(52, 211, 153, 0.15);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    margin: 12px 0;
+    color: var(--text);
+    font-style: italic;
+  }
+
+  /* Comparison table */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 12px 0;
+  }
+  .comparison-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--elevated);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .comparison-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(42,42,53,0.5);
+    vertical-align: top;
+    color: var(--text);
+  }
+  .comparison-table tr:last-child td { border-bottom: none; }
+
+  /* Checklist section */
+  .checklist-section {
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-top: 48px;
+  }
+  .checklist-section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .checklist-group h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    margin-top: 24px;
+  }
+  .checklist-group h3.contradicting-heading { color: var(--contradicting); }
+  .checklist-group h3.review-heading { color: var(--review); }
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(42,42,53,0.3);
+    font-size: 14px;
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; color: #1a1a1a; font-size: 11px; }
+    .container { max-width: 100%; padding: 20px; }
+    .header { padding: 20px 0; }
+    .header h1 { background: none; -webkit-text-fill-color: #1a1a1a; font-size: 24px; }
+    .question-card, .stat-card, .contradictions-summary, .checklist-section, .legend {
+      background: white;
+      border-color: #ddd;
+      box-shadow: none;
+    }
+    .person-block { background: #f7f7f7; }
+    .section-header { border-color: #666; }
+    .section-header h2 { color: #333; }
+    .question-title { color: #1a1a1a; }
+    .person-block p, .person-block li { color: #333; }
+    .resolve-note { background: #f0f0ff; border-color: #ccc; color: #555; }
+    .merged-block { background: #f0fff5; border-color: #ccc; }
+    .status-badge.aligned { background: #e8fdf5; color: #059669; border-color: #a7f3d0; }
+    .status-badge.review { background: #fef9e7; color: #b45309; border-color: #fcd34d; }
+    .status-badge.contradicting { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+    .question-card.aligned { border-left-color: #059669; }
+    .question-card.review { border-left-color: #b45309; }
+    .question-card.contradicting { border-left-color: #dc2626; }
+    .stat-card.aligned .number, .stat-card.aligned .label { color: #059669; }
+    .stat-card.review .number, .stat-card.review .label { color: #b45309; }
+    .stat-card.contradicting .number, .stat-card.contradicting .label { color: #dc2626; }
+    .person-label.hamza { color: #2563eb; }
+    .person-label.salman { color: #7c3aed; }
+    .person-label.merged { color: #059669; }
+    .hamza-col { color: #2563eb; }
+    .salman-col { color: #7c3aed; }
+    .contradictions-summary h2 { color: #dc2626; }
+    .contradictions-summary { border-color: #fca5a5; }
+    .checklist-group h3.contradicting-heading { color: #dc2626; }
+    .checklist-group h3.review-heading { color: #b45309; }
+    .elevated { background: #f5f5f5; }
+  }
+
+  @page { margin: 1.5cm; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Balencia UI/UX Vision</h1>
+    <div class="subtitle">Compiled Final Questionnaire &mdash; Hamza + Salman</div>
+    <div class="meta">
+      <span>May 2026</span>
+      <span>&bull;</span>
+      <span>60+ Questions</span>
+      <span>&bull;</span>
+      <span>18 Sections</span>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot aligned"></div>
+      <span><strong>ALIGNED</strong> &mdash; Both agree. Merged.</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot review"></div>
+      <span><strong>REVIEW</strong> &mdash; Minor gaps. Needs alignment.</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot contradicting"></div>
+      <span><strong>CONTRADICTING</strong> &mdash; Opposite positions. Must resolve.</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-card aligned">
+      <div class="number">~30</div>
+      <div class="label">Aligned</div>
+    </div>
+    <div class="stat-card review">
+      <div class="number">17</div>
+      <div class="label">Review</div>
+    </div>
+    <div class="stat-card contradicting">
+      <div class="number">13</div>
+      <div class="label">Contradicting</div>
+    </div>
+  </div>
+
+  <!-- CONTRADICTIONS SUMMARY TABLE -->
+  <div class="contradictions-summary">
+    <h2>Key Contradictions &mdash; Must Resolve Before Design Starts</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:60px">#</th>
+          <th>Topic</th>
+          <th>Hamza</th>
+          <th>Salman</th>
+          <th>Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1.5</td><td class="topic">Design inspiration apps</td><td class="hamza-col">Bevel, Habitica, ChatGPT</td><td class="salman-col">Oura Ring, Calm, Arc Browser</td><td>Sets entire visual direction</td></tr>
+        <tr><td>2.6</td><td class="topic">SIA avatar</td><td class="hamza-col">3D animated avatar</td><td class="salman-col">Simple animated icon/pulse</td><td>Cost, timeline, brand feel</td></tr>
+        <tr><td>3.3</td><td class="topic">Required onboarding info</td><td class="hamza-col">Integrations + subscription upfront</td><td class="salman-col">Defer integrations + subscription</td><td>Onboarding friction</td></tr>
+        <tr><td>3.4</td><td class="topic">Intro video duration</td><td class="hamza-col">30-second pre-recorded video</td><td class="salman-col">5-10 second motion sequence</td><td>Onboarding speed</td></tr>
+        <tr><td>6.2</td><td class="topic">AI control across domains</td><td class="hamza-col">Equal AI-first for ALL</td><td class="salman-col">Varying ratios (80/50/20%)</td><td>Domain sensitivity</td></tr>
+        <tr><td>6.5</td><td class="topic">Domain depth at v1</td><td class="hamza-col">ALL domains Full</td><td class="salman-col">Prioritized (Full / Moderate / Light)</td><td>Scope and timeline</td></tr>
+        <tr><td>6.8</td><td class="topic">Finance depth</td><td class="hamza-col">Full Mint/YNAB dashboard</td><td class="salman-col">Goal-oriented only</td><td>Scope</td></tr>
+        <tr><td>6.10</td><td class="topic">Features to remove</td><td class="hamza-col">Nothing removed</td><td class="salman-col">Cut HIPAA, Careers, Blogs, Webinars</td><td>Scope</td></tr>
+        <tr><td>9.2</td><td class="topic">Leaderboard</td><td class="hamza-col">Keep and make prominent</td><td class="salman-col">Remove for v1</td><td>Social/competitive strategy</td></tr>
+        <tr><td>10.2</td><td class="topic">Achievement system</td><td class="hamza-col">Full RPG (WoW/Habitica-style)</td><td class="salman-col">Standard achievements</td><td>Gamification depth</td></tr>
+        <tr><td>13.1</td><td class="topic">Platform</td><td class="hamza-col">Mobile app only</td><td class="salman-col">Mobile-first + desktop</td><td>Platform scope</td></tr>
+        <tr><td>15.2</td><td class="topic">Data export</td><td class="hamza-col">No, not for v1</td><td class="salman-col">Yes, essential (GDPR)</td><td>Compliance</td></tr>
+        <tr><td>16.1</td><td class="topic">Blogs</td><td class="hamza-col">In-app content</td><td class="salman-col">Marketing site only</td><td>Content strategy</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: Core Philosophy & Identity -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 1</div>
+    <h2>Core Philosophy &amp; Identity</h2>
+  </div>
+
+  <!-- 1.1 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">1.1 What is the single sentence that describes what Balencia IS?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p>Balencia is your clarity and your guide. For anyone struggling with discipline, productivity, structure, or needing motivation. Core principle: "Balencia sees what we can't see. Balencia connects different parts of your life system together."</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p>"Balencia is your AI life coach that connects your fitness, finances, faith, career, and relationships into one system &mdash; and shows you the patterns you'd never spot alone."</p>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <blockquote>"Balencia is your AI life coach that sees what you can't &mdash; connecting every part of your life into one system and guiding you to be better in all of it."</blockquote>
+    </div>
+  </div>
+
+  <!-- 1.2 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">1.2 "Balencia sees what we can't see" &mdash; what does this mean concretely in the UI?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p>Both agree on a multi-layered approach:</p>
+      <ol>
+        <li><strong>SIA's conversational insights</strong> &mdash; Proactive cross-domain observations in natural language</li>
+        <li><strong>Visual intelligence layer</strong> &mdash; Knowledge Graph, Life Correlation Matrix, domain-colored connections</li>
+        <li><strong>Interactive drill-down</strong> &mdash; Clicking a domain shows its correlations with others</li>
+        <li><strong>Layered delivery</strong> &mdash; Daily via SIA, weekly via digest, on-demand via graph/insights</li>
+      </ol>
+      <p style="margin-top:10px"><strong>Hamza adds:</strong> Life Correlation system is Balencia's <strong>commercial differentiator and marketing tool</strong> &mdash; proprietary data positioning.</p>
+      <p><strong>Salman adds:</strong> The "holy shit" moment &mdash; first time SIA tells you something true about your life you didn't know.</p>
+    </div>
+  </div>
+
+  <!-- 1.3 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">1.3 What is the emotional arc of a user's first 5 minutes?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Recognition / Relatability (0-60s)</strong> &rarr; <strong>Motivation / Hope (1-3 min)</strong> &rarr; <strong>Excitement / Anticipation (3-5 min)</strong></p>
+      <ul>
+        <li>TikTok-style relatability &mdash; "what I'm thinking in my heart, he's saying it"</li>
+        <li>Islamic motivational content as inspiration for the fire Balencia should ignite</li>
+        <li>30-second video to create a "wow" moment</li>
+      </ul>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>"This feels different" (0-15s)</strong> &rarr; <strong>"It's talking to me" (15-45s)</strong> &rarr; <strong>"It gets me" (45s-2min)</strong> &rarr; <strong>"It's already working" (2-3:30)</strong> &rarr; <strong>"I want to come back" (3:30-5:00)</strong></p>
+      <ul>
+        <li>More screen-by-screen UX flow detail</li>
+        <li>Key principle: never show an empty state &mdash; app feels alive from minute 1</li>
+      </ul>
+    </div>
+    <div class="resolve-note"><strong>To resolve:</strong> Emotional goals are aligned (relate &rarr; motivate &rarr; excite). The difference is execution &mdash; Hamza wants heavier video/content opening, Salman wants a faster UX-driven flow. Connects to question 3.4 (intro video).</div>
+  </div>
+
+  <!-- 1.4 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">1.4 Who is the primary user persona?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Age 18-45.</strong> Someone struggling who wants to improve but needs guidance. Has tried other apps but found them too narrow. Wants a coach, not another tool. Would leave if content with themselves or if app feels overwhelming.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>"Amira, 28"</strong> &mdash; Muslim professional juggling career, marriage, fitness, faith. Not tech-forward. Downloaded because everything feels disconnected.</p>
+      <p><strong>Secondary: "Khalid, 35"</strong> &mdash; High-achiever with WHOOP, wants cross-domain intelligence.</p>
+    </div>
+    <div class="resolve-note"><strong>To resolve:</strong> Consider using Hamza's broad age range (18-45) as market scope + Salman's named personas (Amira, Khalid) as design anchors for making specific decisions.</div>
+  </div>
+
+  <!-- 1.5 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">1.5 What are the 3 apps whose feel/vibe you want Balencia to channel?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <ol>
+        <li><strong>Bevel</strong> &mdash; Simplicity, visual clarity, warm AI coaching, rounded/approachable</li>
+        <li><strong>Habitica</strong> &mdash; RPG gamification, quests, XP, meaningful consequences</li>
+        <li><strong>ChatGPT</strong> &mdash; Conversational AI polish, clean chat with rich inline content</li>
+      </ol>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <ol>
+        <li><strong>Oura Ring</strong> &mdash; Premium dark UI, calm confidence, data-rich but not overwhelming</li>
+        <li><strong>Calm</strong> &mdash; Emotional warmth, beautiful motion, makes you feel taken care of</li>
+        <li><strong>Arc Browser</strong> &mdash; Modern, AI-first, bold design, feels like the future</li>
+      </ol>
+    </div>
+    <div class="resolve-note"><strong>Why this matters:</strong> These pull in very different directions. Hamza's list &rarr; warmer, gamified, chat-centric. Salman's list &rarr; premium, dark, calm, motion-rich. The RPG direction (Habitica) is absent from Salman's; premium cinematic (Oura, Arc) is absent from Hamza's. <strong>This sets the entire visual and interaction direction.</strong> Consider picking which app inspires which PART of Balencia.</div>
+  </div>
+
+  <!-- 1.6 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">1.6 How do you describe Balencia to someone in 10 seconds?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p>Both hit the same notes: AI life coach + all life domains connected + hidden patterns revealed. Hamza adds "without overcomplicating anything" (simplicity promise). Salman is more concise.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: SIA Experience -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 2</div>
+    <h2>The AI Coach (SIA) Experience</h2>
+  </div>
+
+  <!-- 2.1 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">2.1 What is SIA's personality in 3 adjectives?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Adaptive, accountable, empathetic</strong> &mdash; with range: accountable when slacking, kind when struggling, pushy when user needs a push. Like a real coach with different modes.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Warm, perceptive, direct</strong> &mdash; Warm (genuinely cares, remembers details), Perceptive (notices patterns &mdash; the differentiator), Direct (clear recommendations, not menus of options).</p>
+    </div>
+    <div class="resolve-note"><strong>To resolve:</strong> Both want SIA to feel like a real coach. Hamza emphasizes adaptability (changes per user). Salman emphasizes perception (notices what you don't). Consider combining: <strong>Perceptive, adaptive, direct</strong>.</div>
+  </div>
+
+  <!-- 2.2 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">2.2 What does the SIA chat screen look like?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>Chat with rich inline cards.</strong> Clean chat as foundation, with charts, goal progress, meal plans, and financial summaries appearing inline when relevant. Sometimes text-only, sometimes visual, sometimes navigational (redirecting to full-screen features).</p>
+    </div>
+  </div>
+
+  <!-- 2.3 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">2.3 How does SIA connect life domains in conversation?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p>Proactively, always. Visual domain-colored tags/pills in chat. Frequency: when meaningful, not forced.</p>
+    </div>
+  </div>
+
+  <!-- 2.4 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">2.4 How does SIA deep-link into features?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>D) All of the above depending on context.</strong> Rich inline cards for quick reference, direct navigation for full features, task creation for future actions. SIA decides based on context.</p>
+    </div>
+  </div>
+
+  <!-- 2.5 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">2.5 Voice interaction &mdash; how prominent?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>A) Prominent mic button + dedicated full-screen voice mode.</strong> Voice is first-class. Similar to Gemini Live experience.</p>
+    </div>
+  </div>
+
+  <!-- 2.6 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">2.6 Should SIA have a visual avatar/face?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>A) Yes, 3D animated avatar</strong> that speaks and reacts. Creates personal, human-like coaching. Leverages existing VRM avatar system. Builds trust and emotional connection.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>B) Simple animated icon/logo</strong> that pulses when thinking/speaking. 3D is expensive, uncanny valley risk, dates quickly. Abstract icon gives presence without risks. "Like talking to an intelligence, not a cartoon person."</p>
+    </div>
+    <div class="resolve-note"><strong>Why this matters:</strong> 3D avatar is a significant engineering and design investment. Uncanny valley risk is real. A possible middle ground: animated icon for v1, develop 3D avatar as a v2 feature.</div>
+  </div>
+
+  <!-- 2.7 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">2.7 What's the difference between "AI Coach" and "Chat"?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>Merge into one unified SIA experience.</strong> One SIA, one conversation thread, one entry point. Multiple modes within (text, voice, check-in, deep dive).</p>
+    </div>
+  </div>
+
+  <!-- 2.8 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">2.8 Proactive messages from SIA &mdash; where do they appear?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>C) Both &mdash; push notification + home card.</strong> Push opens SIA chat when tapped. Home screen shows latest observations as cards.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: Onboarding -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 3</div>
+    <h2>Onboarding &amp; First Experience</h2>
+  </div>
+
+  <!-- 3.1 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">3.1 How many screens should onboarding have?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>~5 steps.</strong> Both agree on: Welcome/Account &rarr; Life Areas &rarr; Goals/Assessment &rarr; Plan Generation &rarr; Start. Hamza adds a "Preferences" step and light/deep mode option.</p>
+    </div>
+  </div>
+
+  <!-- 3.2 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">3.2 Chatbot-driven or traditional screen-based onboarding?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Primarily chatbot-driven</strong> with visual enhancements &mdash; SIA drives conversation, enriched with visual guidance, recommendation chips, and popup cards.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>C) Hybrid</strong> &mdash; SIA introduces each step with personality, but UI is structured (not free-form chat). Pure chatbot is slow and unpredictable.</p>
+    </div>
+    <div class="resolve-note"><strong>To resolve:</strong> Does SIA drive the flow (Hamza) or does the UI drive the flow with SIA commentary (Salman)? Affects development complexity and onboarding speed.</div>
+  </div>
+
+  <!-- 3.3 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">3.3 What information do you absolutely need before the user can start?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza &mdash; Required upfront</div>
+      <ol>
+        <li>Name</li>
+        <li>Life areas of interest</li>
+        <li>Age/gender</li>
+        <li><strong>Integrations (WHOOP, Calendar, Spotify)</strong></li>
+        <li><strong>Subscription plan</strong></li>
+      </ol>
+      <p><em>Deferred:</em> Primary life goal, motivation level, obstacles</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman &mdash; Required upfront</div>
+      <ol>
+        <li>Name</li>
+        <li>Life areas of interest (1-3 domains)</li>
+        <li><strong>Primary life goal</strong></li>
+      </ol>
+      <p><em>Deferred:</em> Motivation level, age/gender, <strong>integrations, subscription</strong></p>
+    </div>
+    <div class="resolve-note"><strong>Key disagreements:</strong> Hamza requires integrations + subscription upfront; Salman defers them. Salman requires primary life goal; Hamza defers it. More required steps = more friction = more drop-off. Asking for subscription before proving value is risky. But connecting integrations early means richer data sooner.</div>
+  </div>
+
+  <!-- 3.4 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">3.4 Should there be an intro video/animation?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>30-second pre-recorded video</strong> showing cross-domain intelligence in action. Cinematic, high-quality "wow" moment.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>5-10 second motion sequence</strong> (motion graphics, not video). Abstract, dark, premium. Apple product reveal feel. Skippable. "30 seconds is too long. The wow should come from the AI experience itself."</p>
+    </div>
+    <div class="resolve-note"><strong>To resolve:</strong> Duration (30s vs 5-10s) and format (pre-recorded video vs motion graphics). Core question: does the "wow" come from a preview or from the live AI experience?</div>
+  </div>
+
+  <!-- 3.5 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">3.5 The AI assessment &mdash; how deep?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>D) Depends on motivation tier</strong> &mdash; low gets fast start, high gets deeper conversation.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>B) 2-3 follow-up questions per goal</strong> &mdash; sweet spot of personal + fast. Deep assessment offered after 1 week.</p>
+    </div>
+    <div class="resolve-note"><strong>Consider:</strong> Start with moderate depth for everyone (Salman), let SIA offer deeper assessment later &mdash; which is effectively what both want.</div>
+  </div>
+
+  <!-- 3.6 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">3.6 How do you handle the "I just want to try it" user?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Guest mode</strong> with sample/dummy data &mdash; videos, sample dashboards, demo interactions. Minimum onboarding (name + 1-2 selections).</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>SIA conversational skip</strong> &mdash; "No worries, let's just start. Tell me one thing on your mind." SIA captures context from that single response.</p>
+    </div>
+    <div class="resolve-note"><strong>To resolve:</strong> Guest mode requires building a separate demo experience. Conversational skip works with existing infra. Hamza wants showcase/demo; Salman wants immediate coaching.</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: Navigation -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 4</div>
+    <h2>Navigation &amp; Information Architecture</h2>
+  </div>
+
+  <!-- 4.1 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">4.1 What are the primary navigation items?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza &mdash; 5 items</div>
+      <p>Home/Today &bull; SIA &bull; Goals/Life Areas &bull; <strong>Explore</strong> &bull; Profile</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman &mdash; 4 items</div>
+      <p>Today &bull; SIA &bull; Goals &bull; <strong>Me</strong> (Profile + settings + explore)</p>
+    </div>
+    <div class="resolve-note"><strong>To resolve:</strong> 4 vs 5 bottom nav items. If Explore is separate, features are more discoverable. If merged into Profile, nav is cleaner. Salman argues 4 builds stronger muscle memory.</div>
+  </div>
+
+  <!-- 4.2, 4.4, 4.6 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">4.2 How do 8 life domains organize? &bull; 4.4 Explore page &bull; 4.6 Admin panel</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>4.2:</strong> D) Hybrid &mdash; Goals primary, domain dashboards in Explore.</p>
+      <p><strong>4.4:</strong> Grid of module cards categorized by domain, AI recommendations at top.</p>
+      <p><strong>4.6:</strong> Admin panel is not a priority &mdash; separate layout, minimal investment.</p>
+    </div>
+  </div>
+
+  <!-- 4.3 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">4.3 Pin-to-sidebar system?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p>Yes, <strong>Notion-style</strong>. Multiple pins, no strict cap. Pins as quick-access shortcuts on mobile.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p>Yes, but <strong>desktop only</strong>. Max 5 pins. Mobile bottom nav is fixed.</p>
+    </div>
+  </div>
+
+  <!-- 4.5 / 13.1 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">4.5 / 13.1 Platform scope &mdash; Mobile only or Mobile + Desktop?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Mobile app only.</strong> No desktop. The entire redesign targets mobile. Desktop is not being worked on.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Mobile-first + desktop.</strong> Mobile is primary (SIA voice-centric). Desktop takes advantage of screen real estate (side panels, dashboards, knowledge graph, admin).</p>
+    </div>
+    <div class="resolve-note"><strong>Why this matters:</strong> Mobile-only means one design system. Mobile + desktop means responsive design across breakpoints. Desktop features like Knowledge Graph and admin panel need desktop. This changes project scope significantly.</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: Home Screen -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 5</div>
+    <h2>Home Screen / Daily Experience</h2>
+  </div>
+
+  <!-- 5.1, 5.3, 5.4 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">5.1 What IS the home screen? &bull; 5.3 Data density &bull; 5.4 Daily check-in</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>5.1:</strong> A "Today" view, SIA-forward. SIA greeting + AI-suggested actions + active goals. Not a pure chat (that's the SIA tab).</p>
+      <p><strong>5.3:</strong> D) Adaptive by motivation tier &mdash; Low=minimal, Medium=moderate, High=dense.</p>
+      <p><strong>5.4:</strong> B) Part of SIA's greeting &mdash; conversational, not a form.</p>
+    </div>
+  </div>
+
+  <!-- 5.2 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">5.2 What are the top 5 things visible on the home screen?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <table class="comparison-table">
+      <thead><tr><th>#</th><th>Hamza</th><th>Salman</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>SIA's greeting / proactive message</td><td>SIA's greeting / proactive message</td></tr>
+        <tr><td>2</td><td>Today's AI-suggested actions</td><td>Today's AI-suggested actions</td></tr>
+        <tr><td>3</td><td>Active life goals with progress</td><td>Active life goals with progress</td></tr>
+        <tr><td>4</td><td style="color:var(--hamza)"><strong>Recent activity feed</strong></td><td style="color:var(--salman)"><strong>Quick check-in prompt</strong></td></tr>
+        <tr><td>5</td><td style="color:var(--hamza)"><strong>Daily schedule / upcoming events</strong></td><td style="color:var(--salman)"><strong>Cross-domain insight card</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="resolve-note"><strong>To resolve:</strong> Items 4-5 differ. Salman prioritizes check-in (data collection) + insight (differentiator). Hamza prioritizes activity feed (momentum) + schedule (planning).</div>
+  </div>
+
+  <!-- 5.5 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">5.5 How do cross-domain connections surface on home?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>E) Subtly woven in</strong> &mdash; domain-colored tags as the primary mechanism. No separate section.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>A + C + E &mdash; Layered:</strong> Insight of the day card (when high-confidence) + SIA mentions in greeting + domain tags.</p>
+    </div>
+    <div class="resolve-note"><strong>Consider:</strong> Domain tags as baseline (always) + insight card when a significant connection is discovered (periodically). The insight card is the more visible differentiator moment.</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: Life Domains -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 6</div>
+    <h2>Life Domains &amp; Feature Organization</h2>
+  </div>
+
+  <!-- 6.1, 6.4 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">6.1 Domains in UI &bull; 6.4 Custom domains &bull; 6.6 Cross-domain intelligence &bull; 6.7 Wellbeing sub-features</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>6.1:</strong> Combination &mdash; colored tags everywhere + domain dashboards in Explore + life wheel visualization.</p>
+      <p><strong>6.4:</strong> C) User sets a goal, AI figures out domain. No explicit domain creation.</p>
+      <p><strong>6.6:</strong> E) All channels &mdash; SIA conversation, home cards, insights view, Knowledge Graph, notifications.</p>
+      <p><strong>6.7:</strong> Consolidate. Core features (journal, mood, habits) get standalone screens. Lighter features become SIA-invoked.</p>
+    </div>
+  </div>
+
+  <!-- 6.2 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">6.2 The AI-first pattern &mdash; does it apply equally to ALL domains?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Yes, equally across ALL domains.</strong> Same pattern: AI suggests &rarr; user reviews &rarr; accepts/edits/skips &rarr; AI learns. No domain exempt. SIA is the coach across the board.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Varying AI-to-user control ratios:</strong></p>
+      <ul>
+        <li><strong>AI-heavy (80%):</strong> Workouts, meals, schedule, learning</li>
+        <li><strong>Balanced (50%):</strong> Budget, journal, habits, career</li>
+        <li><strong>User-heavy (20%):</strong> Spirituality/prayer, relationships, creative pursuits</li>
+      </ul>
+    </div>
+    <div class="resolve-note"><strong>Why this matters:</strong> Spirituality and relationships are deeply personal. "You should pray this way" is very different from "Here's your workout." Salman's graduated approach respects domain sensitivity. Hamza's uniform approach keeps things consistent.</div>
+  </div>
+
+  <!-- 6.5 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">6.5 Which domains are v1 priority vs later?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>ALL domains Full at v1.</strong> Features already built (220+ services). Redesign is about improving UI/UX, not cutting scope.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Prioritized:</strong> Fitness, Nutrition, Mental Health = Full. Spirituality, Finance = Moderate. Career, Relationships, Learning = Light. Creativity = Later.</p>
+    </div>
+    <div class="resolve-note"><strong>Why this matters:</strong> Backend features existing &ne; equal UI/UX effort. Redesigning 9 full domain UIs simultaneously is massive. A phased approach could ship the 3 core domains beautifully, then roll out the rest. Prioritizing means highest-impact domains get the most design attention first.</div>
+  </div>
+
+  <!-- 6.8 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">6.8 Finance depth &mdash; how much of a finance app?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>A) Full finance dashboard (Mint/YNAB level)</strong> &mdash; transactions, budgets, savings, receipt scanning, analytics. Connected to life-system intelligence.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>B) Goal-oriented finance tracking</strong> &mdash; savings goals, spending patterns tied to life goals. NOT full budgeting. "Balencia is a life coach, not a finance app."</p>
+    </div>
+    <div class="resolve-note"><strong>Key question:</strong> The cross-domain insight ("Your spending spikes when you're stressed") works with BOTH approaches. It doesn't require full transaction management. Full finance competes with dedicated apps and adds massive scope.</div>
+  </div>
+
+  <!-- 6.9 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">6.9 Spirituality &mdash; how explicitly religious?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>D) Let the AI handle it</strong> &mdash; no rigid religious UI. User states goals, SIA adapts. Keeps Balencia inclusive.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>C) Start with Islamic features as primary</strong>, expand later. Primary persona is Muslim. Build genuinely good Islamic features first.</p>
+    </div>
+  </div>
+
+  <!-- 6.10 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">6.10 What existing features should be REMOVED?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Nothing removed.</strong> All features are functional. Progressive disclosure + SIA as navigator. UI flow may change, but features remain.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Cut:</strong> HIPAA page, Careers page, Blogs (in-app), Webinars. <strong>Deprioritize:</strong> Knowledge Graph, Competitions, Leaderboard, Soundscapes, Yoga Library, Vision Board. <strong>Simplify:</strong> Quick Notes &rarr; Journal, Voice Calls &rarr; SIA.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: Goals & Plans -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 7</div>
+    <h2>Goals &amp; Plans System</h2>
+  </div>
+
+  <!-- 7.1, 7.4, 7.5 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">7.1 Goal decomposition &bull; 7.4 Progress visualization &bull; 7.5 Milestones</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>7.1:</strong> Summary with expandable detail. Full decomposition available for those who want it.</p>
+      <p><strong>7.4:</strong> E) Multiple views &mdash; list, wheel, per-goal. No single "Life Score" number.</p>
+      <p><strong>7.5:</strong> D) Size-dependent &mdash; small wins = toast, big milestones = full celebration. Salman adds tier adaptation.</p>
+    </div>
+  </div>
+
+  <!-- 7.2 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">7.2 What do life goal cards look like?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Minimal:</strong> Progress ring/bar as the essential element. Everything else contextual. Clean and scannable (Bevel-inspired).</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>4 essential elements:</strong> Progress ring + Connected domain colors/icons + Next action due + AI coaching note.</p>
+    </div>
+    <div class="resolve-note"><strong>Consider:</strong> Domain colors on goal cards are what makes Balencia feel like a life system (not just a task list). Without them, goal cards look like any other app.</div>
+  </div>
+
+  <!-- 7.3 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">7.3 Motivation tiers &mdash; how do they manifest in UI?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>D) User chooses view density independently</strong> of motivation tier.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>C) Subtle &mdash; same layout, content density adapts automatically</strong> based on tier.</p>
+    </div>
+    <div class="resolve-note"><strong>Consider:</strong> Start with automatic tier-based defaults (Salman) with a user override option in settings (Hamza). Best of both.</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: Knowledge System -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 8</div>
+    <h2>Knowledge System &amp; Intelligence</h2>
+  </div>
+
+  <!-- 8.1 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">8.1 Knowledge Graph &mdash; user-facing or behind the scenes?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Hybrid with "Balencia City" vision</strong> &mdash; Each domain is a "room" users zoom into. 3D exploration. Deferred until foundational design is done.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>C) Power-user feature in Explore.</strong> Available but not promoted. Most users experience the graph through SIA's insights.</p>
+    </div>
+    <div class="resolve-note"><strong>Possible alignment:</strong> For v1, power-user feature in Explore (Salman). Balencia City as future roadmap item (Hamza).</div>
+  </div>
+
+  <!-- 8.2, 8.3, 8.4 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">8.2 Personal Wiki &bull; 8.3 Cross-domain insight delivery &bull; 8.4 Memory transparency</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>8.2:</strong> Yes, visible and editable. Users browse, edit, correct what SIA knows.</p>
+      <p><strong>8.3:</strong> E) All channels &mdash; conversation, home cards, weekly digest, insights page.</p>
+      <p><strong>8.4:</strong> Full access. View, edit, delete memories. Builds trust.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: Social & Community -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 9</div>
+    <h2>Social &amp; Community</h2>
+  </div>
+
+  <!-- 9.1 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">9.1 How prominent should social features be?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Mix of A and B</strong> &mdash; Individual-first, social as enhancement. Available but not forced.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>C) Minimal for v1</strong> &mdash; Basic accountability partner system. No feed, no profiles, no content creation.</p>
+    </div>
+  </div>
+
+  <!-- 9.2 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">9.2 Leaderboard &mdash; motivating or anxiety-inducing?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>A) Keep and make prominent.</strong> Duolingo-style competition. Integrated with RPG gamification &mdash; position tied to XP and quest completion.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>D) Remove for v1.</strong> "What does 'winning' mean across multiple life domains? A leaderboard that ranks sleep vs. prayer vs. finance is nonsensical."</p>
+    </div>
+    <div class="resolve-note"><strong>Fundamental tension:</strong> Gamification-heavy (Hamza) vs coaching-focused (Salman). Leaderboard prominence affects whether the app feels like a game or a coach.</div>
+  </div>
+
+  <!-- 9.3, 9.4 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">9.3 Competitions &bull; 9.4 Accountability</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>9.3:</strong> C) Deprioritize. Build after core AI coach is solid.</p>
+      <p><strong>9.4:</strong> SIA as primary accountability partner. Hamza also wants human partners from v1; Salman defers to v2.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 10: Gamification -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 10</div>
+    <h2>Gamification &amp; Motivation</h2>
+  </div>
+
+  <!-- 10.1 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">10.1 How prominent are streaks?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Duolingo-prominent</strong> + per-goal streaks (prayer, workout, journaling). Each feeds into the RPG gamification system.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>B) Present but not central.</strong> Visible, celebrated at milestones, but not THE motivation. "The value proposition is insight, not streaks."</p>
+    </div>
+  </div>
+
+  <!-- 10.2 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">10.2 Achievement system &mdash; how does it work?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Full RPG gamification system</strong> (WoW/Habitica-inspired):</p>
+      <ul>
+        <li>Goals become missions/quests, sub-goals become sub-quests</li>
+        <li>Users level up with XP, each domain is a skill tree</li>
+        <li>Party system, equipment/rewards, narrative framing</li>
+        <li>Meaningful consequences (HP loss for missed tasks)</li>
+        <li><strong>Must feel premium/mature, not cartoonish</strong></li>
+      </ul>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Standard achievement system:</strong></p>
+      <ul>
+        <li>Cross-domain: "Life Connector", "Life Balanced"</li>
+        <li>Domain-specific: "30-day prayer streak", "Saved $500"</li>
+        <li>Cross-domain achievements celebrated more (unique to Balencia)</li>
+        <li>No RPG framework</li>
+      </ul>
+    </div>
+    <div class="resolve-note"><strong>This is the biggest design direction divergence.</strong> The RPG system affects every screen, every interaction, every celebration. Hamza raised the critical tension himself: "How do you make RPG gamification engaging without it feeling childish, gimmicky, or visually ugly?" This must be resolved before any gamification design work begins.</div>
+  </div>
+
+  <!-- 10.3, 10.4 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">10.3 Micro-wins &bull; 10.4 Gamification adapts by tier</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>10.3:</strong> Adapted by tier/context. Small XP gains for actions, batched summaries when appropriate.</p>
+      <p><strong>10.4:</strong> Yes. Low = heavy gamification. Medium = balanced. High = lighter, data-focused.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 11: Subscription -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 11</div>
+    <h2>Subscription &amp; Monetization</h2>
+  </div>
+
+  <!-- 11.1 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">11.1 Free vs paid &mdash; what can free users access?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Restrictive free tier:</strong> No or very limited SIA. No cross-domain insights. "Don't make it loss-making."</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>More generous:</strong> 10 messages/day with SIA, 2 domains, basic features, 1 cross-domain insight per week. "One 'holy shit' moment per week drives upgrades."</p>
+    </div>
+    <div class="resolve-note"><strong>To resolve:</strong> Hamza prioritizes unit economics. Salman prioritizes conversion. The "1 insight/week" approach is a proven freemium tactic &mdash; give a taste to drive upgrades.</div>
+  </div>
+
+  <!-- 11.2, 11.3, 11.4 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">11.2 Subscription model &bull; 11.3 Locked features &bull; 11.4 AI limits</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>11.2:</strong> A) Pre-built tiers (Basic/Pro/Premium). Simple and clear.</p>
+      <p><strong>11.3:</strong> Multi-strategy &mdash; SIA conversational upsell + visual indicators. Dynamic, contextual paywalls.</p>
+      <p><strong>11.4:</strong> Tiered &mdash; Free: limited messages/day. Paid: generous/unlimited. No credit/token system.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 12: Visual Design -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 12</div>
+    <h2>Visual &amp; Emotional Design</h2>
+  </div>
+
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">12.1-12.6 &mdash; All Aligned</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>12.1 Dark mode:</strong> Mix &mdash; pure dark base (ink-900) + warm brown elevated surfaces (ink-brown-800).</p>
+      <p><strong>12.2 Light mode:</strong> B) Toggle available, dark is default and primary.</p>
+      <p><strong>12.3 Animation:</strong> Landing + Celebrations = Cinematic. Onboarding + Home = Polished. Features + Settings = Minimal. <em>(Minor diff: Hamza wants SIA chat at Polished; Salman at Minimal.)</em></p>
+      <p><strong>12.4 Continuous stroke line:</strong> Onboarding, hero sections, transitions, achievements. NOT on data-heavy screens.</p>
+      <p><strong>12.5 Visual style:</strong> Mix &mdash; photography for marketing, illustrations for empty states, abstract for in-app data.</p>
+      <p><strong>12.6 Icons:</strong> Outlined default (2px stroke), filled for active states. Domain color codes confirmed.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 13: Platform -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 13</div>
+    <h2>Platform &amp; Responsiveness</h2>
+  </div>
+
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">13.3 Should mobile feel like a native app?</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>Yes.</strong> Bottom tab bar, swipe gestures, pull-to-refresh, smooth transitions, haptic-style feedback. User shouldn't tell it's not native.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTIONS 14-16: Notifications, Privacy, Content -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Sections 14-16</div>
+    <h2>Notifications, Privacy &amp; Content</h2>
+  </div>
+
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">14.1-14.3 Notifications &mdash; All Aligned</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>14.1:</strong> Top 3: SIA insights, Reminders/Streak alerts, Check-in prompts.</p>
+      <p><strong>14.2:</strong> Adapted by motivation tier with user override. Low=1/day, Medium=2-3, High=up to 5+.</p>
+      <p><strong>14.3:</strong> Yes &mdash; frequency and timing adapt by tier and engagement patterns.</p>
+    </div>
+  </div>
+
+  <!-- 15.1 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">15.1 How transparent should AI data usage be?</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Selective transparency.</strong> Users see what data is collected + Personal Wiki. But proprietary correlation algorithms are protected &mdash; the "how" is Balencia's IP.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Full transparency per insight</strong> &mdash; "Show me the data" expandable on every SIA insight showing data sources, time period, confidence level.</p>
+    </div>
+    <div class="resolve-note"><strong>Consider:</strong> Show the data inputs (sources, time range) without revealing the algorithm (correlation weights, rules). Both goals met.</div>
+  </div>
+
+  <!-- 15.2 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">15.2 Data export &mdash; is this a feature?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>No, not for v1.</strong> Not prioritized.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Yes, essential.</strong> Required for GDPR compliance (EU users). Trust signal. User expectation in 2026.</p>
+    </div>
+    <div class="resolve-note"><strong>Note:</strong> If targeting EU users at any point, GDPR makes data export legally required, not optional. This may be a compliance question, not a product question.</div>
+  </div>
+
+  <!-- 15.3 -->
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">15.3 Integration data &bull; 16.3 Help center</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>15.3:</strong> Connected Services dashboard in settings + data silently woven into SIA.</p>
+      <p><strong>16.3:</strong> C) Both &mdash; traditional help page + SIA-powered help.</p>
+    </div>
+  </div>
+
+  <!-- 16.1 -->
+  <div class="question-card contradicting">
+    <div class="question-header">
+      <div class="question-title">16.1 Blogs and articles &mdash; in-app or separate?</div>
+      <span class="status-badge contradicting">Contradicting</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Part of the app.</strong> SIA recommends relevant articles. Also serves SEO. Content integrated into coaching.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Separate &mdash; marketing site only.</strong> Blog serves SEO and acquisition. SIA can link to articles, but no in-app blog section.</p>
+    </div>
+  </div>
+
+  <!-- 16.2 -->
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">16.2 Webinars</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Recorded libraries</strong> &mdash; on-demand content, recommended by SIA.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><strong>Cut for v1</strong> entirely. Operational overhead doesn't align with AI-first coaching.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 17: Screen Priority -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 17</div>
+    <h2>Screen Priority Ranking</h2>
+  </div>
+
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">Screen redesign priority order</div>
+      <span class="status-badge review">Review</span>
+    </div>
+    <table class="comparison-table">
+      <thead><tr><th>Screen Group</th><th>Hamza</th><th>Salman</th></tr></thead>
+      <tbody>
+        <tr><td>Landing page</td><td style="color:var(--hamza)"><strong>#1</strong></td><td>#5</td></tr>
+        <tr><td>Onboarding flow</td><td>#2</td><td style="color:var(--salman)"><strong>#1</strong></td></tr>
+        <tr><td>Home / Today</td><td>#3</td><td>#3</td></tr>
+        <tr><td>AI Coach (SIA)</td><td>#4</td><td style="color:var(--salman)"><strong>#2</strong></td></tr>
+        <tr><td>Goals &amp; Plans</td><td>#5</td><td>#4</td></tr>
+        <tr><td>Life Areas overview</td><td>#6</td><td>#6</td></tr>
+        <tr><td>Explore page</td><td style="color:var(--hamza)"><strong>#7</strong></td><td>#12</td></tr>
+        <tr><td>Fitness &amp; Workouts</td><td>#8</td><td>#9</td></tr>
+        <tr><td>Nutrition</td><td>#9</td><td>#10</td></tr>
+        <tr><td>Wellbeing hub</td><td>#10</td><td>#7</td></tr>
+        <tr><td>Finance</td><td>#11</td><td>#15</td></tr>
+        <tr><td>Spirituality</td><td>#12</td><td>#14</td></tr>
+        <tr><td>Schedule</td><td>#13</td><td>#13</td></tr>
+        <tr><td>Profile &amp; Settings</td><td>#14</td><td style="color:var(--salman)"><strong>#8</strong></td></tr>
+        <tr><td>Subscription</td><td>#15</td><td>#11</td></tr>
+        <tr><td>Learning</td><td>#16</td><td>#19</td></tr>
+        <tr><td>Creativity</td><td>#17</td><td>#20</td></tr>
+        <tr><td>Knowledge Graph</td><td>#18</td><td>#18</td></tr>
+        <tr><td>Community</td><td>#19</td><td>#17</td></tr>
+        <tr><td>Admin panel</td><td>#20</td><td>#16</td></tr>
+      </tbody>
+    </table>
+    <div class="resolve-note"><strong>Key difference:</strong> Hamza starts with the public-facing experience (Landing #1). Salman starts with the core product experience (Onboarding #1, SIA #2). Both approaches are valid &mdash; it depends on whether the immediate priority is user acquisition or user retention.</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 18: Open Questions -->
+  <!-- ============================================================ -->
+  <div class="section-header">
+    <div class="section-num">Section 18</div>
+    <h2>Open Questions &amp; Wild Card</h2>
+  </div>
+
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">18.1 Pioneer experience &bull; 18.2 Keep from current &bull; 18.3 Must change &bull; 18.5 Tell a friend moment</div>
+      <span class="status-badge aligned">Aligned</span>
+    </div>
+    <div class="merged-block">
+      <div class="person-label merged">Merged</div>
+      <p><strong>18.1:</strong> Cross-life-domain causal intelligence. No app connects all life domains and reveals patterns across them.</p>
+      <p><strong>18.2:</strong> The AI intelligence backend &mdash; memory engine, cross-pillar intelligence, knowledge graph. The UI changes; the backend is the moat.</p>
+      <p><strong>18.3:</strong> Simplicity. Reduce 30+ items to focused navigation while keeping 100% capability via progressive disclosure and SIA.</p>
+      <p><strong>18.5:</strong> The moment SIA reveals a cross-domain connection so accurate and surprising the user can't believe an app figured it out.</p>
+    </div>
+  </div>
+
+  <div class="question-card review">
+    <div class="question-header">
+      <div class="question-title">18.0 How does gamification interact with the Life Correlation system?</div>
+      <span class="status-badge review">Open</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza (only)</div>
+      <p>Unresolved. Could cross-domain correlations unlock epic quests? Could quest completion grant bonus XP in correlated domains? Needs dedicated design exploration &mdash; but only if the RPG direction is confirmed (see 10.2).</p>
+    </div>
+  </div>
+
+  <div class="question-card aligned">
+    <div class="question-header">
+      <div class="question-title">18.4 Design inspiration</div>
+      <span class="status-badge aligned">Note</span>
+    </div>
+    <div class="person-block">
+      <div class="person-label hamza">Hamza</div>
+      <p><strong>Bevel</strong> &mdash; Primary design inspiration. All-in-one health app with AI coaching that transforms complex data into clean, actionable insights. Visual clarity, warm UI, conversational coaching.</p>
+    </div>
+    <div class="person-block">
+      <div class="person-label salman">Salman</div>
+      <p><em>Not answered.</em></p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- RESOLUTION CHECKLIST -->
+  <!-- ============================================================ -->
+  <div class="checklist-section">
+    <h2>Resolution Checklist</h2>
+    <p style="color:var(--text-muted); margin-bottom:24px; font-size:14px">Go through these items together. Check off each one as you reach a final decision.</p>
+
+    <div class="checklist-group">
+      <h3 class="contradicting-heading">Must Resolve Before Design Starts (13 contradicting items)</h3>
+
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>1.5</strong> Design inspiration apps &mdash; Different visual directions</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>2.6</strong> SIA avatar &mdash; 3D animated vs simple icon</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>3.3</strong> Required onboarding info &mdash; Integrations + subscription: upfront or deferred?</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>3.4</strong> Intro video &mdash; 30-second video vs 5-10 second motion</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>6.2</strong> AI control &mdash; Equal across all domains vs varying by sensitivity</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>6.5</strong> Domain depth &mdash; All Full vs prioritized phasing</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>6.8</strong> Finance &mdash; Full Mint/YNAB vs goal-oriented tracking</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>6.10</strong> Feature removal &mdash; Cut nothing vs cut/deprioritize several</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>9.2</strong> Leaderboard &mdash; Prominent vs removed for v1</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>10.2</strong> Achievement/gamification &mdash; Full RPG system vs standard achievements</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>13.1</strong> Platform &mdash; Mobile-only vs mobile + desktop</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>15.2</strong> Data export &mdash; No vs yes (GDPR implications)</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>16.1</strong> Blogs &mdash; In-app content vs marketing site only</div></div>
+    </div>
+
+    <div class="checklist-group">
+      <h3 class="review-heading">Should Align On (17 review items)</h3>
+
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>1.3</strong> Emotional arc execution &mdash; TikTok-style opening vs UX-driven flow</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>1.4</strong> User persona &mdash; Broad (18-45) vs specific named personas</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>2.1</strong> SIA personality &mdash; Final 3 adjectives</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>3.2</strong> Onboarding style &mdash; Chatbot-driven vs hybrid</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>3.5</strong> Assessment depth &mdash; Fixed moderate vs tier-adaptive</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>3.6</strong> "Try it" user &mdash; Guest mode vs conversational skip</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>4.1</strong> Bottom nav count &mdash; 4 items vs 5 items</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>5.2</strong> Home screen items 4-5 &mdash; Activity feed + schedule vs check-in + insight</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>5.5</strong> Cross-domain on home &mdash; Subtle tags only vs tags + insight card</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>6.9</strong> Spirituality &mdash; AI-adaptive vs Islamic-first</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>7.2</strong> Goal card elements &mdash; Minimal vs rich (4 elements)</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>7.3</strong> Motivation tier in UI &mdash; User-controlled vs automatic</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>9.1</strong> Social prominence &mdash; Available vs minimal for v1</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>10.1</strong> Streak prominence &mdash; Duolingo-level vs present-but-not-central</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>11.1</strong> Free tier &mdash; Restrictive vs generous (10 msgs/day)</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>15.1</strong> AI transparency &mdash; Selective (protect IP) vs full per-insight</div></div>
+      <div class="checklist-item"><div class="checkbox"></div><div><strong>17</strong> Screen priority &mdash; Landing page first vs onboarding first</div></div>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding:40px 0; color:var(--text-muted); font-size:13px;">
+    <p>Balencia UI/UX Vision &mdash; Compiled Questionnaire &mdash; May 2026</p>
+    <p style="margin-top:4px">Prepared for team review. Open in browser and use Ctrl/Cmd+P to save as PDF.</p>
+  </div>
+
+</div>
+</body>
+</html>

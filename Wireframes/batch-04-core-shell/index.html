@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 4: Core Shell</title>
+<link rel="stylesheet" href="../balencia-foundation.css">
+<style>
+/* ═══════════════════════════════════════
+   BATCH 04 — CORE SHELL SPECIFIC STYLES
+   ═══════════════════════════════════════ */
+
+/* ── Screen 12: Home ── */
+.home-screen {
+  padding-bottom: 56px;
+}
+.home-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none;
+}
+.home-scroll::-webkit-scrollbar { display: none; }
+
+.home-sticky-header {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 52px 16px 12px;
+  background: transparent;
+  transition: background var(--dur-fast) var(--ease-out-soft),
+              backdrop-filter var(--dur-fast) var(--ease-out-soft);
+}
+.home-sticky-header.scrolled {
+  background: rgba(10,10,15,.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.greeting-text {
+  font-size: 20px; font-weight: 600; color: #fff; line-height: 1.3;
+}
+.greeting-date {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.5); margin-top: 2px;
+}
+.level-badge {
+  display: flex; align-items: center; justify-content: center;
+  height: 28px; padding: 0 12px; border-radius: var(--r-pill);
+  background: var(--ink-brown); border: 1px solid var(--brand-orange);
+  font-size: 13px; font-weight: 600; color: var(--brand-orange);
+  white-space: nowrap; flex-shrink: 0;
+}
+
+.home-content { padding: 0 16px 24px; }
+
+/* SIA greeting card */
+.sia-greeting {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid rgba(127,36,255,.6);
+  padding: 20px 20px 16px;
+}
+.sia-greeting-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.sia-greeting .sia-av {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  background: var(--ink-brown); border: 2px solid var(--royal-purple);
+  display: flex; align-items: center; justify-content: center;
+}
+.sia-greeting .sia-av svg { width: 12px; height: 12px; }
+.sia-label {
+  font-size: 12px; font-weight: 600; color: var(--royal-purple);
+}
+.sia-greeting-msg {
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,.9); line-height: 1.47;
+}
+.mood-chips {
+  display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;
+}
+.mood-chip {
+  display: flex; align-items: center; gap: 6px;
+  height: 32px; padding: 0 12px; border-radius: var(--r-pill);
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,.6);
+  cursor: pointer;
+}
+.mood-chip .emoji { font-size: 16px; line-height: 1; }
+
+/* action cards */
+.action-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 18px 20px;
+  display: flex; align-items: flex-start; gap: 12px;
+  position: relative;
+}
+.action-body { flex: 1; min-width: 0; }
+.action-body .domain-tag { margin-bottom: 6px; }
+.action-title {
+  font-size: 16px; font-weight: 600; color: #fff; line-height: 1.3;
+}
+.action-meta {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,.5); margin-top: 3px;
+}
+.action-checkbox {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,.3); margin-top: 2px;
+  cursor: pointer;
+}
+
+/* progress ring cards — horizontal scroll */
+.ring-scroll {
+  display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.ring-scroll::-webkit-scrollbar { display: none; }
+.progress-ring-card {
+  width: 96px; min-width: 96px; height: 128px;
+  background: var(--ink-brown); border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,.06); padding: 12px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 8px;
+}
+.ring-wrap {
+  width: 48px; height: 48px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.ring-wrap svg { width: 48px; height: 48px; transform: rotate(-90deg); }
+.ring-wrap .ring-label {
+  position: absolute; font-size: 14px; font-weight: 600; color: #fff;
+}
+.ring-goal-name {
+  font-size: 13px; font-weight: 600; color: #fff; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
+}
+.ring-domain-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+
+/* schedule rows */
+.schedule-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px 20px;
+}
+.schedule-row {
+  display: flex; align-items: center; gap: 12px; padding: 8px 0;
+}
+.schedule-row + .schedule-row {
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.sched-time {
+  font-size: 13px; font-weight: 600; color: var(--brand-orange);
+  width: 64px; flex-shrink: 0;
+}
+.sched-event {
+  font-size: 15px; font-weight: 400; color: #fff;
+}
+
+/* insight card */
+.insight-card-home {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06);
+  border-top: 2px solid var(--brand-orange);
+  padding: 20px;
+}
+.insight-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--brand-orange); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.insight-text {
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,.9); line-height: 1.47;
+}
+
+/* activity feed */
+.xp-item {
+  display: flex; align-items: center; gap: 10px; height: 36px;
+}
+.xp-badge {
+  font-size: 12px; font-weight: 600; color: var(--brand-orange);
+  white-space: nowrap;
+}
+.xp-desc {
+  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.7);
+}
+.view-all-link {
+  font-size: 14px; font-weight: 600; color: var(--brand-orange);
+  cursor: pointer; margin-top: 4px;
+}
+
+/* ── Screen 09: SIA Chat ── */
+.chat-screen {
+  display: flex; flex-direction: column;
+  padding-bottom: 56px;
+}
+.chat-top-bar {
+  position: sticky; top: 44px; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 48px; padding: 0 16px;
+  background: var(--ink-900);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.chat-title {
+  font-size: 17px; font-weight: 600; color: #fff;
+}
+.voice-icon {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.voice-icon svg { width: 22px; height: 22px; color: rgba(255,255,255,.5); }
+
+.chat-area {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 12px 16px 8px; display: flex; flex-direction: column; gap: 0;
+  scrollbar-width: none;
+}
+.chat-area::-webkit-scrollbar { display: none; }
+
+/* day separator */
+.day-sep {
+  display: flex; align-items: center; gap: 12px;
+  padding: 20px 0;
+}
+.day-sep::before, .day-sep::after {
+  content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.05);
+}
+.day-sep span {
+  font-size: 12px; font-weight: 400; color: rgba(255,255,255,.3);
+  white-space: nowrap;
+}
+
+/* message groups */
+.msg-group { margin-bottom: 16px; }
+.msg-group.sia { display: flex; align-items: flex-start; gap: 8px; }
+.msg-group.user { display: flex; flex-direction: column; align-items: flex-end; }
+
+.msg-avatar {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--royal-purple), rgba(127,36,255,.5));
+  display: flex; align-items: center; justify-content: center; margin-top: 4px;
+}
+.msg-avatar svg { width: 12px; height: 12px; }
+
+.msg-content { display: flex; flex-direction: column; gap: 4px; max-width: 80%; }
+
+.msg-sia {
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px 16px 16px 4px; padding: 12px 14px;
+  font-size: 15px; font-weight: 400; color: #fff; line-height: 1.47;
+}
+.msg-user {
+  background: rgba(255,94,0,.15); border-radius: 16px 16px 4px 16px;
+  padding: 12px 14px; font-size: 15px; font-weight: 400; color: #fff;
+  line-height: 1.47; max-width: 80%;
+}
+
+/* rich inline card */
+.rich-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.08); padding: 16px;
+  margin-top: 4px;
+}
+.rich-card-title {
+  font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.mini-chart {
+  display: flex; align-items: flex-end; gap: 6px; height: 64px;
+  padding: 0 4px; margin-bottom: 10px;
+}
+.mini-bar {
+  flex: 1; border-radius: 3px 3px 0 0; min-width: 0;
+  transition: height var(--dur-base) var(--ease-out-soft);
+}
+.mini-bar.orange { background: var(--brand-orange); }
+.mini-bar.purple { background: var(--royal-purple); opacity: .6; }
+.rich-card-link {
+  font-size: 12px; font-weight: 600; color: var(--brand-orange); cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* suggestion chip row */
+.chip-row {
+  display: flex; gap: 8px; overflow-x: auto; padding: 8px 0 16px;
+  scrollbar-width: none;
+}
+.chip-row::-webkit-scrollbar { display: none; }
+.chip-row .suggestion-chip {
+  border: 1px solid rgba(255,94,0,.3); color: var(--brand-orange);
+  background: transparent; font-weight: 600;
+}
+
+/* chat input bar */
+.chat-input-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 12px 6px 16px;
+  background: var(--ink-900);
+}
+.chat-input {
+  flex: 1; height: 40px; border-radius: var(--r-pill);
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  padding: 0 16px; font-size: 14px; font-weight: 400;
+  color: rgba(255,255,255,.3); font-family: 'Sora', sans-serif;
+  display: flex; align-items: center;
+}
+.mic-btn {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.mic-btn svg { width: 18px; height: 18px; color: rgba(255,255,255,.6); }
+
+/* ── Shared: bottom tab bar icons ── */
+.tab-icon { width: 24px; height: 24px; }
+</style>
+</head>
+<body>
+
+<!-- page header -->
+<header class="page-header">
+  <h1>Wireframes</h1>
+  <h2>Core Shell</h2>
+  <span class="batch-label">Batch 4 · 2 screens</span>
+</header>
+
+<!-- carousel -->
+<section class="carousel-wrap">
+  <button class="nav-arrow prev" onclick="go(-1)" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+  </button>
+  <button class="nav-arrow next" onclick="go(1)">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+  </button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="track">
+
+      <!-- ════════════════════════════════════
+           SLIDE 1: Screen 12 — Home Screen
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 12</div>
+          <div class="name">Home screen</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen home-screen">
+            <div class="home-scroll" id="homeScroll">
+
+              <!-- sticky header -->
+              <div class="home-sticky-header" id="homeHeader">
+                <div>
+                  <div class="greeting-text">Good morning, Amira</div>
+                  <div class="greeting-date">Tuesday, May 20</div>
+                </div>
+                <div class="level-badge">Lv 12</div>
+              </div>
+
+              <div class="home-content">
+
+                <!-- SIA greeting card -->
+                <div class="sia-greeting">
+                  <div class="sia-greeting-header">
+                    <div class="sia-av">
+                      <svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4" stroke="#7F24FF" stroke-width="1.5"/><circle cx="6" cy="6" r="1.5" fill="#7F24FF"/></svg>
+                    </div>
+                    <span class="sia-label">SIA</span>
+                  </div>
+                  <div class="sia-greeting-msg">You crushed it yesterday. What's worth your attention today?</div>
+                  <div class="mood-chips">
+                    <div class="mood-chip"><span class="emoji">😊</span> Great</div>
+                    <div class="mood-chip"><span class="emoji">😐</span> Okay</div>
+                    <div class="mood-chip"><span class="emoji">😔</span> Low</div>
+                    <div class="mood-chip"><span class="emoji">⚡</span> Energised</div>
+                  </div>
+                </div>
+
+                <div class="sp-32"></div>
+
+                <!-- today's actions -->
+                <div class="section-eyebrow">today's actions</div>
+                <div class="sp-12"></div>
+
+                <div class="action-card">
+                  <div class="action-body">
+                    <span class="domain-tag tag-wellbeing">wellbeing</span>
+                    <div class="action-title">Meditate 10 min</div>
+                    <div class="action-meta">wellness · 10 min</div>
+                  </div>
+                  <div class="action-checkbox"></div>
+                </div>
+                <div class="sp-12"></div>
+
+                <div class="action-card">
+                  <div class="action-body">
+                    <span class="domain-tag tag-fitness">fitness</span>
+                    <div class="action-title">Morning run</div>
+                    <div class="action-meta">fitness · 30 min</div>
+                  </div>
+                  <div class="action-checkbox"></div>
+                </div>
+                <div class="sp-12"></div>
+
+                <div class="action-card">
+                  <div class="action-body">
+                    <span class="domain-tag tag-finance">finance</span>
+                    <div class="action-title">Review budget</div>
+                    <div class="action-meta">finance · 15 min</div>
+                  </div>
+                  <div class="action-checkbox"></div>
+                </div>
+
+                <div class="sp-32"></div>
+
+                <!-- your missions -->
+                <div class="section-eyebrow">your missions</div>
+                <div class="sp-12"></div>
+
+                <div class="ring-scroll">
+                  <!-- Run 68% -->
+                  <div class="progress-ring-card">
+                    <div class="ring-wrap">
+                      <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/>
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="#FF5E00" stroke-width="4"
+                          stroke-dasharray="125.66" stroke-dashoffset="40.21" stroke-linecap="round"/>
+                      </svg>
+                      <span class="ring-label">68%</span>
+                    </div>
+                    <div class="ring-goal-name">Run 5K</div>
+                    <div class="ring-domain-dot" style="background: var(--fitness);"></div>
+                  </div>
+
+                  <!-- Save 42% -->
+                  <div class="progress-ring-card">
+                    <div class="ring-wrap">
+                      <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/>
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="#FF5E00" stroke-width="4"
+                          stroke-dasharray="125.66" stroke-dashoffset="72.88" stroke-linecap="round"/>
+                      </svg>
+                      <span class="ring-label">42%</span>
+                    </div>
+                    <div class="ring-goal-name">Save $1000</div>
+                    <div class="ring-domain-dot" style="background: var(--finance);"></div>
+                  </div>
+
+                  <!-- Read 91% (green — near complete) -->
+                  <div class="progress-ring-card">
+                    <div class="ring-wrap">
+                      <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/>
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="#34A853" stroke-width="4"
+                          stroke-dasharray="125.66" stroke-dashoffset="11.31" stroke-linecap="round"/>
+                      </svg>
+                      <span class="ring-label">91%</span>
+                    </div>
+                    <div class="ring-goal-name">Read 12 books</div>
+                    <div class="ring-domain-dot" style="background: var(--learning);"></div>
+                  </div>
+                </div>
+
+                <div class="sp-32"></div>
+
+                <!-- coming up -->
+                <div class="section-eyebrow">coming up</div>
+                <div class="sp-12"></div>
+
+                <div class="schedule-card">
+                  <div class="schedule-row">
+                    <span class="sched-time">2:00 PM</span>
+                    <span class="sched-event">Team standup</span>
+                  </div>
+                  <div class="schedule-row">
+                    <span class="sched-time">5:30 PM</span>
+                    <span class="sched-event">Gym session</span>
+                  </div>
+                </div>
+
+                <div class="sp-32"></div>
+
+                <!-- insight card -->
+                <div class="insight-card-home">
+                  <div class="insight-eyebrow">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z" fill="#FF5E00"/></svg>
+                    connection spotted
+                  </div>
+                  <div class="insight-text">Sleep quality drops 30% on days you skip exercise.</div>
+                </div>
+
+                <div class="sp-32"></div>
+
+                <!-- activity feed -->
+                <div class="section-eyebrow">recent activity</div>
+                <div class="sp-12"></div>
+
+                <div class="xp-item">
+                  <span class="xp-badge">+15 XP</span>
+                  <span class="xp-desc">Completed yoga</span>
+                </div>
+                <div class="xp-item">
+                  <span class="xp-badge">+10 XP</span>
+                  <span class="xp-desc">Logged breakfast</span>
+                </div>
+                <div class="xp-item">
+                  <span class="xp-badge">+5 XP</span>
+                  <span class="xp-desc">Checked finances</span>
+                </div>
+                <div class="view-all-link">View all</div>
+
+                <div class="sp-24"></div>
+              </div>
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" fill="#FF5E00"/>
+                </svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/>
+                </svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 2: Screen 09 — SIA Chat
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 09</div>
+          <div class="name">SIA chat</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen chat-screen">
+
+            <!-- top bar -->
+            <div class="chat-top-bar">
+              <span class="chat-title">SIA</span>
+              <div class="voice-icon">
+                <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="7" y="2" width="8" height="12" rx="4"/>
+                  <path d="M4 10a7 7 0 0014 0"/>
+                  <line x1="11" y1="17" x2="11" y2="20"/>
+                  <line x1="8" y1="20" x2="14" y2="20"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- chat area -->
+            <div class="chat-area">
+
+              <!-- day separator -->
+              <div class="day-sep"><span>Today</span></div>
+
+              <!-- SIA message 1 -->
+              <div class="msg-group sia">
+                <div class="msg-avatar">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" stroke="#fff" stroke-width="1.2"/><circle cx="6" cy="6" r="1" fill="#fff"/></svg>
+                </div>
+                <div class="msg-content">
+                  <div class="msg-sia">Good morning, Amira. You crushed it yesterday — 4 actions done, all goals on track.</div>
+
+                  <!-- rich inline card: chart -->
+                  <div class="rich-card">
+                    <div class="rich-card-title">
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="7" width="3" height="6" rx="1" fill="rgba(255,255,255,.4)"/><rect x="5.5" y="4" width="3" height="9" rx="1" fill="rgba(255,255,255,.4)"/><rect x="10" y="1" width="3" height="12" rx="1" fill="rgba(255,255,255,.4)"/></svg>
+                      Sleep vs exercise
+                    </div>
+                    <div class="mini-chart">
+                      <div class="mini-bar orange" style="height: 45%;"></div>
+                      <div class="mini-bar purple" style="height: 30%;"></div>
+                      <div class="mini-bar orange" style="height: 60%;"></div>
+                      <div class="mini-bar purple" style="height: 50%;"></div>
+                      <div class="mini-bar orange" style="height: 80%;"></div>
+                      <div class="mini-bar purple" style="height: 65%;"></div>
+                      <div class="mini-bar orange" style="height: 70%;"></div>
+                      <div class="mini-bar purple" style="height: 75%;"></div>
+                      <div class="mini-bar orange" style="height: 90%;"></div>
+                      <div class="mini-bar purple" style="height: 80%;"></div>
+                    </div>
+                    <div class="rich-card-link">
+                      View more
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#FF5E00" stroke-width="1.5" stroke-linecap="round"><path d="M4.5 2.5L8 6L4.5 9.5"/></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- user message -->
+              <div class="msg-group user">
+                <div class="msg-user">Yeah I felt great after that run yesterday.</div>
+              </div>
+
+              <!-- SIA message 2 -->
+              <div class="msg-group sia">
+                <div class="msg-avatar">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" stroke="#fff" stroke-width="1.2"/><circle cx="6" cy="6" r="1" fill="#fff"/></svg>
+                </div>
+                <div class="msg-content">
+                  <div class="msg-sia">Your sleep has improved 15% since you started the evening runs. The correlation is strong — keep going.</div>
+                </div>
+              </div>
+
+              <!-- suggestion chips -->
+              <div class="chip-row">
+                <div class="suggestion-chip">Tell me more</div>
+                <div class="suggestion-chip">Show my goals</div>
+                <div class="suggestion-chip">Log a meal</div>
+              </div>
+
+            </div>
+
+            <!-- chat input bar -->
+            <div class="chat-input-bar">
+              <div class="chat-input">Message SIA</div>
+              <div class="mic-btn">
+                <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5.5" y="1.5" width="7" height="10" rx="3.5"/>
+                  <path d="M3 8.5a6 6 0 0012 0"/>
+                  <line x1="9" y1="14.5" x2="9" y2="16.5"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- bottom tab bar -->
+            <div class="bottom-tab-bar">
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/>
+                </svg>
+                <span>Today</span>
+              </div>
+              <div class="tab-item active">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z" fill="#FF5E00"/>
+                </svg>
+                <span>SIA</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span>Goals</span>
+              </div>
+              <div class="tab-item">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- thumbnail strip -->
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goTo(0)"><div class="thumb-num">12</div></div>
+    <div class="thumb" onclick="goTo(1)"><div class="thumb-num">09</div></div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const total = 2;
+const track = document.getElementById('track');
+const thumbs = document.querySelectorAll('.thumb');
+const prevBtn = document.querySelector('.nav-arrow.prev');
+const nextBtn = document.querySelector('.nav-arrow.next');
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function go(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function renderThumbs() {
+  thumbs.forEach((thumb, i) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 56; canvas.height = 120;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0A0A0F';
+    ctx.fillRect(0, 0, 56, 120);
+
+    if (i === 0) {
+      ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.font = '4px Sora'; ctx.textAlign = 'left';
+      ctx.fillText('Good morning', 6, 16);
+      ctx.fillStyle = '#FF5E00'; ctx.font = '3px Sora';
+      ctx.fillRect(40, 12, 10, 5);
+      ctx.fillStyle = '#211008';
+      ctx.fillRect(4, 22, 48, 18);
+      ctx.fillStyle = 'rgba(127,36,255,.6)';
+      ctx.fillRect(4, 22, 2, 18);
+      ctx.fillStyle = '#211008';
+      [44, 56, 68].forEach(y => { ctx.fillRect(4, y, 48, 10); });
+      ctx.fillStyle = 'rgba(255,94,0,.3)';
+      [44, 56, 68].forEach(y => { ctx.fillRect(4, y, 2, 10); });
+      ctx.fillStyle = '#211008';
+      [4, 22, 40].forEach(x => { ctx.fillRect(x, 84, 14, 18); });
+      ctx.strokeStyle = '#FF5E00'; ctx.lineWidth = 1;
+      [11, 29, 47].forEach(x => { ctx.beginPath(); ctx.arc(x, 90, 4, -Math.PI/2, Math.PI); ctx.stroke(); });
+      ctx.fillStyle = 'rgba(255,255,255,.08)';
+      ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(9, 114, 3, 0, Math.PI*2); ctx.fill();
+    } else if (i === 1) {
+      ctx.fillStyle = '#fff'; ctx.font = '4.5px Sora'; ctx.textAlign = 'left';
+      ctx.fillText('SIA', 6, 14);
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(6, 22, 32, 10, 3); ctx.fill();
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(6, 36, 36, 16, 3); ctx.fill();
+      ctx.fillStyle = 'rgba(255,94,0,.15)';
+      ctx.beginPath(); ctx.roundRect(20, 58, 30, 8, 3); ctx.fill();
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(6, 72, 32, 10, 3); ctx.fill();
+      ctx.fillStyle = 'rgba(255,94,0,.3)';
+      [6, 20, 34].forEach(x => {
+        ctx.beginPath(); ctx.roundRect(x, 88, 12, 5, 2); ctx.fill();
+      });
+      ctx.fillStyle = '#211008';
+      ctx.beginPath(); ctx.roundRect(4, 98, 40, 8, 4); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.08)';
+      ctx.fillRect(0, 109, 56, 11);
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(20, 114, 3, 0, Math.PI*2); ctx.fill();
+    }
+    thumb.prepend(canvas);
+  });
+}
+renderThumbs();
+
+const sp = new URLSearchParams(window.location.search);
+if (sp.has('start')) {
+  const s = parseInt(sp.get('start'));
+  if (!isNaN(s) && s >= 0 && s < total) {
+    track.style.transition = 'none';
+    goTo(s);
+    requestAnimationFrame(() => track.style.transition = '');
+  }
+}
+</script>
+</body>
+</html>

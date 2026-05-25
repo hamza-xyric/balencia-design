@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 16: Health Tracking</title>
+<link rel="stylesheet" href="../balencia-foundation.css">
+<style>
+/* ═══════════════════════════════════════
+   BATCH 16 — HEALTH TRACKING
+   ═══════════════════════════════════════ */
+
+/* ── Shared: domain header (wellbeing screens) ── */
+.domain-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 52px 16px 12px; position: relative; z-index: 5;
+  background: var(--ink-900); flex-shrink: 0;
+}
+.domain-header .back-arrow {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+}
+.domain-header .back-arrow svg { width: 20px; height: 20px; }
+.domain-title { font-size: 20px; font-weight: 600; color: #fff; flex: 1; }
+.level-badge-domain {
+  display: flex; align-items: center; gap: 4px;
+  height: 28px; padding: 0 12px; border-radius: var(--r-pill);
+  font-size: 13px; font-weight: 600; white-space: nowrap; flex-shrink: 0;
+}
+.level-badge-domain.wellbeing {
+  color: var(--wellbeing); background: rgba(20,184,166,.15); border: 1px solid rgba(20,184,166,.25);
+}
+.accent-line {
+  position: absolute; bottom: 0; left: 16px; right: 40%; height: 2px;
+}
+.accent-line.wellbeing { background: var(--wellbeing); }
+
+/* ── Shared: simple screen header (brand mode screens) ── */
+.screen-hdr {
+  display: flex; align-items: center; gap: 12px;
+  padding: 52px 16px 12px; background: var(--ink-900); flex-shrink: 0;
+}
+.screen-hdr .back-arrow {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+}
+.screen-hdr .back-arrow svg { width: 20px; height: 20px; }
+.screen-hdr-title {
+  font-size: 17px; font-weight: 600; color: #fff; flex: 1; text-align: center;
+}
+.screen-hdr-spacer { width: 44px; flex-shrink: 0; }
+
+/* ── Shared: scrollable dashboard ── */
+.dash-scroll {
+  flex: 1; overflow-y: auto; overflow-x: hidden; padding: 16px 16px 130px;
+  scrollbar-width: none;
+}
+.dash-scroll::-webkit-scrollbar { display: none; }
+
+/* ── Shared: FAB ── */
+.fab-pill {
+  position: absolute; bottom: 72px; left: 50%; transform: translateX(-50%); z-index: 15;
+  height: 48px; padding: 0 24px; border-radius: var(--r-pill);
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.08);
+  box-shadow: var(--shadow-2); display: flex; align-items: center; gap: 8px;
+  cursor: pointer; white-space: nowrap;
+}
+.fab-pill .fab-icon { font-size: 16px; color: #fff; font-weight: 600; }
+.fab-pill .fab-label { font-size: 15px; font-weight: 600; color: #fff; }
+.fab-pill.orange {
+  background: var(--brand-orange); border-color: transparent;
+}
+.fab-pill.right { left: auto; right: 16px; transform: none; }
+
+/* ── Shared: SIA coaching note ── */
+.sia-note {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid rgba(127,36,255,.6);
+  padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start;
+}
+.sia-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--royal-purple);
+  flex-shrink: 0; margin-top: 6px;
+}
+.sia-note-text {
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,.9); line-height: 1.47; flex: 1;
+}
+.sia-link {
+  font-size: 13px; font-weight: 500; color: var(--royal-purple); margin-top: 6px; cursor: pointer;
+}
+
+/* ── Shared: section gaps ── */
+.section-gap { height: 24px; }
+.section-gap-sm { height: 16px; }
+
+/* ── Shared: content cards ── */
+.content-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06); padding: 20px;
+}
+.content-card-sm {
+  background: var(--ink-brown); border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.06); padding: 16px;
+}
+
+/* ── Shared: eyebrow ── */
+.sec-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+}
+.sec-eyebrow.teal { color: var(--wellbeing); }
+.sec-head {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sec-link {
+  font-size: 13px; font-weight: 500; color: var(--brand-orange); cursor: pointer;
+}
+
+/* ── Shared: row divider ── */
+.row-div { border-bottom: 1px solid rgba(255,255,255,.06); }
+
+/* ── Shared: segmented control ── */
+.seg-ctrl {
+  display: inline-flex; background: var(--ink-brown); border-radius: var(--r-pill);
+  padding: 3px; gap: 2px;
+}
+.seg-btn {
+  height: 32px; padding: 0 14px; border-radius: var(--r-pill); border: none;
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,.5);
+  background: transparent; cursor: pointer; font-family: inherit;
+}
+.seg-btn.active {
+  background: var(--brand-orange); color: #fff;
+}
+
+/* ── Shared: tab icon ── */
+.tab-icon { width: 24px; height: 24px; }
+
+
+/* ═══════════════════════════════════════
+   SCREEN 58: SLEEP TRACKING
+   ═══════════════════════════════════════ */
+.sleep-hero { text-align: center; }
+.sleep-hero-hours {
+  font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 4px;
+}
+.sleep-stars { display: flex; justify-content: center; gap: 4px; margin-bottom: 16px; }
+.sleep-star { font-size: 20px; }
+.sleep-star.filled { color: var(--brand-orange); }
+.sleep-star.empty { color: rgba(255,255,255,.15); }
+.sleep-times {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 16px; margin-bottom: 12px;
+}
+.sleep-time-col { text-align: center; }
+.sleep-time-label { font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+.sleep-time-val { font-size: 16px; font-weight: 600; color: #fff; }
+.sleep-arrow { font-size: 14px; color: rgba(255,255,255,.3); }
+.sleep-recovery {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px; border-top: 1px solid rgba(255,255,255,.06);
+}
+.recovery-left { display: flex; align-items: center; gap: 8px; }
+.recovery-dot { width: 8px; height: 8px; border-radius: 50%; }
+.recovery-dot.good { background: var(--forest-green); }
+.recovery-label { font-size: 12px; color: rgba(255,255,255,.4); }
+.recovery-val { font-size: 20px; font-weight: 600; color: #fff; }
+.sync-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 8px; border-radius: var(--r-pill);
+  background: var(--ink-900); font-size: 11px; font-weight: 600; color: rgba(255,255,255,.5);
+}
+
+/* bar chart */
+.bar-chart-wrap { position: relative; height: 100px; margin: 12px 0 8px; }
+.bar-chart {
+  display: flex; align-items: flex-end; gap: 8px; height: 100%;
+  position: relative; z-index: 1;
+}
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+.bar {
+  width: 100%; border-radius: 4px 4px 0 0; min-height: 4px;
+}
+.bar.at-target { background: rgba(20,184,166,.8); }
+.bar.below-target { background: rgba(20,184,166,.4); }
+.bar-label { font-size: 11px; color: rgba(255,255,255,.3); }
+.target-line {
+  position: absolute; left: 0; right: 0; z-index: 2;
+  border-top: 1.5px dashed var(--brand-orange);
+  display: flex; justify-content: flex-end;
+}
+.target-label {
+  font-size: 11px; color: var(--brand-orange); margin-top: -14px; padding-right: 2px;
+}
+.chart-stats {
+  display: flex; justify-content: space-between; margin-top: 4px;
+}
+.chart-stat { font-size: 13px; color: rgba(255,255,255,.5); }
+.chart-stat.goal { color: var(--brand-orange); }
+
+/* consistency bands */
+.consistency-row { margin-bottom: 16px; }
+.consistency-label { font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 6px; }
+.consistency-band {
+  height: 24px; border-radius: 4px; background: rgba(20,184,166,.15);
+  position: relative; overflow: visible;
+}
+.scatter-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--wellbeing);
+  position: absolute; top: 50%; transform: translateY(-50%);
+}
+
+/* quality line chart */
+.quality-chart { width: 100%; height: 80px; }
+
+/* hygiene toggle */
+.hygiene-toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; cursor: pointer;
+}
+.hygiene-left { display: flex; align-items: center; gap: 8px; }
+.hygiene-chevron { font-size: 14px; color: rgba(255,255,255,.4); }
+.hygiene-title { font-size: 15px; font-weight: 600; color: rgba(255,255,255,.8); }
+.hygiene-count { font-size: 12px; color: rgba(255,255,255,.4); }
+
+
+/* ═══════════════════════════════════════
+   SCREEN 59: STREAK DETAILS
+   ═══════════════════════════════════════ */
+.streak-hero {
+  text-align: center; padding: 28px 24px;
+  background: radial-gradient(ellipse at center top, rgba(255,94,0,.08) 0%, transparent 70%);
+}
+.flame-icon { font-size: 64px; line-height: 1; margin-bottom: 8px; }
+.streak-count { font-size: 36px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
+.streak-label { font-size: 16px; color: rgba(255,255,255,.6); margin-top: 4px; }
+.streak-divider {
+  height: 1px; background: rgba(255,255,255,.05);
+  margin: 20px 0; width: 100%;
+}
+.streak-longest { font-size: 14px; color: rgba(255,255,255,.5); margin-bottom: 12px; }
+.streak-bar-wrap {
+  height: 6px; border-radius: 3px; background: rgba(255,255,255,.08);
+  overflow: hidden; margin-bottom: 6px;
+}
+.streak-bar-fill { height: 100%; border-radius: 3px; background: var(--brand-orange); }
+.streak-pct { font-size: 12px; color: rgba(255,255,255,.4); }
+
+/* calendar */
+.cal-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.cal-chevron {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: rgba(255,255,255,.4); cursor: pointer;
+}
+.cal-month { font-size: 16px; font-weight: 600; color: #fff; }
+.cal-days-header {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 4px;
+}
+.cal-day-label { font-size: 11px; color: rgba(255,255,255,.3); text-align: center; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal-cell {
+  width: 100%; aspect-ratio: 1; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #fff;
+}
+.cal-cell.active { background: var(--forest-green); }
+.cal-cell.active::after { content: '✓'; font-size: 10px; font-weight: 700; }
+.cal-cell.freeze { background: rgba(59,130,246,.6); }
+.cal-cell.freeze::after { content: '❄'; font-size: 9px; }
+.cal-cell.missed { background: rgba(255,255,255,.08); }
+.cal-cell.today { border: 1.5px dashed var(--brand-orange); background: transparent; }
+.cal-cell.future { background: rgba(255,255,255,.03); }
+.cal-cell.empty { background: transparent; }
+.cal-legend {
+  display: flex; align-items: center; gap: 16px; justify-content: center;
+  margin-top: 12px;
+}
+.cal-legend-item { display: flex; align-items: center; gap: 4px; font-size: 12px; color: rgba(255,255,255,.4); }
+.cal-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+.cal-legend-dot.green { background: var(--forest-green); }
+.cal-legend-dot.blue { background: #3B82F6; }
+.cal-legend-dot.missed { background: rgba(255,255,255,.15); }
+
+/* xp multiplier */
+.xp-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.xp-icon { font-size: 20px; color: var(--brand-orange); }
+.xp-title { font-size: 17px; font-weight: 600; color: #fff; }
+.xp-desc { font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 12px; }
+.xp-bar-wrap {
+  height: 6px; border-radius: 3px; background: rgba(255,255,255,.08);
+  overflow: hidden; margin-bottom: 6px;
+}
+.xp-bar-fill { height: 100%; border-radius: 3px; background: var(--brand-orange); }
+.xp-next { font-size: 12px; color: rgba(255,255,255,.4); }
+
+/* freeze */
+.freeze-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.freeze-left { display: flex; align-items: center; gap: 8px; }
+.freeze-icon { font-size: 20px; color: #3B82F6; }
+.freeze-title { font-size: 17px; font-weight: 600; color: #fff; }
+.freeze-count { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.7); }
+.freeze-rules { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.5; margin-bottom: 16px; }
+.freeze-cta {
+  display: block; width: 100%; height: 48px; border-radius: var(--r-pill);
+  background: var(--brand-orange); border: none; color: #fff;
+  font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit;
+}
+
+/* milestones */
+.milestone-list { position: relative; }
+.milestone-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; position: relative;
+}
+.milestone-row + .milestone-row { border-top: 1px solid rgba(255,255,255,.05); }
+.milestone-indicator {
+  width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 10px;
+}
+.milestone-indicator.earned { background: var(--forest-green); color: #fff; }
+.milestone-indicator.earned::after { content: '✓'; font-weight: 700; }
+.milestone-indicator.next {
+  border: 2px solid var(--brand-orange); background: transparent;
+  box-shadow: 0 0 8px rgba(255,94,0,.3);
+}
+.milestone-indicator.locked { background: rgba(255,255,255,.1); color: rgba(255,255,255,.3); }
+.milestone-indicator.locked::after { content: '🔒'; font-size: 8px; }
+.milestone-label { font-size: 15px; font-weight: 600; color: #fff; flex: 1; }
+.milestone-label.locked { color: rgba(255,255,255,.5); }
+.milestone-xp { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.milestone-xp.earned { color: var(--forest-green); }
+.milestone-xp.locked { color: rgba(255,255,255,.3); }
+.milestone-sublabel { font-size: 12px; color: var(--brand-orange); padding-left: 48px; margin-top: -8px; padding-bottom: 8px; }
+
+/* leaderboard */
+.lb-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px;
+}
+.lb-row + .lb-row { border-top: 1px solid rgba(255,255,255,.05); }
+.lb-rank { width: 28px; font-size: 17px; font-weight: 700; flex-shrink: 0; }
+.lb-rank.gold { color: #FFD700; }
+.lb-rank.silver { color: #C0C0C0; }
+.lb-rank.bronze { color: #CD7F32; }
+.lb-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,.6); flex-shrink: 0;
+}
+.lb-name { font-size: 15px; font-weight: 600; color: #fff; flex: 1; }
+.lb-days { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.7); display: flex; align-items: center; gap: 4px; }
+.lb-flame { font-size: 12px; color: var(--brand-orange); }
+.lb-separator {
+  border-top: 1px dashed rgba(255,255,255,.08);
+  margin: 0 16px;
+}
+.lb-row.self {
+  border-left: 3px solid var(--brand-orange);
+}
+
+/* history */
+.history-row { padding: 14px 16px; }
+.history-row + .history-row { border-top: 1px solid rgba(255,255,255,.05); }
+.history-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.history-days { font-size: 17px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
+.history-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 600;
+}
+.history-badge.active { color: var(--brand-orange); background: rgba(255,94,0,.15); }
+.history-badge.best { color: #FFD700; background: rgba(255,215,0,.15); }
+.history-dates { font-size: 13px; color: rgba(255,255,255,.5); }
+.history-reason { font-size: 12px; color: rgba(255,255,255,.4); font-style: italic; margin-top: 2px; }
+
+
+/* ═══════════════════════════════════════
+   SCREEN 60: MEDICATION TRACKING
+   ═══════════════════════════════════════ */
+.adherence-bar { margin-bottom: 0; }
+.adherence-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+}
+.adherence-label { font-size: 16px; font-weight: 600; color: #fff; }
+.adherence-pct { font-size: 16px; font-weight: 600; color: rgba(255,255,255,.7); }
+.adherence-track {
+  height: 8px; border-radius: 4px; background: rgba(255,255,255,.08);
+  overflow: hidden;
+}
+.adherence-fill { height: 100%; border-radius: 4px; background: var(--wellbeing); }
+
+.warning-banner {
+  background: var(--ink-brown); border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid rgba(245,158,11,.4);
+  padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start;
+}
+.warning-icon { font-size: 16px; flex-shrink: 0; }
+.warning-text { flex: 1; }
+.warning-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.warning-body { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.4; }
+
+.time-group { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); padding: 12px 0 8px; }
+.time-group:first-child { padding-top: 0; }
+
+.med-check-row {
+  display: flex; align-items: center; gap: 12px; padding: 12px 0;
+}
+.med-check-row + .med-check-row { border-top: 1px solid rgba(255,255,255,.05); }
+.med-checkbox {
+  width: 24px; height: 24px; border-radius: 4px; flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,.2); display: flex;
+  align-items: center; justify-content: center;
+}
+.med-checkbox.checked {
+  background: var(--wellbeing); border-color: var(--wellbeing);
+}
+.med-checkbox.checked::after { content: '✓'; color: #fff; font-size: 14px; font-weight: 700; }
+.med-info { flex: 1; }
+.med-name { font-size: 16px; font-weight: 600; color: #fff; }
+.med-name.taken { color: rgba(255,255,255,.5); }
+.med-detail { font-size: 13px; color: rgba(255,255,255,.4); margin-top: 2px; }
+.med-time { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.5); flex-shrink: 0; }
+
+.med-card-row {
+  padding: 14px 0; display: flex; align-items: center;
+}
+.med-card-row + .med-card-row { border-top: 1px solid rgba(255,255,255,.05); }
+.med-card-info { flex: 1; }
+.med-card-name { font-size: 16px; font-weight: 600; color: #fff; }
+.med-card-sub { font-size: 14px; color: rgba(255,255,255,.6); margin-top: 2px; }
+.med-card-date { font-size: 13px; color: rgba(255,255,255,.4); margin-top: 2px; }
+.med-card-bell { display: flex; flex-direction: column; align-items: center; gap: 2px; flex-shrink: 0; }
+.med-bell-icon { font-size: 14px; color: var(--wellbeing); }
+.med-bell-time { font-size: 12px; color: rgba(255,255,255,.4); }
+
+/* heatmap */
+.heatmap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 8px; }
+.hm-cell {
+  aspect-ratio: 1; border-radius: 4px; max-width: 28px;
+}
+.hm-today { border: 1.5px dashed var(--wellbeing); }
+.heatmap-footer {
+  display: flex; justify-content: space-between; align-items: center; margin-top: 8px;
+}
+.heatmap-month { font-size: 13px; color: rgba(255,255,255,.4); }
+.heatmap-streak { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.6); display: flex; align-items: center; gap: 4px; }
+.heatmap-flame { font-size: 14px; }
+
+.privacy-card {
+  background: var(--ink-brown); border-radius: var(--r-md);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 2px solid rgba(20,184,166,.3);
+  padding: 12px 16px; display: flex; gap: 8px; align-items: center;
+}
+.privacy-icon { font-size: 16px; color: var(--wellbeing); flex-shrink: 0; }
+.privacy-text { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.4; }
+
+
+/* ═══════════════════════════════════════
+   SCREEN 61: REMINDERS & TASKS
+   ═══════════════════════════════════════ */
+.task-row {
+  display: flex; align-items: center; gap: 10px; padding: 12px 0;
+  position: relative;
+}
+.task-row + .task-row { border-top: 1px solid rgba(255,255,255,.05); }
+.task-priority {
+  width: 3px; height: 100%; position: absolute; left: 0; top: 0; bottom: 0;
+  border-radius: 2px;
+}
+.task-priority.high { background: #F44336; }
+.task-priority.med { background: var(--brand-orange); }
+.task-checkbox {
+  width: 24px; height: 24px; border-radius: 4px; flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  margin-left: 8px;
+}
+.task-checkbox.checked {
+  background: var(--brand-orange); border-color: var(--brand-orange);
+}
+.task-checkbox.checked::after { content: '✓'; color: #fff; font-size: 14px; font-weight: 700; }
+.task-info { flex: 1; min-width: 0; }
+.task-title { font-size: 15px; font-weight: 600; color: #fff; }
+.task-title.done { color: rgba(255,255,255,.4); text-decoration: line-through; }
+.task-meta { display: flex; align-items: center; gap: 8px; margin-top: 3px; }
+.task-tag {
+  display: inline-flex; padding: 2px 8px; border-radius: 6px;
+  font-size: 11px; font-weight: 600;
+}
+.task-tag.wellbeing { color: var(--wellbeing); background: rgba(20,184,166,.15); }
+.task-tag.nutrition { color: var(--nutrition); background: rgba(132,204,22,.15); }
+.task-tag.fitness { color: var(--fitness); background: rgba(239,68,68,.15); }
+.task-due { font-size: 13px; color: rgba(255,255,255,.5); }
+.task-due.soon { color: var(--brand-orange); }
+.task-due.done { color: rgba(255,255,255,.3); }
+.task-time { font-size: 13px; color: rgba(255,255,255,.5); flex-shrink: 0; }
+
+.reminder-row {
+  display: flex; align-items: center; gap: 10px; padding: 14px 0;
+}
+.reminder-row + .reminder-row { border-top: 1px solid rgba(255,255,255,.05); }
+.reminder-icon-wrap {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--ink-900); border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.reminder-icon { font-size: 14px; }
+.reminder-icon.on { color: var(--brand-orange); }
+.reminder-icon.off { color: rgba(255,255,255,.3); }
+.reminder-info { flex: 1; }
+.reminder-title { font-size: 15px; font-weight: 600; color: #fff; }
+.reminder-title.disabled { color: rgba(255,255,255,.4); }
+.reminder-schedule { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.reminder-channels { display: flex; gap: 4px; }
+.reminder-channel { font-size: 10px; color: rgba(255,255,255,.4); }
+.toggle-track {
+  width: 44px; height: 26px; border-radius: 13px; position: relative;
+  cursor: pointer; flex-shrink: 0;
+}
+.toggle-track.on { background: var(--brand-orange); }
+.toggle-track.off { background: rgba(255,255,255,.15); }
+.toggle-thumb {
+  width: 22px; height: 22px; border-radius: 50%; background: #fff;
+  position: absolute; top: 2px; transition: left .16s ease;
+}
+.toggle-track.on .toggle-thumb { left: 20px; }
+.toggle-track.off .toggle-thumb { left: 2px; }
+
+.completed-header {
+  display: flex; align-items: center; gap: 8px; padding: 8px 0; cursor: pointer;
+}
+.completed-chevron { font-size: 14px; color: rgba(255,255,255,.4); }
+.completed-title { font-size: 15px; font-weight: 600; color: rgba(255,255,255,.6); }
+.completed-count { font-size: 13px; color: rgba(255,255,255,.4); }
+
+.smart-card {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid rgba(127,36,255,.4);
+  padding: 20px;
+}
+.smart-actions {
+  display: flex; align-items: center; gap: 16px; margin-top: 12px;
+}
+.smart-action {
+  font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px;
+}
+.smart-action.add { color: var(--brand-orange); }
+.smart-action.ask { color: rgba(127,36,255,.6); }
+
+
+/* ═══════════════════════════════════════
+   SCREEN 62: QUICK NOTES
+   ═══════════════════════════════════════ */
+.notes-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r-md); height: 44px; padding: 0 12px;
+}
+.notes-search-icon { font-size: 16px; color: rgba(255,255,255,.4); flex-shrink: 0; }
+.notes-search-text { font-size: 15px; color: rgba(255,255,255,.3); }
+
+.tag-filter-row {
+  display: flex; gap: 8px; overflow-x: auto; padding: 4px 0;
+  scrollbar-width: none;
+}
+.tag-filter-row::-webkit-scrollbar { display: none; }
+.tag-chip {
+  height: 32px; padding: 0 12px; border-radius: var(--r-pill); white-space: nowrap;
+  font-size: 13px; font-weight: 600; display: flex; align-items: center;
+  border: 1px solid transparent; flex-shrink: 0;
+}
+.tag-chip.inactive { background: rgba(255,255,255,.1); color: rgba(255,255,255,.6); }
+.tag-chip.all-active { background: var(--brand-orange); color: #fff; }
+.tag-chip.health { color: var(--wellbeing); background: rgba(20,184,166,.2); }
+.tag-chip.workout { color: var(--fitness); background: rgba(239,68,68,.2); }
+.tag-chip.nutrition-tag { color: var(--nutrition); background: rgba(132,204,22,.2); }
+.tag-chip.mood { color: #A855F7; background: rgba(168,85,247,.2); }
+.tag-chip.idea { color: var(--creativity); background: rgba(245,158,11,.2); }
+.tag-chip.reminder-tag { color: var(--brand-orange); background: rgba(255,94,0,.2); }
+
+.date-header {
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); padding: 4px 0 8px;
+}
+
+.note-card { padding: 14px 0; }
+.note-card + .note-card { border-top: 1px solid rgba(255,255,255,.05); }
+.note-text {
+  font-size: 15px; color: rgba(255,255,255,.9); line-height: 1.47;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.note-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.note-tag {
+  display: inline-flex; padding: 2px 8px; border-radius: 6px;
+  font-size: 11px; font-weight: 600;
+}
+.note-tag.health { color: var(--wellbeing); background: rgba(20,184,166,.15); }
+.note-tag.workout { color: var(--fitness); background: rgba(239,68,68,.15); }
+.note-tag.nutrition-t { color: var(--nutrition); background: rgba(132,204,22,.15); }
+.note-tag.mood { color: #A855F7; background: rgba(168,85,247,.15); }
+.note-tag.idea { color: var(--creativity); background: rgba(245,158,11,.15); }
+.note-bottom {
+  display: flex; justify-content: space-between; align-items: center; margin-top: 8px;
+}
+.note-time { font-size: 12px; color: rgba(255,255,255,.4); }
+.note-ask-sia {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 13px; font-weight: 600; color: rgba(127,36,255,.7); cursor: pointer;
+}
+.note-ask-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--royal-purple); }
+
+.quick-add-bar {
+  position: absolute; bottom: 62px; left: 16px; right: 16px; z-index: 15;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--ink-brown); border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r-xl); height: 52px; padding: 0 6px 0 16px;
+}
+.quick-add-input { font-size: 16px; color: rgba(255,255,255,.3); flex: 1; }
+.quick-add-send {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--brand-orange); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.quick-add-send svg { width: 18px; height: 18px; }
+
+
+/* ═══════════════════════════════════════
+   SCREEN 63: ENERGY TRACKING
+   ═══════════════════════════════════════ */
+.energy-display { text-align: center; padding: 20px; }
+.energy-number {
+  font-size: 48px; font-weight: 700; color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 80px; height: 80px; border-radius: 20px;
+  background: rgba(20,184,166,.08);
+}
+.energy-context {
+  font-size: 13px; font-weight: 600; color: var(--wellbeing); margin-top: 8px;
+}
+.energy-feeling {
+  font-size: 14px; color: rgba(255,255,255,.5); margin-top: 4px;
+}
+.energy-timestamp {
+  font-size: 12px; color: rgba(255,255,255,.3); margin-top: 4px;
+}
+
+.quick-log {
+  background: var(--ink-brown); border-radius: 20px;
+  border: 1px solid rgba(20,184,166,.1); padding: 20px;
+}
+.slider-wrap { padding: 8px 0 16px; }
+.slider-labels { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.slider-endpoint { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.4); }
+.slider-track {
+  height: 8px; border-radius: 4px; position: relative;
+  background: linear-gradient(to right, rgba(239,68,68,.6) 0%, rgba(245,158,11,.6) 40%, rgba(20,184,166,.8) 100%);
+}
+.slider-fill {
+  position: absolute; left: 0; top: 0; height: 100%; border-radius: 4px;
+  width: 70%;
+}
+.slider-thumb {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  left: 70%; width: 28px; height: 28px; border-radius: 50%;
+  background: #fff; box-shadow: 0 2px 8px rgba(33,16,8,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--ink-900);
+}
+
+.context-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.context-chip {
+  height: 36px; padding: 0 14px; border-radius: var(--r-pill);
+  font-size: 13px; font-weight: 600; display: flex; align-items: center;
+}
+.context-chip.inactive { background: var(--ink-900); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.6); }
+.context-chip.active { background: rgba(20,184,166,.15); border: 1px solid rgba(20,184,166,.3); color: var(--wellbeing); }
+
+.energy-note-input {
+  width: 100%; height: 44px; border-radius: var(--r-md);
+  background: var(--ink-900); border: 1px solid rgba(255,255,255,.1);
+  padding: 0 16px; font-size: 15px; color: rgba(255,255,255,.3);
+  display: flex; align-items: center; margin-bottom: 16px;
+}
+.log-cta {
+  display: block; width: 100%; height: 48px; border-radius: var(--r-pill);
+  background: var(--brand-orange); border: none; color: #fff;
+  font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit;
+}
+
+/* sparkline */
+.sparkline-chart { width: 100%; height: 64px; }
+.sparkline-stats {
+  display: flex; justify-content: space-between; margin-top: 4px;
+}
+.sparkline-stat { font-size: 13px; }
+.sparkline-stat.avg { font-weight: 600; color: rgba(255,255,255,.6); }
+.sparkline-stat.count { color: rgba(255,255,255,.4); }
+
+/* peak hours */
+.peak-row {
+  display: flex; align-items: center; padding: 12px 0;
+}
+.peak-row + .peak-row { border-top: 1px solid rgba(255,255,255,.05); }
+.peak-time-label { font-size: 13px; color: rgba(255,255,255,.5); width: 70px; flex-shrink: 0; }
+.peak-time-range { font-size: 16px; font-weight: 600; color: #fff; flex: 1; }
+.intensity-dots { display: flex; gap: 4px; }
+.intensity-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.intensity-dot.filled { background: var(--wellbeing); }
+.intensity-dot.empty { background: rgba(255,255,255,.1); }
+.intensity-dot.low-filled { background: #F59E0B; }
+.peak-reco {
+  font-size: 14px; color: rgba(255,255,255,.6); font-style: italic;
+  padding-top: 8px; line-height: 1.4;
+}
+
+/* chronotype */
+.chronotype-card { text-align: center; padding: 24px 20px; }
+.chrono-label { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); }
+.chrono-icon {
+  font-size: 48px; margin: 12px 0 8px; color: var(--wellbeing);
+  display: inline-block;
+}
+.chrono-name { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.chrono-desc { font-size: 14px; color: rgba(255,255,255,.5); }
+
+/* correlations */
+.corr-row {
+  display: flex; align-items: center; gap: 12px; padding: 10px 0;
+}
+.corr-row + .corr-row { border-top: 1px solid rgba(255,255,255,.05); }
+.corr-label { font-size: 15px; color: #fff; width: 64px; flex-shrink: 0; }
+.corr-bar-wrap { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,.05); }
+.corr-bar { height: 100%; border-radius: 4px; }
+.corr-bar.positive { background: var(--wellbeing); }
+.corr-bar.negative { background: #F59E0B; }
+.corr-score { font-size: 13px; font-weight: 600; width: 36px; text-align: right; flex-shrink: 0; }
+.corr-score.positive { color: var(--wellbeing); }
+.corr-score.negative { color: #F59E0B; }
+
+/* SIA insight */
+.sia-insight {
+  background: var(--ink-brown); border-radius: var(--r-xl);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 3px solid rgba(127,36,255,.4);
+  padding: 20px;
+}
+.sia-insight-chip {
+  display: inline-flex; align-items: center;
+  padding: 6px 12px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,.7);
+  margin-top: 12px; cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- page header -->
+<header class="page-header">
+  <h1>Wireframes</h1>
+  <h2>Health Tracking</h2>
+  <span class="batch-label">Batch 16 · 6 screens</span>
+</header>
+
+<!-- carousel -->
+<section class="carousel-wrap">
+  <button class="nav-arrow prev" onclick="go(-1)" disabled>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+  </button>
+  <button class="nav-arrow next" onclick="go(1)">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg>
+  </button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track" id="track">
+
+      <!-- ════════════════════════════════════
+           SLIDE 1: Screen 58 — Sleep Tracking
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 58</div>
+          <div class="name">Sleep tracking</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <div class="domain-header">
+              <div class="back-arrow">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="domain-title">Sleep</div>
+              <div class="level-badge-domain wellbeing">Lv.8</div>
+              <div class="accent-line wellbeing"></div>
+            </div>
+
+            <div class="dash-scroll">
+              <!-- SIA coaching note -->
+              <div class="sia-note">
+                <div class="sia-dot"></div>
+                <div class="sia-note-text">You sleep 45min longer on weekends — try more consistency for better recovery.</div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- last night summary -->
+              <div class="content-card">
+                <div class="sec-eyebrow teal" style="margin-bottom:12px;">last night</div>
+                <div class="sleep-hero">
+                  <div class="sleep-hero-hours">7.2 hrs</div>
+                  <div class="sleep-stars">
+                    <span class="sleep-star filled">★</span>
+                    <span class="sleep-star filled">★</span>
+                    <span class="sleep-star filled">★</span>
+                    <span class="sleep-star filled">★</span>
+                    <span class="sleep-star empty">★</span>
+                  </div>
+                </div>
+                <div class="sleep-times">
+                  <div class="sleep-time-col">
+                    <div class="sleep-time-label">bedtime</div>
+                    <div class="sleep-time-val">11:15 PM</div>
+                  </div>
+                  <div class="sleep-arrow">→</div>
+                  <div class="sleep-time-col">
+                    <div class="sleep-time-label">wake time</div>
+                    <div class="sleep-time-val">6:28 AM</div>
+                  </div>
+                </div>
+                <div class="sleep-recovery">
+                  <div class="recovery-left">
+                    <div class="recovery-dot good"></div>
+                    <div>
+                      <div class="recovery-label">recovery</div>
+                      <div class="recovery-val">78%</div>
+                    </div>
+                  </div>
+                  <div class="sync-badge">⌚ Synced from WHOOP</div>
+                </div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- sleep trend chart -->
+              <div class="content-card">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <div class="sec-eyebrow teal">sleep trend</div>
+                  <div class="seg-ctrl">
+                    <button class="seg-btn active">7d</button>
+                    <button class="seg-btn">14d</button>
+                    <button class="seg-btn">30d</button>
+                  </div>
+                </div>
+                <div class="bar-chart-wrap">
+                  <div class="target-line" style="top:30%;">
+                    <span class="target-label">7.5h</span>
+                  </div>
+                  <div class="bar-chart">
+                    <div class="bar-col"><div class="bar at-target" style="height:75%"></div><div class="bar-label">M</div></div>
+                    <div class="bar-col"><div class="bar below-target" style="height:55%"></div><div class="bar-label">T</div></div>
+                    <div class="bar-col"><div class="bar at-target" style="height:85%"></div><div class="bar-label">W</div></div>
+                    <div class="bar-col"><div class="bar at-target" style="height:78%"></div><div class="bar-label">T</div></div>
+                    <div class="bar-col"><div class="bar below-target" style="height:60%"></div><div class="bar-label">F</div></div>
+                    <div class="bar-col"><div class="bar at-target" style="height:92%"></div><div class="bar-label">S</div></div>
+                    <div class="bar-col"><div class="bar at-target" style="height:88%"></div><div class="bar-label">S</div></div>
+                  </div>
+                </div>
+                <div class="chart-stats">
+                  <div class="chart-stat">avg: 7.1 hrs</div>
+                  <div class="chart-stat goal">goal: 7.5 hrs</div>
+                </div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- bedtime consistency -->
+              <div class="content-card">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <div class="sec-eyebrow teal">bedtime consistency</div>
+                  <div style="font-size:16px;font-weight:600;color:#fff;">82%</div>
+                </div>
+                <div class="consistency-row">
+                  <div class="consistency-label">bedtime range: 10:45p – 11:30p</div>
+                  <div class="consistency-band">
+                    <div class="scatter-dot" style="left:20%"></div>
+                    <div class="scatter-dot" style="left:35%"></div>
+                    <div class="scatter-dot" style="left:45%"></div>
+                    <div class="scatter-dot" style="left:50%"></div>
+                    <div class="scatter-dot" style="left:55%"></div>
+                    <div class="scatter-dot" style="left:62%"></div>
+                    <div class="scatter-dot" style="left:70%"></div>
+                    <div class="scatter-dot" style="left:78%"></div>
+                    <div class="scatter-dot" style="left:42%"></div>
+                    <div class="scatter-dot" style="left:58%"></div>
+                  </div>
+                </div>
+                <div class="consistency-row">
+                  <div class="consistency-label">wake range: 6:00a – 6:45a</div>
+                  <div class="consistency-band">
+                    <div class="scatter-dot" style="left:25%"></div>
+                    <div class="scatter-dot" style="left:30%"></div>
+                    <div class="scatter-dot" style="left:40%"></div>
+                    <div class="scatter-dot" style="left:48%"></div>
+                    <div class="scatter-dot" style="left:55%"></div>
+                    <div class="scatter-dot" style="left:60%"></div>
+                    <div class="scatter-dot" style="left:65%"></div>
+                    <div class="scatter-dot" style="left:35%"></div>
+                    <div class="scatter-dot" style="left:52%"></div>
+                    <div class="scatter-dot" style="left:72%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- quality trend -->
+              <div class="content-card">
+                <div class="sec-eyebrow teal" style="margin-bottom:12px;">quality trend</div>
+                <svg class="quality-chart" viewBox="0 0 320 80" fill="none" preserveAspectRatio="none">
+                  <line x1="0" y1="48" x2="320" y2="48" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                  <line x1="0" y1="32" x2="320" y2="32" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                  <line x1="0" y1="16" x2="320" y2="16" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                  <polygon points="0,48 46,32 91,24 137,32 183,16 228,24 274,24 320,32 320,80 0,80" fill="rgba(20,184,166,.05)"/>
+                  <polyline points="0,48 46,32 91,24 137,32 183,16 228,24 274,24 320,32" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <line x1="0" y1="28" x2="320" y2="28" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-dasharray="4 3"/>
+                  <circle cx="0" cy="48" r="3" fill="#14B8A6"/>
+                  <circle cx="46" cy="32" r="3" fill="#14B8A6"/>
+                  <circle cx="91" cy="24" r="3" fill="#14B8A6"/>
+                  <circle cx="137" cy="32" r="3" fill="#14B8A6"/>
+                  <circle cx="183" cy="16" r="3" fill="#14B8A6"/>
+                  <circle cx="228" cy="24" r="3" fill="#14B8A6"/>
+                  <circle cx="274" cy="24" r="3" fill="#14B8A6"/>
+                  <circle cx="320" cy="32" r="3" fill="#14B8A6"/>
+                  <text x="310" y="24" fill="rgba(255,255,255,.3)" font-size="9" text-anchor="end">avg 3.8</text>
+                </svg>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;">
+                  <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                </div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- sleep hygiene tips -->
+              <div class="hygiene-toggle">
+                <div class="hygiene-left">
+                  <div class="hygiene-chevron">▸</div>
+                  <div class="hygiene-title">Sleep hygiene tips</div>
+                </div>
+                <div class="hygiene-count">5 tips</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- FAB -->
+          <div class="fab-pill" style="bottom:72px;">
+            <span class="fab-icon">+</span>
+            <span class="fab-label">Log sleep</span>
+          </div>
+
+          <!-- tab bar -->
+          <div class="bottom-tab-bar">
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>
+              <span>Today</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg>
+              <span>SIA</span>
+            </div>
+            <div class="tab-item">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+              <span>Goals</span>
+            </div>
+            <div class="tab-item active">
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Me</span>
+            </div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 2: Screen 59 — Streak Details
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 59</div>
+          <div class="name">Streak details</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg>
+              <svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg>
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg>
+            </div>
+          </div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <div class="screen-hdr">
+              <div class="back-arrow">
+                <svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg>
+              </div>
+              <div class="screen-hdr-title">Streak details</div>
+              <div class="screen-hdr-spacer"></div>
+            </div>
+
+            <div class="dash-scroll">
+              <!-- streak hero -->
+              <div class="content-card">
+                <div class="streak-hero">
+                  <div class="flame-icon">🔥</div>
+                  <div class="streak-count">42</div>
+                  <div class="streak-label">days strong</div>
+                  <div class="streak-divider"></div>
+                  <div class="streak-longest">longest: 67 days</div>
+                  <div class="streak-bar-wrap"><div class="streak-bar-fill" style="width:63%"></div></div>
+                  <div class="streak-pct">63% of longest streak</div>
+                </div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- streak calendar -->
+              <div class="content-card-sm">
+                <div class="cal-nav">
+                  <div class="cal-chevron">◀</div>
+                  <div class="cal-month">May 2026</div>
+                  <div class="cal-chevron" style="opacity:.3">▶</div>
+                </div>
+                <div class="cal-days-header">
+                  <div class="cal-day-label">M</div><div class="cal-day-label">T</div><div class="cal-day-label">W</div>
+                  <div class="cal-day-label">T</div><div class="cal-day-label">F</div><div class="cal-day-label">S</div><div class="cal-day-label">S</div>
+                </div>
+                <div class="cal-grid">
+                  <div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div>
+                  <div class="cal-cell active"></div><div class="cal-cell active"></div><div class="cal-cell active"></div>
+                  <div class="cal-cell active"></div><div class="cal-cell active"></div><div class="cal-cell active"></div><div class="cal-cell active"></div>
+                  <div class="cal-cell active"></div><div class="cal-cell freeze"></div><div class="cal-cell active"></div>
+                  <div class="cal-cell active"></div><div class="cal-cell active"></div><div class="cal-cell missed"></div><div class="cal-cell active"></div>
+                  <div class="cal-cell active"></div><div class="cal-cell active"></div><div class="cal-cell active"></div>
+                  <div class="cal-cell active"></div><div class="cal-cell today"></div><div class="cal-cell future"></div><div class="cal-cell future"></div>
+                  <div class="cal-cell future"></div><div class="cal-cell future"></div><div class="cal-cell future"></div>
+                  <div class="cal-cell future"></div><div class="cal-cell future"></div><div class="cal-cell future"></div>
+                </div>
+                <div class="cal-legend">
+                  <div class="cal-legend-item"><div class="cal-legend-dot green"></div> active</div>
+                  <div class="cal-legend-item"><div class="cal-legend-dot blue"></div> freeze</div>
+                  <div class="cal-legend-item"><div class="cal-legend-dot missed"></div> missed</div>
+                </div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- XP multiplier -->
+              <div class="content-card-sm">
+                <div class="xp-row">
+                  <div class="xp-icon">⚡</div>
+                  <div class="xp-title">1.5x XP multiplier</div>
+                </div>
+                <div class="xp-desc">7-day streak bonus active</div>
+                <div class="xp-bar-wrap"><div class="xp-bar-fill" style="width:52%"></div></div>
+                <div class="xp-next">next: 2.0x at 30 days</div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- streak freeze -->
+              <div class="content-card-sm" style="padding:20px;">
+                <div class="freeze-header">
+                  <div class="freeze-left">
+                    <div class="freeze-icon">❄️</div>
+                    <div class="freeze-title">Streak freezes</div>
+                  </div>
+                  <div class="freeze-count">2 available</div>
+                </div>
+                <div style="height:1px;background:rgba(255,255,255,.05);margin-bottom:12px;"></div>
+                <div class="freeze-rules">
+                  Use a freeze to protect your streak on rest days.<br>
+                  You earn 1 freeze for every 7 consecutive active days.<br>
+                  Maximum 3 freezes stored at a time.
+                </div>
+                <button class="freeze-cta">Use freeze</button>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- milestones -->
+              <div class="sec-eyebrow" style="margin-bottom:12px;">milestones</div>
+              <div class="content-card-sm" style="padding:0;">
+                <div class="milestone-row"><div class="milestone-indicator earned"></div><div class="milestone-label">7 days</div><div class="milestone-xp earned">+50 XP</div></div>
+                <div class="milestone-row"><div class="milestone-indicator earned"></div><div class="milestone-label">14 days</div><div class="milestone-xp earned">+100 XP</div></div>
+                <div class="milestone-row"><div class="milestone-indicator earned"></div><div class="milestone-label">30 days</div><div class="milestone-xp earned">+250 XP</div></div>
+                <div class="milestone-row"><div class="milestone-indicator next"></div><div class="milestone-label">60 days</div><div class="milestone-xp locked">+500 XP</div></div>
+                <div class="milestone-sublabel">18 more days to go</div>
+                <div class="milestone-row"><div class="milestone-indicator locked"></div><div class="milestone-label locked">90 days</div><div class="milestone-xp locked">+1,000 XP</div></div>
+                <div class="milestone-row"><div class="milestone-indicator locked"></div><div class="milestone-label locked">180 days</div><div class="milestone-xp locked">+2,500 XP</div></div>
+                <div class="milestone-row"><div class="milestone-indicator locked"></div><div class="milestone-label locked">365 days</div><div class="milestone-xp locked">+5,000 XP</div></div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- streak leaderboard -->
+              <div class="sec-eyebrow" style="margin-bottom:12px;">streak leaderboard</div>
+              <div class="content-card-sm" style="padding:0;">
+                <div class="lb-row"><div class="lb-rank gold">#1</div><div class="lb-avatar">S</div><div class="lb-name">Sarah</div><div class="lb-days"><span class="lb-flame">🔥</span> 98 days</div></div>
+                <div class="lb-row"><div class="lb-rank silver">#2</div><div class="lb-avatar">A</div><div class="lb-name">Ahmed</div><div class="lb-days"><span class="lb-flame">🔥</span> 84 days</div></div>
+                <div class="lb-row"><div class="lb-rank bronze">#3</div><div class="lb-avatar">L</div><div class="lb-name">Lisa</div><div class="lb-days"><span class="lb-flame">🔥</span> 72 days</div></div>
+                <div class="lb-separator"></div>
+                <div class="lb-row self"><div class="lb-rank" style="color:#fff;">#12</div><div class="lb-avatar" style="background:rgba(255,94,0,.15);color:var(--brand-orange);">Y</div><div class="lb-name">You</div><div class="lb-days"><span class="lb-flame">🔥</span> 42 days</div></div>
+              </div>
+              <div style="text-align:center;margin-top:12px;">
+                <span class="sec-link">see full leaderboard</span>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- streak history -->
+              <div class="sec-eyebrow" style="margin-bottom:12px;">streak history</div>
+              <div class="content-card-sm" style="padding:0;">
+                <div class="history-row">
+                  <div class="history-top">
+                    <div class="history-days">42 days</div>
+                    <div class="history-badge active">active</div>
+                  </div>
+                  <div class="history-dates">Apr 10 – present</div>
+                </div>
+                <div class="history-row">
+                  <div class="history-top">
+                    <div class="history-days">67 days</div>
+                    <div class="history-badge best">★ personal best</div>
+                  </div>
+                  <div class="history-dates">Jan 2 – Mar 9, 2026</div>
+                  <div class="history-reason">ended: travel</div>
+                </div>
+                <div class="history-row">
+                  <div class="history-top">
+                    <div class="history-days">23 days</div>
+                  </div>
+                  <div class="history-dates">Nov 8 – Nov 30, 2025</div>
+                  <div class="history-reason">ended: illness</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="bottom-tab-bar">
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg><span>Today</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg><span>SIA</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>Goals</span></div>
+            <div class="tab-item active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Me</span></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 3: Screen 60 — Medication Tracking
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 60</div>
+          <div class="name">Medication tracking</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg></div></div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <div class="domain-header">
+              <div class="back-arrow"><svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></div>
+              <div class="domain-title">Medication tracking</div>
+              <div class="level-badge-domain wellbeing">Lv.7</div>
+              <div class="accent-line wellbeing"></div>
+            </div>
+
+            <div class="dash-scroll">
+              <div class="sia-note">
+                <div class="sia-dot"></div>
+                <div class="sia-note-text">3 medications on schedule today. you're consistent.</div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- adherence bar -->
+              <div class="adherence-bar">
+                <div class="adherence-top">
+                  <div class="adherence-label">3 of 4 today</div>
+                  <div class="adherence-pct">75%</div>
+                </div>
+                <div class="adherence-track"><div class="adherence-fill" style="width:75%"></div></div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- warning banner -->
+              <div class="warning-banner">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-text">
+                  <div class="warning-title">Medication interactions</div>
+                  <div class="warning-body">Always consult your doctor before changing medications or dosages.</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- today's medications -->
+              <div class="sec-eyebrow teal" style="margin-bottom:8px;">today's medications</div>
+              <div class="content-card-sm">
+                <div class="time-group">morning</div>
+                <div class="med-check-row">
+                  <div class="med-checkbox checked"></div>
+                  <div class="med-info"><div class="med-name taken">Metformin 500mg</div><div class="med-detail">daily · 8:00 AM</div></div>
+                </div>
+                <div class="med-check-row">
+                  <div class="med-checkbox checked"></div>
+                  <div class="med-info"><div class="med-name taken">Vitamin D 1000 IU</div><div class="med-detail">daily · 8:00 AM</div></div>
+                </div>
+                <div class="time-group">evening</div>
+                <div class="med-check-row">
+                  <div class="med-checkbox"></div>
+                  <div class="med-info"><div class="med-name">Lisinopril 10mg</div><div class="med-detail">daily · 8:00 PM</div></div>
+                </div>
+                <div class="med-check-row">
+                  <div class="med-checkbox checked"></div>
+                  <div class="med-info"><div class="med-name taken">Magnesium 400mg</div><div class="med-detail">daily · 9:00 PM</div></div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- all medications -->
+              <div class="sec-head" style="margin-bottom:8px;">
+                <div class="sec-eyebrow teal">all medications</div>
+                <div class="sec-link">see all</div>
+              </div>
+              <div class="content-card-sm">
+                <div class="med-card-row">
+                  <div class="med-card-info">
+                    <div class="med-card-name">Metformin</div>
+                    <div class="med-card-sub">500mg · daily</div>
+                    <div class="med-card-date">since Jan 15, 2026</div>
+                  </div>
+                  <div class="med-card-bell"><span class="med-bell-icon">🔔</span><span class="med-bell-time">8:00 AM</span></div>
+                </div>
+                <div class="med-card-row">
+                  <div class="med-card-info">
+                    <div class="med-card-name">Lisinopril</div>
+                    <div class="med-card-sub">10mg · daily</div>
+                    <div class="med-card-date">since Mar 3, 2026</div>
+                  </div>
+                  <div class="med-card-bell"><span class="med-bell-icon">🔔</span><span class="med-bell-time">8:00 PM</span></div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- adherence history heatmap -->
+              <div class="sec-eyebrow teal" style="margin-bottom:8px;">adherence history</div>
+              <div class="content-card-sm">
+                <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px;">
+                  <div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;">M</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;">T</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;">W</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;">T</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;">F</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;">S</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;">S</div>
+                </div>
+                <div class="heatmap-grid">
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,.75)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,.5)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(255,255,255,.05)"></div>
+
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,.5)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,.5)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,.5)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell" style="background:rgba(20,184,166,1)"></div>
+                  <div class="hm-cell hm-today" style="background:rgba(20,184,166,.5)"></div>
+                  <div class="hm-cell" style="background:rgba(255,255,255,.03)"></div>
+                  <div class="hm-cell" style="background:rgba(255,255,255,.03)"></div>
+                  <div class="hm-cell" style="background:rgba(255,255,255,.03)"></div>
+                  <div class="hm-cell" style="background:rgba(255,255,255,.03)"></div>
+                </div>
+                <div class="heatmap-footer">
+                  <div class="heatmap-month">May 2026</div>
+                  <div class="heatmap-streak"><span class="heatmap-flame">🔥</span> 14-day streak</div>
+                </div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- privacy notice -->
+              <div class="privacy-card">
+                <div class="privacy-icon">🔒</div>
+                <div class="privacy-text">Your medication data is encrypted and private. Only you can see it.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="fab-pill orange" style="bottom:72px;">
+            <span class="fab-icon">+</span>
+            <span class="fab-label">Add medication</span>
+          </div>
+
+          <div class="bottom-tab-bar">
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg><span>Today</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg><span>SIA</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>Goals</span></div>
+            <div class="tab-item active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Me</span></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 4: Screen 61 — Reminders & Tasks
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 61</div>
+          <div class="name">Reminders & tasks</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg></div></div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <div class="screen-hdr">
+              <div class="back-arrow"><svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></div>
+              <div class="screen-hdr-title">Reminders & tasks</div>
+              <div class="screen-hdr-spacer"></div>
+            </div>
+
+            <div class="dash-scroll">
+              <!-- today -->
+              <div class="sec-eyebrow" style="margin-bottom:8px;">today</div>
+              <div class="content-card-sm" style="padding:0 16px;">
+                <div class="task-row">
+                  <div class="task-priority high"></div>
+                  <div class="task-checkbox checked"></div>
+                  <div class="task-info"><div class="task-title done">Take vitamin D</div><div class="task-meta"><span class="task-tag wellbeing">wellbeing</span><span class="task-due done">done</span></div></div>
+                  <div class="task-time">8:00a</div>
+                </div>
+                <div class="task-row">
+                  <div class="task-checkbox"></div>
+                  <div class="task-info"><div class="task-title">Call Dr. Patel</div><div class="task-meta"><span class="task-tag wellbeing">wellbeing</span><span class="task-due">scheduled</span></div></div>
+                  <div class="task-time">10:00a</div>
+                </div>
+                <div class="task-row">
+                  <div class="task-checkbox"></div>
+                  <div class="task-info"><div class="task-title">Review meal plan</div><div class="task-meta"><span class="task-tag nutrition">nutrition</span><span class="task-due">recurring</span></div></div>
+                  <div class="task-time">12:00p</div>
+                </div>
+                <div class="task-row">
+                  <div class="task-checkbox checked"></div>
+                  <div class="task-info"><div class="task-title done">Morning supplements</div><div class="task-meta"><span class="task-tag wellbeing">wellbeing</span><span class="task-due done">done</span></div></div>
+                  <div class="task-time">7:00a</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- tomorrow -->
+              <div class="sec-eyebrow" style="margin-bottom:8px;">tomorrow</div>
+              <div class="content-card-sm" style="padding:0 16px;">
+                <div class="task-row">
+                  <div class="task-checkbox"></div>
+                  <div class="task-info"><div class="task-title">Book lab appointment</div><div class="task-meta"><span class="task-tag wellbeing">wellbeing</span></div></div>
+                  <div class="task-time">9:00a</div>
+                </div>
+                <div class="task-row">
+                  <div class="task-checkbox"></div>
+                  <div class="task-info"><div class="task-title">Grocery run — meal prep</div><div class="task-meta"><span class="task-tag nutrition">nutrition</span><span class="task-due">no time set</span></div></div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- this week -->
+              <div class="sec-eyebrow" style="margin-bottom:8px;">this week</div>
+              <div class="content-card-sm" style="padding:0 16px;">
+                <div class="task-row">
+                  <div class="task-checkbox"></div>
+                  <div class="task-info"><div class="task-title">Dentist appointment</div><div class="task-meta"><span class="task-tag wellbeing">wellbeing</span></div></div>
+                  <div class="task-time">Thu 2:00p</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- reminders -->
+              <div class="sec-eyebrow" style="margin-bottom:8px;">reminders</div>
+              <div class="content-card-sm" style="padding:0 16px;">
+                <div class="reminder-row">
+                  <div class="reminder-icon-wrap"><span class="reminder-icon on">🔔</span></div>
+                  <div class="reminder-info">
+                    <div class="reminder-title">Water intake</div>
+                    <div class="reminder-schedule">every 2h · next: 11:30a</div>
+                  </div>
+                  <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+                </div>
+                <div class="reminder-row">
+                  <div class="reminder-icon-wrap"><span class="reminder-icon on">🔔</span></div>
+                  <div class="reminder-info">
+                    <div class="reminder-title">Evening stretch</div>
+                    <div class="reminder-schedule">daily 8:00p <span class="reminder-channels"><span class="reminder-channel">📱</span><span class="reminder-channel">📧</span></span></div>
+                  </div>
+                  <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+                </div>
+                <div class="reminder-row">
+                  <div class="reminder-icon-wrap"><span class="reminder-icon off">🔕</span></div>
+                  <div class="reminder-info">
+                    <div class="reminder-title disabled">Medication</div>
+                    <div class="reminder-schedule">daily 9:00p · paused</div>
+                  </div>
+                  <div class="toggle-track off"><div class="toggle-thumb"></div></div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- completed -->
+              <div class="completed-header">
+                <div class="completed-chevron">▾</div>
+                <div class="completed-title">Completed</div>
+                <div class="completed-count">(4)</div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- smart suggestions -->
+              <div class="smart-card">
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <div class="sia-dot"></div>
+                  <div style="flex:1;">
+                    <div class="sia-note-text">Based on your fitness goal, try scheduling a stretching session before your Thursday dentist appointment.</div>
+                    <div class="smart-actions">
+                      <div class="smart-action add">+ add as task</div>
+                      <div class="smart-action ask">ask SIA</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="fab-pill orange right" style="bottom:72px;">
+            <span class="fab-icon">+</span>
+            <span class="fab-label">Add</span>
+          </div>
+
+          <div class="bottom-tab-bar">
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg><span>Today</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg><span>SIA</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>Goals</span></div>
+            <div class="tab-item active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Me</span></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 5: Screen 62 — Quick Notes
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 62</div>
+          <div class="name">Quick notes</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg></div></div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <div class="screen-hdr">
+              <div class="back-arrow"><svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></div>
+              <div class="screen-hdr-title">Quick notes</div>
+              <div class="screen-hdr-spacer"></div>
+            </div>
+
+            <div class="dash-scroll" style="padding-bottom:180px;">
+              <!-- search bar -->
+              <div class="notes-search">
+                <div class="notes-search-icon">🔍</div>
+                <div class="notes-search-text">search notes...</div>
+              </div>
+
+              <div style="height:12px;"></div>
+
+              <!-- tag filter row -->
+              <div class="tag-filter-row">
+                <div class="tag-chip all-active">all</div>
+                <div class="tag-chip inactive">health</div>
+                <div class="tag-chip inactive">workout</div>
+                <div class="tag-chip inactive">nutrition</div>
+                <div class="tag-chip inactive">mood</div>
+                <div class="tag-chip inactive">idea</div>
+                <div class="tag-chip inactive">reminder</div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- today -->
+              <div class="date-header">today</div>
+              <div class="content-card-sm" style="padding:0 16px;">
+                <div class="note-card">
+                  <div class="note-text">Felt dizzy after skipping breakfast today. Need to eat before morning workout.</div>
+                  <div class="note-tags">
+                    <span class="note-tag nutrition-t">nutrition</span>
+                    <span class="note-tag workout">workout</span>
+                  </div>
+                  <div class="note-bottom">
+                    <span class="note-time">2 min ago</span>
+                    <span class="note-ask-sia"><span class="note-ask-dot"></span> ask SIA</span>
+                  </div>
+                </div>
+                <div class="note-card">
+                  <div class="note-text">Left knee felt tight during squats — maybe from sitting all day.</div>
+                  <div class="note-tags">
+                    <span class="note-tag health">health</span>
+                    <span class="note-tag workout">workout</span>
+                  </div>
+                  <div class="note-bottom">
+                    <span class="note-time">45 min ago</span>
+                    <span class="note-ask-sia"><span class="note-ask-dot"></span> ask SIA</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- yesterday -->
+              <div class="date-header">yesterday</div>
+              <div class="content-card-sm" style="padding:0 16px;">
+                <div class="note-card">
+                  <div class="note-text">Slept amazing after the evening walk. Try again tomorrow.</div>
+                  <div class="note-tags">
+                    <span class="note-tag health">health</span>
+                    <span class="note-tag mood">mood</span>
+                  </div>
+                  <div class="note-bottom">
+                    <span class="note-time">Yesterday 9:41 PM</span>
+                    <span class="note-ask-sia"><span class="note-ask-dot"></span> ask SIA</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- quick add bar -->
+          <div class="quick-add-bar">
+            <div class="quick-add-input">what's on your mind...</div>
+            <div class="quick-add-send">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </div>
+          </div>
+
+          <div class="bottom-tab-bar">
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg><span>Today</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg><span>SIA</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>Goals</span></div>
+            <div class="tab-item active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Me</span></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+      <!-- ════════════════════════════════════
+           SLIDE 6: Screen 63 — Energy Tracking
+           ════════════════════════════════════ -->
+      <div class="carousel-slide">
+        <div class="screen-label">
+          <div class="num">Screen 63</div>
+          <div class="name">Energy tracking</div>
+        </div>
+        <div class="device"><div class="device-inner">
+          <div class="dynamic-island"></div>
+          <div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 10h2v4H1zm4-3h2v7H5zm4-3h2v10H9zm4-3h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3c3.5 0 6.3 2 7.5 5-1.2 3-4 5-7.5 5S1.7 11 .5 8C1.7 5 4.5 3 8 3z" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="8" cy="8" r="2" fill="#fff"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="4" width="12" height="8" rx="1.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="13.5" y="6" width="1.5" height="4" rx=".5" fill="#fff"/><rect x="2" y="5" width="8" height="6" rx=".5" fill="#fff"/></svg></div></div>
+
+          <div class="screen" style="overflow-y:hidden;">
+            <div class="domain-header">
+              <div class="back-arrow"><svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></div>
+              <div class="domain-title">Energy tracking</div>
+              <div class="level-badge-domain wellbeing">Lv.6</div>
+              <div class="accent-line wellbeing"></div>
+            </div>
+
+            <div class="dash-scroll">
+              <!-- SIA note -->
+              <div class="sia-note">
+                <div class="sia-dot"></div>
+                <div class="sia-note-text">Your energy peaks at 9–11am. Schedule deep work then.</div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- current energy display -->
+              <div class="content-card">
+                <div class="energy-display">
+                  <div class="energy-number">7</div>
+                  <div class="energy-context">afternoon</div>
+                  <div class="energy-feeling">feeling good after lunch walk</div>
+                  <div class="energy-timestamp">logged 20 min ago</div>
+                </div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- quick log -->
+              <div class="sec-eyebrow teal" style="margin-bottom:8px;">quick log</div>
+              <div class="quick-log">
+                <div class="slider-wrap">
+                  <div class="slider-labels">
+                    <span class="slider-endpoint">1</span>
+                    <span class="slider-endpoint">10</span>
+                  </div>
+                  <div class="slider-track">
+                    <div class="slider-thumb">7</div>
+                  </div>
+                </div>
+                <div class="context-chips">
+                  <div class="context-chip inactive">morning</div>
+                  <div class="context-chip active">afternoon</div>
+                  <div class="context-chip inactive">evening</div>
+                  <div class="context-chip inactive">post-workout</div>
+                  <div class="context-chip inactive">post-meal</div>
+                </div>
+                <div class="energy-note-input">how are you feeling? (optional)</div>
+                <button class="log-cta">Log energy</button>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- today's energy timeline -->
+              <div class="sec-eyebrow teal" style="margin-bottom:8px;">today's energy</div>
+              <div class="content-card-sm">
+                <svg class="sparkline-chart" viewBox="0 0 320 64" fill="none" preserveAspectRatio="none">
+                  <polygon points="0,48 64,32 128,40 192,24 256,28 320,20 320,64 0,64" fill="rgba(20,184,166,.05)"/>
+                  <polyline points="0,48 64,32 128,40 192,24 256,28 320,20" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="0" cy="48" r="4" fill="#14B8A6"/>
+                  <circle cx="64" cy="32" r="4" fill="#14B8A6"/>
+                  <circle cx="128" cy="40" r="4" fill="#14B8A6"/>
+                  <circle cx="192" cy="24" r="4" fill="#14B8A6"/>
+                  <circle cx="256" cy="28" r="4" fill="#14B8A6"/>
+                  <circle cx="320" cy="20" r="5" fill="#14B8A6" stroke="rgba(20,184,166,.3)" stroke-width="4"/>
+                </svg>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;">
+                  <span>6am</span><span>9am</span><span>12pm</span><span>3pm</span><span>now</span>
+                </div>
+                <div class="sparkline-stats">
+                  <div class="sparkline-stat avg">avg: 6.2</div>
+                  <div class="sparkline-stat count">5 logs today</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- energy trend -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div class="sec-eyebrow teal">energy trend</div>
+                <div class="seg-ctrl">
+                  <button class="seg-btn active">7d</button>
+                  <button class="seg-btn">14d</button>
+                  <button class="seg-btn">30d</button>
+                </div>
+              </div>
+              <div class="content-card-sm">
+                <svg viewBox="0 0 320 120" fill="none" preserveAspectRatio="none" style="width:100%;height:100px;">
+                  <line x1="0" y1="30" x2="320" y2="30" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                  <line x1="0" y1="60" x2="320" y2="60" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                  <line x1="0" y1="90" x2="320" y2="90" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                  <polygon points="0,80 53,50 107,60 160,40 213,35 267,45 320,55 320,120 0,120" fill="rgba(20,184,166,.08)"/>
+                  <polyline points="0,80 53,50 107,60 160,40 213,35 267,45 320,55" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="267,45 320,38" stroke="#7F24FF" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" opacity=".4"/>
+                  <circle cx="213" cy="35" r="3" fill="#14B8A6"/>
+                </svg>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;">
+                  <span>6am</span><span>9am</span><span>12pm</span><span>3pm</span><span>6pm</span><span>9pm</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:8px;">
+                  <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,.6);">avg: 6.4</span>
+                  <span style="font-size:13px;color:var(--wellbeing);">best: 9am–11am</span>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- peak hours -->
+              <div class="content-card-sm">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <div class="sec-eyebrow teal">peak hours</div>
+                  <div class="level-badge-domain wellbeing" style="height:24px;padding:0 8px;font-size:11px;">Lv.6</div>
+                </div>
+                <div class="peak-row">
+                  <div class="peak-time-label">morning</div>
+                  <div class="peak-time-range">9:00 – 11:00</div>
+                  <div class="intensity-dots">
+                    <div class="intensity-dot filled"></div>
+                    <div class="intensity-dot filled"></div>
+                    <div class="intensity-dot filled"></div>
+                    <div class="intensity-dot filled"></div>
+                  </div>
+                </div>
+                <div class="peak-row">
+                  <div class="peak-time-label">afternoon</div>
+                  <div class="peak-time-range">3:00 – 4:00</div>
+                  <div class="intensity-dots">
+                    <div class="intensity-dot filled"></div>
+                    <div class="intensity-dot filled"></div>
+                    <div class="intensity-dot filled"></div>
+                    <div class="intensity-dot empty"></div>
+                  </div>
+                </div>
+                <div class="peak-row">
+                  <div class="peak-time-label" style="color:#F59E0B;">low energy</div>
+                  <div class="peak-time-range">2:00 – 3:00</div>
+                  <div class="intensity-dots">
+                    <div class="intensity-dot low-filled"></div>
+                    <div class="intensity-dot empty"></div>
+                    <div class="intensity-dot empty"></div>
+                    <div class="intensity-dot empty"></div>
+                  </div>
+                </div>
+                <div class="peak-reco">Schedule deep work in your peak hours, routine tasks in the dip.</div>
+              </div>
+
+              <div class="section-gap-sm"></div>
+
+              <!-- chronotype -->
+              <div class="content-card">
+                <div class="chronotype-card">
+                  <div class="chrono-label">your chronotype</div>
+                  <div class="chrono-icon">☀️</div>
+                  <div class="chrono-name">early bird</div>
+                  <div class="chrono-desc">Peak creative hours: 9–11am. Wind down starts at 8pm.</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- correlations -->
+              <div class="sec-eyebrow teal" style="margin-bottom:8px;">what affects your energy</div>
+              <div class="content-card-sm">
+                <div class="corr-row">
+                  <div class="corr-label">sleep</div>
+                  <div class="corr-bar-wrap"><div class="corr-bar positive" style="width:90%"></div></div>
+                  <div class="corr-score positive">+1.8</div>
+                </div>
+                <div class="corr-row">
+                  <div class="corr-label">meals</div>
+                  <div class="corr-bar-wrap"><div class="corr-bar positive" style="width:60%"></div></div>
+                  <div class="corr-score positive">+1.2</div>
+                </div>
+                <div class="corr-row">
+                  <div class="corr-label">workouts</div>
+                  <div class="corr-bar-wrap"><div class="corr-bar positive" style="width:45%"></div></div>
+                  <div class="corr-score positive">+0.9</div>
+                </div>
+                <div class="corr-row">
+                  <div class="corr-label">stress</div>
+                  <div class="corr-bar-wrap"><div class="corr-bar negative" style="width:70%"></div></div>
+                  <div class="corr-score negative">-1.4</div>
+                </div>
+              </div>
+
+              <div class="section-gap"></div>
+
+              <!-- SIA insight -->
+              <div class="sia-insight">
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <div class="sia-dot"></div>
+                  <div style="flex:1;">
+                    <div class="sia-note-text">Your post-workout energy is 30% higher than your daily average. Morning workouts specifically give the biggest boost — consider moving your workout to before 10am.</div>
+                    <div class="sia-insight-chip">ask SIA more</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="bottom-tab-bar">
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg><span>Today</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9 9.75 9.75 0 01-6.74-2.74L3 21l2.74-2.26A9 9 0 1121 12z"/></svg><span>SIA</span></div>
+            <div class="tab-item"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>Goals</span></div>
+            <div class="tab-item active"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Me</span></div>
+          </div>
+          <div class="home-indicator"></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- thumbnail strip -->
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goTo(0)"><div class="thumb-num">58</div></div>
+    <div class="thumb" onclick="goTo(1)"><div class="thumb-num">59</div></div>
+    <div class="thumb" onclick="goTo(2)"><div class="thumb-num">60</div></div>
+    <div class="thumb" onclick="goTo(3)"><div class="thumb-num">61</div></div>
+    <div class="thumb" onclick="goTo(4)"><div class="thumb-num">62</div></div>
+    <div class="thumb" onclick="goTo(5)"><div class="thumb-num">63</div></div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const total = 6;
+const track = document.getElementById('track');
+const thumbs = document.querySelectorAll('.thumb');
+const prevBtn = document.querySelector('.nav-arrow.prev');
+const nextBtn = document.querySelector('.nav-arrow.next');
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, total - 1));
+  track.style.transform = `translateX(-${current * 100}%)`;
+  thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function go(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+function renderThumbs() {
+  thumbs.forEach((thumb, i) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 56; canvas.height = 120;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0A0A0F';
+    ctx.fillRect(0, 0, 56, 120);
+
+    if (i === 0) {
+      // Sleep: teal accent, hero number, bar chart, line chart
+      ctx.fillStyle = '#14B8A6'; ctx.fillRect(4, 8, 30, 2);
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 9px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('7.2h', 28, 30);
+      ctx.fillStyle = '#FF5E00';
+      [18, 21, 24, 27].forEach((x, j) => { ctx.fillRect(x, 32, 2, 1); });
+      ctx.fillStyle = 'rgba(20,184,166,.6)';
+      [6, 14, 22, 30, 38, 46, 54].forEach((x, j) => {
+        const h = [18, 13, 20, 19, 14, 22, 21][j];
+        ctx.fillRect(x - 2, 60 - h, 5, h);
+      });
+      ctx.strokeStyle = '#FF5E00'; ctx.lineWidth = 0.5; ctx.setLineDash([2, 2]);
+      ctx.beginPath(); ctx.moveTo(4, 44); ctx.lineTo(52, 44); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.strokeStyle = '#14B8A6'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(4, 80); ctx.lineTo(14, 72); ctx.lineTo(24, 68); ctx.lineTo(34, 74); ctx.lineTo(44, 64); ctx.lineTo(52, 70); ctx.stroke();
+    } else if (i === 1) {
+      // Streak: flame, calendar grid, milestone lines
+      ctx.font = '16px serif'; ctx.textAlign = 'center';
+      ctx.fillText('🔥', 28, 22);
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 8px Sora';
+      ctx.fillText('42', 28, 34);
+      ctx.fillStyle = '#34A853';
+      for (let r = 0; r < 4; r++) for (let c = 0; c < 7; c++) {
+        if (r === 0 && c < 4) continue;
+        ctx.beginPath(); ctx.arc(7 + c * 7, 46 + r * 7, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = '#3B82F6';
+      ctx.beginPath(); ctx.arc(7 + 5 * 7, 46, 2.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.1)';
+      [82, 90, 98, 106].forEach(y => { ctx.fillRect(10, y, 36, 4); });
+      ctx.fillStyle = '#34A853';
+      [82, 90].forEach(y => { ctx.beginPath(); ctx.arc(7, y + 2, 2, 0, Math.PI * 2); ctx.fill(); });
+    } else if (i === 2) {
+      // Medication: teal accent, progress bar, checkbox rows, heatmap
+      ctx.fillStyle = '#14B8A6'; ctx.fillRect(4, 8, 30, 2);
+      ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.fillRect(4, 18, 48, 4);
+      ctx.fillStyle = '#14B8A6'; ctx.fillRect(4, 18, 36, 4);
+      [32, 42, 52, 62].forEach((y, j) => {
+        ctx.fillStyle = j < 2 || j === 3 ? '#14B8A6' : 'rgba(255,255,255,.15)';
+        ctx.fillRect(6, y, 6, 6); ctx.strokeStyle = 'rgba(255,255,255,.1)';
+        ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.fillRect(16, y + 1, 30, 3);
+      });
+      for (let r = 0; r < 4; r++) for (let c = 0; c < 7; c++) {
+        const op = [1, .75, .5, 1, 1, .5, .03][c];
+        ctx.fillStyle = `rgba(20,184,166,${op})`;
+        ctx.fillRect(4 + c * 7, 78 + r * 7, 5, 5);
+      }
+    } else if (i === 3) {
+      // Tasks: priority bars, checkboxes, toggle rows
+      ctx.fillStyle = '#F44336'; ctx.fillRect(4, 16, 2, 12);
+      ctx.fillStyle = '#FF5E00'; ctx.fillRect(10, 18, 6, 6);
+      ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(20, 18, 30, 3); ctx.fillRect(20, 23, 20, 2);
+      [34, 50, 66].forEach(y => {
+        ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(10, y, 6, 6);
+        ctx.fillRect(20, y + 1, 28, 3); ctx.fillRect(20, y + 5, 18, 2);
+      });
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.arc(50, 88, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.08)';
+      [82, 92, 102].forEach(y => { ctx.fillRect(4, y, 44, 6); });
+      ctx.fillStyle = '#FF5E00';
+      ctx.fillRect(38, 82, 10, 4); ctx.fillRect(38, 92, 10, 4);
+      ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(38, 102, 10, 4);
+    } else if (i === 4) {
+      // Notes: search bar, tag chips, note lines
+      ctx.fillStyle = '#211008'; ctx.fillRect(4, 12, 48, 10);
+      ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(8, 15, 20, 4);
+      ctx.fillStyle = '#FF5E00';
+      ctx.beginPath(); ctx.roundRect(4, 28, 12, 8, 4); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.1)';
+      [28, 28, 28].forEach((y, j) => { ctx.beginPath(); ctx.roundRect(18 + j * 14, y, 12, 8, 4); ctx.fill(); });
+      ctx.fillStyle = '#211008';
+      ctx.fillRect(4, 44, 48, 30); ctx.fillRect(4, 78, 48, 30);
+      ctx.fillStyle = 'rgba(255,255,255,.12)';
+      ctx.fillRect(8, 48, 40, 3); ctx.fillRect(8, 53, 36, 3); ctx.fillRect(8, 58, 30, 3);
+      ctx.fillStyle = 'rgba(20,184,166,.2)';
+      ctx.beginPath(); ctx.roundRect(8, 64, 16, 5, 2); ctx.fill();
+      ctx.fillStyle = 'rgba(239,68,68,.2)';
+      ctx.beginPath(); ctx.roundRect(26, 64, 16, 5, 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.12)';
+      ctx.fillRect(8, 82, 40, 3); ctx.fillRect(8, 87, 30, 3);
+    } else if (i === 5) {
+      // Energy: teal accent, big number, slider, sparkline, bars
+      ctx.fillStyle = '#14B8A6'; ctx.fillRect(4, 8, 30, 2);
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 14px Sora'; ctx.textAlign = 'center';
+      ctx.fillText('7', 28, 30);
+      ctx.fillStyle = 'rgba(20,184,166,.08)';
+      ctx.beginPath(); ctx.roundRect(16, 14, 24, 20, 6); ctx.fill();
+      const grad = ctx.createLinearGradient(4, 0, 52, 0);
+      grad.addColorStop(0, 'rgba(239,68,68,.4)'); grad.addColorStop(0.4, 'rgba(245,158,11,.4)'); grad.addColorStop(1, 'rgba(20,184,166,.6)');
+      ctx.fillStyle = grad; ctx.fillRect(4, 42, 48, 4);
+      ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.arc(37, 44, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#14B8A6'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(4, 68); ctx.lineTo(14, 58); ctx.lineTo(24, 62); ctx.lineTo(34, 54); ctx.lineTo(44, 56); ctx.lineTo(52, 50); ctx.stroke();
+      ctx.fillStyle = '#14B8A6';
+      [4, 14, 24, 34, 44, 52].forEach((x, j) => {
+        ctx.beginPath(); ctx.arc(x, [68, 58, 62, 54, 56, 50][j], 2, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.fillStyle = 'rgba(20,184,166,.6)';
+      [82, 90, 98, 106].forEach((y, j) => {
+        const w = [42, 28, 21, 0][j];
+        if (w > 0) ctx.fillRect(28, y, w, 4);
+      });
+      ctx.fillStyle = 'rgba(245,158,11,.6)';
+      ctx.fillRect(28, 106, 32, 4);
+    }
+    thumb.prepend(canvas);
+  });
+}
+renderThumbs();
+
+const sp = new URLSearchParams(window.location.search);
+if (sp.has('start')) {
+  const s = parseInt(sp.get('start'));
+  if (!isNaN(s) && s >= 0 && s < total) {
+    track.style.transition = 'none';
+    goTo(s);
+    requestAnimationFrame(() => track.style.transition = '');
+  }
+}
+</script>
+</body>
+</html>

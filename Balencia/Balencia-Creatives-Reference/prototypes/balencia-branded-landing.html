@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Balencia — AI-powered wellness, nutrition, recovery, sleep, and lab monitoring in one intelligent platform." />
+<title>Balencia · Smarter Health Monitoring</title>
+
+<!-- Brand typography: Monda is the core brand face. Hybriduo is referenced as a local fallback if available. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;700&family=Monda:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   BALENCIA LANDING PAGE — ORANGE PRIMARY BRAND IMPLEMENTATION
+   Color ratio target: Burnt Orange 60%, Royal Purple 30%, Forest Green 10%
+   Brand: Burnt Orange #ff5e00 · Royal Purple #7f24ff · Forest Green #34A853
+   ============================================================ */
+:root {
+  --orange: #ff5e00;
+  --orange-2: #ff7a1a;
+  --orange-3: #ff9a45;
+  --orange-soft: rgba(255, 94, 0, .18);
+  --orange-faint: rgba(255, 94, 0, .08);
+
+  --purple: #7f24ff;
+  --purple-2: #a663ff;
+  --purple-soft: rgba(127, 36, 255, .18);
+  --purple-faint: rgba(127, 36, 255, .08);
+
+  --green: #34A853;
+  --green-2: #59d775;
+  --green-soft: rgba(52, 168, 83, .16);
+  --green-faint: rgba(52, 168, 83, .08);
+
+  --ink: #070403;
+  --ink-2: #0c0705;
+  --panel: #14100e;
+  --panel-2: #1d1511;
+  --panel-3: #261911;
+  --cream: #fff8f1;
+  --cream-2: #f4e6d8;
+  --muted: #bba99c;
+  --line: rgba(255, 248, 241, .12);
+  --line-strong: rgba(255, 248, 241, .22);
+
+  --shadow-orange: 0 0 42px rgba(255, 94, 0, .32);
+  --shadow-purple: 0 0 38px rgba(127, 36, 255, .28);
+  --shadow-green: 0 0 30px rgba(52, 168, 83, .22);
+
+  --display: 'Bricolage Grotesque', 'Monda', system-ui, sans-serif;
+  --brand: 'Monda', system-ui, sans-serif;
+  --accent: 'Hybriduo', 'Caveat', cursive;
+  --mono: 'JetBrains Mono', monospace;
+
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-soft: cubic-bezier(.4, 0, .2, 1);
+  --radius-xl: 34px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --max: 1240px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: var(--ink); }
+body {
+  font-family: var(--brand);
+  color: var(--cream);
+  background:
+    radial-gradient(900px 520px at 8% 8%, rgba(255, 94, 0, .19), transparent 62%),
+    radial-gradient(850px 540px at 92% 0%, rgba(127, 36, 255, .16), transparent 60%),
+    radial-gradient(680px 520px at 80% 72%, rgba(255, 94, 0, .11), transparent 65%),
+    linear-gradient(180deg, #080403 0%, #0b0503 34%, #070403 100%);
+  line-height: 1.55;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(180deg, black, transparent 88%);
+  -webkit-mask-image: linear-gradient(180deg, black, transparent 88%);
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.12) 68%, rgba(0,0,0,.52) 100%);
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+::selection { background: var(--orange); color: white; }
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.display {
+  font-family: var(--display);
+  font-weight: 760;
+  letter-spacing: -.055em;
+  line-height: .94;
+}
+.script {
+  font-family: var(--accent);
+  font-weight: 700;
+  letter-spacing: -.015em;
+  line-height: .9;
+}
+.mono { font-family: var(--mono); }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 94, 0, .3);
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 94, 0, .16), rgba(127, 36, 255, .08));
+  color: #ffd5bf;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 14px var(--orange);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: transform .22s var(--ease), box-shadow .22s var(--ease), background .22s var(--ease), border-color .22s var(--ease);
+}
+.btn-primary {
+  color: white;
+  background:
+    linear-gradient(135deg, var(--orange) 0%, var(--orange-2) 50%, var(--orange) 100%);
+  box-shadow: 0 12px 32px rgba(255, 94, 0, .28), inset 0 1px 0 rgba(255,255,255,.22);
+}
+.btn-primary:hover { transform: translateY(-2px) scale(1.015); box-shadow: 0 18px 44px rgba(255, 94, 0, .38), inset 0 1px 0 rgba(255,255,255,.24); }
+.btn-primary:active { transform: translateY(0) scale(.98); }
+.btn-secondary {
+  color: var(--cream);
+  border: 1px solid rgba(255, 248, 241, .22);
+  background: rgba(255, 248, 241, .045);
+  backdrop-filter: blur(12px);
+}
+.btn-secondary:hover { border-color: rgba(255, 94, 0, .55); background: rgba(255, 94, 0, .10); box-shadow: var(--shadow-orange); transform: translateY(-2px); }
+.btn-purple { background: rgba(127, 36, 255, .16); color: #dcc8ff; border: 1px solid rgba(127, 36, 255, .32); }
+.btn-purple:hover { background: rgba(127, 36, 255, .24); box-shadow: var(--shadow-purple); transform: translateY(-2px); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: fixed;
+  inset: 18px 0 auto;
+  z-index: 100;
+  transition: all .32s var(--ease);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 72px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 999px;
+  background: rgba(15, 8, 5, .62);
+  box-shadow: 0 12px 36px rgba(0,0,0,.28);
+  backdrop-filter: blur(22px) saturate(135%);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+}
+.nav.scrolled { inset: 10px 0 auto; }
+.nav.scrolled .nav-inner { background: rgba(9, 5, 3, .82); border-color: rgba(255, 94, 0, .16); }
+.nav-brand { display: flex; align-items: center; gap: 10px; padding-left: 8px; }
+.logo-mark { width: 36px; height: 36px; color: white; filter: drop-shadow(0 0 12px rgba(255, 94, 0, .22)); }
+.logo-wordmark {
+  font-family: var(--display);
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -.055em;
+}
+.logo-wordmark::after { content: '.'; color: var(--orange); }
+.nav-links { list-style: none; display: flex; gap: 4px; align-items: center; }
+.nav-links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 13px;
+  color: rgba(255,248,241,.72);
+  font-size: 13px;
+  border-radius: 999px;
+  transition: color .2s var(--ease), background .2s var(--ease);
+}
+.nav-links a:hover, .nav-links a.active { color: white; background: rgba(255,94,0,.12); }
+.nav-cta { display: flex; gap: 10px; align-items: center; }
+.nav-cta .btn { padding: 11px 17px; font-size: 13px; }
+.nav-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--orange) 0 60%, var(--purple) 60% 90%, var(--green) 90% 100%);
+  z-index: 120;
+  box-shadow: 0 0 18px rgba(255,94,0,.45);
+}
+.mobile-menu { display: none; width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--line); }
+.mobile-menu span { display:block; width: 18px; height: 2px; background: white; margin: 4px auto; border-radius: 99px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  padding: 150px 0 90px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 1120px; height: 360px;
+  top: 220px; left: 50%;
+  transform: translateX(-45%) rotate(-11deg);
+  border-radius: 50%;
+  border: 42px solid rgba(255,94,0,.11);
+  filter: blur(2px);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 560px; height: 560px;
+  right: -220px; top: 80px;
+  background: radial-gradient(circle, rgba(255,94,0,.2), transparent 62%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.03fr) minmax(420px, .97fr);
+  gap: 58px;
+  align-items: center;
+  z-index: 1;
+}
+.hero-text { padding-top: 18px; }
+.hero h1 {
+  max-width: 760px;
+  margin: 24px 0 24px;
+  font-size: clamp(50px, 7.4vw, 104px);
+}
+.hero h1 .highlight {
+  color: var(--orange);
+  text-shadow: 0 0 34px rgba(255,94,0,.28);
+}
+.hero h1 .script {
+  display: inline-block;
+  color: var(--orange);
+  font-size: 1.08em;
+  background: linear-gradient(90deg, var(--orange), var(--orange-3) 48%, var(--purple) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 26px rgba(255,94,0,.2));
+}
+.hero .lede {
+  max-width: 585px;
+  color: var(--cream-2);
+  font-size: clamp(17px, 1.38vw, 20px);
+  line-height: 1.72;
+  margin-bottom: 34px;
+}
+.hero-cta { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
+.trust-mini { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 13px; }
+.avatar-stack { display: flex; }
+.avatar-stack span {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  margin-left: -8px;
+  border: 2px solid var(--ink);
+  background: linear-gradient(135deg, var(--orange), #ffd0b7);
+}
+.avatar-stack span:first-child { margin-left: 0; }
+.avatar-stack span:nth-child(2) { background: linear-gradient(135deg, var(--purple), #e0c7ff); }
+.avatar-stack span:nth-child(3) { background: linear-gradient(135deg, var(--orange-2), #ffe1c8); }
+.avatar-stack span:nth-child(4) { background: linear-gradient(135deg, var(--green), #d8ffe1); }
+
+/* Hero visual: iPhone nutrition/monitoring mockup */
+.visual-wrap {
+  position: relative;
+  min-height: 690px;
+  display: grid;
+  place-items: center;
+  perspective: 1200px;
+}
+.brand-orbit {
+  position: absolute;
+  inset: 64px -30px 0 0;
+  pointer-events: none;
+}
+.brand-orbit svg { width: 100%; height: 100%; overflow: visible; opacity: .86; }
+.brand-orbit path.flow-orange { stroke: var(--orange); stroke-width: 2.2; fill: none; filter: drop-shadow(0 0 12px rgba(255,94,0,.75)); stroke-dasharray: 820; animation: flow 6s linear infinite; }
+.brand-orbit path.flow-purple { stroke: var(--purple); stroke-width: 1.5; fill: none; filter: drop-shadow(0 0 10px rgba(127,36,255,.55)); stroke-dasharray: 620; animation: flow 8s linear infinite reverse; opacity: .7; }
+@keyframes flow { to { stroke-dashoffset: -820; } }
+.phone-shell {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 362px);
+  height: 720px;
+  padding: 14px;
+  border-radius: 54px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.45), rgba(255,255,255,.05) 18%, rgba(0,0,0,.72) 74%, rgba(255,255,255,.32)),
+    linear-gradient(180deg, #27231f, #090606);
+  box-shadow:
+    0 44px 80px rgba(0,0,0,.55),
+    0 0 0 1px rgba(255,255,255,.22),
+    0 0 72px rgba(255,94,0,.16);
+  transform: rotateY(-8deg) rotateX(3deg);
+  animation: floatPhone 6.6s ease-in-out infinite;
+}
+@keyframes floatPhone { 0%,100%{ transform: rotateY(-8deg) rotateX(3deg) translateY(0); } 50%{ transform: rotateY(-6deg) rotateX(4deg) translateY(-10px); } }
+.phone-shell::before {
+  content: '';
+  position: absolute;
+  top: 25px; left: 50%; transform: translateX(-50%);
+  width: 108px; height: 32px;
+  border-radius: 999px;
+  background: #020202;
+  z-index: 3;
+  box-shadow: inset 0 0 12px rgba(255,255,255,.06);
+}
+.phone-screen {
+  position: relative;
+  height: 100%;
+  border-radius: 43px;
+  padding: 42px 20px 18px;
+  background:
+    radial-gradient(300px 240px at 20% 0%, rgba(255,94,0,.22), transparent 68%),
+    radial-gradient(300px 240px at 88% 12%, rgba(127,36,255,.18), transparent 70%),
+    linear-gradient(180deg, #060605 0%, #0c0907 56%, #050404 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  overflow: hidden;
+}
+.phone-screen::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: linear-gradient(100deg, rgba(255,255,255,.10), transparent 20%, transparent 75%, rgba(255,255,255,.05));
+  pointer-events:none;
+  mix-blend-mode: screen;
+}
+.statusbar { display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:700; color:var(--cream); margin-bottom:14px; position:relative; z-index:2; }
+.status-icons { display:flex; gap:5px; align-items:center; opacity:.9; }
+.app-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; position:relative; z-index:2; }
+.app-head h3 { font-family:var(--display); font-size:28px; letter-spacing:-.04em; }
+.app-head p { color: var(--orange-3); font-size:12px; margin-top:2px; font-weight:700; }
+.cal-btn { width:42px; height:42px; border-radius:15px; background: var(--orange-soft); border:1px solid rgba(255,94,0,.34); color:var(--orange); display:grid; place-items:center; }
+.app-card-ui {
+  position:relative; z-index:2;
+  border:1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+  border-radius: 20px;
+  padding:16px;
+}
+.calorie-card { display:grid; grid-template-columns: 1fr 108px; gap: 10px; align-items:center; margin-bottom: 12px; }
+.app-label { color:var(--cream-2); font-size:12px; opacity:.92; }
+.app-number { font-family:var(--display); font-size:34px; font-weight:800; letter-spacing:-.055em; margin-top: 6px; }
+.app-number small { font-family:var(--brand); font-size:15px; color:var(--muted); letter-spacing:0; font-weight:400; }
+.remaining { font-size:12px; color:var(--muted); }
+.remaining b { color:var(--orange-3); font-weight:700; }
+.ring-chart { position:relative; width:98px; height:98px; }
+.ring-chart svg { transform:rotate(-90deg); width:100%; height:100%; }
+.ring-chart circle.bg { fill:none; stroke:rgba(255,255,255,.09); stroke-width:11; }
+.ring-chart circle.fg { fill:none; stroke:url(#orangeRing); stroke-width:11; stroke-linecap:round; stroke-dasharray:260; stroke-dashoffset:102; filter:drop-shadow(0 0 8px rgba(255,94,0,.65)); }
+.ring-chart .ring-text { position:absolute; inset:0; display:grid; place-items:center; text-align:center; font-family:var(--display); font-size:27px; font-weight:800; letter-spacing:-.04em; }
+.ring-chart .ring-text span { display:block; font-family:var(--brand); font-size:10px; letter-spacing:0; color:var(--muted); }
+.macro { margin-bottom: 12px; }
+.card-row-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.card-row-head b { font-size:13px; }
+.card-row-head span { color:var(--muted); font-size:11px; }
+.macro-row { display:grid; grid-template-columns: 86px 1fr 58px; align-items:center; gap:10px; margin:12px 0; font-size:12px; }
+.macro-row .name { display:flex; align-items:center; gap:8px; }
+.dot-icon { width:21px; height:21px; display:grid; place-items:center; border-radius:50%; font-size:11px; }
+.dot-icon.orange { background:var(--orange-soft); color:var(--orange-3); }
+.dot-icon.purple { background:var(--purple-soft); color:#d4b9ff; }
+.dot-icon.green { background:var(--green-soft); color:#9cffb4; }
+.bar { height:7px; border-radius:999px; background:rgba(255,255,255,.09); overflow:hidden; }
+.bar i { display:block; height:100%; width:var(--w); border-radius:inherit; background:linear-gradient(90deg, var(--orange), var(--orange-3)); box-shadow:0 0 12px rgba(255,94,0,.45); }
+.bar.purple i { background:linear-gradient(90deg, var(--purple), var(--purple-2)); box-shadow:0 0 12px rgba(127,36,255,.45); }
+.bar.green i { background:linear-gradient(90deg, var(--green), var(--green-2)); box-shadow:0 0 12px rgba(52,168,83,.45); }
+.macro-row .pct { text-align:right; color: var(--orange-3); font-weight:700; }
+.macro-row.purple .pct { color:#c9a5ff; }
+.macro-row.green .pct { color:#9cffb4; }
+.phone-mini-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+.score-dial { display:grid; place-items:center; text-align:center; min-height:126px; }
+.score-dial .score-ring { width:78px; height:78px; border-radius:50%; display:grid; place-items:center; background: conic-gradient(var(--orange) 0 83%, rgba(255,255,255,.08) 83% 100%); position:relative; margin:6px auto 4px; box-shadow:0 0 18px rgba(255,94,0,.22); }
+.score-dial .score-ring::before { content:''; position:absolute; inset:8px; background:#12100d; border-radius:50%; }
+.score-dial .score-ring b { position:relative; z-index:1; font-family:var(--display); font-size:25px; }
+.hydration .cups { display:flex; gap:5px; margin-top:9px; }
+.cup { width:13px; height:18px; border-radius:3px 3px 5px 5px; background:linear-gradient(180deg, rgba(127,36,255,.8), rgba(127,36,255,.22)); border:1px solid rgba(255,255,255,.18); }
+.cup:nth-child(-n+4) { background: linear-gradient(180deg, var(--orange-3), rgba(255,94,0,.34)); }
+.meals { margin-bottom:12px; }
+.meal { display:grid; grid-template-columns:82px 1fr 42px 18px; gap:8px; align-items:center; font-size:11px; margin:10px 0; }
+.check { width:18px; height:18px; border-radius:50%; display:grid; place-items:center; background: var(--green); color:white; font-size:11px; }
+.trend { height:92px; padding:12px 14px; }
+.trend svg { width:100%; height:52px; margin-top:6px; overflow:visible; }
+.trend path.area { fill:rgba(255,94,0,.13); }
+.trend path.line { fill:none; stroke:var(--orange); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; filter:drop-shadow(0 0 6px rgba(255,94,0,.65)); }
+.trend .axis { stroke:rgba(255,255,255,.09); stroke-width:1; }
+.tabbar { position:absolute; z-index:5; left:18px; right:18px; bottom:15px; height:58px; border-radius:22px; background:rgba(3,3,3,.72); border:1px solid rgba(255,255,255,.08); display:grid; grid-template-columns:repeat(5,1fr); align-items:center; backdrop-filter: blur(14px); }
+.tab { display:grid; place-items:center; gap:3px; color:rgba(255,255,255,.55); font-size:9px; }
+.tab svg { width:18px; height:18px; }
+.tab.active { color:var(--orange-3); }
+.plus { width:42px; height:42px; border-radius:50%; background:var(--orange); color:white; display:grid; place-items:center; box-shadow:0 0 22px rgba(255,94,0,.55); }
+
+.float-card {
+  position: absolute;
+  z-index: 3;
+  min-width: 190px;
+  border:1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.045));
+  border-radius: 22px;
+  padding: 18px;
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 24px 54px rgba(0,0,0,.32);
+}
+.float-card.orange { left: -8px; top: 145px; border-color: rgba(255,94,0,.35); box-shadow: 0 26px 60px rgba(0,0,0,.34), var(--shadow-orange); }
+.float-card.purple { right: -4px; top: 240px; border-color: rgba(127,36,255,.35); box-shadow: 0 26px 60px rgba(0,0,0,.34), var(--shadow-purple); }
+.float-card.green { right: 14px; bottom: 80px; border-color: rgba(52,168,83,.28); box-shadow: 0 26px 60px rgba(0,0,0,.34), var(--shadow-green); }
+.float-title { color: var(--cream-2); font-size: 12px; margin-bottom: 8px; }
+.float-value { font-family: var(--display); font-size: 28px; letter-spacing: -.04em; font-weight: 800; }
+.float-value small { font-size: 12px; font-family: var(--brand); color: var(--muted); letter-spacing: 0; }
+.float-card svg { width: 100%; height: 46px; margin-top: 10px; overflow: visible; }
+.float-card .mini-line { fill:none; stroke-width:2.5; stroke-linecap:round; filter: drop-shadow(0 0 6px currentColor); }
+
+/* ============================================================
+   COMMON SECTIONS
+   ============================================================ */
+.section { position: relative; padding: 112px 0; overflow: hidden; }
+.section.alt { background: linear-gradient(180deg, rgba(255,94,0,.035), rgba(127,36,255,.035)); }
+.section.dark-panel { background: #060303; }
+.section-head { max-width: 800px; margin-bottom: 54px; }
+.section-head.center { margin-left:auto; margin-right:auto; text-align:center; }
+.section-head h2 { font-size: clamp(36px, 5vw, 66px); margin-top: 18px; }
+.section-head h2 em { color: var(--orange); font-style: normal; }
+.section-head p { color: var(--muted); font-size: 17px; line-height: 1.7; max-width: 660px; margin-top: 18px; }
+.section-head.center p { margin-left:auto; margin-right:auto; }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* TRUST */
+.trust-strip { padding: 34px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,248,241,.025); }
+.trust-grid { display:grid; grid-template-columns: auto 1fr auto; gap: 34px; align-items:center; }
+.trust-stat { display:flex; align-items:center; gap:13px; }
+.trust-stat .num { font-family:var(--display); font-size:38px; font-weight:800; letter-spacing:-.045em; color:var(--orange-3); }
+.trust-stat .label { color:var(--muted); font-size:12px; line-height:1.35; max-width:140px; }
+.integrations { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; color:rgba(255,248,241,.58); font-family:var(--display); font-weight:700; letter-spacing:-.02em; }
+.integrations span { padding: 8px 11px; border-radius:999px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.025); }
+.stars { color:var(--orange); letter-spacing:2px; }
+
+/* SHIFT */
+.toggle { display:inline-flex; position:relative; padding:5px; border-radius:999px; background:rgba(255,248,241,.05); border:1px solid var(--line); margin-bottom:32px; }
+.toggle button { position:relative; z-index:2; padding:10px 18px; border-radius:999px; color:var(--muted); font-weight:700; font-size:13px; }
+.toggle button.active { color:white; }
+.toggle-pill { position:absolute; top:5px; left:5px; height:calc(100% - 10px); border-radius:999px; background:linear-gradient(135deg, var(--orange), var(--orange-2)); box-shadow:0 0 22px rgba(255,94,0,.36); transition: all .34s var(--ease); }
+.compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.compare-card {
+  position:relative;
+  min-height:340px;
+  padding:30px;
+  border-radius:var(--radius-lg);
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.028));
+  overflow:hidden;
+  transition: opacity .25s var(--ease), transform .25s var(--ease), border-color .25s var(--ease);
+}
+.compare-card.before { opacity:.55; }
+.compare-card.after { border-color:rgba(255,94,0,.32); box-shadow:var(--shadow-orange); }
+.compare-card.after::before { content:''; position:absolute; inset:-1px; background:radial-gradient(420px 220px at 86% 0%, rgba(255,94,0,.22), transparent 65%); pointer-events:none; }
+.compare-card h3 { position:relative; font-family:var(--display); font-size:26px; letter-spacing:-.035em; margin-bottom:22px; }
+.badge { display:inline-flex; align-items:center; gap:6px; margin-left:6px; padding:4px 9px; border-radius:999px; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; background:rgba(255,255,255,.08); color:var(--muted); vertical-align:middle; }
+.after .badge { background:var(--orange); color:white; }
+.compare-card ul { position:relative; list-style:none; display:grid; gap:14px; }
+.compare-card li { display:flex; gap:12px; color:var(--cream-2); }
+.compare-card li::before { content:''; flex:0 0 19px; height:19px; border-radius:50%; margin-top:3px; background:rgba(255,255,255,.09); border:1px solid var(--line); }
+.after li::before { background:var(--orange); border-color:var(--orange); box-shadow:0 0 15px rgba(255,94,0,.45); }
+
+/* METRICS */
+.metrics-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.metric-card {
+  --accent: var(--orange);
+  --accent-soft: var(--orange-soft);
+  min-height: 360px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+  position:relative;
+  overflow:hidden;
+  transition: transform .28s var(--ease), border-color .28s var(--ease), box-shadow .28s var(--ease);
+}
+.metric-card::before { content:''; position:absolute; width:220px; height:220px; right:-90px; top:-90px; border-radius:50%; background:radial-gradient(circle, var(--accent-soft), transparent 65%); }
+.metric-card:hover { transform:translateY(-7px); border-color:color-mix(in srgb, var(--accent) 60%, white 0%); box-shadow:0 24px 52px rgba(0,0,0,.26), 0 0 32px color-mix(in srgb, var(--accent) 25%, transparent); }
+.metric-card.sleep { --accent: var(--purple); --accent-soft: var(--purple-soft); }
+.metric-card.recovery { --accent: var(--green); --accent-soft: var(--green-soft); }
+.metric-icon { width:54px; height:54px; border-radius:18px; display:grid; place-items:center; color:var(--accent); background:var(--accent-soft); border:1px solid color-mix(in srgb, var(--accent) 30%, transparent); margin-bottom:22px; }
+.metric-icon svg { width:28px; height:28px; }
+.metric-card h3 { font-family:var(--display); font-size:30px; letter-spacing:-.035em; margin-bottom:8px; }
+.metric-card p { color:var(--muted); font-size:14px; min-height:66px; }
+.metric-chart { height:82px; margin:24px 0 10px; }
+.metric-chart svg { width:100%; height:100%; overflow:visible; }
+.metric-chart path.area { fill:var(--accent); opacity:.13; }
+.metric-chart path.line { fill:none; stroke:var(--accent); stroke-width:3; stroke-linecap:round; filter:drop-shadow(0 0 8px var(--accent)); stroke-dasharray:640; stroke-dashoffset:640; }
+.metric-card.in-view path.line { animation:drawLine 1.1s var(--ease) forwards; }
+@keyframes drawLine { to { stroke-dashoffset:0; } }
+.stat-row { display:flex; align-items:baseline; justify-content:space-between; color:var(--muted); font-family:var(--mono); font-size:11px; }
+.stat-row .big { font-family:var(--display); color:var(--cream); font-size:34px; font-weight:800; letter-spacing:-.04em; }
+.stat-row .big span { color:var(--accent); }
+
+/* AI COACH */
+.coach-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:58px; align-items:center; }
+.coach-copy p { color:var(--muted); font-size:17px; line-height:1.75; margin-top:18px; }
+.coach-console {
+  position:relative;
+  min-height:470px;
+  border:1px solid rgba(255,94,0,.18);
+  border-radius:32px;
+  padding:30px;
+  background:
+    radial-gradient(440px 300px at 92% 6%, rgba(255,94,0,.25), transparent 65%),
+    radial-gradient(460px 310px at 6% 96%, rgba(127,36,255,.18), transparent 66%),
+    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+  overflow:hidden;
+  box-shadow: var(--shadow-orange);
+}
+.console-top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:28px; }
+.live-dot { display:inline-flex; align-items:center; gap:9px; color:var(--orange-3); font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; }
+.live-dot::before { content:''; width:9px; height:9px; border-radius:50%; background:var(--orange); box-shadow:0 0 16px var(--orange); animation:pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 50%{ opacity:.42; transform:scale(.8); } }
+.bubble { max-width:84%; padding:15px 17px; border-radius:20px; font-size:14px; line-height:1.55; margin:12px 0; opacity:0; transform:translateY(12px); }
+.coach-console.in-view .bubble { animation:bubbleIn .58s var(--ease) forwards; }
+.coach-console.in-view .bubble:nth-of-type(2){ animation-delay:.22s; }
+.coach-console.in-view .bubble:nth-of-type(3){ animation-delay:.72s; }
+.coach-console.in-view .bubble:nth-of-type(4){ animation-delay:1.18s; }
+@keyframes bubbleIn { to { opacity:1; transform:translateY(0); } }
+.bubble.user { margin-left:auto; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1); border-bottom-right-radius:6px; color:var(--cream-2); }
+.bubble.ai { background:var(--cream); color:#160a04; border-bottom-left-radius:6px; box-shadow:0 15px 35px rgba(0,0,0,.2); }
+.bubble.ai b { color:var(--orange); }
+.ai-pill { display:inline-flex; padding:2px 8px; border-radius:999px; background:var(--orange); color:white; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; margin-right:6px; }
+.console-input { position:absolute; left:30px; right:30px; bottom:26px; height:52px; border-radius:999px; border:1px solid rgba(255,255,255,.13); background:rgba(0,0,0,.26); display:flex; align-items:center; gap:10px; padding:0 14px 0 18px; color:rgba(255,255,255,.68); font-size:13px; }
+.console-input .caret { width:2px; height:16px; background:var(--orange); animation:blink 1s steps(2) infinite; }
+@keyframes blink { 50%{ opacity:0; } }
+.console-send { margin-left:auto; width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background:var(--orange); color:white; }
+
+/* NUTRITION */
+.nutrition-grid { display:grid; grid-template-columns:1.04fr .96fr; gap:58px; align-items:center; }
+.nutri-panel {
+  position:relative;
+  min-height:520px;
+  border-radius:32px;
+  border:1px solid rgba(255,94,0,.18);
+  background:
+    radial-gradient(340px 220px at 12% 15%, rgba(255,94,0,.24), transparent 70%),
+    radial-gradient(340px 250px at 88% 10%, rgba(127,36,255,.17), transparent 74%),
+    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+  padding:28px;
+  overflow:hidden;
+  box-shadow:0 26px 60px rgba(0,0,0,.26);
+}
+.nutri-panel::before { content:''; position:absolute; width:720px; height:320px; left:-170px; bottom:-160px; border:34px solid rgba(255,94,0,.13); border-radius:50%; transform:rotate(-12deg); }
+.macro-dashboard { position:relative; display:grid; grid-template-columns:1fr 1fr; gap:15px; z-index:1; }
+.dash-card { border:1px solid rgba(255,255,255,.1); border-radius:22px; background:rgba(5,4,3,.56); padding:18px; backdrop-filter:blur(16px); }
+.dash-card.wide { grid-column:1 / -1; }
+.dash-title { display:flex; justify-content:space-between; align-items:center; gap:10px; color:var(--muted); font-size:12px; margin-bottom:12px; }
+.dash-value { font-family:var(--display); font-size:34px; font-weight:800; letter-spacing:-.04em; }
+.donut-wrap { display:grid; grid-template-columns:130px 1fr; gap:18px; align-items:center; }
+.donut { width:128px; height:128px; border-radius:50%; background:conic-gradient(var(--orange) 0 42%, var(--purple) 42% 78%, var(--green) 78% 100%); position:relative; box-shadow:0 0 32px rgba(255,94,0,.2); }
+.donut::before { content:''; position:absolute; inset:28px; border-radius:50%; background:#0a0604; }
+.legend-list { display:grid; gap:11px; }
+.legend-item { display:grid; grid-template-columns:18px 1fr auto; gap:9px; align-items:center; font-size:13px; color:var(--cream-2); }
+.swatch { width:12px; height:12px; border-radius:50%; background:var(--orange); box-shadow:0 0 10px var(--orange); }
+.swatch.purple { background:var(--purple); box-shadow:0 0 10px var(--purple); }
+.swatch.green { background:var(--green); box-shadow:0 0 10px var(--green); }
+.nutri-bars { display:grid; gap:13px; }
+.nutri-benefits { list-style:none; display:grid; gap:14px; margin-top:25px; }
+.nutri-benefits li { display:flex; gap:12px; color:var(--cream-2); }
+.nutri-benefits li::before { content:'✓'; flex:0 0 22px; width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:var(--orange); color:white; font-size:12px; box-shadow:0 0 16px rgba(255,94,0,.48); }
+
+/* LABS */
+.labs-card { border:1px solid var(--line); border-radius:32px; padding:32px; background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025)); }
+.labs-top { display:flex; justify-content:space-between; align-items:flex-end; gap:18px; flex-wrap:wrap; margin-bottom:36px; }
+.labs-top h3 { font-family:var(--display); font-size:32px; letter-spacing:-.04em; }
+.legend { display:flex; gap:14px; color:var(--muted); font-size:12px; flex-wrap:wrap; }
+.legend span { display:inline-flex; align-items:center; gap:6px; }
+.legend i { width:16px; height:4px; border-radius:999px; background:var(--orange); }
+.legend .purple i { background:var(--purple); }
+.legend .green i { background:var(--green); }
+.timeline { position:relative; display:grid; grid-template-columns:repeat(6,1fr); gap:0; padding:35px 0 38px; }
+.timeline::before { content:''; position:absolute; left:0; right:0; top:71px; height:2px; background:linear-gradient(90deg, var(--orange) 0 60%, var(--purple) 60% 90%, var(--green) 90%); opacity:.72; transform:scaleX(0); transform-origin:left; transition:transform 1.2s var(--ease); }
+.labs-card.in-view .timeline::before { transform:scaleX(1); }
+.tpoint { text-align:center; position:relative; }
+.tpoint .month { font-family:var(--mono); color:var(--muted); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:18px; }
+.tpoint .mark { width:16px; height:16px; border-radius:50%; margin:0 auto; background:var(--panel); border:2px solid var(--orange); box-shadow:0 0 20px rgba(255,94,0,.38); position:relative; z-index:1; }
+.tpoint:nth-child(4) .mark, .tpoint:nth-child(5) .mark { border-color:var(--purple); box-shadow:0 0 20px rgba(127,36,255,.32); }
+.tpoint:nth-child(6) .mark { border-color:var(--green); box-shadow:0 0 20px rgba(52,168,83,.28); }
+.tpoint .val { font-family:var(--display); font-size:21px; font-weight:800; margin-top:16px; letter-spacing:-.035em; }
+.tpoint .unit { color:var(--muted); font-size:11px; }
+.bio-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.bio { border-radius:20px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.08); padding:18px; }
+.bio .name { color:var(--muted); font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.09em; }
+.bio .val { font-family:var(--display); font-size:29px; font-weight:800; letter-spacing:-.04em; margin-top:5px; }
+.delta { display:inline-flex; align-items:center; gap:4px; margin-top:8px; padding:3px 8px; border-radius:999px; background:var(--orange-soft); color:var(--orange-3); font-size:11px; font-weight:700; }
+.delta.good { background:var(--green-soft); color:#9cffb4; }
+
+/* HOW */
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.step { position:relative; padding:30px; border:1px solid var(--line); border-radius:var(--radius-lg); background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03)); overflow:hidden; }
+.step::before { content:''; position:absolute; inset:auto auto -80px -80px; width:210px; height:210px; border-radius:50%; background:radial-gradient(circle, rgba(255,94,0,.18), transparent 68%); }
+.step:nth-child(2)::before { background:radial-gradient(circle, rgba(127,36,255,.16), transparent 68%); }
+.step:nth-child(3)::before { background:radial-gradient(circle, rgba(52,168,83,.12), transparent 68%); }
+.step .num { width:54px; height:54px; border-radius:50%; display:grid; place-items:center; background:var(--orange); color:white; font-family:var(--display); font-weight:800; font-size:22px; box-shadow:var(--shadow-orange); margin-bottom:28px; }
+.step:nth-child(2) .num { background:var(--purple); box-shadow:var(--shadow-purple); }
+.step:nth-child(3) .num { background:var(--green); box-shadow:var(--shadow-green); }
+.step h3 { font-family:var(--display); font-size:25px; letter-spacing:-.035em; margin-bottom:10px; }
+.step p { color:var(--muted); font-size:14px; line-height:1.7; }
+
+/* PRIVACY */
+.privacy-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:58px; align-items:center; }
+.privacy-list { list-style:none; display:grid; gap:16px; margin-top:26px; }
+.privacy-list li { display:flex; gap:13px; align-items:flex-start; color:var(--cream-2); }
+.privacy-list .lock { flex:0 0 26px; height:26px; border-radius:50%; display:grid; place-items:center; background:var(--orange); box-shadow:0 0 16px rgba(255,94,0,.38); }
+.security-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:15px; }
+.security-card { padding:26px; border:1px solid rgba(255,255,255,.1); border-radius:22px; background:rgba(255,255,255,.05); }
+.security-card svg { width:36px; height:36px; color:var(--orange); margin-bottom:15px; }
+.security-card:nth-child(2) svg, .security-card:nth-child(4) svg { color:var(--purple); }
+.security-card:nth-child(3) svg { color:var(--green); }
+.security-card h4 { font-family:var(--display); font-size:20px; letter-spacing:-.03em; margin-bottom:6px; }
+.security-card p { color:var(--muted); font-size:13px; }
+
+/* TESTIMONIALS */
+.testimonials { background:linear-gradient(180deg, rgba(255,94,0,.055), rgba(0,0,0,0)); }
+.testimonial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.quote-card { position:relative; border:1px solid var(--line); border-radius:var(--radius-lg); padding:30px; background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03)); }
+.quote-card::before { content:'“'; position:absolute; top:8px; right:24px; font-family:var(--display); font-size:82px; line-height:1; color:rgba(255,94,0,.28); }
+.quote-card:nth-child(2)::before { color:rgba(127,36,255,.28); }
+.quote-card:nth-child(3)::before { color:rgba(52,168,83,.22); }
+.quote-card p { position:relative; color:var(--cream-2); margin:28px 0 24px; }
+.author { display:flex; align-items:center; gap:12px; border-top:1px solid var(--line); padding-top:18px; }
+.avatar { width:42px; height:42px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(135deg, var(--orange), var(--orange-3)); font-family:var(--display); font-weight:800; }
+.quote-card:nth-child(2) .avatar { background:linear-gradient(135deg, var(--purple), var(--purple-2)); }
+.quote-card:nth-child(3) .avatar { background:linear-gradient(135deg, var(--green), #7ee898); }
+.author .name { font-weight:700; }
+.author .role { color:var(--muted); font-size:12px; }
+
+/* FAQ */
+.faq-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:58px; align-items:start; }
+.faq-list { border-top:1px solid var(--line); }
+.faq-item { border-bottom:1px solid var(--line); }
+.faq-q { width:100%; text-align:left; display:flex; justify-content:space-between; align-items:center; gap:16px; padding:22px 0; font-family:var(--display); font-size:20px; font-weight:700; letter-spacing:-.025em; transition:color .2s; }
+.faq-q:hover { color:var(--orange-3); }
+.faq-icon { position:relative; flex:0 0 34px; width:34px; height:34px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.04); transition:background .2s, border-color .2s; }
+.faq-icon::before, .faq-icon::after { content:''; position:absolute; top:50%; left:50%; width:14px; height:2px; background:var(--cream); transform:translate(-50%,-50%); border-radius:99px; }
+.faq-icon::after { transform:translate(-50%,-50%) rotate(90deg); transition:transform .25s var(--ease); }
+.faq-item.open .faq-icon { background:var(--orange); border-color:var(--orange); }
+.faq-item.open .faq-icon::after { transform:translate(-50%,-50%) rotate(0deg); }
+.faq-a { max-height:0; overflow:hidden; transition:max-height .32s var(--ease); color:var(--muted); font-size:15px; line-height:1.75; }
+.faq-a-inner { padding:0 0 22px; max-width:640px; }
+.faq-item.open .faq-a { max-height:240px; }
+
+/* FINAL CTA */
+.final-cta { padding:126px 0; position:relative; overflow:hidden; background:
+    radial-gradient(620px 360px at 20% 10%, rgba(255,94,0,.37), transparent 68%),
+    radial-gradient(580px 360px at 90% 80%, rgba(127,36,255,.25), transparent 70%),
+    #050303;
+}
+.final-cta::before { content:''; position:absolute; width:1120px; height:420px; border:42px solid rgba(255,94,0,.13); border-radius:50%; transform:rotate(-11deg); left:-260px; top:20px; }
+.final-grid { position:relative; display:grid; grid-template-columns:1.2fr .8fr; gap:50px; align-items:center; }
+.final-grid h2 { font-size:clamp(42px,6vw,82px); }
+.final-grid h2 em { font-style:normal; color:var(--orange); }
+.final-grid p { color:var(--cream-2); max-width:570px; margin:22px 0 32px; font-size:18px; line-height:1.7; }
+.download-card { max-width:360px; margin-left:auto; border:1px solid rgba(255,94,0,.22); border-radius:32px; padding:28px; background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); box-shadow:var(--shadow-orange); }
+.qr { width:190px; height:190px; margin:18px auto; border-radius:22px; background:
+  linear-gradient(90deg, #fff 10px, transparent 10px) 0 0 / 20px 20px,
+  linear-gradient(#fff 10px, transparent 10px) 0 0 / 20px 20px,
+  #0a0705;
+  mix-blend-mode:screen;
+  position:relative;
+  overflow:hidden;
+}
+.qr::before { content:''; position:absolute; inset:16px auto auto 16px; width:42px; height:42px; border:10px solid white; background:#0a0705; border-radius:8px; box-shadow: 116px 0 0 -10px #0a0705, 116px 0 0 0 white, 0 116px 0 -10px #0a0705, 0 116px 0 0 white; }
+.download-card .small { color:var(--muted); font-size:13px; text-align:center; }
+
+/* FOOTER */
+footer { padding:64px 0 38px; border-top:1px solid var(--line); background:rgba(0,0,0,.2); }
+.footer-grid { display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:36px; margin-bottom:44px; }
+.foot-brand { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+footer p { color:var(--muted); max-width:310px; font-size:14px; }
+footer h5 { color:var(--cream); font-family:var(--mono); text-transform:uppercase; letter-spacing:.14em; font-size:11px; margin-bottom:16px; }
+footer ul { list-style:none; display:grid; gap:9px; color:var(--muted); font-size:14px; }
+footer a:hover { color:var(--orange-3); }
+.footer-bottom { display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; padding-top:24px; border-top:1px solid var(--line); color:rgba(255,248,241,.46); font-size:12px; }
+
+/* RESPONSIVE */
+@media (max-width: 1050px) {
+  .hero-grid, .coach-grid, .nutrition-grid, .privacy-grid, .final-grid, .faq-grid { grid-template-columns: 1fr; }
+  .visual-wrap { min-height: 760px; }
+  .phone-shell { transform: none; }
+  @keyframes floatPhone { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
+  .float-card.orange { left: 4%; }
+  .float-card.purple { right: 4%; }
+  .float-card.green { right: 6%; }
+  .download-card { margin-left:0; }
+}
+@media (max-width: 820px) {
+  .container { padding: 0 20px; }
+  .nav { inset: 10px 0 auto; }
+  .nav-inner { border-radius: 26px; min-height: 66px; }
+  .nav-links, .nav-cta .btn-secondary { display:none; }
+  .mobile-menu { display:block; }
+  .hero { padding-top: 126px; }
+  .trust-grid, .compare-grid, .metrics-grid, .steps, .testimonial-grid, .bio-grid, .security-grid, .footer-grid { grid-template-columns:1fr; }
+  .trust-grid { text-align:center; }
+  .trust-stat { justify-content:center; }
+  .timeline { grid-template-columns:repeat(3,1fr); row-gap:26px; }
+  .timeline::before { display:none; }
+  .macro-dashboard { grid-template-columns:1fr; }
+  .donut-wrap { grid-template-columns:1fr; text-align:center; }
+  .phone-shell { width: 330px; height: 665px; }
+  .phone-screen { padding: 40px 16px 18px; }
+  .float-card { transform:scale(.88); }
+  .float-card.orange { top: 82px; left: -8px; }
+  .float-card.purple { top: 212px; right: -12px; }
+  .float-card.green { bottom: 26px; right: -12px; }
+}
+@media (max-width: 460px) {
+  .hero h1 { font-size: 48px; }
+  .hero-cta { align-items:stretch; }
+  .hero-cta .btn { width:100%; }
+  .visual-wrap { min-height: 705px; }
+  .phone-shell { width: 304px; height: 630px; border-radius: 48px; padding: 11px; }
+  .phone-shell::before { width: 92px; height: 27px; }
+  .calorie-card { grid-template-columns:1fr; }
+  .ring-chart { margin:0 auto; }
+  .phone-mini-grid { grid-template-columns:1fr; }
+  .macro-row { grid-template-columns:78px 1fr 45px; }
+  .float-card { display:none; }
+  .tabbar { display:none; }
+  .section { padding: 82px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Reusable Balencia mark approximation -->
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <symbol id="balencia-mark" viewBox="0 0 100 100">
+      <path d="M 8 57 A 42 42 0 0 1 92 57 L 92 92 L 8 92 Z" fill="currentColor"/>
+      <path d="M 18 48 L 70 22 A 30 30 0 0 1 78 60 L 30 80 A 28 28 0 0 1 18 48 Z" fill="currentColor"/>
+      <circle cx="48" cy="14" r="11" fill="currentColor"/>
+    </symbol>
+    <linearGradient id="orangeRing" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ff5e00"/>
+      <stop offset="1" stop-color="#ff9a45"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="nav-progress" id="nav-progress"></div>
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#top" aria-label="Balencia home">
+        <svg class="logo-mark"><use href="#balencia-mark"/></svg>
+        <span class="logo-wordmark">Balencia</span>
+      </a>
+      <ul class="nav-links">
+        <li><a class="nav-a" href="#features">Features</a></li>
+        <li><a class="nav-a" href="#nutrition">Nutrition</a></li>
+        <li><a class="nav-a" href="#how">How it works</a></li>
+        <li><a class="nav-a" href="#privacy">Privacy</a></li>
+        <li><a class="nav-a" href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-cta">
+        <button class="btn btn-secondary">Log in</button>
+        <button class="btn btn-primary">Get the App
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <button class="mobile-menu" aria-label="Open menu"><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-text reveal in-view">
+      <span class="eyebrow">AI-powered wellness intelligence</span>
+      <h1 class="display">The smarter way to a <span class="highlight">healthier</span> <span class="script">you.</span></h1>
+      <p class="lede">Balencia combines AI-powered fitness coaching, precision nutrition planning, mental wellbeing support, and connected health monitoring in one intelligent platform that learns what works for your body.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary">Start Free
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn btn-secondary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 5 20 12 7 19"/></svg>
+          See how it works
+        </button>
+      </div>
+      <div class="trust-mini">
+        <div class="avatar-stack" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <span>Trusted by 10,000+ professionals transforming lives every day.</span>
+      </div>
+    </div>
+
+    <div class="visual-wrap reveal in-view">
+      <div class="brand-orbit" aria-hidden="true">
+        <svg viewBox="0 0 640 720" preserveAspectRatio="none">
+          <path class="flow-orange" d="M-60,430 C130,300 160,410 280,240 C380,100 470,165 690,70"/>
+          <path class="flow-purple" d="M-50,520 C120,430 190,620 330,435 C460,265 520,455 700,330"/>
+        </svg>
+      </div>
+
+      <div class="float-card orange parallax">
+        <div class="float-title">Calories Burned</div>
+        <div class="float-value">615 <small>kcal</small></div>
+        <svg viewBox="0 0 160 52"><path class="mini-line" style="stroke:var(--orange)" d="M0,36 C18,34 25,21 43,28 C56,33 65,14 80,20 C99,25 105,36 124,22 C141,11 148,24 160,16"/></svg>
+      </div>
+
+      <div class="float-card purple parallax">
+        <div class="float-title">Weekly Average</div>
+        <div class="float-value">1,256 <small>kcal</small></div>
+        <svg viewBox="0 0 160 52"><path class="mini-line" style="stroke:var(--purple)" d="M0,40 C21,41 28,20 45,23 C59,25 65,39 82,31 C98,21 109,16 124,22 C138,29 145,18 160,20"/></svg>
+      </div>
+
+      <div class="float-card green parallax">
+        <div class="float-title">Recovery Balance</div>
+        <div class="float-value">82 <small>/100</small></div>
+        <svg viewBox="0 0 160 52"><path class="mini-line" style="stroke:var(--green)" d="M0,38 C28,30 30,17 48,22 C65,27 74,37 92,28 C110,17 120,15 135,21 C148,27 151,20 160,14"/></svg>
+      </div>
+
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <span class="status-icons">
+              <svg width="15" height="11" viewBox="0 0 14 10" fill="currentColor"><path d="M0 8h2v2H0zm4-2h2v4H4zm4-2h2v6H8zm4-3h2v9h-2z"/></svg>
+              <svg width="16" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M2 8.5a16 16 0 0 1 20 0M5 12.5a11 11 0 0 1 14 0M8.5 16a6 6 0 0 1 7 0"/></svg>
+              <span style="width:19px;height:9px;border:1px solid currentColor;border-radius:3px;display:inline-block;position:relative"><i style="position:absolute;left:2px;top:2px;width:12px;height:3px;background:currentColor;border-radius:2px"></i></span>
+            </span>
+          </div>
+
+          <div class="app-head">
+            <div>
+              <h3>Nutrition</h3>
+              <p>Today, May 14</p>
+            </div>
+            <div class="cal-btn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M8 2v5M16 2v5M3 10h18"/></svg></div>
+          </div>
+
+          <div class="app-card-ui calorie-card">
+            <div>
+              <div class="app-label">Calorie Intake</div>
+              <div class="app-number">1092 <small>/ 2100 kcal</small></div>
+              <div class="remaining">Remaining: <b>1008 kcal</b></div>
+            </div>
+            <div class="ring-chart">
+              <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42"/></svg>
+              <div class="ring-text">52%<span>of goal</span></div>
+            </div>
+          </div>
+
+          <div class="app-card-ui macro">
+            <div class="card-row-head"><b>Macronutrients</b><span>Details ›</span></div>
+            <div class="macro-row"><div class="name"><span class="dot-icon orange">P</span>Protein</div><div class="bar" style="--w:57%"><i></i></div><div class="pct">57%</div></div>
+            <div class="macro-row purple"><div class="name"><span class="dot-icon purple">C</span>Carbs</div><div class="bar purple" style="--w:48%"><i></i></div><div class="pct">48%</div></div>
+            <div class="macro-row green"><div class="name"><span class="dot-icon green">F</span>Fats</div><div class="bar green" style="--w:54%"><i></i></div><div class="pct">54%</div></div>
+          </div>
+
+          <div class="phone-mini-grid">
+            <div class="app-card-ui hydration">
+              <div class="card-row-head"><b>Hydration</b><span style="color:var(--orange-3)">72%</span></div>
+              <div class="app-number" style="font-size:22px">1.8 <small>/ 2.5 L</small></div>
+              <div class="cups"><span class="cup"></span><span class="cup"></span><span class="cup"></span><span class="cup"></span><span class="cup"></span><span class="cup"></span></div>
+            </div>
+            <div class="app-card-ui score-dial">
+              <div class="card-row-head" style="width:100%"><b>Nutrition Score</b></div>
+              <div class="score-ring"><b>87</b></div>
+              <div style="font-size:11px;color:var(--muted)">Excellent</div>
+            </div>
+          </div>
+
+          <div class="app-card-ui meals">
+            <div class="card-row-head"><b>Meal Progress</b><span>View all ›</span></div>
+            <div class="meal"><span>Breakfast</span><div class="bar" style="--w:78%"><i></i></div><span>320</span><span class="check">✓</span></div>
+            <div class="meal"><span>Lunch</span><div class="bar" style="--w:70%"><i></i></div><span>450</span><span class="check">✓</span></div>
+            <div class="meal"><span>Dinner</span><div class="bar purple" style="--w:56%"><i></i></div><span>322</span><span class="check">✓</span></div>
+          </div>
+
+          <div class="app-card-ui trend">
+            <div class="card-row-head"><b>Weekly Trend</b><span>7-day overview</span></div>
+            <svg viewBox="0 0 260 60" preserveAspectRatio="none">
+              <path class="axis" d="M0,10 H260 M0,30 H260 M0,50 H260"/>
+              <path class="area" d="M0,45 C28,30 52,42 78,25 C105,9 132,38 156,30 C185,18 204,44 228,36 C247,30 252,22 260,18 L260,60 L0,60 Z"/>
+              <path class="line" d="M0,45 C28,30 52,42 78,25 C105,9 132,38 156,30 C185,18 204,44 228,36 C247,30 252,22 260,18"/>
+            </svg>
+          </div>
+
+          <div class="tabbar">
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8v9a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/></svg>Home</div>
+            <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c3 3 5 6 5 10a5 5 0 0 1-10 0c0-4 2-7 5-10z"/></svg>Nutrition</div>
+            <div class="tab"><div class="plus"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg></div></div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-8M22 19V3"/></svg>Progress</div>
+            <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="trust-strip">
+  <div class="container trust-grid">
+    <div class="trust-stat">
+      <div class="num" data-count="10000">0</div>
+      <div class="label">professionals trust Balencia daily</div>
+    </div>
+    <div class="integrations" aria-label="Compatible tools">
+      <span>Apple Watch</span><span>Oura</span><span>Garmin</span><span>Whoop</span><span>Fitbit</span><span>Polar</span>
+    </div>
+    <div>
+      <div class="stars">★★★★★</div>
+      <div style="color:var(--muted);font-size:12px;margin-top:2px">4.8 average rating</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The shift</span>
+      <h2 class="display">Most apps show data. We show <em>what to do next.</em></h2>
+      <p>Balencia turns separate health signals into one clear daily action plan, so you can train, eat, recover, and sleep with confidence.</p>
+    </div>
+
+    <div class="toggle reveal">
+      <div class="toggle-pill" id="toggle-pill"></div>
+      <button id="t-before">Before Balencia</button>
+      <button id="t-after" class="active">With Balencia</button>
+    </div>
+
+    <div class="compare-grid reveal">
+      <div class="compare-card before" id="before-card">
+        <h3>Before <span class="badge">scattered</span></h3>
+        <ul>
+          <li>Too many charts, no clear direction.</li>
+          <li>Uncertainty about training versus recovery.</li>
+          <li>Nutrition, sleep, and workout context split across apps.</li>
+          <li>Manual logging that drains your day.</li>
+        </ul>
+      </div>
+      <div class="compare-card after" id="after-card">
+        <h3>With Balencia <span class="badge">clarity</span></h3>
+        <ul>
+          <li>One daily readiness view, ready in seconds.</li>
+          <li>Actionable coaching from your own signals.</li>
+          <li>Wearables, labs, nutrition, and habits in one place.</li>
+          <li>Adapts as your body and goals evolve.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">The daily three</span>
+      <h2 class="display">Start every day with <em>clarity.</em></h2>
+      <p>Orange leads the experience as your action color; purple supports intelligence and sleep; green appears only for recovery and positive states.</p>
+    </div>
+    <div class="metrics-grid">
+      <article class="metric-card strain reveal">
+        <div class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3>Stress</h3>
+        <p>Track how hard you are pushing with one number that captures daily effort and exertion.</p>
+        <div class="metric-chart"><svg viewBox="0 0 240 80" preserveAspectRatio="none"><path class="area" d="M0,62 C28,50 44,33 68,38 C96,44 106,25 130,30 C160,36 178,18 204,22 C224,25 230,12 240,8 L240,80 L0,80 Z"/><path class="line" d="M0,62 C28,50 44,33 68,38 C96,44 106,25 130,30 C160,36 178,18 204,22 C224,25 230,12 240,8"/></svg></div>
+        <div class="stat-row"><span class="big">78<span>/100</span></span><span>Elevated</span></div>
+      </article>
+      <article class="metric-card sleep reveal">
+        <div class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+        <h3>Sleep</h3>
+        <p>Know how last night affects today with sleep quality, deep sleep, rhythm, and recovery trends.</p>
+        <div class="metric-chart"><svg viewBox="0 0 240 80" preserveAspectRatio="none"><path class="area" d="M0,50 C24,22 54,28 72,38 C100,54 116,32 142,28 C172,24 188,46 210,36 C226,29 234,18 240,16 L240,80 L0,80 Z"/><path class="line" d="M0,50 C24,22 54,28 72,38 C100,54 116,32 142,28 C172,24 188,46 210,36 C226,29 234,18 240,16"/></svg></div>
+        <div class="stat-row"><span class="big">7h<span>48m</span></span><span>Deep</span></div>
+      </article>
+      <article class="metric-card recovery reveal">
+        <div class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C12 4 5 10 5 18c8 0 15-6 15-14z"/><path d="M5 18c3-6 7-9 15-14"/></svg></div>
+        <h3>Recovery</h3>
+        <p>See whether you are ready to tackle the day or need to slow down and let your body recover.</p>
+        <div class="metric-chart"><svg viewBox="0 0 240 80" preserveAspectRatio="none"><path class="area" d="M0,66 C28,48 50,56 70,38 C94,16 116,28 140,24 C160,20 176,46 196,30 C220,12 232,18 240,10 L240,80 L0,80 Z"/><path class="line" d="M0,66 C28,48 50,56 70,38 C94,16 116,28 140,24 C160,20 176,46 196,30 C220,12 232,18 240,10"/></svg></div>
+        <div class="stat-row"><span class="big">82<span>/100</span></span><span>Good</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="coach">
+  <div class="container coach-grid">
+    <div class="coach-copy reveal">
+      <span class="eyebrow">AI coach</span>
+      <h2 class="display" style="font-size:clamp(36px,4.8vw,62px);margin-top:18px">A daily plan that adapts to your body.</h2>
+      <p>Balencia reads your wearable, sleep, activity, nutrition, and lab patterns to tell you when to push, when to recover, and what to adjust next.</p>
+      <p>Use it as your always-on health intelligence layer — clear, specific, and built around your personal baseline.</p>
+    </div>
+    <div class="coach-console reveal">
+      <div class="console-top">
+        <span class="live-dot">Live coaching</span>
+        <svg class="logo-mark" style="width:28px;height:28px;color:var(--orange)"><use href="#balencia-mark"/></svg>
+      </div>
+      <div class="bubble user">My sleep was poor but I planned a heavy workout. What should I do?</div>
+      <div class="bubble ai"><span class="ai-pill">Balencia</span>Your recovery is down 12% and stress is elevated. Switch to a 35-minute zone 2 session and add hydration before lunch.</div>
+      <div class="bubble user">What should I eat after?</div>
+      <div class="bubble ai"><span class="ai-pill">Plan</span>Target 35g protein, slow carbs, and magnesium-rich foods. Your calorie goal still has <b>1008 kcal</b> available.</div>
+      <div class="console-input">Ask Balencia anything about today<span class="caret"></span><span class="console-send"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="nutrition">
+  <div class="container nutrition-grid">
+    <div class="nutri-panel reveal">
+      <div class="macro-dashboard">
+        <div class="dash-card wide">
+          <div class="dash-title"><span>Nutrition breakdown</span><span>Today</span></div>
+          <div class="donut-wrap">
+            <div class="donut" aria-hidden="true"></div>
+            <div class="legend-list">
+              <div class="legend-item"><span class="swatch"></span><span>Protein</span><strong>32%</strong></div>
+              <div class="legend-item"><span class="swatch purple"></span><span>Carbs</span><strong>47%</strong></div>
+              <div class="legend-item"><span class="swatch green"></span><span>Fats</span><strong>21%</strong></div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-title"><span>Calories left</span></div>
+          <div class="dash-value">1008</div>
+          <div style="color:var(--muted);font-size:12px">kcal remaining</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-title"><span>Hydration</span></div>
+          <div class="dash-value">72%</div>
+          <div style="color:var(--muted);font-size:12px">on track today</div>
+        </div>
+        <div class="dash-card wide">
+          <div class="dash-title"><span>Top nutrients</span><span>% daily value</span></div>
+          <div class="nutri-bars">
+            <div class="macro-row"><div class="name">Fiber</div><div class="bar" style="--w:78%"><i></i></div><div class="pct">78%</div></div>
+            <div class="macro-row"><div class="name">Vitamin C</div><div class="bar" style="--w:92%"><i></i></div><div class="pct">92%</div></div>
+            <div class="macro-row purple"><div class="name">Magnesium</div><div class="bar purple" style="--w:65%"><i></i></div><div class="pct">65%</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Nutrition monitoring</span>
+      <h2 class="display" style="font-size:clamp(36px,4.8vw,62px);margin-top:18px">Fuel decisions, not food guilt.</h2>
+      <p style="color:var(--muted);font-size:17px;line-height:1.75;margin-top:18px">Monitor calories, macros, hydration, meal timing, and nutrient gaps in one screen. Balencia converts the numbers into simple actions for better energy and recovery.</p>
+      <ul class="nutri-benefits">
+        <li>Live calorie goal progress with orange action states.</li>
+        <li>Macro balance for protein, carbs, and fats.</li>
+        <li>Nutrient gaps and hydration cues connected to your recovery.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Labs + biomarkers</span>
+      <h2 class="display">Connect the long-term signals.</h2>
+      <p>Upload lab reports or sync compatible providers, then track how your habits and training impact key biomarkers over time.</p>
+    </div>
+    <div class="labs-card reveal">
+      <div class="labs-top">
+        <h3>Biomarker timeline</h3>
+        <div class="legend"><span><i></i> Metabolic</span><span class="purple"><i></i> Sleep</span><span class="green"><i></i> Recovery</span></div>
+      </div>
+      <div class="timeline">
+        <div class="tpoint"><div class="month">Jan</div><div class="mark"></div><div class="val">5.8</div><div class="unit">HbA1c</div></div>
+        <div class="tpoint"><div class="month">Feb</div><div class="mark"></div><div class="val">5.6</div><div class="unit">HbA1c</div></div>
+        <div class="tpoint"><div class="month">Mar</div><div class="mark"></div><div class="val">5.4</div><div class="unit">HbA1c</div></div>
+        <div class="tpoint"><div class="month">Apr</div><div class="mark"></div><div class="val">7.6h</div><div class="unit">Sleep avg</div></div>
+        <div class="tpoint"><div class="month">May</div><div class="mark"></div><div class="val">82</div><div class="unit">Recovery</div></div>
+        <div class="tpoint"><div class="month">Jun</div><div class="mark"></div><div class="val">88</div><div class="unit">Score</div></div>
+      </div>
+      <div class="bio-grid">
+        <div class="bio"><div class="name">Glucose</div><div class="val">92</div><span class="delta good">↓ stable</span></div>
+        <div class="bio"><div class="name">Vitamin D</div><div class="val">42</div><span class="delta">+8</span></div>
+        <div class="bio"><div class="name">Resting HR</div><div class="val">58</div><span class="delta good">↓ 4 bpm</span></div>
+        <div class="bio"><div class="name">HRV</div><div class="val">71</div><span class="delta">+12%</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="how">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="display">From raw signals to a clear daily plan.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">1</div><h3>Connect your data</h3><p>Sync wearables, workouts, sleep trackers, nutrition logs, and lab reports in minutes.</p></div>
+      <div class="step reveal"><div class="num">2</div><h3>Build your baseline</h3><p>Balencia learns your normal patterns, stress load, recovery windows, and health goals.</p></div>
+      <div class="step reveal"><div class="num">3</div><h3>Act with clarity</h3><p>Get daily guidance for training, meals, recovery, and habit decisions without decision fatigue.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark-panel" id="privacy">
+  <div class="container privacy-grid">
+    <div class="reveal">
+      <span class="eyebrow">Privacy first</span>
+      <h2 class="display" style="font-size:clamp(36px,4.8vw,62px);margin-top:18px">Your health data stays protected.</h2>
+      <p style="color:var(--muted);font-size:17px;line-height:1.75;margin-top:18px">Balencia is designed around permission control, secure storage, and transparent data use. You decide what connects and what stays private.</p>
+      <ul class="privacy-list">
+        <li><span class="lock">✓</span>Encrypted health data in transit and at rest.</li>
+        <li><span class="lock">✓</span>Granular controls for every connected source.</li>
+        <li><span class="lock">✓</span>Free export and clear cancellation path.</li>
+      </ul>
+    </div>
+    <div class="security-grid reveal">
+      <div class="security-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><h4>Secure by design</h4><p>Strong controls for sensitive wellness and health information.</p></div>
+      <div class="security-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><h4>Permission-based</h4><p>Connect only the tools and data sources you choose.</p></div>
+      <div class="security-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><h4>Clear control</h4><p>Export your data and adjust access without friction.</p></div>
+      <div class="security-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><h4>Always visible</h4><p>Understand exactly what Balencia uses to guide you.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section testimonials">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Testimonials</span>
+      <h2 class="display">Guidance that feels personal.</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="quote-card reveal"><p>Balencia helped me understand why my training felt inconsistent. Now I know when to push and when to recover.</p><div class="author"><div class="avatar">M</div><div><div class="name">Maya</div><div class="role">Runner & founder</div></div></div></div>
+      <div class="quote-card reveal"><p>The nutrition screen made the biggest difference. I stopped guessing and started seeing how meals affected my energy.</p><div class="author"><div class="avatar">A</div><div><div class="name">Adam</div><div class="role">Product manager</div></div></div></div>
+      <div class="quote-card reveal"><p>It pulls together sleep, labs, and workouts in a way that actually makes sense every morning.</p><div class="author"><div class="avatar">S</div><div><div class="name">Sara</div><div class="role">Wellness coach</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container faq-grid">
+    <div class="section-head reveal" style="margin-bottom:0">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="display">Questions before you start?</h2>
+      <p>Clear answers for integrations, labs, privacy, and cancellation.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open"><button class="faq-q">Which devices do you support?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Apple Watch, Oura Ring, Garmin, Whoop, Fitbit, Polar, and most modern sleep and continuous glucose monitors. New integrations can be added as the product grows.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Can I import lab reports?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Yes. Upload lab reports and use Balencia to organize biomarker trends alongside sleep, nutrition, and activity data.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Is this medical advice?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">No. Balencia provides personalized wellness guidance based on your data. It does not diagnose, treat, or replace care from licensed clinicians.</div></div></div>
+      <div class="faq-item"><button class="faq-q">How is my data protected?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">The experience is designed for encryption, permission control, and transparent data use. You choose what to connect and can export your data.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Can I cancel anytime?<span class="faq-icon"></span></button><div class="faq-a"><div class="faq-a-inner">Yes. Cancel directly in-app without calls or friction, and keep the ability to export your data.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container final-grid">
+    <div>
+      <span class="eyebrow">One step today</span>
+      <h2 class="display" style="margin-top:18px">Turn health data into <em>daily progress.</em></h2>
+      <p>Start with one step today. Balencia adapts as your body and goals evolve — no spreadsheets, no scattered dashboards, no decision fatigue.</p>
+      <button class="btn btn-primary" style="font-size:16px;padding:18px 28px">Start Free
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <div class="download-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:15px"><div><div class="mono" style="color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.12em">Available on</div><div class="display" style="font-size:30px;margin-top:4px">iOS · Android</div></div><svg class="logo-mark" style="color:var(--orange);width:34px;height:34px"><use href="#balencia-mark"/></svg></div>
+      <div class="qr" aria-label="Decorative QR placeholder"></div>
+      <div class="small">Scan to download the Balencia app</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-brand"><svg class="logo-mark"><use href="#balencia-mark"/></svg><span class="logo-wordmark">Balencia</span></div>
+        <p>Your connected life coach — turning everyday signals into daily clarity.</p>
+      </div>
+      <div><h5>Product</h5><ul><li><a href="#features">Features</a></li><li><a href="#nutrition">Nutrition</a></li><li><a href="#how">How it works</a></li><li><a href="#">Pricing</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div><h5>Trust</h5><ul><li><a href="#privacy">Privacy</a></li><li><a href="#">Security</a></li><li><a href="#">Terms</a></li><li><a href="#faq">Support</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Balencia, Inc. All rights reserved.</span><span>Made for human bodies · Not a medical device</span></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+const progress = document.getElementById('nav-progress');
+const links = [...document.querySelectorAll('.nav-a')];
+const linkSections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+function onScroll(){
+  const y = scrollY;
+  nav.classList.toggle('scrolled', y > 80);
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progress.style.width = max > 0 ? (y / max * 100) + '%' : '0%';
+  let current = '';
+  linkSections.forEach(sec => { if(sec.getBoundingClientRect().top < 180) current = sec.id; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+}
+addEventListener('scroll', onScroll, { passive:true });
+onScroll();
+
+const reveals = document.querySelectorAll('.reveal, .metric-card, .labs-card, .coach-console');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('in-view'); io.unobserve(entry.target); } });
+}, { threshold:.16 });
+reveals.forEach(el => io.observe(el));
+
+const counter = document.querySelector('[data-count]');
+let counted = false;
+function animateCounter(){
+  if(!counter || counted) return;
+  if(counter.getBoundingClientRect().top < innerHeight - 80){
+    counted = true;
+    const target = Number(counter.dataset.count || 10000);
+    const start = performance.now();
+    const dur = 1300;
+    function step(now){
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      counter.textContent = Math.floor(target * eased).toLocaleString() + '+';
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+}
+addEventListener('scroll', animateCounter, { passive:true });
+animateCounter();
+
+const tBefore = document.getElementById('t-before');
+const tAfter = document.getElementById('t-after');
+const togglePill = document.getElementById('toggle-pill');
+const beforeCard = document.getElementById('before-card');
+const afterCard = document.getElementById('after-card');
+function setToggle(which){
+  const active = which === 'after' ? tAfter : tBefore;
+  const inactive = which === 'after' ? tBefore : tAfter;
+  active.classList.add('active'); inactive.classList.remove('active');
+  togglePill.style.width = active.offsetWidth + 'px';
+  togglePill.style.transform = `translateX(${active.offsetLeft - 5}px)`;
+  beforeCard.style.opacity = which === 'before' ? '1' : '.55';
+  afterCard.style.opacity = which === 'after' ? '1' : '.55';
+}
+[tBefore, tAfter].forEach(btn => btn.addEventListener('click', () => setToggle(btn === tAfter ? 'after' : 'before')));
+addEventListener('load', () => setToggle('after'));
+setTimeout(() => setToggle('after'), 80);
+
+for (const btn of document.querySelectorAll('.faq-q')) {
+  btn.addEventListener('click', () => btn.closest('.faq-item').classList.toggle('open'));
+}
+
+const hero = document.querySelector('.hero');
+const parallaxItems = document.querySelectorAll('.parallax');
+if(hero && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+  hero.addEventListener('mousemove', e => {
+    const rect = hero.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - .5;
+    const y = (e.clientY - rect.top) / rect.height - .5;
+    parallaxItems.forEach((el, i) => {
+      const f = (i + 1) * 10;
+      el.style.transform = `translate(${x * f}px, ${y * f}px)`;
+    });
+  });
+  hero.addEventListener('mouseleave', () => parallaxItems.forEach(el => el.style.transform = ''));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — Batch 3: Core Product</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink-900:#0A0A0F;--ink-brown:#211008;--brand-orange:#FF5E00;--forest-green:#34A853;--royal-purple:#7F24FF;--error-red:#F44336;--white:#FFFFFF;--phone-w:393px;--phone-h:852px;--bezel:12px;--frame-r:54px}
+html{font-family:'Sora',sans-serif;background:#090909;color:var(--white);overflow-x:hidden}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center}
+.page-header{text-align:center;padding:48px 24px 24px;width:100%;max-width:1200px}.page-header h1{font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}.page-header h2{font-size:32px;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 40%,var(--brand-orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.batch-label{display:inline-block;margin-top:12px;padding:6px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,94,0,.12);color:var(--brand-orange);border:1px solid rgba(255,94,0,.2)}
+.carousel-wrap{position:relative;width:100%;max-width:1200px;display:flex;flex-direction:column;align-items:center;padding:0 60px}.carousel-viewport{width:100%;overflow:hidden;position:relative}.carousel-track{display:flex;transition:transform .55s cubic-bezier(.22,1,.36,1);will-change:transform}.carousel-slide{min-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px 0 0}
+.screen-label{text-align:center;margin-bottom:20px}.screen-label .num{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-orange)}.screen-label .name{font-size:20px;font-weight:600;color:#fff;margin-top:4px}
+.nav-arrow{position:absolute;top:50%;transform:translateY(-70%);z-index:20;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(17,17,17,.85);backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;color:rgba(255,255,255,.6)}.nav-arrow:hover{border-color:var(--brand-orange);color:var(--brand-orange)}.nav-arrow.prev{left:4px}.nav-arrow.next{right:4px}.nav-arrow:disabled{opacity:.25;pointer-events:none}
+.thumb-strip{display:flex;gap:12px;justify-content:center;margin:32px 0 48px;flex-wrap:wrap}.thumb{width:56px;height:120px;border-radius:14px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .3s;position:relative;background:#1a1a1a;display:flex;align-items:center;justify-content:center}.thumb:hover{border-color:rgba(255,94,0,.4)}.thumb.active{border-color:var(--brand-orange);box-shadow:0 0 16px rgba(255,94,0,.2)}.thumb-num{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:rgba(255,255,255,.5)}
+.device{position:relative;width:calc(var(--phone-w) + var(--bezel)*2);height:calc(var(--phone-h) + var(--bezel)*2);border-radius:var(--frame-r);background:linear-gradient(165deg,#3a3a3c 0%,#1c1c1e 40%,#2c2c2e 100%);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1);padding:var(--bezel);flex-shrink:0}.device-inner{width:var(--phone-w);height:var(--phone-h);border-radius:calc(var(--frame-r) - var(--bezel));overflow:hidden;position:relative;background:var(--ink-900)}
+.dynamic-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#000;border-radius:24px;z-index:20}.home-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);z-index:10}
+.status-bar{position:absolute;top:0;left:0;right:0;height:44px;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 24px 0;font-size:15px;font-weight:600;color:#fff}.status-icons{display:flex;align-items:center;gap:6px}.status-icons svg{width:16px;height:16px;fill:#fff}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;font-family:'Sora',sans-serif;overflow-y:auto;overflow-x:hidden;background:var(--ink-900);scrollbar-width:none}.screen::-webkit-scrollbar{display:none}
+.sp-4{height:4px}.sp-8{height:8px}.sp-12{height:12px}.sp-16{height:16px}.sp-24{height:24px}.sp-32{height:32px}
+.card{background:var(--ink-brown);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px;width:100%}
+.sia-card{border-left:3px solid var(--royal-purple)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.cta-btn{width:100%;height:56px;border-radius:999px;border:none;cursor:pointer;font-size:17px;font-weight:600;font-family:'Sora',sans-serif;display:flex;align-items:center;justify-content:center;background:var(--brand-orange);color:#fff;box-shadow:0 4px 20px rgba(255,94,0,.25)}
+.tab-bar{position:absolute;bottom:0;left:0;right:0;height:90px;background:var(--ink-900);border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:flex-start;justify-content:space-around;padding-top:8px;z-index:15}.tab-item{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,.6);cursor:pointer}.tab-item.active{color:var(--brand-orange)}.tab-item svg{width:24px;height:24px}
+.back-btn{position:absolute;left:16px;top:54px;width:44px;height:44px;z-index:10;display:flex;align-items:center;justify-content:center}
+.sia-avatar{width:28px;height:28px;min-width:28px;border-radius:50%;background:linear-gradient(135deg,var(--royal-purple),rgba(127,36,255,.5));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;box-shadow:0 0 12px rgba(127,36,255,.3)}
+.domain-chip{height:24px;padding:0 10px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600}
+.suggest-chip{height:36px;padding:0 16px;border-radius:999px;background:rgba(255,94,0,.1);border:1px solid rgba(255,94,0,.25);color:var(--brand-orange);font-size:13px;font-weight:500;display:flex;align-items:center}
+.input-bar{display:flex;gap:8px;padding:8px 16px;align-items:center}.input-bar-field{flex:1;height:44px;border-radius:22px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);padding:0 16px;font-size:15px;color:rgba(255,255,255,.4);display:flex;align-items:center}
+.fab{position:absolute;bottom:100px;right:16px;width:56px;height:56px;border-radius:50%;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;z-index:16;box-shadow:0 4px 16px rgba(255,94,0,.3);cursor:pointer}
+.progress-ring{position:relative;display:flex;align-items:center;justify-content:center}
+.progress-ring svg{transform:rotate(-90deg)}
+.progress-ring .label{position:absolute;font-weight:600;color:#fff}
+.filter-chip{height:36px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:600;display:flex;align-items:center;cursor:pointer}
+.filter-chip.active{background:var(--brand-orange);color:#fff}
+.filter-chip.inactive{background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+.action-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.action-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--brand-orange);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.modal-handle{width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.2);margin:0 auto}
+.input-field{width:100%;height:52px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;padding:0 16px;font-size:16px;color:rgba(255,255,255,.4)}
+.xp-bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;width:100%}.xp-fill{height:100%;border-radius:4px;background:var(--brand-orange)}
+@keyframes pulse-ring{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.6}}
+@media(max-width:520px){:root{--phone-w:340px;--phone-h:736px;--bezel:10px;--frame-r:48px}.page-header h2{font-size:24px}.carousel-wrap{padding:0 16px}.nav-arrow{width:36px;height:36px}.nav-arrow.prev{left:0}.nav-arrow.next{right:0}}
+</style>
+</head>
+<body>
+<header class="page-header"><h1>Balencia Design System</h1><h2>Batch 3 — Core Product</h2><span class="batch-label">Screens 11 – 15b</span></header>
+<section class="carousel-wrap">
+<button class="nav-arrow prev" onclick="go(-1)" disabled><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></button>
+<button class="nav-arrow next" onclick="go(1)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4L13 10L7 16"/></svg></button>
+<div class="carousel-viewport"><div class="carousel-track" id="track">
+
+<!-- ═══ 11: VOICE FULL-SCREEN ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 11</div><div class="name">SIA Voice Full-Screen</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="align-items:center;justify-content:center;overflow:hidden">
+  <!-- close button -->
+  <div style="position:absolute;top:54px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;z-index:10;cursor:pointer"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></div>
+  <!-- ambient glow -->
+  <div style="position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(127,36,255,.15) 0%,transparent 70%);pointer-events:none;z-index:1"></div>
+  <!-- ambient particle dots -->
+  <div style="position:absolute;width:240px;height:240px;pointer-events:none;z-index:1">
+    <div style="position:absolute;top:15%;left:10%;width:4px;height:4px;border-radius:50%;background:rgba(255,165,0,.3)"></div>
+    <div style="position:absolute;top:70%;left:15%;width:3px;height:3px;border-radius:50%;background:rgba(255,140,0,.2)"></div>
+    <div style="position:absolute;top:20%;right:12%;width:5px;height:5px;border-radius:50%;background:rgba(255,180,80,.25)"></div>
+    <div style="position:absolute;top:75%;right:10%;width:3px;height:3px;border-radius:50%;background:rgba(255,200,100,.4)"></div>
+    <div style="position:absolute;top:8%;left:50%;width:4px;height:4px;border-radius:50%;background:rgba(255,160,60,.2)"></div>
+    <div style="position:absolute;bottom:10%;left:45%;width:5px;height:5px;border-radius:50%;background:rgba(255,120,0,.3)"></div>
+  </div>
+  <!-- SIA avatar with concentric rings -->
+  <div style="position:relative;display:flex;align-items:center;justify-content:center;z-index:2">
+    <!-- outer ring 160px -->
+    <div style="position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(127,36,255,.1);animation:pulse-ring 3s ease-in-out infinite"></div>
+    <!-- middle ring 140px -->
+    <div style="position:absolute;width:140px;height:140px;border-radius:50%;background:rgba(127,36,255,.15);animation:pulse-ring 3s ease-in-out .5s infinite"></div>
+    <!-- inner ring 120px -->
+    <div style="position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(127,36,255,.2);animation:pulse-ring 3s ease-in-out 1s infinite"></div>
+    <!-- core avatar circle -->
+    <div style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#7F24FF,#9B4DFF);display:flex;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(127,36,255,.3);position:relative">
+      <div style="font-size:36px;font-weight:700;color:#fff">S</div>
+    </div>
+  </div>
+  <div class="sp-12"></div>
+  <!-- listening state label -->
+  <div style="font-size:14px;color:rgba(255,255,255,.6);text-align:center;position:relative;z-index:2">Listening...</div>
+  <div class="sp-24"></div>
+  <!-- transcription -->
+  <div style="text-align:center;padding:0 32px;position:relative;z-index:2">
+    <div style="font-size:18px;color:rgba(255,255,255,.8);line-height:1.5;max-width:300px">What should I focus on for my run today?</div>
+  </div>
+  <div class="sp-24"></div>
+  <!-- waveform -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:3px;height:40px;position:relative;z-index:2">
+    <div style="width:3px;height:8px;border-radius:2px;background:var(--brand-orange);opacity:.5"></div>
+    <div style="width:3px;height:14px;border-radius:2px;background:var(--brand-orange);opacity:.6"></div>
+    <div style="width:3px;height:24px;border-radius:2px;background:var(--brand-orange);opacity:.7"></div>
+    <div style="width:3px;height:32px;border-radius:2px;background:var(--brand-orange);opacity:.8"></div>
+    <div style="width:3px;height:38px;border-radius:2px;background:var(--brand-orange)"></div>
+    <div style="width:3px;height:28px;border-radius:2px;background:var(--brand-orange);opacity:.8"></div>
+    <div style="width:3px;height:36px;border-radius:2px;background:var(--brand-orange);opacity:.9"></div>
+    <div style="width:3px;height:20px;border-radius:2px;background:var(--brand-orange);opacity:.7"></div>
+    <div style="width:3px;height:30px;border-radius:2px;background:var(--brand-orange);opacity:.8"></div>
+    <div style="width:3px;height:16px;border-radius:2px;background:var(--brand-orange);opacity:.6"></div>
+    <div style="width:3px;height:10px;border-radius:2px;background:var(--brand-orange);opacity:.5"></div>
+    <div style="width:3px;height:22px;border-radius:2px;background:var(--brand-orange);opacity:.7"></div>
+    <div style="width:3px;height:34px;border-radius:2px;background:var(--brand-orange)"></div>
+    <div style="width:3px;height:26px;border-radius:2px;background:var(--brand-orange);opacity:.8"></div>
+    <div style="width:3px;height:18px;border-radius:2px;background:var(--brand-orange);opacity:.6"></div>
+    <div style="width:3px;height:12px;border-radius:2px;background:var(--brand-orange);opacity:.5"></div>
+  </div>
+  <div class="sp-32"></div>
+  <!-- mute button -->
+  <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;z-index:2">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 2a3 3 0 00-3 3v6a3 3 0 006 0V5a3 3 0 00-3-3z"/><path d="M19 10v1a7 7 0 01-14 0v-1"/></svg>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 12: HOME SCREEN ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 12</div><div class="name">Home Screen</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <!-- sticky header -->
+  <div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+    <div><div style="font-size:14px;color:rgba(255,255,255,.5)">Good morning</div><div style="font-size:24px;font-weight:700;color:#fff">Amira</div></div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="background:rgba(255,94,0,.15);color:var(--brand-orange);font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px">LVL 3</div>
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M11 7v4l2.5 1.5"/></svg>
+    </div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+    <!-- SIA greeting card -->
+    <div class="card sia-card">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div class="sia-avatar" style="width:24px;height:24px;min-width:24px;font-size:10px">S</div>
+        <div><div style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.4">Your sleep improved 15% this week. That correlates with your afternoon productivity. Keep it up!</div>
+        <div style="font-size:12px;color:var(--brand-orange);margin-top:6px;cursor:pointer">ask SIA more →</div></div>
+      </div>
+      <!-- mood chips -->
+      <div style="display:flex;gap:8px;margin-top:10px;padding-left:34px">
+        <div style="width:36px;height:28px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">😊</div>
+        <div style="width:36px;height:28px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">😐</div>
+        <div style="width:36px;height:28px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">😔</div>
+        <div style="width:36px;height:28px;border-radius:14px;background:var(--ink-brown);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">⚡</div>
+      </div>
+    </div>
+    <!-- inline insight -->
+    <div style="font-size:13px;color:rgba(255,255,255,.6);font-style:italic;padding:0 4px">💡 Sleep quality drops 30% on days you skip exercise</div>
+    <!-- Today's Actions -->
+    <div class="eyebrow">TODAY'S ACTIONS</div>
+    <!-- action card 1 -->
+    <div class="card" style="border-left:3px solid #EF4444">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="action-check"></div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:#fff">30-min morning run</div>
+          <div style="display:flex;gap:6px;margin-top:6px"><div class="domain-chip" style="background:rgba(239,68,68,.15);color:#EF4444;font-size:10px;height:20px;padding:0 8px">fitness</div><div style="font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center">+25 XP</div></div>
+        </div>
+      </div>
+      <!-- expanded state: SIA reasoning -->
+      <div style="border-top:1px solid rgba(255,255,255,.08);margin-top:10px;padding-top:10px">
+        <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.45">This is next because consistency early in the week builds momentum.</div>
+        <div style="font-size:13px;color:var(--brand-orange);margin-top:6px;cursor:pointer">ask SIA more</div>
+      </div>
+    </div>
+    <!-- action card 2 -->
+    <div class="card" style="border-left:3px solid #84CC16">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="action-check"></div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:600;color:#fff">Log breakfast</div>
+          <div style="display:flex;gap:6px;margin-top:6px"><div class="domain-chip" style="background:rgba(132,204,22,.15);color:#84CC16;font-size:10px;height:20px;padding:0 8px">nutrition</div><div style="font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center">+10 XP</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- action card 3 -->
+    <div class="card" style="border-left:3px solid #10B981">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="action-check" style="border-color:var(--forest-green);background:var(--forest-green)"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div style="flex:1;opacity:.5">
+          <div style="font-size:15px;font-weight:600;color:#fff;text-decoration:line-through">Review monthly budget</div>
+          <div style="display:flex;gap:6px;margin-top:6px"><div class="domain-chip" style="background:rgba(16,185,129,.15);color:#10B981;font-size:10px;height:20px;padding:0 8px">finance</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Active Goals -->
+    <div class="eyebrow" style="margin-top:8px">ACTIVE GOALS</div>
+    <div style="display:flex;gap:16px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none">
+      <!-- goal ring 1 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px">
+        <div class="progress-ring"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="24" cy="24" r="20" fill="none" stroke="var(--brand-orange)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="50" stroke-linecap="round"/></svg><div class="label" style="font-size:12px">60%</div></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center">Half<br>marathon</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px">
+        <div class="progress-ring"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="24" cy="24" r="20" fill="none" stroke="var(--brand-orange)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="88" stroke-linecap="round"/></svg><div class="label" style="font-size:12px">30%</div></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center">Save<br>$5,000</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px">
+        <div class="progress-ring"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="24" cy="24" r="20" fill="none" stroke="var(--forest-green)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="0" stroke-linecap="round"/></svg><div class="label" style="font-size:12px">✓</div></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center">Eat<br>clean</div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Goals</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 13: GOALS LIST ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 13</div><div class="name">Goals List</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div style="padding:16px">
+    <div style="font-size:28px;font-weight:700;color:#fff">your missions</div>
+  </div>
+  <!-- filter row -->
+  <div style="display:flex;gap:8px;padding:0 16px;overflow-x:auto;scrollbar-width:none;margin-bottom:16px">
+    <div class="filter-chip active">all</div>
+    <div class="filter-chip inactive">active</div>
+    <div class="filter-chip inactive">completed</div>
+    <div class="filter-chip inactive">by domain</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none">
+    <!-- goal card 1 -->
+    <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+      <div class="progress-ring"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="24" cy="24" r="20" fill="none" stroke="var(--brand-orange)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="50" stroke-linecap="round"/></svg><div class="label" style="font-size:12px">60%</div></div>
+      <div style="flex:1">
+        <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:6px">Run a half marathon</div>
+        <div style="display:flex;gap:6px;margin-bottom:8px"><div class="domain-chip" style="background:rgba(239,68,68,.15);color:#EF4444">fitness</div></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.5)">Next: Build to 8K distance</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.3);margin-top:4px;font-style:italic">SIA: "You're ahead of schedule."</div>
+        <div style="display:flex;gap:8px;margin-top:6px;align-items:center"><div style="font-size:11px;color:var(--brand-orange)">🔥 12 day streak</div><div style="font-size:11px;color:rgba(255,255,255,.4)">+450 XP</div></div>
+      </div>
+    </div>
+    <!-- goal card 2 -->
+    <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+      <div class="progress-ring"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="24" cy="24" r="20" fill="none" stroke="var(--brand-orange)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="88" stroke-linecap="round"/></svg><div class="label" style="font-size:12px">30%</div></div>
+      <div style="flex:1">
+        <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:6px">Save $5,000</div>
+        <div style="display:flex;gap:6px;margin-bottom:8px"><div class="domain-chip" style="background:rgba(16,185,129,.15);color:#10B981">finance</div></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.5)">Next: Set up auto-save</div>
+        <div style="display:flex;gap:8px;margin-top:6px"><div style="font-size:11px;color:rgba(255,255,255,.4)">+180 XP</div></div>
+      </div>
+    </div>
+    <!-- goal card 3 -->
+    <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+      <div class="progress-ring"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="24" cy="24" r="20" fill="none" stroke="var(--forest-green)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="0" stroke-linecap="round"/></svg><div class="label" style="font-size:12px;color:var(--forest-green)">✓</div></div>
+      <div style="flex:1;opacity:.6">
+        <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:6px">Eat clean 5 days/week</div>
+        <div style="display:flex;gap:6px;margin-bottom:8px"><div class="domain-chip" style="background:rgba(132,204,22,.15);color:#84CC16">nutrition</div></div>
+        <div style="font-size:13px;color:var(--forest-green)">Completed!</div>
+      </div>
+    </div>
+  </div>
+  <div class="fab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke="#0A0A0F" stroke-width="2" fill="none"/></svg>Goals</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 14: GOAL DETAIL ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 14</div><div class="name">Goal Detail</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px;padding-bottom:90px">
+  <div class="back-btn" style="top:50px"><svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M13 4L7 10L13 16"/></svg></div>
+  <div style="height:48px;display:flex;align-items:center;justify-content:center;padding:0 60px"><div style="font-size:17px;font-weight:600;color:#fff;opacity:0">Run a half marathon</div></div>
+  <div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;align-items:center;gap:16px;scrollbar-width:none">
+    <!-- hero ring -->
+    <div class="progress-ring" style="margin:8px 0"><svg width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="42" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="6"/><circle cx="48" cy="48" r="42" fill="none" stroke="var(--brand-orange)" stroke-width="6" stroke-dasharray="263.9" stroke-dashoffset="105" stroke-linecap="round"/></svg><div class="label" style="font-size:24px;font-weight:700">60%</div></div>
+    <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:#fff">Run a half marathon</div><div style="display:flex;gap:6px;justify-content:center;margin-top:8px"><div class="domain-chip" style="background:rgba(239,68,68,.15);color:#EF4444">fitness</div></div></div>
+    <!-- stats row -->
+    <div class="card" style="display:flex;justify-content:space-around;text-align:center">
+      <div><div style="font-size:18px;font-weight:700;color:#fff">12</div><div style="font-size:11px;color:rgba(255,255,255,.4)">day streak</div></div>
+      <div style="width:1px;background:rgba(255,255,255,.08)"></div>
+      <div><div style="font-size:18px;font-weight:700;color:#fff">6/10</div><div style="font-size:11px;color:rgba(255,255,255,.4)">actions done</div></div>
+      <div style="width:1px;background:rgba(255,255,255,.08)"></div>
+      <div><div style="font-size:18px;font-weight:700;color:var(--brand-orange)">450</div><div style="font-size:11px;color:rgba(255,255,255,.4)">XP earned</div></div>
+    </div>
+    <!-- SIA coaching note -->
+    <div class="card sia-card">
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div class="sia-avatar" style="width:22px;height:22px;min-width:22px;font-size:9px">S</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.4">You're ahead of schedule! Your running pace has improved 8% since last week. Keep pushing — your 10K milestone is 2 runs away.</div>
+      </div>
+    </div>
+    <!-- Next action card -->
+    <div class="card" style="background:linear-gradient(135deg,rgba(255,94,0,.08),var(--ink-brown));border-color:rgba(255,94,0,.2)">
+      <div class="eyebrow" style="color:var(--brand-orange);margin-bottom:8px">NEXT ACTION</div>
+      <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:6px">Build to 8K distance</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.5)">Run 8K without stopping. SIA suggests intervals.</div>
+    </div>
+    <!-- All Actions (expanded) -->
+    <div style="width:100%">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div class="eyebrow">ALL ACTIONS</div>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.4);text-decoration:line-through">Sign up for gym</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.4);text-decoration:line-through">Buy running shoes</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--forest-green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.4);text-decoration:line-through">Set schedule</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.15);flex-shrink:0"></div><div style="font-size:14px;color:#fff">Complete first 5K</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.15);flex-shrink:0"></div><div style="font-size:14px;color:#fff">Run 3x this week</div></div>
+      </div>
+    </div>
+    <!-- Milestones -->
+    <div style="width:100%">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div class="eyebrow">MILESTONES</div>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"><path d="M5 3l4 4-4 4"/></svg>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:var(--forest-green);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></div><div style="font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">Run first 5K</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--brand-orange)"></div><div style="font-size:14px;color:#fff">Complete 10K run</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.15)"></div><div style="font-size:14px;color:rgba(255,255,255,.4)">Register for race</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Today</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>SIA</div>
+    <div class="tab-item active"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>Goals</div>
+    <div class="tab-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/></svg>Me</div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 15: CREATE/EDIT GOAL ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 15</div><div class="name">Create / Edit Goal</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px">
+  <!-- modal overlay -->
+  <div style="position:absolute;inset:0;background:rgba(10,10,15,.6);z-index:20"></div>
+  <!-- modal -->
+  <div style="position:absolute;bottom:0;left:0;right:0;top:120px;background:var(--ink-brown);border-radius:20px 20px 0 0;z-index:25;display:flex;flex-direction:column;overflow:hidden">
+    <div style="padding:14px 0 8px"><div class="modal-handle"></div></div>
+    <div style="flex:1;overflow-y:auto;padding:8px 20px 42px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+      <div style="font-size:20px;font-weight:700;color:#fff;text-align:center">new mission</div>
+      <!-- text area -->
+      <div style="width:100%;min-height:100px;border-radius:14px;background:rgba(10,10,15,.5);border:1px solid rgba(255,255,255,.1);padding:16px;font-size:16px;color:rgba(255,255,255,.3);line-height:1.5">I want to read 12 books this year...</div>
+      <button class="cta-btn" style="height:48px;font-size:16px">let SIA plan this</button>
+      <div style="width:100%;height:1px;background:rgba(255,255,255,.06);margin:4px 0"></div>
+      <!-- structured result preview -->
+      <div class="eyebrow" style="color:var(--brand-orange)">SIA'S PLAN</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <div class="domain-chip" style="background:rgba(6,182,212,.15);color:#06B6D4">learning</div>
+        <div class="domain-chip" style="background:rgba(245,158,11,.15);color:#F59E0B">creativity</div>
+      </div>
+      <!-- actions -->
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.8)"><div style="width:6px;height:6px;border-radius:50%;background:var(--brand-orange);flex-shrink:0"></div>Read 20 minutes daily</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.8)"><div style="width:6px;height:6px;border-radius:50%;background:var(--brand-orange);flex-shrink:0"></div>Finish 1 book per month</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.8)"><div style="width:6px;height:6px;border-radius:50%;background:var(--brand-orange);flex-shrink:0"></div>Write book summaries</div>
+        <div style="font-size:13px;color:var(--brand-orange);margin-left:14px;cursor:pointer">+ add action</div>
+      </div>
+      <!-- strictness toggle -->
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">STRICTNESS</div>
+        <div style="display:flex;background:rgba(10,10,15,.5);border-radius:999px;border:1px solid rgba(255,255,255,.1);padding:3px;gap:2px">
+          <div style="flex:1;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.5)">lenient</div>
+          <div style="flex:1;height:34px;border-radius:999px;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff">balanced</div>
+          <div style="flex:1;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.5)">strict</div>
+        </div>
+      </div>
+      <div class="sp-4"></div>
+      <button class="cta-btn">create mission</button>
+    </div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+<!-- ═══ 15b: CREATE GOAL (SIA RESULT) ═══ -->
+<div class="carousel-slide"><div class="screen-label"><div class="num">Screen 15b</div><div class="name">Create Goal — SIA Result</div></div>
+<div class="device"><div class="device-inner">
+<div class="dynamic-island"></div>
+<div class="status-bar"><span class="time">9:41</span><div class="status-icons"><svg viewBox="0 0 16 16"><path d="M1 11h2v4H1zM5 8h2v7H5zM9 5h2v10H9zM13 2h2v13h-2z"/></svg><svg viewBox="0 0 16 16"><path d="M8 3C5 3 2.4 4.6 1 7l1 1c1.2-2 3.3-3.5 6-3.5S11.8 6 13 8l1-1C12.6 4.6 11 3 8 3zm0 3c-1.7 0-3.2 1-4 2.5L5 9.5c.6-1 1.7-2 3-2s2.4 1 3 2L12 8.5C11.2 7 9.7 6 8 6z"/></svg><svg viewBox="0 0 16 16"><rect x="1" y="5" width="12" height="6" rx="1.5" stroke="#fff" stroke-width="1" fill="none"/><rect x="2" y="6.5" width="8" height="3" rx=".5" fill="#fff"/><rect x="13.5" y="7" width="1.5" height="2" rx=".5" fill="#fff"/></svg></div></div>
+<div class="screen" style="padding-top:44px">
+  <!-- modal overlay -->
+  <div style="position:absolute;inset:0;background:rgba(10,10,15,.6);z-index:20"></div>
+  <!-- modal -->
+  <div style="position:absolute;bottom:0;left:0;right:0;top:80px;background:var(--ink-brown);border-radius:20px 20px 0 0;z-index:25;display:flex;flex-direction:column;overflow:hidden">
+    <div style="padding:14px 0 8px"><div class="modal-handle"></div></div>
+    <!-- header with close -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 20px 12px">
+      <div style="width:36px"></div>
+      <div style="font-size:20px;font-weight:700;color:#fff">your new quest</div>
+      <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M3 3l8 8M11 3l-8 8"/></svg></div>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:0 20px 42px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none">
+      <!-- SIA note card -->
+      <div class="card sia-card" style="padding:12px 14px">
+        <div style="font-size:15px;color:rgba(255,255,255,.7);line-height:1.45">Here's what I've put together based on your goal. Tap anything to adjust.</div>
+      </div>
+      <!-- DOMAIN section -->
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">DOMAIN</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="height:28px;padding:0 12px;border-radius:999px;background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.5);display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#EF4444">fitness <span style="font-size:14px;cursor:pointer;opacity:.7">&times;</span></div>
+          <div style="height:28px;padding:0 12px;border-radius:999px;background:rgba(132,204,22,.2);border:1px solid rgba(132,204,22,.5);display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#84CC16">nutrition <span style="font-size:14px;cursor:pointer;opacity:.7">&times;</span></div>
+        </div>
+      </div>
+      <!-- ACTIONS section -->
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">ACTIONS (3)</div>
+        <div style="display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+            <div style="width:22px;height:22px;border-radius:6px;border:2px solid rgba(255,255,255,.2);flex-shrink:0"></div>
+            <div style="flex:1;font-size:14px;color:rgba(255,255,255,.85)">Run 3x per week</div>
+            <div style="font-size:16px;color:rgba(255,255,255,.25);cursor:grab">≡</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+            <div style="width:22px;height:22px;border-radius:6px;border:2px solid rgba(255,255,255,.2);flex-shrink:0"></div>
+            <div style="flex:1;font-size:14px;color:rgba(255,255,255,.85)">Follow meal plan</div>
+            <div style="font-size:16px;color:rgba(255,255,255,.25);cursor:grab">≡</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+            <div style="width:22px;height:22px;border-radius:6px;border:2px solid rgba(255,255,255,.2);flex-shrink:0"></div>
+            <div style="flex:1;font-size:14px;color:rgba(255,255,255,.85)">Track daily calories</div>
+            <div style="font-size:16px;color:rgba(255,255,255,.25);cursor:grab">≡</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--brand-orange);margin-top:10px;cursor:pointer">+ add action</div>
+      </div>
+      <!-- MILESTONES section -->
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">MILESTONES</div>
+        <div style="display:flex;flex-direction:column;padding-left:4px">
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="display:flex;flex-direction:column;align-items:center">
+              <div style="width:8px;height:8px;border-radius:50%;border:1px solid rgba(255,255,255,.2);flex-shrink:0"></div>
+              <div style="width:1px;height:28px;background:rgba(255,255,255,.1)"></div>
+            </div>
+            <div style="font-size:14px;color:rgba(255,255,255,.7)">5K under 30 min <span style="color:rgba(255,255,255,.35)">&middot; Jun 15</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="display:flex;flex-direction:column;align-items:center">
+              <div style="width:8px;height:8px;border-radius:50%;border:1px solid rgba(255,255,255,.2);flex-shrink:0"></div>
+            </div>
+            <div style="font-size:14px;color:rgba(255,255,255,.7)">Run 10K <span style="color:rgba(255,255,255,.35)">&middot; Aug 1</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- HOW STRICT? section -->
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">HOW STRICT?</div>
+        <div style="display:flex;background:rgba(10,10,15,.5);border-radius:999px;border:1px solid rgba(255,255,255,.1);padding:3px;gap:2px">
+          <div style="flex:1;height:34px;border-radius:999px;background:var(--ink-brown);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.5)">lenient</div>
+          <div style="flex:1;height:34px;border-radius:999px;background:var(--brand-orange);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff">balanced</div>
+          <div style="flex:1;height:34px;border-radius:999px;background:var(--ink-brown);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:rgba(255,255,255,.5)">strict</div>
+        </div>
+      </div>
+      <!-- QUEST PREVIEW card -->
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">QUEST PREVIEW</div>
+        <div class="card" style="display:flex;gap:14px;align-items:center">
+          <div class="progress-ring"><svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="3"/><circle cx="18" cy="18" r="15" fill="none" stroke="var(--brand-orange)" stroke-width="3" stroke-dasharray="94.2" stroke-dashoffset="94.2" stroke-linecap="round"/></svg><div class="label" style="font-size:10px">0%</div></div>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:4px">Get fit & eat better</div>
+            <div style="display:flex;gap:5px"><div class="domain-chip" style="background:rgba(239,68,68,.15);color:#EF4444;font-size:10px;height:18px;padding:0 7px">fitness</div><div class="domain-chip" style="background:rgba(132,204,22,.15);color:#84CC16;font-size:10px;height:18px;padding:0 7px">nutrition</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="sp-4"></div>
+      <button class="cta-btn">start quest</button>
+    </div>
+  </div>
+</div>
+<div class="home-indicator"></div>
+</div></div></div>
+
+</div></div>
+<div class="thumb-strip" id="thumbs">
+  <div class="thumb active" onclick="goTo(0)"><div style="font-size:7px;color:rgba(255,255,255,.4);text-align:center;line-height:1.3;padding:4px">Voice<br>Full</div><div class="thumb-num">11</div></div>
+  <div class="thumb" onclick="goTo(1)"><div style="font-size:7px;color:rgba(255,255,255,.4);text-align:center;line-height:1.3;padding:4px">Home<br>Screen</div><div class="thumb-num">12</div></div>
+  <div class="thumb" onclick="goTo(2)"><div style="font-size:7px;color:rgba(255,255,255,.4);text-align:center;line-height:1.3;padding:4px">Goals<br>List</div><div class="thumb-num">13</div></div>
+  <div class="thumb" onclick="goTo(3)"><div style="font-size:7px;color:rgba(255,255,255,.4);text-align:center;line-height:1.3;padding:4px">Goal<br>Detail</div><div class="thumb-num">14</div></div>
+  <div class="thumb" onclick="goTo(4)"><div style="font-size:7px;color:rgba(255,255,255,.4);text-align:center;line-height:1.3;padding:4px">Create<br>Goal</div><div class="thumb-num">15</div></div>
+  <div class="thumb" onclick="goTo(5)"><div style="font-size:7px;color:rgba(255,255,255,.4);text-align:center;line-height:1.3;padding:4px">SIA<br>Result</div><div class="thumb-num">15b</div></div>
+</div>
+</section>
+<script>
+let current=0;const total=6;const track=document.getElementById('track');const thumbs=document.querySelectorAll('.thumb');const prevBtn=document.querySelector('.nav-arrow.prev');const nextBtn=document.querySelector('.nav-arrow.next');
+function goTo(i){current=Math.max(0,Math.min(i,total-1));track.style.transform=`translateX(-${current*100}%)`;thumbs.forEach((t,idx)=>t.classList.toggle('active',idx===current));prevBtn.disabled=current===0;nextBtn.disabled=current===total-1}
+function go(dir){goTo(current+dir)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)});
+const sp=new URLSearchParams(window.location.search);if(sp.has('start')){const s=parseInt(sp.get('start'));if(!isNaN(s)&&s>=0&&s<total){track.style.transition='none';goTo(s);requestAnimationFrame(()=>track.style.transition='')}}
+</script>
+</body>
+</html>
