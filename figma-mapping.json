@@ -168,7 +168,36 @@
     "Glass/Default": "S:e2ec279d1e396962f897f1b208b6aa0142596b07,"
   },
   "ds_components": {
-    "$comment": "Filled in Phase 3 as each component lands. component name -> { node_id, page_node_id, key }. Mirrors balencia-screens/scripts/figma-components-map.json."
+    "$comment": "Filled in Phase 2-3 as each component lands. component name -> { node_id, page_node_id, key }. Mirrors balencia-screens/scripts/figma-components-map.json.",
+    "ScreenShell-Template": {
+      "node_id": "37:2",
+      "page_node_id": "17:15",
+      "key": "fd22492a0fe14baa6f6916351b95e02c1c23f96a",
+      "phase": "3F_layout",
+      "size": { "w": 375, "h": 812 },
+      "properties": ["Show BottomAction", "Show Composer", "Show TabBar"],
+      "created_at": "2026-05-28"
+    },
+    "PhoneFrame": {
+      "node_id": "38:8",
+      "page_node_id": "17:15",
+      "key": "4724ff2cd30913b788b81e6eb4342b97dc991242",
+      "phase": "3F_layout",
+      "size": { "w": 402, "h": 874 },
+      "properties": ["Content"],
+      "nested_iphone_component_key": "fa9d8523994d457baedfb519c40204b8f308cd35",
+      "nested_iphone_library": "iOS and iPadOS 26",
+      "created_at": "2026-05-28"
+    },
+    "PhoneFrame / Default Content": {
+      "node_id": "38:2",
+      "page_node_id": "17:15",
+      "key": "b5c6c6914bfa1efd2696e3febab59074a1de2a37",
+      "phase": "3F_layout",
+      "size": { "w": 375, "h": 812 },
+      "$comment": "Default value of PhoneFrame's Content INSTANCE_SWAP property. Replace per-screen during Phase 4-5.",
+      "created_at": "2026-05-28"
+    }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
