@@ -1,0 +1,185 @@
+{
+  "$schema": "https://schemas.balencia.dev/figma-tokens-map.v1.json",
+  "$comment": "Source of truth for code <-> Figma token mapping. Drives Phase 1 variable creation in Balencia DS and Code Connect code_syntax values. Generated from src/app/globals.css. DO NOT hand-edit values without also updating globals.css.",
+  "generated_from": "src/app/globals.css",
+  "theme_modes": ["Dark"],
+  "collections": {
+    "Primitives": {
+      "modes": ["Value"],
+      "purpose": "Raw values. Hidden from binding (scopes: []). Aliased by the semantic Color collection.",
+      "variables": {
+        "color/brand/orange":         { "type": "COLOR", "value": "#FF5E00", "css_var": "--color-brand-orange",      "code_syntax": { "WEB": "var(--color-brand-orange)" } },
+        "color/brand/forest-green":   { "type": "COLOR", "value": "#34A853", "css_var": "--color-forest-green",      "code_syntax": { "WEB": "var(--color-forest-green)" } },
+        "color/brand/royal-purple":   { "type": "COLOR", "value": "#7F24FF", "css_var": "--color-royal-purple",      "code_syntax": { "WEB": "var(--color-royal-purple)" } },
+
+        "color/neutral/ink-900":      { "type": "COLOR", "value": "#0A0A0F", "css_var": "--color-ink-900",           "code_syntax": { "WEB": "var(--color-ink-900)" } },
+        "color/neutral/ink-700":      { "type": "COLOR", "value": "#171717", "css_var": "--color-ink-700",           "code_syntax": { "WEB": "var(--color-ink-700)" } },
+        "color/neutral/ink-brown-800":{ "type": "COLOR", "value": "#211008", "css_var": "--color-ink-brown-800",     "code_syntax": { "WEB": "var(--color-ink-brown-800)" } },
+        "color/neutral/paper-100":    { "type": "COLOR", "value": "#FEFAF3", "css_var": "--color-paper-100",         "code_syntax": { "WEB": "var(--color-paper-100)" } },
+        "color/neutral/paper-50":     { "type": "COLOR", "value": "#FDFDFB", "css_var": "--color-paper-50",          "code_syntax": { "WEB": "var(--color-paper-50)" } },
+        "color/neutral/error-red":    { "type": "COLOR", "value": "#F44336", "css_var": "--color-error-red",         "code_syntax": { "WEB": "var(--color-error-red)" } },
+
+        "color/domain/fitness":       { "type": "COLOR", "value": "#EF4444", "css_var": "--color-domain-fitness",       "code_syntax": { "WEB": "var(--color-domain-fitness)" } },
+        "color/domain/sleep":         { "type": "COLOR", "value": "#818CF8", "css_var": "--color-domain-sleep",         "code_syntax": { "WEB": "var(--color-domain-sleep)" } },
+        "color/domain/career":        { "type": "COLOR", "value": "#6366F1", "css_var": "--color-domain-career",        "code_syntax": { "WEB": "var(--color-domain-career)" } },
+        "color/domain/nutrition":     { "type": "COLOR", "value": "#84CC16", "css_var": "--color-domain-nutrition",     "code_syntax": { "WEB": "var(--color-domain-nutrition)" } },
+        "color/domain/finance":       { "type": "COLOR", "value": "#10B981", "css_var": "--color-domain-finance",       "code_syntax": { "WEB": "var(--color-domain-finance)" } },
+        "color/domain/faith":         { "type": "COLOR", "value": "#A855F7", "css_var": "--color-domain-faith",         "code_syntax": { "WEB": "var(--color-domain-faith)" } },
+        "color/domain/productivity":  { "type": "COLOR", "value": "#F97316", "css_var": "--color-domain-productivity",  "code_syntax": { "WEB": "var(--color-domain-productivity)" } },
+        "color/domain/relationships": { "type": "COLOR", "value": "#EC4899", "css_var": "--color-domain-relationships", "code_syntax": { "WEB": "var(--color-domain-relationships)" } },
+        "color/domain/wellbeing":     { "type": "COLOR", "value": "#14B8A6", "css_var": "--color-domain-wellbeing",     "code_syntax": { "WEB": "var(--color-domain-wellbeing)" } },
+        "color/domain/meditation":    { "type": "COLOR", "value": "#A78BFA", "css_var": "--color-domain-meditation",    "code_syntax": { "WEB": "var(--color-domain-meditation)" } },
+        "color/domain/creativity":    { "type": "COLOR", "value": "#F59E0B", "css_var": "--color-domain-creativity",    "code_syntax": { "WEB": "var(--color-domain-creativity)" } },
+        "color/domain/learning":      { "type": "COLOR", "value": "#06B6D4", "css_var": "--color-domain-learning",      "code_syntax": { "WEB": "var(--color-domain-learning)" } },
+
+        "color/podium/gold":          { "type": "COLOR", "value": "#FFD700", "css_var": "--color-podium-gold",       "code_syntax": { "WEB": "var(--color-podium-gold)" } },
+        "color/podium/silver":        { "type": "COLOR", "value": "#C0C0C0", "css_var": "--color-podium-silver",     "code_syntax": { "WEB": "var(--color-podium-silver)" } },
+        "color/podium/bronze":        { "type": "COLOR", "value": "#CD7F32", "css_var": "--color-podium-bronze",     "code_syntax": { "WEB": "var(--color-podium-bronze)" } },
+
+        "color/mission/gold":         { "type": "COLOR", "value": "#D4A017", "css_var": "--color-mission-gold",      "code_syntax": { "WEB": "var(--color-mission-gold)" } },
+        "color/mission/silver":       { "type": "COLOR", "value": "#A8A9AD", "css_var": "--color-mission-silver",    "code_syntax": { "WEB": "var(--color-mission-silver)" } },
+        "color/mission/bronze":       { "type": "COLOR", "value": "#CD7F32", "css_var": "--color-mission-bronze",    "code_syntax": { "WEB": "var(--color-mission-bronze)" } },
+        "color/mission/steel":        { "type": "COLOR", "value": "#5B7FA5", "css_var": "--color-mission-steel",     "code_syntax": { "WEB": "var(--color-mission-steel)" } },
+        "color/mission/sage":         { "type": "COLOR", "value": "#6B8E6B", "css_var": "--color-mission-sage",      "code_syntax": { "WEB": "var(--color-mission-sage)" } },
+        "color/mission/copper":       { "type": "COLOR", "value": "#B87333", "css_var": "--color-mission-copper",    "code_syntax": { "WEB": "var(--color-mission-copper)" } },
+
+        "color/rarity/common":        { "type": "COLOR", "value": "#FFFFFF", "css_var": "--color-rarity-common",     "code_syntax": { "WEB": "var(--color-rarity-common)" } },
+        "color/rarity/uncommon":      { "type": "COLOR", "value": "#14B8A6", "css_var": "--color-rarity-uncommon",   "code_syntax": { "WEB": "var(--color-rarity-uncommon)" } },
+        "color/rarity/rare":          { "type": "COLOR", "value": "#7F24FF", "css_var": "--color-rarity-rare",       "code_syntax": { "WEB": "var(--color-rarity-rare)" } },
+        "color/rarity/epic":          { "type": "COLOR", "value": "#FF5E00", "css_var": "--color-rarity-epic",       "code_syntax": { "WEB": "var(--color-rarity-epic)" } },
+        "color/rarity/legendary":     { "type": "COLOR", "value": "#FFD700", "css_var": "--color-rarity-legendary",  "code_syntax": { "WEB": "var(--color-rarity-legendary)" } },
+
+        "color/rpg/stalled-amber":    { "type": "COLOR", "value": "#F59E0B", "css_var": "--color-stalled-amber",     "code_syntax": { "WEB": "var(--color-stalled-amber)" } },
+        "color/rpg/freeze-blue":      { "type": "COLOR", "value": "#4FC3F7", "css_var": "--color-freeze-blue",       "code_syntax": { "WEB": "var(--color-freeze-blue)" } },
+
+        "color/alpha/white-100":      { "type": "COLOR", "value": "#FFFFFF", "opacity": 1.0, "css_var": "rgba(255,255,255,1.0)", "code_syntax": { "WEB": "rgba(255,255,255,1)" } },
+        "color/alpha/white-70":       { "type": "COLOR", "value": "#FFFFFF", "opacity": 0.70, "css_var": "rgba(255,255,255,0.7)", "code_syntax": { "WEB": "rgba(255,255,255,0.7)" } },
+        "color/alpha/white-50":       { "type": "COLOR", "value": "#FFFFFF", "opacity": 0.50, "css_var": "rgba(255,255,255,0.5)", "code_syntax": { "WEB": "rgba(255,255,255,0.5)" } },
+        "color/alpha/white-40":       { "type": "COLOR", "value": "#FFFFFF", "opacity": 0.40, "css_var": "rgba(255,255,255,0.4)", "code_syntax": { "WEB": "rgba(255,255,255,0.4)" } },
+        "color/alpha/white-10":       { "type": "COLOR", "value": "#FFFFFF", "opacity": 0.10, "css_var": "--glass-border-strong","code_syntax": { "WEB": "var(--glass-border-strong)" } },
+        "color/alpha/white-06":       { "type": "COLOR", "value": "#FFFFFF", "opacity": 0.06, "css_var": "--glass-border",       "code_syntax": { "WEB": "var(--glass-border)" } },
+        "color/alpha/glow-orange-bg": { "type": "COLOR", "value": "#FF5E00", "opacity": 0.15, "css_var": "--glow-orange-bg",     "code_syntax": { "WEB": "var(--glow-orange-bg)" } }
+      }
+    },
+
+    "Color": {
+      "modes": ["Dark"],
+      "purpose": "Semantic colors aliased to Primitives. Bind these in components, never Primitives.",
+      "scope_defaults_by_path": {
+        "color/bg/":      ["FRAME_FILL", "SHAPE_FILL"],
+        "color/surface/": ["FRAME_FILL", "SHAPE_FILL"],
+        "color/text/":    ["TEXT_FILL"],
+        "color/border/":  ["STROKE_COLOR"],
+        "color/brand/":   ["FRAME_FILL", "SHAPE_FILL", "TEXT_FILL", "STROKE_COLOR"],
+        "color/state/":   ["FRAME_FILL", "SHAPE_FILL", "TEXT_FILL"]
+      },
+      "variables": {
+        "color/bg/screen":            { "alias_of": "color/neutral/ink-900" },
+        "color/bg/elevated":          { "alias_of": "color/neutral/ink-700" },
+        "color/surface/card":         { "alias_of": "color/neutral/ink-brown-800" },
+        "color/surface/glow-orange":  { "alias_of": "color/alpha/glow-orange-bg" },
+
+        "color/text/primary":         { "alias_of": "color/neutral/paper-100" },
+        "color/text/secondary":       { "alias_of": "color/alpha/white-70" },
+        "color/text/tertiary":        { "alias_of": "color/alpha/white-50" },
+        "color/text/quaternary":      { "alias_of": "color/alpha/white-40" },
+        "color/text/on-brand":        { "alias_of": "color/neutral/paper-100" },
+
+        "color/border/subtle":        { "alias_of": "color/alpha/white-06" },
+        "color/border/default":       { "alias_of": "color/alpha/white-10" },
+
+        "color/brand/cta":            { "alias_of": "color/brand/orange" },
+        "color/brand/success":        { "alias_of": "color/brand/forest-green" },
+        "color/brand/ai":             { "alias_of": "color/brand/royal-purple" },
+
+        "color/state/error":          { "alias_of": "color/neutral/error-red" },
+        "color/state/stalled":        { "alias_of": "color/rpg/stalled-amber" },
+        "color/state/freeze":         { "alias_of": "color/rpg/freeze-blue" }
+      }
+    },
+
+    "Spacing": {
+      "modes": ["Value"],
+      "purpose": "8pt base scale (with 4pt half-step for tight gaps).",
+      "scope_defaults": ["GAP", "WIDTH_HEIGHT"],
+      "variables": {
+        "spacing/4":   { "type": "FLOAT", "value": 4,  "css_var": "--spacing-1",  "code_syntax": { "WEB": "var(--spacing-1)" } },
+        "spacing/8":   { "type": "FLOAT", "value": 8,  "css_var": "--spacing-2",  "code_syntax": { "WEB": "var(--spacing-2)" } },
+        "spacing/12":  { "type": "FLOAT", "value": 12, "css_var": "--spacing-3",  "code_syntax": { "WEB": "var(--spacing-3)" } },
+        "spacing/16":  { "type": "FLOAT", "value": 16, "css_var": "--spacing-4",  "code_syntax": { "WEB": "var(--spacing-4)" } },
+        "spacing/20":  { "type": "FLOAT", "value": 20, "css_var": "--spacing-5",  "code_syntax": { "WEB": "var(--spacing-5)" } },
+        "spacing/24":  { "type": "FLOAT", "value": 24, "css_var": "--spacing-6",  "code_syntax": { "WEB": "var(--spacing-6)" } },
+        "spacing/32":  { "type": "FLOAT", "value": 32, "css_var": "--spacing-8",  "code_syntax": { "WEB": "var(--spacing-8)" } },
+        "spacing/40":  { "type": "FLOAT", "value": 40, "css_var": "--spacing-10", "code_syntax": { "WEB": "var(--spacing-10)" } },
+        "spacing/48":  { "type": "FLOAT", "value": 48, "css_var": "--spacing-12", "code_syntax": { "WEB": "var(--spacing-12)" } },
+        "spacing/64":  { "type": "FLOAT", "value": 64, "css_var": "--spacing-16", "code_syntax": { "WEB": "var(--spacing-16)" } }
+      }
+    },
+
+    "Radius": {
+      "modes": ["Value"],
+      "scope_defaults": ["CORNER_RADIUS"],
+      "variables": {
+        "radius/xs":   { "type": "FLOAT", "value": 6,   "css_var": "--radius-xs",   "code_syntax": { "WEB": "var(--radius-xs)" } },
+        "radius/sm":   { "type": "FLOAT", "value": 10,  "css_var": "--radius-sm",   "code_syntax": { "WEB": "var(--radius-sm)" } },
+        "radius/md":   { "type": "FLOAT", "value": 14,  "css_var": "--radius-md",   "code_syntax": { "WEB": "var(--radius-md)" } },
+        "radius/lg":   { "type": "FLOAT", "value": 20,  "css_var": "--radius-lg",   "code_syntax": { "WEB": "var(--radius-lg)" } },
+        "radius/xl":   { "type": "FLOAT", "value": 28,  "css_var": "--radius-xl",   "code_syntax": { "WEB": "var(--radius-xl)" } },
+        "radius/2xl":  { "type": "FLOAT", "value": 40,  "css_var": "--radius-2xl",  "code_syntax": { "WEB": "var(--radius-2xl)" } },
+        "radius/pill": { "type": "FLOAT", "value": 999, "css_var": "--radius-pill", "code_syntax": { "WEB": "var(--radius-pill)" } }
+      }
+    },
+
+    "Motion": {
+      "modes": ["Value"],
+      "purpose": "Documentation-only — Figma cannot bind motion. Surfaced via codeSyntax for Dev Mode handoff.",
+      "scope_defaults": [],
+      "variables": {
+        "motion/duration/fast":  { "type": "STRING", "value": "160ms",  "css_var": "--dur-fast",  "code_syntax": { "WEB": "var(--dur-fast)" } },
+        "motion/duration/base":  { "type": "STRING", "value": "280ms",  "css_var": "--dur-base",  "code_syntax": { "WEB": "var(--dur-base)" } },
+        "motion/duration/slow":  { "type": "STRING", "value": "520ms",  "css_var": "--dur-slow",  "code_syntax": { "WEB": "var(--dur-slow)" } },
+        "motion/duration/flow":  { "type": "STRING", "value": "1200ms", "css_var": "--dur-flow",  "code_syntax": { "WEB": "var(--dur-flow)" } },
+        "motion/easing/flow":          { "type": "STRING", "value": "cubic-bezier(0.65, 0.05, 0.36, 1)", "css_var": "--ease-flow",         "code_syntax": { "WEB": "var(--ease-flow)" } },
+        "motion/easing/out-soft":      { "type": "STRING", "value": "cubic-bezier(0.22, 0.61, 0.36, 1)", "css_var": "--ease-out-soft",     "code_syntax": { "WEB": "var(--ease-out-soft)" } },
+        "motion/easing/in-out-brand":  { "type": "STRING", "value": "cubic-bezier(0.65, 0, 0.35, 1)",    "css_var": "--ease-in-out-brand", "code_syntax": { "WEB": "var(--ease-in-out-brand)" } }
+      }
+    }
+  },
+
+  "text_styles": {
+    "$comment": "Sora ramp. Match font-size + weight from globals.css. Letter-spacing pulled from spec docs where applicable.",
+    "font_family": "Sora",
+    "styles": {
+      "Display XL":  { "size": 40, "weight": 800, "style": "ExtraBold", "line_height": "120%", "letter_spacing": "-2.5%", "css_var": "--text-display-xl", "note": "Sora maxes at ExtraBold/800 on Google Fonts; no Black/900 variant available." },
+      "Display L":   { "size": 32, "weight": 700, "line_height": "120%", "letter_spacing": "-2%",   "css_var": "--text-display-l"  },
+      "H1":          { "size": 28, "weight": 700, "line_height": "120%", "letter_spacing": "-1%",   "css_var": "--text-h1"         },
+      "H2":          { "size": 20, "weight": 700, "line_height": "130%", "letter_spacing": "0",     "css_var": "--text-h2"         },
+      "H3":          { "size": 17, "weight": 600, "line_height": "130%", "letter_spacing": "0",     "css_var": "--text-h3"         },
+      "Lead":        { "size": 20, "weight": 400, "line_height": "140%", "letter_spacing": "0",     "css_var": null                },
+      "Body":        { "size": 16, "weight": 400, "line_height": "150%", "letter_spacing": "0",     "css_var": "--text-body"       },
+      "Caption":     { "size": 13, "weight": 400, "line_height": "140%", "letter_spacing": "0",     "css_var": "--text-caption"    },
+      "Eyebrow":     { "size": 12, "weight": 600, "line_height": "130%", "letter_spacing": "12%",   "case": "UPPER", "css_var": "--text-eyebrow" },
+      "Small":       { "size": 11, "weight": 400, "line_height": "140%", "letter_spacing": "0",     "css_var": "--text-small"      }
+    }
+  },
+
+  "effect_styles": {
+    "Elevation/1": { "type": "DROP_SHADOW", "x": 0, "y": 8,  "blur": 24, "spread": 0, "color": "#211008", "opacity": 0.18, "css_var": "--shadow-1" },
+    "Elevation/2": { "type": "DROP_SHADOW", "x": 0, "y": 18, "blur": 48, "spread": 0, "color": "#211008", "opacity": 0.22, "css_var": "--shadow-2" },
+    "Elevation/3": { "type": "DROP_SHADOW", "x": 0, "y": 32, "blur": 80, "spread": 0, "color": "#211008", "opacity": 0.28, "css_var": "--shadow-3" },
+    "Glow/Orange": { "type": "DROP_SHADOW", "x": 0, "y": 0,  "blur": 32, "spread": 0, "color": "#FF5E00", "opacity": 0.45, "css_var": "--glow-orange" },
+    "Glow/Green":  { "type": "DROP_SHADOW", "x": 0, "y": 0,  "blur": 32, "spread": 0, "color": "#34A853", "opacity": 0.40, "css_var": "--glow-green" },
+    "Glow/Purple": { "type": "DROP_SHADOW", "x": 0, "y": 0,  "blur": 32, "spread": 0, "color": "#7F24FF", "opacity": 0.40, "css_var": "--glow-purple" },
+    "Glass/Default": { "type": "BACKGROUND_BLUR", "blur": 16, "$comment": "Apply alongside surface/card fill at full opacity; the warm ink-brown provides the perceived glass effect." }
+  },
+
+  "device_frame": {
+    "model": "iPhone 15 (reference)",
+    "viewport_width": 375,
+    "viewport_height": 812,
+    "status_bar_reserve": 54,
+    "home_indicator_clearance": 34,
+    "dynamic_island": { "width": 126, "height": 36, "y_offset": 11, "border_radius": 18 },
+    "home_indicator": { "width": 134, "height": 5, "y_offset_from_bottom": 8, "border_radius": 999 }
+  }
+}

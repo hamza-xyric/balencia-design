@@ -13,6 +13,9 @@
     "verify:copy": "node scripts/verify-copy.mjs",
     "verify:brand": "node scripts/verify-brand.mjs",
     "verify:visual": "node scripts/verify-visual.mjs",
+    "figma:check": "figma connect parse",
+    "figma:publish": "figma connect publish",
+    "figma:unpublish": "figma connect unpublish",
     "check": "npm run lint && npm run typecheck && npm run verify:routes && npm run verify:assets && npm run verify:copy && npm run verify:brand"
   },
   "dependencies": {
@@ -24,6 +27,7 @@
     "recharts": "^3.8.1"
   },
   "devDependencies": {
+    "@figma/code-connect": "^1.4.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -1,0 +1,18 @@
+{
+  "codeConnect": {
+    "parser": "react",
+    "include": [
+      "src/components/**/*.figma.tsx"
+    ],
+    "exclude": [
+      "node_modules/**",
+      ".next/**"
+    ],
+    "importPaths": {
+      "src/components/*": "@/components/*"
+    },
+    "documentUrlSubstitutions": {
+      "BALENCIA_DS": "https://www.figma.com/design/XF2diepp3IfcWuDWHwL4ez"
+    }
+  }
+}

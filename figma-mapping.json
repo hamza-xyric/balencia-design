@@ -1,0 +1,206 @@
+{
+  "$schema": "https://schemas.balencia.dev/figma-mapping.v1.json",
+  "$comment": "Authoritative pointer file linking the Balencia repo to its Figma files. Populated incrementally across phases. Commit after every phase so future sessions can resume without rediscovery.",
+  "files": {
+    "balencia_ds": {
+      "name": "Balencia DS",
+      "purpose": "Design system library — tokens, components, foundations docs. Published to team library.",
+      "file_key": "XF2diepp3IfcWuDWHwL4ez",
+      "url": "https://www.figma.com/design/XF2diepp3IfcWuDWHwL4ez",
+      "plan_key": "team::1612805743749247691",
+      "created_at": "2026-05-28"
+    },
+    "balencia_screens": {
+      "name": "Balencia Screens",
+      "purpose": "Consumer file — 97 iPhone screens composed of Balencia DS instances.",
+      "file_key": "jxoChLrvjIdHQh9Q95SHpi",
+      "url": "https://www.figma.com/design/jxoChLrvjIdHQh9Q95SHpi",
+      "plan_key": "team::1612805743749247691",
+      "created_at": "2026-05-28"
+    }
+  },
+  "ds_pages": {
+    "$comment": "Filled in Phase 2. Maps page name -> node ID for resumable scripts.",
+    "Cover": null,
+    "Getting Started": null,
+    "Foundations": null,
+    "Foundations / Color": null,
+    "Foundations / Typography": null,
+    "Foundations / Spacing": null,
+    "Foundations / Radius": null,
+    "Foundations / Elevation": null,
+    "Foundations / Motion": null,
+    "Foundations / Domain Colors": null,
+    "--- Atoms ---": null,
+    "--- Molecules ---": null,
+    "--- Organisms ---": null,
+    "--- Charts ---": null,
+    "--- Templates ---": null,
+    "Changelog": null
+  },
+  "ds_collections": {
+    "$comment": "Filled in Phase 1. variable collection name -> { id, modes: { modeName: modeId } }.",
+    "Primitives": { "id": "VariableCollectionId:2:2", "modes": { "Value": "2:0" } },
+    "Color":      { "id": "VariableCollectionId:2:3", "modes": { "Dark":  "2:1" } },
+    "Spacing":    { "id": "VariableCollectionId:2:4", "modes": { "Value": "2:2" } },
+    "Radius":     { "id": "VariableCollectionId:2:5", "modes": { "Value": "2:3" } },
+    "Motion":     { "id": "VariableCollectionId:2:6", "modes": { "Value": "2:4" } }
+  },
+  "ds_variables": {
+    "$comment": "Filled in Phase 1 as each variable lands. Mapped from balencia-screens/scripts/figma-tokens-map.json. variable_path -> figma_variable_id.",
+    "primitives": {
+      "color/brand/orange":         "VariableID:4:2",
+      "color/brand/forest-green":   "VariableID:4:3",
+      "color/brand/royal-purple":   "VariableID:4:4",
+      "color/neutral/ink-900":      "VariableID:4:5",
+      "color/neutral/ink-700":      "VariableID:4:6",
+      "color/neutral/ink-brown-800":"VariableID:4:7",
+      "color/neutral/paper-100":    "VariableID:4:8",
+      "color/neutral/paper-50":     "VariableID:4:9",
+      "color/neutral/error-red":    "VariableID:4:10",
+      "color/domain/fitness":       "VariableID:4:11",
+      "color/domain/sleep":         "VariableID:4:12",
+      "color/domain/career":        "VariableID:4:13",
+      "color/domain/nutrition":     "VariableID:4:14",
+      "color/domain/finance":       "VariableID:4:15",
+      "color/domain/faith":         "VariableID:4:16",
+      "color/domain/productivity":  "VariableID:4:17",
+      "color/domain/relationships": "VariableID:4:18",
+      "color/domain/wellbeing":     "VariableID:4:19",
+      "color/domain/meditation":    "VariableID:4:20",
+      "color/domain/creativity":    "VariableID:4:21",
+      "color/domain/learning":      "VariableID:4:22",
+      "color/podium/gold":          "VariableID:4:23",
+      "color/podium/silver":        "VariableID:4:24",
+      "color/podium/bronze":        "VariableID:4:25",
+      "color/mission/gold":         "VariableID:4:26",
+      "color/mission/silver":       "VariableID:4:27",
+      "color/mission/bronze":       "VariableID:4:28",
+      "color/mission/steel":        "VariableID:4:29",
+      "color/mission/sage":         "VariableID:4:30",
+      "color/mission/copper":       "VariableID:4:31",
+      "color/rarity/common":        "VariableID:4:32",
+      "color/rarity/uncommon":      "VariableID:4:33",
+      "color/rarity/rare":          "VariableID:4:34",
+      "color/rarity/epic":          "VariableID:4:35",
+      "color/rarity/legendary":     "VariableID:4:36",
+      "color/rpg/stalled-amber":    "VariableID:4:37",
+      "color/rpg/freeze-blue":      "VariableID:4:38",
+      "color/alpha/white-100":      "VariableID:4:39",
+      "color/alpha/white-70":       "VariableID:4:40",
+      "color/alpha/white-50":       "VariableID:4:41",
+      "color/alpha/white-40":       "VariableID:4:42",
+      "color/alpha/white-10":       "VariableID:4:43",
+      "color/alpha/white-06":       "VariableID:4:44",
+      "color/alpha/glow-orange-bg": "VariableID:4:45"
+    },
+    "color": {
+      "color/bg/screen":            "VariableID:5:2",
+      "color/bg/elevated":          "VariableID:5:3",
+      "color/surface/card":         "VariableID:5:4",
+      "color/surface/glow-orange":  "VariableID:5:5",
+      "color/text/primary":         "VariableID:5:6",
+      "color/text/secondary":       "VariableID:5:7",
+      "color/text/tertiary":        "VariableID:5:8",
+      "color/text/quaternary":      "VariableID:5:9",
+      "color/text/on-brand":        "VariableID:5:10",
+      "color/border/subtle":        "VariableID:5:11",
+      "color/border/default":       "VariableID:5:12",
+      "color/brand/cta":            "VariableID:5:13",
+      "color/brand/success":        "VariableID:5:14",
+      "color/brand/ai":             "VariableID:5:15",
+      "color/state/error":          "VariableID:5:16",
+      "color/state/stalled":        "VariableID:5:17",
+      "color/state/freeze":         "VariableID:5:18"
+    },
+    "spacing": {
+      "spacing/4":  "VariableID:8:2",
+      "spacing/8":  "VariableID:8:3",
+      "spacing/12": "VariableID:8:4",
+      "spacing/16": "VariableID:8:5",
+      "spacing/20": "VariableID:8:6",
+      "spacing/24": "VariableID:8:7",
+      "spacing/32": "VariableID:8:8",
+      "spacing/40": "VariableID:8:9",
+      "spacing/48": "VariableID:8:10",
+      "spacing/64": "VariableID:8:11"
+    },
+    "radius": {
+      "radius/xs":   "VariableID:9:2",
+      "radius/sm":   "VariableID:9:3",
+      "radius/md":   "VariableID:9:4",
+      "radius/lg":   "VariableID:9:5",
+      "radius/xl":   "VariableID:9:6",
+      "radius/2xl":  "VariableID:9:7",
+      "radius/pill": "VariableID:9:8"
+    },
+    "motion": {
+      "motion/duration/fast":        "VariableID:10:2",
+      "motion/duration/base":        "VariableID:10:3",
+      "motion/duration/slow":        "VariableID:10:4",
+      "motion/duration/flow":        "VariableID:10:5",
+      "motion/easing/flow":          "VariableID:10:6",
+      "motion/easing/out-soft":      "VariableID:10:7",
+      "motion/easing/in-out-brand":  "VariableID:10:8"
+    }
+  },
+  "ds_text_styles": {
+    "$comment": "Filled in Phase 1. style name -> style ID. Sora ramp; note: Sora maxes at ExtraBold (no 900/Black), so Display XL uses ExtraBold.",
+    "Display XL": "S:af686b09d52d4b9683f86b62baee0492f8ba0f3c,",
+    "Display L":  "S:ffe79da810d407f7aa7fbe1d6c440191217c4826,",
+    "H1":         "S:423e144d691528e5ac4a0220cecb140b8bf0393d,",
+    "H2":         "S:6c48c5939806056596c3a098a6f8baed4ac061d7,",
+    "H3":         "S:80e9f3f0c782cf7b7e9c907e836f95f7037fe603,",
+    "Lead":       "S:84f884d123ab256a2719f1035b2ac47334e92148,",
+    "Body":       "S:ef004e3824d5fa6cfe19a70f3e0b43a181c3d9eb,",
+    "Caption":    "S:0b81e86cddb1fc1f328c5af51b4a1d60e6c63da2,",
+    "Eyebrow":    "S:04ba984d2667945edcb8b4e927bc6ba5280263d8,",
+    "Small":      "S:0b2c06dc03e9bbcae3947d635b4e0287d3e05602,"
+  },
+  "ds_effect_styles": {
+    "$comment": "Filled in Phase 1. style name -> style ID.",
+    "Elevation/1":   "S:f11ebb51d84e2050a6425f5c512ee434e4b24efa,",
+    "Elevation/2":   "S:4305abfe8bf842654fb31b3f64a85be1d8d19138,",
+    "Elevation/3":   "S:dc38d4a3c90a31f01e4697358fdd75daf332bea5,",
+    "Glow/Orange":   "S:a8dd7b51520d6e0753e71712678fb9ff3b12554e,",
+    "Glow/Green":    "S:13f4cf23267d7c00326e35150d51c7b5eaba3dee,",
+    "Glow/Purple":   "S:055be45665c88b4b1e6f143a4be5d1f5d020bd9e,",
+    "Glass/Default": "S:e2ec279d1e396962f897f1b208b6aa0142596b07,"
+  },
+  "ds_components": {
+    "$comment": "Filled in Phase 3 as each component lands. component name -> { node_id, page_node_id, key }. Mirrors balencia-screens/scripts/figma-components-map.json."
+  },
+  "screens_frames": {
+    "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
+  },
+  "code_connect": {
+    "$comment": "Phase 3 + 6 — tracks .figma.tsx files published. component name -> { figma_tsx_path, published_at }."
+  },
+  "subscribed_libraries": {
+    "$comment": "Libraries available to Balencia DS at creation time (community UI kits auto-subscribed). Use these libraryKey values to scope search_design_system calls and to import device frames (iOS 26) rather than rebuilding.",
+    "Material 3 Design Kit":       "lk-5a31d104cabc6a74d4edf6425e7bc6575e9c0f18cda7efb746193aef4d915b077d115c985e6cf49d36d97d455a17d5127a2cbbfbc618b8a70a38669dccb61462",
+    "Simple Design System":        "lk-e0ffcff14368019c4f30f45401cd233d6cbc5f869988484192d04cbbef801fb0064ef68feaa8a2775ee4f1f05d9a4af1a6d07b2658eac4aefb7afb18728c4066",
+    "iOS 18 and iPadOS 18":        "lk-df324a089628d1c7c7b0d29e676b621790cdcac1c725b49a3cfbb974a362f8201ac643e1fbccc855970ab22dabd6897ef20e72a7feda01014ddd59daf3f6ed52",
+    "iOS and iPadOS 26":           "lk-a5b98decf0fb24381005421a2986b813149fcf20f37a1169316d44e2802c483494c6fc98ab8e083540a73bd5e45cf892a38123ee61981aee097d5f4eb8487a17",
+    "watchOS 26":                  "lk-32bda072ec15e732e76d56aa8bd25314051f296f8519a8d868031b46eaabb5ade1290829d0d7deca926b5388f760e9e94aa76d56bfe2ead33d78adeeeb7d15fb",
+    "visionOS 26":                 "lk-4f44e69da5f723deffc1c2461604f793251559fb3fb0f1f6af7c4fffaa12c05a33c40283401af5f2edf0db0639d516ccef9b73ae6aadff7e6588df60cbd36dd4",
+    "macOS 26":                    "lk-52492a50a550123b626cdfcd7639929209dc66307681f3f8cf9937770a714f2d76ade248aff2d8a0e42da17e343a440cebc0a04f1800ad34ae6d86e1a7f7aa9a"
+  },
+  "reuse_decisions": {
+    "$comment": "Phase 0 reuse-vs-rebuild decisions per figma-generate-library skill section 5.",
+    "iPhone device frame": {
+      "decision": "reuse",
+      "source": "iOS and iPadOS 26 UI kit (community)",
+      "rationale": "Pixel-perfect Apple-official iPhone chrome with dynamic island + home indicator. Rebuilding would duplicate Apple's geometry imperfectly."
+    },
+    "SF Symbols": {
+      "decision": "skip",
+      "source": "iOS 26 UI kit ships SF Symbols",
+      "rationale": "Balencia uses Lucide icons in code, not SF Symbols. Build our own Icon component referencing Lucide; do not import SF Symbols."
+    },
+    "Material/Simple DS components": {
+      "decision": "rebuild",
+      "rationale": "Balencia has its own visual language — warm ink + burnt orange — not Material. The component API does not match. Build from scratch in Balencia DS."
+    }
+  }
+}
