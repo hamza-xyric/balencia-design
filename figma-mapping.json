@@ -265,9 +265,10 @@
         "Outline/False": { "node_id": "46:18", "key": "e37d08abdfb8df95b9bb4107068c1a4a44e0ebc3" },
         "Outline/True":  { "node_id": "46:22", "key": "74d2c560fbb433f599f63848b3f99e674121b97c" }
       },
-      "properties": ["Label (TEXT)", "HasIcon (BOOLEAN)"],
-      "property_keys": { "label": "Label#46:0", "hasIcon": "HasIcon#46:7" },
-      "$comment": "HasIcon promoted from variant axis to BOOLEAN (matches Button/Input). Active=True uses color/brand/cta for border + text in all 3 Variants; Filled+Active gets color/surface/glow-orange tint; Outline+Active uses 2px border. Neutral and Outline have transparent fill at rest. Icon INSTANCE_SWAP deferred to Atom #18.",
+      "properties": ["Label (TEXT)", "HasIcon (BOOLEAN)", "Icon (INSTANCE_SWAP)"],
+      "property_keys": { "label": "Label#46:0", "hasIcon": "HasIcon#46:7", "icon": "Icon#111:0" },
+      "icon_defaults": { "icon": "Icon/Sparkles (98:102)" },
+      "$comment": "HasIcon promoted from variant axis to BOOLEAN (matches Button/Input). Active=True uses color/brand/cta for border + text in all 3 Variants; Filled+Active gets color/surface/glow-orange tint; Outline+Active uses 2px border. Neutral and Outline have transparent fill at rest. Atom #18 retrofit (2026-05-29): added Icon INSTANCE_SWAP (key Icon#111:0) with default Icon/Sparkles on all 6 variants. Sparkles is the AI-suggestion default (royal-purple semantic in code); designers swap to domain-relevant icons per instance. Slot is 16×16 (smaller than Button's 20×20).",
       "created_at": "2026-05-28"
     },
     "SegmentedControl": {
