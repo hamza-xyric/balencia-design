@@ -385,6 +385,24 @@
       "$comment": "2 variants on Atoms page (17:11) at (460, 1740). HUG/HUG auto-layout component wrapping a single Label text node. Eyebrow text style (S:04ba98…) linked — Sora SemiBold 12px UPPER 12% letter-spacing 130% line-height (all carried by the style; no override needed). Per-variant text fill: Default=color/text/quaternary (white/40, matches React code), Accent=color/brand/cta (forward-looking — code only has the Default styling). Text TEXT prop default 'EYEBROW' (single shared default OK — both variants have identical text content). GOTCHA: setting fontName AFTER setTextStyleIdAsync — even to the EXACT same fontName the style already uses — breaks the textStyleId link (left as ''). Required a follow-up setTextStyleIdAsync fix-up pass. For future atoms whose text style already provides the desired weight, SKIP the fontName-override step entirely.",
       "created_at": "2026-05-28"
     },
+    "BrandSymbol": {
+      "node_id": "76:18",
+      "page_node_id": "17:11",
+      "key": "da7f6abf5ef38be1c8e2bca9b77ab88439b655bc",
+      "phase": "3A_atoms",
+      "size": { "w": 520, "h": 256 },
+      "variant_axes": { "Size": ["Sm","Md","Lg","Xl"] },
+      "variants": {
+        "Sm": { "node_id": "76:2",  "key": "be05c928690c2995621155f5228c758c3684f4c9", "px": 32 },
+        "Md": { "node_id": "76:6",  "key": "b5c11236d1ad526189a711af2ce2ab2f0bb0efc2", "px": 48 },
+        "Lg": { "node_id": "76:10", "key": "ec168ea6b01fabb205ce502b9dfd369425988d78", "px": 64 },
+        "Xl": { "node_id": "76:14", "key": "004dc532a374c06f9fd85bbb8e12466ca326ead7", "px": 96 }
+      },
+      "properties": ["HasGlow (BOOLEAN)"],
+      "property_keys": { "hasGlow": "HasGlow#76:0" },
+      "$comment": "4 variants on Atoms page (17:11) at (1400, 2080). Square N×N container per variant: Sm=32, Md=48 (code default), Lg=64, Xl=96. Each variant has 2 children: GlowBackground frame (full-size, radius/lg bound on all 4 corners, fill bound to color/brand/orange with paint opacity 0.15, Glow/Orange effect style) + LogoMark VECTOR imported via figma.createNodeFromSvg from balencia-screens/public/logos/Logo Mark.svg (single-path SVG, viewBox 204×239). Vector preserves 204:239 aspect (taller-than-wide) at every size, centered horizontally, top-aligned vertically; fill bound to color/brand/cta. HasGlow BOOLEAN property at the set level (key 'HasGlow#76:0') links to each GlowBackground.visible (default false). When true, the orange-tinted bg + Glow/Orange shadow appear; otherwise the vector floats on transparent. GOTCHA: setBoundVariableForPaint + spread+opacity DID strip opacity on the 4-variant BrandSymbol build (same gotcha as LevelBadge's 15-variant build, NOT the same as Divider's 8-variant build where the alpha was intrinsic to the variable itself). Required a follow-up read-modify-write pass (v.bg.fills.map(p => ({...p, opacity:0.15}))) — bg opacity verified 0.15 post-fix. Set frame has ink-900 bg + radius 24 for documentation visibility (doesn't propagate to instances).",
+      "created_at": "2026-05-28"
+    },
     "Divider": {
       "node_id": "74:10",
       "page_node_id": "17:11",
