@@ -656,7 +656,27 @@
     "Phone":          { "node_id": "96:89", "key": "33feba19f09199426a377a72fe0e440dd07fe031", "kebab": "phone" },
     "Pill":           { "node_id": "96:93", "key": "b999c4fdfff4d809734c48ccc4cff2c5c05b6664", "kebab": "pill" },
     "Pin":            { "node_id": "96:97", "key": "fdbab02cddb7c2c99b12f2770ddb35d791edac0b", "kebab": "pin" },
-    "Play":           { "node_id": "96:100","key": "7c75a443c9f55b06d8bacfb797e0a8da22e43784", "kebab": "play" }
+    "Play":           { "node_id": "96:100","key": "7c75a443c9f55b06d8bacfb797e0a8da22e43784", "kebab": "play" },
+    "Plus":           { "node_id": "98:5",  "key": "547267281ab07905482e0880528e6bab44b1435f", "kebab": "plus" },
+    "ReceiptText":    { "node_id": "98:11", "key": "61e4516cfdd86d09ca98af26be421a6090d54eb4", "kebab": "receipt-text" },
+    "RefreshCw":      { "node_id": "98:17", "key": "d82f441d66bc7d4a278aaa168b549b6a503f2a1d", "kebab": "refresh-cw" },
+    "RotateCcw":      { "node_id": "98:21", "key": "9cd62c4e860c255b0d5175c642bf97e3f9bd25eb", "kebab": "rotate-ccw" },
+    "Ruler":          { "node_id": "98:28", "key": "ebb7467283fed02c834a7cef2652017a059cdf0c", "kebab": "ruler" },
+    "Scale":          { "node_id": "98:35", "key": "f6916c0bd9befc84dad93cefa971f160a8f8ba82", "kebab": "scale" },
+    "Search":         { "node_id": "98:39", "key": "1c23aa2978088153a4697e7237e1aa6c8656276f", "kebab": "search" },
+    "Settings":       { "node_id": "98:43", "key": "15594c6fe3ac3d727c06f30130b8a1a672832a5c", "kebab": "settings" },
+    "Share2":         { "node_id": "98:50", "key": "431cf450143e8a6ca57c4d03ad01270c3a43c73e", "kebab": "share-2" },
+    "Shield":         { "node_id": "98:53", "key": "65f68dbb50d014e3db11bde41af38b766c620384", "kebab": "shield" },
+    "ShieldAlert":    { "node_id": "98:58", "key": "781e0833f0c837645aeb3f8728f45a18e22439b3", "kebab": "shield-alert" },
+    "ShieldCheck":    { "node_id": "98:62", "key": "67d1f3d19f8b76fd01e8589fcbcf545c781666ed", "kebab": "shield-check" },
+    "ShoppingCart":   { "node_id": "98:67", "key": "3c172ef4355a359fd4e83cf3bf01e31eb7ad411e", "kebab": "shopping-cart" },
+    "SkipForward":    { "node_id": "98:71", "key": "33c8bfc286514c533a4911833ea606f4c93d2d37", "kebab": "skip-forward" },
+    "SlidersHorizontal": { "node_id": "98:82", "key": "dd809010ce56aa2026a67065759bf8f823335f5e", "kebab": "sliders-horizontal" },
+    "Snowflake":      { "node_id": "98:96", "key": "4eabb00bb2511532c79faf0933ac1fae1d32a42b", "kebab": "snowflake" },
+    "Sparkles":       { "node_id": "98:102","key": "d85f5fccd774ce2812601271b4cbb2b01b1dd44f", "kebab": "sparkles" },
+    "Square":         { "node_id": "98:105","key": "22f62f764830ea349deb668e69bea7067204a67d", "kebab": "square" },
+    "Star":           { "node_id": "98:108","key": "ebb29ae60950656e0051016dc6e0fe456fe6b355", "kebab": "star" },
+    "StickyNote":     { "node_id": "98:112","key": "b67b3aaa0e08bb17d8f4e2dece2594f11cf6509a", "kebab": "sticky-note" }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
