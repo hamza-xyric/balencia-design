@@ -118,6 +118,7 @@
       "spacing/4":  "VariableID:8:2",
       "spacing/6":  "VariableID:52:2",
       "spacing/8":  "VariableID:8:3",
+      "spacing/10": "VariableID:62:2",
       "spacing/12": "VariableID:8:4",
       "spacing/16": "VariableID:8:5",
       "spacing/20": "VariableID:8:6",
@@ -337,6 +338,35 @@
       "properties": ["Placeholder (TEXT)", "Value (TEXT)", "HasClearButton (BOOLEAN)"],
       "property_keys": { "placeholder": "Placeholder#51:0", "value": "Value#51:4", "hasClearButton": "HasClearButton#51:8" },
       "$comment": "327x52 pill container, color/surface/card + 1px stroke (white-10 default/filled, brand/cta focused) + Elevation/1. Two text nodes per variant: Placeholder (color/text/quaternary, visible Default+Focused) and Value (color/text/primary, visible Filled). HasClearButton BOOLEAN linked only to Filled variant's clearBtn.visible (default=true) — Default/Focused keep clearBtn.visible=false locally so switching variants doesn't drag the BOOLEAN with them. Icon slots (Search 16x16, X 16x16 inside 44x44 clear button) are white-40 placeholders; INSTANCE_SWAP deferred to Atom #18.",
+      "created_at": "2026-05-28"
+    },
+    "LevelBadge": {
+      "node_id": "63:47",
+      "page_node_id": "17:11",
+      "key": "4891153ec6371869c0a1865968b3d0e76fe479c5",
+      "phase": "3A_atoms",
+      "size": { "w": 332, "h": 300 },
+      "variant_axes": { "Rarity": ["Common","Uncommon","Rare","Epic","Legendary"], "Size": ["Sm","Md","Lg"] },
+      "variants": {
+        "Common/Sm":     { "node_id": "63:2",  "key": "8d9df46a21bc37903ef2eff045352902d21cd24c" },
+        "Common/Md":     { "node_id": "63:5",  "key": "304a1c7a76422f159e15ff7e7453cb20a84f3cde" },
+        "Common/Lg":     { "node_id": "63:8",  "key": "1607e9d2fc1dbee41ee92c3e90bc3d1c68aa749c" },
+        "Uncommon/Sm":   { "node_id": "63:11", "key": "f1affafc3f61a83f05f9616dfab1076fefb93af2" },
+        "Uncommon/Md":   { "node_id": "63:14", "key": "6322b7f263476dccf9c9b56a21361e7c4ab9608e" },
+        "Uncommon/Lg":   { "node_id": "63:17", "key": "120431e8e6263f61ff87fd5be806987cdffb8991" },
+        "Rare/Sm":       { "node_id": "63:20", "key": "9de716fe517237617aef717bdf2b9a2ae450940d" },
+        "Rare/Md":       { "node_id": "63:23", "key": "9497445736ae1b0ff0256a0100802cab36bdec5c" },
+        "Rare/Lg":       { "node_id": "63:26", "key": "dda06df5c1203f6f00993dfdbcb1a7541e4ef55a" },
+        "Epic/Sm":       { "node_id": "63:29", "key": "afa9528ebeff485cddcd36677cdf0510bdb5de12" },
+        "Epic/Md":       { "node_id": "63:32", "key": "9c92c73d9535176d622f293dc32af8d57fb4002e" },
+        "Epic/Lg":       { "node_id": "63:35", "key": "cc88003d26c88e7a4683c023cda6c1a92fd69e41" },
+        "Legendary/Sm":  { "node_id": "63:38", "key": "cc0ab35dbb96390d706b659efc541ce54d08ec00" },
+        "Legendary/Md":  { "node_id": "63:41", "key": "5b787551407505d13985d11731ed4cd12896e625" },
+        "Legendary/Lg":  { "node_id": "63:44", "key": "33a9ca11081fec742017c92ae3cceab9838bb3fa" }
+      },
+      "properties": ["Level (TEXT)"],
+      "property_keys": { "level": "Level#63:0" },
+      "$comment": "15 variants in 5 Rarity × 3 Size grid at (80,1740). Pill (radius/pill), HUG width, fixed h per size: Sm=20 / Md=24 / Lg=28. Bg = solid bound to color/rarity/{name} with paint opacity 0.15 (alpha-tint mirroring DomainTag — zero new color tokens). Border = same rarity color at full opacity, 1px INSIDE. ◆ + 'Lv 1' text at full opacity in rarity color. Sora SemiBold override on top of size-appropriate text style (Sm=Small, Md=Caption, Lg=Body). Padding-x: Sm=spacing/6, Md=spacing/10 (new primitive, VariableID:62:2), Lg=spacing/12. Gap: Sm/Md=spacing/4, Lg=spacing/6. Elevation/1 shadow on every variant. Level TEXT prop default 'Lv 1' — single shared default works because all 15 variants have identical text content (DomainTag's per-variant text gotcha does NOT apply here). GOTCHA: setBoundVariableForPaint + spread+opacity pattern did NOT persist opacity 0.15 on first pass — required a follow-up read-modify-write pass (v.fills.map(p => ({...p, opacity:0.15}))). Cause unclear; prior atoms with same pattern (DomainTag) persisted correctly. For future alpha-tinted atoms, verify fill.opacity after creation and apply read-modify-write fix-up if needed.",
       "created_at": "2026-05-28"
     },
     "DomainTag": {
