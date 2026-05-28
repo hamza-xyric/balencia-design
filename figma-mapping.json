@@ -211,8 +211,9 @@
       "phase": "3A_atoms",
       "size": { "w": 427, "h": 472 },
       "variant_axes": { "Variant": ["Primary","Secondary","Ghost","Green","Destructive"], "Size": ["Sm","Md","Lg"] },
-      "properties": ["Label (TEXT)", "HasLeftIcon (BOOLEAN)", "HasRightIcon (BOOLEAN)"],
-      "property_keys": { "label": "Label#43:0", "hasLeftIcon": "HasLeftIcon#43:16", "hasRightIcon": "HasRightIcon#43:32" },
+      "properties": ["Label (TEXT)", "HasLeftIcon (BOOLEAN)", "HasRightIcon (BOOLEAN)", "LeftIcon (INSTANCE_SWAP)", "RightIcon (INSTANCE_SWAP)"],
+      "property_keys": { "label": "Label#43:0", "hasLeftIcon": "HasLeftIcon#43:16", "hasRightIcon": "HasRightIcon#43:32", "leftIcon": "LeftIcon#107:0", "rightIcon": "RightIcon#107:16" },
+      "icon_defaults": { "leftIcon": "Icon/Plus (98:5)", "rightIcon": "Icon/ArrowRight (92:23)" },
       "variants": {
         "Primary/Sm":     { "node_id": "43:2",  "key": "49fc433406153365c14aa79b08f263b3b68e5a1e" },
         "Primary/Md":     { "node_id": "43:8",  "key": "132af4a802a388482759fde69aec60d6b831fb07" },
@@ -230,7 +231,7 @@
         "Destructive/Md": { "node_id": "43:80", "key": "7c1e14fe45f0243d081147fd3e19577dacb5272c" },
         "Destructive/Lg": { "node_id": "43:86", "key": "c972de6f92b50dda72b1ae32ad4a2d288462f9bc" }
       },
-      "$comment": "Icon slots are 20x20 placeholder frames toggled by HasLeftIcon/HasRightIcon BOOLEAN props. INSTANCE_SWAP for icons is added in Atom #18 (Icon registry).",
+      "$comment": "Icon slots are 20x20 frames toggled by HasLeftIcon/HasRightIcon BOOLEAN props. Atom #18 retrofit (2026-05-28) replaced the placeholder RECTANGLEs with 20x20 instances of Icon/Plus (left default) and Icon/ArrowRight (right default), wired via LeftIcon (INSTANCE_SWAP, key LeftIcon#107:0) and RightIcon (INSTANCE_SWAP, key RightIcon#107:16) at the SET level. GOTCHA: addComponentProperty('Name','INSTANCE_SWAP', defaultValue) requires the LOCAL COMPONENT NODE ID as defaultValue, not the published key — passing plus.key threw 'Property value is incompatible with component property type', while plus.id succeeded. preferredValues option still uses { type: 'COMPONENT', key: <key> }. This applies to all retrofit atoms.",
       "created_at": "2026-05-28"
     },
     "ButtonState": {
