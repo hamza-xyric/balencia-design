@@ -320,6 +320,23 @@
       "property_keys": { "label": "Label#45:0", "hasLabel": "HasLabel#45:5", "value": "Value#45:10", "helper": "Helper#45:15", "hasHelper": "HasHelper#45:20", "hasRightIcon": "HasRightIcon#45:25" },
       "$comment": "Width 327 default (matches mobile content area). Per-variant helper text fill: Error → color/state/error, others → color/text/quaternary. HasHelper defaults to false — designers enable per use; Error variant inherits red helper styling when enabled. Right icon INSTANCE_SWAP deferred to Atom #18.",
       "created_at": "2026-05-28"
+    },
+    "SearchBar": {
+      "node_id": "51:20",
+      "page_node_id": "17:11",
+      "key": "36c1dd3bb99e4b369d3bba42001d2c5a7571e7f0",
+      "phase": "3A_atoms",
+      "size": { "w": 327, "h": 204 },
+      "variant_axes": { "State": ["Default","Focused","Filled"] },
+      "variants": {
+        "Default": { "node_id": "51:2",  "key": "6678bfd1af5a6237b1acd2e5a7818b55ef905c12" },
+        "Focused": { "node_id": "51:8",  "key": "d21418a55f5f0606fd58a1f842768972753e65c9" },
+        "Filled":  { "node_id": "51:14", "key": "d973eecb2e4679d492b5b82cad11117f5a46e8af" }
+      },
+      "properties": ["Placeholder (TEXT)", "Value (TEXT)", "HasClearButton (BOOLEAN)"],
+      "property_keys": { "placeholder": "Placeholder#51:0", "value": "Value#51:4", "hasClearButton": "HasClearButton#51:8" },
+      "$comment": "327x52 pill container, color/surface/card + 1px stroke (white-10 default/filled, brand/cta focused) + Elevation/1. Two text nodes per variant: Placeholder (color/text/quaternary, visible Default+Focused) and Value (color/text/primary, visible Filled). HasClearButton BOOLEAN linked only to Filled variant's clearBtn.visible (default=true) — Default/Focused keep clearBtn.visible=false locally so switching variants doesn't drag the BOOLEAN with them. Icon slots (Search 16x16, X 16x16 inside 44x44 clear button) are white-40 placeholders; INSTANCE_SWAP deferred to Atom #18.",
+      "created_at": "2026-05-28"
     }
   },
   "screens_frames": {
