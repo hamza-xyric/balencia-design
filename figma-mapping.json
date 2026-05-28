@@ -91,6 +91,7 @@
       "color/alpha/white-70":       "VariableID:4:40",
       "color/alpha/white-50":       "VariableID:4:41",
       "color/alpha/white-40":       "VariableID:4:42",
+      "color/alpha/white-20":       "VariableID:143:5",
       "color/alpha/white-10":       "VariableID:4:43",
       "color/alpha/white-08":       "VariableID:140:2",
       "color/alpha/white-06":       "VariableID:4:44",
@@ -651,6 +652,19 @@
       "properties": ["Label (TEXT)", "Amount (TEXT)"],
       "property_keys": { "label": "Label#142:0", "amount": "Amount#142:3" },
       "$comment": "5th Phase 3B molecule (B1 batch). Default = label row (Label left + Amount right, SPACE_BETWEEN) over the track; Compact = track only (React renders label row conditionally). Both 327 FIXED-wide VERTICAL auto-layout, itemSpacing bound spacing/8. Track = plain FRAME 327×8 (clipsContent), bg bound color/alpha/white-08 (NEW primitive VariableID:140:2 minted this build), all corners radius/pill; inner Fill baked 70% width bound color/brand/cta + radius/pill (progress % is a static snapshot). Track height 8px intrinsic geometry (not token-bound). Label/Amount = explicit Sora SemiBold 11px, fill color/alpha/white-50, NO style link (component-intrinsic type). Label TEXT prop (Label#142:0) + Amount TEXT prop (Amount#142:3) linked on Default ONLY. Minted color/alpha/white-08.",
+      "created_at": "2026-05-29"
+    },
+    "ChainProgressBar": {
+      "node_id": "143:6",
+      "page_node_id": "17:12",
+      "key": "e0376460202f605f40766906cd85ad18ea6b18ae",
+      "phase": "3B_molecules",
+      "size": { "w": 327, "h": 31 },
+      "doc_frame_id": "144:5",
+      "variant_axes": {},
+      "properties": ["Count (TEXT)"],
+      "property_keys": { "count": "Count#143:0" },
+      "$comment": "6th Phase 3B molecule (B1 batch). NO variant axis → lone COMPONENT (not a set), baked at total=5/current=3. 327 FIXED-wide VERTICAL auto-layout, itemSpacing spacing/4. CountRow HORIZONTAL FILL justify-end → Count text '3 of 5' (Small style 11px Regular, fill color/alpha/white-40 — React text-small is weightless so Regular keeps the style link clean). Track = 327×12 plain FRAME with absolute children: Line 327×4@y4 (color/alpha/white-08, radius/pill) + 5 ELLIPSE dots, centers c_i=4+i·(327-8)/4. Dot states: complete=6×6 color/brand/success; current=8×8 color/brand/cta + Glow/Orange effect style; upcoming=6×6 color/alpha/white-20 (NEW primitive VariableID:143:5). Dot/line px sizes intrinsic geometry. Count TEXT prop (Count#143:0). Component transparent (screen overlay) → wrapped in plain ink-900 doc FRAME 144:5 for canvas legibility (chrome only, not a component, no instance propagation). Minted color/alpha/white-20.",
       "created_at": "2026-05-29"
     }
   },
