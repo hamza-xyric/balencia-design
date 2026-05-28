@@ -155,7 +155,9 @@
     "Body":       "S:ef004e3824d5fa6cfe19a70f3e0b43a181c3d9eb,",
     "Caption":    "S:0b81e86cddb1fc1f328c5af51b4a1d60e6c63da2,",
     "Eyebrow":    "S:04ba984d2667945edcb8b4e927bc6ba5280263d8,",
-    "Small":      "S:0b2c06dc03e9bbcae3947d635b4e0287d3e05602,"
+    "Small":      "S:0b2c06dc03e9bbcae3947d635b4e0287d3e05602,",
+    "Button/Md":  "S:851cdbfe6c9764861fe578379fab4cd6db48a81f,",
+    "Button/Sm":  "S:4c17baa266929b6fe2c0232a248ac7e5fd02e1fe,"
   },
   "ds_effect_styles": {
     "$comment": "Filled in Phase 1. style name -> style ID.",
@@ -196,6 +198,51 @@
       "phase": "3F_layout",
       "size": { "w": 375, "h": 812 },
       "$comment": "Default value of PhoneFrame's Content INSTANCE_SWAP property. Replace per-screen during Phase 4-5.",
+      "created_at": "2026-05-28"
+    },
+    "Button": {
+      "node_id": "43:92",
+      "page_node_id": "17:11",
+      "key": "cde7218e9f10ff2c8af0158df7f0b2a49f408cfb",
+      "phase": "3A_atoms",
+      "size": { "w": 427, "h": 472 },
+      "variant_axes": { "Variant": ["Primary","Secondary","Ghost","Green","Destructive"], "Size": ["Sm","Md","Lg"] },
+      "properties": ["Label (TEXT)", "HasLeftIcon (BOOLEAN)", "HasRightIcon (BOOLEAN)"],
+      "property_keys": { "label": "Label#43:0", "hasLeftIcon": "HasLeftIcon#43:16", "hasRightIcon": "HasRightIcon#43:32" },
+      "variants": {
+        "Primary/Sm":     { "node_id": "43:2",  "key": "49fc433406153365c14aa79b08f263b3b68e5a1e" },
+        "Primary/Md":     { "node_id": "43:8",  "key": "132af4a802a388482759fde69aec60d6b831fb07" },
+        "Primary/Lg":     { "node_id": "43:14", "key": "1f9abece3e5dd7ea5ef09b09e5ff6f20953ba7bb" },
+        "Secondary/Sm":   { "node_id": "43:20", "key": "82511f4504da377497dd17dc9ec7cc1c214a25ff" },
+        "Secondary/Md":   { "node_id": "43:26", "key": "e10cee6e873fde1d9ac3661850153107c2a37215" },
+        "Secondary/Lg":   { "node_id": "43:32", "key": "181b1d9e10c6e8dc73f1f5d093d82454a97c47e9" },
+        "Ghost/Sm":       { "node_id": "43:38", "key": "a61d8f075abee95724043abfcccd7b2468d5711f" },
+        "Ghost/Md":       { "node_id": "43:44", "key": "55deca2a5231588b4bdb0361d509eb22b53f585d" },
+        "Ghost/Lg":       { "node_id": "43:50", "key": "c4b1a5c5b833ecea0062707e1b10c8ff206b8351" },
+        "Green/Sm":       { "node_id": "43:56", "key": "abffca1264fbb2078728cee35d3c03ad0aab6de8" },
+        "Green/Md":       { "node_id": "43:62", "key": "4f00d01af55a29457e571bd6abd8cdb95fa50e00" },
+        "Green/Lg":       { "node_id": "43:68", "key": "a504fdb1f1b9746c5625e5aa0b0165730fd21581" },
+        "Destructive/Sm": { "node_id": "43:74", "key": "ec2eb3cce48402da70ad8141d8b9dd0e47e69e45" },
+        "Destructive/Md": { "node_id": "43:80", "key": "7c1e14fe45f0243d081147fd3e19577dacb5272c" },
+        "Destructive/Lg": { "node_id": "43:86", "key": "c972de6f92b50dda72b1ae32ad4a2d288462f9bc" }
+      },
+      "$comment": "Icon slots are 20x20 placeholder frames toggled by HasLeftIcon/HasRightIcon BOOLEAN props. INSTANCE_SWAP for icons is added in Atom #18 (Icon registry).",
+      "created_at": "2026-05-28"
+    },
+    "ButtonState": {
+      "node_id": "44:11",
+      "page_node_id": "17:11",
+      "key": "71d095e8966c9477266ad728ad597c56947ab875",
+      "phase": "3A_atoms",
+      "size": { "w": 614, "h": 144 },
+      "variant_axes": { "State": ["Default","Pressed","Disabled","Loading"] },
+      "variants": {
+        "Default":  { "node_id": "44:2", "key": "f7fc281171a3d603d28cc612cbcb89cf891b7753" },
+        "Pressed":  { "node_id": "44:4", "key": "9a0f69aac20d764af0a46c35b893c5a100b9e907" },
+        "Disabled": { "node_id": "44:6", "key": "99879bad819761a8ac635a4bcf8609e0c44b01f0" },
+        "Loading":  { "node_id": "44:8", "key": "346821871fd6595ddaf0331e13796f0485b6c6a9" }
+      },
+      "$comment": "State-axis aux for Button. Documentation reference showing Default / Pressed (Glow/Orange) / Disabled (50% opacity) / Loading (spinner placeholder + 'Loading' label) on Primary Md. Engineering composes via Button — Disabled/Loading booleans land in a future iteration.",
       "created_at": "2026-05-28"
     }
   },
