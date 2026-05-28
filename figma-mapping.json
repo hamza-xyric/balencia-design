@@ -425,6 +425,24 @@
       "$comment": "8 variants on Atoms page (17:11) at (80, 2080). Generic divider primitive (path-a resolution): Orientation × Weight axes. Weight is intrinsic geometry — Thin=1px, Base=2px, Bold=3px, Poster=4px — NOT token-bound (per Phase 3A convention). Single fill bound to color/alpha/white-10 (VariableID:4:43); the alpha is intrinsic to the variable definition, so binding resolved opacity:0.1 correctly with NO fix-up pass needed (unlike LevelBadge's rarity/15 alpha-tints where the variable is base-color and opacity must be applied via paint-level multiplier). Set frame has bg fill bound to color/neutral/ink-900 + radius 24 purely for documentation visibility on Figma's light canvas — does NOT propagate to instances. The labeled 'Or continue with' separator in src/components/design-system/Divider.tsx is the single current usage; it should become a LabeledDivider molecule in Phase 3B composing Divider + caption text. Horizontal default length 240px, Vertical default length 240px — these are intrinsic, not bound; consumers in instances either hug (default) or fill via auto-layout parent.",
       "created_at": "2026-05-28"
     },
+    "FAB": {
+      "node_id": "79:10",
+      "page_node_id": "17:11",
+      "key": "97e728742f64112cec029f6b31fe00b98aee5a71",
+      "phase": "3A_atoms",
+      "size": { "w": 240, "h": 240 },
+      "variant_axes": { "Variant": ["Primary","Ghost"], "State": ["Default","Pressed"] },
+      "variants": {
+        "Primary/Default": { "node_id": "79:2", "key": "d58a67e0203837ae61d7027645584387a4ec830e" },
+        "Primary/Pressed": { "node_id": "79:4", "key": "bf83ddea67581bf39cb983f968e107c0556d2c20" },
+        "Ghost/Default":   { "node_id": "79:6", "key": "d1bfa96a91b91dbbce256a919f4c5d013ba024ba" },
+        "Ghost/Pressed":   { "node_id": "79:8", "key": "9b6a65d39c72637a724e4f8cd8a63c39a166539d" }
+      },
+      "properties": [],
+      "property_keys": {},
+      "$comment": "4 variants on Atoms page (17:11) at (816, 2620), 2×2 grid (cols=Variant, rows=State). Scope decision: Phase 3A covers only the canonical 56×56 round icon FAB — the React component's `display='pill'` form (h=48 text+icon-side-by-side) defers to Phase 3B as a FABExtendedPill molecule, since it's structurally a labeled button, not a primitive. State-axis Pressed cue (React active:scale-[0.93] is a transient gesture — not statically modelable): Primary Pressed swaps Elevation/2 for Glow/Orange effect style (brand-glow reinforces brand bg); Ghost Pressed gets opacity 0.85 on the variant frame (subtle dim — Ghost lacks a brand tint to glow from). Container: 56×56, all 4 corners bound to radius/pill (var 9:8). Bg fills: Primary=color/brand/cta (5:13), Ghost=color/surface/card (5:4). Ghost stroke: 1px INSIDE color/alpha/white-06 (4:44). Default Elevation/2 shadow style. Icon slot: 24×24 placeholder frame centered, white/40 fill + 4px radius (visible 'icon goes here' marker) — INSTANCE_SWAP wiring deferred to Atom #18 retrofit pass, matching Button/Chip/Input precedent. No component properties at the set level. Mints zero new tokens.",
+      "created_at": "2026-05-28"
+    },
     "BrandWordmark": {
       "node_id": "78:38",
       "page_node_id": "17:11",
