@@ -478,6 +478,26 @@
       "$comment": "4 variants on Atoms page (17:11) at (80, 2900) — single horizontal row. Single-path SVG (viewBox 0 0 128 48, path 'M4 22C20 6 42 6 54 21C66 36 86 42 124 12') imported via figma.createNodeFromSvg; VECTOR child extracted via findOne(n=>n.type==='VECTOR') and reparented to the 128×48 COMPONENT root. STROKE-ONLY: v.fills cleared, v.strokes bound to color/brand/cta. strokeWeight is intrinsic geometry per Phase 3A convention — NOT token-bound: Thin=2, Base=4 (matches React code default), Bold=6, Poster=8. strokeCap='ROUND', strokeJoin='ROUND' match React's strokeLinecap/Linejoin='round'. Component root has fills=[] (transparent canvas) + clipsContent=false so heavier weights are not cropped by the 128×48 viewBox frame. React's animated=true mode (CSS strokeDasharray animation) is runtime-only — not statically modeled. CONVENTION: single-path SVG stroke-only — bind v.strokes (not v.fills) since SVG path has fill='none'; setBoundVariableForPaint resolved cleanly on first pass (NO opacity fix-up needed since color/brand/cta is full-opacity). Zero new tokens. Set frame bg ink-900 + radius 24 for documentation visibility (does NOT propagate to instances).",
       "created_at": "2026-05-28"
     },
+    "MissionTypeBadge": {
+      "node_id": "82:14",
+      "page_node_id": "17:11",
+      "key": "ab83166717928343e0d525c18aae1510e5d5e25d",
+      "phase": "3A_atoms",
+      "size": { "w": 245, "h": 112 },
+      "variant_axes": { "Type": ["Life","Main","Side","Weekly","Daily","Group"] },
+      "variants": {
+        "Life":   { "node_id": "82:2",  "key": "102849b5d97cce7bbd736d4770d2b211393a0287", "w": 41, "color_token": "color/mission/gold"   },
+        "Main":   { "node_id": "82:4",  "key": "b09249ce858dafbeeefe38514f24398385285c75", "w": 47, "color_token": "color/mission/silver" },
+        "Side":   { "node_id": "82:6",  "key": "09b92e9b90f5e711b8cddbdb4ed25872aa33fca4", "w": 46, "color_token": "color/mission/bronze" },
+        "Weekly": { "node_id": "82:8",  "key": "e710b104e80d91fefb144dd7d6cab29f92e1bf27", "w": 61, "color_token": "color/mission/steel"  },
+        "Daily":  { "node_id": "82:10", "key": "0ac17d818ebcff5fb2f72d31857df01b2e146518", "w": 48, "color_token": "color/mission/sage"   },
+        "Group":  { "node_id": "82:12", "key": "d34395158c7bb94a120868af25f5c476cb59133e", "w": 56, "color_token": "color/mission/copper" }
+      },
+      "properties": [],
+      "property_keys": {},
+      "$comment": "6 Type variants on Atoms page (17:11) at (760, 2900) in 3×2 grid (Row 1: Life/Main/Side = gold/silver/bronze; Row 2: Weekly/Daily/Group = steel/sage/copper). Pill (radius/pill all 4 corners), HUG width per label (41-61px), h=24 FIXED intrinsic. Auto-layout HORIZONTAL, padding-x = spacing/10 (matches React px-2.5), padding-y = 0, gap = 0. Border 1px INSIDE, color = matching mission color at 35% paint opacity. Bg fill = matching mission color at 20% paint opacity. Text = matching mission color at 100% opacity, Small style + Sora SemiBold 11px override (matches React text-small font-semibold). ⚠ PAINT-MULTIPLIER ALPHA GOTCHA: setBoundVariableForPaint + spread+opacity did NOT persist on first pass — both fill.opacity and stroke.opacity read 1 instead of 0.20/0.35. Applied LevelBadge precedent read-modify-write fix-up (v.fills.map(p => ({...p, opacity: 0.20})), strokes similar at 0.35). After fix-up, opacities verified 0.2 / 0.35. ⚠ HUG WIDTH GOTCHA: initial resize(60, 24) reverted primaryAxisSizingMode from AUTO to FIXED, locking all variants at 60px wide. Fix-up: re-applied primaryAxisSizingMode='AUTO' post-resize so each variant HUGs its label. Lesson: for HUG-on-content components, set primaryAxisSizingMode='AUTO' AFTER resize() AND after children are appended, not before. ⚠ TEXT STYLE LINK: per Eyebrow precedent, text.fontName=Sora SemiBold AFTER setTextStyleIdAsync(Small) breaks the textStyleId link to ''. Re-applied setTextStyleIdAsync(Small) as fix-up to restore the link. Per-variant labels (Life/Main/Side/Weekly/Daily/Group) baked in locally — NO Label TEXT property (DomainTag precedent — per-variant text differs, Figma's TEXT prop clobbers all variants with the shared default). Designers pick the variant to get the right label. Set frame bg ink-900 + radius 24 for documentation visibility (does NOT propagate to instances). Zero new tokens minted.",
+      "created_at": "2026-05-28"
+    },
     "DomainTag": {
       "node_id": "52:39",
       "page_node_id": "17:11",
