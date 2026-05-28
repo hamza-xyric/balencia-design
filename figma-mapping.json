@@ -696,7 +696,12 @@
     "Video":          { "node_id": "99:98", "key": "c2d07fcadb6bd414118898b1844c238e00e3f1be", "kebab": "video" },
     "Wallet":         { "node_id": "99:102","key": "c87d076c2f63d74c7dce2fdaf2811eb0dd9581fb", "kebab": "wallet" },
     "WalletCards":    { "node_id": "99:107","key": "98b7d95f61b4f77a5ea42e9bb4fcd5fb9641848b", "kebab": "wallet-cards" },
-    "Watch":          { "node_id": "99:113","key": "7f5cc0b98b2af3297afd597be8fbeca8736faaef", "kebab": "watch" }
+    "Watch":          { "node_id": "99:113","key": "7f5cc0b98b2af3297afd597be8fbeca8736faaef", "kebab": "watch" },
+    "Wind":           { "node_id": "100:6", "key": "c24df3a6146dcf7bb8c096defc94b1577dfa84c8", "kebab": "wind" },
+    "X":              { "node_id": "100:10","key": "8f15ee67f64b9f2f2356cddf80a3eccc9677aea5", "kebab": "x" },
+    "Zap":            { "node_id": "100:13","key": "a35f608084099abfb241445649280670363de280", "kebab": "zap" },
+    "ZoomIn":         { "node_id": "100:19","key": "4143539d4745ab776b0b9ccaef12a11ff3d3ad76", "kebab": "zoom-in" },
+    "ZoomOut":        { "node_id": "100:24","key": "79e2b59ee26268465754b692db975f1c49c741b8", "kebab": "zoom-out" }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
