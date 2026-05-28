@@ -245,6 +245,26 @@
       "$comment": "State-axis aux for Button. Documentation reference showing Default / Pressed (Glow/Orange) / Disabled (50% opacity) / Loading (spinner placeholder + 'Loading' label) on Primary Md. Engineering composes via Button — Disabled/Loading booleans land in a future iteration.",
       "created_at": "2026-05-28"
     },
+    "Chip": {
+      "node_id": "46:26",
+      "page_node_id": "17:11",
+      "key": "caf35b7263bed56a90ce4113abd8a32d9fb6510d",
+      "phase": "3A_atoms",
+      "size": { "w": 242, "h": 252 },
+      "variant_axes": { "Variant": ["Neutral","Filled","Outline"], "Active": ["False","True"] },
+      "variants": {
+        "Neutral/False": { "node_id": "46:2",  "key": "e65579007432aec1f4499f92faa4c4a65b2d0a9e" },
+        "Neutral/True":  { "node_id": "46:6",  "key": "3cf4a3108f8c50ed2e343577f3a492f2196bed6e" },
+        "Filled/False":  { "node_id": "46:10", "key": "a15e81407739992c90b0846fa5a17c5c7bb7cd23" },
+        "Filled/True":   { "node_id": "46:14", "key": "628bf725d6e57d5f0e2eb98f47e6597de980cc10" },
+        "Outline/False": { "node_id": "46:18", "key": "e37d08abdfb8df95b9bb4107068c1a4a44e0ebc3" },
+        "Outline/True":  { "node_id": "46:22", "key": "74d2c560fbb433f599f63848b3f99e674121b97c" }
+      },
+      "properties": ["Label (TEXT)", "HasIcon (BOOLEAN)"],
+      "property_keys": { "label": "Label#46:0", "hasIcon": "HasIcon#46:7" },
+      "$comment": "HasIcon promoted from variant axis to BOOLEAN (matches Button/Input). Active=True uses color/brand/cta for border + text in all 3 Variants; Filled+Active gets color/surface/glow-orange tint; Outline+Active uses 2px border. Neutral and Outline have transparent fill at rest. Icon INSTANCE_SWAP deferred to Atom #18.",
+      "created_at": "2026-05-28"
+    },
     "Input": {
       "node_id": "45:30",
       "page_node_id": "17:11",
