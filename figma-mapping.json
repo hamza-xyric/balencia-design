@@ -116,6 +116,7 @@
     },
     "spacing": {
       "spacing/4":  "VariableID:8:2",
+      "spacing/6":  "VariableID:52:2",
       "spacing/8":  "VariableID:8:3",
       "spacing/12": "VariableID:8:4",
       "spacing/16": "VariableID:8:5",
@@ -336,6 +337,32 @@
       "properties": ["Placeholder (TEXT)", "Value (TEXT)", "HasClearButton (BOOLEAN)"],
       "property_keys": { "placeholder": "Placeholder#51:0", "value": "Value#51:4", "hasClearButton": "HasClearButton#51:8" },
       "$comment": "327x52 pill container, color/surface/card + 1px stroke (white-10 default/filled, brand/cta focused) + Elevation/1. Two text nodes per variant: Placeholder (color/text/quaternary, visible Default+Focused) and Value (color/text/primary, visible Filled). HasClearButton BOOLEAN linked only to Filled variant's clearBtn.visible (default=true) — Default/Focused keep clearBtn.visible=false locally so switching variants doesn't drag the BOOLEAN with them. Icon slots (Search 16x16, X 16x16 inside 44x44 clear button) are white-40 placeholders; INSTANCE_SWAP deferred to Atom #18.",
+      "created_at": "2026-05-28"
+    },
+    "DomainTag": {
+      "node_id": "52:39",
+      "page_node_id": "17:11",
+      "key": "3c338b58e3a9afa9ea826810e9beef759a41dc66",
+      "phase": "3A_atoms",
+      "size": { "w": 453, "h": 120 },
+      "variant_axes": { "Domain": ["Fitness","Sleep","Career","Nutrition","Finance","Faith","Productivity","Relationships","Wellbeing","Meditation","Creativity","Learning"] },
+      "variants": {
+        "Fitness":       { "node_id": "52:3",  "key": "be4fb96ad716a65c08c58870e65ee7f16d52e08c" },
+        "Sleep":         { "node_id": "52:6",  "key": "b348eaaed8f7daafb4f5085a48d22d1185ad7769" },
+        "Career":        { "node_id": "52:9",  "key": "a8985874041fec1983af7452f474846bed2e06a0" },
+        "Nutrition":     { "node_id": "52:12", "key": "3596c27a85a63b9ad3123a62a17eebcd1e121eff" },
+        "Finance":       { "node_id": "52:15", "key": "7fda72bbf0d85fbf9ac96602c2393c15dc297fd7" },
+        "Faith":         { "node_id": "52:18", "key": "2497c81e95390bfff6f282e1a98472fcb453d480" },
+        "Productivity":  { "node_id": "52:21", "key": "f765ae75b9707feaff315b0264f3d93a6daa9a5a" },
+        "Relationships": { "node_id": "52:24", "key": "1b45def34cc0091f791d87ab6300c191e44c3e52" },
+        "Wellbeing":     { "node_id": "52:27", "key": "505b27043cdc42fe76b46b7e19507b8c27fedc17" },
+        "Meditation":    { "node_id": "52:30", "key": "8d1994305da9704fb83112979d820da419a0db37" },
+        "Creativity":    { "node_id": "52:33", "key": "b7bc241a0e4bc7d0e7a1e1bcdc5d877b33c3fd00" },
+        "Learning":      { "node_id": "52:36", "key": "8b8bd9ae2c203033bd55950f8a3515409c5b3e02" }
+      },
+      "properties": ["ShowDot (BOOLEAN)"],
+      "property_keys": { "showDot": "ShowDot#52:13" },
+      "$comment": "12 Domain variants in 4×3 grid (HUG width 56-106, h=24, radius/sm, padding-x spacing/8, gap spacing/6). Bg fill = solid bound to color/domain/{name} with paint opacity 0.15 (zero new color tokens — paint opacity multiplies the bound RGB). Dot (6×6 pill) + Label (Small text style + Sora SemiBold override, 11px) both at full opacity in the same domain color. Per-variant labels (Fitness/Sleep/…) are baked in locally — NO Label TEXT property because Figma's linked TEXT prop overrides per-variant characters with the shared prop default (incompatible with per-variant defaults). Designers pick the variant to get the right label; customization requires detach. Mints spacing/6 = 6px (new primitive, WIDTH_HEIGHT+GAP scopes, WEB syntax `6px`).",
       "created_at": "2026-05-28"
     }
   },
