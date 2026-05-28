@@ -676,7 +676,27 @@
     "Sparkles":       { "node_id": "98:102","key": "d85f5fccd774ce2812601271b4cbb2b01b1dd44f", "kebab": "sparkles" },
     "Square":         { "node_id": "98:105","key": "22f62f764830ea349deb668e69bea7067204a67d", "kebab": "square" },
     "Star":           { "node_id": "98:108","key": "ebb29ae60950656e0051016dc6e0fe456fe6b355", "kebab": "star" },
-    "StickyNote":     { "node_id": "98:112","key": "b67b3aaa0e08bb17d8f4e2dece2594f11cf6509a", "kebab": "sticky-note" }
+    "StickyNote":     { "node_id": "98:112","key": "b67b3aaa0e08bb17d8f4e2dece2594f11cf6509a", "kebab": "sticky-note" },
+    "SunMedium":      { "node_id": "99:12", "key": "89074cbb0984fab6fdd4e50b4b31a3035e8b1f5a", "kebab": "sun-medium" },
+    "Target":         { "node_id": "99:17", "key": "e229da031fce7664b87fffa1ee8d9bc8339d4986", "kebab": "target" },
+    "ThumbsDown":     { "node_id": "99:21", "key": "ceac72920dfa59e69c8290aedaf9e9aa8cc64b7a", "kebab": "thumbs-down" },
+    "ThumbsUp":       { "node_id": "99:25", "key": "9a07b398ef07eab5d1da2944812e019a2b672a45", "kebab": "thumbs-up" },
+    "Timer":          { "node_id": "99:30", "key": "a457cb6d262b624f01a6c753d57d92a84a9bed34", "kebab": "timer" },
+    "TimerReset":     { "node_id": "99:36", "key": "81fb91f83be7df9bbbd501c87af61b10b58110f3", "kebab": "timer-reset" },
+    "Trash2":         { "node_id": "99:43", "key": "70e0a32c8ac6666348cdcc0d4dde393026b0d6d4", "kebab": "trash-2" },
+    "TrendingUp":     { "node_id": "99:47", "key": "299f75f7a250a2b084093bdd05f496a2e3e7cd5f", "kebab": "trending-up" },
+    "TriangleAlert":  { "node_id": "99:52", "key": "f08d877fd131f4cb4e8c3c458f6a6c78975d0e00", "kebab": "triangle-alert" },
+    "Trophy":         { "node_id": "99:60", "key": "bbfd6653f686976569372003b99cc98fd9f4ad8c", "kebab": "trophy" },
+    "Unlink":         { "node_id": "99:68", "key": "71c4029ed9e064452468dd4c83c821572eda2d4c", "kebab": "unlink" },
+    "Upload":         { "node_id": "99:73", "key": "62bf470fe57081a07fb86f15b9ca002e39aefc1b", "kebab": "upload" },
+    "User":           { "node_id": "99:77", "key": "97c3845bbfeb51307baf1a31a033192d196ce6b5", "kebab": "user" },
+    "UserPlus":       { "node_id": "99:83", "key": "de6bcc16297e2bc0f6f287cf7608469a9af27de9", "kebab": "user-plus" },
+    "Users":          { "node_id": "99:89", "key": "644e688ba66a9ee0abb9319e818884662d5a065a", "kebab": "users" },
+    "Utensils":       { "node_id": "99:94", "key": "0495a6b35b066b2f0054b49888bf81cfc4fdccc2", "kebab": "utensils" },
+    "Video":          { "node_id": "99:98", "key": "c2d07fcadb6bd414118898b1844c238e00e3f1be", "kebab": "video" },
+    "Wallet":         { "node_id": "99:102","key": "c87d076c2f63d74c7dce2fdaf2811eb0dd9581fb", "kebab": "wallet" },
+    "WalletCards":    { "node_id": "99:107","key": "98b7d95f61b4f77a5ea42e9bb4fcd5fb9641848b", "kebab": "wallet-cards" },
+    "Watch":          { "node_id": "99:113","key": "7f5cc0b98b2af3297afd597be8fbeca8736faaef", "kebab": "watch" }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
