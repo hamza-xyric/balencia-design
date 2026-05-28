@@ -32,6 +32,7 @@
     "Foundations / Motion": "17:9",
     "Foundations / Domain Colors": "17:10",
     "--- Atoms ---": "17:11",
+    "--- Icons ---": "89:2",
     "--- Molecules ---": "17:12",
     "--- Organisms ---": "17:13",
     "--- Charts ---": "17:14",
@@ -556,6 +557,11 @@
       "$comment": "12 Domain variants in 4×3 grid (HUG width 56-106, h=24, radius/sm, padding-x spacing/8, gap spacing/6). Bg fill = solid bound to color/domain/{name} with paint opacity 0.15 (zero new color tokens — paint opacity multiplies the bound RGB). Dot (6×6 pill) + Label (Small text style + Sora SemiBold override, 11px) both at full opacity in the same domain color. Per-variant labels (Fitness/Sleep/…) are baked in locally — NO Label TEXT property because Figma's linked TEXT prop overrides per-variant characters with the shared prop default (incompatible with per-variant defaults). Designers pick the variant to get the right label; customization requires detach. Mints spacing/6 = 6px (new primitive, WIDTH_HEIGHT+GAP scopes, WEB syntax `6px`).",
       "created_at": "2026-05-28"
     }
+  },
+  "ds_icons": {
+    "$comment": "Filled in Phase 3A Atom 18 (Icon registry). 142 flat 24×24 Lucide icon COMPONENTs on the '--- Icons ---' page (89:2), grid layout (12 cols × 80px cells, origin 80,80). Strokes bound to color/text/primary; strokeWeight=2 intrinsic; ROUND cap/join. Source: lucide-static@^1.17 SVGs (node_modules/lucide-static/icons/<kebab>.svg). PascalCase keys mirror the React import names from figma-icons-used.json — pascal field documents that. canonical reflects underlying lucide name when an alias was used (e.g. AlertCircle → CircleAlert).",
+    "Plus": { "node_id": "89:6",  "key": "692a22d48845db0a9b5a272e462ccb39607def57", "kebab": "plus" },
+    "X":    { "node_id": "89:10", "key": "e6665194a14892a7d611d1b3d0f0d2fb67c7aa9e", "kebab": "x"    }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
