@@ -339,9 +339,10 @@
         "Focused": { "node_id": "51:8",  "key": "d21418a55f5f0606fd58a1f842768972753e65c9" },
         "Filled":  { "node_id": "51:14", "key": "d973eecb2e4679d492b5b82cad11117f5a46e8af" }
       },
-      "properties": ["Placeholder (TEXT)", "Value (TEXT)", "HasClearButton (BOOLEAN)"],
-      "property_keys": { "placeholder": "Placeholder#51:0", "value": "Value#51:4", "hasClearButton": "HasClearButton#51:8" },
-      "$comment": "327x52 pill container, color/surface/card + 1px stroke (white-10 default/filled, brand/cta focused) + Elevation/1. Two text nodes per variant: Placeholder (color/text/quaternary, visible Default+Focused) and Value (color/text/primary, visible Filled). HasClearButton BOOLEAN linked only to Filled variant's clearBtn.visible (default=true) — Default/Focused keep clearBtn.visible=false locally so switching variants doesn't drag the BOOLEAN with them. Icon slots (Search 16x16, X 16x16 inside 44x44 clear button) are white-40 placeholders; INSTANCE_SWAP deferred to Atom #18.",
+      "properties": ["Placeholder (TEXT)", "Value (TEXT)", "HasClearButton (BOOLEAN)", "SearchIcon (INSTANCE_SWAP)", "ClearIcon (INSTANCE_SWAP)"],
+      "property_keys": { "placeholder": "Placeholder#51:0", "value": "Value#51:4", "hasClearButton": "HasClearButton#51:8", "searchIcon": "SearchIcon#113:0", "clearIcon": "ClearIcon#113:4" },
+      "icon_defaults": { "searchIcon": "Icon/Search (98:39)", "clearIcon": "Icon/X (100:10)" },
+      "$comment": "327x52 pill container, color/surface/card + 1px stroke (white-10 default/filled, brand/cta focused) + Elevation/1. Two text nodes per variant: Placeholder (color/text/quaternary, visible Default+Focused) and Value (color/text/primary, visible Filled). HasClearButton BOOLEAN linked only to Filled variant's clearBtn.visible (default=true) — Default/Focused keep clearBtn.visible=false locally so switching variants doesn't drag the BOOLEAN with them. Atom #18 retrofit (2026-05-29): SearchIcon (INSTANCE_SWAP, key SearchIcon#113:0, default Icon/Search) and ClearIcon (INSTANCE_SWAP, key ClearIcon#113:4, default Icon/X) wired on all 3 variants — both icons are 16×16. The ClearIcon is wired on every variant (it lives inside Clear Button which is itself gated by HasClearButton visibility); the prop key just lets designers swap the X for e.g. a Trash or RotateCcw if context warrants.",
       "created_at": "2026-05-28"
     },
     "LevelBadge": {
