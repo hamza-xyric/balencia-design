@@ -580,6 +580,22 @@
       "property_keys": {},
       "$comment": "First Phase 3B molecule. 3 Variants on Molecules page (17:12) at (80,80) in a horizontal row (set 1141w × 194h with 40px padding + 40px itemSpacing). Code/Figma mismatch resolved path (a): figma-components-map declared Variant×Padding (3×3=9) but React Card couples radius+padding per variant (default rounded-xl p-6 / small rounded-md p-4 / hero rounded-2xl p-8). User chose 'Match React code exactly' → 3 variants only, radius+padding coupled per variant, React's 'small' renamed to 'Compact' for DS naming consistency, 'hero' renamed to 'Hero'. Common chrome: bg = color/surface/card (full opacity, no fix-up needed), 1px INSIDE border = color/alpha/white-06 (alpha intrinsic to variable — Divider precedent, no read-modify-write fix-up), Elevation/1 effect style, width FIXED 327 (mobile content width), height HUG. Per-variant: Default = radius/xl (28pt) + spacing/24 padding, Compact = radius/md (14pt) + spacing/16, Hero = radius/2xl (40pt) + spacing/32. Itemspacing bound to spacing/8 (gap between title + subtitle). Two placeholder text children per variant: Title 'Card content' (Body style, color/text/primary) + Subtitle 'Replace with your content' (Caption style, color/text/tertiary), both FILL horizontal + text-align center. No component properties (Card is a pure container — children come from instance overrides). GOTCHA: figma.createAutoLayout returns a FRAME — combineAsVariants throws 'A COMPONENT_SET node cannot have children of type other than COMPONENT' when fed frames. Fix: build each variant as a COMPONENT via figma.createComponent(), then set layoutMode='VERTICAL' + sizing modes manually. Helper mkAutoComp(direction) wraps this pattern for future molecules. Zero new tokens minted.",
       "created_at": "2026-05-29"
+    },
+    "SectionHeader": {
+      "node_id": "125:10",
+      "page_node_id": "17:12",
+      "key": "616741cb9800d79a275c745b6026a7a4b8124b6f",
+      "phase": "3B_molecules",
+      "size": { "w": 774, "h": 98 },
+      "variant_axes": { "WithAction": ["False","True"] },
+      "variants": {
+        "WithAction=False": { "node_id": "125:2", "key": "93ef9f1c9e86315a18f652c9de648a39dedadf2f", "w": 327, "h": 16 },
+        "WithAction=True":  { "node_id": "125:4", "key": "b8e361cec194ee03e38cc14609b3f58b58b24b9b", "w": 327, "h": 18 }
+      },
+      "properties": ["Title (TEXT)", "ActionLabel (TEXT)"],
+      "property_keys": { "title": "Title#125:0", "actionLabel": "ActionLabel#125:3" },
+      "$comment": "2nd Phase 3B molecule. 2 WithAction variants on Molecules page (17:12) at (80, 380), horizontal row (set 774×98 with 40px padding + 40px itemSpacing, ink-900 bg + radius 24 for documentation visibility on Figma's light canvas — does NOT propagate to instances). Each variant is a 327 FIXED-wide × HUG-height HORIZONTAL auto-layout with primaryAxisAlignItems='SPACE_BETWEEN' + counterAxisAlignItems='CENTER'. Title text node: Eyebrow text style (Sora SemiBold 12px upper) + color/text/quaternary fill (matches Eyebrow atom Default variant). On True variant only, Action group = horizontal auto-layout with itemSpacing bound to spacing/4, containing: ActionLabel text (Button/Sm style = Sora SemiBold 13px + color/text/secondary fill) + ChevronRight icon instance (from 93:75) resized to 16×16 inheriting color/text/primary strokes from the Icon component. Title TEXT prop (key Title#125:0, default 'SECTION TITLE') linked to title.componentPropertyReferences.characters on BOTH variants (LevelBadge precedent — shared default works because both variants have identical default text). ActionLabel TEXT prop (key ActionLabel#125:3, default 'View all') linked to actionLabel.componentPropertyReferences.characters on the True variant only (no clobbering — only one variant has the text node). Title text uses Sora SemiBold via Eyebrow style natively (no fontName override needed — Eyebrow precedent). Action label uses Button/Sm SemiBold natively (no override). Composition pattern: SectionHeader does NOT instance the Eyebrow atom — instead uses a raw text node with the Eyebrow text style. Reason: linking a molecule-level TEXT prop to a nested instance's TEXT prop requires exposed-instance-property wiring, more complex than a flat text node when the atom is visually equivalent to 'styled text'. This is a deliberate composition trade-off for text-only atoms; for structural atoms (Button, ToggleSwitch, etc.) molecules WILL instance the atom directly. Zero new tokens minted.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
