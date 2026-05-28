@@ -369,6 +369,22 @@
       "$comment": "15 variants in 5 Rarity × 3 Size grid at (80,1740). Pill (radius/pill), HUG width, fixed h per size: Sm=20 / Md=24 / Lg=28. Bg = solid bound to color/rarity/{name} with paint opacity 0.15 (alpha-tint mirroring DomainTag — zero new color tokens). Border = same rarity color at full opacity, 1px INSIDE. ◆ + 'Lv 1' text at full opacity in rarity color. Sora SemiBold override on top of size-appropriate text style (Sm=Small, Md=Caption, Lg=Body). Padding-x: Sm=spacing/6, Md=spacing/10 (new primitive, VariableID:62:2), Lg=spacing/12. Gap: Sm/Md=spacing/4, Lg=spacing/6. Elevation/1 shadow on every variant. Level TEXT prop default 'Lv 1' — single shared default works because all 15 variants have identical text content (DomainTag's per-variant text gotcha does NOT apply here). GOTCHA: setBoundVariableForPaint + spread+opacity pattern did NOT persist opacity 0.15 on first pass — required a follow-up read-modify-write pass (v.fills.map(p => ({...p, opacity:0.15}))). Cause unclear; prior atoms with same pattern (DomainTag) persisted correctly. For future alpha-tinted atoms, verify fill.opacity after creation and apply read-modify-write fix-up if needed.",
       "created_at": "2026-05-28"
     },
+    "Eyebrow": {
+      "node_id": "68:6",
+      "page_node_id": "17:11",
+      "key": "013d89fcfce0e8c98b406b54adc84a02507f743f",
+      "phase": "3A_atoms",
+      "size": { "w": 254, "h": 96 },
+      "variant_axes": { "Color": ["Default","Accent"] },
+      "variants": {
+        "Default": { "node_id": "68:2", "key": "b2b50eaef9549418a1879b1d252b903e7c954554" },
+        "Accent":  { "node_id": "68:4", "key": "606851e7977c34eabb51f940adb39590975dcc55" }
+      },
+      "properties": ["Text (TEXT)"],
+      "property_keys": { "text": "Text#68:0" },
+      "$comment": "2 variants on Atoms page (17:11) at (460, 1740). HUG/HUG auto-layout component wrapping a single Label text node. Eyebrow text style (S:04ba98…) linked — Sora SemiBold 12px UPPER 12% letter-spacing 130% line-height (all carried by the style; no override needed). Per-variant text fill: Default=color/text/quaternary (white/40, matches React code), Accent=color/brand/cta (forward-looking — code only has the Default styling). Text TEXT prop default 'EYEBROW' (single shared default OK — both variants have identical text content). GOTCHA: setting fontName AFTER setTextStyleIdAsync — even to the EXACT same fontName the style already uses — breaks the textStyleId link (left as ''). Required a follow-up setTextStyleIdAsync fix-up pass. For future atoms whose text style already provides the desired weight, SKIP the fontName-override step entirely.",
+      "created_at": "2026-05-28"
+    },
     "DomainTag": {
       "node_id": "52:39",
       "page_node_id": "17:11",
