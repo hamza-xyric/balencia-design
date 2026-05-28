@@ -596,7 +596,27 @@
     "CircleHelp":     { "node_id": "93:87", "key": "5c78a6bca65358f3711370213f1877dd25d18494", "kebab": "circle-question-mark" },
     "Clock":          { "node_id": "93:91", "key": "176809717fd24a5e4bab073042ac3cc6c3ef5483", "kebab": "clock" },
     "Clock3":         { "node_id": "93:95", "key": "e364d232d028ca4f267e8e00f3cd5ff9ff3c89f3", "kebab": "clock-3" },
-    "Cloud":          { "node_id": "93:98", "key": "e1a46455dd6071eb02e382df9757bfb6483cf4f8", "kebab": "cloud" }
+    "Cloud":          { "node_id": "93:98", "key": "e1a46455dd6071eb02e382df9757bfb6483cf4f8", "kebab": "cloud" },
+    "Coffee":         { "node_id": "94:7",  "key": "0d6cf2ebab2846cc26d20033bfa628881147d75c", "kebab": "coffee" },
+    "Compass":        { "node_id": "94:11", "key": "c3a53b719dd271976efb407a7474e3099c1edd25", "kebab": "compass" },
+    "CreditCard":     { "node_id": "94:15", "key": "a7f3b14f3959643cfcbce192021565c5f10bdca1", "kebab": "credit-card" },
+    "Database":       { "node_id": "94:20", "key": "1f129c79069f421a9ac951a10d6a799326885cf2", "kebab": "database" },
+    "Droplet":        { "node_id": "94:23", "key": "50bde3153eadeb8fa87830f3be4290ec16d4def4", "kebab": "droplet" },
+    "Droplets":       { "node_id": "94:27", "key": "ddd798cfea2a5cccfec777d66f66d8b29a332134", "kebab": "droplets" },
+    "Dumbbell":       { "node_id": "94:34", "key": "51c238b8234e69d9c61f3de229da4bbe6c1d7279", "kebab": "dumbbell" },
+    "ExternalLink":   { "node_id": "94:39", "key": "a80f18a1f1752a97135bccf293040c769399d796", "kebab": "external-link" },
+    "Eye":            { "node_id": "94:43", "key": "2a34e18d86d1d9a0a836ec1c02c6224f66f5a351", "kebab": "eye" },
+    "EyeOff":         { "node_id": "94:49", "key": "c518127dec8233443b37d8a7c3bd5c3f9c60b05b", "kebab": "eye-off" },
+    "FileSignature":  { "node_id": "94:55", "key": "1c0e02da433e8c4c5c8a4346f013ad5a723b5cd7", "kebab": "file-pen-line" },
+    "FileText":       { "node_id": "94:62", "key": "b4eab9e32270c9bd71012eb6ffc2c937ef8cdecc", "kebab": "file-text" },
+    "Fingerprint":    { "node_id": "94:73", "key": "f1ea87621c4f41f308678fca37be301b220d46f5", "kebab": "fingerprint-pattern" },
+    "Flag":           { "node_id": "94:76", "key": "f73375314a5a5c9dd3333c1c429820acc5536e88", "kebab": "flag" },
+    "Flame":          { "node_id": "94:79", "key": "50c79d2e88d1761608678e9d60d47940d7765751", "kebab": "flame" },
+    "Flower2":        { "node_id": "94:86", "key": "039a722d10bc7594939b7588f2d30a31a52739d0", "kebab": "flower-2" },
+    "Footprints":     { "node_id": "94:92", "key": "22b52450efaa94bb8247cf5b35cb6f0ef66dd163", "kebab": "footprints" },
+    "Forward":        { "node_id": "94:96", "key": "56b6ebc9955fb0c0cd109d3ef4164089377b519f", "kebab": "forward" },
+    "Funnel":         { "node_id": "94:99", "key": "9d6bfe586b68cf57d1d20a11118d3d2321e989ae", "kebab": "funnel" },
+    "Gift":           { "node_id": "94:105","key": "22de76fb0930a8fad79908d1363fe744be53f427", "kebab": "gift" }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
