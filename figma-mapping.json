@@ -92,6 +92,7 @@
       "color/alpha/white-50":       "VariableID:4:41",
       "color/alpha/white-40":       "VariableID:4:42",
       "color/alpha/white-10":       "VariableID:4:43",
+      "color/alpha/white-08":       "VariableID:140:2",
       "color/alpha/white-06":       "VariableID:4:44",
       "color/alpha/glow-orange-bg": "VariableID:4:45",
       "color/alpha/white-15":       "VariableID:47:2"
@@ -634,6 +635,22 @@
       "properties": ["Percent (TEXT)"],
       "property_keys": { "percent": "Percent#138:0" },
       "$comment": "4th Phase 3B molecule (B1 batch). 6 variants = Size(Sm=36/Md=48/Lg=96) × Color(Brand/Success). Color axis = React's two states (Brand=in-progress orange color/brand/cta, Success=complete green color/brand/success — code derives complete=progress>=1). Inventory's 3rd 'Domain' color DROPPED (no domain-colored ring in code; 'Domain' is not one token). Rings rendered as two concentric ELLIPSE donut-arcs via arcData (not SVG strokes): outer Ø=2*(r+stroke/2)=34/44/92 centered in the size box; innerRadius=(r-stroke/2)/(r+stroke/2)=0.765/0.818/0.826 sets band width. Track = full 0→2π sweep bound to color/alpha/white-10 (alpha intrinsic, no fix-up). Progress arc baked at 75% (start -π/2 top, clockwise — Figma angles increase clockwise from east), bound to color/brand/{cta|success} full opacity. Arc % can't be a Figma prop → static snapshot; rounded linecap not modeled (flat radial ends). Percent text = explicit Sora SemiBold 11/13/20px, NO style link (ramp has no SemiBold at these sizes — component-intrinsic type), fill color/text/primary. Percent TEXT prop (Percent#138:0, default '75') linked to all 6 variants (LevelBadge precedent). Components are plain absolute-canvas COMPONENTs (no auto-layout) — combineAsVariants accepts them. Zero new tokens minted.",
+      "created_at": "2026-05-29"
+    },
+    "XPBar": {
+      "node_id": "142:5",
+      "page_node_id": "17:12",
+      "key": "576edb521d9326702362c2464d5706fb6b8cc104",
+      "phase": "3B_molecules",
+      "size": { "w": 407, "h": 158 },
+      "variant_axes": { "Variant": ["Default","Compact"] },
+      "variants": {
+        "Variant=Default": { "node_id": "141:5",  "key": "17c67f4205a03425de11d4ce64a5ff24ac3f87e8" },
+        "Variant=Compact": { "node_id": "141:11", "key": "3d1cf8ded4e9bf79bded443b355e6f81112fd00d" }
+      },
+      "properties": ["Label (TEXT)", "Amount (TEXT)"],
+      "property_keys": { "label": "Label#142:0", "amount": "Amount#142:3" },
+      "$comment": "5th Phase 3B molecule (B1 batch). Default = label row (Label left + Amount right, SPACE_BETWEEN) over the track; Compact = track only (React renders label row conditionally). Both 327 FIXED-wide VERTICAL auto-layout, itemSpacing bound spacing/8. Track = plain FRAME 327×8 (clipsContent), bg bound color/alpha/white-08 (NEW primitive VariableID:140:2 minted this build), all corners radius/pill; inner Fill baked 70% width bound color/brand/cta + radius/pill (progress % is a static snapshot). Track height 8px intrinsic geometry (not token-bound). Label/Amount = explicit Sora SemiBold 11px, fill color/alpha/white-50, NO style link (component-intrinsic type). Label TEXT prop (Label#142:0) + Amount TEXT prop (Amount#142:3) linked on Default ONLY. Minted color/alpha/white-08.",
       "created_at": "2026-05-29"
     }
   },
