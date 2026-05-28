@@ -636,7 +636,27 @@
     "Lock":           { "node_id": "95:87", "key": "d9172f69dd6b4854090ad1614c43db575745b352", "kebab": "lock" },
     "LockKeyhole":    { "node_id": "95:92", "key": "2021115ab9924189b1018c418c61a43161eaaf21", "kebab": "lock-keyhole" },
     "MapPin":         { "node_id": "95:96", "key": "20a88608e1c968c237b344f92f5c9d9e7cca7631", "kebab": "map-pin" },
-    "MessageCircle":  { "node_id": "95:99", "key": "bcbca76f8db9eb71f646794bde6caf6e13a56de1", "kebab": "message-circle" }
+    "MessageCircle":  { "node_id": "95:99", "key": "bcbca76f8db9eb71f646794bde6caf6e13a56de1", "kebab": "message-circle" },
+    "MessagesSquare": { "node_id": "96:5",  "key": "3eed68e86cbac1aebb4a3381b88d56fa9f6cfdd2", "kebab": "messages-square" },
+    "Mic":            { "node_id": "96:10", "key": "83756735b80221914c3765fd92c8508a09e7ba6f", "kebab": "mic" },
+    "Mic2":           { "node_id": "96:15", "key": "7436f0476a5442eb0b1a6564f503a0bbb26729ac", "kebab": "mic-vocal" },
+    "MicOff":         { "node_id": "96:23", "key": "0ba597d1d94bb1b88e6d1e9078e17763a093163e", "kebab": "mic-off" },
+    "Minus":          { "node_id": "96:26", "key": "9a478547e32dd62cdce13e03037557f80a7bf285", "kebab": "minus" },
+    "Moon":           { "node_id": "96:29", "key": "334c3e8264f1ddbc288e826d3f337fd88655ee9f", "kebab": "moon" },
+    "MoreHorizontal": { "node_id": "96:34", "key": "bf4da9ce577809505a21a26092ed2ffea10fff70", "kebab": "ellipsis" },
+    "MoreVertical":   { "node_id": "96:39", "key": "5bd5dcb532a57c667c33e338316939f47a208cf0", "kebab": "ellipsis-vertical" },
+    "Music2":         { "node_id": "96:43", "key": "0b002810570508b41a5da591fbcebccea7371448", "kebab": "music-2" },
+    "NotebookPen":    { "node_id": "96:51", "key": "290ad5d273dd3ab2a50d89721bb5d408514b7023", "kebab": "notebook-pen" },
+    "NotebookTabs":   { "node_id": "96:62", "key": "7f562fc596b89e4d266a18554ee5fc602eb96ba0", "kebab": "notebook-tabs" },
+    "Palette":        { "node_id": "96:69", "key": "d9b50ea638da2d1923105a10365b17ae65f1a706", "kebab": "palette" },
+    "Pause":          { "node_id": "96:73", "key": "05841008d11b9f58103bcb1ff0881dbd351e94f9", "kebab": "pause" },
+    "PenLine":        { "node_id": "96:77", "key": "822c6f0f2d422a2a9ff9db0420ec40382dc0197d", "kebab": "pen-line" },
+    "Pencil":         { "node_id": "96:81", "key": "52fa0249655e26a09ada6a5d881006a0b5bb0f4a", "kebab": "pencil" },
+    "PencilLine":     { "node_id": "96:86", "key": "2e2d2c05fdaa5c9db02d7f5f2959f46a2e6f2137", "kebab": "pencil-line" },
+    "Phone":          { "node_id": "96:89", "key": "33feba19f09199426a377a72fe0e440dd07fe031", "kebab": "phone" },
+    "Pill":           { "node_id": "96:93", "key": "b999c4fdfff4d809734c48ccc4cff2c5c05b6664", "kebab": "pill" },
+    "Pin":            { "node_id": "96:97", "key": "fdbab02cddb7c2c99b12f2770ddb35d791edac0b", "kebab": "pin" },
+    "Play":           { "node_id": "96:100","key": "7c75a443c9f55b06d8bacfb797e0a8da22e43784", "kebab": "play" }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
