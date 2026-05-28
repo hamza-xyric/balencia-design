@@ -266,6 +266,27 @@
       "$comment": "HasIcon promoted from variant axis to BOOLEAN (matches Button/Input). Active=True uses color/brand/cta for border + text in all 3 Variants; Filled+Active gets color/surface/glow-orange tint; Outline+Active uses 2px border. Neutral and Outline have transparent fill at rest. Icon INSTANCE_SWAP deferred to Atom #18.",
       "created_at": "2026-05-28"
     },
+    "SegmentedControl": {
+      "node_id": "49:69",
+      "page_node_id": "17:11",
+      "key": "8a48e47bba6048456605e1081e19df9656f18421",
+      "phase": "3A_atoms",
+      "size": { "w": 1400, "h": 316 },
+      "variant_axes": { "SegmentCount": ["2","3","4"], "ActiveIndex": ["0","1","2","3"] },
+      "variants": {
+        "SegmentCount=2, ActiveIndex=0": { "node_id": "49:2",  "key": "f66d9555178f30803ed134ea05eb2b2fbaf76e30" },
+        "SegmentCount=2, ActiveIndex=1": { "node_id": "49:7",  "key": "b9d16da8bcb7fbacde96f36b1db92d9a50afe5fd" },
+        "SegmentCount=3, ActiveIndex=0": { "node_id": "49:12", "key": "4b88721dd20cffe332721c6ffa96f180f50864c8" },
+        "SegmentCount=3, ActiveIndex=1": { "node_id": "49:19", "key": "50e3ec2a5a446cb53a083f4edbb93996826ba758" },
+        "SegmentCount=3, ActiveIndex=2": { "node_id": "49:26", "key": "a6903b6a15dab5b47a008ba12c59587989fe48ac" },
+        "SegmentCount=4, ActiveIndex=0": { "node_id": "49:33", "key": "dc63f0ec593833c11568a99eb66cae3a45829b49" },
+        "SegmentCount=4, ActiveIndex=1": { "node_id": "49:42", "key": "63d0da31a82b7a675c0cf0eefc1c167fef278e7d" },
+        "SegmentCount=4, ActiveIndex=2": { "node_id": "49:51", "key": "7217c125e94c9b72247de120673bcd07a516af68" },
+        "SegmentCount=4, ActiveIndex=3": { "node_id": "49:60", "key": "d5f2e9129c433932a621bc9ec27356fed16346dc" }
+      },
+      "$comment": "9 variants (invalid Count×Index combos skipped). Pill container = color/surface/card + 1px color/alpha/white-10 stroke INSIDE. Segments 72×44 fixed; active = color/brand/cta fill + color/alpha/white-100 text; inactive = transparent fill + color/alpha/white-50 text. Text style = Button/Sm (Sora SemiBold). Padding + gap bound to spacing/4. Labels 1/2/3/4 — designers customize per-instance.",
+      "created_at": "2026-05-28"
+    },
     "ToggleSwitch": {
       "node_id": "48:10",
       "page_node_id": "17:11",
