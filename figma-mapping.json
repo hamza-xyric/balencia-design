@@ -92,7 +92,8 @@
       "color/alpha/white-40":       "VariableID:4:42",
       "color/alpha/white-10":       "VariableID:4:43",
       "color/alpha/white-06":       "VariableID:4:44",
-      "color/alpha/glow-orange-bg": "VariableID:4:45"
+      "color/alpha/glow-orange-bg": "VariableID:4:45",
+      "color/alpha/white-15":       "VariableID:47:2"
     },
     "color": {
       "color/bg/screen":            "VariableID:5:2",
@@ -263,6 +264,22 @@
       "properties": ["Label (TEXT)", "HasIcon (BOOLEAN)"],
       "property_keys": { "label": "Label#46:0", "hasIcon": "HasIcon#46:7" },
       "$comment": "HasIcon promoted from variant axis to BOOLEAN (matches Button/Input). Active=True uses color/brand/cta for border + text in all 3 Variants; Filled+Active gets color/surface/glow-orange tint; Outline+Active uses 2px border. Neutral and Outline have transparent fill at rest. Icon INSTANCE_SWAP deferred to Atom #18.",
+      "created_at": "2026-05-28"
+    },
+    "ToggleSwitch": {
+      "node_id": "48:10",
+      "page_node_id": "17:11",
+      "key": "b1a46425650b384ee2a371cef25fa704ccf40a93",
+      "phase": "3A_atoms",
+      "size": { "w": 224, "h": 168 },
+      "variant_axes": { "On": ["False","True"], "Disabled": ["False","True"] },
+      "variants": {
+        "On=False, Disabled=False": { "node_id": "48:2", "key": "25b08b00a664d1529d8f47f603038f02df22edbe" },
+        "On=True, Disabled=False":  { "node_id": "48:4", "key": "95d6a0ba59a8e5f966ba2643c92504d42b5473f3" },
+        "On=False, Disabled=True":  { "node_id": "48:6", "key": "640fbb97916af917bd0cc9d257d3d9de7844d05a" },
+        "On=True, Disabled=True":   { "node_id": "48:8", "key": "f5032f0da4d54eea662836f7690fcbe360e63467" }
+      },
+      "$comment": "Track 34×20 pill, thumb 16×16 white circle. Off track = color/alpha/white-15 (new primitive); On track = color/brand/cta. Disabled = opacity 0.5 on variant frame. Pure visual atom, no component properties.",
       "created_at": "2026-05-28"
     },
     "Input": {
