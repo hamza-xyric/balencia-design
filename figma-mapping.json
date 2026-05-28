@@ -425,6 +425,23 @@
       "$comment": "8 variants on Atoms page (17:11) at (80, 2080). Generic divider primitive (path-a resolution): Orientation × Weight axes. Weight is intrinsic geometry — Thin=1px, Base=2px, Bold=3px, Poster=4px — NOT token-bound (per Phase 3A convention). Single fill bound to color/alpha/white-10 (VariableID:4:43); the alpha is intrinsic to the variable definition, so binding resolved opacity:0.1 correctly with NO fix-up pass needed (unlike LevelBadge's rarity/15 alpha-tints where the variable is base-color and opacity must be applied via paint-level multiplier). Set frame has bg fill bound to color/neutral/ink-900 + radius 24 purely for documentation visibility on Figma's light canvas — does NOT propagate to instances. The labeled 'Or continue with' separator in src/components/design-system/Divider.tsx is the single current usage; it should become a LabeledDivider molecule in Phase 3B composing Divider + caption text. Horizontal default length 240px, Vertical default length 240px — these are intrinsic, not bound; consumers in instances either hug (default) or fill via auto-layout parent.",
       "created_at": "2026-05-28"
     },
+    "BrandWordmark": {
+      "node_id": "78:38",
+      "page_node_id": "17:11",
+      "key": "7bb7a822bfe9611b8e1c484c31859d5ec088c27b",
+      "phase": "3A_atoms",
+      "size": { "w": 656, "h": 128 },
+      "variant_axes": { "Size": ["Sm","Md","Lg"] },
+      "variants": {
+        "Sm": { "node_id": "78:2",  "key": "ca9eb0eeee8198c602a6d286044d56187a833660", "px": { "w": 96,  "h": 24 } },
+        "Md": { "node_id": "78:14", "key": "43352b10e525bb95c14fcdae5811a7a8e4b8e758", "px": { "w": 128, "h": 32 } },
+        "Lg": { "node_id": "78:26", "key": "82fa94c158943063222428535e1dad3dce57587c", "px": { "w": 192, "h": 48 } }
+      },
+      "properties": [],
+      "property_keys": {},
+      "$comment": "3 variants on Atoms page (17:11) at (80, 2620). 4:1 aspect ratio matches code default (width=128, height=32). Each variant contains a single SVG wrapper FRAME imported via figma.createNodeFromSvg from balencia-screens/public/logos/Frame 2147239943.svg — 10-path multi-vector SVG (viewBox 200x50). After import, wrapper rescaled uniformly via wordmark.rescale(targetW/200) to match variant size: Sm=0.48x, Md=0.64x, Lg=0.96x. Per-vector fill binding: 2 orange paths (#FF6704 — the flame glyph + the trailing period dot) bound to color/brand/cta; 8 white paths (B-a-l-e-n-c-i-a letter shapes) bound to color/text/primary. No component properties — pure visual atom. Set frame has bg fill bound to color/neutral/ink-900 + cornerRadius 24 for documentation visibility on Figma's light canvas — does NOT propagate to instances. CONVENTION: createNodeFromSvg + rescale() works cleanly for multi-color multi-path SVGs; binding fills per child VECTOR avoids hardcoded hex while preserving the multi-fill structure. ⚠ ASSET DEPENDENCY: this is the official Balencia wordmark — DO NOT regenerate via AI or approximate; always use Frame 2147239943.svg as the canonical source. Unblocks 03-welcome-sign-up, 04-sign-in, splash, and any header that surfaces the full brand name.",
+      "created_at": "2026-05-28"
+    },
     "DomainTag": {
       "node_id": "52:39",
       "page_node_id": "17:11",
