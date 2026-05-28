@@ -666,6 +666,19 @@
       "property_keys": { "count": "Count#143:0" },
       "$comment": "6th Phase 3B molecule (B1 batch). NO variant axis → lone COMPONENT (not a set), baked at total=5/current=3. 327 FIXED-wide VERTICAL auto-layout, itemSpacing spacing/4. CountRow HORIZONTAL FILL justify-end → Count text '3 of 5' (Small style 11px Regular, fill color/alpha/white-40 — React text-small is weightless so Regular keeps the style link clean). Track = 327×12 plain FRAME with absolute children: Line 327×4@y4 (color/alpha/white-08, radius/pill) + 5 ELLIPSE dots, centers c_i=4+i·(327-8)/4. Dot states: complete=6×6 color/brand/success; current=8×8 color/brand/cta + Glow/Orange effect style; upcoming=6×6 color/alpha/white-20 (NEW primitive VariableID:143:5). Dot/line px sizes intrinsic geometry. Count TEXT prop (Count#143:0). Component transparent (screen overlay) → wrapped in plain ink-900 doc FRAME 144:5 for canvas legibility (chrome only, not a component, no instance propagation). Minted color/alpha/white-20.",
       "created_at": "2026-05-29"
+    },
+    "StatTile": {
+      "node_id": "145:5",
+      "page_node_id": "17:12",
+      "key": "4bde438668cd24b492122899791064ca83101a0c",
+      "phase": "3B_molecules",
+      "size": { "w": 65, "h": 52 },
+      "doc_frame_id": "145:8",
+      "variant_axes": {},
+      "properties": ["Value (TEXT)", "Label (TEXT)"],
+      "property_keys": { "value": "Value#145:0", "label": "Label#145:1" },
+      "$comment": "7th Phase 3B molecule (B1 batch). Matched React code exactly (Card precedent): React StatTile is a centered value+label column → no variant axis, lone COMPONENT. Inventory's Variant(Default/Compact)+Trend(Up/Down/Flat) axes & Delta prop DROPPED (not in code; future StatTileTrend molecule if needed — SettingsRow-Destructive precedent). VERTICAL auto-layout HUG/HUG, counterAxisAlignItems CENTER, itemSpacing spacing/4. Value = explicit Sora Bold 24px/lineHeight 30, fill color/text/primary, NO style link (no 24px Bold style — component-intrinsic type). Label = Caption style (13px Regular; React 12px weightless — closest clean link), fill color/alpha/white-50, center. Value TEXT prop (Value#145:0) + Label TEXT prop (Label#145:1). Component transparent (flex-1 in screen rows) → wrapped in ink-900 doc FRAME 145:8 (chrome only). Zero new tokens minted.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
