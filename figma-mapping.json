@@ -559,9 +559,24 @@
     }
   },
   "ds_icons": {
-    "$comment": "Filled in Phase 3A Atom 18 (Icon registry). 142 flat 24×24 Lucide icon COMPONENTs on the '--- Icons ---' page (89:2), grid layout (12 cols × 80px cells, origin 80,80). Strokes bound to color/text/primary; strokeWeight=2 intrinsic; ROUND cap/join. Source: lucide-static@^1.17 SVGs (node_modules/lucide-static/icons/<kebab>.svg). PascalCase keys mirror the React import names from figma-icons-used.json — pascal field documents that. canonical reflects underlying lucide name when an alias was used (e.g. AlertCircle → CircleAlert).",
-    "Plus": { "node_id": "89:6",  "key": "692a22d48845db0a9b5a272e462ccb39607def57", "kebab": "plus" },
-    "X":    { "node_id": "89:10", "key": "e6665194a14892a7d611d1b3d0f0d2fb67c7aa9e", "kebab": "x"    }
+    "$comment": "Filled in Phase 3A Atom 18 (Icon registry). 142 flat 24×24 Lucide icon COMPONENTs on the '--- Icons ---' page (89:2), grid layout (12 cols × 80px cells, origin 80,80). Strokes bound to color/text/primary; strokeWeight=2 intrinsic; ROUND cap/join. Source: lucide-static@^1.17 SVGs (node_modules/lucide-static/icons/<kebab>.svg). PascalCase keys mirror the React import names from figma-icons-used.json — pascal field documents that. canonical reflects underlying lucide name when an alias was used (e.g. AlertCircle → CircleAlert). Page bg = raw ink-900 (#0A0A0F) — page backgrounds don't accept variable bindings, so the value is hardcoded (one-time tradeoff).",
+    "Plus":           { "node_id": "89:6",  "key": "692a22d48845db0a9b5a272e462ccb39607def57", "kebab": "plus" },
+    "X":              { "node_id": "89:10", "key": "e6665194a14892a7d611d1b3d0f0d2fb67c7aa9e", "kebab": "x" },
+    "AlertTriangle":  { "node_id": "92:6",  "key": "267ed519897b79bd97b92c3bec70b3c6ce0e0ee5", "kebab": "triangle-alert" },
+    "Apple":          { "node_id": "92:10", "key": "757245a3737e8bb0c58f499a3b10b9c9833fefe3", "kebab": "apple" },
+    "Archive":        { "node_id": "92:15", "key": "fa6fe3745e7fbb52d9d3a119430ce85d97e1bbcd", "kebab": "archive" },
+    "ArrowDown":      { "node_id": "92:19", "key": "68e48b14282bfe5fba3947c8e74f6d60d45cdf1a", "kebab": "arrow-down" },
+    "ArrowRight":     { "node_id": "92:23", "key": "ab846c85a381a070951283a9ece44e886af03019", "kebab": "arrow-right" },
+    "ArrowUp":        { "node_id": "92:27", "key": "50880a7c0db7c3cd934cc6af1a93e125f08198ea", "kebab": "arrow-up" },
+    "ArrowUpRight":   { "node_id": "92:31", "key": "ae9c5a890faa2af7928f5fe84fa713ca8dfd91a9", "kebab": "arrow-up-right" },
+    "AudioLines":     { "node_id": "92:39", "key": "f97c1a9162fe7fa3a63f63b4d9baff2f07a0c50c", "kebab": "audio-lines" },
+    "BarChart3":      { "node_id": "92:45", "key": "ed830989c831766b5b892847c8dc4a3703857996", "kebab": "chart-column" },
+    "BatteryCharging":{ "node_id": "92:51", "key": "fa60b10ff723091745a7fdb696babe51591b5b1d", "kebab": "battery-charging" },
+    "BatteryMedium":  { "node_id": "92:57", "key": "dca4db1401c6bd7545a1d0996390b23e8357aeb5", "kebab": "battery-medium" },
+    "Bell":           { "node_id": "92:61", "key": "a4c583a8e65bbf7dceb2c7e3e77a276df8526bda", "kebab": "bell" },
+    "BellRing":       { "node_id": "92:67", "key": "cdd746b9753d105e1d66ee33f035931194627afa", "kebab": "bell-ring" },
+    "Bird":           { "node_id": "92:75", "key": "9ac9cf5e3a4b689087fa1f8f1d60a868a5b1a20d", "kebab": "bird" },
+    "BookOpen":       { "node_id": "92:79", "key": "82902f8d2ea0fa62b75c118b06a2b4f1ef435de6", "kebab": "book-open" }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
