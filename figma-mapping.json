@@ -563,6 +563,23 @@
       "property_keys": { "showDot": "ShowDot#52:13" },
       "$comment": "12 Domain variants in 4×3 grid (HUG width 56-106, h=24, radius/sm, padding-x spacing/8, gap spacing/6). Bg fill = solid bound to color/domain/{name} with paint opacity 0.15 (zero new color tokens — paint opacity multiplies the bound RGB). Dot (6×6 pill) + Label (Small text style + Sora SemiBold override, 11px) both at full opacity in the same domain color. Per-variant labels (Fitness/Sleep/…) are baked in locally — NO Label TEXT property because Figma's linked TEXT prop overrides per-variant characters with the shared prop default (incompatible with per-variant defaults). Designers pick the variant to get the right label; customization requires detach. Mints spacing/6 = 6px (new primitive, WIDTH_HEIGHT+GAP scopes, WEB syntax `6px`).",
       "created_at": "2026-05-28"
+    },
+    "Card": {
+      "node_id": "124:11",
+      "page_node_id": "17:12",
+      "key": "14c04959827615943280665304b508de14d7a96b",
+      "phase": "3B_molecules",
+      "size": { "w": 1141, "h": 194 },
+      "variant_axes": { "Variant": ["Default","Compact","Hero"] },
+      "variants": {
+        "Default": { "node_id": "124:2", "key": "22bfd5c096244f4052538af97fe0a72818c912c1", "w": 327, "h": 98,  "radius_token": "radius/xl",  "padding_token": "spacing/24" },
+        "Compact": { "node_id": "124:5", "key": "fbde6dfb4bfdc2a38e7cda77d7a72c06e332fef9", "w": 327, "h": 82,  "radius_token": "radius/md",  "padding_token": "spacing/16" },
+        "Hero":    { "node_id": "124:8", "key": "e9a9d7dcdac5e283678202c9a9998f924796be1c", "w": 327, "h": 114, "radius_token": "radius/2xl", "padding_token": "spacing/32" }
+      },
+      "properties": [],
+      "property_keys": {},
+      "$comment": "First Phase 3B molecule. 3 Variants on Molecules page (17:12) at (80,80) in a horizontal row (set 1141w × 194h with 40px padding + 40px itemSpacing). Code/Figma mismatch resolved path (a): figma-components-map declared Variant×Padding (3×3=9) but React Card couples radius+padding per variant (default rounded-xl p-6 / small rounded-md p-4 / hero rounded-2xl p-8). User chose 'Match React code exactly' → 3 variants only, radius+padding coupled per variant, React's 'small' renamed to 'Compact' for DS naming consistency, 'hero' renamed to 'Hero'. Common chrome: bg = color/surface/card (full opacity, no fix-up needed), 1px INSIDE border = color/alpha/white-06 (alpha intrinsic to variable — Divider precedent, no read-modify-write fix-up), Elevation/1 effect style, width FIXED 327 (mobile content width), height HUG. Per-variant: Default = radius/xl (28pt) + spacing/24 padding, Compact = radius/md (14pt) + spacing/16, Hero = radius/2xl (40pt) + spacing/32. Itemspacing bound to spacing/8 (gap between title + subtitle). Two placeholder text children per variant: Title 'Card content' (Body style, color/text/primary) + Subtitle 'Replace with your content' (Caption style, color/text/tertiary), both FILL horizontal + text-align center. No component properties (Card is a pure container — children come from instance overrides). GOTCHA: figma.createAutoLayout returns a FRAME — combineAsVariants throws 'A COMPONENT_SET node cannot have children of type other than COMPONENT' when fed frames. Fix: build each variant as a COMPONENT via figma.createComponent(), then set layoutMode='VERTICAL' + sizing modes manually. Helper mkAutoComp(direction) wraps this pattern for future molecules. Zero new tokens minted.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
