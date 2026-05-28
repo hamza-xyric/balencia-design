@@ -560,8 +560,8 @@
   },
   "ds_icons": {
     "$comment": "Filled in Phase 3A Atom 18 (Icon registry). 142 flat 24×24 Lucide icon COMPONENTs on the '--- Icons ---' page (89:2), grid layout (12 cols × 80px cells, origin 80,80). Strokes bound to color/text/primary; strokeWeight=2 intrinsic; ROUND cap/join. Source: lucide-static@^1.17 SVGs (node_modules/lucide-static/icons/<kebab>.svg). PascalCase keys mirror the React import names from figma-icons-used.json — pascal field documents that. canonical reflects underlying lucide name when an alias was used (e.g. AlertCircle → CircleAlert). Page bg = raw ink-900 (#0A0A0F) — page backgrounds don't accept variable bindings, so the value is hardcoded (one-time tradeoff).",
-    "Plus":           { "node_id": "89:6",  "key": "692a22d48845db0a9b5a272e462ccb39607def57", "kebab": "plus" },
-    "X":              { "node_id": "89:10", "key": "e6665194a14892a7d611d1b3d0f0d2fb67c7aa9e", "kebab": "x" },
+    "Activity":       { "node_id": "97:4",  "key": "eb19879cda8c7c2e6bfdb57882901f779e338785", "kebab": "activity" },
+    "AlertCircle":    { "node_id": "97:9",  "key": "4b249a0fc6c3805c8300fdf457ec4061e40ad11e", "kebab": "circle-alert" },
     "AlertTriangle":  { "node_id": "92:6",  "key": "267ed519897b79bd97b92c3bec70b3c6ce0e0ee5", "kebab": "triangle-alert" },
     "Apple":          { "node_id": "92:10", "key": "757245a3737e8bb0c58f499a3b10b9c9833fefe3", "kebab": "apple" },
     "Archive":        { "node_id": "92:15", "key": "fa6fe3745e7fbb52d9d3a119430ce85d97e1bbcd", "kebab": "archive" },
