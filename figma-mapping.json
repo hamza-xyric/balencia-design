@@ -616,7 +616,27 @@
     "Footprints":     { "node_id": "94:92", "key": "22b52450efaa94bb8247cf5b35cb6f0ef66dd163", "kebab": "footprints" },
     "Forward":        { "node_id": "94:96", "key": "56b6ebc9955fb0c0cd109d3ef4164089377b519f", "kebab": "forward" },
     "Funnel":         { "node_id": "94:99", "key": "9d6bfe586b68cf57d1d20a11118d3d2321e989ae", "kebab": "funnel" },
-    "Gift":           { "node_id": "94:105","key": "22de76fb0930a8fad79908d1363fe744be53f427", "kebab": "gift" }
+    "Gift":           { "node_id": "94:105","key": "22de76fb0930a8fad79908d1363fe744be53f427", "kebab": "gift" },
+    "GitBranch":      { "node_id": "95:6",  "key": "3ba365e6be993fb641c1ec57c4ce398b41ee24e7", "kebab": "git-branch" },
+    "GripHorizontal": { "node_id": "95:14", "key": "dff427f2ba21e568118f4e671e62b20398afae7b", "kebab": "grip-horizontal" },
+    "Handshake":      { "node_id": "95:21", "key": "e82adcfad2cf69f85540674de3257cb106619278", "kebab": "handshake" },
+    "Headphones":     { "node_id": "95:24", "key": "fdb1ce2f35618b01ba7a38c3f0b2ca5c2a41acd7", "kebab": "headphones" },
+    "Heart":          { "node_id": "95:27", "key": "af8d7ab17a87229f9a2f4eaa7b4c7952bd7097fa", "kebab": "heart" },
+    "HeartPulse":     { "node_id": "95:31", "key": "1b28080e443233801ba75a10a34c95b74378638f", "kebab": "heart-pulse" },
+    "HelpCircle":     { "node_id": "95:36", "key": "84de6840c55acee84629204d8c56da5a1ecf56e5", "kebab": "circle-question-mark" },
+    "History":        { "node_id": "95:41", "key": "44c5f5fbb38d58dfe0778210005778375c015791", "kebab": "history" },
+    "Home":           { "node_id": "95:45", "key": "4a37341d8df20b536a35891cf748031be0f495f6", "kebab": "house" },
+    "Image":          { "node_id": "95:50", "key": "7aed2c11d111267feec316aa71621d030375a446", "kebab": "image" },
+    "Images":         { "node_id": "95:56", "key": "696834d974b3b874619d27ef5af243b0eb27b804", "kebab": "images" },
+    "Info":           { "node_id": "95:61", "key": "5bbb5be2a0cde7a210fdad0f10d2cba9d51d4c4f", "kebab": "info" },
+    "Leaf":           { "node_id": "95:65", "key": "49126cbe008de9d1c41ff43e4f2b2ffba4554850", "kebab": "leaf" },
+    "LifeBuoy":       { "node_id": "95:73", "key": "e0359696b4069c152c9ac3c4296dac3cab839960", "kebab": "life-buoy" },
+    "Lightbulb":      { "node_id": "95:78", "key": "1a139b7f2fc4c60968fbb4cc7f87ed5476dbdafe", "kebab": "lightbulb" },
+    "Link2":          { "node_id": "95:83", "key": "286b99fc450d6846446a83f5499e5bd35ff3acb1", "kebab": "link-2" },
+    "Lock":           { "node_id": "95:87", "key": "d9172f69dd6b4854090ad1614c43db575745b352", "kebab": "lock" },
+    "LockKeyhole":    { "node_id": "95:92", "key": "2021115ab9924189b1018c418c61a43161eaaf21", "kebab": "lock-keyhole" },
+    "MapPin":         { "node_id": "95:96", "key": "20a88608e1c968c237b344f92f5c9d9e7cca7631", "kebab": "map-pin" },
+    "MessageCircle":  { "node_id": "95:99", "key": "bcbca76f8db9eb71f646794bde6caf6e13a56de1", "kebab": "message-circle" }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
