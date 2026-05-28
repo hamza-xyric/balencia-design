@@ -244,6 +244,24 @@
       },
       "$comment": "State-axis aux for Button. Documentation reference showing Default / Pressed (Glow/Orange) / Disabled (50% opacity) / Loading (spinner placeholder + 'Loading' label) on Primary Md. Engineering composes via Button — Disabled/Loading booleans land in a future iteration.",
       "created_at": "2026-05-28"
+    },
+    "Input": {
+      "node_id": "45:30",
+      "page_node_id": "17:11",
+      "key": "5440fe0de80ae4a8c4f3ed70269eb90593f6c575",
+      "phase": "3A_atoms",
+      "size": { "w": 423, "h": 472 },
+      "variant_axes": { "State": ["Default","Focused","Disabled","Error"] },
+      "variants": {
+        "Default":  { "node_id": "45:2",  "key": "9320086f68e50bbe574a7bd05199abd4c3b3ef01" },
+        "Focused":  { "node_id": "45:9",  "key": "43b1af40f2b2090a65519ef8791d48d9ff2a81dd" },
+        "Disabled": { "node_id": "45:16", "key": "fad8b8b840d062dea7a19d4e6f0fe8ccf0e6b106" },
+        "Error":    { "node_id": "45:23", "key": "d9e4ac95a85fad14f10927bad757a20bf95660fd" }
+      },
+      "properties": ["Label (TEXT)", "HasLabel (BOOLEAN)", "Value (TEXT)", "Helper (TEXT)", "HasHelper (BOOLEAN)", "HasRightIcon (BOOLEAN)"],
+      "property_keys": { "label": "Label#45:0", "hasLabel": "HasLabel#45:5", "value": "Value#45:10", "helper": "Helper#45:15", "hasHelper": "HasHelper#45:20", "hasRightIcon": "HasRightIcon#45:25" },
+      "$comment": "Width 327 default (matches mobile content area). Per-variant helper text fill: Error → color/state/error, others → color/text/quaternary. HasHelper defaults to false — designers enable per use; Error variant inherits red helper styling when enabled. Right icon INSTANCE_SWAP deferred to Atom #18.",
+      "created_at": "2026-05-28"
     }
   },
   "screens_frames": {
