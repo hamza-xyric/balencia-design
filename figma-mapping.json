@@ -576,7 +576,27 @@
     "Bell":           { "node_id": "92:61", "key": "a4c583a8e65bbf7dceb2c7e3e77a276df8526bda", "kebab": "bell" },
     "BellRing":       { "node_id": "92:67", "key": "cdd746b9753d105e1d66ee33f035931194627afa", "kebab": "bell-ring" },
     "Bird":           { "node_id": "92:75", "key": "9ac9cf5e3a4b689087fa1f8f1d60a868a5b1a20d", "kebab": "bird" },
-    "BookOpen":       { "node_id": "92:79", "key": "82902f8d2ea0fa62b75c118b06a2b4f1ef435de6", "kebab": "book-open" }
+    "BookOpen":       { "node_id": "92:79", "key": "82902f8d2ea0fa62b75c118b06a2b4f1ef435de6", "kebab": "book-open" },
+    "Brain":          { "node_id": "93:11", "key": "6c600131e53bf81b994ca329488163c82a4047e2", "kebab": "brain" },
+    "Briefcase":      { "node_id": "93:15", "key": "170a84ed37ea3b726640bdd59bd88e51c6228d97", "kebab": "briefcase" },
+    "Calendar":       { "node_id": "93:21", "key": "cb3b260b5f4edb170fb19521ff2f9bed71d47bf3", "kebab": "calendar" },
+    "CalendarDays":   { "node_id": "93:33", "key": "7f336d3e125a7511347fac55de00fbf0c08213f8", "kebab": "calendar-days" },
+    "CalendarPlus":   { "node_id": "93:41", "key": "19bdee6eb3e5c5358d4215a1ff76f97114f6c034", "kebab": "calendar-plus" },
+    "Camera":         { "node_id": "93:45", "key": "5707f52f18ec3ee048e7223cdbf633d4c9ac073a", "kebab": "camera" },
+    "Car":            { "node_id": "93:51", "key": "851e731019deda22c7d470cbec234be4de114fbf", "kebab": "car" },
+    "Check":          { "node_id": "93:54", "key": "59a8d680acdc53e3fb469c794d6afbafc820a7a2", "kebab": "check" },
+    "CheckCheck":     { "node_id": "93:58", "key": "ceb82601cdbee1d98f1fdc560910ce92e84734a2", "kebab": "check-check" },
+    "CheckCircle2":   { "node_id": "93:62", "key": "3d6463203c4572c0afdc089d3d9aa502f06ab297", "kebab": "circle-check" },
+    "ChefHat":        { "node_id": "93:66", "key": "2cb447bfff62fec32d015191af2401511700f5d9", "kebab": "chef-hat" },
+    "ChevronDown":    { "node_id": "93:69", "key": "376cc9ad3af02abd983aa113f04682a26e7ba99e", "kebab": "chevron-down" },
+    "ChevronLeft":    { "node_id": "93:72", "key": "8e1fdf382760507d3d3e9c37a17318890e740c8b", "kebab": "chevron-left" },
+    "ChevronRight":   { "node_id": "93:75", "key": "ce5edd64b95326523a7bfba7ed847aa494c1363c", "kebab": "chevron-right" },
+    "Circle":         { "node_id": "93:78", "key": "0051bc71adb8987b7a2f7d611e3fb6db5c814e0c", "kebab": "circle" },
+    "CircleCheck":    { "node_id": "93:82", "key": "0d47fc3ce21bad1cade25408557b7b64ab644a85", "kebab": "circle-check" },
+    "CircleHelp":     { "node_id": "93:87", "key": "5c78a6bca65358f3711370213f1877dd25d18494", "kebab": "circle-question-mark" },
+    "Clock":          { "node_id": "93:91", "key": "176809717fd24a5e4bab073042ac3cc6c3ef5483", "kebab": "clock" },
+    "Clock3":         { "node_id": "93:95", "key": "e364d232d028ca4f267e8e00f3cd5ff9ff3c89f3", "kebab": "clock-3" },
+    "Cloud":          { "node_id": "93:98", "key": "e1a46455dd6071eb02e382df9757bfb6483cf4f8", "kebab": "cloud" }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
