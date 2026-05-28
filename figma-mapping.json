@@ -460,6 +460,24 @@
       "$comment": "3 variants on Atoms page (17:11) at (80, 2620). 4:1 aspect ratio matches code default (width=128, height=32). Each variant contains a single SVG wrapper FRAME imported via figma.createNodeFromSvg from balencia-screens/public/logos/Frame 2147239943.svg — 10-path multi-vector SVG (viewBox 200x50). After import, wrapper rescaled uniformly via wordmark.rescale(targetW/200) to match variant size: Sm=0.48x, Md=0.64x, Lg=0.96x. Per-vector fill binding: 2 orange paths (#FF6704 — the flame glyph + the trailing period dot) bound to color/brand/cta; 8 white paths (B-a-l-e-n-c-i-a letter shapes) bound to color/text/primary. No component properties — pure visual atom. Set frame has bg fill bound to color/neutral/ink-900 + cornerRadius 24 for documentation visibility on Figma's light canvas — does NOT propagate to instances. CONVENTION: createNodeFromSvg + rescale() works cleanly for multi-color multi-path SVGs; binding fills per child VECTOR avoids hardcoded hex while preserving the multi-fill structure. ⚠ ASSET DEPENDENCY: this is the official Balencia wordmark — DO NOT regenerate via AI or approximate; always use Frame 2147239943.svg as the canonical source. Unblocks 03-welcome-sign-up, 04-sign-in, splash, and any header that surfaces the full brand name.",
       "created_at": "2026-05-28"
     },
+    "ContinuousStroke": {
+      "node_id": "80:14",
+      "page_node_id": "17:11",
+      "key": "f5dab7772b8726521548283a5afeeb1e745196ed",
+      "phase": "3A_atoms",
+      "size": { "w": 632, "h": 96 },
+      "variant_axes": { "Weight": ["Thin","Base","Bold","Poster"] },
+      "variants": {
+        "Thin":   { "node_id": "80:2",  "key": "b37639b866decbdec464378c0dd9d3dfdc5f44d3", "strokeWidth": 2 },
+        "Base":   { "node_id": "80:5",  "key": "a5fa2c795ae889aaaf59cc2da5936ef6f5ef01f9", "strokeWidth": 4 },
+        "Bold":   { "node_id": "80:8",  "key": "82fd3413b59f2e7d89d4b29958ac31fffa506aea", "strokeWidth": 6 },
+        "Poster": { "node_id": "80:11", "key": "5ab58663f3d2ff90181f77874d781ffdd8a63ffa", "strokeWidth": 8 }
+      },
+      "properties": [],
+      "property_keys": {},
+      "$comment": "4 variants on Atoms page (17:11) at (80, 2900) — single horizontal row. Single-path SVG (viewBox 0 0 128 48, path 'M4 22C20 6 42 6 54 21C66 36 86 42 124 12') imported via figma.createNodeFromSvg; VECTOR child extracted via findOne(n=>n.type==='VECTOR') and reparented to the 128×48 COMPONENT root. STROKE-ONLY: v.fills cleared, v.strokes bound to color/brand/cta. strokeWeight is intrinsic geometry per Phase 3A convention — NOT token-bound: Thin=2, Base=4 (matches React code default), Bold=6, Poster=8. strokeCap='ROUND', strokeJoin='ROUND' match React's strokeLinecap/Linejoin='round'. Component root has fills=[] (transparent canvas) + clipsContent=false so heavier weights are not cropped by the 128×48 viewBox frame. React's animated=true mode (CSS strokeDasharray animation) is runtime-only — not statically modeled. CONVENTION: single-path SVG stroke-only — bind v.strokes (not v.fills) since SVG path has fill='none'; setBoundVariableForPaint resolved cleanly on first pass (NO opacity fix-up needed since color/brand/cta is full-opacity). Zero new tokens. Set frame bg ink-900 + radius 24 for documentation visibility (does NOT propagate to instances).",
+      "created_at": "2026-05-28"
+    },
     "DomainTag": {
       "node_id": "52:39",
       "page_node_id": "17:11",
