@@ -1,0 +1,721 @@
+{
+  "$schema": "https://schemas.balencia.dev/figma-icons-used.v1.json",
+  "$comment": "Deduped, alphabetized list of Lucide icons actually imported from src/ — generated for Phase 3A Atom 18 (Icon registry). Filtered against node_modules/lucide-react/dist/esm/icons; aliases resolved via lucide-react.d.ts export aliases. pascal = the import name in React; canonical = the underlying lucide name; kebab = the .mjs / .svg filename.",
+  "generated_at": "2026-05-28",
+  "total": 142,
+  "excluded_non_icons": [
+    "LucideIcon"
+  ],
+  "icons": [
+    {
+      "pascal": "Activity",
+      "canonical": "Activity",
+      "kebab": "activity"
+    },
+    {
+      "pascal": "AlertCircle",
+      "canonical": "CircleAlert",
+      "kebab": "circle-alert"
+    },
+    {
+      "pascal": "AlertTriangle",
+      "canonical": "TriangleAlert",
+      "kebab": "triangle-alert"
+    },
+    {
+      "pascal": "Apple",
+      "canonical": "Apple",
+      "kebab": "apple"
+    },
+    {
+      "pascal": "Archive",
+      "canonical": "Archive",
+      "kebab": "archive"
+    },
+    {
+      "pascal": "ArrowDown",
+      "canonical": "ArrowDown",
+      "kebab": "arrow-down"
+    },
+    {
+      "pascal": "ArrowRight",
+      "canonical": "ArrowRight",
+      "kebab": "arrow-right"
+    },
+    {
+      "pascal": "ArrowUp",
+      "canonical": "ArrowUp",
+      "kebab": "arrow-up"
+    },
+    {
+      "pascal": "ArrowUpRight",
+      "canonical": "ArrowUpRight",
+      "kebab": "arrow-up-right"
+    },
+    {
+      "pascal": "AudioLines",
+      "canonical": "AudioLines",
+      "kebab": "audio-lines"
+    },
+    {
+      "pascal": "BarChart3",
+      "canonical": "ChartColumn",
+      "kebab": "chart-column"
+    },
+    {
+      "pascal": "BatteryCharging",
+      "canonical": "BatteryCharging",
+      "kebab": "battery-charging"
+    },
+    {
+      "pascal": "BatteryMedium",
+      "canonical": "BatteryMedium",
+      "kebab": "battery-medium"
+    },
+    {
+      "pascal": "Bell",
+      "canonical": "Bell",
+      "kebab": "bell"
+    },
+    {
+      "pascal": "BellRing",
+      "canonical": "BellRing",
+      "kebab": "bell-ring"
+    },
+    {
+      "pascal": "Bird",
+      "canonical": "Bird",
+      "kebab": "bird"
+    },
+    {
+      "pascal": "BookOpen",
+      "canonical": "BookOpen",
+      "kebab": "book-open"
+    },
+    {
+      "pascal": "Brain",
+      "canonical": "Brain",
+      "kebab": "brain"
+    },
+    {
+      "pascal": "Briefcase",
+      "canonical": "Briefcase",
+      "kebab": "briefcase"
+    },
+    {
+      "pascal": "Calendar",
+      "canonical": "Calendar",
+      "kebab": "calendar"
+    },
+    {
+      "pascal": "CalendarDays",
+      "canonical": "CalendarDays",
+      "kebab": "calendar-days"
+    },
+    {
+      "pascal": "CalendarPlus",
+      "canonical": "CalendarPlus",
+      "kebab": "calendar-plus"
+    },
+    {
+      "pascal": "Camera",
+      "canonical": "Camera",
+      "kebab": "camera"
+    },
+    {
+      "pascal": "Car",
+      "canonical": "Car",
+      "kebab": "car"
+    },
+    {
+      "pascal": "Check",
+      "canonical": "Check",
+      "kebab": "check"
+    },
+    {
+      "pascal": "CheckCheck",
+      "canonical": "CheckCheck",
+      "kebab": "check-check"
+    },
+    {
+      "pascal": "CheckCircle2",
+      "canonical": "CircleCheck",
+      "kebab": "circle-check"
+    },
+    {
+      "pascal": "ChefHat",
+      "canonical": "ChefHat",
+      "kebab": "chef-hat"
+    },
+    {
+      "pascal": "ChevronDown",
+      "canonical": "ChevronDown",
+      "kebab": "chevron-down"
+    },
+    {
+      "pascal": "ChevronLeft",
+      "canonical": "ChevronLeft",
+      "kebab": "chevron-left"
+    },
+    {
+      "pascal": "ChevronRight",
+      "canonical": "ChevronRight",
+      "kebab": "chevron-right"
+    },
+    {
+      "pascal": "Circle",
+      "canonical": "Circle",
+      "kebab": "circle"
+    },
+    {
+      "pascal": "CircleCheck",
+      "canonical": "CircleCheck",
+      "kebab": "circle-check"
+    },
+    {
+      "pascal": "CircleHelp",
+      "canonical": "CircleQuestionMark",
+      "kebab": "circle-question-mark"
+    },
+    {
+      "pascal": "Clock",
+      "canonical": "Clock",
+      "kebab": "clock"
+    },
+    {
+      "pascal": "Clock3",
+      "canonical": "Clock3",
+      "kebab": "clock-3"
+    },
+    {
+      "pascal": "Cloud",
+      "canonical": "Cloud",
+      "kebab": "cloud"
+    },
+    {
+      "pascal": "Coffee",
+      "canonical": "Coffee",
+      "kebab": "coffee"
+    },
+    {
+      "pascal": "Compass",
+      "canonical": "Compass",
+      "kebab": "compass"
+    },
+    {
+      "pascal": "CreditCard",
+      "canonical": "CreditCard",
+      "kebab": "credit-card"
+    },
+    {
+      "pascal": "Database",
+      "canonical": "Database",
+      "kebab": "database"
+    },
+    {
+      "pascal": "Droplet",
+      "canonical": "Droplet",
+      "kebab": "droplet"
+    },
+    {
+      "pascal": "Droplets",
+      "canonical": "Droplets",
+      "kebab": "droplets"
+    },
+    {
+      "pascal": "Dumbbell",
+      "canonical": "Dumbbell",
+      "kebab": "dumbbell"
+    },
+    {
+      "pascal": "ExternalLink",
+      "canonical": "ExternalLink",
+      "kebab": "external-link"
+    },
+    {
+      "pascal": "Eye",
+      "canonical": "Eye",
+      "kebab": "eye"
+    },
+    {
+      "pascal": "EyeOff",
+      "canonical": "EyeOff",
+      "kebab": "eye-off"
+    },
+    {
+      "pascal": "FileSignature",
+      "canonical": "FilePenLine",
+      "kebab": "file-pen-line"
+    },
+    {
+      "pascal": "FileText",
+      "canonical": "FileText",
+      "kebab": "file-text"
+    },
+    {
+      "pascal": "Fingerprint",
+      "canonical": "FingerprintPattern",
+      "kebab": "fingerprint-pattern"
+    },
+    {
+      "pascal": "Flag",
+      "canonical": "Flag",
+      "kebab": "flag"
+    },
+    {
+      "pascal": "Flame",
+      "canonical": "Flame",
+      "kebab": "flame"
+    },
+    {
+      "pascal": "Flower2",
+      "canonical": "Flower2",
+      "kebab": "flower-2"
+    },
+    {
+      "pascal": "Footprints",
+      "canonical": "Footprints",
+      "kebab": "footprints"
+    },
+    {
+      "pascal": "Forward",
+      "canonical": "Forward",
+      "kebab": "forward"
+    },
+    {
+      "pascal": "Funnel",
+      "canonical": "Funnel",
+      "kebab": "funnel"
+    },
+    {
+      "pascal": "Gift",
+      "canonical": "Gift",
+      "kebab": "gift"
+    },
+    {
+      "pascal": "GitBranch",
+      "canonical": "GitBranch",
+      "kebab": "git-branch"
+    },
+    {
+      "pascal": "GripHorizontal",
+      "canonical": "GripHorizontal",
+      "kebab": "grip-horizontal"
+    },
+    {
+      "pascal": "Handshake",
+      "canonical": "Handshake",
+      "kebab": "handshake"
+    },
+    {
+      "pascal": "Headphones",
+      "canonical": "Headphones",
+      "kebab": "headphones"
+    },
+    {
+      "pascal": "Heart",
+      "canonical": "Heart",
+      "kebab": "heart"
+    },
+    {
+      "pascal": "HeartPulse",
+      "canonical": "HeartPulse",
+      "kebab": "heart-pulse"
+    },
+    {
+      "pascal": "HelpCircle",
+      "canonical": "CircleQuestionMark",
+      "kebab": "circle-question-mark"
+    },
+    {
+      "pascal": "History",
+      "canonical": "History",
+      "kebab": "history"
+    },
+    {
+      "pascal": "Home",
+      "canonical": "House",
+      "kebab": "house"
+    },
+    {
+      "pascal": "Image",
+      "canonical": "Image",
+      "kebab": "image"
+    },
+    {
+      "pascal": "Images",
+      "canonical": "Images",
+      "kebab": "images"
+    },
+    {
+      "pascal": "Info",
+      "canonical": "Info",
+      "kebab": "info"
+    },
+    {
+      "pascal": "Leaf",
+      "canonical": "Leaf",
+      "kebab": "leaf"
+    },
+    {
+      "pascal": "LifeBuoy",
+      "canonical": "LifeBuoy",
+      "kebab": "life-buoy"
+    },
+    {
+      "pascal": "Lightbulb",
+      "canonical": "Lightbulb",
+      "kebab": "lightbulb"
+    },
+    {
+      "pascal": "Link2",
+      "canonical": "Link2",
+      "kebab": "link-2"
+    },
+    {
+      "pascal": "Lock",
+      "canonical": "Lock",
+      "kebab": "lock"
+    },
+    {
+      "pascal": "LockKeyhole",
+      "canonical": "LockKeyhole",
+      "kebab": "lock-keyhole"
+    },
+    {
+      "pascal": "MapPin",
+      "canonical": "MapPin",
+      "kebab": "map-pin"
+    },
+    {
+      "pascal": "MessageCircle",
+      "canonical": "MessageCircle",
+      "kebab": "message-circle"
+    },
+    {
+      "pascal": "MessagesSquare",
+      "canonical": "MessagesSquare",
+      "kebab": "messages-square"
+    },
+    {
+      "pascal": "Mic",
+      "canonical": "Mic",
+      "kebab": "mic"
+    },
+    {
+      "pascal": "Mic2",
+      "canonical": "MicVocal",
+      "kebab": "mic-vocal"
+    },
+    {
+      "pascal": "MicOff",
+      "canonical": "MicOff",
+      "kebab": "mic-off"
+    },
+    {
+      "pascal": "Minus",
+      "canonical": "Minus",
+      "kebab": "minus"
+    },
+    {
+      "pascal": "Moon",
+      "canonical": "Moon",
+      "kebab": "moon"
+    },
+    {
+      "pascal": "MoreHorizontal",
+      "canonical": "Ellipsis",
+      "kebab": "ellipsis"
+    },
+    {
+      "pascal": "MoreVertical",
+      "canonical": "EllipsisVertical",
+      "kebab": "ellipsis-vertical"
+    },
+    {
+      "pascal": "Music2",
+      "canonical": "Music2",
+      "kebab": "music-2"
+    },
+    {
+      "pascal": "NotebookPen",
+      "canonical": "NotebookPen",
+      "kebab": "notebook-pen"
+    },
+    {
+      "pascal": "NotebookTabs",
+      "canonical": "NotebookTabs",
+      "kebab": "notebook-tabs"
+    },
+    {
+      "pascal": "Palette",
+      "canonical": "Palette",
+      "kebab": "palette"
+    },
+    {
+      "pascal": "Pause",
+      "canonical": "Pause",
+      "kebab": "pause"
+    },
+    {
+      "pascal": "PenLine",
+      "canonical": "PenLine",
+      "kebab": "pen-line"
+    },
+    {
+      "pascal": "Pencil",
+      "canonical": "Pencil",
+      "kebab": "pencil"
+    },
+    {
+      "pascal": "PencilLine",
+      "canonical": "PencilLine",
+      "kebab": "pencil-line"
+    },
+    {
+      "pascal": "Phone",
+      "canonical": "Phone",
+      "kebab": "phone"
+    },
+    {
+      "pascal": "Pill",
+      "canonical": "Pill",
+      "kebab": "pill"
+    },
+    {
+      "pascal": "Pin",
+      "canonical": "Pin",
+      "kebab": "pin"
+    },
+    {
+      "pascal": "Play",
+      "canonical": "Play",
+      "kebab": "play"
+    },
+    {
+      "pascal": "Plus",
+      "canonical": "Plus",
+      "kebab": "plus"
+    },
+    {
+      "pascal": "ReceiptText",
+      "canonical": "ReceiptText",
+      "kebab": "receipt-text"
+    },
+    {
+      "pascal": "RefreshCw",
+      "canonical": "RefreshCw",
+      "kebab": "refresh-cw"
+    },
+    {
+      "pascal": "RotateCcw",
+      "canonical": "RotateCcw",
+      "kebab": "rotate-ccw"
+    },
+    {
+      "pascal": "Ruler",
+      "canonical": "Ruler",
+      "kebab": "ruler"
+    },
+    {
+      "pascal": "Scale",
+      "canonical": "Scale",
+      "kebab": "scale"
+    },
+    {
+      "pascal": "Search",
+      "canonical": "Search",
+      "kebab": "search"
+    },
+    {
+      "pascal": "Settings",
+      "canonical": "Settings",
+      "kebab": "settings"
+    },
+    {
+      "pascal": "Share2",
+      "canonical": "Share2",
+      "kebab": "share-2"
+    },
+    {
+      "pascal": "Shield",
+      "canonical": "Shield",
+      "kebab": "shield"
+    },
+    {
+      "pascal": "ShieldAlert",
+      "canonical": "ShieldAlert",
+      "kebab": "shield-alert"
+    },
+    {
+      "pascal": "ShieldCheck",
+      "canonical": "ShieldCheck",
+      "kebab": "shield-check"
+    },
+    {
+      "pascal": "ShoppingCart",
+      "canonical": "ShoppingCart",
+      "kebab": "shopping-cart"
+    },
+    {
+      "pascal": "SkipForward",
+      "canonical": "SkipForward",
+      "kebab": "skip-forward"
+    },
+    {
+      "pascal": "SlidersHorizontal",
+      "canonical": "SlidersHorizontal",
+      "kebab": "sliders-horizontal"
+    },
+    {
+      "pascal": "Snowflake",
+      "canonical": "Snowflake",
+      "kebab": "snowflake"
+    },
+    {
+      "pascal": "Sparkles",
+      "canonical": "Sparkles",
+      "kebab": "sparkles"
+    },
+    {
+      "pascal": "Square",
+      "canonical": "Square",
+      "kebab": "square"
+    },
+    {
+      "pascal": "Star",
+      "canonical": "Star",
+      "kebab": "star"
+    },
+    {
+      "pascal": "StickyNote",
+      "canonical": "StickyNote",
+      "kebab": "sticky-note"
+    },
+    {
+      "pascal": "SunMedium",
+      "canonical": "SunMedium",
+      "kebab": "sun-medium"
+    },
+    {
+      "pascal": "Target",
+      "canonical": "Target",
+      "kebab": "target"
+    },
+    {
+      "pascal": "ThumbsDown",
+      "canonical": "ThumbsDown",
+      "kebab": "thumbs-down"
+    },
+    {
+      "pascal": "ThumbsUp",
+      "canonical": "ThumbsUp",
+      "kebab": "thumbs-up"
+    },
+    {
+      "pascal": "Timer",
+      "canonical": "Timer",
+      "kebab": "timer"
+    },
+    {
+      "pascal": "TimerReset",
+      "canonical": "TimerReset",
+      "kebab": "timer-reset"
+    },
+    {
+      "pascal": "Trash2",
+      "canonical": "Trash2",
+      "kebab": "trash-2"
+    },
+    {
+      "pascal": "TrendingUp",
+      "canonical": "TrendingUp",
+      "kebab": "trending-up"
+    },
+    {
+      "pascal": "TriangleAlert",
+      "canonical": "TriangleAlert",
+      "kebab": "triangle-alert"
+    },
+    {
+      "pascal": "Trophy",
+      "canonical": "Trophy",
+      "kebab": "trophy"
+    },
+    {
+      "pascal": "Unlink",
+      "canonical": "Unlink",
+      "kebab": "unlink"
+    },
+    {
+      "pascal": "Upload",
+      "canonical": "Upload",
+      "kebab": "upload"
+    },
+    {
+      "pascal": "User",
+      "canonical": "User",
+      "kebab": "user"
+    },
+    {
+      "pascal": "UserPlus",
+      "canonical": "UserPlus",
+      "kebab": "user-plus"
+    },
+    {
+      "pascal": "Users",
+      "canonical": "Users",
+      "kebab": "users"
+    },
+    {
+      "pascal": "Utensils",
+      "canonical": "Utensils",
+      "kebab": "utensils"
+    },
+    {
+      "pascal": "Video",
+      "canonical": "Video",
+      "kebab": "video"
+    },
+    {
+      "pascal": "Wallet",
+      "canonical": "Wallet",
+      "kebab": "wallet"
+    },
+    {
+      "pascal": "WalletCards",
+      "canonical": "WalletCards",
+      "kebab": "wallet-cards"
+    },
+    {
+      "pascal": "Watch",
+      "canonical": "Watch",
+      "kebab": "watch"
+    },
+    {
+      "pascal": "Wind",
+      "canonical": "Wind",
+      "kebab": "wind"
+    },
+    {
+      "pascal": "X",
+      "canonical": "X",
+      "kebab": "x"
+    },
+    {
+      "pascal": "Zap",
+      "canonical": "Zap",
+      "kebab": "zap"
+    },
+    {
+      "pascal": "ZoomIn",
+      "canonical": "ZoomIn",
+      "kebab": "zoom-in"
+    },
+    {
+      "pascal": "ZoomOut",
+      "canonical": "ZoomOut",
+      "kebab": "zoom-out"
+    }
+  ]
+}
