@@ -2087,6 +2087,38 @@
       "minted_tokens": {},
       "$comment": "C1 organism #6 (final). SCOPE: Rank[1,2,3,Other] x Self[True,False] = 8 VARIANTS (Hamza CONFIRMED 8-variant model over hoisting Self to a BOOLEAN — 'Self' is a selectable state worth a variant, even though it is technically pure-visibility of the orange bar; contrast HabitRow where HasStreak WAS hoisted). Manual 4-col(Rank) x 2-row(Self) grid (NotificationRow manual-grid precedent; combineAsVariants stacks at 0,0 then positioned by hand: PAD 24, colW 327, rowH 72, gap 24; set NOT auto-layout). Each variant 327 FIXED HORIZONTAL, counterAxis CENTER, gap spacing/12, padX spacing/16 (px-4), padY spacing/12 (py-3), minHeight 72, fills=[] (set frame dark bg), clipsContent=false (so the absolute self-bar at x=0 isn't clipped). Children: (1) Rank text Sora Bold 17/22 (font-bold=700, BAKED) FIXED w36, color per Rank: 1=color/podium/gold, 2=silver, 3=bronze, Other=color/text/primary (white); text '#1'/'#2'/'#3'/'#12' BAKED per variant. (2) Avatar 36x36 FIXED round (radius/pill) bg color/alpha/white-08 + AvatarText (Sora SemiBold 14, text/primary). (3) Content VERTICAL FILL itemSpacing spacing/4 (mt-1): Header HORIZONTAL FILL SPACE_BETWEEN [Name (Sora SemiBold 15/20 BAKED, text/primary, FILL truncate) + Level pill (HUG, radius/pill, 1px INSIDE white-20 border, bg ink-900, padX spacing/8 padY spacing/4, LevelText Sora SemiBold 11/14 white)] + Meta HORIZONTAL FILL gap spacing/8 [Xp (Caption linked, white-50, HUG) + DomainTag instance (default Fitness, ShowDot=false, 0.15 opacity fix-up, maxWidth 112)]. (4) Self=True only: SelfBar RECTANGLE absolute-positioned (layoutPositioning ABSOLUTE, x0 y12, w4 h48) fill color/brand/cta, right corners radius/pill (rounded-r-pill), left corners 0. Avatar+Name+Level+Xp linked TEXT props (identical defaults across all 8). Rank text+color BAKED per variant. Domain via nested DomainTag instance. withDivider border-t SKIPPED. tabular-nums not modeled. Set frame ink-900 fill + radius 24 (manual, no auto-layout). No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "SIACoachingNote": {
+      "node_id": "208:47",
+      "page_node_id": "17:13",
+      "key": "831879c876903195e5f6efac4bf8d7c963396429",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 327,
+        "h": 244
+      },
+      "position": {
+        "x": 80,
+        "y": 2000
+      },
+      "doc_frame_id": "210:47",
+      "variant_axes": {},
+      "properties": [
+        "Message",
+        "ActionLabel",
+        "HasAction",
+        "HasMoods"
+      ],
+      "property_keys": {
+        "Message": "Message#210:0",
+        "ActionLabel": "ActionLabel#210:1",
+        "HasAction": "HasAction#210:2",
+        "HasMoods": "HasMoods#210:3"
+      },
+      "composes": [],
+      "minted_tokens": {},
+      "$comment": "BUILT 2026-05-29 (C2 organism #1, simplest-first). Lone COMPONENT (no variant axis — React has no variant prop). Self-surfaced card wrapped in ink-900 doc FRAME (210:47, radius 24, padding spacing/24) per lone-comp precedent (ScheduleItem 180:8). Root: 327 FIXED VERTICAL HUG, bg color/neutral/ink-brown-800 (4:7), 1px INSIDE white-06 (4:44) stroke, radius/xl (9:6) all corners, Elevation/1, padding spacing/24, itemSpacing spacing/12 (12; React gaps are mt-3/mt-3/mt-4 — collapsed to one 12 gap, 16->12 minor), clipsContent=true. AI ACCENT BAR: RECTANGLE absolute (layoutPositioning ABSOLUTE, x0 y0, w3, constraints vertical STRETCH, height=root.height 244) fill color/brand/ai (5:15 royal-purple) @0.6 — needed paint-multiplier opacity at create (intrinsic-alpha N/A since ai is a full-opacity color var); clipped to rounded corners by root clipsContent (models border-l-[3px] border-l-royal-purple/60). Children: (1) Header HORIZONTAL HUG gap spacing/8 counterAxis CENTER: Avatar 24x24 (radius/pill, bg ink-brown-800, 2px INSIDE brand/ai stroke, Glow/Purple effect) holding 'S' Sora SemiBold 11 text/primary + 'SIA' Eyebrow style white-50 (4:41). (2) Message Sora Regular 15/20 BAKED (non-ramp size), text/primary (white-90 approx; no white-90 token), FILL width — linked Message TEXT prop. (3) Action HORIZONTAL FILL primaryAxis MAX (justify-end) minHeight 32: 'View in chat' Caption white-50 — linked ActionLabel TEXT prop; gated by HasAction BOOLEAN (default true). (4) MoodChips HORIZONTAL FILL gap spacing/6 clipsContent (overflow-x scroll not modeled): 3 representative chips (Good selected / Okay / Tough), each HUG h44 (min-h-11) radius/pill 1px INSIDE border padX spacing/12 gap spacing/4 [emoji Sora 11 + label Small 11]; selected = brand/cta @0.15 bg + @0.35 border (read-modify-write fix-up Gotcha #3) + white-100 (4:39) label; unselected = ink-brown-800 bg + white-10 border + white-60 (147:5) label; gated by HasMoods BOOLEAN (default true). SiaAvatarMark md variant (h-8 text-13) not modeled (sm only). No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {

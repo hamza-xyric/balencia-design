@@ -705,7 +705,11 @@
     "SIACoachingNote": {
       "phase": "3C_organisms",
       "source": "src/components/screens/SIACoachingNote.tsx",
-      "figma_node_id": null
+      "figma_node_id": "208:47",
+      "figma_component_key": "831879c876903195e5f6efac4bf8d7c963396429",
+      "doc_frame_id": "210:47",
+      "composes": [],
+      "$comment": "BUILT 2026-05-29 (C2 organism #1). Lone COMPONENT, no variant axis (React has no variant prop). Self-surfaced card (ink-brown-800 + white-06 border + radius/xl + Elevation/1, padding spacing/24) wrapped in ink-900 doc FRAME (210:47). AI accent: absolute 3px RECTANGLE bound color/brand/ai @0.6 (paint-multiplier fix-up), STRETCH height, clipped to rounded corners (models border-l-[3px] royal-purple/60). Header: 24px Avatar (Glow/Purple, 2px brand/ai border, 'S' Sora SemiBold 11) + 'SIA' Eyebrow white-50. Message Sora Regular 15/20 BAKED (non-ramp), text/primary, FILL -> Message TEXT prop. Action 'View in chat' Caption white-50 -> ActionLabel TEXT prop, gated by HasAction bool. MoodChips: 3 reps (Good selected orange@0.15/0.35 + white-100 label; Okay/Tough ink-brown-800 + white-10 + white-60), gated by HasMoods bool. Props: Message#210:0, ActionLabel#210:1, HasAction#210:2, HasMoods#210:3. No new tokens."
     },
     "ScheduleItem": {
       "phase": "3C_organisms",
