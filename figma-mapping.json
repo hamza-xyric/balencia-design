@@ -128,7 +128,9 @@
       "color/alpha/white-30": "VariableID:160:2",
       "color/alpha/white-35": "VariableID:269:3",
       "color/alpha/orange-20": "VariableID:160:3",
-      "color/alpha/white-80": "VariableID:167:2"
+      "color/alpha/white-80": "VariableID:167:2",
+      "color/alpha/white-03": "VariableID:302:2",
+      "color/alpha/white-04": "VariableID:302:3"
     },
     "color": {
       "color/bg/screen": "VariableID:5:2",
@@ -2544,6 +2546,73 @@
       },
       "created_at": "2026-05-29",
       "$comment": "Phase 3C batch C4 (SiaChatTopBar ONLY; RichInlineCard spun out to its own future batch per Hamza — 6-type discriminated union chart/mission/meal/finance/workout/connection, not a simple alternate). Chat header bar. Variant SET 290:134 (key e4de426ff93144993de2214732f7652fdbde024c); variants VoiceActive=False 271:108 / VoiceActive=True 290:117. VoiceActive is a REAL variant axis (NOT a BOOLEAN): React voiceActive changes the AudioLines icon COLOR (white-50->royal-purple) and a Figma BOOLEAN can only toggle visibility/instance, never color (FAQAccordion State / LeaderboardRow Self precedent). Per variant: COMPONENT 375x56 FIXED, HORIZONTAL SPACE_BETWEEN + counterAxis CENTER, paddingX spacing/16 (8:5) padY 0, fill ink-900 (4:5) @0.85 (React bg-ink-900/85; paint-multiplier fix-up), border-bottom 1px white-05 (237:2) via strokeBottomWeight=1/others 0 INSIDE; backdrop-blur NOT modeled. Left TitleGroup VERTICAL HUG counterAxis MIN gap spacing/2 (193:4): Title BAKED Sora SemiBold 17/22 text/primary (5:6) (ramp 17 but font-semibold -> baked) -> Title TEXT 'SIA' (Title#293:0); Subtitle BAKED Sora Regular 11/14 white-35 (269:3) -> Subtitle TEXT 'Coach online' (Subtitle#293:3); both linked across BOTH variants. Right ActionGroup HORIZONTAL HUG counterAxis CENTER gap spacing/4 (8:2): three 44x44 (h-11 w-11) center button FRAMEs, each a recolored icon instance (registry recolor helper; intrinsic strokeWeight; React 1.8/1.9 ~= 2): Btn-Conversations MessageCircle (95:99) @20 white-50 (4:41); Btn-Search Search (98:39) @20 white-25 (269:2 MINTED, React text-white/25, disabled); Btn-Voice AudioLines (92:39) @22 white-50 default / royal-purple (4:4) on True. True variant built by root.clone()+patch-only Btn-Voice stroke (TierCard precedent). Button colors VERIFIED live (Conv=4:41, Search=269:2, Voice False=4:41 True=4:4). Set is its own doc card: ink-900 (4:5) fill, cornerRadius 24, padding+itemSpacing spacing/24 (8:7), VERTICAL, counterAxis MIN (423x184). MINTED 2 intrinsic-alpha primitives in Primitives collection 2:2 mode 2:0: white-25 (VariableID:269:2, white@0.25, 21 code uses) + white-35 (VariableID:269:3, white@0.35, 45 code uses) — both recurring, no existing token; scopes FRAME_FILL/SHAPE_FILL/STROKE_COLOR + WEB var(--color-alpha-white-25|35). CORRECT icon ids (MessageCircle 95:99, Search 98:39, AudioLines 92:39 — prior handoff's 96:13/98:33/100:23 were WRONG). Validated structurally + live; pixel screenshot unavailable (sandbox network HTTP:000)."
+    },
+    "RichInlineCard": {
+      "node_id": "320:153",
+      "page_node_id": "17:13",
+      "key": "74c119e718821c3a88e9dd3d79f26c8db817eb97",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 1077,
+        "h": 570
+      },
+      "position": {
+        "x": 100,
+        "y": 5844
+      },
+      "variant_axes": {
+        "Type": [
+          "Chart",
+          "Mission",
+          "Meal",
+          "Finance",
+          "Workout",
+          "Connection"
+        ]
+      },
+      "variants": {
+        "Type=Chart": {
+          "node_id": "315:27",
+          "key": "03376a4afcff151ec2f0bc940a85b45e8982b326"
+        },
+        "Type=Mission": {
+          "node_id": "313:25",
+          "key": "02b775f3b925897083d1e6fde8b40922b37457e7"
+        },
+        "Type=Meal": {
+          "node_id": "309:12",
+          "key": "89c7b444731b2e81629a5f288da0d697ffba36b6"
+        },
+        "Type=Finance": {
+          "node_id": "307:7",
+          "key": "d7e581365c80fb6011f6ee99d41e42d69fd64a4c"
+        },
+        "Type=Workout": {
+          "node_id": "303:2",
+          "key": "e9469d71fcb225456d11a042043d04f1168c7ec8"
+        },
+        "Type=Connection": {
+          "node_id": "311:17",
+          "key": "76031d4932c16d939283a3fb61997110a64271a4"
+        }
+      },
+      "properties": [
+        "Type"
+      ],
+      "property_keys": {},
+      "composes": [
+        "Icon/ArrowUpRight(92:31)",
+        "Icon/Dumbbell(94:34)",
+        "Icon/Utensils(99:94)",
+        "Icon/WalletCards(99:107)",
+        "DomainTag(52:39)"
+      ],
+      "minted_tokens": {
+        "color/alpha/white-03": "VariableID:302:2",
+        "color/alpha/white-04": "VariableID:302:3"
+      },
+      "created_at": "2026-05-29",
+      "$comment": "Phase 3C batch C5 (RichInlineCard — the C4 spin-out). 6-type React discriminated union (chart/mission/meal/finance/workout/connection) -> variant axis Type[Chart,Mission,Meal,Finance,Workout,Connection], each STRUCTURALLY distinct (built fresh, no clone). Hamza-CONFIRMED via AskUserQuestion: build all 6; DROP the React w-6 chat-avatar gutter (chat-layout positioning, not card structure); card width 327 FIXED (matches every other DS card; React in-chat render is ~303 = 327 content - 24 gutter, but 327 chosen for consistency). SHARED SHELL: each variant COMPONENT = VERTICAL 327 FIXED-wide HUG-height, ink-brown-800 (4:7) fill, 1px white-08 (140:2) INSIDE border, radius/xl (9:6), padding spacing/16 (8:5), itemSpacing spacing/12 (8:4) = the dominant mt-3 gap, Elevation/1 effect. CARDLINK footer (5 variants, NOT workout): HORIZONTAL FILL primaryAxis MAX (justify-end) counterAxis CENTER, itemSpacing spacing/4 (8:2), minHeight 44 (min-h-11), label Sora SemiBold 12/16 BAKED brand/cta (5:13) + ArrowUpRight (92:31) @13 recolored brand/cta. Per-variant labels DIFFER (View more/View mission/Add to plan/View finances/Tell me more) -> BAKED, no shared TEXT prop. Mixed React margins handled by sub-groups with itemSpacing spacing/8: Chart ChartBody wraps MiniLineChart+caption (mt-2); Connection HeaderGroup wraps eyebrow+body (mt-2). CHART: title Sora SemiBold 14/18 (5:6); MiniLineChart box (FILL w / 112 FIXED h, radius/md 9:4, white-06 4:44 border, white-03 302:2 MINTED bg, padX spacing/8 padY spacing/12, clipped) holds an imported SVG (figma.createNodeFromSvg, FILL/FILL, child constraints SCALE): 3 gridlines white-10 (4:43, node opacity reset to 1 - var carries the 0.10 alpha), orange polyline brand/cta (5:13) 4px round, purple DASHED polyline royal-purple (4:4) 3px dashPattern[6,7], 2 green circles forest-green (4:3); caption Sora Reg 12/16 white-50 (4:41). MISSION (rep missions[0] 'Run a half marathon' 68%): TopRow (gap spacing/12 counterAxis CENTER): MiniProgressRing = 48x48 plain FRAME w/ absolute children = two arcData ELLIPSES (track full-circle innerRadius 0.8 white-10; arc start -PI/2 sweep 0.68*2PI innerRadius 0.8 fitness 4:11 -- modeled as a FILLED donut-arc, not a stroke) + centered '68' Sora SemiBold 12 (5:6); TextCol (gap spacing/2 193:4): name Sora SemiBold 15/20 (5:6) + '68% complete' Caption-linked white-50. NextAction box (FILL, radius/md, white-06 border, white-04 302:3 MINTED bg, padding spacing/12): '5K tempo run' Caption-linked white-70 (4:40). Domain color is per-instance (domainToneClasses) -> built ONE fitness rep (DomainSkillCard precedent). CardLink 'View mission'. MEAL (rep meals[1] 'Grilled chicken salad'): Header (gap spacing/8 counterAxis CENTER): IconBox 32x32 radius/sm (9:3) border domain-nutrition (4:14)@0.30 bg @0.15 (paint fix-ups) + Utensils (99:94)@16 recolored nutrition + name Sora SemiBold 14/18 FILL. Macros (HORIZONTAL WRAP itemSpacing+counterAxisSpacing spacing/8): 4 MacroPills (HUG, radius/sm, white-06 border, white-04 302:3 bg, padX spacing/8 padY spacing/4 gap spacing/4): label Sora SemiBold 11/14 white-50 + value Sora SemiBold 11/14 white (5:6) = Cal 520/Protein 42g/Carbs 28g/Fat 22g. CardLink 'Add to plan'. FINANCE: Header IconBox domain-finance (4:15) + WalletCards (99:107)@16 + 'This month' Sora SemiBold 14/18. Rows (VERTICAL itemSpacing 0): 3 FinanceRows (h-8 32 FIXED, SPACE_BETWEEN counterAxis CENTER): label Caption-linked white-50 + value Sora SemiBold 13/18 BAKED (positive=forest-green 4:3 / else white 5:6); rows 1-2 border-b white-05 (237:2) via strokeBottomWeight=1/others 0, last none = Income $4,200(+)/Expenses $2,860/Net $1,340(+). CardLink 'View finances'. WORKOUT (rep workouts[0] 'Half marathon training - Week 6'): Header IconBox domain-fitness (4:11) + Dumbbell (94:34)@16 + TextCol (gap spacing/2): name Sora SemiBold 14/18 + '4 exercises - 45 min' Sora Reg 12/16 white-50. StartButton = BAKED pill (NOT Button-atom -- custom min-h-11/44): HORIZONTAL HUG center, brand/cta (5:13) bg, radius/pill (9:8), padX spacing/16, Glow/Orange effect, 'Start workout' Sora SemiBold 12/16 white (5:6). No CardLink. CONNECTION: HeaderGroup (gap spacing/8): eyebrow 'Connection spotted' Eyebrow-style-linked royal-purple (4:4) + body Caption-linked white-80 (167:2). DomainTags (HORIZONTAL gap spacing/8): 3 DomainTag instances (52:39 default 52:3) Sleep/Fitness/Nutrition, default ShowDot, +0.15 bg opacity fix-up each. ProgressBar: track plain FRAME (FILL w / 8 FIXED h, radius/pill, white-08 140:2 bg, clipped) + fill RECT 212x8 (72% of 295 inner) royal-purple (4:4) positioned via plain-frame x/y. CardLink 'Tell me more'. SET: HORIZONTAL layoutWrap WRAP, FIXED width 1077 (3x327 + 2x24 gap + 2x24 pad forces 3-per-row 3x2 grid), counterAxisAlignItems MIN (heights differ), ink-900 (4:5) doc fill, cornerRadius 24, padding+itemSpacing+counterAxisSpacing spacing/24 (8:7). 1077x570 at (100,5844) on Organisms page 17:13. MINTED 2 intrinsic-alpha primitives in Primitives collection 2:2 mode 2:0: white-03 (VariableID:302:2, white@0.03, 18 code uses, chart bg) + white-04 (VariableID:302:3, white@0.04, 46 code uses, macro pills + nextAction box) -- both recurring, no existing token; scopes FRAME_FILL/SHAPE_FILL/STROKE_COLOR + WEB var(--color-alpha-white-03|04). VALIDATED structurally + via pixel screenshot (worked this session, curl HTTP 200) -- all 6 variants faithful to React."
     }
   },
   "ds_icons": {
