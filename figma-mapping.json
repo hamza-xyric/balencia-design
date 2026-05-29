@@ -130,7 +130,8 @@
       "color/alpha/orange-20": "VariableID:160:3",
       "color/alpha/white-80": "VariableID:167:2",
       "color/alpha/white-03": "VariableID:302:2",
-      "color/alpha/white-04": "VariableID:302:3"
+      "color/alpha/white-04": "VariableID:302:3",
+      "color/alpha/white-55": "VariableID:384:2"
     },
     "color": {
       "color/bg/screen": "VariableID:5:2",
@@ -2813,6 +2814,53 @@
       },
       "$comment": "Extracted 2026-05-30 (audit C-014) so MoodSelector states are real variants. State=Default (opacity 0.5, label color/alpha/white-40, transparent bg), State=Selected (bg color/domain/wellbeing @15% read-modify-write fix-up, opacity 1, emoji 31px ~scale-110, label color/alpha/white-70), State=Pressed (Default rescaled 0.95 = active:scale-95). Emoji + Label exposed as TEXT component properties. MoodSelector (155:5) recomposed from 6 FILL-width instances of this atom.",
       "created_at": "2026-05-30"
+    },
+    "VoiceInterfacePanel": {
+      "node_id": "403:215",
+      "page_node_id": "17:13",
+      "key": "d41e0ef94094e699e8a3aa3f3aec4644bc014c6c",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 423,
+        "h": 540
+      },
+      "position": {
+        "x": 100,
+        "y": 7478
+      },
+      "variant_axes": {
+        "ReadyToSend": [
+          "False",
+          "True"
+        ]
+      },
+      "variants": {
+        "ReadyToSend=False": {
+          "node_id": "391:165",
+          "key": "299acb50293ad46de0f8768f2499ce9690801e54"
+        },
+        "ReadyToSend=True": {
+          "node_id": "400:189",
+          "key": "c82b744aacae3a2ed2be7324636fb798ab28ebac"
+        }
+      },
+      "properties": [
+        "ReadyToSend",
+        "Transcript",
+        "HasTranscript"
+      ],
+      "property_keys": {
+        "Transcript": "Transcript#426:0",
+        "HasTranscript": "HasTranscript#426:3"
+      },
+      "composes": [
+        "VoiceWaveform"
+      ],
+      "minted_tokens": {
+        "color/alpha/white-55": "VariableID:384:2"
+      },
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3C batch C9 (VoiceInterfacePanel). Built by a prior interrupted session, then FINISHED + recorded 2026-05-30. Hamza-CONFIRMED via AskUserQuestion: (1) C9 = VoiceInterfacePanel; (2) ReadyToSend[False,True] is a REAL variant axis (not a boolean) — it swaps the baked primary-button icon (Square<->ArrowUp) AND the status copy, and a Figma boolean cannot swap a baked icon (SiaChatTopBar VoiceActive / FAQAccordion State precedent); (3) ADD the planned component props; (4) 375 FIXED width (full-width bottom sheet, rounded-t only). SET 403:215 (key d41e0ef94094e699e8a3aa3f3aec4644bc014c6c) on Organisms page 17:13 at (100,7478), 423x540 VERTICAL doc card (ink-900 4:5 full fill, cornerRadius 24, padding+itemSpacing spacing/24 8:7). Variants: ReadyToSend=False 391:165 (key 299acb50293ad46de0f8768f2499ce9690801e54), ReadyToSend=True 400:189 (key c82b744aacae3a2ed2be7324636fb798ab28ebac) — each COMPONENT 375x234 FIXED VERTICAL, fill ink-brown-800 (4:7 full opacity), top-only border 1px alpha-white-08 (140:2) via strokeTopWeight=1/others 0 INSIDE (border-t), top-only corners radius/xl (9:6) bound TL+TR with BL/BR=0 (rounded-t-xl), padding pt-4 spacing/16 (8:5) / px-6 spacing/24 (8:7) / pb-5=20 (intrinsic, NOT spacing/20 token) / px-6 spacing/24, itemSpacing spacing/12 (8:4), minHeight 208 (min-h-[208px] intrinsic), Elevation/3 effect style (shadow-3). Children: (1) Status TEXT center, BAKED Sora Regular 14/18 (non-ramp, NO style link) fill white-50 (4:41), per-variant 'listening...' (False) / 'processing...' (True) — deliberately NOT a shared TEXT prop: the per-variant copy IS the ReadyToSend semantic and a variant-set TEXT prop carries only ONE shared default (precedent: SiaChatTopBar/DomainDashboardHeader only link TEXT props with IDENTICAL defaults across variants); voice-status-pulse animation RUNTIME-ONLY -> dropped. (2) WaveWrap FRAME 280x52 holding an INSTANCE of the VoiceWaveform organism set, variant State=Listening 349:165 (React <VoiceWaveform compact/> default tone='purple' -> Listening); the React `compact` form (h-48 w-full) was DROPPED in C7 so the default 280x48 is instanced (divergence); WaveWrap's +4 height approximates mt-4 vs the set's mt-3 gap. (3) Transcript TEXT center, Caption text style LINKED, fill white-55 (MINTED 384:2) @0.55, maxHeight 44 + textTruncation (max-h-[44px] overflow-hidden) -> Transcript TEXT prop (Transcript#426:0, shared default 'Add eggs and spinach to lunch to close your protein gap.') gated by HasTranscript BOOLEAN (HasTranscript#426:3, default true) on .visible (both props linked on BOTH variants). (4) ButtonRow FRAME FILL-width HORIZONTAL SPACE_BETWEEN counterAxis CENTER itemSpacing spacing/12: CancelButton FRAME h44 (h-11) label 'Cancel' BAKED Sora 15/20 fill white-50 (4:41); PrimaryButton 56x56 FIXED circle cornerRadius 999 (pill) fill brand/orange PRIMITIVE 4:2 (literal bg-brand-orange match; cta 5:13 resolves to the same #FF5E00 but 4:2 is the exact class) + Glow/Orange effect (DROP_SHADOW), holding the per-variant icon: False = StopIcon 11x11 RECTANGLE fill text/primary (5:6) approximating lucide Square size=15 fill=currentColor strokeWidth=0; True = SendIcon INSTANCE of Icon/ArrowUp (92:27) 18x18 recolored 5:6 (lucide ArrowUp size=18 strokeWidth=2.4); voice-record-glow animation RUNTIME-ONLY -> dropped. composes ['VoiceWaveform']. MINTED color/alpha/white-55 (VariableID:384:2, white@0.55) for the recurring text-white/55 (80+ code uses; white-alpha family had 50/60 but no 55); recorded in figma-mapping primitives ONLY (figma-tokens-map.json/globals.css NOT updated for this mint, C5 precedent; text-white/55 is a Tailwind opacity util, no CSS var needed). Minor documented divergences: primitive 4:2 vs cta 5:13; StopIcon rectangle vs Square icon instance; dropped VoiceWaveform compact form; pb-5=20 intrinsic geometry. VALIDATED structurally (set/variant keys, doc card, both variants' fills/border-side/top-radius/padding/minH/effects, Status baked per-variant, VoiceWaveform Listening instance, Transcript white-55 @0.55 + Caption link, primary buttons brand-orange + Glow/Orange + ArrowUp/Square, props Transcript#426:0 + HasTranscript#426:3 linked on both) + via pixel screenshot (curl HTTP 200 valid PNG — both variants faithful to React)."
     }
   },
   "ds_icons": {
