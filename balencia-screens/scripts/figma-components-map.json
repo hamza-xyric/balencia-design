@@ -811,7 +811,12 @@
           "False"
         ]
       },
-      "figma_node_id": null
+      "figma_node_id": "206:47",
+      "figma_component_key": "8f914bc5a051d9d405ab5217e745d4c517519db9",
+      "composes": [
+        "DomainTag(52:39)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C1 organism #6, final). Rank[1,2,3,Other]xSelf[True,False]=8 variants (Hamza confirmed 8 over hoisting Self to boolean). Manual 4-col x 2-row grid. Rank# Sora Bold 17/22 baked, color podium gold/silver/bronze/white per rank; Avatar 36 white-08 + initials; Name(SemiBold 15/20)+Level pill(white-20 border, ink-900, Sora SemiBold 11/14); Meta[Xp Caption white-50 + DomainTag ShowDot=false maxWidth 112]. Self=True adds absolute orange SelfBar (x0 y12 w4 h48, rounded-r-pill, cta); clipsContent=false. Props Avatar#206:0/Name#206:9/Level#206:18/Xp#206:27. No new tokens."
     },
     "JournalEntryCard": {
       "phase": "3C_organisms",

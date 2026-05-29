@@ -2043,6 +2043,50 @@
       "minted_tokens": {},
       "$comment": "C1 organism #5. SCOPE/match-code: inventory's Variant[Default/Accent/Domain] DOES NOT exist in React (confirmed by Hamza) -> DROPPED. Real axes: State[Default,Completed] VARIANT (completed changes card opacity 0.55 + name STRIKETHROUGH + completion-circle fill) + Expanded BOOLEAN (gates SIA note block visibility). Domain via NESTED DomainTag instance variant (MissionCard precedent), NOT a card-level axis. Card VERTICAL 327 FIXED, padding spacing/24 (p-6), itemSpacing spacing/16 (mt-4), fill color/surface/card, 1px INSIDE white-06 border, radius/xl (rounded-xl=28), Elevation/1. Completed -> card.opacity=0.55. TopRow HORIZONTAL gap spacing/12 counterAxis CENTER: LeftCol VERTICAL FILL itemSpacing spacing/12 (mt-3) [DomainTag instance(default Fitness, ShowDot=true kept, 0.15 opacity fix-up) + TextGroup VERTICAL itemSpacing spacing/4 (mt-1): Name(Sora SemiBold 16/22 BAKED, text/primary, FILL truncate, STRIKETHROUGH when Completed) + Meta HORIZONTAL gap spacing/8 (Time Caption white-50 + bullet '•' Caption white-50 + Xp Sora SemiBold 13/18 BAKED color/brand/cta)] | Completion 44x44 FIXED round (radius/pill): Completed->fill cta else transparent; inner Ring 24x24 round 2px INSIDE stroke color/text/primary (border-current) holding 14x14 Check(93:54) visible only when Completed. SiaNote VERTICAL FILL padding spacing/12 (p-3), radius/md (rounded-md=14), bg+border white-06, Note text Caption white-60, visible gated by Expanded BOOLEAN. Name+Time+Xp linked TEXT props (shared defaults; per-state strikethrough is node style not prop). DECISIONS/deviations: (a) Expanded BOOLEAN defaults TRUE (React default is collapsed/false) so the component library shows the rich expanded state; designers collapse per instance. (b) SiaNote bg uses white-06 (6%) vs React bg-white/[0.04] (4%) — no white-04 token, 2% imperceptible. (c) React completion outer border-white/30 is dead Tailwind (color w/o width); only the inner ring (border-current=text/primary white) is modeled. Set frame HORIZONTAL ink-900 radius24 padding/gap spacing/24. No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "LeaderboardRow": {
+      "node_id": "206:47",
+      "page_node_id": "17:13",
+      "key": "8f914bc5a051d9d405ab5217e745d4c517519db9",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 1428,
+        "h": 216
+      },
+      "position": {
+        "x": 80,
+        "y": 1700
+      },
+      "variant_axes": {
+        "Rank": [
+          "1",
+          "2",
+          "3",
+          "Other"
+        ],
+        "Self": [
+          "True",
+          "False"
+        ]
+      },
+      "properties": [
+        "Avatar",
+        "Name",
+        "Level",
+        "Xp"
+      ],
+      "property_keys": {
+        "Avatar": "Avatar#206:0",
+        "Name": "Name#206:9",
+        "Level": "Level#206:18",
+        "Xp": "Xp#206:27"
+      },
+      "composes": [
+        "DomainTag(52:39 ShowDot=false, maxWidth 112)"
+      ],
+      "minted_tokens": {},
+      "$comment": "C1 organism #6 (final). SCOPE: Rank[1,2,3,Other] x Self[True,False] = 8 VARIANTS (Hamza CONFIRMED 8-variant model over hoisting Self to a BOOLEAN — 'Self' is a selectable state worth a variant, even though it is technically pure-visibility of the orange bar; contrast HabitRow where HasStreak WAS hoisted). Manual 4-col(Rank) x 2-row(Self) grid (NotificationRow manual-grid precedent; combineAsVariants stacks at 0,0 then positioned by hand: PAD 24, colW 327, rowH 72, gap 24; set NOT auto-layout). Each variant 327 FIXED HORIZONTAL, counterAxis CENTER, gap spacing/12, padX spacing/16 (px-4), padY spacing/12 (py-3), minHeight 72, fills=[] (set frame dark bg), clipsContent=false (so the absolute self-bar at x=0 isn't clipped). Children: (1) Rank text Sora Bold 17/22 (font-bold=700, BAKED) FIXED w36, color per Rank: 1=color/podium/gold, 2=silver, 3=bronze, Other=color/text/primary (white); text '#1'/'#2'/'#3'/'#12' BAKED per variant. (2) Avatar 36x36 FIXED round (radius/pill) bg color/alpha/white-08 + AvatarText (Sora SemiBold 14, text/primary). (3) Content VERTICAL FILL itemSpacing spacing/4 (mt-1): Header HORIZONTAL FILL SPACE_BETWEEN [Name (Sora SemiBold 15/20 BAKED, text/primary, FILL truncate) + Level pill (HUG, radius/pill, 1px INSIDE white-20 border, bg ink-900, padX spacing/8 padY spacing/4, LevelText Sora SemiBold 11/14 white)] + Meta HORIZONTAL FILL gap spacing/8 [Xp (Caption linked, white-50, HUG) + DomainTag instance (default Fitness, ShowDot=false, 0.15 opacity fix-up, maxWidth 112)]. (4) Self=True only: SelfBar RECTANGLE absolute-positioned (layoutPositioning ABSOLUTE, x0 y12, w4 h48) fill color/brand/cta, right corners radius/pill (rounded-r-pill), left corners 0. Avatar+Name+Level+Xp linked TEXT props (identical defaults across all 8). Rank text+color BAKED per variant. Domain via nested DomainTag instance. withDivider border-t SKIPPED. tabular-nums not modeled. Set frame ink-900 fill + radius 24 (manual, no auto-layout). No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
