@@ -97,7 +97,9 @@
       "color/alpha/white-06":       "VariableID:4:44",
       "color/alpha/white-60":       "VariableID:147:5",
       "color/alpha/glow-orange-bg": "VariableID:4:45",
-      "color/alpha/white-15":       "VariableID:47:2"
+      "color/alpha/white-15":       "VariableID:47:2",
+      "color/alpha/white-30":       "VariableID:160:2",
+      "color/alpha/orange-20":      "VariableID:160:3"
     },
     "color": {
       "color/bg/screen":            "VariableID:5:2",
@@ -727,6 +729,21 @@
       "properties": [],
       "property_keys": {},
       "$comment": "10th Phase 3B molecule (B2 batch, final). Lone COMPONENT (no variant axis) on Molecules page (17:12) at (80,2346). React selection is per-button INTERNAL state (selectedLabel prop), not a component-level axis → representative snapshot with one mood selected (StatTile/ChainProgressBar lone-component precedent; a 6-way Selected axis would be low value). Component root = the card: 327 FIXED-wide HORIZONTAL auto-layout (primaryAxis FIXED, counterAxis HUG + CENTER), padding spacing/16 (p-4), itemSpacing bound spacing/4 (gap-1), bg color/surface/card (bg-ink-brown-800), 1px INSIDE stroke color/alpha/white-06, radius/xl (rounded-xl), Elevation/1 (shadow-1). 6 cells = VERTICAL auto-layout (CENTER/CENTER, gap spacing/4 = mt-1), FILL width (= grid-cols-6 equal distribution) × 64 FIXED height, radius/md (rounded-md). Each cell: emoji TEXT (Sora Regular 28px; selected 31px ≈ scale-110) + label TEXT (Small style 11px Regular linked, textAlign CENTER, FILL width, textTruncation ENDING = React truncate). SELECTED (baked index 3 'Good'): bg color/domain/wellbeing @15% paint-multiplier (read-modify-write fix-up REQUIRED), opacity 1, label color/alpha/white-70. UNSELECTED: transparent fill, opacity 0.5, label color/alpha/white-40. Emojis render full-color via Figma emoji fallback. NO doc frame (card supplies its own dark surface/card bg). NO component properties — mood content customized per-instance via detach. Baked moods: Awful/Low/Okay/Good/Great/Amazing. Zero new tokens minted.",
+      "created_at": "2026-05-29"
+    },
+    "MessageBubble": {
+      "node_id": "162:5",
+      "page_node_id": "17:12",
+      "key": "db490d7243063e9116255755e375c4c4a3482a57",
+      "phase": "3B_molecules",
+      "size": { "w": 407, "h": 240 },
+      "position": { "x": 80, "y": 2520 },
+      "variant_axes": { "Sender": ["SIA", "User"] },
+      "properties": ["Body"],
+      "property_keys": { "Body": "Body#162:0" },
+      "variant_keys": { "Sender=SIA": "74d294820dc7adf4a148bc9cc5b68062f43ca013", "Sender=User": "3f8515ec128ae24865cc2644639f35c2590a1cc8" },
+      "minted_tokens": { "color/alpha/orange-20": "VariableID:160:3" },
+      "$comment": "11th Phase 3B molecule (B3 batch). SCOPE (match-code): React sender is 'sia'|'user' only (2 variants) — inventory's 'System' sender DROPPED (absent in code) and WithAvatar axis DROPPED (avatar is DERIVED from sender: SIA shows it, User never — ProgressRing/StatTile drop-speculative-axis precedent). Sender=SIA/User at (80,2520). Each variant = 327 FIXED HORIZONTAL auto-layout (w-full), counterAxis MIN (items-start), itemSpacing spacing/8 (gap-2); SIA primaryAxis MIN (justify-start), User MAX (justify-end). SIA: 24x24 Avatar (radius 9999, fill color/brand/royal-purple, 1px INSIDE stroke royal-purple @50% read-modify-write fix-up, Glow/Purple, 'S' Sora SemiBold 11 fill color/text/primary) + bubble. Bubble = VERTICAL auto-layout HUG maxWidth 250 (max-w-[250px]), padding 12/10 (px-3 py-2.5), Body text FILL. SIA bubble fill color/surface/card, stroke color/alpha/white-08, corners 16/16/16 + bottom-LEFT bound radius/xs (rounded-bl-xs). User bubble fill color/alpha/glow-orange-bg (= bg-brand-orange/15 exact token, no fix-up), stroke color/alpha/orange-20 (NEW VariableID:160:3 = rgba(255,94,0,0.2), mirrors border-brand-orange/20 ×8 in src), corners 16/16/16 + bottom-RIGHT bound radius/xs (rounded-br-xs). 16px corner = arbitrary value, hardcoded intrinsic; only 6px tail binds. 15px/22 text = intrinsic Sora Regular, NO style link. Body TEXT prop (Body#162:0, shared default) linked to both variants' Body node. Set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/orange-20.",
       "created_at": "2026-05-29"
     }
   },
