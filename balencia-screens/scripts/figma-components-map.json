@@ -983,7 +983,16 @@
     "DomainSkillCard": {
       "phase": "3C_organisms",
       "source": "src/components/screens/DomainSkillCard.tsx",
-      "figma_node_id": null
+      "figma_node_id": "251:99",
+      "doc_frame_id": "252:99",
+      "figma_component_key": "2f569da4b071076d81b6e8bec0bb696a3d4de0b5",
+      "properties": [
+        "Label (TEXT)",
+        "Stat (TEXT)",
+        "Level (TEXT)"
+      ],
+      "composes": [],
+      "$comment": "BUILT 2026-05-29 (C3 #4) Organisms 17:13 (80,4770). NO variant axis — domain color is a per-instance prop (domainToneClasses), DROP 12-domain axis, build ONE Fitness rep (SuggestionChip precedent). Card=VERTICAL 104x78 FIXED ink-brown-800 + 1px white-06 border + radius/md + Elevation/1 + padding spacing/10. Top(VERTICAL FILL gap 4): LabelRow[8px dot fitness + label Small white-50 FILL truncate] + StatLevel[stat Sora BOLD 24/28 text/primary -> Stat prop + level Sora SemiBold 12/16 white-60 -> Level prop]. Spacer FILL (mt-auto). ProgressTrack FILL h3 white-08 radius/pill clipped + ProgressFill 65% fitness. Props Label/Stat/Level TEXT. Lone comp -> ink-900 doc frame [doc] (252:99)."
     },
     "BreathingVisual": {
       "phase": "3C_organisms",

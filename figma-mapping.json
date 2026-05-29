@@ -2386,6 +2386,36 @@
       "minted_tokens": {},
       "$comment": "BUILT 2026-05-29 (C3 organism #3). Match-code: NO variants/props — horizontal scroll row of baked pills (MealCard list-driven precedent). React = `flex gap-2 overflow-x-auto pb-1`; modeled HORIZONTAL HUG auto-layout, itemSpacing spacing/8 (8:3), paddingBottom spacing/4 (8:2, the pb-1 scrollbar clearance). 4 rep pills baked (5 action types exist: breathe/water/journal/check-in/quick-note). Each pill = HORIZONTAL HUG-width min-h-11 (minHeight 44, FIXED h44) ink-brown-800 (4:7) + 1px INSIDE white-08 (140:2) border + radius/pill (9:8) + Elevation/1 + padX spacing/16 (8:5) + gap spacing/8, counterAxis CENTER. Children: optional SIA dot (4x4 ELLIPSE brand/ai 5:15 — shown on Breathe pill to demo isSIASuggested) + Icon@16 (registry instance recolored strokes to brand/cta 5:13) + label Button/Sm style (Sora SemiBold 13/140% — caption font-semibold maps to Button/Sm, native SemiBold no override) text/primary (5:6). Pills baked: Breathe(SIA dot)/Water/Journal/Check-in. Lone comp -> ink-900 (4:5) doc FRAME 'QuickActionsRow [doc]' (249:99) radius24 + spacing/24. No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "DomainSkillCard": {
+      "node_id": "251:99",
+      "page_node_id": "17:13",
+      "doc_frame_id": "252:99",
+      "key": "2f569da4b071076d81b6e8bec0bb696a3d4de0b5",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 104,
+        "h": 78
+      },
+      "position": {
+        "x": 80,
+        "y": 4770
+      },
+      "variant_axes": {},
+      "properties": [
+        "Label",
+        "Stat",
+        "Level"
+      ],
+      "property_keys": {
+        "Label": "Label#252:0",
+        "Stat": "Stat#252:1",
+        "Level": "Level#252:2"
+      },
+      "composes": [],
+      "minted_tokens": {},
+      "$comment": "BUILT 2026-05-29 (C3 organism #4). Match-code: NO variant axis — React drives dot/bar color via stat.domain prop (domainToneClasses), so DROP a 12-domain variant axis and build ONE Fitness (4:11) representative; domain color applied per-instance at use site (SuggestionChip precedent). Card = VERTICAL h-78 (78 FIXED) x 104 FIXED, ink-brown-800 (4:7) + 1px INSIDE white-06 (4:44) border + radius/md (9:4) + Elevation/1 + padding spacing/10 (62:2, p-2.5), itemSpacing 0. Children: Top (VERTICAL FILL itemSpacing spacing/4 8:2): LabelRow (HORIZONTAL FILL gap spacing/6 52:2 counterAxis CENTER) [8px ELLIPSE dot fitness + label Small style (Sora Reg 11) white-50 (4:41) FILL+textTruncation ENDING] then StatLevel (VERTICAL FILL itemSpacing 0 counterAxis CENTER) [stat Sora BOLD 24/28 BAKED text/primary (5:6) CENTER -> Stat prop + level Sora SemiBold 12/16 BAKED white-60 (147:5) CENTER -> Level prop]. Then Spacer FRAME FILL-vertical (mt-auto pushes progress to bottom — TierCard precedent). Then ProgressTrack plain FRAME FILL-width h3 white-08 (140:2) radius/pill (9:8) clipsContent + ProgressFill RECT 65% width (plain-frame child x/y direct, C2 gotcha) fitness radius/pill. Props Label/Stat/Level TEXT. Lone comp -> ink-900 (4:5) doc FRAME 'DomainSkillCard [doc]' (252:99) radius24 + spacing/24. No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
