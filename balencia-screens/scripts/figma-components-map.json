@@ -2,92 +2,922 @@
   "$schema": "https://schemas.balencia.dev/figma-components-map.v1.json",
   "$comment": "Source of truth for the 68 React components that need Figma counterparts. Build order: atoms -> molecules -> organisms -> charts. The figma_node_id field is populated by the build-loop and committed back after each component lands.",
   "build_phases": {
-    "3A_atoms":     "Independent UI primitives. No internal component dependencies.",
+    "3A_atoms": "Independent UI primitives. No internal component dependencies.",
     "3B_molecules": "Compose 1-3 atoms; single-purpose primitives like Card, ProgressRing.",
     "3C_organisms": "Composite UI surfaces; depend on atoms + molecules; usually full sections of screens.",
-    "3D_charts":    "Static recharts snapshots in Figma; full implementation lives in React only.",
-    "3F_layout":    "Page/template scaffolding (PhoneFrame, ScreenShell). Built in Phase 2 as Figma component templates."
+    "3D_charts": "Static recharts snapshots in Figma; full implementation lives in React only.",
+    "3F_layout": "Page/template scaffolding (PhoneFrame, ScreenShell). Built in Phase 2 as Figma component templates."
   },
   "components": {
-
-    "Button":           { "phase": "3A_atoms",     "source": "src/components/design-system/Button.tsx",           "variants": { "Variant": ["Primary","Secondary","Ghost","Green","Destructive"], "Size": ["Sm","Md","Lg"] }, "properties": { "Label": "TEXT", "HasLeftIcon": "BOOLEAN", "HasRightIcon": "BOOLEAN" }, "figma_node_id": "43:92", "figma_component_key": "cde7218e9f10ff2c8af0158df7f0b2a49f408cfb", "aux_component": "ButtonState", "$comment": "Built 2026-05-28 on Atoms page (17:11). State axis split into separate ButtonState aux ComponentSet (44:11) showing Default/Pressed/Disabled/Loading on Primary Md as documentation; engineering composes via Button. Icon INSTANCE_SWAP deferred to Atom #18 (Icon registry); currently 20×20 placeholder slots toggled by HasLeftIcon/HasRightIcon." },
-    "ButtonState":      { "phase": "3A_atoms",     "source": "src/components/design-system/Button.tsx",           "variants": { "State": ["Default","Pressed","Disabled","Loading"] }, "$comment": "Aux ComponentSet (state-axis documentation for Button). Default = Primary Md base; Pressed = Glow/Orange effect style; Disabled = 50% opacity; Loading = spinner + 'Loading' label.", "figma_node_id": "44:11", "figma_component_key": "71d095e8966c9477266ad728ad597c56947ab875" },
-    "Input":            { "phase": "3A_atoms",     "source": "src/components/design-system/Input.tsx",            "variants": { "State": ["Default","Focused","Disabled","Error"] }, "properties": { "Label": "TEXT", "HasLabel": "BOOLEAN", "Value": "TEXT", "Helper": "TEXT", "HasHelper": "BOOLEAN", "HasRightIcon": "BOOLEAN" }, "figma_node_id": "45:30", "figma_component_key": "5440fe0de80ae4a8c4f3ed70269eb90593f6c575", "$comment": "Built 2026-05-28 on Atoms page (17:11). HasIcon promoted from variant axis to BOOLEAN property (HasRightIcon). Per-variant helper-text fill: Error=color/state/error, others=color/text/quaternary. HasHelper default false." },
-    "Chip":             { "phase": "3A_atoms",     "source": "src/components/design-system/Chip.tsx",             "variants": { "Variant": ["Neutral","Filled","Outline"], "Active": ["False","True"] }, "properties": { "Label": "TEXT", "HasIcon": "BOOLEAN" }, "figma_node_id": "46:26", "figma_component_key": "caf35b7263bed56a90ce4113abd8a32d9fb6510d", "$comment": "Built 2026-05-28 on Atoms page (17:11). HasIcon promoted from variant axis to BOOLEAN. Filled variant matches React code; Neutral and Outline are forward-looking primitives. Active=True applies color/brand/cta to border + text across all variants." },
-    "ToggleSwitch":     { "phase": "3A_atoms",     "source": "src/components/design-system/ToggleSwitch.tsx",     "variants": { "On": ["True","False"], "Disabled": ["True","False"] }, "figma_node_id": "48:10", "figma_component_key": "b1a46425650b384ee2a371cef25fa704ccf40a93", "$comment": "Built 2026-05-28 on Atoms page (17:11). Track 34×20 pill, thumb 16×16 white circle. Off track = color/alpha/white-15 (new primitive, VariableID:47:2); On track = color/brand/cta. Disabled = opacity 0.5 on variant frame. No component properties — pure visual atom." },
-    "SegmentedControl": { "phase": "3A_atoms",     "source": "src/components/design-system/SegmentedControl.tsx", "variants": { "SegmentCount": ["2","3","4"], "ActiveIndex": ["0","1","2","3"] }, "figma_node_id": "49:69", "figma_component_key": "8a48e47bba6048456605e1081e19df9656f18421", "$comment": "Built 2026-05-28 on Atoms page (17:11). 9 variants total: Count=2→ActiveIndex 0-1, Count=3→0-2, Count=4→0-3 (invalid combos skipped). Pill container with card surface + white-10 1px border. Segments 72×44, Sora SemiBold (Button/Sm style). Active=brand/cta+white text; inactive=transparent+white-50 text. Padding/gap bound to spacing/4. Labels 1/2/3/4 (numeric — designers swap per-instance)." },
-    "SearchBar":        { "phase": "3A_atoms",     "source": "src/components/design-system/SearchBar.tsx",        "variants": { "State": ["Default","Focused","Filled"] }, "properties": { "Placeholder": "TEXT", "Value": "TEXT", "HasClearButton": "BOOLEAN" }, "figma_node_id": "51:20", "figma_component_key": "36c1dd3bb99e4b369d3bba42001d2c5a7571e7f0", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=1500. 327×52 pill (color/surface/card + 1px white-10 stroke default/filled, brand/cta focused, Elevation/1 shadow). Per-variant: Default+Focused show Placeholder (color/text/quaternary), Filled shows Value (color/text/primary). HasClearButton BOOLEAN linked only to Filled variant (default=true) so it doesn't drag false through variant switches. Search + X icon slots are white-40 16x16 placeholders for Atom #18 swap." },
-    "DomainTag":        { "phase": "3A_atoms",     "source": "src/components/design-system/DomainTag.tsx",        "variants": { "Domain": ["Fitness","Sleep","Career","Nutrition","Finance","Faith","Productivity","Relationships","Wellbeing","Meditation","Creativity","Learning"] }, "properties": { "ShowDot": "BOOLEAN" }, "figma_node_id": "52:39", "figma_component_key": "3c338b58e3a9afa9ea826810e9beef759a41dc66", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=500, y=1500. 12 Domain variants in 4×3 grid. HUG width 56-106, h=24, radius/sm, padding-x spacing/8, gap spacing/6 (new primitive minted this session = VariableID:52:2). Bg fill = solid bound to color/domain/{name} with paint opacity 0.15 — zero new color tokens; paint opacity multiplies the bound RGB. Dot (6×6 pill) + Label (Small text style + Sora SemiBold override) at full opacity in same domain color. Label TEXT prop dropped: Figma's linked TEXT props share a single default across variants, overwriting per-variant characters — incompatible with per-domain labels. ShowDot BOOLEAN (default true) retained. Designers customize labels via detach if needed." },
-    "LevelBadge":       { "phase": "3A_atoms",     "source": "src/components/design-system/LevelBadge.tsx",       "variants": { "Rarity": ["Common","Uncommon","Rare","Epic","Legendary"], "Size": ["Sm","Md","Lg"] }, "properties": { "Level": "TEXT" }, "figma_node_id": "63:47", "figma_component_key": "4891153ec6371869c0a1865968b3d0e76fe479c5", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=1740. 15 variants in 5 Rarity × 3 Size grid (332×300 total). Alpha-tinted bg (rarity color @ 0.15) + solid rarity border + ◆/Lv 1 text in same rarity color + Elevation/1. Pill shape, fixed heights Sm=20/Md=24/Lg=28. Padding-x Sm=6/Md=10/Lg=12 (mints spacing/10 = VariableID:62:2). Gap 4 (Sm/Md) or 6 (Lg). Code source has only one styling — Figma expands it to forward-looking rarity system. Level TEXT prop default 'Lv 1'. Gotcha: alpha-tint required a follow-up read-modify-write pass to persist opacity 0.15 (initial setBoundVariableForPaint + spread didn't stick this time even though it worked for DomainTag)." },
-    "Eyebrow":          { "phase": "3A_atoms",     "source": "src/components/design-system/Eyebrow.tsx",          "variants": { "Color": ["Default","Accent"] }, "properties": { "Text": "TEXT" }, "figma_node_id": "68:6", "figma_component_key": "013d89fcfce0e8c98b406b54adc84a02507f743f", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=460, y=1740. 2 variants (254×96 total). Eyebrow text style (Sora SemiBold 12px UPPER 12% letter-spacing) carries all typography — no fontName override needed. Per-variant fill: Default=color/text/quaternary (matches React white/40), Accent=color/brand/cta (forward-looking; code source has only Default). Text TEXT prop default 'EYEBROW'. Gotcha: setting fontName after setTextStyleIdAsync — even to the same font the style already uses — breaks the textStyleId link. Required a fix-up re-apply of the style. Going forward: skip the fontName-override step when the style already provides the desired weight." },
-    "Divider":          { "phase": "3A_atoms",     "source": "src/components/design-system/Divider.tsx",          "variants": { "Orientation": ["Horizontal","Vertical"], "Weight": ["Thin","Base","Bold","Poster"] }, "figma_node_id": "74:10", "figma_component_key": "76430c80ddedddc78bb07cf46114482929ee7e76", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=2080. 8 variants (1240×520 total) as a generic primitive — Orientation × Weight (Thin=1px, Base=2px, Bold=3px, Poster=4px). Weight values are intrinsic geometry (not token-bound). Single fill bound to color/alpha/white-10; the 10% alpha is intrinsic to the variable, so no opacity fix-up needed (binding resolved opacity:0.1 cleanly). Set frame has ink-900 bg + radius 24 purely for documentation visibility on Figma's light canvas (does not propagate to instances). Code-Figma mismatch resolved via path (a): React's labeled 'Or continue with' separator becomes a LabeledDivider molecule in Phase 3B, composing Divider + caption text." },
-    "BrandSymbol":      { "phase": "3A_atoms",     "source": "src/components/design-system/BrandSymbol.tsx",      "variants": { "Size": ["Sm","Md","Lg","Xl"] }, "properties": { "HasGlow": "BOOLEAN" }, "figma_node_id": "76:18", "figma_component_key": "da7f6abf5ef38be1c8e2bca9b77ab88439b655bc", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=1400, y=2080. 4 variants (520×256 total). Sizes: Sm=32, Md=48 (code default), Lg=64, Xl=96. Each variant has a square N×N container with two children: GlowBackground frame (radius/lg, brand-orange@15% opacity bg, Glow/Orange shadow) hidden by default, and a LogoMark VECTOR imported via createNodeFromSvg from public/logos/Logo Mark.svg (single-path, 204×239 viewBox, fill bound to color/brand/cta). Vector preserves aspect ratio, centered horizontally. HasGlow BOOLEAN property at set level toggles GlowBackground.visible. Gotcha confirmed: setBoundVariableForPaint+spread+opacity stripped the alpha — required read-modify-write fix-up to restore opacity 0.15 (LevelBadge precedent applies; Divider precedent does NOT because Divider's alpha was intrinsic to the white-10 variable itself)." },
-    "BrandWordmark":    { "phase": "3A_atoms",     "source": "src/components/design-system/BrandWordmark.tsx",    "variants": { "Size": ["Sm","Md","Lg"] }, "figma_node_id": "78:38", "figma_component_key": "7bb7a822bfe9611b8e1c484c31859d5ec088c27b", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=2620. 3 Size variants (656×128 total): Sm=96×24, Md=128×32 (code default), Lg=192×48 — all 4:1 aspect. Each variant contains a 10-vector SVG wrapper FRAME from public/logos/Frame 2147239943.svg, rescaled uniformly via node.rescale(targetW/200). Per-vector fills: 2 orange paths (#FF6704 flame + period) bound to color/brand/cta; 8 white paths (Balencia letters) bound to color/text/primary. No properties, no hardcoded fills. Convention: createNodeFromSvg + rescale() is the canonical pattern for multi-color multi-path SVGs — bind fills per child VECTOR by sniffing original color." },
-    "FAB":              { "phase": "3A_atoms",     "source": "src/components/design-system/FAB.tsx",              "variants": { "State": ["Default","Pressed"], "Variant": ["Primary","Ghost"] }, "properties": { "Icon": "INSTANCE_SWAP" }, "figma_node_id": "79:10", "figma_component_key": "97e728742f64112cec029f6b31fe00b98aee5a71", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=816, y=2620. 4 variants (240×240 total) in 2×2 grid. Phase 3A scope = canonical icon-only 56×56 round FAB; React's display='pill' form moves to Phase 3B as FABExtendedPill molecule. Container radius/pill, bg per Variant (cta / surface-card), Ghost adds 1px white-06 inside stroke. State cue: Primary Pressed = Glow/Orange effect (replaces Elevation/2 — brand glow on brand bg); Ghost Pressed = opacity 0.85 frame dim (no brand tint to glow). Icon slot = 24×24 white-40 placeholder frame centered; INSTANCE_SWAP deferred to Atom #18 retrofit (Button/Chip/Input precedent)." },
-    "ContinuousStroke": { "phase": "3A_atoms",     "source": "src/components/design-system/ContinuousStroke.tsx", "variants": { "Weight": ["Thin","Base","Bold","Poster"] }, "figma_node_id": "80:14", "figma_component_key": "f5dab7772b8726521548283a5afeeb1e745196ed", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=2900. 4 Weight variants (632×96 total) in horizontal row. Single-path SVG (viewBox 0 0 128 48, path 'M4 22C20 6 42 6 54 21C66 36 86 42 124 12') imported via figma.createNodeFromSvg, VECTOR child extracted and reparented to the 128×48 COMPONENT root. STROKE-ONLY: v.fills cleared, v.strokes bound to color/brand/cta; strokeCap/strokeJoin='ROUND' match the React code's strokeLinecap/Linejoin='round'. strokeWeight is intrinsic geometry (NOT token-bound) per Phase 3A convention: Thin=2, Base=4 (matches React default), Bold=6, Poster=8. Component root has fills=[] (transparent) + clipsContent=false so the stroke is never cropped. React's animated=true mode (CSS strokeDasharray animation) is runtime-only — not statically modeled. CONVENTION: stroke-only single-path SVG — bind v.strokes (not v.fills) since SVG path has fill='none'; setBoundVariableForPaint resolved cleanly (NO opacity fix-up needed since color/brand/cta is full-opacity). Zero new tokens." },
-    "MissionTypeBadge": { "phase": "3A_atoms",     "source": "src/components/screens/MissionTypeBadge.tsx",       "variants": { "Type": ["Life","Main","Side","Weekly","Daily","Group"] }, "figma_node_id": "82:14", "figma_component_key": "ab83166717928343e0d525c18aae1510e5d5e25d", "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=760, y=2900. 6 Type variants (245×112 total) in 3×2 grid — Row 1: Life/Main/Side (gold/silver/bronze tier), Row 2: Weekly/Daily/Group (steel/sage/copper tier). Pill (radius/pill on all 4 corners), HUG width per label (41-61px), h=24 intrinsic FIXED. Padding-x = spacing/10 (10px, matches React px-2.5), gap 0. Border 1px INSIDE, alpha-tinted via paint-multiplier: bg fill at 20% + border at 35% + text at 100%, all in the matching mission color per variant. ⚠ PAINT-MULTIPLIER ALPHA GOTCHA: setBoundVariableForPaint + spread+opacity did NOT persist on first pass (both opacity read 1) — applied read-modify-write fix-up (v.fills.map(p=>({...p, opacity:0.20})), strokes similar 0.35). LevelBadge/DomainTag precedent. Text: Small text style + Sora SemiBold 11px override + re-apply setTextStyleIdAsync as Eyebrow-precedent fix-up. Per-variant labels Life/Main/Side/Weekly/Daily/Group baked in locally — NO Label TEXT property (DomainTag precedent — per-variant text content differs, linked TEXT prop would clobber all variants with a shared default). HUG width fix-up: primaryAxisSizingMode='AUTO' was reverted to FIXED by the initial resize(60,24); re-applied AUTO post-build to let each variant size to its label. Set frame bg ink-900 + radius 24 for documentation visibility (does NOT propagate to instances). Zero new tokens minted." },
-    "SuggestionChip":   { "phase": "3A_atoms",     "source": "src/components/screens/SuggestionChip.tsx",         "variants": { "State": ["Default","Pressed"] }, "properties": { "Label": "TEXT" }, "figma_node_id": "87:6", "figma_component_key": "ca91a1bb2e0b8150aff23b52000181c8378dd297", "$comment": "Built 2026-05-28 on Atoms page (17:11) at (80, 3100). 2 State variants (288×96 total). HUG width 102 × FIXED h=36 pill. Bg color/surface/card full opacity, border 1px INSIDE royal-purple @ 35% paint-multiplier opacity, text royal-purple full opacity. Button/Sm text style (Sora SemiBold 13px) — no fontName override needed. Scope: State-only axis (option (a) per user). Domain styling is applied per-instance via manual edits — not modeled as a 2nd variant axis (would have been 24 variants for a transient pressed cue). Pressed cue = opacity 0.85 on variant frame (FAB Ghost-Pressed precedent). Label TEXT prop default 'Suggestion' (single shared default OK — text identical across variants). Gotcha confirmed: stroke paint-multiplier opacity required read-modify-write fix-up; HUG width required re-setting primaryAxisSizingMode='AUTO' post-resize. Zero new tokens." },
-    "SocialAuthButton": { "phase": "3A_atoms",     "source": "src/components/design-system/SocialAuthButton.tsx", "variants": { "Provider": ["Google","Apple"] }, "figma_node_id": "88:12", "figma_component_key": "53d159cbd68f0a4116cd6515983018e7bf0fe27e", "$comment": "Built 2026-05-28 on Atoms page (17:11) at (440, 3100). 2 Provider variants (387×188 total, vertically stacked). 327×52 FIXED container per variant: surface-card bg, 1px INSIDE white-10 border (alpha intrinsic — no fix-up, Divider precedent), radius/lg, padding-x spacing/12, gap spacing/8. Per-variant icon strategy: Google = 4-fill SVG via createNodeFromSvg rescaled to 20×20, brand colors NOT token-bound (Google brand-mandate exception); Apple = 20×20 white-40 placeholder for Atom 18 Lucide retrofit. Per-variant labels baked in: 'Continue with Google' / 'Continue with Apple' — NO Label TEXT prop (per-variant text differs — DomainTag precedent). Text style Button/Md (Sora SemiBold 16px, no fontName override). Zero new tokens." },
-    "Icon":             { "phase": "3A_atoms",     "source": "lucide-static",                                      "variants": { "$comment": "142 flat 24×24 Lucide icon COMPONENTs on dedicated '--- Icons ---' page (89:2). Each registered via figma.createNodeFromSvg from node_modules/lucide-static/icons/<kebab>.svg, strokes bound to color/text/primary, ROUND cap/join, strokeWeight=2 intrinsic. Full {pascal→nodeId/key} map in figma-mapping.json → ds_icons. Built 2026-05-28/29 across 9 batches. Retrofit pass wired INSTANCE_SWAP slots on Button (LeftIcon + RightIcon), Input (RightIcon), Chip (Icon), SearchBar (SearchIcon + ClearIcon), FAB (Icon), SocialAuthButton (ProviderIcon, Apple variant only)." }, "figma_page_id": "89:2", "icon_count": 142 },
-
-    "Card":              { "phase": "3B_molecules", "source": "src/components/design-system/Card.tsx",       "variants": { "Variant": ["Default","Compact","Hero"] }, "figma_node_id": "124:11", "figma_component_key": "14c04959827615943280665304b508de14d7a96b", "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80,80). Single Variant axis matching React code: Default=rounded-xl p-6, Compact=rounded-md p-4 (React 'small' renamed to 'Compact' for DS naming), Hero=rounded-2xl p-8. Scope decided via AskUserQuestion: 'Match React code exactly' chosen over the original 3×3 plan (which decoupled Variant×Padding into 9 cells of forward-looking flexibility). Reasoning: code is the source of truth for shape/behavior; 6 of the 9 cells didn't exist in code. Common chrome bound to color/surface/card + color/alpha/white-06 1px INSIDE border + Elevation/1, 327 wide × HUG height. Per-variant radius+padding token bindings (radius/{md,xl,2xl} + spacing/{16,24,32}). Two placeholder text children (Body title + Caption subtitle) — no component props (Card is a slot container; children come from instance overrides). GOTCHA captured for future molecules: figma.createAutoLayout returns FRAMEs which combineAsVariants rejects — variants must be created via figma.createComponent() then have layoutMode set manually. Helper mkAutoComp() wraps this. Zero new tokens minted." },
-    "BottomSheet":       { "phase": "3B_molecules", "source": "src/components/design-system/BottomSheet.tsx", "variants": { "Variant": ["Route","Modal"] }, "properties": { "Title": "TEXT", "ShowClose": "BOOLEAN" }, "figma_node_id": "178:105", "figma_component_key": "8fc23a517f653b508a92538380836c56120d1425", "$comment": "15th Phase 3B molecule (B3 batch, FINAL — completes Phase 3B). SCOPE (match-code): inventory's [Closed,Open] is runtime VISIBILITY, not a structural axis (Closed = not rendered) → DROPPED. The real React axis is the `variant` prop ('route'|'modal') which changes the container chrome → Variant=[Route,Modal]. Both share: 375 FIXED VERTICAL auto-layout, fill color/bg/screen (ink-900), top corners bound radius/lg=20 (rounded-t-lg→--radius-lg), grab HandleRow (h-8=32 center, 36x4 RECTANGLE all-corners radius/pill fill color/alpha/white-20), Header (h-11=44 center, Title + absolute CloseButton), Content (FILL). Route: NO border/shadow, no bottom padding (min-h-full → fills screen; representative h 440). Modal: 1px INSIDE stroke color/alpha/white-08, Elevation/3 (shadow-3), paddingBottom 28 (pb-7), representative h 320. Title = intrinsic Sora SemiBold 17/22 fill color/text/primary, maxWidth 220 truncate-ENDING (text-[17px] font-semibold; H3 is 17 Regular → weight mismatch, no style link). CloseButton = 44x44 createAutoLayout frame, layoutPositioning ABSOLUTE left 16 vertical-center (React absolute left-4), holding X icon instance (registry 100:10 @18, stroke overridden color/alpha/white-60). ContentPlaceholder = Sora Regular 13/18 color/alpha/white-40 (slot filler; real children come from instance overrides). PROPS: Title TEXT (Title#178:0, shared default 'Sheet Title') linked across both; ShowClose BOOLEAN (ShowClose#178:3 default true) gates CloseButton.visible (React renders close only when closeHref/onClose present). Variants laid out side-by-side (Route|Modal) in the set; set frame ink-900 bg + radius 24 for doc visibility (Route is ink-900-on-ink-900 so it blends — intentional, route sheets fill the screen borderless). Zero new tokens minted." },
-    "ProgressRing":      { "phase": "3B_molecules", "source": "src/components/screens/ProgressRing.tsx",     "variants": { "Size": ["Sm","Md","Lg"], "Color": ["Brand","Success"] }, "properties": { "Percent": "TEXT" }, "figma_node_id": "138:5", "figma_component_key": "a3894f9160b462086a86a22f8e3363ff08300486", "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80,760). 6 variants = Size(Sm=36/Md=48/Lg=96) × Color(Brand/Success). Color axis matches React's two states: Brand=in-progress (color/brand/cta orange), Success=complete (color/brand/success green) — code computes complete=progress>=1. Inventory's 3rd 'Domain' color DROPPED: code has no domain-colored ring and 'Domain' is not a single token (fitness/sleep/… are 12 distinct tokens); recolor per-instance if a screen needs it. RENDERING: each ring is two concentric ELLIPSE donut-arcs via arcData (NOT SVG strokes). Outer diameter = 2*(r+stroke/2) (Sm=34/Md=44/Lg=92), centered in the size×size component; innerRadius = (r-stroke/2)/(r+stroke/2) (0.765/0.818/0.826) yields the band width. Track = full sweep (0→2π) bound to color/alpha/white-10 (alpha intrinsic, no fix-up — Divider precedent). Progress arc = startingAngle -π/2 (top) → -π/2 + 2π·0.75, baked at a representative 75% (arc % cannot be a Figma prop — static snapshot), bound to color/brand/{cta|success} (full opacity, no fix-up). Figma angles increase CLOCKWISE from east, so -π/2 start + positive sweep matches React's -rotate-90 clockwise fill. Rounded linecap (React strokeLinecap='round') NOT modeled — arcData ends are flat radial cuts; acceptable for a static DS snapshot. Percent text: explicit Sora SemiBold at 11/13/20px (Sm/Md/Lg) — NO text-style link because the ramp has no SemiBold style at these sizes (Small/Caption/H2 are Regular); treated as component-intrinsic type. Fill bound to color/text/primary. Percent TEXT prop (key Percent#138:0, default '75') linked to all 6 variants' Percent node (LevelBadge precedent — identical default). Component is a plain (non-auto-layout) fixed canvas with absolute-positioned children — combineAsVariants accepts it. Set frame ink-900 bg + radius 24 for documentation visibility. Zero new tokens minted." },
-    "XPBar":             { "phase": "3B_molecules", "source": "src/components/screens/XPBar.tsx",            "variants": { "Variant": ["Default","Compact"] }, "properties": { "Label": "TEXT", "Amount": "TEXT" }, "figma_node_id": "142:5", "figma_component_key": "576edb521d9326702362c2464d5706fb6b8cc104", "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80,1180). 2 variants: Default = optional label row (Label left + Amount right, SPACE_BETWEEN) above the track; Compact = track only (matches React's label?-conditional render). Both 327 FIXED-wide VERTICAL auto-layout, itemSpacing bound to spacing/8 (React mb-2). Track = plain FRAME (clipsContent) 327×8, bg bound to color/alpha/white-08 (NEW primitive minted this build = VariableID:140:2, mirrors React bg-white/[0.08]; white-10 was the nearest existing token but 0.08 recurs in XPBar+ChainProgressBar so a dedicated primitive is cleaner). All 4 corners bound to radius/pill. Inner Fill FRAME baked at 70% width (228px) bound to color/brand/cta + radius/pill — progress % can't be a Figma prop (static snapshot). Track height 8px intrinsic geometry (not token-bound — bar-height convention, Divider precedent). Label + Amount = explicit Sora SemiBold 11px (React text-small font-semibold), fill color/alpha/white-50, NO style link (no SemiBold 11px style — component-intrinsic type, ProgressRing precedent). Label TEXT prop (Label#142:0, default 'Level 12') + Amount TEXT prop (Amount#142:3, default '2,400 / 3,000 XP') linked to the Default variant's nodes ONLY (Compact has no label row — no clobbering). Minted 1 new token: color/alpha/white-08." },
-    "StatTile":          { "phase": "3B_molecules", "source": "src/components/screens/StatTile.tsx",         "variants": {}, "properties": { "Value": "TEXT", "Label": "TEXT" }, "figma_node_id": "145:5", "figma_component_key": "4bde438668cd24b492122899791064ca83101a0c", "$comment": "Built 2026-05-29 on Molecules page (17:12), wrapped in doc frame at (80,1560). SCOPE: matched React code exactly (Card precedent — code is source of truth). React StatTile is just a centered value+label column; the inventory's Variant(Default/Compact) and Trend(Up/Down/Flat) axes + Delta prop DO NOT EXIST in code, so they are DROPPED → no variant axis, lone COMPONENT. (If a screen later needs a trend/delta tile, build a separate StatTileTrend molecule rather than retrofitting an axis no current usage exercises — SettingsRow-Destructive precedent.) VERTICAL auto-layout, HUG/HUG, counterAxisAlignItems='CENTER', itemSpacing spacing/4 (React mt-1). Value = explicit Sora Bold 24px / lineHeight 30px (React text-[24px] font-bold leading-[30px]), fill color/text/primary, NO style link (ramp has no 24px Bold style — component-intrinsic type, ProgressRing/XPBar precedent; tabular-nums OpenType feature not modeled). Label = Caption text style (13px Regular; React is text-[12px] weightless — Caption is the closest clean style link, within tolerance), fill color/alpha/white-50, textAlign CENTER. Value TEXT prop (Value#145:0, default '24') + Label TEXT prop (Label#145:1, default 'Workouts'). Component fills transparent (in screens it's flex-1 inside a metrics row — designers set FILL/width per context) → wrapped in ink-900 doc FRAME 'StatTile (doc)' (145:8), chrome only, no instance propagation. Zero new tokens minted." },
-    "MessageBubble":     { "phase": "3B_molecules", "source": "src/components/screens/MessageBubble.tsx",    "variants": { "Sender": ["SIA","User"] }, "properties": { "Body": "TEXT" }, "figma_node_id": "162:5", "figma_component_key": "db490d7243063e9116255755e375c4c4a3482a57", "$comment": "11th Phase 3B molecule (B3 batch). SCOPE (match-code): React MessageBubble sender is only 'sia'|'user' (2) — inventory's 3rd 'System' sender DROPPED (no such sender in code) and the WithAvatar axis DROPPED (avatar presence is DERIVED from sender, not a toggle: SIA always shows the avatar, User never does — ProgressRing/StatTile drop-speculative-axis precedent). Sender=SIA/User on Molecules page (17:12) at (80,2520). Each variant = 327 FIXED-wide HORIZONTAL auto-layout (w-full), counterAxisAlignItems MIN (items-start), itemSpacing spacing/8 (gap-2); SIA primaryAxisAlignItems MIN (justify-start), User MAX (justify-end) so alignment reads on the fixed-width variant. SIA variant: 24x24 Avatar (circle radius 9999, fill color/brand/royal-purple, 1px INSIDE stroke royal-purple @50% via read-modify-write opacity fix-up, Glow/Purple effect style, 'S' text Sora SemiBold 11 fill color/text/primary) + bubble. Bubble = VERTICAL auto-layout HUG with maxWidth 250 (React max-w-[250px]), padding 12/10 (px-3 py-2.5), Body text FILL (wraps at 250). SIA bubble: fill color/surface/card (ink-brown-800), 1px INSIDE stroke color/alpha/white-08, corners 16/16/16 + bottom-LEFT bound radius/xs=6 (rounded-bl-xs tail). User bubble (no avatar): fill color/alpha/glow-orange-bg (= brand-orange @15% = React bg-brand-orange/15, exact existing token, no fix-up), 1px INSIDE stroke color/alpha/orange-20 (NEW primitive VariableID:160:3 = rgba(255,94,0,0.2) minted this build, mirrors border-brand-orange/20 which recurs 8x in src), corners 16/16/16 + bottom-RIGHT bound radius/xs=6 (rounded-br-xs tail). 16px corner = arbitrary React value (no radius token) so hardcoded intrinsic; only the 6px tail binds. 15px/22 text = component-intrinsic Sora Regular (NO style link — ramp has no 15px style; ProgressRing/MacroBar precedent). Body TEXT prop (Body#162:0, shared default \"Hey! How's your day going so far?\") linked to both variants' Body node (LevelBadge shared-default precedent). Set frame ink-900 bg + radius 24 for documentation visibility. Minted color/alpha/orange-20." },
-    "WaterIntakeRing":   { "phase": "3B_molecules", "source": "src/components/domain/WaterIntakeRing.tsx",   "variants": { "State": ["InProgress","Achieved"] }, "figma_node_id": "149:5", "figma_component_key": "c17b84219141387aa93e67af458b49b7e927bd44", "$comment": "8th Phase 3B molecule (B2 batch 'Domain widgets'). 2 State variants on Molecules page (17:12) at (80,1730). State axis = React's achieved boolean (progress>=1) — InProgress (orange/teal wellbeing) vs Achieved (forest-green success), mirroring ProgressRing's Color axis (code derives complete state). SCOPE: own bespoke 200px ring, does NOT instance ProgressRing — ProgressRing's sizes are Sm36/Md48/Lg96 (none=200) and WaterIntakeRing has unique center content (consumed/target stack + Glasses + ml) + glow + status line. RING GEOMETRY (ProgressRing arcData technique): two concentric ELLIPSE donut-arcs 188×188 at (6,6) in the 200-wide ring region. Outer Ø=2*(r+stroke/2)=2*(88+6)=188; innerRadius=(88-6)/(88+6)=0.87234 sets the 12px band. Track = full 0→2π sweep bound color/alpha/white-06 (alpha intrinsic, no fix-up). Progress arc start -π/2 (top) clockwise; InProgress baked 75% bound color/domain/wellbeing, Achieved full sweep bound color/brand/success. Glow = 168×168 ELLIPSE at (16,16) (React inset-4) with LAYER_BLUR 40 (blur-2xl), fill tint @15% paint-multiplier (InProgress=color/domain/wellbeing, Achieved=color/brand/success) — REQUIRED read-modify-write fix-up to persist opacity 0.15 (LevelBadge/MissionTypeBadge precedent). Center column (VERTICAL auto-layout, HUG, CENTER, itemSpacing spacing/4) centered absolutely in the ring via computed x/y: number row (HORIZONTAL, counterAxisAlignItems BASELINE, gap spacing/4) = consumed (Sora Bold 36/40, color/text/primary) + '/' (Sora Regular 24/28, color/alpha/white-40) + target (Sora Bold 36/40, color/alpha/white-50); 'Glasses' (Sora Regular 14/18, color/alpha/white-50); ml caption (Caption-size 13/17 — InProgress Sora Regular bound color/domain/wellbeing @80% paint-multiplier fix-up, Achieved bound color/brand/success full opacity). Status below ring at y=212 (React mt-3): InProgress single line '75% of daily target' (Sora SemiBold 15/20, bound color/alpha/white-60 = NEW primitive minted this build VariableID:147:5); Achieved = status column (VERTICAL, CENTER, gap spacing/4) 'Target achieved +30 XP' (Sora SemiBold 15/20, color/brand/success) + 'at 6:30 PM' (Sora Regular 13/17, color/alpha/white-40). All numeric/15px/14px text is component-intrinsic Sora (NO style link — ramp has no matching SemiBold/Bold size, ProgressRing/StatTile precedent); ml caption is the only Caption-size text and uses explicit Sora Regular 13 (not the Caption STYLE link, to keep it consistent with the rest of the intrinsic-type column). NO TEXT props — center data + status copy differ per variant (DomainTag/MissionTypeBadge per-variant-text precedent); designers override per-instance. Each variant is a plain (non-auto-layout) COMPONENT with absolute children (ProgressRing precedent — combineAsVariants accepts it). Set frame ink-900 bg + radius 24 for documentation visibility (does not propagate to instances). Minted color/alpha/white-60." },
-    "MacroBar":          { "phase": "3B_molecules", "source": "src/components/domain/MacroBar.tsx",          "variants": { "Tone": ["Primary","Muted","Soft"] }, "properties": { "Label": "TEXT", "Value": "TEXT", "TargetLabel": "TEXT", "HasTarget": "BOOLEAN" }, "figma_node_id": "152:5", "figma_component_key": "0d68a190da7a7b3f332f93e689b8fe932286d2bd", "$comment": "9th Phase 3B molecule (B2 batch). 3 Tone variants on Molecules page (17:12) at (80,2140) matching React fillClasses: Primary=color/brand/cta, Muted=color/alpha/white-40, Soft=color/alpha/white-20 (all clean bind — cta full opacity, white-40/-20 intrinsic alpha, NO fix-up). Each variant = 327 FIXED-wide VERTICAL auto-layout (counterAxisSizingMode FIXED, primaryAxis HUG height), itemSpacing bound spacing/8 (React mb-2). Children: (1) LabelRow = HORIZONTAL FILL, SPACE_BETWEEN + counterAxis CENTER, itemSpacing bound spacing/12 (gap-3): Label (Sora Regular 15/20, color/text/primary, FILL width) + Value (Sora SemiBold 15/20, color/text/primary, HUG). (2) TrackGroup = VERTICAL FILL, itemSpacing bound spacing/4 (React mt-1): Track (plain FRAME, FILL width × 8 FIXED, clipsContent, bg color/alpha/white-08, all corners radius/pill) holding an absolute Fill RECTANGLE baked 229px (≈70% of 327 — progress % is a static snapshot, XPBar precedent) bound to the per-tone fill + radius/pill; TargetLabel (Sora Regular 12/16, color/alpha/white-40). 15px/12px text is component-intrinsic Sora (NO style link — ramp has no 15px or 12px-Regular style; XPBar/StatTile precedent). Track height 8px + Fill 229px are intrinsic geometry (not token-bound — bar convention, Divider precedent). PROPERTIES (shared identical defaults across all 3 tones → linked TEXT props OK, XPBar/SettingsRow precedent): Label TEXT (Label#152:0, 'Protein'), Value TEXT (Value#152:4, '120g'), TargetLabel TEXT (TargetLabel#152:8, '120 / 150g'), HasTarget BOOLEAN (HasTarget#152:12, default true) gating TargetLabel.visible — all linked on all 3 variants. React's optional target (target?) becomes the HasTarget BOOLEAN. Set frame ink-900 bg + radius 24 for documentation visibility. Zero new tokens minted." },
-    "MoodSelector":      { "phase": "3B_molecules", "source": "src/components/domain/MoodSelector.tsx",      "variants": {}, "figma_node_id": "155:5", "figma_component_key": "68d490b1601be30838ba5dba76f68c9871e5f95d", "$comment": "10th Phase 3B molecule (B2 batch, final). SCOPE: lone COMPONENT (no component-level variant axis) on Molecules page (17:12) at (80,2346). React MoodSelector's selection is per-button INTERNAL state (selectedLabel prop), NOT a discrete component-level variant axis — so it's a representative snapshot with one mood selected (StatTile/ChainProgressBar lone-component precedent). A per-button Selected axis would be 6 low-value variants; rejected. Component root IS the card: 327 FIXED-wide HORIZONTAL auto-layout (primaryAxis FIXED width, counterAxis HUG height + CENTER), padding spacing/16 all sides (React p-4), itemSpacing bound spacing/4 (gap-1), bg color/surface/card (React bg-ink-brown-800), 1px INSIDE stroke color/alpha/white-06 (React border-white/[0.06]), radius/xl (React rounded-xl), Elevation/1 effect (React shadow-1). 6 mood cells = VERTICAL auto-layout (CENTER/CENTER, gap spacing/4 = mt-1), FILL width (equal 6-col distribution = React grid-cols-6) × 64 FIXED height, radius/md (rounded-md). Each cell: emoji TEXT (Sora Regular, 28px; selected 31px ≈ React scale-110) + label TEXT (Small text style 11px Regular linked — React text-small weightless so Regular keeps the link clean, ChainProgressBar precedent; textAlign CENTER, FILL width, textTruncation ENDING = React truncate). SELECTED cell (baked index 3 'Good'): bg color/domain/wellbeing @15% paint-multiplier (REQUIRED read-modify-write fix-up), opacity 1, label color/alpha/white-70. UNSELECTED cells: transparent fill, opacity 0.5 (React opacity-50), label color/alpha/white-40. Emojis render in full color via Figma's emoji fallback (font set to Sora, codepoints substituted automatically). NO doc frame needed — the card supplies its own dark surface/card bg (legible on Figma's light canvas, unlike transparent StatTile/ChainProgressBar). NO component properties — mood emoji/label content is customized per-instance via detach/override (6 cells × emoji+label = 12 props would over-engineer a snapshot widget). Baked moods: Awful/Low/Okay/Good/Great/Amazing. Zero new tokens minted." },
-    "ChatInputBar":      { "phase": "3B_molecules", "source": "src/components/screens/ChatInputBar.tsx",     "variants": { "State": ["Empty","Typing","Mic"] }, "figma_node_id": "166:12", "figma_component_key": "aa8fc84d66069248f839a09c5b697836aa299436", "$comment": "12th Phase 3B molecule (B3 batch). SCOPE (match-code): React has no 'Recording' state — the 3 real visual states derive from `action` ('send'|'mic') + value/disabled. Inventory's [Empty,Typing,Recording] RENAMED to [Empty,Typing,Mic]: Empty/Typing = send action (value empty vs present), Mic = action='mic' && !value (the trailing button becomes a mic). Disabled (opacity-60) is a pure-opacity overlay, not built as a 4th variant (match-code, keeps the axis to the meaningful states). NO component properties (inventory declared none; the input text differs in content AND color per variant — placeholder white-30 vs value white — so it is BAKED per variant, not a linked TEXT prop, per the per-variant-differs gotcha). Each variant = 327x52 FIXED HORIZONTAL auto-layout, counterAxis CENTER, primaryAxis SPACE_BETWEEN, padding L16/R4/T4/B4 (px-4 + button right-1 inset, 44px button centers in 52), all 4 corners bound radius/pill (rounded-pill), fill color/surface/card, 1px INSIDE stroke color/alpha/white-10. Input text = Sora Regular 14/18 FILL (text-[14px]/18, intrinsic — no 14px ramp style): Empty/Mic placeholder fill color/alpha/white-30 (NEW VariableID:160:2 = rgba(255,255,255,0.3), mirrors placeholder:text-white/30 recurring ×87 in src); Typing fill color/text/primary. Button = 44x44 createAutoLayout frame (CENTER/CENTER, cornerRadius 9999): send variants fill color/brand/cta + Glow/Orange effect + ArrowUp icon instance (registry 92:27 resized 16, default white stroke) — Empty opacity 0.45 (canSend false → opacity-45), Typing opacity 1; Mic variant fill color/surface/card + 1px INSIDE stroke color/alpha/white-10 + Mic icon instance (registry 96:10 resized 18, stroke overridden to color/alpha/white-60). Icon instances live inside the button FRAME (component->frame->instance is legal; createComponent only blocks direct COMPONENT/INSTANCE children). strokeWeight scales with the 16/18 resize (intrinsic, React strokeWidth 2.4/1.9 ≈). Set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/white-30." },
-    "MissionCard":       { "phase": "3B_molecules", "source": "src/components/screens/MissionCard.tsx",      "variants": { "State": ["Default","Completed","Stalled"] }, "properties": { "Title": "TEXT", "Subtitle": "TEXT", "HasChain": "BOOLEAN", "HasPin": "BOOLEAN" }, "figma_node_id": "175:101", "figma_component_key": "75cc5815114a42446159cd0125f1f50676bfdc00", "$comment": "14th Phase 3B molecule (B3 batch). SCOPE (match-code, big-axis check): inventory pre-declared Type(6)×State(4)=24, but the CARD CHROME does NOT vary by mission.type — `type` only selects which MissionTypeBadge variant is instanced (that atom 82:14 already carries the 6 types). So the Type axis is DROPPED at the card level (delegated to the nested MissionTypeBadge instance — set its Type prop per-instance). State reduced 4→3: React MissionStatus = 'active'|'completed'|'paused' (verified in data/mock.ts), so the only distinct card visuals are Default(active), Completed(completed), Stalled(paused). Inventory's 'InProgress' DROPPED — visually identical to Default in code (no status branch). 24→3 variants. State drives: opacity (Default 1, Completed 0.7 = opacity-70, Stalled 0.6 = opacity-60), the ProgressRing color (Completed → Color=Success green; else Brand orange), and the footer (Completed shows green 'Completed' text; Default/Stalled show Flame icon + streak '12d') — footer is BAKED per variant, not a prop. Card root = 327 FIXED VERTICAL auto-layout, padding spacing/24 (p-6), fill color/surface/card, 1px INSIDE stroke color/alpha/white-06, radius/xl=28 (rounded-xl→--radius-xl), Elevation/1 (shadow-1). Composes INSTANCES (createComponent allows INSTANCE children, just not COMPONENT children): ProgressRing (138:5 default Sm/Brand, Completed→Success) in a 64-wide RingCol (w-16) STRETCHed + center; MissionTypeBadge (82:14, Type=Main repr) + DomainTag (52:39, Fitness repr) in a WRAP BadgeRow gap spacing/8; ChainProgressBar (143:6) gated by HasChain; Pin icon (96:97 @12, stroke color/alpha/white-30) absolute-positioned top-right (layoutPositioning ABSOLUTE, constraints MAX/MIN, x=327-16-12 y=16) gated by HasPin; Flame icon (94:79 @12, color/alpha/white-40) in the streak group. Content col itemSpacing spacing/8 (mt-2 dominant); NextGroup sub-col itemSpacing spacing/4 (mt-1). Title = intrinsic Sora SemiBold 16/22 fill color/text/primary (text-body font-semibold, no Body link — weight mismatch). Subtitle (Next: line) + SiaNote = Caption style (13 Regular linked) fill color/alpha/white-70 + white-50, truncate-ENDING. XP/Completed/StreakText = intrinsic Sora SemiBold 11/14 (text-small font-semibold): XP color/brand/cta, Completed color/brand/success, StreakText color/alpha/white-60. Difficulty dot 8x8 ELLIPSE color/brand/success (representative easy; React easy=green/moderate=orange/hard=error-red — recolor per-instance). PROPERTIES: Title TEXT (Title#175:0) + Subtitle TEXT (Subtitle#175:4) shared defaults linked across 3; HasChain BOOLEAN (HasChain#175:8 default true) gates Chain.visible; HasPin BOOLEAN (HasPin#175:12 default true) gates Pin.visible. Set frame ink-900 bg + radius 24 for doc visibility. Zero new tokens minted." },
-    "SectionHeader":     { "phase": "3B_molecules", "source": "src/components/screens/SectionHeader.tsx",    "variants": { "WithAction": ["False","True"] }, "properties": { "Title": "TEXT", "ActionLabel": "TEXT" }, "figma_node_id": "125:10", "figma_component_key": "616741cb9800d79a275c745b6026a7a4b8124b6f", "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80, 380). Variant axis WithAction (False/True). 327 FIXED-wide × HUG-height HORIZONTAL auto-layout, SPACE_BETWEEN justification + CENTER counter alignment. Title text node uses Eyebrow style (Sora SemiBold 12px UPPER) + color/text/quaternary; on True variant the right side has an Action group (gap=spacing/4) with ActionLabel (Button/Sm + color/text/secondary, default 'View all') + 16×16 ChevronRight icon instance (from 93:75, inherits color/text/primary stroke). Title TEXT prop linked to both variants (LevelBadge precedent); ActionLabel TEXT prop linked to True variant only. SectionHeader composes a raw text node (NOT an Eyebrow instance) for the title — deliberate trade-off: molecule-level TEXT prop links to a flat text node more cleanly than to a nested-instance's TEXT prop, and the Eyebrow atom is visually equivalent to 'styled text' anyway. Future structural-atom molecules (Button, ToggleSwitch) WILL instance their atoms directly. Set frame has ink-900 bg + radius 24 for documentation visibility on Figma's light canvas. Zero new tokens minted." },
-    "SettingsRow":       { "phase": "3B_molecules", "source": "src/components/screens/SettingsRow.tsx",      "variants": { "Trailing": ["Chevron","Toggle","Value","None"] }, "properties": { "Title": "TEXT", "Value": "TEXT", "HasIcon": "BOOLEAN", "Icon": "INSTANCE_SWAP" }, "figma_node_id": "128:32", "figma_component_key": "cf8f3249920c6913acf4db01e7fbe3dce0c87a34", "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80, 560). 4 Trailing variants (Chevron/Toggle/Value/None) per Figma plan. Scope decisions: (a) Destructive variant SKIPPED — React 'destructive' style is structurally different (centered red text, no border) and would split the axis; treat as per-instance manual override or future SettingsRowDestructive molecule. (b) HasIcon BOOLEAN + Icon INSTANCE_SWAP ADDED to wire the optional 32×32 round white-06 icon group on the left (default Icon/Settings, designers swap per-instance). Phase 3A Button/Input/Chip precedent. Composition: ToggleSwitch atom instanced for Trailing=Toggle (from 48:2 default state); ChevronRight icon instanced for Trailing=Chevron at 16×16; Icon/Settings instanced for the left icon slot. Label uses Body text style + color/text/primary, FILL horizontal so it truncates. Title TEXT prop linked on all 4 variants (LevelBadge precedent — shared default 'Setting label'). Value TEXT prop linked only on Trailing=Value variant (no clobbering). HasIcon BOOLEAN gates iconGroup.visible via componentPropertyReferences on all 4 variants. Icon INSTANCE_SWAP default takes local node ID (98:43), preferredValues uses { type: 'COMPONENT', key } (Phase 3A retrofit precedent). NEW GOTCHA: figma.createComponent can't have COMPONENT children — inner FRAMEs (iconGroup) must use figma.createAutoLayout, only variant wrappers use createComponent. Helper mkAutoFrame added. React per-row bottom border (border-b border-white/[0.05]) deliberately skipped — it's a screen-composition concern (SettingsGroup wraps rows with overflow-hidden). Zero new tokens minted." },
-    "NotificationRow":   { "phase": "3B_molecules", "source": "src/components/screens/NotificationRow.tsx",  "variants": { "State": ["Unread","Read"], "Category": ["Sia","Reminder","CheckIn","Social"] }, "properties": { "Title": "TEXT", "Preview": "TEXT", "Timestamp": "TEXT" }, "figma_node_id": "170:48", "figma_component_key": "b10ec97c7190861eecc644b45d284611c9dfca69", "$comment": "13th Phase 3B molecule (B3 batch). SCOPE (match-code): inventory pre-declared only State(Unread/Read), but React's `category` ('sia'|'reminder'|'check-in'|'social') ALSO genuinely varies the row (icon glyph + icon color, via categoryMeta) — INSTANCE_SWAP can't carry per-category color, so Category is a real 2nd axis. State(2)×Category(4)=8 variants, within the ≤30 cap. State drives the unread dot (opacity 1/0) + title (Unread=Sora SemiBold color/text/primary, Read=Sora Regular color/alpha/white-80). Category drives the icon: Sia=Brain(93:11) color/brand/ai, Reminder=Bell(92:61) color/brand/cta, CheckIn=BarChart3(92:45) color/brand/success, Social=Users(99:89) color/alpha/white-60 (matches text-royal-purple/orange/forest-green/white-60). Each variant = 327 FIXED HORIZONTAL auto-layout, counterAxis MIN (items-start), itemSpacing bound spacing/12 (gap-3), padding 16/12 (px-4 py-3), minHeight 80 (min-h-20), fill color/surface/card. The per-row border-b (border-white/[0.05]) is DELIBERATELY SKIPPED — screen-composition concern (the list wrapper draws separators; SettingsRow precedent). Children: (1) DotSlot = VERTICAL auto-layout paddingTop 18 (mt-[18px] arbitrary intrinsic) holding an 8x8 ELLIPSE fill color/brand/cta, opacity 1 (Unread)/0 (Read). (2) IconSlot = VERTICAL auto-layout, paddingTop bound spacing/8 (mt-2), holding the 24x24 category icon instance with stroke overridden to the category color. (3) Text = VERTICAL auto-layout FILL, itemSpacing 4 (mt-1): TitleRow = HORIZONTAL FILL SPACE_BETWEEN counterAxis MIN gap spacing/12 [Title 15/20 FILL truncate-ENDING (intrinsic Sora, no 15px ramp) + Timestamp Sora Regular 12/16 HUG fill color/alpha/white-40]; Preview = Caption style (13px Regular, linked — React text-[13px] weightless) fill color/alpha/white-50 FILL. Title/Preview/Timestamp TEXT props (Title#170:0, Preview#170:9, Timestamp#170:18; shared defaults across all 8 → linked OK; per-state title weight is a node style, not the prop default, so no clobber). Variants laid out manually in a 2-col (Unread|Read) x 4-row (category) grid; set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/white-80 (rgba 255,255,255,0.8; mirrors text-white/80 ×32 in src)." },
-    "ChainProgressBar":  { "phase": "3B_molecules", "source": "src/components/screens/ChainProgressBar.tsx", "properties": { "Count": "TEXT" }, "figma_node_id": "143:6", "figma_component_key": "e0376460202f605f40766906cd85ad18ea6b18ae", "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80,1400). NO variant axis (inventory declared none) → lone COMPONENT (not a set). Baked at a representative total=5, current=3. 327 FIXED-wide VERTICAL auto-layout, itemSpacing bound spacing/4 (React space-y-1). CountRow = HORIZONTAL FILL, primaryAxisAlignItems='MAX' (justify-end), holds Count text ('3 of 5', Small text style 11px Regular — React text-small has NO font-weight class so Regular is faithful and the style link stays clean; fill color/alpha/white-40). Track = plain 327×12 FRAME with absolute children: Line (327×4 at y=4, bg color/alpha/white-08, radius/pill) + 5 ELLIPSE dots evenly spaced via centers c_i = 4 + i·(327-8)/4 (justify-between with half-max-dot insets so end dots don't overflow). Dot states match React: step<current=complete (6×6, color/brand/success green), step==current (8×8, color/brand/cta orange, + Glow/Orange effect style), upcoming (6×6, color/alpha/white-20 = NEW primitive VariableID:143:5 minted this build, mirrors React bg-white/20). Dot/line sizes (4/6/8px) intrinsic geometry (not token-bound). Count TEXT prop (Count#143:0, default '3 of 5') linked to the count node. Component fills transparent (it's a screen overlay element) — to document it legibly on Figma's light canvas it's wrapped in a plain ink-900 doc FRAME 'ChainProgressBar (doc)' (144:5); the frame is chrome only, NOT a component, so it does not propagate to instances. Minted color/alpha/white-20." },
-
-    "Header":               { "phase": "3F_layout",    "source": "src/components/layout/Header.tsx",                    "variants": { "Variant": ["Default","Scroll","Glass"], "HasBack": ["True","False"], "HasRightAction": ["True","False"] }, "properties": { "Title": "TEXT" }, "figma_node_id": null },
-    "TabBar":               { "phase": "3F_layout",    "source": "src/components/layout/TabBar.tsx",                    "variants": { "Active": ["Today","SIA","Goals","Me"] }, "figma_node_id": null },
-    "PhoneFrame":           { "phase": "3F_layout",    "source": "src/components/layout/PhoneFrame.tsx",                "$comment": "Built in Phase 2 (2026-05-28). Wraps iOS 26 iPhone 16 Pro instance (key fa9d8523994d…) with a 375x812 Content INSTANCE_SWAP slot centered in the 402x874 chrome.", "figma_node_id": "38:8", "figma_component_key": "4724ff2cd30913b788b81e6eb4342b97dc991242" },
-    "ScreenShell":          { "phase": "3F_layout",    "source": "src/components/layout/ScreenShell.tsx",               "$comment": "Built in Phase 2 (2026-05-28) as ScreenShell-Template. Vertical auto-layout 375x812 with slots: Status Bar Reserve (54) / Header (HUG) / Content (FILL) / BottomAction (HUG, opt) / Composer (HUG, opt) / TabBar (HUG, opt) / Home Indicator Clearance (34). Side padding spacing/16. BOOLEAN props: Show BottomAction (false), Show Composer (false), Show TabBar (true).", "figma_node_id": "37:2", "figma_component_key": "fd22492a0fe14baa6f6916351b95e02c1c23f96a" },
-
-    "SiaChatTopBar":        { "phase": "3C_organisms", "source": "src/components/screens/SiaChatTopBar.tsx",         "figma_node_id": null },
-    "ActionCard":           { "phase": "3C_organisms", "source": "src/components/screens/ActionCard.tsx",            "variants": { "Variant": ["Default","Accent","Domain"] }, "figma_node_id": null },
-    "RichInlineCard":       { "phase": "3C_organisms", "source": "src/components/screens/RichInlineCard.tsx",        "figma_node_id": null },
-    "ModuleCard":           { "phase": "3C_organisms", "source": "src/components/screens/ModuleCard.tsx",            "figma_node_id": null },
-    "TierCard":             { "phase": "3C_organisms", "source": "src/components/screens/TierCard.tsx",              "variants": { "Tier": ["Free","Premium","Pro"], "Selected": ["True","False"] }, "figma_node_id": null },
-    "SIACoachingNote":      { "phase": "3C_organisms", "source": "src/components/screens/SIACoachingNote.tsx",       "figma_node_id": null },
-    "ScheduleItem":         { "phase": "3C_organisms", "source": "src/components/screens/ScheduleItem.tsx",          "variants": { "State": ["Upcoming","Active","Completed","Missed"] }, "figma_node_id": null },
-    "IntegrationCard":      { "phase": "3C_organisms", "source": "src/components/screens/IntegrationCard.tsx",       "variants": { "Connected": ["True","False"] }, "figma_node_id": null },
-    "WorkoutCard":          { "phase": "3C_organisms", "source": "src/components/domain/WorkoutCard.tsx",            "figma_node_id": null },
-    "MealCard":             { "phase": "3C_organisms", "source": "src/components/domain/MealCard.tsx",               "figma_node_id": null },
-    "RecipeCard":           { "phase": "3C_organisms", "source": "src/components/domain/RecipeCard.tsx",             "figma_node_id": null },
-    "TransactionRow":       { "phase": "3C_organisms", "source": "src/components/domain/TransactionRow.tsx",         "variants": { "Direction": ["Income","Expense"] }, "figma_node_id": null },
-    "HabitRow":             { "phase": "3C_organisms", "source": "src/components/domain/HabitRow.tsx",               "variants": { "State": ["Default","CheckedToday","Streak"] }, "figma_node_id": null },
-    "LeaderboardRow":       { "phase": "3C_organisms", "source": "src/components/domain/LeaderboardRow.tsx",         "variants": { "Rank": ["1","2","3","Other"], "Self": ["True","False"] }, "figma_node_id": null },
-    "JournalEntryCard":     { "phase": "3C_organisms", "source": "src/components/domain/JournalEntryCard.tsx",       "figma_node_id": null },
-    "CelebrationOverlay":   { "phase": "3C_organisms", "source": "src/components/screens/CelebrationOverlay.tsx",    "figma_node_id": null },
-    "VoiceWaveform":        { "phase": "3C_organisms", "source": "src/components/screens/VoiceWaveform.tsx",         "variants": { "State": ["Idle","Listening","Speaking"] }, "figma_node_id": null },
-    "VoiceInterfacePanel":  { "phase": "3C_organisms", "source": "src/components/screens/VoiceInterfacePanel.tsx",   "figma_node_id": null },
-    "DomainDashboardHeader":{ "phase": "3C_organisms", "source": "src/components/domain/DomainDashboardHeader.tsx",  "variants": { "Domain": ["Fitness","Sleep","Career","Nutrition","Finance","Faith","Productivity","Relationships","Wellbeing","Meditation","Creativity","Learning"] }, "figma_node_id": null },
-    "SiaConversation":      { "phase": "3C_organisms", "source": "src/components/screens/SiaConversation.tsx",       "figma_node_id": null },
-    "ConversationSuite":    { "phase": "3C_organisms", "source": "src/components/screens/ConversationSuite.tsx",     "figma_node_id": null },
-    "ScheduleCalendarGrid": { "phase": "3C_organisms", "source": "src/components/screens/ScheduleCalendarGrid.tsx",  "figma_node_id": null },
-    "HealthMetricsStrip":   { "phase": "3C_organisms", "source": "src/components/screens/HealthMetricsStrip.tsx",    "figma_node_id": null },
-    "QuickActionsRow":      { "phase": "3C_organisms", "source": "src/components/screens/QuickActionsRow.tsx",       "figma_node_id": null },
-    "FAQAccordion":         { "phase": "3C_organisms", "source": "src/components/screens/FAQAccordion.tsx",          "variants": { "State": ["Collapsed","Expanded"] }, "figma_node_id": null },
-    "LifePowerDisplay":     { "phase": "3C_organisms", "source": "src/components/screens/LifePowerDisplay.tsx",      "figma_node_id": null },
-    "DomainSkillCard":      { "phase": "3C_organisms", "source": "src/components/screens/DomainSkillCard.tsx",       "figma_node_id": null },
-    "BreathingVisual":      { "phase": "3C_organisms", "source": "src/components/domain/BreathingVisual.tsx",        "variants": { "Phase": ["InhaleHold","Inhale","ExhaleHold","Exhale"] }, "figma_node_id": null },
-
-    "LineChart":         { "phase": "3D_charts", "source": "src/components/charts/LineChart.tsx",         "$comment": "Static visual snapshot in Figma; Code Connect references live recharts implementation.", "figma_node_id": null },
-    "BarChart":          { "phase": "3D_charts", "source": "src/components/charts/BarChart.tsx",          "figma_node_id": null },
-    "RadarChart":        { "phase": "3D_charts", "source": "src/components/charts/RadarChart.tsx",        "figma_node_id": null },
-    "CalendarHeatmap":   { "phase": "3D_charts", "source": "src/components/charts/CalendarHeatmap.tsx",   "figma_node_id": null }
+    "Button": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/Button.tsx",
+      "variants": {
+        "Variant": [
+          "Primary",
+          "Secondary",
+          "Ghost",
+          "Green",
+          "Destructive"
+        ],
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg"
+        ]
+      },
+      "properties": {
+        "Label": "TEXT",
+        "HasLeftIcon": "BOOLEAN",
+        "HasRightIcon": "BOOLEAN"
+      },
+      "figma_node_id": "43:92",
+      "figma_component_key": "cde7218e9f10ff2c8af0158df7f0b2a49f408cfb",
+      "aux_component": "ButtonState",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11). State axis split into separate ButtonState aux ComponentSet (44:11) showing Default/Pressed/Disabled/Loading on Primary Md as documentation; engineering composes via Button. Icon INSTANCE_SWAP deferred to Atom #18 (Icon registry); currently 20×20 placeholder slots toggled by HasLeftIcon/HasRightIcon."
+    },
+    "ButtonState": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/Button.tsx",
+      "variants": {
+        "State": [
+          "Default",
+          "Pressed",
+          "Disabled",
+          "Loading"
+        ]
+      },
+      "$comment": "Aux ComponentSet (state-axis documentation for Button). Default = Primary Md base; Pressed = Glow/Orange effect style; Disabled = 50% opacity; Loading = spinner + 'Loading' label.",
+      "figma_node_id": "44:11",
+      "figma_component_key": "71d095e8966c9477266ad728ad597c56947ab875"
+    },
+    "Input": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/Input.tsx",
+      "variants": {
+        "State": [
+          "Default",
+          "Focused",
+          "Disabled",
+          "Error"
+        ]
+      },
+      "properties": {
+        "Label": "TEXT",
+        "HasLabel": "BOOLEAN",
+        "Value": "TEXT",
+        "Helper": "TEXT",
+        "HasHelper": "BOOLEAN",
+        "HasRightIcon": "BOOLEAN"
+      },
+      "figma_node_id": "45:30",
+      "figma_component_key": "5440fe0de80ae4a8c4f3ed70269eb90593f6c575",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11). HasIcon promoted from variant axis to BOOLEAN property (HasRightIcon). Per-variant helper-text fill: Error=color/state/error, others=color/text/quaternary. HasHelper default false."
+    },
+    "Chip": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/Chip.tsx",
+      "variants": {
+        "Variant": [
+          "Neutral",
+          "Filled",
+          "Outline"
+        ],
+        "Active": [
+          "False",
+          "True"
+        ]
+      },
+      "properties": {
+        "Label": "TEXT",
+        "HasIcon": "BOOLEAN"
+      },
+      "figma_node_id": "46:26",
+      "figma_component_key": "caf35b7263bed56a90ce4113abd8a32d9fb6510d",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11). HasIcon promoted from variant axis to BOOLEAN. Filled variant matches React code; Neutral and Outline are forward-looking primitives. Active=True applies color/brand/cta to border + text across all variants."
+    },
+    "ToggleSwitch": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/ToggleSwitch.tsx",
+      "variants": {
+        "On": [
+          "True",
+          "False"
+        ],
+        "Disabled": [
+          "True",
+          "False"
+        ]
+      },
+      "figma_node_id": "48:10",
+      "figma_component_key": "b1a46425650b384ee2a371cef25fa704ccf40a93",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11). Track 34×20 pill, thumb 16×16 white circle. Off track = color/alpha/white-15 (new primitive, VariableID:47:2); On track = color/brand/cta. Disabled = opacity 0.5 on variant frame. No component properties — pure visual atom."
+    },
+    "SegmentedControl": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/SegmentedControl.tsx",
+      "variants": {
+        "SegmentCount": [
+          "2",
+          "3",
+          "4"
+        ],
+        "ActiveIndex": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      "figma_node_id": "49:69",
+      "figma_component_key": "8a48e47bba6048456605e1081e19df9656f18421",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11). 9 variants total: Count=2→ActiveIndex 0-1, Count=3→0-2, Count=4→0-3 (invalid combos skipped). Pill container with card surface + white-10 1px border. Segments 72×44, Sora SemiBold (Button/Sm style). Active=brand/cta+white text; inactive=transparent+white-50 text. Padding/gap bound to spacing/4. Labels 1/2/3/4 (numeric — designers swap per-instance)."
+    },
+    "SearchBar": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/SearchBar.tsx",
+      "variants": {
+        "State": [
+          "Default",
+          "Focused",
+          "Filled"
+        ]
+      },
+      "properties": {
+        "Placeholder": "TEXT",
+        "Value": "TEXT",
+        "HasClearButton": "BOOLEAN"
+      },
+      "figma_node_id": "51:20",
+      "figma_component_key": "36c1dd3bb99e4b369d3bba42001d2c5a7571e7f0",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=1500. 327×52 pill (color/surface/card + 1px white-10 stroke default/filled, brand/cta focused, Elevation/1 shadow). Per-variant: Default+Focused show Placeholder (color/text/quaternary), Filled shows Value (color/text/primary). HasClearButton BOOLEAN linked only to Filled variant (default=true) so it doesn't drag false through variant switches. Search + X icon slots are white-40 16x16 placeholders for Atom #18 swap."
+    },
+    "DomainTag": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/DomainTag.tsx",
+      "variants": {
+        "Domain": [
+          "Fitness",
+          "Sleep",
+          "Career",
+          "Nutrition",
+          "Finance",
+          "Faith",
+          "Productivity",
+          "Relationships",
+          "Wellbeing",
+          "Meditation",
+          "Creativity",
+          "Learning"
+        ]
+      },
+      "properties": {
+        "ShowDot": "BOOLEAN"
+      },
+      "figma_node_id": "52:39",
+      "figma_component_key": "3c338b58e3a9afa9ea826810e9beef759a41dc66",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=500, y=1500. 12 Domain variants in 4×3 grid. HUG width 56-106, h=24, radius/sm, padding-x spacing/8, gap spacing/6 (new primitive minted this session = VariableID:52:2). Bg fill = solid bound to color/domain/{name} with paint opacity 0.15 — zero new color tokens; paint opacity multiplies the bound RGB. Dot (6×6 pill) + Label (Small text style + Sora SemiBold override) at full opacity in same domain color. Label TEXT prop dropped: Figma's linked TEXT props share a single default across variants, overwriting per-variant characters — incompatible with per-domain labels. ShowDot BOOLEAN (default true) retained. Designers customize labels via detach if needed."
+    },
+    "LevelBadge": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/LevelBadge.tsx",
+      "variants": {
+        "Rarity": [
+          "Common",
+          "Uncommon",
+          "Rare",
+          "Epic",
+          "Legendary"
+        ],
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg"
+        ]
+      },
+      "properties": {
+        "Level": "TEXT"
+      },
+      "figma_node_id": "63:47",
+      "figma_component_key": "4891153ec6371869c0a1865968b3d0e76fe479c5",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=1740. 15 variants in 5 Rarity × 3 Size grid (332×300 total). Alpha-tinted bg (rarity color @ 0.15) + solid rarity border + ◆/Lv 1 text in same rarity color + Elevation/1. Pill shape, fixed heights Sm=20/Md=24/Lg=28. Padding-x Sm=6/Md=10/Lg=12 (mints spacing/10 = VariableID:62:2). Gap 4 (Sm/Md) or 6 (Lg). Code source has only one styling — Figma expands it to forward-looking rarity system. Level TEXT prop default 'Lv 1'. Gotcha: alpha-tint required a follow-up read-modify-write pass to persist opacity 0.15 (initial setBoundVariableForPaint + spread didn't stick this time even though it worked for DomainTag)."
+    },
+    "Eyebrow": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/Eyebrow.tsx",
+      "variants": {
+        "Color": [
+          "Default",
+          "Accent"
+        ]
+      },
+      "properties": {
+        "Text": "TEXT"
+      },
+      "figma_node_id": "68:6",
+      "figma_component_key": "013d89fcfce0e8c98b406b54adc84a02507f743f",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=460, y=1740. 2 variants (254×96 total). Eyebrow text style (Sora SemiBold 12px UPPER 12% letter-spacing) carries all typography — no fontName override needed. Per-variant fill: Default=color/text/quaternary (matches React white/40), Accent=color/brand/cta (forward-looking; code source has only Default). Text TEXT prop default 'EYEBROW'. Gotcha: setting fontName after setTextStyleIdAsync — even to the same font the style already uses — breaks the textStyleId link. Required a fix-up re-apply of the style. Going forward: skip the fontName-override step when the style already provides the desired weight."
+    },
+    "Divider": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/Divider.tsx",
+      "variants": {
+        "Orientation": [
+          "Horizontal",
+          "Vertical"
+        ],
+        "Weight": [
+          "Thin",
+          "Base",
+          "Bold",
+          "Poster"
+        ]
+      },
+      "figma_node_id": "74:10",
+      "figma_component_key": "76430c80ddedddc78bb07cf46114482929ee7e76",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=2080. 8 variants (1240×520 total) as a generic primitive — Orientation × Weight (Thin=1px, Base=2px, Bold=3px, Poster=4px). Weight values are intrinsic geometry (not token-bound). Single fill bound to color/alpha/white-10; the 10% alpha is intrinsic to the variable, so no opacity fix-up needed (binding resolved opacity:0.1 cleanly). Set frame has ink-900 bg + radius 24 purely for documentation visibility on Figma's light canvas (does not propagate to instances). Code-Figma mismatch resolved via path (a): React's labeled 'Or continue with' separator becomes a LabeledDivider molecule in Phase 3B, composing Divider + caption text."
+    },
+    "BrandSymbol": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/BrandSymbol.tsx",
+      "variants": {
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg",
+          "Xl"
+        ]
+      },
+      "properties": {
+        "HasGlow": "BOOLEAN"
+      },
+      "figma_node_id": "76:18",
+      "figma_component_key": "da7f6abf5ef38be1c8e2bca9b77ab88439b655bc",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=1400, y=2080. 4 variants (520×256 total). Sizes: Sm=32, Md=48 (code default), Lg=64, Xl=96. Each variant has a square N×N container with two children: GlowBackground frame (radius/lg, brand-orange@15% opacity bg, Glow/Orange shadow) hidden by default, and a LogoMark VECTOR imported via createNodeFromSvg from public/logos/Logo Mark.svg (single-path, 204×239 viewBox, fill bound to color/brand/cta). Vector preserves aspect ratio, centered horizontally. HasGlow BOOLEAN property at set level toggles GlowBackground.visible. Gotcha confirmed: setBoundVariableForPaint+spread+opacity stripped the alpha — required read-modify-write fix-up to restore opacity 0.15 (LevelBadge precedent applies; Divider precedent does NOT because Divider's alpha was intrinsic to the white-10 variable itself)."
+    },
+    "BrandWordmark": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/BrandWordmark.tsx",
+      "variants": {
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg"
+        ]
+      },
+      "figma_node_id": "78:38",
+      "figma_component_key": "7bb7a822bfe9611b8e1c484c31859d5ec088c27b",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=2620. 3 Size variants (656×128 total): Sm=96×24, Md=128×32 (code default), Lg=192×48 — all 4:1 aspect. Each variant contains a 10-vector SVG wrapper FRAME from public/logos/Frame 2147239943.svg, rescaled uniformly via node.rescale(targetW/200). Per-vector fills: 2 orange paths (#FF6704 flame + period) bound to color/brand/cta; 8 white paths (Balencia letters) bound to color/text/primary. No properties, no hardcoded fills. Convention: createNodeFromSvg + rescale() is the canonical pattern for multi-color multi-path SVGs — bind fills per child VECTOR by sniffing original color."
+    },
+    "FAB": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/FAB.tsx",
+      "variants": {
+        "State": [
+          "Default",
+          "Pressed"
+        ],
+        "Variant": [
+          "Primary",
+          "Ghost"
+        ]
+      },
+      "properties": {
+        "Icon": "INSTANCE_SWAP"
+      },
+      "figma_node_id": "79:10",
+      "figma_component_key": "97e728742f64112cec029f6b31fe00b98aee5a71",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=816, y=2620. 4 variants (240×240 total) in 2×2 grid. Phase 3A scope = canonical icon-only 56×56 round FAB; React's display='pill' form moves to Phase 3B as FABExtendedPill molecule. Container radius/pill, bg per Variant (cta / surface-card), Ghost adds 1px white-06 inside stroke. State cue: Primary Pressed = Glow/Orange effect (replaces Elevation/2 — brand glow on brand bg); Ghost Pressed = opacity 0.85 frame dim (no brand tint to glow). Icon slot = 24×24 white-40 placeholder frame centered; INSTANCE_SWAP deferred to Atom #18 retrofit (Button/Chip/Input precedent)."
+    },
+    "ContinuousStroke": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/ContinuousStroke.tsx",
+      "variants": {
+        "Weight": [
+          "Thin",
+          "Base",
+          "Bold",
+          "Poster"
+        ]
+      },
+      "figma_node_id": "80:14",
+      "figma_component_key": "f5dab7772b8726521548283a5afeeb1e745196ed",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=80, y=2900. 4 Weight variants (632×96 total) in horizontal row. Single-path SVG (viewBox 0 0 128 48, path 'M4 22C20 6 42 6 54 21C66 36 86 42 124 12') imported via figma.createNodeFromSvg, VECTOR child extracted and reparented to the 128×48 COMPONENT root. STROKE-ONLY: v.fills cleared, v.strokes bound to color/brand/cta; strokeCap/strokeJoin='ROUND' match the React code's strokeLinecap/Linejoin='round'. strokeWeight is intrinsic geometry (NOT token-bound) per Phase 3A convention: Thin=2, Base=4 (matches React default), Bold=6, Poster=8. Component root has fills=[] (transparent) + clipsContent=false so the stroke is never cropped. React's animated=true mode (CSS strokeDasharray animation) is runtime-only — not statically modeled. CONVENTION: stroke-only single-path SVG — bind v.strokes (not v.fills) since SVG path has fill='none'; setBoundVariableForPaint resolved cleanly (NO opacity fix-up needed since color/brand/cta is full-opacity). Zero new tokens."
+    },
+    "MissionTypeBadge": {
+      "phase": "3A_atoms",
+      "source": "src/components/screens/MissionTypeBadge.tsx",
+      "variants": {
+        "Type": [
+          "Life",
+          "Main",
+          "Side",
+          "Weekly",
+          "Daily",
+          "Group"
+        ]
+      },
+      "figma_node_id": "82:14",
+      "figma_component_key": "ab83166717928343e0d525c18aae1510e5d5e25d",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at x=760, y=2900. 6 Type variants (245×112 total) in 3×2 grid — Row 1: Life/Main/Side (gold/silver/bronze tier), Row 2: Weekly/Daily/Group (steel/sage/copper tier). Pill (radius/pill on all 4 corners), HUG width per label (41-61px), h=24 intrinsic FIXED. Padding-x = spacing/10 (10px, matches React px-2.5), gap 0. Border 1px INSIDE, alpha-tinted via paint-multiplier: bg fill at 20% + border at 35% + text at 100%, all in the matching mission color per variant. ⚠ PAINT-MULTIPLIER ALPHA GOTCHA: setBoundVariableForPaint + spread+opacity did NOT persist on first pass (both opacity read 1) — applied read-modify-write fix-up (v.fills.map(p=>({...p, opacity:0.20})), strokes similar 0.35). LevelBadge/DomainTag precedent. Text: Small text style + Sora SemiBold 11px override + re-apply setTextStyleIdAsync as Eyebrow-precedent fix-up. Per-variant labels Life/Main/Side/Weekly/Daily/Group baked in locally — NO Label TEXT property (DomainTag precedent — per-variant text content differs, linked TEXT prop would clobber all variants with a shared default). HUG width fix-up: primaryAxisSizingMode='AUTO' was reverted to FIXED by the initial resize(60,24); re-applied AUTO post-build to let each variant size to its label. Set frame bg ink-900 + radius 24 for documentation visibility (does NOT propagate to instances). Zero new tokens minted."
+    },
+    "SuggestionChip": {
+      "phase": "3A_atoms",
+      "source": "src/components/screens/SuggestionChip.tsx",
+      "variants": {
+        "State": [
+          "Default",
+          "Pressed"
+        ]
+      },
+      "properties": {
+        "Label": "TEXT"
+      },
+      "figma_node_id": "87:6",
+      "figma_component_key": "ca91a1bb2e0b8150aff23b52000181c8378dd297",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at (80, 3100). 2 State variants (288×96 total). HUG width 102 × FIXED h=36 pill. Bg color/surface/card full opacity, border 1px INSIDE royal-purple @ 35% paint-multiplier opacity, text royal-purple full opacity. Button/Sm text style (Sora SemiBold 13px) — no fontName override needed. Scope: State-only axis (option (a) per user). Domain styling is applied per-instance via manual edits — not modeled as a 2nd variant axis (would have been 24 variants for a transient pressed cue). Pressed cue = opacity 0.85 on variant frame (FAB Ghost-Pressed precedent). Label TEXT prop default 'Suggestion' (single shared default OK — text identical across variants). Gotcha confirmed: stroke paint-multiplier opacity required read-modify-write fix-up; HUG width required re-setting primaryAxisSizingMode='AUTO' post-resize. Zero new tokens."
+    },
+    "SocialAuthButton": {
+      "phase": "3A_atoms",
+      "source": "src/components/design-system/SocialAuthButton.tsx",
+      "variants": {
+        "Provider": [
+          "Google",
+          "Apple"
+        ]
+      },
+      "figma_node_id": "88:12",
+      "figma_component_key": "53d159cbd68f0a4116cd6515983018e7bf0fe27e",
+      "$comment": "Built 2026-05-28 on Atoms page (17:11) at (440, 3100). 2 Provider variants (387×188 total, vertically stacked). 327×52 FIXED container per variant: surface-card bg, 1px INSIDE white-10 border (alpha intrinsic — no fix-up, Divider precedent), radius/lg, padding-x spacing/12, gap spacing/8. Per-variant icon strategy: Google = 4-fill SVG via createNodeFromSvg rescaled to 20×20, brand colors NOT token-bound (Google brand-mandate exception); Apple = 20×20 white-40 placeholder for Atom 18 Lucide retrofit. Per-variant labels baked in: 'Continue with Google' / 'Continue with Apple' — NO Label TEXT prop (per-variant text differs — DomainTag precedent). Text style Button/Md (Sora SemiBold 16px, no fontName override). Zero new tokens."
+    },
+    "Icon": {
+      "phase": "3A_atoms",
+      "source": "lucide-static",
+      "variants": {
+        "$comment": "142 flat 24×24 Lucide icon COMPONENTs on dedicated '--- Icons ---' page (89:2). Each registered via figma.createNodeFromSvg from node_modules/lucide-static/icons/<kebab>.svg, strokes bound to color/text/primary, ROUND cap/join, strokeWeight=2 intrinsic. Full {pascal→nodeId/key} map in figma-mapping.json → ds_icons. Built 2026-05-28/29 across 9 batches. Retrofit pass wired INSTANCE_SWAP slots on Button (LeftIcon + RightIcon), Input (RightIcon), Chip (Icon), SearchBar (SearchIcon + ClearIcon), FAB (Icon), SocialAuthButton (ProviderIcon, Apple variant only)."
+      },
+      "figma_page_id": "89:2",
+      "icon_count": 142
+    },
+    "Card": {
+      "phase": "3B_molecules",
+      "source": "src/components/design-system/Card.tsx",
+      "variants": {
+        "Variant": [
+          "Default",
+          "Compact",
+          "Hero"
+        ]
+      },
+      "figma_node_id": "124:11",
+      "figma_component_key": "14c04959827615943280665304b508de14d7a96b",
+      "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80,80). Single Variant axis matching React code: Default=rounded-xl p-6, Compact=rounded-md p-4 (React 'small' renamed to 'Compact' for DS naming), Hero=rounded-2xl p-8. Scope decided via AskUserQuestion: 'Match React code exactly' chosen over the original 3×3 plan (which decoupled Variant×Padding into 9 cells of forward-looking flexibility). Reasoning: code is the source of truth for shape/behavior; 6 of the 9 cells didn't exist in code. Common chrome bound to color/surface/card + color/alpha/white-06 1px INSIDE border + Elevation/1, 327 wide × HUG height. Per-variant radius+padding token bindings (radius/{md,xl,2xl} + spacing/{16,24,32}). Two placeholder text children (Body title + Caption subtitle) — no component props (Card is a slot container; children come from instance overrides). GOTCHA captured for future molecules: figma.createAutoLayout returns FRAMEs which combineAsVariants rejects — variants must be created via figma.createComponent() then have layoutMode set manually. Helper mkAutoComp() wraps this. Zero new tokens minted."
+    },
+    "BottomSheet": {
+      "phase": "3B_molecules",
+      "source": "src/components/design-system/BottomSheet.tsx",
+      "variants": {
+        "Variant": [
+          "Route",
+          "Modal"
+        ]
+      },
+      "properties": {
+        "Title": "TEXT",
+        "ShowClose": "BOOLEAN"
+      },
+      "figma_node_id": "178:105",
+      "figma_component_key": "8fc23a517f653b508a92538380836c56120d1425",
+      "$comment": "15th Phase 3B molecule (B3 batch, FINAL — completes Phase 3B). SCOPE (match-code): inventory's [Closed,Open] is runtime VISIBILITY, not a structural axis (Closed = not rendered) → DROPPED. The real React axis is the `variant` prop ('route'|'modal') which changes the container chrome → Variant=[Route,Modal]. Both share: 375 FIXED VERTICAL auto-layout, fill color/bg/screen (ink-900), top corners bound radius/lg=20 (rounded-t-lg→--radius-lg), grab HandleRow (h-8=32 center, 36x4 RECTANGLE all-corners radius/pill fill color/alpha/white-20), Header (h-11=44 center, Title + absolute CloseButton), Content (FILL). Route: NO border/shadow, no bottom padding (min-h-full → fills screen; representative h 440). Modal: 1px INSIDE stroke color/alpha/white-08, Elevation/3 (shadow-3), paddingBottom 28 (pb-7), representative h 320. Title = intrinsic Sora SemiBold 17/22 fill color/text/primary, maxWidth 220 truncate-ENDING (text-[17px] font-semibold; H3 is 17 Regular → weight mismatch, no style link). CloseButton = 44x44 createAutoLayout frame, layoutPositioning ABSOLUTE left 16 vertical-center (React absolute left-4), holding X icon instance (registry 100:10 @18, stroke overridden color/alpha/white-60). ContentPlaceholder = Sora Regular 13/18 color/alpha/white-40 (slot filler; real children come from instance overrides). PROPS: Title TEXT (Title#178:0, shared default 'Sheet Title') linked across both; ShowClose BOOLEAN (ShowClose#178:3 default true) gates CloseButton.visible (React renders close only when closeHref/onClose present). Variants laid out side-by-side (Route|Modal) in the set; set frame ink-900 bg + radius 24 for doc visibility (Route is ink-900-on-ink-900 so it blends — intentional, route sheets fill the screen borderless). Zero new tokens minted."
+    },
+    "ProgressRing": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/ProgressRing.tsx",
+      "variants": {
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg"
+        ],
+        "Color": [
+          "Brand",
+          "Success"
+        ]
+      },
+      "properties": {
+        "Percent": "TEXT"
+      },
+      "figma_node_id": "138:5",
+      "figma_component_key": "a3894f9160b462086a86a22f8e3363ff08300486",
+      "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80,760). 6 variants = Size(Sm=36/Md=48/Lg=96) × Color(Brand/Success). Color axis matches React's two states: Brand=in-progress (color/brand/cta orange), Success=complete (color/brand/success green) — code computes complete=progress>=1. Inventory's 3rd 'Domain' color DROPPED: code has no domain-colored ring and 'Domain' is not a single token (fitness/sleep/… are 12 distinct tokens); recolor per-instance if a screen needs it. RENDERING: each ring is two concentric ELLIPSE donut-arcs via arcData (NOT SVG strokes). Outer diameter = 2*(r+stroke/2) (Sm=34/Md=44/Lg=92), centered in the size×size component; innerRadius = (r-stroke/2)/(r+stroke/2) (0.765/0.818/0.826) yields the band width. Track = full sweep (0→2π) bound to color/alpha/white-10 (alpha intrinsic, no fix-up — Divider precedent). Progress arc = startingAngle -π/2 (top) → -π/2 + 2π·0.75, baked at a representative 75% (arc % cannot be a Figma prop — static snapshot), bound to color/brand/{cta|success} (full opacity, no fix-up). Figma angles increase CLOCKWISE from east, so -π/2 start + positive sweep matches React's -rotate-90 clockwise fill. Rounded linecap (React strokeLinecap='round') NOT modeled — arcData ends are flat radial cuts; acceptable for a static DS snapshot. Percent text: explicit Sora SemiBold at 11/13/20px (Sm/Md/Lg) — NO text-style link because the ramp has no SemiBold style at these sizes (Small/Caption/H2 are Regular); treated as component-intrinsic type. Fill bound to color/text/primary. Percent TEXT prop (key Percent#138:0, default '75') linked to all 6 variants' Percent node (LevelBadge precedent — identical default). Component is a plain (non-auto-layout) fixed canvas with absolute-positioned children — combineAsVariants accepts it. Set frame ink-900 bg + radius 24 for documentation visibility. Zero new tokens minted."
+    },
+    "XPBar": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/XPBar.tsx",
+      "variants": {
+        "Variant": [
+          "Default",
+          "Compact"
+        ]
+      },
+      "properties": {
+        "Label": "TEXT",
+        "Amount": "TEXT"
+      },
+      "figma_node_id": "142:5",
+      "figma_component_key": "576edb521d9326702362c2464d5706fb6b8cc104",
+      "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80,1180). 2 variants: Default = optional label row (Label left + Amount right, SPACE_BETWEEN) above the track; Compact = track only (matches React's label?-conditional render). Both 327 FIXED-wide VERTICAL auto-layout, itemSpacing bound to spacing/8 (React mb-2). Track = plain FRAME (clipsContent) 327×8, bg bound to color/alpha/white-08 (NEW primitive minted this build = VariableID:140:2, mirrors React bg-white/[0.08]; white-10 was the nearest existing token but 0.08 recurs in XPBar+ChainProgressBar so a dedicated primitive is cleaner). All 4 corners bound to radius/pill. Inner Fill FRAME baked at 70% width (228px) bound to color/brand/cta + radius/pill — progress % can't be a Figma prop (static snapshot). Track height 8px intrinsic geometry (not token-bound — bar-height convention, Divider precedent). Label + Amount = explicit Sora SemiBold 11px (React text-small font-semibold), fill color/alpha/white-50, NO style link (no SemiBold 11px style — component-intrinsic type, ProgressRing precedent). Label TEXT prop (Label#142:0, default 'Level 12') + Amount TEXT prop (Amount#142:3, default '2,400 / 3,000 XP') linked to the Default variant's nodes ONLY (Compact has no label row — no clobbering). Minted 1 new token: color/alpha/white-08."
+    },
+    "StatTile": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/StatTile.tsx",
+      "variants": {},
+      "properties": {
+        "Value": "TEXT",
+        "Label": "TEXT"
+      },
+      "figma_node_id": "145:5",
+      "figma_component_key": "4bde438668cd24b492122899791064ca83101a0c",
+      "$comment": "Built 2026-05-29 on Molecules page (17:12), wrapped in doc frame at (80,1560). SCOPE: matched React code exactly (Card precedent — code is source of truth). React StatTile is just a centered value+label column; the inventory's Variant(Default/Compact) and Trend(Up/Down/Flat) axes + Delta prop DO NOT EXIST in code, so they are DROPPED → no variant axis, lone COMPONENT. (If a screen later needs a trend/delta tile, build a separate StatTileTrend molecule rather than retrofitting an axis no current usage exercises — SettingsRow-Destructive precedent.) VERTICAL auto-layout, HUG/HUG, counterAxisAlignItems='CENTER', itemSpacing spacing/4 (React mt-1). Value = explicit Sora Bold 24px / lineHeight 30px (React text-[24px] font-bold leading-[30px]), fill color/text/primary, NO style link (ramp has no 24px Bold style — component-intrinsic type, ProgressRing/XPBar precedent; tabular-nums OpenType feature not modeled). Label = Caption text style (13px Regular; React is text-[12px] weightless — Caption is the closest clean style link, within tolerance), fill color/alpha/white-50, textAlign CENTER. Value TEXT prop (Value#145:0, default '24') + Label TEXT prop (Label#145:1, default 'Workouts'). Component fills transparent (in screens it's flex-1 inside a metrics row — designers set FILL/width per context) → wrapped in ink-900 doc FRAME 'StatTile (doc)' (145:8), chrome only, no instance propagation. Zero new tokens minted."
+    },
+    "MessageBubble": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/MessageBubble.tsx",
+      "variants": {
+        "Sender": [
+          "SIA",
+          "User"
+        ]
+      },
+      "properties": {
+        "Body": "TEXT"
+      },
+      "figma_node_id": "162:5",
+      "figma_component_key": "db490d7243063e9116255755e375c4c4a3482a57",
+      "$comment": "11th Phase 3B molecule (B3 batch). SCOPE (match-code): React MessageBubble sender is only 'sia'|'user' (2) — inventory's 3rd 'System' sender DROPPED (no such sender in code) and the WithAvatar axis DROPPED (avatar presence is DERIVED from sender, not a toggle: SIA always shows the avatar, User never does — ProgressRing/StatTile drop-speculative-axis precedent). Sender=SIA/User on Molecules page (17:12) at (80,2520). Each variant = 327 FIXED-wide HORIZONTAL auto-layout (w-full), counterAxisAlignItems MIN (items-start), itemSpacing spacing/8 (gap-2); SIA primaryAxisAlignItems MIN (justify-start), User MAX (justify-end) so alignment reads on the fixed-width variant. SIA variant: 24x24 Avatar (circle radius 9999, fill color/brand/royal-purple, 1px INSIDE stroke royal-purple @50% via read-modify-write opacity fix-up, Glow/Purple effect style, 'S' text Sora SemiBold 11 fill color/text/primary) + bubble. Bubble = VERTICAL auto-layout HUG with maxWidth 250 (React max-w-[250px]), padding 12/10 (px-3 py-2.5), Body text FILL (wraps at 250). SIA bubble: fill color/surface/card (ink-brown-800), 1px INSIDE stroke color/alpha/white-08, corners 16/16/16 + bottom-LEFT bound radius/xs=6 (rounded-bl-xs tail). User bubble (no avatar): fill color/alpha/glow-orange-bg (= brand-orange @15% = React bg-brand-orange/15, exact existing token, no fix-up), 1px INSIDE stroke color/alpha/orange-20 (NEW primitive VariableID:160:3 = rgba(255,94,0,0.2) minted this build, mirrors border-brand-orange/20 which recurs 8x in src), corners 16/16/16 + bottom-RIGHT bound radius/xs=6 (rounded-br-xs tail). 16px corner = arbitrary React value (no radius token) so hardcoded intrinsic; only the 6px tail binds. 15px/22 text = component-intrinsic Sora Regular (NO style link — ramp has no 15px style; ProgressRing/MacroBar precedent). Body TEXT prop (Body#162:0, shared default \"Hey! How's your day going so far?\") linked to both variants' Body node (LevelBadge shared-default precedent). Set frame ink-900 bg + radius 24 for documentation visibility. Minted color/alpha/orange-20."
+    },
+    "WaterIntakeRing": {
+      "phase": "3B_molecules",
+      "source": "src/components/domain/WaterIntakeRing.tsx",
+      "variants": {
+        "State": [
+          "InProgress",
+          "Achieved"
+        ]
+      },
+      "figma_node_id": "149:5",
+      "figma_component_key": "c17b84219141387aa93e67af458b49b7e927bd44",
+      "$comment": "8th Phase 3B molecule (B2 batch 'Domain widgets'). 2 State variants on Molecules page (17:12) at (80,1730). State axis = React's achieved boolean (progress>=1) — InProgress (orange/teal wellbeing) vs Achieved (forest-green success), mirroring ProgressRing's Color axis (code derives complete state). SCOPE: own bespoke 200px ring, does NOT instance ProgressRing — ProgressRing's sizes are Sm36/Md48/Lg96 (none=200) and WaterIntakeRing has unique center content (consumed/target stack + Glasses + ml) + glow + status line. RING GEOMETRY (ProgressRing arcData technique): two concentric ELLIPSE donut-arcs 188×188 at (6,6) in the 200-wide ring region. Outer Ø=2*(r+stroke/2)=2*(88+6)=188; innerRadius=(88-6)/(88+6)=0.87234 sets the 12px band. Track = full 0→2π sweep bound color/alpha/white-06 (alpha intrinsic, no fix-up). Progress arc start -π/2 (top) clockwise; InProgress baked 75% bound color/domain/wellbeing, Achieved full sweep bound color/brand/success. Glow = 168×168 ELLIPSE at (16,16) (React inset-4) with LAYER_BLUR 40 (blur-2xl), fill tint @15% paint-multiplier (InProgress=color/domain/wellbeing, Achieved=color/brand/success) — REQUIRED read-modify-write fix-up to persist opacity 0.15 (LevelBadge/MissionTypeBadge precedent). Center column (VERTICAL auto-layout, HUG, CENTER, itemSpacing spacing/4) centered absolutely in the ring via computed x/y: number row (HORIZONTAL, counterAxisAlignItems BASELINE, gap spacing/4) = consumed (Sora Bold 36/40, color/text/primary) + '/' (Sora Regular 24/28, color/alpha/white-40) + target (Sora Bold 36/40, color/alpha/white-50); 'Glasses' (Sora Regular 14/18, color/alpha/white-50); ml caption (Caption-size 13/17 — InProgress Sora Regular bound color/domain/wellbeing @80% paint-multiplier fix-up, Achieved bound color/brand/success full opacity). Status below ring at y=212 (React mt-3): InProgress single line '75% of daily target' (Sora SemiBold 15/20, bound color/alpha/white-60 = NEW primitive minted this build VariableID:147:5); Achieved = status column (VERTICAL, CENTER, gap spacing/4) 'Target achieved +30 XP' (Sora SemiBold 15/20, color/brand/success) + 'at 6:30 PM' (Sora Regular 13/17, color/alpha/white-40). All numeric/15px/14px text is component-intrinsic Sora (NO style link — ramp has no matching SemiBold/Bold size, ProgressRing/StatTile precedent); ml caption is the only Caption-size text and uses explicit Sora Regular 13 (not the Caption STYLE link, to keep it consistent with the rest of the intrinsic-type column). NO TEXT props — center data + status copy differ per variant (DomainTag/MissionTypeBadge per-variant-text precedent); designers override per-instance. Each variant is a plain (non-auto-layout) COMPONENT with absolute children (ProgressRing precedent — combineAsVariants accepts it). Set frame ink-900 bg + radius 24 for documentation visibility (does not propagate to instances). Minted color/alpha/white-60."
+    },
+    "MacroBar": {
+      "phase": "3B_molecules",
+      "source": "src/components/domain/MacroBar.tsx",
+      "variants": {
+        "Tone": [
+          "Primary",
+          "Muted",
+          "Soft"
+        ]
+      },
+      "properties": {
+        "Label": "TEXT",
+        "Value": "TEXT",
+        "TargetLabel": "TEXT",
+        "HasTarget": "BOOLEAN"
+      },
+      "figma_node_id": "152:5",
+      "figma_component_key": "0d68a190da7a7b3f332f93e689b8fe932286d2bd",
+      "$comment": "9th Phase 3B molecule (B2 batch). 3 Tone variants on Molecules page (17:12) at (80,2140) matching React fillClasses: Primary=color/brand/cta, Muted=color/alpha/white-40, Soft=color/alpha/white-20 (all clean bind — cta full opacity, white-40/-20 intrinsic alpha, NO fix-up). Each variant = 327 FIXED-wide VERTICAL auto-layout (counterAxisSizingMode FIXED, primaryAxis HUG height), itemSpacing bound spacing/8 (React mb-2). Children: (1) LabelRow = HORIZONTAL FILL, SPACE_BETWEEN + counterAxis CENTER, itemSpacing bound spacing/12 (gap-3): Label (Sora Regular 15/20, color/text/primary, FILL width) + Value (Sora SemiBold 15/20, color/text/primary, HUG). (2) TrackGroup = VERTICAL FILL, itemSpacing bound spacing/4 (React mt-1): Track (plain FRAME, FILL width × 8 FIXED, clipsContent, bg color/alpha/white-08, all corners radius/pill) holding an absolute Fill RECTANGLE baked 229px (≈70% of 327 — progress % is a static snapshot, XPBar precedent) bound to the per-tone fill + radius/pill; TargetLabel (Sora Regular 12/16, color/alpha/white-40). 15px/12px text is component-intrinsic Sora (NO style link — ramp has no 15px or 12px-Regular style; XPBar/StatTile precedent). Track height 8px + Fill 229px are intrinsic geometry (not token-bound — bar convention, Divider precedent). PROPERTIES (shared identical defaults across all 3 tones → linked TEXT props OK, XPBar/SettingsRow precedent): Label TEXT (Label#152:0, 'Protein'), Value TEXT (Value#152:4, '120g'), TargetLabel TEXT (TargetLabel#152:8, '120 / 150g'), HasTarget BOOLEAN (HasTarget#152:12, default true) gating TargetLabel.visible — all linked on all 3 variants. React's optional target (target?) becomes the HasTarget BOOLEAN. Set frame ink-900 bg + radius 24 for documentation visibility. Zero new tokens minted."
+    },
+    "MoodSelector": {
+      "phase": "3B_molecules",
+      "source": "src/components/domain/MoodSelector.tsx",
+      "variants": {},
+      "figma_node_id": "155:5",
+      "figma_component_key": "68d490b1601be30838ba5dba76f68c9871e5f95d",
+      "$comment": "10th Phase 3B molecule (B2 batch, final). SCOPE: lone COMPONENT (no component-level variant axis) on Molecules page (17:12) at (80,2346). React MoodSelector's selection is per-button INTERNAL state (selectedLabel prop), NOT a discrete component-level variant axis — so it's a representative snapshot with one mood selected (StatTile/ChainProgressBar lone-component precedent). A per-button Selected axis would be 6 low-value variants; rejected. Component root IS the card: 327 FIXED-wide HORIZONTAL auto-layout (primaryAxis FIXED width, counterAxis HUG height + CENTER), padding spacing/16 all sides (React p-4), itemSpacing bound spacing/4 (gap-1), bg color/surface/card (React bg-ink-brown-800), 1px INSIDE stroke color/alpha/white-06 (React border-white/[0.06]), radius/xl (React rounded-xl), Elevation/1 effect (React shadow-1). 6 mood cells = VERTICAL auto-layout (CENTER/CENTER, gap spacing/4 = mt-1), FILL width (equal 6-col distribution = React grid-cols-6) × 64 FIXED height, radius/md (rounded-md). Each cell: emoji TEXT (Sora Regular, 28px; selected 31px ≈ React scale-110) + label TEXT (Small text style 11px Regular linked — React text-small weightless so Regular keeps the link clean, ChainProgressBar precedent; textAlign CENTER, FILL width, textTruncation ENDING = React truncate). SELECTED cell (baked index 3 'Good'): bg color/domain/wellbeing @15% paint-multiplier (REQUIRED read-modify-write fix-up), opacity 1, label color/alpha/white-70. UNSELECTED cells: transparent fill, opacity 0.5 (React opacity-50), label color/alpha/white-40. Emojis render in full color via Figma's emoji fallback (font set to Sora, codepoints substituted automatically). NO doc frame needed — the card supplies its own dark surface/card bg (legible on Figma's light canvas, unlike transparent StatTile/ChainProgressBar). NO component properties — mood emoji/label content is customized per-instance via detach/override (6 cells × emoji+label = 12 props would over-engineer a snapshot widget). Baked moods: Awful/Low/Okay/Good/Great/Amazing. Zero new tokens minted."
+    },
+    "ChatInputBar": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/ChatInputBar.tsx",
+      "variants": {
+        "State": [
+          "Empty",
+          "Typing",
+          "Mic"
+        ]
+      },
+      "figma_node_id": "166:12",
+      "figma_component_key": "aa8fc84d66069248f839a09c5b697836aa299436",
+      "$comment": "12th Phase 3B molecule (B3 batch). SCOPE (match-code): React has no 'Recording' state — the 3 real visual states derive from `action` ('send'|'mic') + value/disabled. Inventory's [Empty,Typing,Recording] RENAMED to [Empty,Typing,Mic]: Empty/Typing = send action (value empty vs present), Mic = action='mic' && !value (the trailing button becomes a mic). Disabled (opacity-60) is a pure-opacity overlay, not built as a 4th variant (match-code, keeps the axis to the meaningful states). NO component properties (inventory declared none; the input text differs in content AND color per variant — placeholder white-30 vs value white — so it is BAKED per variant, not a linked TEXT prop, per the per-variant-differs gotcha). Each variant = 327x52 FIXED HORIZONTAL auto-layout, counterAxis CENTER, primaryAxis SPACE_BETWEEN, padding L16/R4/T4/B4 (px-4 + button right-1 inset, 44px button centers in 52), all 4 corners bound radius/pill (rounded-pill), fill color/surface/card, 1px INSIDE stroke color/alpha/white-10. Input text = Sora Regular 14/18 FILL (text-[14px]/18, intrinsic — no 14px ramp style): Empty/Mic placeholder fill color/alpha/white-30 (NEW VariableID:160:2 = rgba(255,255,255,0.3), mirrors placeholder:text-white/30 recurring ×87 in src); Typing fill color/text/primary. Button = 44x44 createAutoLayout frame (CENTER/CENTER, cornerRadius 9999): send variants fill color/brand/cta + Glow/Orange effect + ArrowUp icon instance (registry 92:27 resized 16, default white stroke) — Empty opacity 0.45 (canSend false → opacity-45), Typing opacity 1; Mic variant fill color/surface/card + 1px INSIDE stroke color/alpha/white-10 + Mic icon instance (registry 96:10 resized 18, stroke overridden to color/alpha/white-60). Icon instances live inside the button FRAME (component->frame->instance is legal; createComponent only blocks direct COMPONENT/INSTANCE children). strokeWeight scales with the 16/18 resize (intrinsic, React strokeWidth 2.4/1.9 ≈). Set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/white-30."
+    },
+    "MissionCard": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/MissionCard.tsx",
+      "variants": {
+        "State": [
+          "Default",
+          "Completed",
+          "Stalled"
+        ]
+      },
+      "properties": {
+        "Title": "TEXT",
+        "Subtitle": "TEXT",
+        "HasChain": "BOOLEAN",
+        "HasPin": "BOOLEAN"
+      },
+      "figma_node_id": "175:101",
+      "figma_component_key": "75cc5815114a42446159cd0125f1f50676bfdc00",
+      "$comment": "14th Phase 3B molecule (B3 batch). SCOPE (match-code, big-axis check): inventory pre-declared Type(6)×State(4)=24, but the CARD CHROME does NOT vary by mission.type — `type` only selects which MissionTypeBadge variant is instanced (that atom 82:14 already carries the 6 types). So the Type axis is DROPPED at the card level (delegated to the nested MissionTypeBadge instance — set its Type prop per-instance). State reduced 4→3: React MissionStatus = 'active'|'completed'|'paused' (verified in data/mock.ts), so the only distinct card visuals are Default(active), Completed(completed), Stalled(paused). Inventory's 'InProgress' DROPPED — visually identical to Default in code (no status branch). 24→3 variants. State drives: opacity (Default 1, Completed 0.7 = opacity-70, Stalled 0.6 = opacity-60), the ProgressRing color (Completed → Color=Success green; else Brand orange), and the footer (Completed shows green 'Completed' text; Default/Stalled show Flame icon + streak '12d') — footer is BAKED per variant, not a prop. Card root = 327 FIXED VERTICAL auto-layout, padding spacing/24 (p-6), fill color/surface/card, 1px INSIDE stroke color/alpha/white-06, radius/xl=28 (rounded-xl→--radius-xl), Elevation/1 (shadow-1). Composes INSTANCES (createComponent allows INSTANCE children, just not COMPONENT children): ProgressRing (138:5 default Sm/Brand, Completed→Success) in a 64-wide RingCol (w-16) STRETCHed + center; MissionTypeBadge (82:14, Type=Main repr) + DomainTag (52:39, Fitness repr) in a WRAP BadgeRow gap spacing/8; ChainProgressBar (143:6) gated by HasChain; Pin icon (96:97 @12, stroke color/alpha/white-30) absolute-positioned top-right (layoutPositioning ABSOLUTE, constraints MAX/MIN, x=327-16-12 y=16) gated by HasPin; Flame icon (94:79 @12, color/alpha/white-40) in the streak group. Content col itemSpacing spacing/8 (mt-2 dominant); NextGroup sub-col itemSpacing spacing/4 (mt-1). Title = intrinsic Sora SemiBold 16/22 fill color/text/primary (text-body font-semibold, no Body link — weight mismatch). Subtitle (Next: line) + SiaNote = Caption style (13 Regular linked) fill color/alpha/white-70 + white-50, truncate-ENDING. XP/Completed/StreakText = intrinsic Sora SemiBold 11/14 (text-small font-semibold): XP color/brand/cta, Completed color/brand/success, StreakText color/alpha/white-60. Difficulty dot 8x8 ELLIPSE color/brand/success (representative easy; React easy=green/moderate=orange/hard=error-red — recolor per-instance). PROPERTIES: Title TEXT (Title#175:0) + Subtitle TEXT (Subtitle#175:4) shared defaults linked across 3; HasChain BOOLEAN (HasChain#175:8 default true) gates Chain.visible; HasPin BOOLEAN (HasPin#175:12 default true) gates Pin.visible. Set frame ink-900 bg + radius 24 for doc visibility. Zero new tokens minted."
+    },
+    "SectionHeader": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/SectionHeader.tsx",
+      "variants": {
+        "WithAction": [
+          "False",
+          "True"
+        ]
+      },
+      "properties": {
+        "Title": "TEXT",
+        "ActionLabel": "TEXT"
+      },
+      "figma_node_id": "125:10",
+      "figma_component_key": "616741cb9800d79a275c745b6026a7a4b8124b6f",
+      "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80, 380). Variant axis WithAction (False/True). 327 FIXED-wide × HUG-height HORIZONTAL auto-layout, SPACE_BETWEEN justification + CENTER counter alignment. Title text node uses Eyebrow style (Sora SemiBold 12px UPPER) + color/text/quaternary; on True variant the right side has an Action group (gap=spacing/4) with ActionLabel (Button/Sm + color/text/secondary, default 'View all') + 16×16 ChevronRight icon instance (from 93:75, inherits color/text/primary stroke). Title TEXT prop linked to both variants (LevelBadge precedent); ActionLabel TEXT prop linked to True variant only. SectionHeader composes a raw text node (NOT an Eyebrow instance) for the title — deliberate trade-off: molecule-level TEXT prop links to a flat text node more cleanly than to a nested-instance's TEXT prop, and the Eyebrow atom is visually equivalent to 'styled text' anyway. Future structural-atom molecules (Button, ToggleSwitch) WILL instance their atoms directly. Set frame has ink-900 bg + radius 24 for documentation visibility on Figma's light canvas. Zero new tokens minted."
+    },
+    "SettingsRow": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/SettingsRow.tsx",
+      "variants": {
+        "Trailing": [
+          "Chevron",
+          "Toggle",
+          "Value",
+          "None"
+        ]
+      },
+      "properties": {
+        "Title": "TEXT",
+        "Value": "TEXT",
+        "HasIcon": "BOOLEAN",
+        "Icon": "INSTANCE_SWAP"
+      },
+      "figma_node_id": "128:32",
+      "figma_component_key": "cf8f3249920c6913acf4db01e7fbe3dce0c87a34",
+      "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80, 560). 4 Trailing variants (Chevron/Toggle/Value/None) per Figma plan. Scope decisions: (a) Destructive variant SKIPPED — React 'destructive' style is structurally different (centered red text, no border) and would split the axis; treat as per-instance manual override or future SettingsRowDestructive molecule. (b) HasIcon BOOLEAN + Icon INSTANCE_SWAP ADDED to wire the optional 32×32 round white-06 icon group on the left (default Icon/Settings, designers swap per-instance). Phase 3A Button/Input/Chip precedent. Composition: ToggleSwitch atom instanced for Trailing=Toggle (from 48:2 default state); ChevronRight icon instanced for Trailing=Chevron at 16×16; Icon/Settings instanced for the left icon slot. Label uses Body text style + color/text/primary, FILL horizontal so it truncates. Title TEXT prop linked on all 4 variants (LevelBadge precedent — shared default 'Setting label'). Value TEXT prop linked only on Trailing=Value variant (no clobbering). HasIcon BOOLEAN gates iconGroup.visible via componentPropertyReferences on all 4 variants. Icon INSTANCE_SWAP default takes local node ID (98:43), preferredValues uses { type: 'COMPONENT', key } (Phase 3A retrofit precedent). NEW GOTCHA: figma.createComponent can't have COMPONENT children — inner FRAMEs (iconGroup) must use figma.createAutoLayout, only variant wrappers use createComponent. Helper mkAutoFrame added. React per-row bottom border (border-b border-white/[0.05]) deliberately skipped — it's a screen-composition concern (SettingsGroup wraps rows with overflow-hidden). Zero new tokens minted."
+    },
+    "NotificationRow": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/NotificationRow.tsx",
+      "variants": {
+        "State": [
+          "Unread",
+          "Read"
+        ],
+        "Category": [
+          "Sia",
+          "Reminder",
+          "CheckIn",
+          "Social"
+        ]
+      },
+      "properties": {
+        "Title": "TEXT",
+        "Preview": "TEXT",
+        "Timestamp": "TEXT"
+      },
+      "figma_node_id": "170:48",
+      "figma_component_key": "b10ec97c7190861eecc644b45d284611c9dfca69",
+      "$comment": "13th Phase 3B molecule (B3 batch). SCOPE (match-code): inventory pre-declared only State(Unread/Read), but React's `category` ('sia'|'reminder'|'check-in'|'social') ALSO genuinely varies the row (icon glyph + icon color, via categoryMeta) — INSTANCE_SWAP can't carry per-category color, so Category is a real 2nd axis. State(2)×Category(4)=8 variants, within the ≤30 cap. State drives the unread dot (opacity 1/0) + title (Unread=Sora SemiBold color/text/primary, Read=Sora Regular color/alpha/white-80). Category drives the icon: Sia=Brain(93:11) color/brand/ai, Reminder=Bell(92:61) color/brand/cta, CheckIn=BarChart3(92:45) color/brand/success, Social=Users(99:89) color/alpha/white-60 (matches text-royal-purple/orange/forest-green/white-60). Each variant = 327 FIXED HORIZONTAL auto-layout, counterAxis MIN (items-start), itemSpacing bound spacing/12 (gap-3), padding 16/12 (px-4 py-3), minHeight 80 (min-h-20), fill color/surface/card. The per-row border-b (border-white/[0.05]) is DELIBERATELY SKIPPED — screen-composition concern (the list wrapper draws separators; SettingsRow precedent). Children: (1) DotSlot = VERTICAL auto-layout paddingTop 18 (mt-[18px] arbitrary intrinsic) holding an 8x8 ELLIPSE fill color/brand/cta, opacity 1 (Unread)/0 (Read). (2) IconSlot = VERTICAL auto-layout, paddingTop bound spacing/8 (mt-2), holding the 24x24 category icon instance with stroke overridden to the category color. (3) Text = VERTICAL auto-layout FILL, itemSpacing 4 (mt-1): TitleRow = HORIZONTAL FILL SPACE_BETWEEN counterAxis MIN gap spacing/12 [Title 15/20 FILL truncate-ENDING (intrinsic Sora, no 15px ramp) + Timestamp Sora Regular 12/16 HUG fill color/alpha/white-40]; Preview = Caption style (13px Regular, linked — React text-[13px] weightless) fill color/alpha/white-50 FILL. Title/Preview/Timestamp TEXT props (Title#170:0, Preview#170:9, Timestamp#170:18; shared defaults across all 8 → linked OK; per-state title weight is a node style, not the prop default, so no clobber). Variants laid out manually in a 2-col (Unread|Read) x 4-row (category) grid; set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/white-80 (rgba 255,255,255,0.8; mirrors text-white/80 ×32 in src)."
+    },
+    "ChainProgressBar": {
+      "phase": "3B_molecules",
+      "source": "src/components/screens/ChainProgressBar.tsx",
+      "properties": {
+        "Count": "TEXT"
+      },
+      "figma_node_id": "143:6",
+      "figma_component_key": "e0376460202f605f40766906cd85ad18ea6b18ae",
+      "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80,1400). NO variant axis (inventory declared none) → lone COMPONENT (not a set). Baked at a representative total=5, current=3. 327 FIXED-wide VERTICAL auto-layout, itemSpacing bound spacing/4 (React space-y-1). CountRow = HORIZONTAL FILL, primaryAxisAlignItems='MAX' (justify-end), holds Count text ('3 of 5', Small text style 11px Regular — React text-small has NO font-weight class so Regular is faithful and the style link stays clean; fill color/alpha/white-40). Track = plain 327×12 FRAME with absolute children: Line (327×4 at y=4, bg color/alpha/white-08, radius/pill) + 5 ELLIPSE dots evenly spaced via centers c_i = 4 + i·(327-8)/4 (justify-between with half-max-dot insets so end dots don't overflow). Dot states match React: step<current=complete (6×6, color/brand/success green), step==current (8×8, color/brand/cta orange, + Glow/Orange effect style), upcoming (6×6, color/alpha/white-20 = NEW primitive VariableID:143:5 minted this build, mirrors React bg-white/20). Dot/line sizes (4/6/8px) intrinsic geometry (not token-bound). Count TEXT prop (Count#143:0, default '3 of 5') linked to the count node. Component fills transparent (it's a screen overlay element) — to document it legibly on Figma's light canvas it's wrapped in a plain ink-900 doc FRAME 'ChainProgressBar (doc)' (144:5); the frame is chrome only, NOT a component, so it does not propagate to instances. Minted color/alpha/white-20."
+    },
+    "Header": {
+      "phase": "3F_layout",
+      "source": "src/components/layout/Header.tsx",
+      "variants": {
+        "Variant": [
+          "Default",
+          "Scroll",
+          "Glass"
+        ],
+        "HasBack": [
+          "True",
+          "False"
+        ],
+        "HasRightAction": [
+          "True",
+          "False"
+        ]
+      },
+      "properties": {
+        "Title": "TEXT"
+      },
+      "figma_node_id": null
+    },
+    "TabBar": {
+      "phase": "3F_layout",
+      "source": "src/components/layout/TabBar.tsx",
+      "variants": {
+        "Active": [
+          "Today",
+          "SIA",
+          "Goals",
+          "Me"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "PhoneFrame": {
+      "phase": "3F_layout",
+      "source": "src/components/layout/PhoneFrame.tsx",
+      "$comment": "Built in Phase 2 (2026-05-28). Wraps iOS 26 iPhone 16 Pro instance (key fa9d8523994d…) with a 375x812 Content INSTANCE_SWAP slot centered in the 402x874 chrome.",
+      "figma_node_id": "38:8",
+      "figma_component_key": "4724ff2cd30913b788b81e6eb4342b97dc991242"
+    },
+    "ScreenShell": {
+      "phase": "3F_layout",
+      "source": "src/components/layout/ScreenShell.tsx",
+      "$comment": "Built in Phase 2 (2026-05-28) as ScreenShell-Template. Vertical auto-layout 375x812 with slots: Status Bar Reserve (54) / Header (HUG) / Content (FILL) / BottomAction (HUG, opt) / Composer (HUG, opt) / TabBar (HUG, opt) / Home Indicator Clearance (34). Side padding spacing/16. BOOLEAN props: Show BottomAction (false), Show Composer (false), Show TabBar (true).",
+      "figma_node_id": "37:2",
+      "figma_component_key": "fd22492a0fe14baa6f6916351b95e02c1c23f96a"
+    },
+    "SiaChatTopBar": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/SiaChatTopBar.tsx",
+      "figma_node_id": null
+    },
+    "ActionCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ActionCard.tsx",
+      "variants": {
+        "Variant": [
+          "Default",
+          "Accent",
+          "Domain"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "RichInlineCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/RichInlineCard.tsx",
+      "figma_node_id": null
+    },
+    "ModuleCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ModuleCard.tsx",
+      "figma_node_id": null
+    },
+    "TierCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/TierCard.tsx",
+      "variants": {
+        "Tier": [
+          "Free",
+          "Premium",
+          "Pro"
+        ],
+        "Selected": [
+          "True",
+          "False"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "SIACoachingNote": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/SIACoachingNote.tsx",
+      "figma_node_id": null
+    },
+    "ScheduleItem": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ScheduleItem.tsx",
+      "variants": {
+        "State": [
+          "Upcoming",
+          "Active",
+          "Completed",
+          "Missed"
+        ]
+      },
+      "figma_node_id": "180:2",
+      "figma_component_key": "8b0c08480453438350372b10428cc77bdea08a00",
+      "doc_frame_node_id": "180:8",
+      "variants_built": null,
+      "composes": [
+        "DomainTag(52:39)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C1 organism #1). LONE COMPONENT — inventory's State[Upcoming/Active/Completed/Missed] axis DROPPED (React has no state prop; static time|name|tag row). Time=Button/Sm Sora SemiBold 13 brand/cta HUG (w-14/56px wraps in Sora → HUG), Name=Sora Regular 15/20 text/primary FILL truncate, DomainTag ShowDot=false. Props Time#180:0 / Name#180:1. ink-900 doc frame 180:8. Row border skipped (list concern). GOTCHA: getVariableByIdAsync needs 'VariableID:' prefix or returns null (silent bind no-op); DomainTag instances lose 0.15 bg opacity → read-modify-write fix-up needed."
+    },
+    "IntegrationCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/IntegrationCard.tsx",
+      "variants": {
+        "Connected": [
+          "True",
+          "False"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "WorkoutCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/domain/WorkoutCard.tsx",
+      "figma_node_id": null
+    },
+    "MealCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/domain/MealCard.tsx",
+      "figma_node_id": null
+    },
+    "RecipeCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/domain/RecipeCard.tsx",
+      "figma_node_id": null
+    },
+    "TransactionRow": {
+      "phase": "3C_organisms",
+      "source": "src/components/domain/TransactionRow.tsx",
+      "variants": {
+        "Direction": [
+          "Income",
+          "Expense"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "HabitRow": {
+      "phase": "3C_organisms",
+      "source": "src/components/domain/HabitRow.tsx",
+      "variants": {
+        "State": [
+          "Default",
+          "CheckedToday",
+          "Streak"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "LeaderboardRow": {
+      "phase": "3C_organisms",
+      "source": "src/components/domain/LeaderboardRow.tsx",
+      "variants": {
+        "Rank": [
+          "1",
+          "2",
+          "3",
+          "Other"
+        ],
+        "Self": [
+          "True",
+          "False"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "JournalEntryCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/domain/JournalEntryCard.tsx",
+      "figma_node_id": null
+    },
+    "CelebrationOverlay": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/CelebrationOverlay.tsx",
+      "figma_node_id": null
+    },
+    "VoiceWaveform": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/VoiceWaveform.tsx",
+      "variants": {
+        "State": [
+          "Idle",
+          "Listening",
+          "Speaking"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "VoiceInterfacePanel": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/VoiceInterfacePanel.tsx",
+      "figma_node_id": null
+    },
+    "DomainDashboardHeader": {
+      "phase": "3C_organisms",
+      "source": "src/components/domain/DomainDashboardHeader.tsx",
+      "variants": {
+        "Domain": [
+          "Fitness",
+          "Sleep",
+          "Career",
+          "Nutrition",
+          "Finance",
+          "Faith",
+          "Productivity",
+          "Relationships",
+          "Wellbeing",
+          "Meditation",
+          "Creativity",
+          "Learning"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "SiaConversation": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/SiaConversation.tsx",
+      "figma_node_id": null
+    },
+    "ConversationSuite": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ConversationSuite.tsx",
+      "figma_node_id": null
+    },
+    "ScheduleCalendarGrid": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ScheduleCalendarGrid.tsx",
+      "figma_node_id": null
+    },
+    "HealthMetricsStrip": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/HealthMetricsStrip.tsx",
+      "figma_node_id": null
+    },
+    "QuickActionsRow": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/QuickActionsRow.tsx",
+      "figma_node_id": null
+    },
+    "FAQAccordion": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/FAQAccordion.tsx",
+      "variants": {
+        "State": [
+          "Collapsed",
+          "Expanded"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "LifePowerDisplay": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/LifePowerDisplay.tsx",
+      "figma_node_id": null
+    },
+    "DomainSkillCard": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/DomainSkillCard.tsx",
+      "figma_node_id": null
+    },
+    "BreathingVisual": {
+      "phase": "3C_organisms",
+      "source": "src/components/domain/BreathingVisual.tsx",
+      "variants": {
+        "Phase": [
+          "InhaleHold",
+          "Inhale",
+          "ExhaleHold",
+          "Exhale"
+        ]
+      },
+      "figma_node_id": null
+    },
+    "LineChart": {
+      "phase": "3D_charts",
+      "source": "src/components/charts/LineChart.tsx",
+      "$comment": "Static visual snapshot in Figma; Code Connect references live recharts implementation.",
+      "figma_node_id": null
+    },
+    "BarChart": {
+      "phase": "3D_charts",
+      "source": "src/components/charts/BarChart.tsx",
+      "figma_node_id": null
+    },
+    "RadarChart": {
+      "phase": "3D_charts",
+      "source": "src/components/charts/RadarChart.tsx",
+      "figma_node_id": null
+    },
+    "CalendarHeatmap": {
+      "phase": "3D_charts",
+      "source": "src/components/charts/CalendarHeatmap.tsx",
+      "figma_node_id": null
+    }
   },
-
   "excluded_from_figma": {
-    "src/components/layout/Sidebar.tsx":    "Dev-only screen navigator chrome; never shown in production app.",
-    "src/components/layout/ScreenNav.tsx":  "Dev-only route browser; never shown in production app."
+    "src/components/layout/Sidebar.tsx": "Dev-only screen navigator chrome; never shown in production app.",
+    "src/components/layout/ScreenNav.tsx": "Dev-only route browser; never shown in production app."
   }
 }

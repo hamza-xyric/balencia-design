@@ -41,90 +41,115 @@
   },
   "ds_collections": {
     "$comment": "Filled in Phase 1. variable collection name -> { id, modes: { modeName: modeId } }.",
-    "Primitives": { "id": "VariableCollectionId:2:2", "modes": { "Value": "2:0" } },
-    "Color":      { "id": "VariableCollectionId:2:3", "modes": { "Dark":  "2:1" } },
-    "Spacing":    { "id": "VariableCollectionId:2:4", "modes": { "Value": "2:2" } },
-    "Radius":     { "id": "VariableCollectionId:2:5", "modes": { "Value": "2:3" } },
-    "Motion":     { "id": "VariableCollectionId:2:6", "modes": { "Value": "2:4" } }
+    "Primitives": {
+      "id": "VariableCollectionId:2:2",
+      "modes": {
+        "Value": "2:0"
+      }
+    },
+    "Color": {
+      "id": "VariableCollectionId:2:3",
+      "modes": {
+        "Dark": "2:1"
+      }
+    },
+    "Spacing": {
+      "id": "VariableCollectionId:2:4",
+      "modes": {
+        "Value": "2:2"
+      }
+    },
+    "Radius": {
+      "id": "VariableCollectionId:2:5",
+      "modes": {
+        "Value": "2:3"
+      }
+    },
+    "Motion": {
+      "id": "VariableCollectionId:2:6",
+      "modes": {
+        "Value": "2:4"
+      }
+    }
   },
   "ds_variables": {
     "$comment": "Filled in Phase 1 as each variable lands. Mapped from balencia-screens/scripts/figma-tokens-map.json. variable_path -> figma_variable_id.",
     "primitives": {
-      "color/brand/orange":         "VariableID:4:2",
-      "color/brand/forest-green":   "VariableID:4:3",
-      "color/brand/royal-purple":   "VariableID:4:4",
-      "color/neutral/ink-900":      "VariableID:4:5",
-      "color/neutral/ink-700":      "VariableID:4:6",
-      "color/neutral/ink-brown-800":"VariableID:4:7",
-      "color/neutral/paper-100":    "VariableID:4:8",
-      "color/neutral/paper-50":     "VariableID:4:9",
-      "color/neutral/error-red":    "VariableID:4:10",
-      "color/domain/fitness":       "VariableID:4:11",
-      "color/domain/sleep":         "VariableID:4:12",
-      "color/domain/career":        "VariableID:4:13",
-      "color/domain/nutrition":     "VariableID:4:14",
-      "color/domain/finance":       "VariableID:4:15",
-      "color/domain/faith":         "VariableID:4:16",
-      "color/domain/productivity":  "VariableID:4:17",
+      "color/brand/orange": "VariableID:4:2",
+      "color/brand/forest-green": "VariableID:4:3",
+      "color/brand/royal-purple": "VariableID:4:4",
+      "color/neutral/ink-900": "VariableID:4:5",
+      "color/neutral/ink-700": "VariableID:4:6",
+      "color/neutral/ink-brown-800": "VariableID:4:7",
+      "color/neutral/paper-100": "VariableID:4:8",
+      "color/neutral/paper-50": "VariableID:4:9",
+      "color/neutral/error-red": "VariableID:4:10",
+      "color/domain/fitness": "VariableID:4:11",
+      "color/domain/sleep": "VariableID:4:12",
+      "color/domain/career": "VariableID:4:13",
+      "color/domain/nutrition": "VariableID:4:14",
+      "color/domain/finance": "VariableID:4:15",
+      "color/domain/faith": "VariableID:4:16",
+      "color/domain/productivity": "VariableID:4:17",
       "color/domain/relationships": "VariableID:4:18",
-      "color/domain/wellbeing":     "VariableID:4:19",
-      "color/domain/meditation":    "VariableID:4:20",
-      "color/domain/creativity":    "VariableID:4:21",
-      "color/domain/learning":      "VariableID:4:22",
-      "color/podium/gold":          "VariableID:4:23",
-      "color/podium/silver":        "VariableID:4:24",
-      "color/podium/bronze":        "VariableID:4:25",
-      "color/mission/gold":         "VariableID:4:26",
-      "color/mission/silver":       "VariableID:4:27",
-      "color/mission/bronze":       "VariableID:4:28",
-      "color/mission/steel":        "VariableID:4:29",
-      "color/mission/sage":         "VariableID:4:30",
-      "color/mission/copper":       "VariableID:4:31",
-      "color/rarity/common":        "VariableID:4:32",
-      "color/rarity/uncommon":      "VariableID:4:33",
-      "color/rarity/rare":          "VariableID:4:34",
-      "color/rarity/epic":          "VariableID:4:35",
-      "color/rarity/legendary":     "VariableID:4:36",
-      "color/rpg/stalled-amber":    "VariableID:4:37",
-      "color/rpg/freeze-blue":      "VariableID:4:38",
-      "color/alpha/white-100":      "VariableID:4:39",
-      "color/alpha/white-70":       "VariableID:4:40",
-      "color/alpha/white-50":       "VariableID:4:41",
-      "color/alpha/white-40":       "VariableID:4:42",
-      "color/alpha/white-20":       "VariableID:143:5",
-      "color/alpha/white-10":       "VariableID:4:43",
-      "color/alpha/white-08":       "VariableID:140:2",
-      "color/alpha/white-06":       "VariableID:4:44",
-      "color/alpha/white-60":       "VariableID:147:5",
+      "color/domain/wellbeing": "VariableID:4:19",
+      "color/domain/meditation": "VariableID:4:20",
+      "color/domain/creativity": "VariableID:4:21",
+      "color/domain/learning": "VariableID:4:22",
+      "color/podium/gold": "VariableID:4:23",
+      "color/podium/silver": "VariableID:4:24",
+      "color/podium/bronze": "VariableID:4:25",
+      "color/mission/gold": "VariableID:4:26",
+      "color/mission/silver": "VariableID:4:27",
+      "color/mission/bronze": "VariableID:4:28",
+      "color/mission/steel": "VariableID:4:29",
+      "color/mission/sage": "VariableID:4:30",
+      "color/mission/copper": "VariableID:4:31",
+      "color/rarity/common": "VariableID:4:32",
+      "color/rarity/uncommon": "VariableID:4:33",
+      "color/rarity/rare": "VariableID:4:34",
+      "color/rarity/epic": "VariableID:4:35",
+      "color/rarity/legendary": "VariableID:4:36",
+      "color/rpg/stalled-amber": "VariableID:4:37",
+      "color/rpg/freeze-blue": "VariableID:4:38",
+      "color/alpha/white-100": "VariableID:4:39",
+      "color/alpha/white-70": "VariableID:4:40",
+      "color/alpha/white-50": "VariableID:4:41",
+      "color/alpha/white-40": "VariableID:4:42",
+      "color/alpha/white-20": "VariableID:143:5",
+      "color/alpha/white-10": "VariableID:4:43",
+      "color/alpha/white-08": "VariableID:140:2",
+      "color/alpha/white-06": "VariableID:4:44",
+      "color/alpha/white-60": "VariableID:147:5",
       "color/alpha/glow-orange-bg": "VariableID:4:45",
-      "color/alpha/white-15":       "VariableID:47:2",
-      "color/alpha/white-30":       "VariableID:160:2",
-      "color/alpha/orange-20":      "VariableID:160:3",
-      "color/alpha/white-80":       "VariableID:167:2"
+      "color/alpha/white-15": "VariableID:47:2",
+      "color/alpha/white-30": "VariableID:160:2",
+      "color/alpha/orange-20": "VariableID:160:3",
+      "color/alpha/white-80": "VariableID:167:2"
     },
     "color": {
-      "color/bg/screen":            "VariableID:5:2",
-      "color/bg/elevated":          "VariableID:5:3",
-      "color/surface/card":         "VariableID:5:4",
-      "color/surface/glow-orange":  "VariableID:5:5",
-      "color/text/primary":         "VariableID:5:6",
-      "color/text/secondary":       "VariableID:5:7",
-      "color/text/tertiary":        "VariableID:5:8",
-      "color/text/quaternary":      "VariableID:5:9",
-      "color/text/on-brand":        "VariableID:5:10",
-      "color/border/subtle":        "VariableID:5:11",
-      "color/border/default":       "VariableID:5:12",
-      "color/brand/cta":            "VariableID:5:13",
-      "color/brand/success":        "VariableID:5:14",
-      "color/brand/ai":             "VariableID:5:15",
-      "color/state/error":          "VariableID:5:16",
-      "color/state/stalled":        "VariableID:5:17",
-      "color/state/freeze":         "VariableID:5:18"
+      "color/bg/screen": "VariableID:5:2",
+      "color/bg/elevated": "VariableID:5:3",
+      "color/surface/card": "VariableID:5:4",
+      "color/surface/glow-orange": "VariableID:5:5",
+      "color/text/primary": "VariableID:5:6",
+      "color/text/secondary": "VariableID:5:7",
+      "color/text/tertiary": "VariableID:5:8",
+      "color/text/quaternary": "VariableID:5:9",
+      "color/text/on-brand": "VariableID:5:10",
+      "color/border/subtle": "VariableID:5:11",
+      "color/border/default": "VariableID:5:12",
+      "color/brand/cta": "VariableID:5:13",
+      "color/brand/success": "VariableID:5:14",
+      "color/brand/ai": "VariableID:5:15",
+      "color/state/error": "VariableID:5:16",
+      "color/state/stalled": "VariableID:5:17",
+      "color/state/freeze": "VariableID:5:18"
     },
     "spacing": {
-      "spacing/4":  "VariableID:8:2",
-      "spacing/6":  "VariableID:52:2",
-      "spacing/8":  "VariableID:8:3",
+      "spacing/4": "VariableID:8:2",
+      "spacing/6": "VariableID:52:2",
+      "spacing/8": "VariableID:8:3",
       "spacing/10": "VariableID:62:2",
       "spacing/12": "VariableID:8:4",
       "spacing/16": "VariableID:8:5",
@@ -136,47 +161,47 @@
       "spacing/64": "VariableID:8:11"
     },
     "radius": {
-      "radius/xs":   "VariableID:9:2",
-      "radius/sm":   "VariableID:9:3",
-      "radius/md":   "VariableID:9:4",
-      "radius/lg":   "VariableID:9:5",
-      "radius/xl":   "VariableID:9:6",
-      "radius/2xl":  "VariableID:9:7",
+      "radius/xs": "VariableID:9:2",
+      "radius/sm": "VariableID:9:3",
+      "radius/md": "VariableID:9:4",
+      "radius/lg": "VariableID:9:5",
+      "radius/xl": "VariableID:9:6",
+      "radius/2xl": "VariableID:9:7",
       "radius/pill": "VariableID:9:8"
     },
     "motion": {
-      "motion/duration/fast":        "VariableID:10:2",
-      "motion/duration/base":        "VariableID:10:3",
-      "motion/duration/slow":        "VariableID:10:4",
-      "motion/duration/flow":        "VariableID:10:5",
-      "motion/easing/flow":          "VariableID:10:6",
-      "motion/easing/out-soft":      "VariableID:10:7",
-      "motion/easing/in-out-brand":  "VariableID:10:8"
+      "motion/duration/fast": "VariableID:10:2",
+      "motion/duration/base": "VariableID:10:3",
+      "motion/duration/slow": "VariableID:10:4",
+      "motion/duration/flow": "VariableID:10:5",
+      "motion/easing/flow": "VariableID:10:6",
+      "motion/easing/out-soft": "VariableID:10:7",
+      "motion/easing/in-out-brand": "VariableID:10:8"
     }
   },
   "ds_text_styles": {
     "$comment": "Filled in Phase 1. style name -> style ID. Sora ramp; note: Sora maxes at ExtraBold (no 900/Black), so Display XL uses ExtraBold.",
     "Display XL": "S:af686b09d52d4b9683f86b62baee0492f8ba0f3c,",
-    "Display L":  "S:ffe79da810d407f7aa7fbe1d6c440191217c4826,",
-    "H1":         "S:423e144d691528e5ac4a0220cecb140b8bf0393d,",
-    "H2":         "S:6c48c5939806056596c3a098a6f8baed4ac061d7,",
-    "H3":         "S:80e9f3f0c782cf7b7e9c907e836f95f7037fe603,",
-    "Lead":       "S:84f884d123ab256a2719f1035b2ac47334e92148,",
-    "Body":       "S:ef004e3824d5fa6cfe19a70f3e0b43a181c3d9eb,",
-    "Caption":    "S:0b81e86cddb1fc1f328c5af51b4a1d60e6c63da2,",
-    "Eyebrow":    "S:04ba984d2667945edcb8b4e927bc6ba5280263d8,",
-    "Small":      "S:0b2c06dc03e9bbcae3947d635b4e0287d3e05602,",
-    "Button/Md":  "S:851cdbfe6c9764861fe578379fab4cd6db48a81f,",
-    "Button/Sm":  "S:4c17baa266929b6fe2c0232a248ac7e5fd02e1fe,"
+    "Display L": "S:ffe79da810d407f7aa7fbe1d6c440191217c4826,",
+    "H1": "S:423e144d691528e5ac4a0220cecb140b8bf0393d,",
+    "H2": "S:6c48c5939806056596c3a098a6f8baed4ac061d7,",
+    "H3": "S:80e9f3f0c782cf7b7e9c907e836f95f7037fe603,",
+    "Lead": "S:84f884d123ab256a2719f1035b2ac47334e92148,",
+    "Body": "S:ef004e3824d5fa6cfe19a70f3e0b43a181c3d9eb,",
+    "Caption": "S:0b81e86cddb1fc1f328c5af51b4a1d60e6c63da2,",
+    "Eyebrow": "S:04ba984d2667945edcb8b4e927bc6ba5280263d8,",
+    "Small": "S:0b2c06dc03e9bbcae3947d635b4e0287d3e05602,",
+    "Button/Md": "S:851cdbfe6c9764861fe578379fab4cd6db48a81f,",
+    "Button/Sm": "S:4c17baa266929b6fe2c0232a248ac7e5fd02e1fe,"
   },
   "ds_effect_styles": {
     "$comment": "Filled in Phase 1. style name -> style ID.",
-    "Elevation/1":   "S:f11ebb51d84e2050a6425f5c512ee434e4b24efa,",
-    "Elevation/2":   "S:4305abfe8bf842654fb31b3f64a85be1d8d19138,",
-    "Elevation/3":   "S:dc38d4a3c90a31f01e4697358fdd75daf332bea5,",
-    "Glow/Orange":   "S:a8dd7b51520d6e0753e71712678fb9ff3b12554e,",
-    "Glow/Green":    "S:13f4cf23267d7c00326e35150d51c7b5eaba3dee,",
-    "Glow/Purple":   "S:055be45665c88b4b1e6f143a4be5d1f5d020bd9e,",
+    "Elevation/1": "S:f11ebb51d84e2050a6425f5c512ee434e4b24efa,",
+    "Elevation/2": "S:4305abfe8bf842654fb31b3f64a85be1d8d19138,",
+    "Elevation/3": "S:dc38d4a3c90a31f01e4697358fdd75daf332bea5,",
+    "Glow/Orange": "S:a8dd7b51520d6e0753e71712678fb9ff3b12554e,",
+    "Glow/Green": "S:13f4cf23267d7c00326e35150d51c7b5eaba3dee,",
+    "Glow/Purple": "S:055be45665c88b4b1e6f143a4be5d1f5d020bd9e,",
     "Glass/Default": "S:e2ec279d1e396962f897f1b208b6aa0142596b07,"
   },
   "ds_components": {
@@ -186,8 +211,15 @@
       "page_node_id": "17:15",
       "key": "fd22492a0fe14baa6f6916351b95e02c1c23f96a",
       "phase": "3F_layout",
-      "size": { "w": 375, "h": 812 },
-      "properties": ["Show BottomAction", "Show Composer", "Show TabBar"],
+      "size": {
+        "w": 375,
+        "h": 812
+      },
+      "properties": [
+        "Show BottomAction",
+        "Show Composer",
+        "Show TabBar"
+      ],
       "created_at": "2026-05-28"
     },
     "PhoneFrame": {
@@ -195,8 +227,13 @@
       "page_node_id": "17:15",
       "key": "4724ff2cd30913b788b81e6eb4342b97dc991242",
       "phase": "3F_layout",
-      "size": { "w": 402, "h": 874 },
-      "properties": ["Content"],
+      "size": {
+        "w": 402,
+        "h": 874
+      },
+      "properties": [
+        "Content"
+      ],
       "nested_iphone_component_key": "fa9d8523994d457baedfb519c40204b8f308cd35",
       "nested_iphone_library": "iOS and iPadOS 26",
       "created_at": "2026-05-28"
@@ -206,7 +243,10 @@
       "page_node_id": "17:15",
       "key": "b5c6c6914bfa1efd2696e3febab59074a1de2a37",
       "phase": "3F_layout",
-      "size": { "w": 375, "h": 812 },
+      "size": {
+        "w": 375,
+        "h": 812
+      },
       "$comment": "Default value of PhoneFrame's Content INSTANCE_SWAP property. Replace per-screen during Phase 4-5.",
       "created_at": "2026-05-28"
     },
@@ -215,27 +255,103 @@
       "page_node_id": "17:11",
       "key": "cde7218e9f10ff2c8af0158df7f0b2a49f408cfb",
       "phase": "3A_atoms",
-      "size": { "w": 427, "h": 472 },
-      "variant_axes": { "Variant": ["Primary","Secondary","Ghost","Green","Destructive"], "Size": ["Sm","Md","Lg"] },
-      "properties": ["Label (TEXT)", "HasLeftIcon (BOOLEAN)", "HasRightIcon (BOOLEAN)", "LeftIcon (INSTANCE_SWAP)", "RightIcon (INSTANCE_SWAP)"],
-      "property_keys": { "label": "Label#43:0", "hasLeftIcon": "HasLeftIcon#43:16", "hasRightIcon": "HasRightIcon#43:32", "leftIcon": "LeftIcon#107:0", "rightIcon": "RightIcon#107:16" },
-      "icon_defaults": { "leftIcon": "Icon/Plus (98:5)", "rightIcon": "Icon/ArrowRight (92:23)" },
+      "size": {
+        "w": 427,
+        "h": 472
+      },
+      "variant_axes": {
+        "Variant": [
+          "Primary",
+          "Secondary",
+          "Ghost",
+          "Green",
+          "Destructive"
+        ],
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg"
+        ]
+      },
+      "properties": [
+        "Label (TEXT)",
+        "HasLeftIcon (BOOLEAN)",
+        "HasRightIcon (BOOLEAN)",
+        "LeftIcon (INSTANCE_SWAP)",
+        "RightIcon (INSTANCE_SWAP)"
+      ],
+      "property_keys": {
+        "label": "Label#43:0",
+        "hasLeftIcon": "HasLeftIcon#43:16",
+        "hasRightIcon": "HasRightIcon#43:32",
+        "leftIcon": "LeftIcon#107:0",
+        "rightIcon": "RightIcon#107:16"
+      },
+      "icon_defaults": {
+        "leftIcon": "Icon/Plus (98:5)",
+        "rightIcon": "Icon/ArrowRight (92:23)"
+      },
       "variants": {
-        "Primary/Sm":     { "node_id": "43:2",  "key": "49fc433406153365c14aa79b08f263b3b68e5a1e" },
-        "Primary/Md":     { "node_id": "43:8",  "key": "132af4a802a388482759fde69aec60d6b831fb07" },
-        "Primary/Lg":     { "node_id": "43:14", "key": "1f9abece3e5dd7ea5ef09b09e5ff6f20953ba7bb" },
-        "Secondary/Sm":   { "node_id": "43:20", "key": "82511f4504da377497dd17dc9ec7cc1c214a25ff" },
-        "Secondary/Md":   { "node_id": "43:26", "key": "e10cee6e873fde1d9ac3661850153107c2a37215" },
-        "Secondary/Lg":   { "node_id": "43:32", "key": "181b1d9e10c6e8dc73f1f5d093d82454a97c47e9" },
-        "Ghost/Sm":       { "node_id": "43:38", "key": "a61d8f075abee95724043abfcccd7b2468d5711f" },
-        "Ghost/Md":       { "node_id": "43:44", "key": "55deca2a5231588b4bdb0361d509eb22b53f585d" },
-        "Ghost/Lg":       { "node_id": "43:50", "key": "c4b1a5c5b833ecea0062707e1b10c8ff206b8351" },
-        "Green/Sm":       { "node_id": "43:56", "key": "abffca1264fbb2078728cee35d3c03ad0aab6de8" },
-        "Green/Md":       { "node_id": "43:62", "key": "4f00d01af55a29457e571bd6abd8cdb95fa50e00" },
-        "Green/Lg":       { "node_id": "43:68", "key": "a504fdb1f1b9746c5625e5aa0b0165730fd21581" },
-        "Destructive/Sm": { "node_id": "43:74", "key": "ec2eb3cce48402da70ad8141d8b9dd0e47e69e45" },
-        "Destructive/Md": { "node_id": "43:80", "key": "7c1e14fe45f0243d081147fd3e19577dacb5272c" },
-        "Destructive/Lg": { "node_id": "43:86", "key": "c972de6f92b50dda72b1ae32ad4a2d288462f9bc" }
+        "Primary/Sm": {
+          "node_id": "43:2",
+          "key": "49fc433406153365c14aa79b08f263b3b68e5a1e"
+        },
+        "Primary/Md": {
+          "node_id": "43:8",
+          "key": "132af4a802a388482759fde69aec60d6b831fb07"
+        },
+        "Primary/Lg": {
+          "node_id": "43:14",
+          "key": "1f9abece3e5dd7ea5ef09b09e5ff6f20953ba7bb"
+        },
+        "Secondary/Sm": {
+          "node_id": "43:20",
+          "key": "82511f4504da377497dd17dc9ec7cc1c214a25ff"
+        },
+        "Secondary/Md": {
+          "node_id": "43:26",
+          "key": "e10cee6e873fde1d9ac3661850153107c2a37215"
+        },
+        "Secondary/Lg": {
+          "node_id": "43:32",
+          "key": "181b1d9e10c6e8dc73f1f5d093d82454a97c47e9"
+        },
+        "Ghost/Sm": {
+          "node_id": "43:38",
+          "key": "a61d8f075abee95724043abfcccd7b2468d5711f"
+        },
+        "Ghost/Md": {
+          "node_id": "43:44",
+          "key": "55deca2a5231588b4bdb0361d509eb22b53f585d"
+        },
+        "Ghost/Lg": {
+          "node_id": "43:50",
+          "key": "c4b1a5c5b833ecea0062707e1b10c8ff206b8351"
+        },
+        "Green/Sm": {
+          "node_id": "43:56",
+          "key": "abffca1264fbb2078728cee35d3c03ad0aab6de8"
+        },
+        "Green/Md": {
+          "node_id": "43:62",
+          "key": "4f00d01af55a29457e571bd6abd8cdb95fa50e00"
+        },
+        "Green/Lg": {
+          "node_id": "43:68",
+          "key": "a504fdb1f1b9746c5625e5aa0b0165730fd21581"
+        },
+        "Destructive/Sm": {
+          "node_id": "43:74",
+          "key": "ec2eb3cce48402da70ad8141d8b9dd0e47e69e45"
+        },
+        "Destructive/Md": {
+          "node_id": "43:80",
+          "key": "7c1e14fe45f0243d081147fd3e19577dacb5272c"
+        },
+        "Destructive/Lg": {
+          "node_id": "43:86",
+          "key": "c972de6f92b50dda72b1ae32ad4a2d288462f9bc"
+        }
       },
       "$comment": "Icon slots are 20x20 frames toggled by HasLeftIcon/HasRightIcon BOOLEAN props. Atom #18 retrofit (2026-05-28) replaced the placeholder RECTANGLEs with 20x20 instances of Icon/Plus (left default) and Icon/ArrowRight (right default), wired via LeftIcon (INSTANCE_SWAP, key LeftIcon#107:0) and RightIcon (INSTANCE_SWAP, key RightIcon#107:16) at the SET level. GOTCHA: addComponentProperty('Name','INSTANCE_SWAP', defaultValue) requires the LOCAL COMPONENT NODE ID as defaultValue, not the published key — passing plus.key threw 'Property value is incompatible with component property type', while plus.id succeeded. preferredValues option still uses { type: 'COMPONENT', key: <key> }. This applies to all retrofit atoms.",
       "created_at": "2026-05-28"
@@ -245,13 +361,35 @@
       "page_node_id": "17:11",
       "key": "71d095e8966c9477266ad728ad597c56947ab875",
       "phase": "3A_atoms",
-      "size": { "w": 614, "h": 144 },
-      "variant_axes": { "State": ["Default","Pressed","Disabled","Loading"] },
+      "size": {
+        "w": 614,
+        "h": 144
+      },
+      "variant_axes": {
+        "State": [
+          "Default",
+          "Pressed",
+          "Disabled",
+          "Loading"
+        ]
+      },
       "variants": {
-        "Default":  { "node_id": "44:2", "key": "f7fc281171a3d603d28cc612cbcb89cf891b7753" },
-        "Pressed":  { "node_id": "44:4", "key": "9a0f69aac20d764af0a46c35b893c5a100b9e907" },
-        "Disabled": { "node_id": "44:6", "key": "99879bad819761a8ac635a4bcf8609e0c44b01f0" },
-        "Loading":  { "node_id": "44:8", "key": "346821871fd6595ddaf0331e13796f0485b6c6a9" }
+        "Default": {
+          "node_id": "44:2",
+          "key": "f7fc281171a3d603d28cc612cbcb89cf891b7753"
+        },
+        "Pressed": {
+          "node_id": "44:4",
+          "key": "9a0f69aac20d764af0a46c35b893c5a100b9e907"
+        },
+        "Disabled": {
+          "node_id": "44:6",
+          "key": "99879bad819761a8ac635a4bcf8609e0c44b01f0"
+        },
+        "Loading": {
+          "node_id": "44:8",
+          "key": "346821871fd6595ddaf0331e13796f0485b6c6a9"
+        }
       },
       "$comment": "State-axis aux for Button. Documentation reference showing Default / Pressed (Glow/Orange) / Disabled (50% opacity) / Loading (spinner placeholder + 'Loading' label) on Primary Md. Engineering composes via Button — Disabled/Loading booleans land in a future iteration.",
       "created_at": "2026-05-28"
@@ -261,19 +399,60 @@
       "page_node_id": "17:11",
       "key": "caf35b7263bed56a90ce4113abd8a32d9fb6510d",
       "phase": "3A_atoms",
-      "size": { "w": 242, "h": 252 },
-      "variant_axes": { "Variant": ["Neutral","Filled","Outline"], "Active": ["False","True"] },
-      "variants": {
-        "Neutral/False": { "node_id": "46:2",  "key": "e65579007432aec1f4499f92faa4c4a65b2d0a9e" },
-        "Neutral/True":  { "node_id": "46:6",  "key": "3cf4a3108f8c50ed2e343577f3a492f2196bed6e" },
-        "Filled/False":  { "node_id": "46:10", "key": "a15e81407739992c90b0846fa5a17c5c7bb7cd23" },
-        "Filled/True":   { "node_id": "46:14", "key": "628bf725d6e57d5f0e2eb98f47e6597de980cc10" },
-        "Outline/False": { "node_id": "46:18", "key": "e37d08abdfb8df95b9bb4107068c1a4a44e0ebc3" },
-        "Outline/True":  { "node_id": "46:22", "key": "74d2c560fbb433f599f63848b3f99e674121b97c" }
+      "size": {
+        "w": 242,
+        "h": 252
       },
-      "properties": ["Label (TEXT)", "HasIcon (BOOLEAN)", "Icon (INSTANCE_SWAP)"],
-      "property_keys": { "label": "Label#46:0", "hasIcon": "HasIcon#46:7", "icon": "Icon#111:0" },
-      "icon_defaults": { "icon": "Icon/Sparkles (98:102)" },
+      "variant_axes": {
+        "Variant": [
+          "Neutral",
+          "Filled",
+          "Outline"
+        ],
+        "Active": [
+          "False",
+          "True"
+        ]
+      },
+      "variants": {
+        "Neutral/False": {
+          "node_id": "46:2",
+          "key": "e65579007432aec1f4499f92faa4c4a65b2d0a9e"
+        },
+        "Neutral/True": {
+          "node_id": "46:6",
+          "key": "3cf4a3108f8c50ed2e343577f3a492f2196bed6e"
+        },
+        "Filled/False": {
+          "node_id": "46:10",
+          "key": "a15e81407739992c90b0846fa5a17c5c7bb7cd23"
+        },
+        "Filled/True": {
+          "node_id": "46:14",
+          "key": "628bf725d6e57d5f0e2eb98f47e6597de980cc10"
+        },
+        "Outline/False": {
+          "node_id": "46:18",
+          "key": "e37d08abdfb8df95b9bb4107068c1a4a44e0ebc3"
+        },
+        "Outline/True": {
+          "node_id": "46:22",
+          "key": "74d2c560fbb433f599f63848b3f99e674121b97c"
+        }
+      },
+      "properties": [
+        "Label (TEXT)",
+        "HasIcon (BOOLEAN)",
+        "Icon (INSTANCE_SWAP)"
+      ],
+      "property_keys": {
+        "label": "Label#46:0",
+        "hasIcon": "HasIcon#46:7",
+        "icon": "Icon#111:0"
+      },
+      "icon_defaults": {
+        "icon": "Icon/Sparkles (98:102)"
+      },
       "$comment": "HasIcon promoted from variant axis to BOOLEAN (matches Button/Input). Active=True uses color/brand/cta for border + text in all 3 Variants; Filled+Active gets color/surface/glow-orange tint; Outline+Active uses 2px border. Neutral and Outline have transparent fill at rest. Atom #18 retrofit (2026-05-29): added Icon INSTANCE_SWAP (key Icon#111:0) with default Icon/Sparkles on all 6 variants. Sparkles is the AI-suggestion default (royal-purple semantic in code); designers swap to domain-relevant icons per instance. Slot is 16×16 (smaller than Button's 20×20).",
       "created_at": "2026-05-28"
     },
@@ -282,18 +461,60 @@
       "page_node_id": "17:11",
       "key": "8a48e47bba6048456605e1081e19df9656f18421",
       "phase": "3A_atoms",
-      "size": { "w": 1400, "h": 316 },
-      "variant_axes": { "SegmentCount": ["2","3","4"], "ActiveIndex": ["0","1","2","3"] },
+      "size": {
+        "w": 1400,
+        "h": 316
+      },
+      "variant_axes": {
+        "SegmentCount": [
+          "2",
+          "3",
+          "4"
+        ],
+        "ActiveIndex": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
       "variants": {
-        "SegmentCount=2, ActiveIndex=0": { "node_id": "49:2",  "key": "f66d9555178f30803ed134ea05eb2b2fbaf76e30" },
-        "SegmentCount=2, ActiveIndex=1": { "node_id": "49:7",  "key": "b9d16da8bcb7fbacde96f36b1db92d9a50afe5fd" },
-        "SegmentCount=3, ActiveIndex=0": { "node_id": "49:12", "key": "4b88721dd20cffe332721c6ffa96f180f50864c8" },
-        "SegmentCount=3, ActiveIndex=1": { "node_id": "49:19", "key": "50e3ec2a5a446cb53a083f4edbb93996826ba758" },
-        "SegmentCount=3, ActiveIndex=2": { "node_id": "49:26", "key": "a6903b6a15dab5b47a008ba12c59587989fe48ac" },
-        "SegmentCount=4, ActiveIndex=0": { "node_id": "49:33", "key": "dc63f0ec593833c11568a99eb66cae3a45829b49" },
-        "SegmentCount=4, ActiveIndex=1": { "node_id": "49:42", "key": "63d0da31a82b7a675c0cf0eefc1c167fef278e7d" },
-        "SegmentCount=4, ActiveIndex=2": { "node_id": "49:51", "key": "7217c125e94c9b72247de120673bcd07a516af68" },
-        "SegmentCount=4, ActiveIndex=3": { "node_id": "49:60", "key": "d5f2e9129c433932a621bc9ec27356fed16346dc" }
+        "SegmentCount=2, ActiveIndex=0": {
+          "node_id": "49:2",
+          "key": "f66d9555178f30803ed134ea05eb2b2fbaf76e30"
+        },
+        "SegmentCount=2, ActiveIndex=1": {
+          "node_id": "49:7",
+          "key": "b9d16da8bcb7fbacde96f36b1db92d9a50afe5fd"
+        },
+        "SegmentCount=3, ActiveIndex=0": {
+          "node_id": "49:12",
+          "key": "4b88721dd20cffe332721c6ffa96f180f50864c8"
+        },
+        "SegmentCount=3, ActiveIndex=1": {
+          "node_id": "49:19",
+          "key": "50e3ec2a5a446cb53a083f4edbb93996826ba758"
+        },
+        "SegmentCount=3, ActiveIndex=2": {
+          "node_id": "49:26",
+          "key": "a6903b6a15dab5b47a008ba12c59587989fe48ac"
+        },
+        "SegmentCount=4, ActiveIndex=0": {
+          "node_id": "49:33",
+          "key": "dc63f0ec593833c11568a99eb66cae3a45829b49"
+        },
+        "SegmentCount=4, ActiveIndex=1": {
+          "node_id": "49:42",
+          "key": "63d0da31a82b7a675c0cf0eefc1c167fef278e7d"
+        },
+        "SegmentCount=4, ActiveIndex=2": {
+          "node_id": "49:51",
+          "key": "7217c125e94c9b72247de120673bcd07a516af68"
+        },
+        "SegmentCount=4, ActiveIndex=3": {
+          "node_id": "49:60",
+          "key": "d5f2e9129c433932a621bc9ec27356fed16346dc"
+        }
       },
       "$comment": "9 variants (invalid Count×Index combos skipped). Pill container = color/surface/card + 1px color/alpha/white-10 stroke INSIDE. Segments 72×44 fixed; active = color/brand/cta fill + color/alpha/white-100 text; inactive = transparent fill + color/alpha/white-50 text. Text style = Button/Sm (Sora SemiBold). Padding + gap bound to spacing/4. Labels 1/2/3/4 — designers customize per-instance.",
       "created_at": "2026-05-28"
@@ -303,13 +524,37 @@
       "page_node_id": "17:11",
       "key": "b1a46425650b384ee2a371cef25fa704ccf40a93",
       "phase": "3A_atoms",
-      "size": { "w": 224, "h": 168 },
-      "variant_axes": { "On": ["False","True"], "Disabled": ["False","True"] },
+      "size": {
+        "w": 224,
+        "h": 168
+      },
+      "variant_axes": {
+        "On": [
+          "False",
+          "True"
+        ],
+        "Disabled": [
+          "False",
+          "True"
+        ]
+      },
       "variants": {
-        "On=False, Disabled=False": { "node_id": "48:2", "key": "25b08b00a664d1529d8f47f603038f02df22edbe" },
-        "On=True, Disabled=False":  { "node_id": "48:4", "key": "95d6a0ba59a8e5f966ba2643c92504d42b5473f3" },
-        "On=False, Disabled=True":  { "node_id": "48:6", "key": "640fbb97916af917bd0cc9d257d3d9de7844d05a" },
-        "On=True, Disabled=True":   { "node_id": "48:8", "key": "f5032f0da4d54eea662836f7690fcbe360e63467" }
+        "On=False, Disabled=False": {
+          "node_id": "48:2",
+          "key": "25b08b00a664d1529d8f47f603038f02df22edbe"
+        },
+        "On=True, Disabled=False": {
+          "node_id": "48:4",
+          "key": "95d6a0ba59a8e5f966ba2643c92504d42b5473f3"
+        },
+        "On=False, Disabled=True": {
+          "node_id": "48:6",
+          "key": "640fbb97916af917bd0cc9d257d3d9de7844d05a"
+        },
+        "On=True, Disabled=True": {
+          "node_id": "48:8",
+          "key": "f5032f0da4d54eea662836f7690fcbe360e63467"
+        }
       },
       "$comment": "Track 34×20 pill, thumb 16×16 white circle. Off track = color/alpha/white-15 (new primitive); On track = color/brand/cta. Disabled = opacity 0.5 on variant frame. Pure visual atom, no component properties.",
       "created_at": "2026-05-28"
@@ -319,17 +564,57 @@
       "page_node_id": "17:11",
       "key": "5440fe0de80ae4a8c4f3ed70269eb90593f6c575",
       "phase": "3A_atoms",
-      "size": { "w": 423, "h": 472 },
-      "variant_axes": { "State": ["Default","Focused","Disabled","Error"] },
-      "variants": {
-        "Default":  { "node_id": "45:2",  "key": "9320086f68e50bbe574a7bd05199abd4c3b3ef01" },
-        "Focused":  { "node_id": "45:9",  "key": "43b1af40f2b2090a65519ef8791d48d9ff2a81dd" },
-        "Disabled": { "node_id": "45:16", "key": "fad8b8b840d062dea7a19d4e6f0fe8ccf0e6b106" },
-        "Error":    { "node_id": "45:23", "key": "d9e4ac95a85fad14f10927bad757a20bf95660fd" }
+      "size": {
+        "w": 423,
+        "h": 472
       },
-      "properties": ["Label (TEXT)", "HasLabel (BOOLEAN)", "Value (TEXT)", "Helper (TEXT)", "HasHelper (BOOLEAN)", "HasRightIcon (BOOLEAN)", "RightIcon (INSTANCE_SWAP)"],
-      "property_keys": { "label": "Label#45:0", "hasLabel": "HasLabel#45:5", "value": "Value#45:10", "helper": "Helper#45:15", "hasHelper": "HasHelper#45:20", "hasRightIcon": "HasRightIcon#45:25", "rightIcon": "RightIcon#109:0" },
-      "icon_defaults": { "rightIcon": "Icon/Eye (94:43)" },
+      "variant_axes": {
+        "State": [
+          "Default",
+          "Focused",
+          "Disabled",
+          "Error"
+        ]
+      },
+      "variants": {
+        "Default": {
+          "node_id": "45:2",
+          "key": "9320086f68e50bbe574a7bd05199abd4c3b3ef01"
+        },
+        "Focused": {
+          "node_id": "45:9",
+          "key": "43b1af40f2b2090a65519ef8791d48d9ff2a81dd"
+        },
+        "Disabled": {
+          "node_id": "45:16",
+          "key": "fad8b8b840d062dea7a19d4e6f0fe8ccf0e6b106"
+        },
+        "Error": {
+          "node_id": "45:23",
+          "key": "d9e4ac95a85fad14f10927bad757a20bf95660fd"
+        }
+      },
+      "properties": [
+        "Label (TEXT)",
+        "HasLabel (BOOLEAN)",
+        "Value (TEXT)",
+        "Helper (TEXT)",
+        "HasHelper (BOOLEAN)",
+        "HasRightIcon (BOOLEAN)",
+        "RightIcon (INSTANCE_SWAP)"
+      ],
+      "property_keys": {
+        "label": "Label#45:0",
+        "hasLabel": "HasLabel#45:5",
+        "value": "Value#45:10",
+        "helper": "Helper#45:15",
+        "hasHelper": "HasHelper#45:20",
+        "hasRightIcon": "HasRightIcon#45:25",
+        "rightIcon": "RightIcon#109:0"
+      },
+      "icon_defaults": {
+        "rightIcon": "Icon/Eye (94:43)"
+      },
       "$comment": "Width 327 default (matches mobile content area). Per-variant helper text fill: Error → color/state/error, others → color/text/quaternary. HasHelper defaults to false — designers enable per use; Error variant inherits red helper styling when enabled. Atom #18 retrofit (2026-05-28): added RightIcon INSTANCE_SWAP (key RightIcon#109:0) with default Icon/Eye on all 4 State variants. Eye is the canonical password-reveal icon used most often in React (search-bar/clear and email/search inputs are forward-looking; designers swap per instance). Icon visibility still gated by HasRightIcon BOOLEAN (default false).",
       "created_at": "2026-05-28"
     },
@@ -338,16 +623,49 @@
       "page_node_id": "17:11",
       "key": "36c1dd3bb99e4b369d3bba42001d2c5a7571e7f0",
       "phase": "3A_atoms",
-      "size": { "w": 327, "h": 204 },
-      "variant_axes": { "State": ["Default","Focused","Filled"] },
-      "variants": {
-        "Default": { "node_id": "51:2",  "key": "6678bfd1af5a6237b1acd2e5a7818b55ef905c12" },
-        "Focused": { "node_id": "51:8",  "key": "d21418a55f5f0606fd58a1f842768972753e65c9" },
-        "Filled":  { "node_id": "51:14", "key": "d973eecb2e4679d492b5b82cad11117f5a46e8af" }
+      "size": {
+        "w": 327,
+        "h": 204
       },
-      "properties": ["Placeholder (TEXT)", "Value (TEXT)", "HasClearButton (BOOLEAN)", "SearchIcon (INSTANCE_SWAP)", "ClearIcon (INSTANCE_SWAP)"],
-      "property_keys": { "placeholder": "Placeholder#51:0", "value": "Value#51:4", "hasClearButton": "HasClearButton#51:8", "searchIcon": "SearchIcon#113:0", "clearIcon": "ClearIcon#113:4" },
-      "icon_defaults": { "searchIcon": "Icon/Search (98:39)", "clearIcon": "Icon/X (100:10)" },
+      "variant_axes": {
+        "State": [
+          "Default",
+          "Focused",
+          "Filled"
+        ]
+      },
+      "variants": {
+        "Default": {
+          "node_id": "51:2",
+          "key": "6678bfd1af5a6237b1acd2e5a7818b55ef905c12"
+        },
+        "Focused": {
+          "node_id": "51:8",
+          "key": "d21418a55f5f0606fd58a1f842768972753e65c9"
+        },
+        "Filled": {
+          "node_id": "51:14",
+          "key": "d973eecb2e4679d492b5b82cad11117f5a46e8af"
+        }
+      },
+      "properties": [
+        "Placeholder (TEXT)",
+        "Value (TEXT)",
+        "HasClearButton (BOOLEAN)",
+        "SearchIcon (INSTANCE_SWAP)",
+        "ClearIcon (INSTANCE_SWAP)"
+      ],
+      "property_keys": {
+        "placeholder": "Placeholder#51:0",
+        "value": "Value#51:4",
+        "hasClearButton": "HasClearButton#51:8",
+        "searchIcon": "SearchIcon#113:0",
+        "clearIcon": "ClearIcon#113:4"
+      },
+      "icon_defaults": {
+        "searchIcon": "Icon/Search (98:39)",
+        "clearIcon": "Icon/X (100:10)"
+      },
       "slot_fills_cleared_post_retrofit": true,
       "$comment": "327x52 pill container, color/surface/card + 1px stroke (white-10 default/filled, brand/cta focused) + Elevation/1. Two text nodes per variant: Placeholder (color/text/quaternary, visible Default+Focused) and Value (color/text/primary, visible Filled). HasClearButton BOOLEAN linked only to Filled variant's clearBtn.visible (default=true) — Default/Focused keep clearBtn.visible=false locally so switching variants doesn't drag the BOOLEAN with them. Atom #18 retrofit (2026-05-29): SearchIcon (INSTANCE_SWAP, key SearchIcon#113:0, default Icon/Search) and ClearIcon (INSTANCE_SWAP, key ClearIcon#113:4, default Icon/X) wired on all 3 variants — both icons are 16×16. The ClearIcon is wired on every variant (it lives inside Clear Button which is itself gated by HasClearButton visibility); the prop key just lets designers swap the X for e.g. a Trash or RotateCcw if context warrants.",
       "created_at": "2026-05-28"
@@ -357,27 +675,92 @@
       "page_node_id": "17:11",
       "key": "4891153ec6371869c0a1865968b3d0e76fe479c5",
       "phase": "3A_atoms",
-      "size": { "w": 332, "h": 300 },
-      "variant_axes": { "Rarity": ["Common","Uncommon","Rare","Epic","Legendary"], "Size": ["Sm","Md","Lg"] },
-      "variants": {
-        "Common/Sm":     { "node_id": "63:2",  "key": "8d9df46a21bc37903ef2eff045352902d21cd24c" },
-        "Common/Md":     { "node_id": "63:5",  "key": "304a1c7a76422f159e15ff7e7453cb20a84f3cde" },
-        "Common/Lg":     { "node_id": "63:8",  "key": "1607e9d2fc1dbee41ee92c3e90bc3d1c68aa749c" },
-        "Uncommon/Sm":   { "node_id": "63:11", "key": "f1affafc3f61a83f05f9616dfab1076fefb93af2" },
-        "Uncommon/Md":   { "node_id": "63:14", "key": "6322b7f263476dccf9c9b56a21361e7c4ab9608e" },
-        "Uncommon/Lg":   { "node_id": "63:17", "key": "120431e8e6263f61ff87fd5be806987cdffb8991" },
-        "Rare/Sm":       { "node_id": "63:20", "key": "9de716fe517237617aef717bdf2b9a2ae450940d" },
-        "Rare/Md":       { "node_id": "63:23", "key": "9497445736ae1b0ff0256a0100802cab36bdec5c" },
-        "Rare/Lg":       { "node_id": "63:26", "key": "dda06df5c1203f6f00993dfdbcb1a7541e4ef55a" },
-        "Epic/Sm":       { "node_id": "63:29", "key": "afa9528ebeff485cddcd36677cdf0510bdb5de12" },
-        "Epic/Md":       { "node_id": "63:32", "key": "9c92c73d9535176d622f293dc32af8d57fb4002e" },
-        "Epic/Lg":       { "node_id": "63:35", "key": "cc88003d26c88e7a4683c023cda6c1a92fd69e41" },
-        "Legendary/Sm":  { "node_id": "63:38", "key": "cc0ab35dbb96390d706b659efc541ce54d08ec00" },
-        "Legendary/Md":  { "node_id": "63:41", "key": "5b787551407505d13985d11731ed4cd12896e625" },
-        "Legendary/Lg":  { "node_id": "63:44", "key": "33a9ca11081fec742017c92ae3cceab9838bb3fa" }
+      "size": {
+        "w": 332,
+        "h": 300
       },
-      "properties": ["Level (TEXT)"],
-      "property_keys": { "level": "Level#63:0" },
+      "variant_axes": {
+        "Rarity": [
+          "Common",
+          "Uncommon",
+          "Rare",
+          "Epic",
+          "Legendary"
+        ],
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg"
+        ]
+      },
+      "variants": {
+        "Common/Sm": {
+          "node_id": "63:2",
+          "key": "8d9df46a21bc37903ef2eff045352902d21cd24c"
+        },
+        "Common/Md": {
+          "node_id": "63:5",
+          "key": "304a1c7a76422f159e15ff7e7453cb20a84f3cde"
+        },
+        "Common/Lg": {
+          "node_id": "63:8",
+          "key": "1607e9d2fc1dbee41ee92c3e90bc3d1c68aa749c"
+        },
+        "Uncommon/Sm": {
+          "node_id": "63:11",
+          "key": "f1affafc3f61a83f05f9616dfab1076fefb93af2"
+        },
+        "Uncommon/Md": {
+          "node_id": "63:14",
+          "key": "6322b7f263476dccf9c9b56a21361e7c4ab9608e"
+        },
+        "Uncommon/Lg": {
+          "node_id": "63:17",
+          "key": "120431e8e6263f61ff87fd5be806987cdffb8991"
+        },
+        "Rare/Sm": {
+          "node_id": "63:20",
+          "key": "9de716fe517237617aef717bdf2b9a2ae450940d"
+        },
+        "Rare/Md": {
+          "node_id": "63:23",
+          "key": "9497445736ae1b0ff0256a0100802cab36bdec5c"
+        },
+        "Rare/Lg": {
+          "node_id": "63:26",
+          "key": "dda06df5c1203f6f00993dfdbcb1a7541e4ef55a"
+        },
+        "Epic/Sm": {
+          "node_id": "63:29",
+          "key": "afa9528ebeff485cddcd36677cdf0510bdb5de12"
+        },
+        "Epic/Md": {
+          "node_id": "63:32",
+          "key": "9c92c73d9535176d622f293dc32af8d57fb4002e"
+        },
+        "Epic/Lg": {
+          "node_id": "63:35",
+          "key": "cc88003d26c88e7a4683c023cda6c1a92fd69e41"
+        },
+        "Legendary/Sm": {
+          "node_id": "63:38",
+          "key": "cc0ab35dbb96390d706b659efc541ce54d08ec00"
+        },
+        "Legendary/Md": {
+          "node_id": "63:41",
+          "key": "5b787551407505d13985d11731ed4cd12896e625"
+        },
+        "Legendary/Lg": {
+          "node_id": "63:44",
+          "key": "33a9ca11081fec742017c92ae3cceab9838bb3fa"
+        }
+      },
+      "properties": [
+        "Level (TEXT)"
+      ],
+      "property_keys": {
+        "level": "Level#63:0"
+      },
       "$comment": "15 variants in 5 Rarity × 3 Size grid at (80,1740). Pill (radius/pill), HUG width, fixed h per size: Sm=20 / Md=24 / Lg=28. Bg = solid bound to color/rarity/{name} with paint opacity 0.15 (alpha-tint mirroring DomainTag — zero new color tokens). Border = same rarity color at full opacity, 1px INSIDE. ◆ + 'Lv 1' text at full opacity in rarity color. Sora SemiBold override on top of size-appropriate text style (Sm=Small, Md=Caption, Lg=Body). Padding-x: Sm=spacing/6, Md=spacing/10 (new primitive, VariableID:62:2), Lg=spacing/12. Gap: Sm/Md=spacing/4, Lg=spacing/6. Elevation/1 shadow on every variant. Level TEXT prop default 'Lv 1' — single shared default works because all 15 variants have identical text content (DomainTag's per-variant text gotcha does NOT apply here). GOTCHA: setBoundVariableForPaint + spread+opacity pattern did NOT persist opacity 0.15 on first pass — required a follow-up read-modify-write pass (v.fills.map(p => ({...p, opacity:0.15}))). Cause unclear; prior atoms with same pattern (DomainTag) persisted correctly. For future alpha-tinted atoms, verify fill.opacity after creation and apply read-modify-write fix-up if needed.",
       "created_at": "2026-05-28"
     },
@@ -386,14 +769,32 @@
       "page_node_id": "17:11",
       "key": "013d89fcfce0e8c98b406b54adc84a02507f743f",
       "phase": "3A_atoms",
-      "size": { "w": 254, "h": 96 },
-      "variant_axes": { "Color": ["Default","Accent"] },
-      "variants": {
-        "Default": { "node_id": "68:2", "key": "b2b50eaef9549418a1879b1d252b903e7c954554" },
-        "Accent":  { "node_id": "68:4", "key": "606851e7977c34eabb51f940adb39590975dcc55" }
+      "size": {
+        "w": 254,
+        "h": 96
       },
-      "properties": ["Text (TEXT)"],
-      "property_keys": { "text": "Text#68:0" },
+      "variant_axes": {
+        "Color": [
+          "Default",
+          "Accent"
+        ]
+      },
+      "variants": {
+        "Default": {
+          "node_id": "68:2",
+          "key": "b2b50eaef9549418a1879b1d252b903e7c954554"
+        },
+        "Accent": {
+          "node_id": "68:4",
+          "key": "606851e7977c34eabb51f940adb39590975dcc55"
+        }
+      },
+      "properties": [
+        "Text (TEXT)"
+      ],
+      "property_keys": {
+        "text": "Text#68:0"
+      },
       "$comment": "2 variants on Atoms page (17:11) at (460, 1740). HUG/HUG auto-layout component wrapping a single Label text node. Eyebrow text style (S:04ba98…) linked — Sora SemiBold 12px UPPER 12% letter-spacing 130% line-height (all carried by the style; no override needed). Per-variant text fill: Default=color/text/quaternary (white/40, matches React code), Accent=color/brand/cta (forward-looking — code only has the Default styling). Text TEXT prop default 'EYEBROW' (single shared default OK — both variants have identical text content). GOTCHA: setting fontName AFTER setTextStyleIdAsync — even to the EXACT same fontName the style already uses — breaks the textStyleId link (left as ''). Required a follow-up setTextStyleIdAsync fix-up pass. For future atoms whose text style already provides the desired weight, SKIP the fontName-override step entirely.",
       "created_at": "2026-05-28"
     },
@@ -402,16 +803,46 @@
       "page_node_id": "17:11",
       "key": "da7f6abf5ef38be1c8e2bca9b77ab88439b655bc",
       "phase": "3A_atoms",
-      "size": { "w": 520, "h": 256 },
-      "variant_axes": { "Size": ["Sm","Md","Lg","Xl"] },
-      "variants": {
-        "Sm": { "node_id": "76:2",  "key": "be05c928690c2995621155f5228c758c3684f4c9", "px": 32 },
-        "Md": { "node_id": "76:6",  "key": "b5c11236d1ad526189a711af2ce2ab2f0bb0efc2", "px": 48 },
-        "Lg": { "node_id": "76:10", "key": "ec168ea6b01fabb205ce502b9dfd369425988d78", "px": 64 },
-        "Xl": { "node_id": "76:14", "key": "004dc532a374c06f9fd85bbb8e12466ca326ead7", "px": 96 }
+      "size": {
+        "w": 520,
+        "h": 256
       },
-      "properties": ["HasGlow (BOOLEAN)"],
-      "property_keys": { "hasGlow": "HasGlow#76:0" },
+      "variant_axes": {
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg",
+          "Xl"
+        ]
+      },
+      "variants": {
+        "Sm": {
+          "node_id": "76:2",
+          "key": "be05c928690c2995621155f5228c758c3684f4c9",
+          "px": 32
+        },
+        "Md": {
+          "node_id": "76:6",
+          "key": "b5c11236d1ad526189a711af2ce2ab2f0bb0efc2",
+          "px": 48
+        },
+        "Lg": {
+          "node_id": "76:10",
+          "key": "ec168ea6b01fabb205ce502b9dfd369425988d78",
+          "px": 64
+        },
+        "Xl": {
+          "node_id": "76:14",
+          "key": "004dc532a374c06f9fd85bbb8e12466ca326ead7",
+          "px": 96
+        }
+      },
+      "properties": [
+        "HasGlow (BOOLEAN)"
+      ],
+      "property_keys": {
+        "hasGlow": "HasGlow#76:0"
+      },
       "$comment": "4 variants on Atoms page (17:11) at (1400, 2080). Square N×N container per variant: Sm=32, Md=48 (code default), Lg=64, Xl=96. Each variant has 2 children: GlowBackground frame (full-size, radius/lg bound on all 4 corners, fill bound to color/brand/orange with paint opacity 0.15, Glow/Orange effect style) + LogoMark VECTOR imported via figma.createNodeFromSvg from balencia-screens/public/logos/Logo Mark.svg (single-path SVG, viewBox 204×239). Vector preserves 204:239 aspect (taller-than-wide) at every size, centered horizontally, top-aligned vertically; fill bound to color/brand/cta. HasGlow BOOLEAN property at the set level (key 'HasGlow#76:0') links to each GlowBackground.visible (default false). When true, the orange-tinted bg + Glow/Orange shadow appear; otherwise the vector floats on transparent. GOTCHA: setBoundVariableForPaint + spread+opacity DID strip opacity on the 4-variant BrandSymbol build (same gotcha as LevelBadge's 15-variant build, NOT the same as Divider's 8-variant build where the alpha was intrinsic to the variable itself). Required a follow-up read-modify-write pass (v.bg.fills.map(p => ({...p, opacity:0.15}))) — bg opacity verified 0.15 post-fix. Set frame has ink-900 bg + radius 24 for documentation visibility (doesn't propagate to instances).",
       "created_at": "2026-05-28"
     },
@@ -420,17 +851,55 @@
       "page_node_id": "17:11",
       "key": "76430c80ddedddc78bb07cf46114482929ee7e76",
       "phase": "3A_atoms",
-      "size": { "w": 1240, "h": 520 },
-      "variant_axes": { "Orientation": ["Horizontal","Vertical"], "Weight": ["Thin","Base","Bold","Poster"] },
+      "size": {
+        "w": 1240,
+        "h": 520
+      },
+      "variant_axes": {
+        "Orientation": [
+          "Horizontal",
+          "Vertical"
+        ],
+        "Weight": [
+          "Thin",
+          "Base",
+          "Bold",
+          "Poster"
+        ]
+      },
       "variants": {
-        "Horizontal/Thin":    { "node_id": "74:2", "key": "4654a0c1888f315ea577ee18d5311ba545bf2160" },
-        "Horizontal/Base":    { "node_id": "74:3", "key": "99c7a2bfe07623a634c86fda0e6d0cbc58d479d1" },
-        "Horizontal/Bold":    { "node_id": "74:4", "key": "6f25d23c5e45064252c9426ece99735d2a05214f" },
-        "Horizontal/Poster":  { "node_id": "74:5", "key": "ec84dc5819a569e3b400c1c0a15db5bd974205bc" },
-        "Vertical/Thin":      { "node_id": "74:6", "key": "888828ded8733b4ebb5189c8ce01a13067ed9038" },
-        "Vertical/Base":      { "node_id": "74:7", "key": "fbdfda048894aa0c3f146e97609c30d766e9bd5c" },
-        "Vertical/Bold":      { "node_id": "74:8", "key": "111ece6142e822ca13b3736f34042c2c5be6b86d" },
-        "Vertical/Poster":    { "node_id": "74:9", "key": "fc52b7d76721f184562818fea021c09fef2fd36b" }
+        "Horizontal/Thin": {
+          "node_id": "74:2",
+          "key": "4654a0c1888f315ea577ee18d5311ba545bf2160"
+        },
+        "Horizontal/Base": {
+          "node_id": "74:3",
+          "key": "99c7a2bfe07623a634c86fda0e6d0cbc58d479d1"
+        },
+        "Horizontal/Bold": {
+          "node_id": "74:4",
+          "key": "6f25d23c5e45064252c9426ece99735d2a05214f"
+        },
+        "Horizontal/Poster": {
+          "node_id": "74:5",
+          "key": "ec84dc5819a569e3b400c1c0a15db5bd974205bc"
+        },
+        "Vertical/Thin": {
+          "node_id": "74:6",
+          "key": "888828ded8733b4ebb5189c8ce01a13067ed9038"
+        },
+        "Vertical/Base": {
+          "node_id": "74:7",
+          "key": "fbdfda048894aa0c3f146e97609c30d766e9bd5c"
+        },
+        "Vertical/Bold": {
+          "node_id": "74:8",
+          "key": "111ece6142e822ca13b3736f34042c2c5be6b86d"
+        },
+        "Vertical/Poster": {
+          "node_id": "74:9",
+          "key": "fc52b7d76721f184562818fea021c09fef2fd36b"
+        }
       },
       "properties": [],
       "property_keys": {},
@@ -442,17 +911,47 @@
       "page_node_id": "17:11",
       "key": "97e728742f64112cec029f6b31fe00b98aee5a71",
       "phase": "3A_atoms",
-      "size": { "w": 240, "h": 240 },
-      "variant_axes": { "Variant": ["Primary","Ghost"], "State": ["Default","Pressed"] },
-      "variants": {
-        "Primary/Default": { "node_id": "79:2", "key": "d58a67e0203837ae61d7027645584387a4ec830e" },
-        "Primary/Pressed": { "node_id": "79:4", "key": "bf83ddea67581bf39cb983f968e107c0556d2c20" },
-        "Ghost/Default":   { "node_id": "79:6", "key": "d1bfa96a91b91dbbce256a919f4c5d013ba024ba" },
-        "Ghost/Pressed":   { "node_id": "79:8", "key": "9b6a65d39c72637a724e4f8cd8a63c39a166539d" }
+      "size": {
+        "w": 240,
+        "h": 240
       },
-      "properties": ["Icon (INSTANCE_SWAP)"],
-      "property_keys": { "icon": "Icon#115:0" },
-      "icon_defaults": { "icon": "Icon/Plus (98:5)" },
+      "variant_axes": {
+        "Variant": [
+          "Primary",
+          "Ghost"
+        ],
+        "State": [
+          "Default",
+          "Pressed"
+        ]
+      },
+      "variants": {
+        "Primary/Default": {
+          "node_id": "79:2",
+          "key": "d58a67e0203837ae61d7027645584387a4ec830e"
+        },
+        "Primary/Pressed": {
+          "node_id": "79:4",
+          "key": "bf83ddea67581bf39cb983f968e107c0556d2c20"
+        },
+        "Ghost/Default": {
+          "node_id": "79:6",
+          "key": "d1bfa96a91b91dbbce256a919f4c5d013ba024ba"
+        },
+        "Ghost/Pressed": {
+          "node_id": "79:8",
+          "key": "9b6a65d39c72637a724e4f8cd8a63c39a166539d"
+        }
+      },
+      "properties": [
+        "Icon (INSTANCE_SWAP)"
+      ],
+      "property_keys": {
+        "icon": "Icon#115:0"
+      },
+      "icon_defaults": {
+        "icon": "Icon/Plus (98:5)"
+      },
       "$comment": "4 variants on Atoms page (17:11) at (816, 2620), 2×2 grid (cols=Variant, rows=State). Scope decision: Phase 3A covers only the canonical 56×56 round icon FAB — the React component's `display='pill'` form (h=48 text+icon-side-by-side) defers to Phase 3B as a FABExtendedPill molecule, since it's structurally a labeled button, not a primitive. State-axis Pressed cue (React active:scale-[0.93] is a transient gesture — not statically modelable): Primary Pressed swaps Elevation/2 for Glow/Orange effect style (brand-glow reinforces brand bg); Ghost Pressed gets opacity 0.85 on the variant frame (subtle dim — Ghost lacks a brand tint to glow from). Container: 56×56, all 4 corners bound to radius/pill (var 9:8). Bg fills: Primary=color/brand/cta (5:13), Ghost=color/surface/card (5:4). Ghost stroke: 1px INSIDE color/alpha/white-06 (4:44). Default Elevation/2 shadow style. Atom #18 retrofit (2026-05-29): Icon INSTANCE_SWAP (key Icon#115:0) wired on all 4 variants with default Icon/Plus at 24×24. Slot frame's white-40 placeholder fill + 4px radius CLEARED post-retrofit — left intact would have shown a faint box behind the icon (the slot was originally a marker, not a chrome element). Same cleanup applied to SearchBar's 'Icon / Search' + 'Icon / X' slots. Mints zero new tokens.",
       "created_at": "2026-05-28"
     },
@@ -461,12 +960,42 @@
       "page_node_id": "17:11",
       "key": "7bb7a822bfe9611b8e1c484c31859d5ec088c27b",
       "phase": "3A_atoms",
-      "size": { "w": 656, "h": 128 },
-      "variant_axes": { "Size": ["Sm","Md","Lg"] },
+      "size": {
+        "w": 656,
+        "h": 128
+      },
+      "variant_axes": {
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg"
+        ]
+      },
       "variants": {
-        "Sm": { "node_id": "78:2",  "key": "ca9eb0eeee8198c602a6d286044d56187a833660", "px": { "w": 96,  "h": 24 } },
-        "Md": { "node_id": "78:14", "key": "43352b10e525bb95c14fcdae5811a7a8e4b8e758", "px": { "w": 128, "h": 32 } },
-        "Lg": { "node_id": "78:26", "key": "82fa94c158943063222428535e1dad3dce57587c", "px": { "w": 192, "h": 48 } }
+        "Sm": {
+          "node_id": "78:2",
+          "key": "ca9eb0eeee8198c602a6d286044d56187a833660",
+          "px": {
+            "w": 96,
+            "h": 24
+          }
+        },
+        "Md": {
+          "node_id": "78:14",
+          "key": "43352b10e525bb95c14fcdae5811a7a8e4b8e758",
+          "px": {
+            "w": 128,
+            "h": 32
+          }
+        },
+        "Lg": {
+          "node_id": "78:26",
+          "key": "82fa94c158943063222428535e1dad3dce57587c",
+          "px": {
+            "w": 192,
+            "h": 48
+          }
+        }
       },
       "properties": [],
       "property_keys": {},
@@ -478,13 +1007,39 @@
       "page_node_id": "17:11",
       "key": "f5dab7772b8726521548283a5afeeb1e745196ed",
       "phase": "3A_atoms",
-      "size": { "w": 632, "h": 96 },
-      "variant_axes": { "Weight": ["Thin","Base","Bold","Poster"] },
+      "size": {
+        "w": 632,
+        "h": 96
+      },
+      "variant_axes": {
+        "Weight": [
+          "Thin",
+          "Base",
+          "Bold",
+          "Poster"
+        ]
+      },
       "variants": {
-        "Thin":   { "node_id": "80:2",  "key": "b37639b866decbdec464378c0dd9d3dfdc5f44d3", "strokeWidth": 2 },
-        "Base":   { "node_id": "80:5",  "key": "a5fa2c795ae889aaaf59cc2da5936ef6f5ef01f9", "strokeWidth": 4 },
-        "Bold":   { "node_id": "80:8",  "key": "82fd3413b59f2e7d89d4b29958ac31fffa506aea", "strokeWidth": 6 },
-        "Poster": { "node_id": "80:11", "key": "5ab58663f3d2ff90181f77874d781ffdd8a63ffa", "strokeWidth": 8 }
+        "Thin": {
+          "node_id": "80:2",
+          "key": "b37639b866decbdec464378c0dd9d3dfdc5f44d3",
+          "strokeWidth": 2
+        },
+        "Base": {
+          "node_id": "80:5",
+          "key": "a5fa2c795ae889aaaf59cc2da5936ef6f5ef01f9",
+          "strokeWidth": 4
+        },
+        "Bold": {
+          "node_id": "80:8",
+          "key": "82fd3413b59f2e7d89d4b29958ac31fffa506aea",
+          "strokeWidth": 6
+        },
+        "Poster": {
+          "node_id": "80:11",
+          "key": "5ab58663f3d2ff90181f77874d781ffdd8a63ffa",
+          "strokeWidth": 8
+        }
       },
       "properties": [],
       "property_keys": {},
@@ -496,15 +1051,57 @@
       "page_node_id": "17:11",
       "key": "ab83166717928343e0d525c18aae1510e5d5e25d",
       "phase": "3A_atoms",
-      "size": { "w": 245, "h": 112 },
-      "variant_axes": { "Type": ["Life","Main","Side","Weekly","Daily","Group"] },
+      "size": {
+        "w": 245,
+        "h": 112
+      },
+      "variant_axes": {
+        "Type": [
+          "Life",
+          "Main",
+          "Side",
+          "Weekly",
+          "Daily",
+          "Group"
+        ]
+      },
       "variants": {
-        "Life":   { "node_id": "82:2",  "key": "102849b5d97cce7bbd736d4770d2b211393a0287", "w": 41, "color_token": "color/mission/gold"   },
-        "Main":   { "node_id": "82:4",  "key": "b09249ce858dafbeeefe38514f24398385285c75", "w": 47, "color_token": "color/mission/silver" },
-        "Side":   { "node_id": "82:6",  "key": "09b92e9b90f5e711b8cddbdb4ed25872aa33fca4", "w": 46, "color_token": "color/mission/bronze" },
-        "Weekly": { "node_id": "82:8",  "key": "e710b104e80d91fefb144dd7d6cab29f92e1bf27", "w": 61, "color_token": "color/mission/steel"  },
-        "Daily":  { "node_id": "82:10", "key": "0ac17d818ebcff5fb2f72d31857df01b2e146518", "w": 48, "color_token": "color/mission/sage"   },
-        "Group":  { "node_id": "82:12", "key": "d34395158c7bb94a120868af25f5c476cb59133e", "w": 56, "color_token": "color/mission/copper" }
+        "Life": {
+          "node_id": "82:2",
+          "key": "102849b5d97cce7bbd736d4770d2b211393a0287",
+          "w": 41,
+          "color_token": "color/mission/gold"
+        },
+        "Main": {
+          "node_id": "82:4",
+          "key": "b09249ce858dafbeeefe38514f24398385285c75",
+          "w": 47,
+          "color_token": "color/mission/silver"
+        },
+        "Side": {
+          "node_id": "82:6",
+          "key": "09b92e9b90f5e711b8cddbdb4ed25872aa33fca4",
+          "w": 46,
+          "color_token": "color/mission/bronze"
+        },
+        "Weekly": {
+          "node_id": "82:8",
+          "key": "e710b104e80d91fefb144dd7d6cab29f92e1bf27",
+          "w": 61,
+          "color_token": "color/mission/steel"
+        },
+        "Daily": {
+          "node_id": "82:10",
+          "key": "0ac17d818ebcff5fb2f72d31857df01b2e146518",
+          "w": 48,
+          "color_token": "color/mission/sage"
+        },
+        "Group": {
+          "node_id": "82:12",
+          "key": "d34395158c7bb94a120868af25f5c476cb59133e",
+          "w": 56,
+          "color_token": "color/mission/copper"
+        }
       },
       "properties": [],
       "property_keys": {},
@@ -516,15 +1113,46 @@
       "page_node_id": "17:11",
       "key": "53d159cbd68f0a4116cd6515983018e7bf0fe27e",
       "phase": "3A_atoms",
-      "size": { "w": 387, "h": 188 },
-      "variant_axes": { "Provider": ["Google","Apple"] },
-      "variants": {
-        "Google": { "node_id": "88:2", "key": "54d46c471b4ae7e5e104135e145336b4c5bd3a25", "icon": { "kind": "svg_vectors", "node_id_prefix": "88:2 > Icon", "child_vectors": 4 } },
-        "Apple":  { "node_id": "88:9", "key": "d41b28873bd6eb37ede3e49eed4a8d0c2bb1e47b", "icon": { "kind": "placeholder", "node_id": "88:10", "size": 20, "retrofit_atom": "Icon (Atom 18)" } }
+      "size": {
+        "w": 387,
+        "h": 188
       },
-      "properties": ["ProviderIcon (INSTANCE_SWAP)"],
-      "property_keys": { "providerIcon": "ProviderIcon#119:0" },
-      "icon_defaults": { "providerIcon": "Icon/Apple (92:10) — Apple variant only" },
+      "variant_axes": {
+        "Provider": [
+          "Google",
+          "Apple"
+        ]
+      },
+      "variants": {
+        "Google": {
+          "node_id": "88:2",
+          "key": "54d46c471b4ae7e5e104135e145336b4c5bd3a25",
+          "icon": {
+            "kind": "svg_vectors",
+            "node_id_prefix": "88:2 > Icon",
+            "child_vectors": 4
+          }
+        },
+        "Apple": {
+          "node_id": "88:9",
+          "key": "d41b28873bd6eb37ede3e49eed4a8d0c2bb1e47b",
+          "icon": {
+            "kind": "placeholder",
+            "node_id": "88:10",
+            "size": 20,
+            "retrofit_atom": "Icon (Atom 18)"
+          }
+        }
+      },
+      "properties": [
+        "ProviderIcon (INSTANCE_SWAP)"
+      ],
+      "property_keys": {
+        "providerIcon": "ProviderIcon#119:0"
+      },
+      "icon_defaults": {
+        "providerIcon": "Icon/Apple (92:10) — Apple variant only"
+      },
       "$comment": "2 Provider variants on Atoms page (17:11) at (440, 3100), vertically stacked (387×188 total). Each variant is a 327×52 FIXED auto-layout HORIZONTAL container with radius/lg, padding-x spacing/12, gap spacing/8, bg color/surface/card, border 1px INSIDE color/alpha/white-10 (alpha INTRINSIC to variable — Divider precedent, no fix-up). Per-variant icon strategy: Google variant keeps its baked-in 4-vector SVG (88:3, the multicolor Google G in raw brand RGB — NOT token-bound, brand-mandate). Apple variant has a 20×20 Icon slot frame (88:10). Atom #18 retrofit (2026-05-29): added ProviderIcon INSTANCE_SWAP at SET level (key ProviderIcon#119:0, default Icon/Apple = 92:10), with componentPropertyReferences linked ONLY on the Apple variant's new instance (119:18). Apple slot's white-40 placeholder fill cleared. Google variant's 4 VECTORs verified intact post-retrofit (the retrofit per-variant linkage pattern works: SET-level prop visible to all instances, but the swap only fires on variants whose icon-instance has the propRef wired). Per-variant labels DIFFER ('Continue with Google' / 'Continue with Apple') — NO Label TEXT property (DomainTag precedent — when per-variant text differs, SKIP the TEXT prop). Text style = Button/Md (Sora SemiBold 16px) — natively SemiBold, NO fontName override needed. Text fill = color/text/primary. Set frame bg = color/neutral/ink-900 + cornerRadius 24 for documentation visibility. Zero new tokens minted. This atom unblocks 03-welcome-sign-up and 04-sign-in screen rebuilds in Phase 4.",
       "created_at": "2026-05-28"
     },
@@ -533,14 +1161,35 @@
       "page_node_id": "17:11",
       "key": "ca91a1bb2e0b8150aff23b52000181c8378dd297",
       "phase": "3A_atoms",
-      "size": { "w": 288, "h": 96 },
-      "variant_axes": { "State": ["Default","Pressed"] },
-      "variants": {
-        "Default": { "node_id": "87:2", "key": "b77b46c8395e5688b07bdfa3a88a54d8c341ed29", "width": 102 },
-        "Pressed": { "node_id": "87:4", "key": "93d50eea3e169690d2fc2edce948912696ae860a", "width": 102, "opacity": 0.85 }
+      "size": {
+        "w": 288,
+        "h": 96
       },
-      "properties": ["Label (TEXT)"],
-      "property_keys": { "label": "Label#87:0" },
+      "variant_axes": {
+        "State": [
+          "Default",
+          "Pressed"
+        ]
+      },
+      "variants": {
+        "Default": {
+          "node_id": "87:2",
+          "key": "b77b46c8395e5688b07bdfa3a88a54d8c341ed29",
+          "width": 102
+        },
+        "Pressed": {
+          "node_id": "87:4",
+          "key": "93d50eea3e169690d2fc2edce948912696ae860a",
+          "width": 102,
+          "opacity": 0.85
+        }
+      },
+      "properties": [
+        "Label (TEXT)"
+      ],
+      "property_keys": {
+        "label": "Label#87:0"
+      },
       "$comment": "2 State variants on Atoms page (17:11) at (80, 3100). HUG width 102 × FIXED h=36 pill (radius/pill all 4 corners). Padding-x = spacing/12 (12), gap = spacing/4 (4). Bg = solid color/surface/card at full opacity. Border = 1px INSIDE color/brand/royal-purple at 35% paint-multiplier opacity. Text = color/brand/royal-purple full opacity. Text style = Button/Sm (Sora SemiBold 13px, 140% line-height) — chose Button/Sm over Body to natively carry SemiBold weight without fontName override, sidestepping the textStyleId-link gotcha (Eyebrow/MissionTypeBadge precedent). React code is 14px / 18px line-height — Button/Sm at 13px / ~18px is within visual tolerance and avoids any post-style fontName override. Scope decision per AskUserQuestion: option (a) State-only axis — no Domain variant axis. Per-domain styling (12 colors via domainToneClasses[domain]) is applied per-instance via manual border/text color edits. Pressed cue per AskUserQuestion: option (a) opacity 0.85 on the variant frame (FAB Ghost-Pressed precedent — card surface lacks a brand tint to glow from, so subtle dim is the cleanest static cue). Label TEXT prop default 'Suggestion' — single shared default works because both variants have identical text content (LevelBadge precedent, NOT DomainTag precedent — text is identical across variants). ⚠ PAINT-MULTIPLIER ALPHA GOTCHA: setBoundVariableForPaint + spread+opacity did NOT persist stroke opacity on first pass (variable is solid color, alpha applied as paint multiplier). Applied read-modify-write fix-up (v.comp.strokes.map(p => ({...p, opacity: 0.35}))). Post-fix verified 0.35. ⚠ HUG WIDTH GOTCHA: resize(140, 36) reverted primaryAxisSizingMode from AUTO to FIXED; re-applied AUTO post-resize so each variant HUGs to its label width (102px). MissionTypeBadge precedent. Bg fill (color/surface/card at full opacity) needed no fix-up — full opacity isn't subject to the paint-multiplier gotcha. Set frame bg = color/neutral/ink-900 + cornerRadius 24 for documentation visibility (does NOT propagate to instances). Zero new tokens minted. This atom unblocks any chat/conversation suggestion-row composition (SiaConversation, SiaChatTopBar quick-prompts).",
       "created_at": "2026-05-28"
     },
@@ -549,24 +1198,82 @@
       "page_node_id": "17:11",
       "key": "3c338b58e3a9afa9ea826810e9beef759a41dc66",
       "phase": "3A_atoms",
-      "size": { "w": 453, "h": 120 },
-      "variant_axes": { "Domain": ["Fitness","Sleep","Career","Nutrition","Finance","Faith","Productivity","Relationships","Wellbeing","Meditation","Creativity","Learning"] },
-      "variants": {
-        "Fitness":       { "node_id": "52:3",  "key": "be4fb96ad716a65c08c58870e65ee7f16d52e08c" },
-        "Sleep":         { "node_id": "52:6",  "key": "b348eaaed8f7daafb4f5085a48d22d1185ad7769" },
-        "Career":        { "node_id": "52:9",  "key": "a8985874041fec1983af7452f474846bed2e06a0" },
-        "Nutrition":     { "node_id": "52:12", "key": "3596c27a85a63b9ad3123a62a17eebcd1e121eff" },
-        "Finance":       { "node_id": "52:15", "key": "7fda72bbf0d85fbf9ac96602c2393c15dc297fd7" },
-        "Faith":         { "node_id": "52:18", "key": "2497c81e95390bfff6f282e1a98472fcb453d480" },
-        "Productivity":  { "node_id": "52:21", "key": "f765ae75b9707feaff315b0264f3d93a6daa9a5a" },
-        "Relationships": { "node_id": "52:24", "key": "1b45def34cc0091f791d87ab6300c191e44c3e52" },
-        "Wellbeing":     { "node_id": "52:27", "key": "505b27043cdc42fe76b46b7e19507b8c27fedc17" },
-        "Meditation":    { "node_id": "52:30", "key": "8d1994305da9704fb83112979d820da419a0db37" },
-        "Creativity":    { "node_id": "52:33", "key": "b7bc241a0e4bc7d0e7a1e1bcdc5d877b33c3fd00" },
-        "Learning":      { "node_id": "52:36", "key": "8b8bd9ae2c203033bd55950f8a3515409c5b3e02" }
+      "size": {
+        "w": 453,
+        "h": 120
       },
-      "properties": ["ShowDot (BOOLEAN)"],
-      "property_keys": { "showDot": "ShowDot#52:13" },
+      "variant_axes": {
+        "Domain": [
+          "Fitness",
+          "Sleep",
+          "Career",
+          "Nutrition",
+          "Finance",
+          "Faith",
+          "Productivity",
+          "Relationships",
+          "Wellbeing",
+          "Meditation",
+          "Creativity",
+          "Learning"
+        ]
+      },
+      "variants": {
+        "Fitness": {
+          "node_id": "52:3",
+          "key": "be4fb96ad716a65c08c58870e65ee7f16d52e08c"
+        },
+        "Sleep": {
+          "node_id": "52:6",
+          "key": "b348eaaed8f7daafb4f5085a48d22d1185ad7769"
+        },
+        "Career": {
+          "node_id": "52:9",
+          "key": "a8985874041fec1983af7452f474846bed2e06a0"
+        },
+        "Nutrition": {
+          "node_id": "52:12",
+          "key": "3596c27a85a63b9ad3123a62a17eebcd1e121eff"
+        },
+        "Finance": {
+          "node_id": "52:15",
+          "key": "7fda72bbf0d85fbf9ac96602c2393c15dc297fd7"
+        },
+        "Faith": {
+          "node_id": "52:18",
+          "key": "2497c81e95390bfff6f282e1a98472fcb453d480"
+        },
+        "Productivity": {
+          "node_id": "52:21",
+          "key": "f765ae75b9707feaff315b0264f3d93a6daa9a5a"
+        },
+        "Relationships": {
+          "node_id": "52:24",
+          "key": "1b45def34cc0091f791d87ab6300c191e44c3e52"
+        },
+        "Wellbeing": {
+          "node_id": "52:27",
+          "key": "505b27043cdc42fe76b46b7e19507b8c27fedc17"
+        },
+        "Meditation": {
+          "node_id": "52:30",
+          "key": "8d1994305da9704fb83112979d820da419a0db37"
+        },
+        "Creativity": {
+          "node_id": "52:33",
+          "key": "b7bc241a0e4bc7d0e7a1e1bcdc5d877b33c3fd00"
+        },
+        "Learning": {
+          "node_id": "52:36",
+          "key": "8b8bd9ae2c203033bd55950f8a3515409c5b3e02"
+        }
+      },
+      "properties": [
+        "ShowDot (BOOLEAN)"
+      ],
+      "property_keys": {
+        "showDot": "ShowDot#52:13"
+      },
       "$comment": "12 Domain variants in 4×3 grid (HUG width 56-106, h=24, radius/sm, padding-x spacing/8, gap spacing/6). Bg fill = solid bound to color/domain/{name} with paint opacity 0.15 (zero new color tokens — paint opacity multiplies the bound RGB). Dot (6×6 pill) + Label (Small text style + Sora SemiBold override, 11px) both at full opacity in the same domain color. Per-variant labels (Fitness/Sleep/…) are baked in locally — NO Label TEXT property because Figma's linked TEXT prop overrides per-variant characters with the shared prop default (incompatible with per-variant defaults). Designers pick the variant to get the right label; customization requires detach. Mints spacing/6 = 6px (new primitive, WIDTH_HEIGHT+GAP scopes, WEB syntax `6px`).",
       "created_at": "2026-05-28"
     },
@@ -575,12 +1282,42 @@
       "page_node_id": "17:12",
       "key": "14c04959827615943280665304b508de14d7a96b",
       "phase": "3B_molecules",
-      "size": { "w": 1141, "h": 194 },
-      "variant_axes": { "Variant": ["Default","Compact","Hero"] },
+      "size": {
+        "w": 1141,
+        "h": 194
+      },
+      "variant_axes": {
+        "Variant": [
+          "Default",
+          "Compact",
+          "Hero"
+        ]
+      },
       "variants": {
-        "Default": { "node_id": "124:2", "key": "22bfd5c096244f4052538af97fe0a72818c912c1", "w": 327, "h": 98,  "radius_token": "radius/xl",  "padding_token": "spacing/24" },
-        "Compact": { "node_id": "124:5", "key": "fbde6dfb4bfdc2a38e7cda77d7a72c06e332fef9", "w": 327, "h": 82,  "radius_token": "radius/md",  "padding_token": "spacing/16" },
-        "Hero":    { "node_id": "124:8", "key": "e9a9d7dcdac5e283678202c9a9998f924796be1c", "w": 327, "h": 114, "radius_token": "radius/2xl", "padding_token": "spacing/32" }
+        "Default": {
+          "node_id": "124:2",
+          "key": "22bfd5c096244f4052538af97fe0a72818c912c1",
+          "w": 327,
+          "h": 98,
+          "radius_token": "radius/xl",
+          "padding_token": "spacing/24"
+        },
+        "Compact": {
+          "node_id": "124:5",
+          "key": "fbde6dfb4bfdc2a38e7cda77d7a72c06e332fef9",
+          "w": 327,
+          "h": 82,
+          "radius_token": "radius/md",
+          "padding_token": "spacing/16"
+        },
+        "Hero": {
+          "node_id": "124:8",
+          "key": "e9a9d7dcdac5e283678202c9a9998f924796be1c",
+          "w": 327,
+          "h": 114,
+          "radius_token": "radius/2xl",
+          "padding_token": "spacing/32"
+        }
       },
       "properties": [],
       "property_keys": {},
@@ -592,14 +1329,38 @@
       "page_node_id": "17:12",
       "key": "616741cb9800d79a275c745b6026a7a4b8124b6f",
       "phase": "3B_molecules",
-      "size": { "w": 774, "h": 98 },
-      "variant_axes": { "WithAction": ["False","True"] },
-      "variants": {
-        "WithAction=False": { "node_id": "125:2", "key": "93ef9f1c9e86315a18f652c9de648a39dedadf2f", "w": 327, "h": 16 },
-        "WithAction=True":  { "node_id": "125:4", "key": "b8e361cec194ee03e38cc14609b3f58b58b24b9b", "w": 327, "h": 18 }
+      "size": {
+        "w": 774,
+        "h": 98
       },
-      "properties": ["Title (TEXT)", "ActionLabel (TEXT)"],
-      "property_keys": { "title": "Title#125:0", "actionLabel": "ActionLabel#125:3" },
+      "variant_axes": {
+        "WithAction": [
+          "False",
+          "True"
+        ]
+      },
+      "variants": {
+        "WithAction=False": {
+          "node_id": "125:2",
+          "key": "93ef9f1c9e86315a18f652c9de648a39dedadf2f",
+          "w": 327,
+          "h": 16
+        },
+        "WithAction=True": {
+          "node_id": "125:4",
+          "key": "b8e361cec194ee03e38cc14609b3f58b58b24b9b",
+          "w": 327,
+          "h": 18
+        }
+      },
+      "properties": [
+        "Title (TEXT)",
+        "ActionLabel (TEXT)"
+      ],
+      "property_keys": {
+        "title": "Title#125:0",
+        "actionLabel": "ActionLabel#125:3"
+      },
       "$comment": "2nd Phase 3B molecule. 2 WithAction variants on Molecules page (17:12) at (80, 380), horizontal row (set 774×98 with 40px padding + 40px itemSpacing, ink-900 bg + radius 24 for documentation visibility on Figma's light canvas — does NOT propagate to instances). Each variant is a 327 FIXED-wide × HUG-height HORIZONTAL auto-layout with primaryAxisAlignItems='SPACE_BETWEEN' + counterAxisAlignItems='CENTER'. Title text node: Eyebrow text style (Sora SemiBold 12px upper) + color/text/quaternary fill (matches Eyebrow atom Default variant). On True variant only, Action group = horizontal auto-layout with itemSpacing bound to spacing/4, containing: ActionLabel text (Button/Sm style = Sora SemiBold 13px + color/text/secondary fill) + ChevronRight icon instance (from 93:75) resized to 16×16 inheriting color/text/primary strokes from the Icon component. Title TEXT prop (key Title#125:0, default 'SECTION TITLE') linked to title.componentPropertyReferences.characters on BOTH variants (LevelBadge precedent — shared default works because both variants have identical default text). ActionLabel TEXT prop (key ActionLabel#125:3, default 'View all') linked to actionLabel.componentPropertyReferences.characters on the True variant only (no clobbering — only one variant has the text node). Title text uses Sora SemiBold via Eyebrow style natively (no fontName override needed — Eyebrow precedent). Action label uses Button/Sm SemiBold natively (no override). Composition pattern: SectionHeader does NOT instance the Eyebrow atom — instead uses a raw text node with the Eyebrow text style. Reason: linking a molecule-level TEXT prop to a nested instance's TEXT prop requires exposed-instance-property wiring, more complex than a flat text node when the atom is visually equivalent to 'styled text'. This is a deliberate composition trade-off for text-only atoms; for structural atoms (Button, ToggleSwitch, etc.) molecules WILL instance the atom directly. Zero new tokens minted.",
       "created_at": "2026-05-29"
     },
@@ -608,17 +1369,59 @@
       "page_node_id": "17:12",
       "key": "cf8f3249920c6913acf4db01e7fbe3dce0c87a34",
       "phase": "3B_molecules",
-      "size": { "w": 1508, "h": 132 },
-      "variant_axes": { "Trailing": ["Chevron","Toggle","Value","None"] },
-      "variants": {
-        "Trailing=Chevron": { "node_id": "128:3",  "key": "55d3fee83cc9878904e08e0be4d433a948a7cffd", "w": 327, "h": 52 },
-        "Trailing=Toggle":  { "node_id": "128:11", "key": "fb2f1dd1f73833d7e9dc66351612c114c07e2de5", "w": 327, "h": 52 },
-        "Trailing=Value":   { "node_id": "128:19", "key": "9e36c1367da800c4f282e305604d3ac697db374b", "w": 327, "h": 52 },
-        "Trailing=None":    { "node_id": "128:26", "key": "39ad38937cbf40f119c226ced48cc131227846d9", "w": 327, "h": 52 }
+      "size": {
+        "w": 1508,
+        "h": 132
       },
-      "properties": ["Title (TEXT)", "Value (TEXT)", "HasIcon (BOOLEAN)", "Icon (INSTANCE_SWAP)"],
-      "property_keys": { "title": "Title#128:0", "value": "Value#128:5", "hasIcon": "HasIcon#128:10", "icon": "Icon#128:15" },
-      "icon_defaults": { "icon": "Icon/Settings (98:43)" },
+      "variant_axes": {
+        "Trailing": [
+          "Chevron",
+          "Toggle",
+          "Value",
+          "None"
+        ]
+      },
+      "variants": {
+        "Trailing=Chevron": {
+          "node_id": "128:3",
+          "key": "55d3fee83cc9878904e08e0be4d433a948a7cffd",
+          "w": 327,
+          "h": 52
+        },
+        "Trailing=Toggle": {
+          "node_id": "128:11",
+          "key": "fb2f1dd1f73833d7e9dc66351612c114c07e2de5",
+          "w": 327,
+          "h": 52
+        },
+        "Trailing=Value": {
+          "node_id": "128:19",
+          "key": "9e36c1367da800c4f282e305604d3ac697db374b",
+          "w": 327,
+          "h": 52
+        },
+        "Trailing=None": {
+          "node_id": "128:26",
+          "key": "39ad38937cbf40f119c226ced48cc131227846d9",
+          "w": 327,
+          "h": 52
+        }
+      },
+      "properties": [
+        "Title (TEXT)",
+        "Value (TEXT)",
+        "HasIcon (BOOLEAN)",
+        "Icon (INSTANCE_SWAP)"
+      ],
+      "property_keys": {
+        "title": "Title#128:0",
+        "value": "Value#128:5",
+        "hasIcon": "HasIcon#128:10",
+        "icon": "Icon#128:15"
+      },
+      "icon_defaults": {
+        "icon": "Icon/Settings (98:43)"
+      },
       "$comment": "3rd Phase 3B molecule. 4 Trailing variants on Molecules page (17:12) at (80, 560), horizontal row (set 1508×132 with ink-900 bg + radius 24 documentation chrome). Each variant: 327 FIXED-wide × 52 FIXED-height HORIZONTAL auto-layout, bg color/surface/card, padding-x spacing/16, padding-y spacing/12, itemSpacing bound to spacing/12, counterAxisAlignItems='CENTER', primaryAxisAlignItems='MIN'. Scope decisions per AskUserQuestion: (a) Destructive variant SKIPPED — match Figma plan exactly, treat as per-instance manual override or future SettingsRowDestructive molecule. (b) Optional left icon ENABLED via HasIcon BOOLEAN + Icon INSTANCE_SWAP (Phase 3A Button/Input/Chip precedent). Children per variant: (1) IconGroup = 32×32 FRAME with color/alpha/white-06 fill + radius/pill on all 4 corners, holding a 16×16 Icon/Settings instance centered. iconGroup.visible defaults to false; gated by HasIcon BOOLEAN (key HasIcon#128:10) wired via iconGroup.componentPropertyReferences = { visible: hasIconKey } on all 4 variants. Icon INSTANCE_SWAP (key Icon#128:15, default Icon/Settings = 98:43) wired via iconInst.componentPropertyReferences = { mainComponent: iconPropKey } on all 4 variants. INSTANCE_SWAP defaultValue uses local node ID (98:43), NOT key — Phase 3A retrofit precedent. preferredValues uses { type: 'COMPONENT', key: <key> }. (2) Label TEXT (Body style + color/text/primary) FILL horizontal, Title TEXT prop (Title#128:0, default 'Setting label') linked on all 4 variants — LevelBadge precedent (shared default OK since all 4 variants default to the same label). (3) Trailing per variant: Chevron = ChevronRight icon instance (from 93:75) at 16×16; Toggle = ToggleSwitch atom instance (48:2 = On=False/Disabled=False — default state); Value = right-aligned Body text 'Value' (color/text/tertiary) with Value TEXT prop (Value#128:5) linked on the Value variant only (no clobbering); None = no trailing element. COMPOSITION CONVENTION REINFORCED: structural atoms (ToggleSwitch, Icon) are instanced directly, NOT rebuilt — Phase 3A precedent applied to molecules. NEW GOTCHA — figma.createComponent returns a COMPONENT which cannot have COMPONENT children — first attempt built iconGroup via mkAutoComp helper (creates COMPONENT) and appendChild threw 'Reparenting would create a component inside a component'. Fix: use figma.createAutoLayout for inner FRAMEs and reserve mkAutoComp for the variant wrappers only. Added mkAutoFrame helper (createAutoLayout + clear default white fill) for inner-block reuse. React divergence intentionally minimal: bottom border (border-b border-white/[0.05]) deliberately SKIPPED — it's a screen-composition concern (SettingsGroup wraps rows with overflow-hidden + rounded-xl, the divider lives between rows inside the group; an in-molecule border would render orphaned borders in single-row use). Designers add borders manually if needed via Figma's stroke per-side. Zero new tokens minted.",
       "created_at": "2026-05-29"
     },
@@ -627,18 +1430,53 @@
       "page_node_id": "17:12",
       "key": "a3894f9160b462086a86a22f8e3363ff08300486",
       "phase": "3B_molecules",
-      "size": { "w": 426, "h": 356 },
-      "variant_axes": { "Size": ["Sm","Md","Lg"], "Color": ["Brand","Success"] },
-      "variants": {
-        "Size=Sm, Color=Brand":   { "node_id": "137:5",  "key": "b3c920076c7eab86740b1a781d05f7695dbe8c0a" },
-        "Size=Md, Color=Brand":   { "node_id": "137:9",  "key": "9ba0a3e0abda3cc4e5cc3ccdd659f62ac448f43b" },
-        "Size=Lg, Color=Brand":   { "node_id": "137:13", "key": "a3c991eb7cffcb78cae8bd90095fe66dd1c62e07" },
-        "Size=Sm, Color=Success": { "node_id": "137:17", "key": "4089e3e3671bd7ceab4154b3f3ebe9cc5bef3cc9" },
-        "Size=Md, Color=Success": { "node_id": "137:21", "key": "4b2ca69c32d77b57b95a0448c0984388e1397dfc" },
-        "Size=Lg, Color=Success": { "node_id": "137:25", "key": "5a3508bf18a2211b6a5a6e0663e027fe5a151d04" }
+      "size": {
+        "w": 426,
+        "h": 356
       },
-      "properties": ["Percent (TEXT)"],
-      "property_keys": { "percent": "Percent#138:0" },
+      "variant_axes": {
+        "Size": [
+          "Sm",
+          "Md",
+          "Lg"
+        ],
+        "Color": [
+          "Brand",
+          "Success"
+        ]
+      },
+      "variants": {
+        "Size=Sm, Color=Brand": {
+          "node_id": "137:5",
+          "key": "b3c920076c7eab86740b1a781d05f7695dbe8c0a"
+        },
+        "Size=Md, Color=Brand": {
+          "node_id": "137:9",
+          "key": "9ba0a3e0abda3cc4e5cc3ccdd659f62ac448f43b"
+        },
+        "Size=Lg, Color=Brand": {
+          "node_id": "137:13",
+          "key": "a3c991eb7cffcb78cae8bd90095fe66dd1c62e07"
+        },
+        "Size=Sm, Color=Success": {
+          "node_id": "137:17",
+          "key": "4089e3e3671bd7ceab4154b3f3ebe9cc5bef3cc9"
+        },
+        "Size=Md, Color=Success": {
+          "node_id": "137:21",
+          "key": "4b2ca69c32d77b57b95a0448c0984388e1397dfc"
+        },
+        "Size=Lg, Color=Success": {
+          "node_id": "137:25",
+          "key": "5a3508bf18a2211b6a5a6e0663e027fe5a151d04"
+        }
+      },
+      "properties": [
+        "Percent (TEXT)"
+      ],
+      "property_keys": {
+        "percent": "Percent#138:0"
+      },
       "$comment": "4th Phase 3B molecule (B1 batch). 6 variants = Size(Sm=36/Md=48/Lg=96) × Color(Brand/Success). Color axis = React's two states (Brand=in-progress orange color/brand/cta, Success=complete green color/brand/success — code derives complete=progress>=1). Inventory's 3rd 'Domain' color DROPPED (no domain-colored ring in code; 'Domain' is not one token). Rings rendered as two concentric ELLIPSE donut-arcs via arcData (not SVG strokes): outer Ø=2*(r+stroke/2)=34/44/92 centered in the size box; innerRadius=(r-stroke/2)/(r+stroke/2)=0.765/0.818/0.826 sets band width. Track = full 0→2π sweep bound to color/alpha/white-10 (alpha intrinsic, no fix-up). Progress arc baked at 75% (start -π/2 top, clockwise — Figma angles increase clockwise from east), bound to color/brand/{cta|success} full opacity. Arc % can't be a Figma prop → static snapshot; rounded linecap not modeled (flat radial ends). Percent text = explicit Sora SemiBold 11/13/20px, NO style link (ramp has no SemiBold at these sizes — component-intrinsic type), fill color/text/primary. Percent TEXT prop (Percent#138:0, default '75') linked to all 6 variants (LevelBadge precedent). Components are plain absolute-canvas COMPONENTs (no auto-layout) — combineAsVariants accepts them. Zero new tokens minted.",
       "created_at": "2026-05-29"
     },
@@ -647,14 +1485,34 @@
       "page_node_id": "17:12",
       "key": "576edb521d9326702362c2464d5706fb6b8cc104",
       "phase": "3B_molecules",
-      "size": { "w": 407, "h": 158 },
-      "variant_axes": { "Variant": ["Default","Compact"] },
-      "variants": {
-        "Variant=Default": { "node_id": "141:5",  "key": "17c67f4205a03425de11d4ce64a5ff24ac3f87e8" },
-        "Variant=Compact": { "node_id": "141:11", "key": "3d1cf8ded4e9bf79bded443b355e6f81112fd00d" }
+      "size": {
+        "w": 407,
+        "h": 158
       },
-      "properties": ["Label (TEXT)", "Amount (TEXT)"],
-      "property_keys": { "label": "Label#142:0", "amount": "Amount#142:3" },
+      "variant_axes": {
+        "Variant": [
+          "Default",
+          "Compact"
+        ]
+      },
+      "variants": {
+        "Variant=Default": {
+          "node_id": "141:5",
+          "key": "17c67f4205a03425de11d4ce64a5ff24ac3f87e8"
+        },
+        "Variant=Compact": {
+          "node_id": "141:11",
+          "key": "3d1cf8ded4e9bf79bded443b355e6f81112fd00d"
+        }
+      },
+      "properties": [
+        "Label (TEXT)",
+        "Amount (TEXT)"
+      ],
+      "property_keys": {
+        "label": "Label#142:0",
+        "amount": "Amount#142:3"
+      },
       "$comment": "5th Phase 3B molecule (B1 batch). Default = label row (Label left + Amount right, SPACE_BETWEEN) over the track; Compact = track only (React renders label row conditionally). Both 327 FIXED-wide VERTICAL auto-layout, itemSpacing bound spacing/8. Track = plain FRAME 327×8 (clipsContent), bg bound color/alpha/white-08 (NEW primitive VariableID:140:2 minted this build), all corners radius/pill; inner Fill baked 70% width bound color/brand/cta + radius/pill (progress % is a static snapshot). Track height 8px intrinsic geometry (not token-bound). Label/Amount = explicit Sora SemiBold 11px, fill color/alpha/white-50, NO style link (component-intrinsic type). Label TEXT prop (Label#142:0) + Amount TEXT prop (Amount#142:3) linked on Default ONLY. Minted color/alpha/white-08.",
       "created_at": "2026-05-29"
     },
@@ -663,11 +1521,18 @@
       "page_node_id": "17:12",
       "key": "e0376460202f605f40766906cd85ad18ea6b18ae",
       "phase": "3B_molecules",
-      "size": { "w": 327, "h": 31 },
+      "size": {
+        "w": 327,
+        "h": 31
+      },
       "doc_frame_id": "144:5",
       "variant_axes": {},
-      "properties": ["Count (TEXT)"],
-      "property_keys": { "count": "Count#143:0" },
+      "properties": [
+        "Count (TEXT)"
+      ],
+      "property_keys": {
+        "count": "Count#143:0"
+      },
       "$comment": "6th Phase 3B molecule (B1 batch). NO variant axis → lone COMPONENT (not a set), baked at total=5/current=3. 327 FIXED-wide VERTICAL auto-layout, itemSpacing spacing/4. CountRow HORIZONTAL FILL justify-end → Count text '3 of 5' (Small style 11px Regular, fill color/alpha/white-40 — React text-small is weightless so Regular keeps the style link clean). Track = 327×12 plain FRAME with absolute children: Line 327×4@y4 (color/alpha/white-08, radius/pill) + 5 ELLIPSE dots, centers c_i=4+i·(327-8)/4. Dot states: complete=6×6 color/brand/success; current=8×8 color/brand/cta + Glow/Orange effect style; upcoming=6×6 color/alpha/white-20 (NEW primitive VariableID:143:5). Dot/line px sizes intrinsic geometry. Count TEXT prop (Count#143:0). Component transparent (screen overlay) → wrapped in plain ink-900 doc FRAME 144:5 for canvas legibility (chrome only, not a component, no instance propagation). Minted color/alpha/white-20.",
       "created_at": "2026-05-29"
     },
@@ -676,11 +1541,20 @@
       "page_node_id": "17:12",
       "key": "4bde438668cd24b492122899791064ca83101a0c",
       "phase": "3B_molecules",
-      "size": { "w": 65, "h": 52 },
+      "size": {
+        "w": 65,
+        "h": 52
+      },
       "doc_frame_id": "145:8",
       "variant_axes": {},
-      "properties": ["Value (TEXT)", "Label (TEXT)"],
-      "property_keys": { "value": "Value#145:0", "label": "Label#145:1" },
+      "properties": [
+        "Value (TEXT)",
+        "Label (TEXT)"
+      ],
+      "property_keys": {
+        "value": "Value#145:0",
+        "label": "Label#145:1"
+      },
       "$comment": "7th Phase 3B molecule (B1 batch). Matched React code exactly (Card precedent): React StatTile is a centered value+label column → no variant axis, lone COMPONENT. Inventory's Variant(Default/Compact)+Trend(Up/Down/Flat) axes & Delta prop DROPPED (not in code; future StatTileTrend molecule if needed — SettingsRow-Destructive precedent). VERTICAL auto-layout HUG/HUG, counterAxisAlignItems CENTER, itemSpacing spacing/4. Value = explicit Sora Bold 24px/lineHeight 30, fill color/text/primary, NO style link (no 24px Bold style — component-intrinsic type). Label = Caption style (13px Regular; React 12px weightless — closest clean link), fill color/alpha/white-50, center. Value TEXT prop (Value#145:0) + Label TEXT prop (Label#145:1). Component transparent (flex-1 in screen rows) → wrapped in ink-900 doc FRAME 145:8 (chrome only). Zero new tokens minted.",
       "created_at": "2026-05-29"
     },
@@ -689,15 +1563,31 @@
       "page_node_id": "17:12",
       "key": "c17b84219141387aa93e67af458b49b7e927bd44",
       "phase": "3B_molecules",
-      "size": { "w": 528, "h": 341 },
-      "variant_axes": { "State": ["InProgress","Achieved"] },
+      "size": {
+        "w": 528,
+        "h": 341
+      },
+      "variant_axes": {
+        "State": [
+          "InProgress",
+          "Achieved"
+        ]
+      },
       "variants": {
-        "State=InProgress": { "node_id": "147:6", "key": "6021093400eeac9f272f1d4a546b44375ae2d6ef" },
-        "State=Achieved":   { "node_id": "148:5", "key": "e6e8956f8c252cf69a354530ef8fe486972add85" }
+        "State=InProgress": {
+          "node_id": "147:6",
+          "key": "6021093400eeac9f272f1d4a546b44375ae2d6ef"
+        },
+        "State=Achieved": {
+          "node_id": "148:5",
+          "key": "e6e8956f8c252cf69a354530ef8fe486972add85"
+        }
       },
       "properties": [],
       "property_keys": {},
-      "minted_tokens": { "color/alpha/white-60": "VariableID:147:5" },
+      "minted_tokens": {
+        "color/alpha/white-60": "VariableID:147:5"
+      },
       "$comment": "8th Phase 3B molecule (B2 batch 'Domain widgets'). 2 State variants on Molecules page (17:12) at (80,1730). State axis = React's achieved boolean (progress>=1): InProgress (teal color/domain/wellbeing) vs Achieved (forest-green color/brand/success) — mirrors ProgressRing's Color axis (code derives complete state). SCOPE: bespoke 200px ring, does NOT instance ProgressRing (its sizes Sm36/Md48/Lg96 don't include 200, and WaterIntakeRing has unique center content + glow + status line). RING: two concentric ELLIPSE donut-arcs 188×188 at (6,6) via arcData (ProgressRing technique). Outer Ø=2*(88+6)=188; innerRadius=(88-6)/(88+6)=0.87234 gives the 12px band. Track = full 0→2π bound color/alpha/white-06 (alpha intrinsic, no fix-up). Progress start -π/2 clockwise: InProgress baked 75% bound color/domain/wellbeing; Achieved full sweep bound color/brand/success. Glow = 168×168 ELLIPSE at (16,16) + LAYER_BLUR 40 (React blur-2xl), tint @15% paint-multiplier (wellbeing / success) — REQUIRED read-modify-write opacity fix-up (LevelBadge/MissionTypeBadge precedent). Center col (VERTICAL HUG CENTER, gap spacing/4) centered absolutely in the 200 ring via computed x/y: number row (HORIZONTAL, counterAxis BASELINE, gap spacing/4) consumed (Sora Bold 36/40, color/text/primary) + '/' (Sora Regular 24/28, color/alpha/white-40) + target (Sora Bold 36/40, color/alpha/white-50); 'Glasses' (Sora Regular 14/18, color/alpha/white-50); ml caption 13/17 (InProgress Sora Regular bound color/domain/wellbeing @80% paint-multiplier fix-up, Achieved bound color/brand/success full). Status below at y=212 (React mt-3): InProgress '75% of daily target' (Sora SemiBold 15/20 bound color/alpha/white-60 = NEW primitive VariableID:147:5); Achieved status col (VERTICAL CENTER gap spacing/4) 'Target achieved +30 XP' (Sora SemiBold 15/20, color/brand/success) + 'at 6:30 PM' (Sora Regular 13/17, color/alpha/white-40). All text is component-intrinsic Sora (NO style links — ramp has no matching SemiBold/Bold sizes; ProgressRing/StatTile precedent). NO TEXT props — center data + status copy differ per variant (DomainTag/MissionTypeBadge precedent); designers override per-instance. Each variant is a plain (non-auto-layout) COMPONENT with absolute children. Set frame ink-900 bg + radius 24 for documentation visibility (no instance propagation). Minted color/alpha/white-60.",
       "created_at": "2026-05-29"
     },
@@ -706,16 +1596,47 @@
       "page_node_id": "17:12",
       "key": "0d68a190da7a7b3f332f93e689b8fe932286d2bd",
       "phase": "3B_molecules",
-      "size": { "w": 1157, "h": 136 },
-      "position": { "x": 80, "y": 2140 },
-      "variant_axes": { "Tone": ["Primary","Muted","Soft"] },
-      "variants": {
-        "Tone=Primary": { "node_id": "151:5",  "key": "a6049a8d1f4192fd8a5afb1d7d8808ae505ed399" },
-        "Tone=Muted":   { "node_id": "151:13", "key": "25e1f4521b68e6c9345b69d8ba3fdcbe612ae96d" },
-        "Tone=Soft":    { "node_id": "151:21", "key": "4c07bc3d60ebc46b04ec946c15d320284f81dce4" }
+      "size": {
+        "w": 1157,
+        "h": 136
       },
-      "properties": ["Label (TEXT)", "Value (TEXT)", "TargetLabel (TEXT)", "HasTarget (BOOLEAN)"],
-      "property_keys": { "label": "Label#152:0", "value": "Value#152:4", "targetLabel": "TargetLabel#152:8", "hasTarget": "HasTarget#152:12" },
+      "position": {
+        "x": 80,
+        "y": 2140
+      },
+      "variant_axes": {
+        "Tone": [
+          "Primary",
+          "Muted",
+          "Soft"
+        ]
+      },
+      "variants": {
+        "Tone=Primary": {
+          "node_id": "151:5",
+          "key": "a6049a8d1f4192fd8a5afb1d7d8808ae505ed399"
+        },
+        "Tone=Muted": {
+          "node_id": "151:13",
+          "key": "25e1f4521b68e6c9345b69d8ba3fdcbe612ae96d"
+        },
+        "Tone=Soft": {
+          "node_id": "151:21",
+          "key": "4c07bc3d60ebc46b04ec946c15d320284f81dce4"
+        }
+      },
+      "properties": [
+        "Label (TEXT)",
+        "Value (TEXT)",
+        "TargetLabel (TEXT)",
+        "HasTarget (BOOLEAN)"
+      ],
+      "property_keys": {
+        "label": "Label#152:0",
+        "value": "Value#152:4",
+        "targetLabel": "TargetLabel#152:8",
+        "hasTarget": "HasTarget#152:12"
+      },
       "$comment": "9th Phase 3B molecule (B2 batch). Placed at (80,2140) — moved below WaterIntakeRing (both were briefly at 1730). 3 Tone variants matching React fillClasses: Primary=color/brand/cta, Muted=color/alpha/white-40, Soft=color/alpha/white-20 (clean bind — cta full opacity, white-40/-20 intrinsic alpha, NO fix-up). Each variant 327 FIXED-wide VERTICAL auto-layout (counterAxis FIXED, primaryAxis HUG), itemSpacing bound spacing/8 (mb-2). LabelRow = HORIZONTAL FILL SPACE_BETWEEN + counterAxis CENTER, gap spacing/12: Label (Sora Regular 15/20, color/text/primary, FILL) + Value (Sora SemiBold 15/20, color/text/primary, HUG). TrackGroup = VERTICAL FILL, gap spacing/4 (mt-1): Track (plain FRAME FILL×8 FIXED, clipsContent, bg color/alpha/white-08, radius/pill) with absolute Fill RECTANGLE baked 229px (~70% static snapshot, XPBar precedent) bound per-tone + radius/pill; TargetLabel (Sora Regular 12/16, color/alpha/white-40). 15px/12px text is component-intrinsic Sora (NO style link). Track 8px + Fill 229px intrinsic geometry. PROPERTIES (shared defaults → linked across all 3 tones, XPBar/SettingsRow precedent): Label#152:0 'Protein', Value#152:4 '120g', TargetLabel#152:8 '120 / 150g', HasTarget#152:12 BOOLEAN default true gating TargetLabel.visible (React target? optional). Set frame ink-900 bg + radius 24 for documentation visibility. Zero new tokens minted.",
       "created_at": "2026-05-29"
     },
@@ -724,8 +1645,14 @@
       "page_node_id": "17:12",
       "key": "68d490b1601be30838ba5dba76f68c9871e5f95d",
       "phase": "3B_molecules",
-      "size": { "w": 327, "h": 96 },
-      "position": { "x": 80, "y": 2346 },
+      "size": {
+        "w": 327,
+        "h": 96
+      },
+      "position": {
+        "x": 80,
+        "y": 2346
+      },
       "variant_axes": {},
       "properties": [],
       "property_keys": {},
@@ -737,13 +1664,33 @@
       "page_node_id": "17:12",
       "key": "db490d7243063e9116255755e375c4c4a3482a57",
       "phase": "3B_molecules",
-      "size": { "w": 407, "h": 240 },
-      "position": { "x": 80, "y": 2520 },
-      "variant_axes": { "Sender": ["SIA", "User"] },
-      "properties": ["Body"],
-      "property_keys": { "Body": "Body#162:0" },
-      "variant_keys": { "Sender=SIA": "74d294820dc7adf4a148bc9cc5b68062f43ca013", "Sender=User": "3f8515ec128ae24865cc2644639f35c2590a1cc8" },
-      "minted_tokens": { "color/alpha/orange-20": "VariableID:160:3" },
+      "size": {
+        "w": 407,
+        "h": 240
+      },
+      "position": {
+        "x": 80,
+        "y": 2520
+      },
+      "variant_axes": {
+        "Sender": [
+          "SIA",
+          "User"
+        ]
+      },
+      "properties": [
+        "Body"
+      ],
+      "property_keys": {
+        "Body": "Body#162:0"
+      },
+      "variant_keys": {
+        "Sender=SIA": "74d294820dc7adf4a148bc9cc5b68062f43ca013",
+        "Sender=User": "3f8515ec128ae24865cc2644639f35c2590a1cc8"
+      },
+      "minted_tokens": {
+        "color/alpha/orange-20": "VariableID:160:3"
+      },
       "$comment": "11th Phase 3B molecule (B3 batch). SCOPE (match-code): React sender is 'sia'|'user' only (2 variants) — inventory's 'System' sender DROPPED (absent in code) and WithAvatar axis DROPPED (avatar is DERIVED from sender: SIA shows it, User never — ProgressRing/StatTile drop-speculative-axis precedent). Sender=SIA/User at (80,2520). Each variant = 327 FIXED HORIZONTAL auto-layout (w-full), counterAxis MIN (items-start), itemSpacing spacing/8 (gap-2); SIA primaryAxis MIN (justify-start), User MAX (justify-end). SIA: 24x24 Avatar (radius 9999, fill color/brand/royal-purple, 1px INSIDE stroke royal-purple @50% read-modify-write fix-up, Glow/Purple, 'S' Sora SemiBold 11 fill color/text/primary) + bubble. Bubble = VERTICAL auto-layout HUG maxWidth 250 (max-w-[250px]), padding 12/10 (px-3 py-2.5), Body text FILL. SIA bubble fill color/surface/card, stroke color/alpha/white-08, corners 16/16/16 + bottom-LEFT bound radius/xs (rounded-bl-xs). User bubble fill color/alpha/glow-orange-bg (= bg-brand-orange/15 exact token, no fix-up), stroke color/alpha/orange-20 (NEW VariableID:160:3 = rgba(255,94,0,0.2), mirrors border-brand-orange/20 ×8 in src), corners 16/16/16 + bottom-RIGHT bound radius/xs (rounded-br-xs). 16px corner = arbitrary value, hardcoded intrinsic; only 6px tail binds. 15px/22 text = intrinsic Sora Regular, NO style link. Body TEXT prop (Body#162:0, shared default) linked to both variants' Body node. Set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/orange-20.",
       "created_at": "2026-05-29"
     },
@@ -752,13 +1699,31 @@
       "page_node_id": "17:12",
       "key": "aa8fc84d66069248f839a09c5b697836aa299436",
       "phase": "3B_molecules",
-      "size": { "w": 407, "h": 284 },
-      "position": { "x": 80, "y": 2830 },
-      "variant_axes": { "State": ["Empty", "Typing", "Mic"] },
+      "size": {
+        "w": 407,
+        "h": 284
+      },
+      "position": {
+        "x": 80,
+        "y": 2830
+      },
+      "variant_axes": {
+        "State": [
+          "Empty",
+          "Typing",
+          "Mic"
+        ]
+      },
       "properties": [],
       "property_keys": {},
-      "variant_keys": { "State=Empty": "0caca97fd5a6c00d5afa3ef5374f5d73f1d33c01", "State=Typing": "c5a27928c9fdb6916b00929fe4917e8a29b9954e", "State=Mic": "fc6ce42946a33770ad46da3c35f64cf4604fd57d" },
-      "minted_tokens": { "color/alpha/white-30": "VariableID:160:2" },
+      "variant_keys": {
+        "State=Empty": "0caca97fd5a6c00d5afa3ef5374f5d73f1d33c01",
+        "State=Typing": "c5a27928c9fdb6916b00929fe4917e8a29b9954e",
+        "State=Mic": "fc6ce42946a33770ad46da3c35f64cf4604fd57d"
+      },
+      "minted_tokens": {
+        "color/alpha/white-30": "VariableID:160:2"
+      },
       "$comment": "12th Phase 3B molecule (B3 batch). SCOPE (match-code): no 'Recording' state in React — 3 real states derive from action('send'|'mic') + value. Inventory [Empty,Typing,Recording] RENAMED [Empty,Typing,Mic]: Empty/Typing = send (empty vs filled), Mic = action='mic' && !value. Disabled (opacity-60) NOT a 4th variant (pure-opacity overlay). NO component props — input text differs in content+color per variant so BAKED, not a linked TEXT prop. Each variant 327x52 FIXED HORIZONTAL auto-layout, counterAxis CENTER, primaryAxis SPACE_BETWEEN, padding L16/R4/T4/B4, all corners bound radius/pill, fill color/surface/card, 1px INSIDE stroke color/alpha/white-10. Input = Sora Regular 14/18 FILL (intrinsic, no 14px ramp): Empty/Mic placeholder color/alpha/white-30 (NEW VariableID:160:2 = rgba(255,255,255,0.3), mirrors placeholder:text-white/30 ×87 in src); Typing color/text/primary. Button = 44x44 createAutoLayout frame cornerRadius 9999: send variants fill color/brand/cta + Glow/Orange + ArrowUp instance (92:27 @16, white) — Empty opacity 0.45, Typing opacity 1; Mic fill color/surface/card + 1px INSIDE stroke color/alpha/white-10 + Mic instance (96:10 @18, stroke overridden color/alpha/white-60). Set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/white-30.",
       "created_at": "2026-05-29"
     },
@@ -767,12 +1732,39 @@
       "page_node_id": "17:12",
       "key": "b10ec97c7190861eecc644b45d284611c9dfca69",
       "phase": "3B_molecules",
-      "size": { "w": 782, "h": 476 },
-      "position": { "x": 80, "y": 3190 },
-      "variant_axes": { "State": ["Unread", "Read"], "Category": ["Sia", "Reminder", "CheckIn", "Social"] },
-      "properties": ["Title", "Preview", "Timestamp"],
-      "property_keys": { "Title": "Title#170:0", "Preview": "Preview#170:9", "Timestamp": "Timestamp#170:18" },
-      "minted_tokens": { "color/alpha/white-80": "VariableID:167:2" },
+      "size": {
+        "w": 782,
+        "h": 476
+      },
+      "position": {
+        "x": 80,
+        "y": 3190
+      },
+      "variant_axes": {
+        "State": [
+          "Unread",
+          "Read"
+        ],
+        "Category": [
+          "Sia",
+          "Reminder",
+          "CheckIn",
+          "Social"
+        ]
+      },
+      "properties": [
+        "Title",
+        "Preview",
+        "Timestamp"
+      ],
+      "property_keys": {
+        "Title": "Title#170:0",
+        "Preview": "Preview#170:9",
+        "Timestamp": "Timestamp#170:18"
+      },
+      "minted_tokens": {
+        "color/alpha/white-80": "VariableID:167:2"
+      },
       "$comment": "13th Phase 3B molecule (B3 batch). SCOPE (match-code): inventory pre-declared only State(Unread/Read), but React `category` ALSO varies the row (icon glyph + color via categoryMeta) — INSTANCE_SWAP can't carry per-category color so Category is a real 2nd axis. State(2)×Category(4)=8, within ≤30 cap. State → unread dot opacity 1/0 + title (Unread Sora SemiBold color/text/primary, Read Sora Regular color/alpha/white-80). Category → icon: Sia=Brain(93:11) color/brand/ai, Reminder=Bell(92:61) color/brand/cta, CheckIn=BarChart3(92:45) color/brand/success, Social=Users(99:89) color/alpha/white-60. Each variant 327 FIXED HORIZONTAL auto-layout counterAxis MIN, itemSpacing spacing/12 (gap-3), padding 16/12, minHeight 80 (min-h-20), fill color/surface/card. border-b SKIPPED (screen-composition concern, SettingsRow precedent). DotSlot = VERTICAL paddingTop 18 (mt-[18px] intrinsic) + 8x8 ELLIPSE color/brand/cta opacity 1/0. IconSlot = VERTICAL paddingTop spacing/8 (mt-2) + 24x24 category icon instance, stroke overridden to category color. Text = VERTICAL FILL itemSpacing 4: TitleRow HORIZONTAL FILL SPACE_BETWEEN [Title 15/20 FILL truncate-ENDING intrinsic Sora + Timestamp Sora Regular 12/16 HUG color/alpha/white-40]; Preview Caption style (13 Regular linked) color/alpha/white-50 FILL. Title/Preview/Timestamp TEXT props (shared defaults → linked across all 8; per-state title weight is node style not prop default, no clobber). Variants laid out in a manual 2-col (Unread|Read) x 4-row (category) grid; set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/white-80 (rgba 255,255,255,0.8; mirrors text-white/80 ×32 in src).",
       "created_at": "2026-05-29"
     },
@@ -781,13 +1773,46 @@
       "page_node_id": "17:12",
       "key": "75cc5815114a42446159cd0125f1f50676bfdc00",
       "phase": "3B_molecules",
-      "size": { "w": 407, "h": 777 },
-      "position": { "x": 80, "y": 3740 },
-      "variant_axes": { "State": ["Default", "Completed", "Stalled"] },
-      "properties": ["Title", "Subtitle", "HasChain", "HasPin"],
-      "property_keys": { "Title": "Title#175:0", "Subtitle": "Subtitle#175:4", "HasChain": "HasChain#175:8", "HasPin": "HasPin#175:12" },
-      "variant_keys": { "State=Default": "4c998d8e9244a4f4579b4fa8fd82c95c5d18521a", "State=Completed": "82ea2c8b4b3b53fd98b0de23683295c911455210", "State=Stalled": "11c17f0d90c9bc75ff2a4f23369dd6da19e133a0" },
-      "composes": ["ProgressRing 138:5", "MissionTypeBadge 82:14", "DomainTag 52:39", "ChainProgressBar 143:6", "Pin 96:97", "Flame 94:79"],
+      "size": {
+        "w": 407,
+        "h": 777
+      },
+      "position": {
+        "x": 80,
+        "y": 3740
+      },
+      "variant_axes": {
+        "State": [
+          "Default",
+          "Completed",
+          "Stalled"
+        ]
+      },
+      "properties": [
+        "Title",
+        "Subtitle",
+        "HasChain",
+        "HasPin"
+      ],
+      "property_keys": {
+        "Title": "Title#175:0",
+        "Subtitle": "Subtitle#175:4",
+        "HasChain": "HasChain#175:8",
+        "HasPin": "HasPin#175:12"
+      },
+      "variant_keys": {
+        "State=Default": "4c998d8e9244a4f4579b4fa8fd82c95c5d18521a",
+        "State=Completed": "82ea2c8b4b3b53fd98b0de23683295c911455210",
+        "State=Stalled": "11c17f0d90c9bc75ff2a4f23369dd6da19e133a0"
+      },
+      "composes": [
+        "ProgressRing 138:5",
+        "MissionTypeBadge 82:14",
+        "DomainTag 52:39",
+        "ChainProgressBar 143:6",
+        "Pin 96:97",
+        "Flame 94:79"
+      ],
       "minted_tokens": {},
       "$comment": "14th Phase 3B molecule (B3 batch). SCOPE (match-code, big-axis check): inventory pre-declared Type(6)×State(4)=24, but the CARD CHROME does NOT vary by mission.type — type only selects the nested MissionTypeBadge variant (82:14 already carries 6 types). Type axis DROPPED at card level (delegated to the nested badge instance). State reduced 4→3: MissionStatus='active'|'completed'|'paused' (data/mock.ts), distinct visuals only Default(active)/Completed(completed)/Stalled(paused); 'InProgress' DROPPED (identical to Default in code). 24→3 variants. State drives opacity (1 / 0.7 / 0.6), ProgressRing color (Completed→Success green else Brand), and footer (Completed green 'Completed' vs Flame+streak; BAKED per variant). Card root 327 FIXED VERTICAL auto-layout padding spacing/24, fill color/surface/card, 1px INSIDE stroke color/alpha/white-06, radius/xl=28, Elevation/1. Composes INSTANCES (createComponent allows INSTANCE children): ProgressRing (138:5 Sm/Brand, Completed→Success) in 64-wide STRETCH RingCol; MissionTypeBadge (82:14 Type=Main) + DomainTag (52:39 Fitness) in WRAP BadgeRow gap spacing/8; ChainProgressBar (143:6) gated HasChain; Pin (96:97 @12 color/alpha/white-30) absolute top-right gated HasPin; Flame (94:79 @12 color/alpha/white-40) in streak. Content itemSpacing spacing/8; NextGroup spacing/4. Title intrinsic Sora SemiBold 16/22 color/text/primary; Subtitle+SiaNote Caption style color/alpha/white-70 + white-50 truncate; XP/Completed/StreakText intrinsic Sora SemiBold 11/14 (color/brand/cta, color/brand/success, color/alpha/white-60); Difficulty dot 8x8 ELLIPSE color/brand/success (repr easy). PROPS: Title TEXT (Title#175:0) + Subtitle TEXT (Subtitle#175:4) shared linked across 3; HasChain BOOLEAN (HasChain#175:8 default true) gates Chain.visible; HasPin BOOLEAN (HasPin#175:12 default true) gates Pin.visible. Set frame ink-900 bg + radius 24 for doc visibility. Zero new tokens minted.",
       "created_at": "2026-05-29"
@@ -797,162 +1822,788 @@
       "page_node_id": "17:12",
       "key": "8fc23a517f653b508a92538380836c56120d1425",
       "phase": "3B_molecules",
-      "size": { "w": 878, "h": 520 },
-      "position": { "x": 80, "y": 4590 },
-      "variant_axes": { "Variant": ["Route", "Modal"] },
-      "properties": ["Title", "ShowClose"],
-      "property_keys": { "Title": "Title#178:0", "ShowClose": "ShowClose#178:3" },
-      "variant_keys": { "Variant=Route": "9cbe62188ee3a5886ec152658d7d0abb39029de3", "Variant=Modal": "7365ce20a3cd054eaa1dc4e9c0e1bea579baa90f" },
-      "composes": ["X 100:10"],
+      "size": {
+        "w": 878,
+        "h": 520
+      },
+      "position": {
+        "x": 80,
+        "y": 4590
+      },
+      "variant_axes": {
+        "Variant": [
+          "Route",
+          "Modal"
+        ]
+      },
+      "properties": [
+        "Title",
+        "ShowClose"
+      ],
+      "property_keys": {
+        "Title": "Title#178:0",
+        "ShowClose": "ShowClose#178:3"
+      },
+      "variant_keys": {
+        "Variant=Route": "9cbe62188ee3a5886ec152658d7d0abb39029de3",
+        "Variant=Modal": "7365ce20a3cd054eaa1dc4e9c0e1bea579baa90f"
+      },
+      "composes": [
+        "X 100:10"
+      ],
       "minted_tokens": {},
       "$comment": "15th Phase 3B molecule (B3 batch, FINAL — completes Phase 3B). SCOPE (match-code): inventory's [Closed,Open] is runtime VISIBILITY not a structural axis (Closed = not rendered) → DROPPED. Real React axis is the `variant` prop ('route'|'modal') → Variant=[Route,Modal]. Both share: 375 FIXED VERTICAL auto-layout, fill color/bg/screen (ink-900), top corners bound radius/lg=20 (rounded-t-lg), grab HandleRow (h-8=32 center, 36x4 RECTANGLE all-corners radius/pill fill color/alpha/white-20), Header (h-11=44 center, Title + absolute CloseButton), Content (FILL). Route: no border/shadow, no bottom padding (min-h-full, representative h 440). Modal: 1px INSIDE stroke color/alpha/white-08, Elevation/3 (shadow-3), paddingBottom 28 (pb-7), representative h 320. Title intrinsic Sora SemiBold 17/22 color/text/primary maxWidth 220 truncate (H3 is 17 Regular → weight mismatch, no link). CloseButton = 44x44 createAutoLayout, layoutPositioning ABSOLUTE left 16 vertical-center, X icon instance (100:10 @18, stroke color/alpha/white-60). ContentPlaceholder Sora Regular 13/18 color/alpha/white-40 (slot filler). PROPS: Title TEXT (Title#178:0 shared default) linked both; ShowClose BOOLEAN (ShowClose#178:3 default true) gates CloseButton.visible (React renders close only when closeHref/onClose present). Variants side-by-side (Route|Modal); set frame ink-900 bg + radius 24 for doc visibility (Route blends ink-on-ink — intentional, borderless full-screen route sheet). Zero new tokens minted.",
+      "created_at": "2026-05-29"
+    },
+    "ScheduleItem": {
+      "node_id": "180:2",
+      "page_node_id": "17:13",
+      "key": "8b0c08480453438350372b10428cc77bdea08a00",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 327,
+        "h": 48
+      },
+      "doc_frame": {
+        "node_id": "180:8",
+        "position": {
+          "x": 80,
+          "y": 80
+        },
+        "size": {
+          "w": 375,
+          "h": 96
+        }
+      },
+      "variant_axes": null,
+      "properties": [
+        "Time",
+        "Name"
+      ],
+      "property_keys": {
+        "Time": "Time#180:0",
+        "Name": "Name#180:1"
+      },
+      "composes": [
+        "DomainTag(52:39 ShowDot=false; instance 180:5)"
+      ],
+      "minted_tokens": {},
+      "$comment": "First Phase 3C organism (C1 batch), LONE COMPONENT (no variant axis). SCOPE (match-code): figma-components-map declared State[Upcoming/Active/Completed/Missed] but React ScheduleItem has NO state prop — it's a static time|name|tag row — so the State axis was DROPPED (match-code). 327 FIXED-wide HORIZONTAL auto-layout, counterAxisAlignItems CENTER, itemSpacing+paddingTop+paddingBottom all bound to spacing/12 (gap-3, py-3), paddingX 0, fills=[] (transparent row — background is the parent list). Children: Time TEXT (Button/Sm style Sora SemiBold 13, fill color/brand/cta, HUG width — see decision) + Time#180:0 TEXT prop default '9:00 AM'; Name TEXT (Sora Regular 15/20 non-ramp size so NO style link, fill color/text/primary, FILL horizontal, textTruncation ENDING) + Name#180:1 TEXT prop default 'Morning workout'; DomainTag instance (default variant Fitness, ShowDot=false). DECISION: React uses w-14 (56px) fixed time column but Sora SemiBold renders '9:00 AM' at 58px → wraps at 56; set time to HUG instead of guessing a magic width that fits all time strings (e.g. '12:30 PM'). Fixed time-column alignment is a list-composition concern (parent sets it), same rationale as the skipped row border. Row bottom-border (border-b border-white/[0.05]) SKIPPED (list-separator concern; NotificationRow/SettingsRow precedent). Transparent → wrapped in ink-900 doc FRAME (180:8, fill color/neutral/ink-900, cornerRadius 24, padding 24). GOTCHAS HIT: (1) getVariableByIdAsync REQUIRES the 'VariableID:' prefix — bare 'N:M' IDs from the mapping JSON return NULL and every setBoundVariable/setBoundVariableForPaint silently no-ops (colors stayed raw-but-correct, spacing stayed unbound). Re-did all bindings with 'VariableID:8:4' etc. APPLIES TO ALL REMAINING ORGANISMS. (2) DomainTag instances do NOT inherit the variant's 0.15 bg paint opacity — a FRESH instance shows opacity 1 (solid domain color → red-on-red label, invisible). Read-modify-write fix-up required on every DomainTag instance: inst.fills = inst.fills.map(p=>({...p,opacity:0.15})). APPLIES TO ALL ORGANISMS COMPOSING DomainTag.",
       "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
     "$comment": "Filled in Phase 3A Atom 18 (Icon registry). 142 flat 24×24 Lucide icon COMPONENTs on the '--- Icons ---' page (89:2), grid layout (12 cols × 80px cells, origin 80,80). Strokes bound to color/text/primary; strokeWeight=2 intrinsic; ROUND cap/join. Source: lucide-static@^1.17 SVGs (node_modules/lucide-static/icons/<kebab>.svg). PascalCase keys mirror the React import names from figma-icons-used.json — pascal field documents that. canonical reflects underlying lucide name when an alias was used (e.g. AlertCircle → CircleAlert). Page bg = raw ink-900 (#0A0A0F) — page backgrounds don't accept variable bindings, so the value is hardcoded (one-time tradeoff).",
-    "Activity":       { "node_id": "97:4",  "key": "eb19879cda8c7c2e6bfdb57882901f779e338785", "kebab": "activity" },
-    "AlertCircle":    { "node_id": "97:9",  "key": "4b249a0fc6c3805c8300fdf457ec4061e40ad11e", "kebab": "circle-alert" },
-    "AlertTriangle":  { "node_id": "92:6",  "key": "267ed519897b79bd97b92c3bec70b3c6ce0e0ee5", "kebab": "triangle-alert" },
-    "Apple":          { "node_id": "92:10", "key": "757245a3737e8bb0c58f499a3b10b9c9833fefe3", "kebab": "apple" },
-    "Archive":        { "node_id": "92:15", "key": "fa6fe3745e7fbb52d9d3a119430ce85d97e1bbcd", "kebab": "archive" },
-    "ArrowDown":      { "node_id": "92:19", "key": "68e48b14282bfe5fba3947c8e74f6d60d45cdf1a", "kebab": "arrow-down" },
-    "ArrowRight":     { "node_id": "92:23", "key": "ab846c85a381a070951283a9ece44e886af03019", "kebab": "arrow-right" },
-    "ArrowUp":        { "node_id": "92:27", "key": "50880a7c0db7c3cd934cc6af1a93e125f08198ea", "kebab": "arrow-up" },
-    "ArrowUpRight":   { "node_id": "92:31", "key": "ae9c5a890faa2af7928f5fe84fa713ca8dfd91a9", "kebab": "arrow-up-right" },
-    "AudioLines":     { "node_id": "92:39", "key": "f97c1a9162fe7fa3a63f63b4d9baff2f07a0c50c", "kebab": "audio-lines" },
-    "BarChart3":      { "node_id": "92:45", "key": "ed830989c831766b5b892847c8dc4a3703857996", "kebab": "chart-column" },
-    "BatteryCharging":{ "node_id": "92:51", "key": "fa60b10ff723091745a7fdb696babe51591b5b1d", "kebab": "battery-charging" },
-    "BatteryMedium":  { "node_id": "92:57", "key": "dca4db1401c6bd7545a1d0996390b23e8357aeb5", "kebab": "battery-medium" },
-    "Bell":           { "node_id": "92:61", "key": "a4c583a8e65bbf7dceb2c7e3e77a276df8526bda", "kebab": "bell" },
-    "BellRing":       { "node_id": "92:67", "key": "cdd746b9753d105e1d66ee33f035931194627afa", "kebab": "bell-ring" },
-    "Bird":           { "node_id": "92:75", "key": "9ac9cf5e3a4b689087fa1f8f1d60a868a5b1a20d", "kebab": "bird" },
-    "BookOpen":       { "node_id": "92:79", "key": "82902f8d2ea0fa62b75c118b06a2b4f1ef435de6", "kebab": "book-open" },
-    "Brain":          { "node_id": "93:11", "key": "6c600131e53bf81b994ca329488163c82a4047e2", "kebab": "brain" },
-    "Briefcase":      { "node_id": "93:15", "key": "170a84ed37ea3b726640bdd59bd88e51c6228d97", "kebab": "briefcase" },
-    "Calendar":       { "node_id": "93:21", "key": "cb3b260b5f4edb170fb19521ff2f9bed71d47bf3", "kebab": "calendar" },
-    "CalendarDays":   { "node_id": "93:33", "key": "7f336d3e125a7511347fac55de00fbf0c08213f8", "kebab": "calendar-days" },
-    "CalendarPlus":   { "node_id": "93:41", "key": "19bdee6eb3e5c5358d4215a1ff76f97114f6c034", "kebab": "calendar-plus" },
-    "Camera":         { "node_id": "93:45", "key": "5707f52f18ec3ee048e7223cdbf633d4c9ac073a", "kebab": "camera" },
-    "Car":            { "node_id": "93:51", "key": "851e731019deda22c7d470cbec234be4de114fbf", "kebab": "car" },
-    "Check":          { "node_id": "93:54", "key": "59a8d680acdc53e3fb469c794d6afbafc820a7a2", "kebab": "check" },
-    "CheckCheck":     { "node_id": "93:58", "key": "ceb82601cdbee1d98f1fdc560910ce92e84734a2", "kebab": "check-check" },
-    "CheckCircle2":   { "node_id": "93:62", "key": "3d6463203c4572c0afdc089d3d9aa502f06ab297", "kebab": "circle-check" },
-    "ChefHat":        { "node_id": "93:66", "key": "2cb447bfff62fec32d015191af2401511700f5d9", "kebab": "chef-hat" },
-    "ChevronDown":    { "node_id": "93:69", "key": "376cc9ad3af02abd983aa113f04682a26e7ba99e", "kebab": "chevron-down" },
-    "ChevronLeft":    { "node_id": "93:72", "key": "8e1fdf382760507d3d3e9c37a17318890e740c8b", "kebab": "chevron-left" },
-    "ChevronRight":   { "node_id": "93:75", "key": "ce5edd64b95326523a7bfba7ed847aa494c1363c", "kebab": "chevron-right" },
-    "Circle":         { "node_id": "93:78", "key": "0051bc71adb8987b7a2f7d611e3fb6db5c814e0c", "kebab": "circle" },
-    "CircleCheck":    { "node_id": "93:82", "key": "0d47fc3ce21bad1cade25408557b7b64ab644a85", "kebab": "circle-check" },
-    "CircleHelp":     { "node_id": "93:87", "key": "5c78a6bca65358f3711370213f1877dd25d18494", "kebab": "circle-question-mark" },
-    "Clock":          { "node_id": "93:91", "key": "176809717fd24a5e4bab073042ac3cc6c3ef5483", "kebab": "clock" },
-    "Clock3":         { "node_id": "93:95", "key": "e364d232d028ca4f267e8e00f3cd5ff9ff3c89f3", "kebab": "clock-3" },
-    "Cloud":          { "node_id": "93:98", "key": "e1a46455dd6071eb02e382df9757bfb6483cf4f8", "kebab": "cloud" },
-    "Coffee":         { "node_id": "94:7",  "key": "0d6cf2ebab2846cc26d20033bfa628881147d75c", "kebab": "coffee" },
-    "Compass":        { "node_id": "94:11", "key": "c3a53b719dd271976efb407a7474e3099c1edd25", "kebab": "compass" },
-    "CreditCard":     { "node_id": "94:15", "key": "a7f3b14f3959643cfcbce192021565c5f10bdca1", "kebab": "credit-card" },
-    "Database":       { "node_id": "94:20", "key": "1f129c79069f421a9ac951a10d6a799326885cf2", "kebab": "database" },
-    "Droplet":        { "node_id": "94:23", "key": "50bde3153eadeb8fa87830f3be4290ec16d4def4", "kebab": "droplet" },
-    "Droplets":       { "node_id": "94:27", "key": "ddd798cfea2a5cccfec777d66f66d8b29a332134", "kebab": "droplets" },
-    "Dumbbell":       { "node_id": "94:34", "key": "51c238b8234e69d9c61f3de229da4bbe6c1d7279", "kebab": "dumbbell" },
-    "ExternalLink":   { "node_id": "94:39", "key": "a80f18a1f1752a97135bccf293040c769399d796", "kebab": "external-link" },
-    "Eye":            { "node_id": "94:43", "key": "2a34e18d86d1d9a0a836ec1c02c6224f66f5a351", "kebab": "eye" },
-    "EyeOff":         { "node_id": "94:49", "key": "c518127dec8233443b37d8a7c3bd5c3f9c60b05b", "kebab": "eye-off" },
-    "FileSignature":  { "node_id": "94:55", "key": "1c0e02da433e8c4c5c8a4346f013ad5a723b5cd7", "kebab": "file-pen-line" },
-    "FileText":       { "node_id": "94:62", "key": "b4eab9e32270c9bd71012eb6ffc2c937ef8cdecc", "kebab": "file-text" },
-    "Fingerprint":    { "node_id": "94:73", "key": "f1ea87621c4f41f308678fca37be301b220d46f5", "kebab": "fingerprint-pattern" },
-    "Flag":           { "node_id": "94:76", "key": "f73375314a5a5c9dd3333c1c429820acc5536e88", "kebab": "flag" },
-    "Flame":          { "node_id": "94:79", "key": "50c79d2e88d1761608678e9d60d47940d7765751", "kebab": "flame" },
-    "Flower2":        { "node_id": "94:86", "key": "039a722d10bc7594939b7588f2d30a31a52739d0", "kebab": "flower-2" },
-    "Footprints":     { "node_id": "94:92", "key": "22b52450efaa94bb8247cf5b35cb6f0ef66dd163", "kebab": "footprints" },
-    "Forward":        { "node_id": "94:96", "key": "56b6ebc9955fb0c0cd109d3ef4164089377b519f", "kebab": "forward" },
-    "Funnel":         { "node_id": "94:99", "key": "9d6bfe586b68cf57d1d20a11118d3d2321e989ae", "kebab": "funnel" },
-    "Gift":           { "node_id": "94:105","key": "22de76fb0930a8fad79908d1363fe744be53f427", "kebab": "gift" },
-    "GitBranch":      { "node_id": "95:6",  "key": "3ba365e6be993fb641c1ec57c4ce398b41ee24e7", "kebab": "git-branch" },
-    "GripHorizontal": { "node_id": "95:14", "key": "dff427f2ba21e568118f4e671e62b20398afae7b", "kebab": "grip-horizontal" },
-    "Handshake":      { "node_id": "95:21", "key": "e82adcfad2cf69f85540674de3257cb106619278", "kebab": "handshake" },
-    "Headphones":     { "node_id": "95:24", "key": "fdb1ce2f35618b01ba7a38c3f0b2ca5c2a41acd7", "kebab": "headphones" },
-    "Heart":          { "node_id": "95:27", "key": "af8d7ab17a87229f9a2f4eaa7b4c7952bd7097fa", "kebab": "heart" },
-    "HeartPulse":     { "node_id": "95:31", "key": "1b28080e443233801ba75a10a34c95b74378638f", "kebab": "heart-pulse" },
-    "HelpCircle":     { "node_id": "95:36", "key": "84de6840c55acee84629204d8c56da5a1ecf56e5", "kebab": "circle-question-mark" },
-    "History":        { "node_id": "95:41", "key": "44c5f5fbb38d58dfe0778210005778375c015791", "kebab": "history" },
-    "Home":           { "node_id": "95:45", "key": "4a37341d8df20b536a35891cf748031be0f495f6", "kebab": "house" },
-    "Image":          { "node_id": "95:50", "key": "7aed2c11d111267feec316aa71621d030375a446", "kebab": "image" },
-    "Images":         { "node_id": "95:56", "key": "696834d974b3b874619d27ef5af243b0eb27b804", "kebab": "images" },
-    "Info":           { "node_id": "95:61", "key": "5bbb5be2a0cde7a210fdad0f10d2cba9d51d4c4f", "kebab": "info" },
-    "Leaf":           { "node_id": "95:65", "key": "49126cbe008de9d1c41ff43e4f2b2ffba4554850", "kebab": "leaf" },
-    "LifeBuoy":       { "node_id": "95:73", "key": "e0359696b4069c152c9ac3c4296dac3cab839960", "kebab": "life-buoy" },
-    "Lightbulb":      { "node_id": "95:78", "key": "1a139b7f2fc4c60968fbb4cc7f87ed5476dbdafe", "kebab": "lightbulb" },
-    "Link2":          { "node_id": "95:83", "key": "286b99fc450d6846446a83f5499e5bd35ff3acb1", "kebab": "link-2" },
-    "Lock":           { "node_id": "95:87", "key": "d9172f69dd6b4854090ad1614c43db575745b352", "kebab": "lock" },
-    "LockKeyhole":    { "node_id": "95:92", "key": "2021115ab9924189b1018c418c61a43161eaaf21", "kebab": "lock-keyhole" },
-    "MapPin":         { "node_id": "95:96", "key": "20a88608e1c968c237b344f92f5c9d9e7cca7631", "kebab": "map-pin" },
-    "MessageCircle":  { "node_id": "95:99", "key": "bcbca76f8db9eb71f646794bde6caf6e13a56de1", "kebab": "message-circle" },
-    "MessagesSquare": { "node_id": "96:5",  "key": "3eed68e86cbac1aebb4a3381b88d56fa9f6cfdd2", "kebab": "messages-square" },
-    "Mic":            { "node_id": "96:10", "key": "83756735b80221914c3765fd92c8508a09e7ba6f", "kebab": "mic" },
-    "Mic2":           { "node_id": "96:15", "key": "7436f0476a5442eb0b1a6564f503a0bbb26729ac", "kebab": "mic-vocal" },
-    "MicOff":         { "node_id": "96:23", "key": "0ba597d1d94bb1b88e6d1e9078e17763a093163e", "kebab": "mic-off" },
-    "Minus":          { "node_id": "96:26", "key": "9a478547e32dd62cdce13e03037557f80a7bf285", "kebab": "minus" },
-    "Moon":           { "node_id": "96:29", "key": "334c3e8264f1ddbc288e826d3f337fd88655ee9f", "kebab": "moon" },
-    "MoreHorizontal": { "node_id": "96:34", "key": "bf4da9ce577809505a21a26092ed2ffea10fff70", "kebab": "ellipsis" },
-    "MoreVertical":   { "node_id": "96:39", "key": "5bd5dcb532a57c667c33e338316939f47a208cf0", "kebab": "ellipsis-vertical" },
-    "Music2":         { "node_id": "96:43", "key": "0b002810570508b41a5da591fbcebccea7371448", "kebab": "music-2" },
-    "NotebookPen":    { "node_id": "96:51", "key": "290ad5d273dd3ab2a50d89721bb5d408514b7023", "kebab": "notebook-pen" },
-    "NotebookTabs":   { "node_id": "96:62", "key": "7f562fc596b89e4d266a18554ee5fc602eb96ba0", "kebab": "notebook-tabs" },
-    "Palette":        { "node_id": "96:69", "key": "d9b50ea638da2d1923105a10365b17ae65f1a706", "kebab": "palette" },
-    "Pause":          { "node_id": "96:73", "key": "05841008d11b9f58103bcb1ff0881dbd351e94f9", "kebab": "pause" },
-    "PenLine":        { "node_id": "96:77", "key": "822c6f0f2d422a2a9ff9db0420ec40382dc0197d", "kebab": "pen-line" },
-    "Pencil":         { "node_id": "96:81", "key": "52fa0249655e26a09ada6a5d881006a0b5bb0f4a", "kebab": "pencil" },
-    "PencilLine":     { "node_id": "96:86", "key": "2e2d2c05fdaa5c9db02d7f5f2959f46a2e6f2137", "kebab": "pencil-line" },
-    "Phone":          { "node_id": "96:89", "key": "33feba19f09199426a377a72fe0e440dd07fe031", "kebab": "phone" },
-    "Pill":           { "node_id": "96:93", "key": "b999c4fdfff4d809734c48ccc4cff2c5c05b6664", "kebab": "pill" },
-    "Pin":            { "node_id": "96:97", "key": "fdbab02cddb7c2c99b12f2770ddb35d791edac0b", "kebab": "pin" },
-    "Play":           { "node_id": "96:100","key": "7c75a443c9f55b06d8bacfb797e0a8da22e43784", "kebab": "play" },
-    "Plus":           { "node_id": "98:5",  "key": "547267281ab07905482e0880528e6bab44b1435f", "kebab": "plus" },
-    "ReceiptText":    { "node_id": "98:11", "key": "61e4516cfdd86d09ca98af26be421a6090d54eb4", "kebab": "receipt-text" },
-    "RefreshCw":      { "node_id": "98:17", "key": "d82f441d66bc7d4a278aaa168b549b6a503f2a1d", "kebab": "refresh-cw" },
-    "RotateCcw":      { "node_id": "98:21", "key": "9cd62c4e860c255b0d5175c642bf97e3f9bd25eb", "kebab": "rotate-ccw" },
-    "Ruler":          { "node_id": "98:28", "key": "ebb7467283fed02c834a7cef2652017a059cdf0c", "kebab": "ruler" },
-    "Scale":          { "node_id": "98:35", "key": "f6916c0bd9befc84dad93cefa971f160a8f8ba82", "kebab": "scale" },
-    "Search":         { "node_id": "98:39", "key": "1c23aa2978088153a4697e7237e1aa6c8656276f", "kebab": "search" },
-    "Settings":       { "node_id": "98:43", "key": "15594c6fe3ac3d727c06f30130b8a1a672832a5c", "kebab": "settings" },
-    "Share2":         { "node_id": "98:50", "key": "431cf450143e8a6ca57c4d03ad01270c3a43c73e", "kebab": "share-2" },
-    "Shield":         { "node_id": "98:53", "key": "65f68dbb50d014e3db11bde41af38b766c620384", "kebab": "shield" },
-    "ShieldAlert":    { "node_id": "98:58", "key": "781e0833f0c837645aeb3f8728f45a18e22439b3", "kebab": "shield-alert" },
-    "ShieldCheck":    { "node_id": "98:62", "key": "67d1f3d19f8b76fd01e8589fcbcf545c781666ed", "kebab": "shield-check" },
-    "ShoppingCart":   { "node_id": "98:67", "key": "3c172ef4355a359fd4e83cf3bf01e31eb7ad411e", "kebab": "shopping-cart" },
-    "SkipForward":    { "node_id": "98:71", "key": "33c8bfc286514c533a4911833ea606f4c93d2d37", "kebab": "skip-forward" },
-    "SlidersHorizontal": { "node_id": "98:82", "key": "dd809010ce56aa2026a67065759bf8f823335f5e", "kebab": "sliders-horizontal" },
-    "Snowflake":      { "node_id": "98:96", "key": "4eabb00bb2511532c79faf0933ac1fae1d32a42b", "kebab": "snowflake" },
-    "Sparkles":       { "node_id": "98:102","key": "d85f5fccd774ce2812601271b4cbb2b01b1dd44f", "kebab": "sparkles" },
-    "Square":         { "node_id": "98:105","key": "22f62f764830ea349deb668e69bea7067204a67d", "kebab": "square" },
-    "Star":           { "node_id": "98:108","key": "ebb29ae60950656e0051016dc6e0fe456fe6b355", "kebab": "star" },
-    "StickyNote":     { "node_id": "98:112","key": "b67b3aaa0e08bb17d8f4e2dece2594f11cf6509a", "kebab": "sticky-note" },
-    "SunMedium":      { "node_id": "99:12", "key": "89074cbb0984fab6fdd4e50b4b31a3035e8b1f5a", "kebab": "sun-medium" },
-    "Target":         { "node_id": "99:17", "key": "e229da031fce7664b87fffa1ee8d9bc8339d4986", "kebab": "target" },
-    "ThumbsDown":     { "node_id": "99:21", "key": "ceac72920dfa59e69c8290aedaf9e9aa8cc64b7a", "kebab": "thumbs-down" },
-    "ThumbsUp":       { "node_id": "99:25", "key": "9a07b398ef07eab5d1da2944812e019a2b672a45", "kebab": "thumbs-up" },
-    "Timer":          { "node_id": "99:30", "key": "a457cb6d262b624f01a6c753d57d92a84a9bed34", "kebab": "timer" },
-    "TimerReset":     { "node_id": "99:36", "key": "81fb91f83be7df9bbbd501c87af61b10b58110f3", "kebab": "timer-reset" },
-    "Trash2":         { "node_id": "99:43", "key": "70e0a32c8ac6666348cdcc0d4dde393026b0d6d4", "kebab": "trash-2" },
-    "TrendingUp":     { "node_id": "99:47", "key": "299f75f7a250a2b084093bdd05f496a2e3e7cd5f", "kebab": "trending-up" },
-    "TriangleAlert":  { "node_id": "99:52", "key": "f08d877fd131f4cb4e8c3c458f6a6c78975d0e00", "kebab": "triangle-alert" },
-    "Trophy":         { "node_id": "99:60", "key": "bbfd6653f686976569372003b99cc98fd9f4ad8c", "kebab": "trophy" },
-    "Unlink":         { "node_id": "99:68", "key": "71c4029ed9e064452468dd4c83c821572eda2d4c", "kebab": "unlink" },
-    "Upload":         { "node_id": "99:73", "key": "62bf470fe57081a07fb86f15b9ca002e39aefc1b", "kebab": "upload" },
-    "User":           { "node_id": "99:77", "key": "97c3845bbfeb51307baf1a31a033192d196ce6b5", "kebab": "user" },
-    "UserPlus":       { "node_id": "99:83", "key": "de6bcc16297e2bc0f6f287cf7608469a9af27de9", "kebab": "user-plus" },
-    "Users":          { "node_id": "99:89", "key": "644e688ba66a9ee0abb9319e818884662d5a065a", "kebab": "users" },
-    "Utensils":       { "node_id": "99:94", "key": "0495a6b35b066b2f0054b49888bf81cfc4fdccc2", "kebab": "utensils" },
-    "Video":          { "node_id": "99:98", "key": "c2d07fcadb6bd414118898b1844c238e00e3f1be", "kebab": "video" },
-    "Wallet":         { "node_id": "99:102","key": "c87d076c2f63d74c7dce2fdaf2811eb0dd9581fb", "kebab": "wallet" },
-    "WalletCards":    { "node_id": "99:107","key": "98b7d95f61b4f77a5ea42e9bb4fcd5fb9641848b", "kebab": "wallet-cards" },
-    "Watch":          { "node_id": "99:113","key": "7f5cc0b98b2af3297afd597be8fbeca8736faaef", "kebab": "watch" },
-    "Wind":           { "node_id": "100:6", "key": "c24df3a6146dcf7bb8c096defc94b1577dfa84c8", "kebab": "wind" },
-    "X":              { "node_id": "100:10","key": "8f15ee67f64b9f2f2356cddf80a3eccc9677aea5", "kebab": "x" },
-    "Zap":            { "node_id": "100:13","key": "a35f608084099abfb241445649280670363de280", "kebab": "zap" },
-    "ZoomIn":         { "node_id": "100:19","key": "4143539d4745ab776b0b9ccaef12a11ff3d3ad76", "kebab": "zoom-in" },
-    "ZoomOut":        { "node_id": "100:24","key": "79e2b59ee26268465754b692db975f1c49c741b8", "kebab": "zoom-out" }
+    "Activity": {
+      "node_id": "97:4",
+      "key": "eb19879cda8c7c2e6bfdb57882901f779e338785",
+      "kebab": "activity"
+    },
+    "AlertCircle": {
+      "node_id": "97:9",
+      "key": "4b249a0fc6c3805c8300fdf457ec4061e40ad11e",
+      "kebab": "circle-alert"
+    },
+    "AlertTriangle": {
+      "node_id": "92:6",
+      "key": "267ed519897b79bd97b92c3bec70b3c6ce0e0ee5",
+      "kebab": "triangle-alert"
+    },
+    "Apple": {
+      "node_id": "92:10",
+      "key": "757245a3737e8bb0c58f499a3b10b9c9833fefe3",
+      "kebab": "apple"
+    },
+    "Archive": {
+      "node_id": "92:15",
+      "key": "fa6fe3745e7fbb52d9d3a119430ce85d97e1bbcd",
+      "kebab": "archive"
+    },
+    "ArrowDown": {
+      "node_id": "92:19",
+      "key": "68e48b14282bfe5fba3947c8e74f6d60d45cdf1a",
+      "kebab": "arrow-down"
+    },
+    "ArrowRight": {
+      "node_id": "92:23",
+      "key": "ab846c85a381a070951283a9ece44e886af03019",
+      "kebab": "arrow-right"
+    },
+    "ArrowUp": {
+      "node_id": "92:27",
+      "key": "50880a7c0db7c3cd934cc6af1a93e125f08198ea",
+      "kebab": "arrow-up"
+    },
+    "ArrowUpRight": {
+      "node_id": "92:31",
+      "key": "ae9c5a890faa2af7928f5fe84fa713ca8dfd91a9",
+      "kebab": "arrow-up-right"
+    },
+    "AudioLines": {
+      "node_id": "92:39",
+      "key": "f97c1a9162fe7fa3a63f63b4d9baff2f07a0c50c",
+      "kebab": "audio-lines"
+    },
+    "BarChart3": {
+      "node_id": "92:45",
+      "key": "ed830989c831766b5b892847c8dc4a3703857996",
+      "kebab": "chart-column"
+    },
+    "BatteryCharging": {
+      "node_id": "92:51",
+      "key": "fa60b10ff723091745a7fdb696babe51591b5b1d",
+      "kebab": "battery-charging"
+    },
+    "BatteryMedium": {
+      "node_id": "92:57",
+      "key": "dca4db1401c6bd7545a1d0996390b23e8357aeb5",
+      "kebab": "battery-medium"
+    },
+    "Bell": {
+      "node_id": "92:61",
+      "key": "a4c583a8e65bbf7dceb2c7e3e77a276df8526bda",
+      "kebab": "bell"
+    },
+    "BellRing": {
+      "node_id": "92:67",
+      "key": "cdd746b9753d105e1d66ee33f035931194627afa",
+      "kebab": "bell-ring"
+    },
+    "Bird": {
+      "node_id": "92:75",
+      "key": "9ac9cf5e3a4b689087fa1f8f1d60a868a5b1a20d",
+      "kebab": "bird"
+    },
+    "BookOpen": {
+      "node_id": "92:79",
+      "key": "82902f8d2ea0fa62b75c118b06a2b4f1ef435de6",
+      "kebab": "book-open"
+    },
+    "Brain": {
+      "node_id": "93:11",
+      "key": "6c600131e53bf81b994ca329488163c82a4047e2",
+      "kebab": "brain"
+    },
+    "Briefcase": {
+      "node_id": "93:15",
+      "key": "170a84ed37ea3b726640bdd59bd88e51c6228d97",
+      "kebab": "briefcase"
+    },
+    "Calendar": {
+      "node_id": "93:21",
+      "key": "cb3b260b5f4edb170fb19521ff2f9bed71d47bf3",
+      "kebab": "calendar"
+    },
+    "CalendarDays": {
+      "node_id": "93:33",
+      "key": "7f336d3e125a7511347fac55de00fbf0c08213f8",
+      "kebab": "calendar-days"
+    },
+    "CalendarPlus": {
+      "node_id": "93:41",
+      "key": "19bdee6eb3e5c5358d4215a1ff76f97114f6c034",
+      "kebab": "calendar-plus"
+    },
+    "Camera": {
+      "node_id": "93:45",
+      "key": "5707f52f18ec3ee048e7223cdbf633d4c9ac073a",
+      "kebab": "camera"
+    },
+    "Car": {
+      "node_id": "93:51",
+      "key": "851e731019deda22c7d470cbec234be4de114fbf",
+      "kebab": "car"
+    },
+    "Check": {
+      "node_id": "93:54",
+      "key": "59a8d680acdc53e3fb469c794d6afbafc820a7a2",
+      "kebab": "check"
+    },
+    "CheckCheck": {
+      "node_id": "93:58",
+      "key": "ceb82601cdbee1d98f1fdc560910ce92e84734a2",
+      "kebab": "check-check"
+    },
+    "CheckCircle2": {
+      "node_id": "93:62",
+      "key": "3d6463203c4572c0afdc089d3d9aa502f06ab297",
+      "kebab": "circle-check"
+    },
+    "ChefHat": {
+      "node_id": "93:66",
+      "key": "2cb447bfff62fec32d015191af2401511700f5d9",
+      "kebab": "chef-hat"
+    },
+    "ChevronDown": {
+      "node_id": "93:69",
+      "key": "376cc9ad3af02abd983aa113f04682a26e7ba99e",
+      "kebab": "chevron-down"
+    },
+    "ChevronLeft": {
+      "node_id": "93:72",
+      "key": "8e1fdf382760507d3d3e9c37a17318890e740c8b",
+      "kebab": "chevron-left"
+    },
+    "ChevronRight": {
+      "node_id": "93:75",
+      "key": "ce5edd64b95326523a7bfba7ed847aa494c1363c",
+      "kebab": "chevron-right"
+    },
+    "Circle": {
+      "node_id": "93:78",
+      "key": "0051bc71adb8987b7a2f7d611e3fb6db5c814e0c",
+      "kebab": "circle"
+    },
+    "CircleCheck": {
+      "node_id": "93:82",
+      "key": "0d47fc3ce21bad1cade25408557b7b64ab644a85",
+      "kebab": "circle-check"
+    },
+    "CircleHelp": {
+      "node_id": "93:87",
+      "key": "5c78a6bca65358f3711370213f1877dd25d18494",
+      "kebab": "circle-question-mark"
+    },
+    "Clock": {
+      "node_id": "93:91",
+      "key": "176809717fd24a5e4bab073042ac3cc6c3ef5483",
+      "kebab": "clock"
+    },
+    "Clock3": {
+      "node_id": "93:95",
+      "key": "e364d232d028ca4f267e8e00f3cd5ff9ff3c89f3",
+      "kebab": "clock-3"
+    },
+    "Cloud": {
+      "node_id": "93:98",
+      "key": "e1a46455dd6071eb02e382df9757bfb6483cf4f8",
+      "kebab": "cloud"
+    },
+    "Coffee": {
+      "node_id": "94:7",
+      "key": "0d6cf2ebab2846cc26d20033bfa628881147d75c",
+      "kebab": "coffee"
+    },
+    "Compass": {
+      "node_id": "94:11",
+      "key": "c3a53b719dd271976efb407a7474e3099c1edd25",
+      "kebab": "compass"
+    },
+    "CreditCard": {
+      "node_id": "94:15",
+      "key": "a7f3b14f3959643cfcbce192021565c5f10bdca1",
+      "kebab": "credit-card"
+    },
+    "Database": {
+      "node_id": "94:20",
+      "key": "1f129c79069f421a9ac951a10d6a799326885cf2",
+      "kebab": "database"
+    },
+    "Droplet": {
+      "node_id": "94:23",
+      "key": "50bde3153eadeb8fa87830f3be4290ec16d4def4",
+      "kebab": "droplet"
+    },
+    "Droplets": {
+      "node_id": "94:27",
+      "key": "ddd798cfea2a5cccfec777d66f66d8b29a332134",
+      "kebab": "droplets"
+    },
+    "Dumbbell": {
+      "node_id": "94:34",
+      "key": "51c238b8234e69d9c61f3de229da4bbe6c1d7279",
+      "kebab": "dumbbell"
+    },
+    "ExternalLink": {
+      "node_id": "94:39",
+      "key": "a80f18a1f1752a97135bccf293040c769399d796",
+      "kebab": "external-link"
+    },
+    "Eye": {
+      "node_id": "94:43",
+      "key": "2a34e18d86d1d9a0a836ec1c02c6224f66f5a351",
+      "kebab": "eye"
+    },
+    "EyeOff": {
+      "node_id": "94:49",
+      "key": "c518127dec8233443b37d8a7c3bd5c3f9c60b05b",
+      "kebab": "eye-off"
+    },
+    "FileSignature": {
+      "node_id": "94:55",
+      "key": "1c0e02da433e8c4c5c8a4346f013ad5a723b5cd7",
+      "kebab": "file-pen-line"
+    },
+    "FileText": {
+      "node_id": "94:62",
+      "key": "b4eab9e32270c9bd71012eb6ffc2c937ef8cdecc",
+      "kebab": "file-text"
+    },
+    "Fingerprint": {
+      "node_id": "94:73",
+      "key": "f1ea87621c4f41f308678fca37be301b220d46f5",
+      "kebab": "fingerprint-pattern"
+    },
+    "Flag": {
+      "node_id": "94:76",
+      "key": "f73375314a5a5c9dd3333c1c429820acc5536e88",
+      "kebab": "flag"
+    },
+    "Flame": {
+      "node_id": "94:79",
+      "key": "50c79d2e88d1761608678e9d60d47940d7765751",
+      "kebab": "flame"
+    },
+    "Flower2": {
+      "node_id": "94:86",
+      "key": "039a722d10bc7594939b7588f2d30a31a52739d0",
+      "kebab": "flower-2"
+    },
+    "Footprints": {
+      "node_id": "94:92",
+      "key": "22b52450efaa94bb8247cf5b35cb6f0ef66dd163",
+      "kebab": "footprints"
+    },
+    "Forward": {
+      "node_id": "94:96",
+      "key": "56b6ebc9955fb0c0cd109d3ef4164089377b519f",
+      "kebab": "forward"
+    },
+    "Funnel": {
+      "node_id": "94:99",
+      "key": "9d6bfe586b68cf57d1d20a11118d3d2321e989ae",
+      "kebab": "funnel"
+    },
+    "Gift": {
+      "node_id": "94:105",
+      "key": "22de76fb0930a8fad79908d1363fe744be53f427",
+      "kebab": "gift"
+    },
+    "GitBranch": {
+      "node_id": "95:6",
+      "key": "3ba365e6be993fb641c1ec57c4ce398b41ee24e7",
+      "kebab": "git-branch"
+    },
+    "GripHorizontal": {
+      "node_id": "95:14",
+      "key": "dff427f2ba21e568118f4e671e62b20398afae7b",
+      "kebab": "grip-horizontal"
+    },
+    "Handshake": {
+      "node_id": "95:21",
+      "key": "e82adcfad2cf69f85540674de3257cb106619278",
+      "kebab": "handshake"
+    },
+    "Headphones": {
+      "node_id": "95:24",
+      "key": "fdb1ce2f35618b01ba7a38c3f0b2ca5c2a41acd7",
+      "kebab": "headphones"
+    },
+    "Heart": {
+      "node_id": "95:27",
+      "key": "af8d7ab17a87229f9a2f4eaa7b4c7952bd7097fa",
+      "kebab": "heart"
+    },
+    "HeartPulse": {
+      "node_id": "95:31",
+      "key": "1b28080e443233801ba75a10a34c95b74378638f",
+      "kebab": "heart-pulse"
+    },
+    "HelpCircle": {
+      "node_id": "95:36",
+      "key": "84de6840c55acee84629204d8c56da5a1ecf56e5",
+      "kebab": "circle-question-mark"
+    },
+    "History": {
+      "node_id": "95:41",
+      "key": "44c5f5fbb38d58dfe0778210005778375c015791",
+      "kebab": "history"
+    },
+    "Home": {
+      "node_id": "95:45",
+      "key": "4a37341d8df20b536a35891cf748031be0f495f6",
+      "kebab": "house"
+    },
+    "Image": {
+      "node_id": "95:50",
+      "key": "7aed2c11d111267feec316aa71621d030375a446",
+      "kebab": "image"
+    },
+    "Images": {
+      "node_id": "95:56",
+      "key": "696834d974b3b874619d27ef5af243b0eb27b804",
+      "kebab": "images"
+    },
+    "Info": {
+      "node_id": "95:61",
+      "key": "5bbb5be2a0cde7a210fdad0f10d2cba9d51d4c4f",
+      "kebab": "info"
+    },
+    "Leaf": {
+      "node_id": "95:65",
+      "key": "49126cbe008de9d1c41ff43e4f2b2ffba4554850",
+      "kebab": "leaf"
+    },
+    "LifeBuoy": {
+      "node_id": "95:73",
+      "key": "e0359696b4069c152c9ac3c4296dac3cab839960",
+      "kebab": "life-buoy"
+    },
+    "Lightbulb": {
+      "node_id": "95:78",
+      "key": "1a139b7f2fc4c60968fbb4cc7f87ed5476dbdafe",
+      "kebab": "lightbulb"
+    },
+    "Link2": {
+      "node_id": "95:83",
+      "key": "286b99fc450d6846446a83f5499e5bd35ff3acb1",
+      "kebab": "link-2"
+    },
+    "Lock": {
+      "node_id": "95:87",
+      "key": "d9172f69dd6b4854090ad1614c43db575745b352",
+      "kebab": "lock"
+    },
+    "LockKeyhole": {
+      "node_id": "95:92",
+      "key": "2021115ab9924189b1018c418c61a43161eaaf21",
+      "kebab": "lock-keyhole"
+    },
+    "MapPin": {
+      "node_id": "95:96",
+      "key": "20a88608e1c968c237b344f92f5c9d9e7cca7631",
+      "kebab": "map-pin"
+    },
+    "MessageCircle": {
+      "node_id": "95:99",
+      "key": "bcbca76f8db9eb71f646794bde6caf6e13a56de1",
+      "kebab": "message-circle"
+    },
+    "MessagesSquare": {
+      "node_id": "96:5",
+      "key": "3eed68e86cbac1aebb4a3381b88d56fa9f6cfdd2",
+      "kebab": "messages-square"
+    },
+    "Mic": {
+      "node_id": "96:10",
+      "key": "83756735b80221914c3765fd92c8508a09e7ba6f",
+      "kebab": "mic"
+    },
+    "Mic2": {
+      "node_id": "96:15",
+      "key": "7436f0476a5442eb0b1a6564f503a0bbb26729ac",
+      "kebab": "mic-vocal"
+    },
+    "MicOff": {
+      "node_id": "96:23",
+      "key": "0ba597d1d94bb1b88e6d1e9078e17763a093163e",
+      "kebab": "mic-off"
+    },
+    "Minus": {
+      "node_id": "96:26",
+      "key": "9a478547e32dd62cdce13e03037557f80a7bf285",
+      "kebab": "minus"
+    },
+    "Moon": {
+      "node_id": "96:29",
+      "key": "334c3e8264f1ddbc288e826d3f337fd88655ee9f",
+      "kebab": "moon"
+    },
+    "MoreHorizontal": {
+      "node_id": "96:34",
+      "key": "bf4da9ce577809505a21a26092ed2ffea10fff70",
+      "kebab": "ellipsis"
+    },
+    "MoreVertical": {
+      "node_id": "96:39",
+      "key": "5bd5dcb532a57c667c33e338316939f47a208cf0",
+      "kebab": "ellipsis-vertical"
+    },
+    "Music2": {
+      "node_id": "96:43",
+      "key": "0b002810570508b41a5da591fbcebccea7371448",
+      "kebab": "music-2"
+    },
+    "NotebookPen": {
+      "node_id": "96:51",
+      "key": "290ad5d273dd3ab2a50d89721bb5d408514b7023",
+      "kebab": "notebook-pen"
+    },
+    "NotebookTabs": {
+      "node_id": "96:62",
+      "key": "7f562fc596b89e4d266a18554ee5fc602eb96ba0",
+      "kebab": "notebook-tabs"
+    },
+    "Palette": {
+      "node_id": "96:69",
+      "key": "d9b50ea638da2d1923105a10365b17ae65f1a706",
+      "kebab": "palette"
+    },
+    "Pause": {
+      "node_id": "96:73",
+      "key": "05841008d11b9f58103bcb1ff0881dbd351e94f9",
+      "kebab": "pause"
+    },
+    "PenLine": {
+      "node_id": "96:77",
+      "key": "822c6f0f2d422a2a9ff9db0420ec40382dc0197d",
+      "kebab": "pen-line"
+    },
+    "Pencil": {
+      "node_id": "96:81",
+      "key": "52fa0249655e26a09ada6a5d881006a0b5bb0f4a",
+      "kebab": "pencil"
+    },
+    "PencilLine": {
+      "node_id": "96:86",
+      "key": "2e2d2c05fdaa5c9db02d7f5f2959f46a2e6f2137",
+      "kebab": "pencil-line"
+    },
+    "Phone": {
+      "node_id": "96:89",
+      "key": "33feba19f09199426a377a72fe0e440dd07fe031",
+      "kebab": "phone"
+    },
+    "Pill": {
+      "node_id": "96:93",
+      "key": "b999c4fdfff4d809734c48ccc4cff2c5c05b6664",
+      "kebab": "pill"
+    },
+    "Pin": {
+      "node_id": "96:97",
+      "key": "fdbab02cddb7c2c99b12f2770ddb35d791edac0b",
+      "kebab": "pin"
+    },
+    "Play": {
+      "node_id": "96:100",
+      "key": "7c75a443c9f55b06d8bacfb797e0a8da22e43784",
+      "kebab": "play"
+    },
+    "Plus": {
+      "node_id": "98:5",
+      "key": "547267281ab07905482e0880528e6bab44b1435f",
+      "kebab": "plus"
+    },
+    "ReceiptText": {
+      "node_id": "98:11",
+      "key": "61e4516cfdd86d09ca98af26be421a6090d54eb4",
+      "kebab": "receipt-text"
+    },
+    "RefreshCw": {
+      "node_id": "98:17",
+      "key": "d82f441d66bc7d4a278aaa168b549b6a503f2a1d",
+      "kebab": "refresh-cw"
+    },
+    "RotateCcw": {
+      "node_id": "98:21",
+      "key": "9cd62c4e860c255b0d5175c642bf97e3f9bd25eb",
+      "kebab": "rotate-ccw"
+    },
+    "Ruler": {
+      "node_id": "98:28",
+      "key": "ebb7467283fed02c834a7cef2652017a059cdf0c",
+      "kebab": "ruler"
+    },
+    "Scale": {
+      "node_id": "98:35",
+      "key": "f6916c0bd9befc84dad93cefa971f160a8f8ba82",
+      "kebab": "scale"
+    },
+    "Search": {
+      "node_id": "98:39",
+      "key": "1c23aa2978088153a4697e7237e1aa6c8656276f",
+      "kebab": "search"
+    },
+    "Settings": {
+      "node_id": "98:43",
+      "key": "15594c6fe3ac3d727c06f30130b8a1a672832a5c",
+      "kebab": "settings"
+    },
+    "Share2": {
+      "node_id": "98:50",
+      "key": "431cf450143e8a6ca57c4d03ad01270c3a43c73e",
+      "kebab": "share-2"
+    },
+    "Shield": {
+      "node_id": "98:53",
+      "key": "65f68dbb50d014e3db11bde41af38b766c620384",
+      "kebab": "shield"
+    },
+    "ShieldAlert": {
+      "node_id": "98:58",
+      "key": "781e0833f0c837645aeb3f8728f45a18e22439b3",
+      "kebab": "shield-alert"
+    },
+    "ShieldCheck": {
+      "node_id": "98:62",
+      "key": "67d1f3d19f8b76fd01e8589fcbcf545c781666ed",
+      "kebab": "shield-check"
+    },
+    "ShoppingCart": {
+      "node_id": "98:67",
+      "key": "3c172ef4355a359fd4e83cf3bf01e31eb7ad411e",
+      "kebab": "shopping-cart"
+    },
+    "SkipForward": {
+      "node_id": "98:71",
+      "key": "33c8bfc286514c533a4911833ea606f4c93d2d37",
+      "kebab": "skip-forward"
+    },
+    "SlidersHorizontal": {
+      "node_id": "98:82",
+      "key": "dd809010ce56aa2026a67065759bf8f823335f5e",
+      "kebab": "sliders-horizontal"
+    },
+    "Snowflake": {
+      "node_id": "98:96",
+      "key": "4eabb00bb2511532c79faf0933ac1fae1d32a42b",
+      "kebab": "snowflake"
+    },
+    "Sparkles": {
+      "node_id": "98:102",
+      "key": "d85f5fccd774ce2812601271b4cbb2b01b1dd44f",
+      "kebab": "sparkles"
+    },
+    "Square": {
+      "node_id": "98:105",
+      "key": "22f62f764830ea349deb668e69bea7067204a67d",
+      "kebab": "square"
+    },
+    "Star": {
+      "node_id": "98:108",
+      "key": "ebb29ae60950656e0051016dc6e0fe456fe6b355",
+      "kebab": "star"
+    },
+    "StickyNote": {
+      "node_id": "98:112",
+      "key": "b67b3aaa0e08bb17d8f4e2dece2594f11cf6509a",
+      "kebab": "sticky-note"
+    },
+    "SunMedium": {
+      "node_id": "99:12",
+      "key": "89074cbb0984fab6fdd4e50b4b31a3035e8b1f5a",
+      "kebab": "sun-medium"
+    },
+    "Target": {
+      "node_id": "99:17",
+      "key": "e229da031fce7664b87fffa1ee8d9bc8339d4986",
+      "kebab": "target"
+    },
+    "ThumbsDown": {
+      "node_id": "99:21",
+      "key": "ceac72920dfa59e69c8290aedaf9e9aa8cc64b7a",
+      "kebab": "thumbs-down"
+    },
+    "ThumbsUp": {
+      "node_id": "99:25",
+      "key": "9a07b398ef07eab5d1da2944812e019a2b672a45",
+      "kebab": "thumbs-up"
+    },
+    "Timer": {
+      "node_id": "99:30",
+      "key": "a457cb6d262b624f01a6c753d57d92a84a9bed34",
+      "kebab": "timer"
+    },
+    "TimerReset": {
+      "node_id": "99:36",
+      "key": "81fb91f83be7df9bbbd501c87af61b10b58110f3",
+      "kebab": "timer-reset"
+    },
+    "Trash2": {
+      "node_id": "99:43",
+      "key": "70e0a32c8ac6666348cdcc0d4dde393026b0d6d4",
+      "kebab": "trash-2"
+    },
+    "TrendingUp": {
+      "node_id": "99:47",
+      "key": "299f75f7a250a2b084093bdd05f496a2e3e7cd5f",
+      "kebab": "trending-up"
+    },
+    "TriangleAlert": {
+      "node_id": "99:52",
+      "key": "f08d877fd131f4cb4e8c3c458f6a6c78975d0e00",
+      "kebab": "triangle-alert"
+    },
+    "Trophy": {
+      "node_id": "99:60",
+      "key": "bbfd6653f686976569372003b99cc98fd9f4ad8c",
+      "kebab": "trophy"
+    },
+    "Unlink": {
+      "node_id": "99:68",
+      "key": "71c4029ed9e064452468dd4c83c821572eda2d4c",
+      "kebab": "unlink"
+    },
+    "Upload": {
+      "node_id": "99:73",
+      "key": "62bf470fe57081a07fb86f15b9ca002e39aefc1b",
+      "kebab": "upload"
+    },
+    "User": {
+      "node_id": "99:77",
+      "key": "97c3845bbfeb51307baf1a31a033192d196ce6b5",
+      "kebab": "user"
+    },
+    "UserPlus": {
+      "node_id": "99:83",
+      "key": "de6bcc16297e2bc0f6f287cf7608469a9af27de9",
+      "kebab": "user-plus"
+    },
+    "Users": {
+      "node_id": "99:89",
+      "key": "644e688ba66a9ee0abb9319e818884662d5a065a",
+      "kebab": "users"
+    },
+    "Utensils": {
+      "node_id": "99:94",
+      "key": "0495a6b35b066b2f0054b49888bf81cfc4fdccc2",
+      "kebab": "utensils"
+    },
+    "Video": {
+      "node_id": "99:98",
+      "key": "c2d07fcadb6bd414118898b1844c238e00e3f1be",
+      "kebab": "video"
+    },
+    "Wallet": {
+      "node_id": "99:102",
+      "key": "c87d076c2f63d74c7dce2fdaf2811eb0dd9581fb",
+      "kebab": "wallet"
+    },
+    "WalletCards": {
+      "node_id": "99:107",
+      "key": "98b7d95f61b4f77a5ea42e9bb4fcd5fb9641848b",
+      "kebab": "wallet-cards"
+    },
+    "Watch": {
+      "node_id": "99:113",
+      "key": "7f5cc0b98b2af3297afd597be8fbeca8736faaef",
+      "kebab": "watch"
+    },
+    "Wind": {
+      "node_id": "100:6",
+      "key": "c24df3a6146dcf7bb8c096defc94b1577dfa84c8",
+      "kebab": "wind"
+    },
+    "X": {
+      "node_id": "100:10",
+      "key": "8f15ee67f64b9f2f2356cddf80a3eccc9677aea5",
+      "kebab": "x"
+    },
+    "Zap": {
+      "node_id": "100:13",
+      "key": "a35f608084099abfb241445649280670363de280",
+      "kebab": "zap"
+    },
+    "ZoomIn": {
+      "node_id": "100:19",
+      "key": "4143539d4745ab776b0b9ccaef12a11ff3d3ad76",
+      "kebab": "zoom-in"
+    },
+    "ZoomOut": {
+      "node_id": "100:24",
+      "key": "79e2b59ee26268465754b692db975f1c49c741b8",
+      "kebab": "zoom-out"
+    }
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
@@ -962,13 +2613,13 @@
   },
   "subscribed_libraries": {
     "$comment": "Libraries available to Balencia DS at creation time (community UI kits auto-subscribed). Use these libraryKey values to scope search_design_system calls and to import device frames (iOS 26) rather than rebuilding.",
-    "Material 3 Design Kit":       "lk-5a31d104cabc6a74d4edf6425e7bc6575e9c0f18cda7efb746193aef4d915b077d115c985e6cf49d36d97d455a17d5127a2cbbfbc618b8a70a38669dccb61462",
-    "Simple Design System":        "lk-e0ffcff14368019c4f30f45401cd233d6cbc5f869988484192d04cbbef801fb0064ef68feaa8a2775ee4f1f05d9a4af1a6d07b2658eac4aefb7afb18728c4066",
-    "iOS 18 and iPadOS 18":        "lk-df324a089628d1c7c7b0d29e676b621790cdcac1c725b49a3cfbb974a362f8201ac643e1fbccc855970ab22dabd6897ef20e72a7feda01014ddd59daf3f6ed52",
-    "iOS and iPadOS 26":           "lk-a5b98decf0fb24381005421a2986b813149fcf20f37a1169316d44e2802c483494c6fc98ab8e083540a73bd5e45cf892a38123ee61981aee097d5f4eb8487a17",
-    "watchOS 26":                  "lk-32bda072ec15e732e76d56aa8bd25314051f296f8519a8d868031b46eaabb5ade1290829d0d7deca926b5388f760e9e94aa76d56bfe2ead33d78adeeeb7d15fb",
-    "visionOS 26":                 "lk-4f44e69da5f723deffc1c2461604f793251559fb3fb0f1f6af7c4fffaa12c05a33c40283401af5f2edf0db0639d516ccef9b73ae6aadff7e6588df60cbd36dd4",
-    "macOS 26":                    "lk-52492a50a550123b626cdfcd7639929209dc66307681f3f8cf9937770a714f2d76ade248aff2d8a0e42da17e343a440cebc0a04f1800ad34ae6d86e1a7f7aa9a"
+    "Material 3 Design Kit": "lk-5a31d104cabc6a74d4edf6425e7bc6575e9c0f18cda7efb746193aef4d915b077d115c985e6cf49d36d97d455a17d5127a2cbbfbc618b8a70a38669dccb61462",
+    "Simple Design System": "lk-e0ffcff14368019c4f30f45401cd233d6cbc5f869988484192d04cbbef801fb0064ef68feaa8a2775ee4f1f05d9a4af1a6d07b2658eac4aefb7afb18728c4066",
+    "iOS 18 and iPadOS 18": "lk-df324a089628d1c7c7b0d29e676b621790cdcac1c725b49a3cfbb974a362f8201ac643e1fbccc855970ab22dabd6897ef20e72a7feda01014ddd59daf3f6ed52",
+    "iOS and iPadOS 26": "lk-a5b98decf0fb24381005421a2986b813149fcf20f37a1169316d44e2802c483494c6fc98ab8e083540a73bd5e45cf892a38123ee61981aee097d5f4eb8487a17",
+    "watchOS 26": "lk-32bda072ec15e732e76d56aa8bd25314051f296f8519a8d868031b46eaabb5ade1290829d0d7deca926b5388f760e9e94aa76d56bfe2ead33d78adeeeb7d15fb",
+    "visionOS 26": "lk-4f44e69da5f723deffc1c2461604f793251559fb3fb0f1f6af7c4fffaa12c05a33c40283401af5f2edf0db0639d516ccef9b73ae6aadff7e6588df60cbd36dd4",
+    "macOS 26": "lk-52492a50a550123b626cdfcd7639929209dc66307681f3f8cf9937770a714f2d76ade248aff2d8a0e42da17e343a440cebc0a04f1800ad34ae6d86e1a7f7aa9a"
   },
   "reuse_decisions": {
     "$comment": "Phase 0 reuse-vs-rebuild decisions per figma-generate-library skill section 5.",
