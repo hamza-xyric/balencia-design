@@ -1108,7 +1108,20 @@
     "ScheduleCalendarGrid": {
       "phase": "3C_organisms",
       "source": "src/components/screens/ScheduleCalendarGrid.tsx",
-      "figma_node_id": null
+      "figma_node_id": "429:215",
+      "figma_component_key": "3e74335f8c4aba9f99cd519dab82bd12c101ddef",
+      "doc_frame_id": "436:224",
+      "variants": {},
+      "properties": {},
+      "property_keys": {},
+      "composes": [
+        "DomainTag",
+        "Icon/Cloud(93:98)",
+        "Icon/Sparkles(98:102)"
+      ],
+      "minted_tokens": {},
+      "created": "2026-05-30",
+      "$comment": "Phase 3C batch C10 (ScheduleCalendarGrid). Lone COMPONENT 429:215 (key 3e74335f8c4aba9f99cd519dab82bd12c101ddef) in [doc] frame 436:224 on Organisms page 17:13 at (100,8098), 375x896. NO variant axis (events=per-instance data, no display-mode prop -- single representative; DomainSkillCard/RichInlineCard precedent). Plain-frame day-schedule: 14 hour rows 6AM-7PM (label Sora Reg 13/18 white-30 160:2 + gridline 303x1 white-05 237:2, hourHeight 64), brand-orange (4:2) current-time dot+pill line (radius/pill 9:8) at y=286, and 2 baked EventCards showcasing the isSia forms -- Standard/Synced 431:2 (ink-brown-800 4:7, solid white-10 4:43 border, fitness 4:11 accent bar, Cloud 93:98 + Synced) and SIA-suggested 435:2 (ink-900 4:5, dashed brand-orange 4:2 @0.40 border, royal-purple 4:4 dot, Sparkles 98:102 + SIA suggested) -- each: radius/md 9:4, Elevation/1, DomainTag instance (52:3, ShowDot=false, +0.15 bg fixup), title Sora SemiBold 15/20 white 5:6, time Caption white-50 4:41, source Eyebrow white-35 269:3. Modeled as 90-min events (88px) so content renders fully (React max(48,dur/60*64-8)+overflow-hidden clips short events). DROPPED onEventSelect/className/animate-fade-up (runtime). ZERO tokens minted. composes DomainTag + Cloud/Sparkles. GOTCHA: createAutoLayout defaults to white fill -> fills=[] on all transparent containers. Validated structurally + screenshot."
     },
     "HealthMetricsStrip": {
       "phase": "3C_organisms",
