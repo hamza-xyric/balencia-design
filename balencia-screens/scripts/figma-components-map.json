@@ -656,7 +656,38 @@
     "SiaChatTopBar": {
       "phase": "3C_organisms",
       "source": "src/components/screens/SiaChatTopBar.tsx",
-      "figma_node_id": null
+      "figma_node_id": "290:134",
+      "figma_component_key": "e4de426ff93144993de2214732f7652fdbde024c",
+      "variants": {
+        "VoiceActive=False": {
+          "node_id": "271:108",
+          "key": "863b9679781d9cfb263eb7c04d82b54e0d8c44dd"
+        },
+        "VoiceActive=True": {
+          "node_id": "290:117",
+          "key": "fa7954bc29f145f3bb4fdeead9d8f8a222c60945"
+        }
+      },
+      "properties": {
+        "VoiceActive": "False/True",
+        "Title": "TEXT",
+        "Subtitle": "TEXT"
+      },
+      "property_keys": {
+        "Title": "Title#293:0",
+        "Subtitle": "Subtitle#293:3"
+      },
+      "composes": [
+        "Icon/MessageCircle(95:99)",
+        "Icon/Search(98:39)",
+        "Icon/AudioLines(92:39)"
+      ],
+      "minted_tokens": {
+        "color/alpha/white-25": "VariableID:269:2",
+        "color/alpha/white-35": "VariableID:269:3"
+      },
+      "created": "2026-05-29",
+      "$comment": "Phase 3C batch C4 (SiaChatTopBar ONLY; RichInlineCard spun out to its own future batch per Hamza — 6-type discriminated union chart/mission/meal/finance/workout/connection, not a simple alternate). Chat header bar. Variant SET 290:134 (key e4de426ff93144993de2214732f7652fdbde024c); variants VoiceActive=False 271:108 / VoiceActive=True 290:117. VoiceActive is a REAL variant axis (NOT a BOOLEAN): React voiceActive changes the AudioLines icon COLOR (white-50->royal-purple) and a Figma BOOLEAN can only toggle visibility/instance, never color (FAQAccordion State / LeaderboardRow Self precedent). Per variant: COMPONENT 375x56 FIXED, HORIZONTAL SPACE_BETWEEN + counterAxis CENTER, paddingX spacing/16 (8:5) padY 0, fill ink-900 (4:5) @0.85 (React bg-ink-900/85; paint-multiplier fix-up), border-bottom 1px white-05 (237:2) via strokeBottomWeight=1/others 0 INSIDE; backdrop-blur NOT modeled. Left TitleGroup VERTICAL HUG counterAxis MIN gap spacing/2 (193:4): Title BAKED Sora SemiBold 17/22 text/primary (5:6) (ramp 17 but font-semibold -> baked) -> Title TEXT 'SIA' (Title#293:0); Subtitle BAKED Sora Regular 11/14 white-35 (269:3) -> Subtitle TEXT 'Coach online' (Subtitle#293:3); both linked across BOTH variants. Right ActionGroup HORIZONTAL HUG counterAxis CENTER gap spacing/4 (8:2): three 44x44 (h-11 w-11) center button FRAMEs, each a recolored icon instance (registry recolor helper; intrinsic strokeWeight; React 1.8/1.9 ~= 2): Btn-Conversations MessageCircle (95:99) @20 white-50 (4:41); Btn-Search Search (98:39) @20 white-25 (269:2 MINTED, React text-white/25, disabled); Btn-Voice AudioLines (92:39) @22 white-50 default / royal-purple (4:4) on True. True variant built by root.clone()+patch-only Btn-Voice stroke (TierCard precedent). Button colors VERIFIED live (Conv=4:41, Search=269:2, Voice False=4:41 True=4:4). Set is its own doc card: ink-900 (4:5) fill, cornerRadius 24, padding+itemSpacing spacing/24 (8:7), VERTICAL, counterAxis MIN (423x184). MINTED 2 intrinsic-alpha primitives in Primitives collection 2:2 mode 2:0: white-25 (VariableID:269:2, white@0.25, 21 code uses) + white-35 (VariableID:269:3, white@0.35, 45 code uses) — both recurring, no existing token; scopes FRAME_FILL/SHAPE_FILL/STROKE_COLOR + WEB var(--color-alpha-white-25|35). CORRECT icon ids (MessageCircle 95:99, Search 98:39, AudioLines 92:39 — prior handoff's 96:13/98:33/100:23 were WRONG). Validated structurally + live; pixel screenshot unavailable (sandbox network HTTP:000)."
     },
     "ActionCard": {
       "phase": "3C_organisms",
