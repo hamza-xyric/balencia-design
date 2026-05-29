@@ -2149,6 +2149,30 @@
       "minted_tokens": {},
       "$comment": "BUILT 2026-05-29 (C2 organism #2). Lone COMPONENT (no variant prop in React). Self-surfaced via Card-default chrome BAKED (NOT a Card instance — Card molecule is a slot container, can't append children to an instance; C1 self-surface precedent): bg color/surface/card (5:4), 1px INSIDE white-06 (4:44), radius/xl (9:6), Elevation/1, padding spacing/24, root itemSpacing spacing/20 (mt-5 gaps to chips & button). Eyebrow FLATTENED to raw text + Eyebrow style + text/quaternary (5:9) NOT an Eyebrow-atom instance (SectionHeader text-only-atom precedent). Nested groups model React's mixed margins: Header VERTICAL gap spacing/16 [Eyebrow + NameMeta VERTICAL gap spacing/4 [Name + Meta]] => eyebrow->name 16 (mt-4), name->meta 4 (mt-1). Name Sora SemiBold 17/22 BAKED (17-SemiBold is SemiBold-at-ramp-size -> bake, no H3 link), text/primary, FILL. Meta Caption style + white-50 (4:41), FILL -> Meta TEXT prop. Name -> Name TEXT prop. ExerciseChips HORIZONTAL FILL gap spacing/8 clipsContent (overflow-x scroll; +3 chip clips at edge, faithful): each chip HUG h32 radius/sm (9:3) padX spacing/12 [Caption text]; exercise = bg ink-900 (4:5) + text/primary; overflow '+3' = bg white-08 (140:2) + Sora SemiBold + white-70 (4:40). Button = INSTANCE of atom 43:8 (Primary/Md, h48 matches React h-48), Label='Start workout', HasRightIcon=true (RightIcon default ArrowRight 92:23), FILL width. Exercise list + overflowCount not exposed as props (variable list -> baked reps). No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "MealCard": {
+      "node_id": "216:55",
+      "page_node_id": "17:13",
+      "key": "3255806b5e8cf757e5d15ed19e6af04e8e15e84b",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 327,
+        "h": 326
+      },
+      "position": {
+        "x": 80,
+        "y": 2720
+      },
+      "doc_frame_id": "218:57",
+      "variant_axes": {},
+      "properties": [],
+      "property_keys": {},
+      "composes": [
+        "Icon/Check(93:54) x2 (logged rows)"
+      ],
+      "minted_tokens": {},
+      "$comment": "BUILT 2026-05-29 (C2 organism #3). Lone COMPONENT, NO component properties (React is list-driven by meals[] — modeled as 3 baked representative rows; designers duplicate/edit per instance). Self-surfaced Card-default chrome BAKED: surface/card (5:4) + 1px INSIDE white-06 (4:44) + radius/xl (9:6) + Elevation/1 + padding spacing/24, root itemSpacing spacing/16 (eyebrow->list mt-4). Eyebrow flattened raw text + Eyebrow style + text/quaternary (5:9). List VERTICAL itemSpacing 0; each MealRow VERTICAL itemSpacing spacing/4 (mt-1), paddingY spacing/12 (py-3); FIRST row paddingTop 0; rows 2+ get a TOP-ONLY border (strokeTopWeight 1, others 0, white-10 4:43, INSIDE) modeling border-t. Row = [Top HORIZONTAL gap spacing/8 counterAxis CENTER [logged-only CheckBadge 16x16 success (5:14) pill holding Check icon instance resized 10 (default white stroke) + MealType Eyebrow style white-40/text-quaternary] + Name Sora SemiBold 16/22 BAKED (16-SemiBold at-ramp -> bake) text/primary FILL + Macro Sora Regular 12/16 BAKED (non-ramp) white-50 (4:41) FILL]. 3 reps: Breakfast(logged,first), Lunch(logged), Dinner(unlogged). active:scale press not modeled. No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {

@@ -761,7 +761,13 @@
     "MealCard": {
       "phase": "3C_organisms",
       "source": "src/components/domain/MealCard.tsx",
-      "figma_node_id": null
+      "figma_node_id": "216:55",
+      "figma_component_key": "3255806b5e8cf757e5d15ed19e6af04e8e15e84b",
+      "doc_frame_id": "218:57",
+      "composes": [
+        "Icon/Check(93:54)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C2 organism #3). Lone COMPONENT, no props (list-driven by meals[] -> 3 baked rep rows). Card-default chrome BAKED (surface/card + white-06 + radius/xl + Elevation/1 + padding spacing/24), root gap spacing/16. Eyebrow flattened raw text+style+text/quaternary. List gap 0; MealRow VERTICAL gap spacing/4, paddingY spacing/12; first row paddingTop 0; rows 2+ TOP-only border white-10 (strokeTopWeight 1, others 0) modeling border-t. Row = Top[logged CheckBadge 16 success pill + Check icon@10 white | MealType Eyebrow white-40] + Name Sora SemiBold 16/22 BAKED text/primary + Macro Sora Regular 12/16 BAKED white-50. Reps: Breakfast/Lunch logged, Dinner unlogged. No new tokens."
     },
     "RecipeCard": {
       "phase": "3C_organisms",
