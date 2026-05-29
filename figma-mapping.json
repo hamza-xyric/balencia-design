@@ -2359,6 +2359,33 @@
       "minted_tokens": {},
       "$comment": "BUILT 2026-05-29 (C3 organism #2). Match-code: NO variants/props — list-driven container (MealCard precedent), 3 baked rep tiles. React = `grid grid-cols-3 gap-2`; modeled as HORIZONTAL auto-layout 327 FIXED wide, itemSpacing spacing/8 (8:3), 3 tiles each layoutSizingHorizontal=FILL (equal cols). Each tile = HORIZONTAL min-h-11 (minHeight 44, FIXED h44) ink-brown-800 (4:7) fill + 1px INSIDE white-08 (140:2) border + radius/pill (9:8) + Elevation/1 + padX spacing/8 + gap spacing/4 (8:2), centered both axes. Children: Icon@14 (registry instance, resize 14, strokes recolored to white-50 4:41 via recolor helper) + value Sora SemiBold 14/20 BAKED text/primary (5:6) + unit Sora Reg 10/16 BAKED white-40 (4:42). 3 metrics baked: HeartPulse 72 bpm / Footprints 8.2k steps / Moon 7.5 hrs. Lone comp -> wrapped in ink-900 (4:5) doc FRAME 'HealthMetricsStrip [doc]' (246:90) radius24 + spacing/24 padding, counterAxis CENTER. No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "QuickActionsRow": {
+      "node_id": "248:90",
+      "page_node_id": "17:13",
+      "doc_frame_id": "249:99",
+      "key": "789e4736514c6ce1f4eb52608ee1b1190e36920f",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 467,
+        "h": 48
+      },
+      "position": {
+        "x": 80,
+        "y": 4590
+      },
+      "variant_axes": {},
+      "properties": [],
+      "property_keys": {},
+      "composes": [
+        "Icon/Wind(100:6)",
+        "Icon/Droplet(94:23)",
+        "Icon/PencilLine(96:86)",
+        "Icon/HeartPulse(95:31)"
+      ],
+      "minted_tokens": {},
+      "$comment": "BUILT 2026-05-29 (C3 organism #3). Match-code: NO variants/props — horizontal scroll row of baked pills (MealCard list-driven precedent). React = `flex gap-2 overflow-x-auto pb-1`; modeled HORIZONTAL HUG auto-layout, itemSpacing spacing/8 (8:3), paddingBottom spacing/4 (8:2, the pb-1 scrollbar clearance). 4 rep pills baked (5 action types exist: breathe/water/journal/check-in/quick-note). Each pill = HORIZONTAL HUG-width min-h-11 (minHeight 44, FIXED h44) ink-brown-800 (4:7) + 1px INSIDE white-08 (140:2) border + radius/pill (9:8) + Elevation/1 + padX spacing/16 (8:5) + gap spacing/8, counterAxis CENTER. Children: optional SIA dot (4x4 ELLIPSE brand/ai 5:15 — shown on Breathe pill to demo isSIASuggested) + Icon@16 (registry instance recolored strokes to brand/cta 5:13) + label Button/Sm style (Sora SemiBold 13/140% — caption font-semibold maps to Button/Sm, native SemiBold no override) text/primary (5:6). Pills baked: Breathe(SIA dot)/Water/Journal/Check-in. Lone comp -> ink-900 (4:5) doc FRAME 'QuickActionsRow [doc]' (249:99) radius24 + spacing/24. No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
