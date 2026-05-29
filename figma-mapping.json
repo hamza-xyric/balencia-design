@@ -95,6 +95,7 @@
       "color/alpha/white-10":       "VariableID:4:43",
       "color/alpha/white-08":       "VariableID:140:2",
       "color/alpha/white-06":       "VariableID:4:44",
+      "color/alpha/white-60":       "VariableID:147:5",
       "color/alpha/glow-orange-bg": "VariableID:4:45",
       "color/alpha/white-15":       "VariableID:47:2"
     },
@@ -678,6 +679,23 @@
       "properties": ["Value (TEXT)", "Label (TEXT)"],
       "property_keys": { "value": "Value#145:0", "label": "Label#145:1" },
       "$comment": "7th Phase 3B molecule (B1 batch). Matched React code exactly (Card precedent): React StatTile is a centered value+label column → no variant axis, lone COMPONENT. Inventory's Variant(Default/Compact)+Trend(Up/Down/Flat) axes & Delta prop DROPPED (not in code; future StatTileTrend molecule if needed — SettingsRow-Destructive precedent). VERTICAL auto-layout HUG/HUG, counterAxisAlignItems CENTER, itemSpacing spacing/4. Value = explicit Sora Bold 24px/lineHeight 30, fill color/text/primary, NO style link (no 24px Bold style — component-intrinsic type). Label = Caption style (13px Regular; React 12px weightless — closest clean link), fill color/alpha/white-50, center. Value TEXT prop (Value#145:0) + Label TEXT prop (Label#145:1). Component transparent (flex-1 in screen rows) → wrapped in ink-900 doc FRAME 145:8 (chrome only). Zero new tokens minted.",
+      "created_at": "2026-05-29"
+    },
+    "WaterIntakeRing": {
+      "node_id": "149:5",
+      "page_node_id": "17:12",
+      "key": "c17b84219141387aa93e67af458b49b7e927bd44",
+      "phase": "3B_molecules",
+      "size": { "w": 528, "h": 341 },
+      "variant_axes": { "State": ["InProgress","Achieved"] },
+      "variants": {
+        "State=InProgress": { "node_id": "147:6", "key": "6021093400eeac9f272f1d4a546b44375ae2d6ef" },
+        "State=Achieved":   { "node_id": "148:5", "key": "e6e8956f8c252cf69a354530ef8fe486972add85" }
+      },
+      "properties": [],
+      "property_keys": {},
+      "minted_tokens": { "color/alpha/white-60": "VariableID:147:5" },
+      "$comment": "8th Phase 3B molecule (B2 batch 'Domain widgets'). 2 State variants on Molecules page (17:12) at (80,1730). State axis = React's achieved boolean (progress>=1): InProgress (teal color/domain/wellbeing) vs Achieved (forest-green color/brand/success) — mirrors ProgressRing's Color axis (code derives complete state). SCOPE: bespoke 200px ring, does NOT instance ProgressRing (its sizes Sm36/Md48/Lg96 don't include 200, and WaterIntakeRing has unique center content + glow + status line). RING: two concentric ELLIPSE donut-arcs 188×188 at (6,6) via arcData (ProgressRing technique). Outer Ø=2*(88+6)=188; innerRadius=(88-6)/(88+6)=0.87234 gives the 12px band. Track = full 0→2π bound color/alpha/white-06 (alpha intrinsic, no fix-up). Progress start -π/2 clockwise: InProgress baked 75% bound color/domain/wellbeing; Achieved full sweep bound color/brand/success. Glow = 168×168 ELLIPSE at (16,16) + LAYER_BLUR 40 (React blur-2xl), tint @15% paint-multiplier (wellbeing / success) — REQUIRED read-modify-write opacity fix-up (LevelBadge/MissionTypeBadge precedent). Center col (VERTICAL HUG CENTER, gap spacing/4) centered absolutely in the 200 ring via computed x/y: number row (HORIZONTAL, counterAxis BASELINE, gap spacing/4) consumed (Sora Bold 36/40, color/text/primary) + '/' (Sora Regular 24/28, color/alpha/white-40) + target (Sora Bold 36/40, color/alpha/white-50); 'Glasses' (Sora Regular 14/18, color/alpha/white-50); ml caption 13/17 (InProgress Sora Regular bound color/domain/wellbeing @80% paint-multiplier fix-up, Achieved bound color/brand/success full). Status below at y=212 (React mt-3): InProgress '75% of daily target' (Sora SemiBold 15/20 bound color/alpha/white-60 = NEW primitive VariableID:147:5); Achieved status col (VERTICAL CENTER gap spacing/4) 'Target achieved +30 XP' (Sora SemiBold 15/20, color/brand/success) + 'at 6:30 PM' (Sora Regular 13/17, color/alpha/white-40). All text is component-intrinsic Sora (NO style links — ramp has no matching SemiBold/Bold sizes; ProgressRing/StatTile precedent). NO TEXT props — center data + status copy differ per variant (DomainTag/MissionTypeBadge precedent); designers override per-instance. Each variant is a plain (non-auto-layout) COMPONENT with absolute children. Set frame ink-900 bg + radius 24 for documentation visibility (no instance propagation). Minted color/alpha/white-60.",
       "created_at": "2026-05-29"
     }
   },
