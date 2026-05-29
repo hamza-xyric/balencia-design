@@ -702,17 +702,19 @@
       "phase": "3C_organisms",
       "source": "src/components/screens/TierCard.tsx",
       "variants": {
-        "Tier": [
-          "Free",
-          "Premium",
-          "Pro"
-        ],
-        "Selected": [
-          "True",
-          "False"
+        "State": [
+          "Current",
+          "Upgrade",
+          "Downgrade"
         ]
       },
-      "figma_node_id": null
+      "figma_node_id": "233:83",
+      "figma_component_key": "89a9833e99bf4eb42f1110916c31d7adfda9a953",
+      "composes": [
+        "Icon/Check(93:54)",
+        "Icon/Minus(96:26)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C2 organism #6, final). SCOPE (Hamza-CONFIRMED): inventory Tier[Free,Premium,Pro]xSelected DROPPED (neither prop in React). Axes from code: State[Current,Upgrade,Downgrade] + Recommended bool + HasSavings bool. State drives border + CTA: Current = 2px cta border + ink-700 disabled 'Current plan'; Upgrade = white-06 border + cta 'Upgrade'; Downgrade = white-06 border + outline white-10 'Downgrade' white-80. CTA label baked per variant. Card 260x360 ink-brown-800 + radius/xl + Elevation/1 + p-6, gap 12. Built Current then clone()x2 fixing border+CTA only. Header gap 8 center: EyebrowWrap(h20) 'Recommended' Eyebrow+cta visible=false -> Recommended bool; Name SemiBold 18/24 -> Name prop; Price row BASELINE [Price Sora BOLD 32/36 -> Price prop + Cadence 15/20 white-50 -> Cadence prop]; SavingsWrap(h24) pill success@0.15 'Save 20%' -> SavingsLabel prop, -> HasSavings bool (true). Features gap 8: 4 baked li (Check cta/Minus white-20 + Caption white-70 / white-30 strikethrough). Spacer FILL -> CTA bottom. Props: Name#233:0, Price#233:4, Cadence#233:8, SavingsLabel#233:12, Recommended#233:16, HasSavings#233:20. No new tokens."
     },
     "SIACoachingNote": {
       "phase": "3C_organisms",
