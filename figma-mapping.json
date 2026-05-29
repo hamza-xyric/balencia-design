@@ -745,6 +745,21 @@
       "minted_tokens": { "color/alpha/orange-20": "VariableID:160:3" },
       "$comment": "11th Phase 3B molecule (B3 batch). SCOPE (match-code): React sender is 'sia'|'user' only (2 variants) — inventory's 'System' sender DROPPED (absent in code) and WithAvatar axis DROPPED (avatar is DERIVED from sender: SIA shows it, User never — ProgressRing/StatTile drop-speculative-axis precedent). Sender=SIA/User at (80,2520). Each variant = 327 FIXED HORIZONTAL auto-layout (w-full), counterAxis MIN (items-start), itemSpacing spacing/8 (gap-2); SIA primaryAxis MIN (justify-start), User MAX (justify-end). SIA: 24x24 Avatar (radius 9999, fill color/brand/royal-purple, 1px INSIDE stroke royal-purple @50% read-modify-write fix-up, Glow/Purple, 'S' Sora SemiBold 11 fill color/text/primary) + bubble. Bubble = VERTICAL auto-layout HUG maxWidth 250 (max-w-[250px]), padding 12/10 (px-3 py-2.5), Body text FILL. SIA bubble fill color/surface/card, stroke color/alpha/white-08, corners 16/16/16 + bottom-LEFT bound radius/xs (rounded-bl-xs). User bubble fill color/alpha/glow-orange-bg (= bg-brand-orange/15 exact token, no fix-up), stroke color/alpha/orange-20 (NEW VariableID:160:3 = rgba(255,94,0,0.2), mirrors border-brand-orange/20 ×8 in src), corners 16/16/16 + bottom-RIGHT bound radius/xs (rounded-br-xs). 16px corner = arbitrary value, hardcoded intrinsic; only 6px tail binds. 15px/22 text = intrinsic Sora Regular, NO style link. Body TEXT prop (Body#162:0, shared default) linked to both variants' Body node. Set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/orange-20.",
       "created_at": "2026-05-29"
+    },
+    "ChatInputBar": {
+      "node_id": "166:12",
+      "page_node_id": "17:12",
+      "key": "aa8fc84d66069248f839a09c5b697836aa299436",
+      "phase": "3B_molecules",
+      "size": { "w": 407, "h": 284 },
+      "position": { "x": 80, "y": 2830 },
+      "variant_axes": { "State": ["Empty", "Typing", "Mic"] },
+      "properties": [],
+      "property_keys": {},
+      "variant_keys": { "State=Empty": "0caca97fd5a6c00d5afa3ef5374f5d73f1d33c01", "State=Typing": "c5a27928c9fdb6916b00929fe4917e8a29b9954e", "State=Mic": "fc6ce42946a33770ad46da3c35f64cf4604fd57d" },
+      "minted_tokens": { "color/alpha/white-30": "VariableID:160:2" },
+      "$comment": "12th Phase 3B molecule (B3 batch). SCOPE (match-code): no 'Recording' state in React — 3 real states derive from action('send'|'mic') + value. Inventory [Empty,Typing,Recording] RENAMED [Empty,Typing,Mic]: Empty/Typing = send (empty vs filled), Mic = action='mic' && !value. Disabled (opacity-60) NOT a 4th variant (pure-opacity overlay). NO component props — input text differs in content+color per variant so BAKED, not a linked TEXT prop. Each variant 327x52 FIXED HORIZONTAL auto-layout, counterAxis CENTER, primaryAxis SPACE_BETWEEN, padding L16/R4/T4/B4, all corners bound radius/pill, fill color/surface/card, 1px INSIDE stroke color/alpha/white-10. Input = Sora Regular 14/18 FILL (intrinsic, no 14px ramp): Empty/Mic placeholder color/alpha/white-30 (NEW VariableID:160:2 = rgba(255,255,255,0.3), mirrors placeholder:text-white/30 ×87 in src); Typing color/text/primary. Button = 44x44 createAutoLayout frame cornerRadius 9999: send variants fill color/brand/cta + Glow/Orange + ArrowUp instance (92:27 @16, white) — Empty opacity 0.45, Typing opacity 1; Mic fill color/surface/card + 1px INSIDE stroke color/alpha/white-10 + Mic instance (96:10 @18, stroke overridden color/alpha/white-60). Set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/white-30.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
