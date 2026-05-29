@@ -730,7 +730,12 @@
           "False"
         ]
       },
-      "figma_node_id": null
+      "figma_node_id": "198:26",
+      "figma_component_key": "c0f194f28e50a19edcc000c684142aeaf7c48c59",
+      "composes": [
+        "Icon/Link2(95:83)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C1 organism #4). match-code: Status[Connected,NotConnected,ComingSoon] (inventory's 2-val Connected bool under-counts). Action buttons BAKED custom pills (Hamza-confirmed; atom doesn't fit h-36/outline/error-red). Card surface/card + white-06 border + radius/xl + Elevation/1. IconBox 36 + Link2 INSTANCE_SWAP(strokes white-70). Header[Name baked + Badge] + Description(Caption prop) + LastSync(connected only). Badge: Connected=success@0.15(read-modify-write fix-up)+success text; NotConnected=white-10+white-50; ComingSoon=white-06+white-30. ComingSoon card opacity 0.6. Connected=2 FILL pills(Force sync white-80 | Disconnect error-red); Not=Connect cta; Coming=Notify me outline white-30. Props Name#198:0/Description#198:4/Icon#198:8. Deviations: coming-soon badge white-06 vs 5%; 'Syncing:' prefix not modeled. No new tokens."
     },
     "WorkoutCard": {
       "phase": "3C_organisms",
