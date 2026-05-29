@@ -646,10 +646,17 @@
       "figma_node_id": "38:8",
       "figma_component_key": "4724ff2cd30913b788b81e6eb4342b97dc991242"
     },
-    "ScreenShell": {
+    "PhoneFrame / Default Content": {
+      "phase": "3F_layout",
+      "source": "src/components/layout/PhoneFrame.tsx",
+      "$comment": "Figma-only auxiliary (no standalone React source): the default value of PhoneFrame's Content INSTANCE_SWAP slot, a 375x812 placeholder swapped per-screen in Phase 4-5. Indexed here (mirroring the ButtonState aux-component precedent) so the build inventory and figma-mapping.ds_components agree. Reconciled 2026-05-29 (X-002).",
+      "figma_node_id": "38:2",
+      "figma_component_key": "b5c6c6914bfa1efd2696e3febab59074a1de2a37"
+    },
+    "ScreenShell-Template": {
       "phase": "3F_layout",
       "source": "src/components/layout/ScreenShell.tsx",
-      "$comment": "Built in Phase 2 (2026-05-28) as ScreenShell-Template. Vertical auto-layout 375x812 with slots: Status Bar Reserve (54) / Header (HUG) / Content (FILL) / BottomAction (HUG, opt) / Composer (HUG, opt) / TabBar (HUG, opt) / Home Indicator Clearance (34). Side padding spacing/16. BOOLEAN props: Show BottomAction (false), Show Composer (false), Show TabBar (true).",
+      "$comment": "Built in Phase 2 (2026-05-28) as ScreenShell-Template (canonical name = live Figma node 37:2; key renamed from 'ScreenShell' on 2026-05-29 to reconcile X-002 with figma-mapping.ds_components). Vertical auto-layout 375x812 with slots: Status Bar Reserve (54) / Header (HUG) / Content (FILL) / BottomAction (HUG, opt) / Composer (HUG, opt) / TabBar (HUG, opt) / Home Indicator Clearance (34). Side padding spacing/16. BOOLEAN props: Show BottomAction (false), Show Composer (false), Show TabBar (true).",
       "figma_node_id": "37:2",
       "figma_component_key": "fd22492a0fe14baa6f6916351b95e02c1c23f96a"
     },
@@ -984,23 +991,38 @@
     "DomainDashboardHeader": {
       "phase": "3C_organisms",
       "source": "src/components/domain/DomainDashboardHeader.tsx",
+      "figma_node_id": "329:158",
+      "figma_component_key": "49d7082f7a84e12a199b95cb33d7b54c22525292",
       "variants": {
-        "Domain": [
-          "Fitness",
-          "Sleep",
-          "Career",
-          "Nutrition",
-          "Finance",
-          "Faith",
-          "Productivity",
-          "Relationships",
-          "Wellbeing",
-          "Meditation",
-          "Creativity",
-          "Learning"
-        ]
+        "Variant=Compact": {
+          "node_id": "324:153",
+          "key": "50e7db5479f4130feedf9ee1ce79f3ff6495e0d6"
+        },
+        "Variant=Expanded": {
+          "node_id": "327:154",
+          "key": "e4e609135f460a0e5ebf1b064e6a322cf089d0ba"
+        }
       },
-      "figma_node_id": null
+      "properties": {
+        "Variant": "Compact/Expanded",
+        "Title": "TEXT (default 'Fitness')",
+        "HasLevel": "BOOLEAN (default true)",
+        "Level": "TEXT (default 'Lv.5')",
+        "RightAction": "INSTANCE_SWAP (default Icon/MoreHorizontal)"
+      },
+      "property_keys": {
+        "Title": "Title#332:0",
+        "HasLevel": "HasLevel#332:3",
+        "Level": "Level#332:6",
+        "RightAction": "RightAction#333:0"
+      },
+      "composes": [
+        "Icon/ChevronLeft(93:72)",
+        "Icon/MoreHorizontal(96:34)"
+      ],
+      "minted_tokens": {},
+      "created": "2026-05-29",
+      "$comment": "Phase 3C batch C6 (DomainDashboardHeader). Hamza-CONFIRMED via AskUserQuestion: (1) DROP the 12-domain axis — domain color is a per-instance prop (domainToneClasses[domain]); build ONE representative domain (fitness 4:11) with a REAL Variant[Compact,Expanded] axis = 2 variants (settled precedent: DomainSkillCard / SuggestionChip / RichInlineCard-ring all dropped a 12-domain axis — designers recolor per instance). (2) Compact trailing = HasLevel BOOLEAN (default true) toggling the Lv-pill vs a MoreHorizontal action slot. SHARED: both variants 375 FIXED-wide, ink-900 (4:5) fill @0.95 (paint-multiplier fix-up); backdrop-blur NOT modeled. COMPACT (Variant=Compact 324:153): h56 FIXED HORIZONTAL counterAxis CENTER, padX spacing/16 (8:5), itemSpacing spacing/12 (8:4); BackBtn 44x44 center FRAME + ChevronLeft (93:72)@20 recolored text/primary (5:6) [React -ml-2 negative margin DROPPED — fine-alignment detail]; TitleCol VERTICAL FILL itemSpacing spacing/4 (8:2 = mt-1): Title BAKED Sora SemiBold 20/26 text/primary (5:6) FILL truncate -> Title TEXT prop; AccentBar plain FRAME h2 (h-0.5) w140 FIXED ≈ React w-64% (auto-layout has NO % child width — fixed approx, documented) radius/pill (9:8) domain fitness (4:11) full. TrailingGroup HORIZONTAL HUG holds LvPill + ActionSlot: LvPill HUG h44 FIXED radius/pill padX spacing/12 (8:4) domain fitness (4:11)@0.15 (paint fix-up) bg + 'Lv.5' Sora SemiBold 12/18 BAKED domain fitness (4:11) full -> Level TEXT prop; LvPill.visible bound to HasLevel#332:3 (default true). ActionSlot 44x44 center + MoreHorizontal (96:34)@20 recolored white-60 (147:5); visible=false default (React rightAction is a ReactNode slot shown when NO level; a single Figma BOOLEAN cannot invert visibility, so the action is the manual alternate — documented). EXPANDED (Variant=Expanded 327:154): h88 FIXED VERTICAL itemSpacing 0; TopRow h44 FILL HORIZONTAL SPACE_BETWEEN counterAxis CENTER padX spacing/16: BackBtn ChevronLeft@20 white (5:6) + ActionSlot MoreHorizontal (96:34)@20 white (5:6 full — NOT white/60); React's invisible text-white/0 centered <h1> (a layout spacer) DROPPED, documented. AccentStrip full-width FILL h3 (h-[3px]) FIXED domain fitness (4:11)@0.80 (paint fix-up). BottomRow h41 FILL HORIZONTAL counterAxis CENTER padX spacing/24 (8:7) itemSpacing spacing/8 (8:3 = ml-2): Title BAKED Sora Bold 28/34 text/primary (5:6) HUG truncate -> SHARES Title TEXT prop (content shared, styling differs per variant) + Dot 8x8 ELLIPSE domain fitness (4:11) full. PROPS (set-level): Title#332:0 TEXT 'Fitness' (both variants), HasLevel#332:3 BOOLEAN true (compact pill visible), Level#332:6 TEXT 'Lv.5' (compact pill), RightAction#333:0 INSTANCE_SWAP default Icon/MoreHorizontal node 96:34 (preferredValues key bf4da9ce5778...) wired on BOTH action-slot icons (compact + expanded). SET = VERTICAL doc card (DomainDashboardHeader 329:158): ink-900 (4:5) full doc fill, cornerRadius 24, padding+itemSpacing spacing/24 (8:7), counterAxis MIN (variants differ in height). 423x216 at (100,6494) on Organisms page 17:13. ZERO new tokens minted (domain colors, ink-900, white, spacing, radius/pill all exist; h-0.5/h-[3px] bar thicknesses are intrinsic geometry; w-64% is a fraction). VALIDATED structurally (variant names, all 4 prop defs, every fill binding) + via pixel screenshot — both variants faithful to React. 21 of 28 organisms."
     },
     "SiaConversation": {
       "phase": "3C_organisms",

@@ -2613,6 +2613,56 @@
       },
       "created_at": "2026-05-29",
       "$comment": "Phase 3C batch C5 (RichInlineCard — the C4 spin-out). 6-type React discriminated union (chart/mission/meal/finance/workout/connection) -> variant axis Type[Chart,Mission,Meal,Finance,Workout,Connection], each STRUCTURALLY distinct (built fresh, no clone). Hamza-CONFIRMED via AskUserQuestion: build all 6; DROP the React w-6 chat-avatar gutter (chat-layout positioning, not card structure); card width 327 FIXED (matches every other DS card; React in-chat render is ~303 = 327 content - 24 gutter, but 327 chosen for consistency). SHARED SHELL: each variant COMPONENT = VERTICAL 327 FIXED-wide HUG-height, ink-brown-800 (4:7) fill, 1px white-08 (140:2) INSIDE border, radius/xl (9:6), padding spacing/16 (8:5), itemSpacing spacing/12 (8:4) = the dominant mt-3 gap, Elevation/1 effect. CARDLINK footer (5 variants, NOT workout): HORIZONTAL FILL primaryAxis MAX (justify-end) counterAxis CENTER, itemSpacing spacing/4 (8:2), minHeight 44 (min-h-11), label Sora SemiBold 12/16 BAKED brand/cta (5:13) + ArrowUpRight (92:31) @13 recolored brand/cta. Per-variant labels DIFFER (View more/View mission/Add to plan/View finances/Tell me more) -> BAKED, no shared TEXT prop. Mixed React margins handled by sub-groups with itemSpacing spacing/8: Chart ChartBody wraps MiniLineChart+caption (mt-2); Connection HeaderGroup wraps eyebrow+body (mt-2). CHART: title Sora SemiBold 14/18 (5:6); MiniLineChart box (FILL w / 112 FIXED h, radius/md 9:4, white-06 4:44 border, white-03 302:2 MINTED bg, padX spacing/8 padY spacing/12, clipped) holds an imported SVG (figma.createNodeFromSvg, FILL/FILL, child constraints SCALE): 3 gridlines white-10 (4:43, node opacity reset to 1 - var carries the 0.10 alpha), orange polyline brand/cta (5:13) 4px round, purple DASHED polyline royal-purple (4:4) 3px dashPattern[6,7], 2 green circles forest-green (4:3); caption Sora Reg 12/16 white-50 (4:41). MISSION (rep missions[0] 'Run a half marathon' 68%): TopRow (gap spacing/12 counterAxis CENTER): MiniProgressRing = 48x48 plain FRAME w/ absolute children = two arcData ELLIPSES (track full-circle innerRadius 0.8 white-10; arc start -PI/2 sweep 0.68*2PI innerRadius 0.8 fitness 4:11 -- modeled as a FILLED donut-arc, not a stroke) + centered '68' Sora SemiBold 12 (5:6); TextCol (gap spacing/2 193:4): name Sora SemiBold 15/20 (5:6) + '68% complete' Caption-linked white-50. NextAction box (FILL, radius/md, white-06 border, white-04 302:3 MINTED bg, padding spacing/12): '5K tempo run' Caption-linked white-70 (4:40). Domain color is per-instance (domainToneClasses) -> built ONE fitness rep (DomainSkillCard precedent). CardLink 'View mission'. MEAL (rep meals[1] 'Grilled chicken salad'): Header (gap spacing/8 counterAxis CENTER): IconBox 32x32 radius/sm (9:3) border domain-nutrition (4:14)@0.30 bg @0.15 (paint fix-ups) + Utensils (99:94)@16 recolored nutrition + name Sora SemiBold 14/18 FILL. Macros (HORIZONTAL WRAP itemSpacing+counterAxisSpacing spacing/8): 4 MacroPills (HUG, radius/sm, white-06 border, white-04 302:3 bg, padX spacing/8 padY spacing/4 gap spacing/4): label Sora SemiBold 11/14 white-50 + value Sora SemiBold 11/14 white (5:6) = Cal 520/Protein 42g/Carbs 28g/Fat 22g. CardLink 'Add to plan'. FINANCE: Header IconBox domain-finance (4:15) + WalletCards (99:107)@16 + 'This month' Sora SemiBold 14/18. Rows (VERTICAL itemSpacing 0): 3 FinanceRows (h-8 32 FIXED, SPACE_BETWEEN counterAxis CENTER): label Caption-linked white-50 + value Sora SemiBold 13/18 BAKED (positive=forest-green 4:3 / else white 5:6); rows 1-2 border-b white-05 (237:2) via strokeBottomWeight=1/others 0, last none = Income $4,200(+)/Expenses $2,860/Net $1,340(+). CardLink 'View finances'. WORKOUT (rep workouts[0] 'Half marathon training - Week 6'): Header IconBox domain-fitness (4:11) + Dumbbell (94:34)@16 + TextCol (gap spacing/2): name Sora SemiBold 14/18 + '4 exercises - 45 min' Sora Reg 12/16 white-50. StartButton = BAKED pill (NOT Button-atom -- custom min-h-11/44): HORIZONTAL HUG center, brand/cta (5:13) bg, radius/pill (9:8), padX spacing/16, Glow/Orange effect, 'Start workout' Sora SemiBold 12/16 white (5:6). No CardLink. CONNECTION: HeaderGroup (gap spacing/8): eyebrow 'Connection spotted' Eyebrow-style-linked royal-purple (4:4) + body Caption-linked white-80 (167:2). DomainTags (HORIZONTAL gap spacing/8): 3 DomainTag instances (52:39 default 52:3) Sleep/Fitness/Nutrition, default ShowDot, +0.15 bg opacity fix-up each. ProgressBar: track plain FRAME (FILL w / 8 FIXED h, radius/pill, white-08 140:2 bg, clipped) + fill RECT 212x8 (72% of 295 inner) royal-purple (4:4) positioned via plain-frame x/y. CardLink 'Tell me more'. SET: HORIZONTAL layoutWrap WRAP, FIXED width 1077 (3x327 + 2x24 gap + 2x24 pad forces 3-per-row 3x2 grid), counterAxisAlignItems MIN (heights differ), ink-900 (4:5) doc fill, cornerRadius 24, padding+itemSpacing+counterAxisSpacing spacing/24 (8:7). 1077x570 at (100,5844) on Organisms page 17:13. MINTED 2 intrinsic-alpha primitives in Primitives collection 2:2 mode 2:0: white-03 (VariableID:302:2, white@0.03, 18 code uses, chart bg) + white-04 (VariableID:302:3, white@0.04, 46 code uses, macro pills + nextAction box) -- both recurring, no existing token; scopes FRAME_FILL/SHAPE_FILL/STROKE_COLOR + WEB var(--color-alpha-white-03|04). VALIDATED structurally + via pixel screenshot (worked this session, curl HTTP 200) -- all 6 variants faithful to React."
+    },
+    "DomainDashboardHeader": {
+      "node_id": "329:158",
+      "page_node_id": "17:13",
+      "key": "49d7082f7a84e12a199b95cb33d7b54c22525292",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 423,
+        "h": 216
+      },
+      "position": {
+        "x": 100,
+        "y": 6494
+      },
+      "variant_axes": {
+        "Variant": [
+          "Compact",
+          "Expanded"
+        ]
+      },
+      "variants": {
+        "Variant=Compact": {
+          "node_id": "324:153",
+          "key": "50e7db5479f4130feedf9ee1ce79f3ff6495e0d6"
+        },
+        "Variant=Expanded": {
+          "node_id": "327:154",
+          "key": "e4e609135f460a0e5ebf1b064e6a322cf089d0ba"
+        }
+      },
+      "properties": [
+        "Variant",
+        "Title",
+        "HasLevel",
+        "Level",
+        "RightAction"
+      ],
+      "property_keys": {
+        "Title": "Title#332:0",
+        "HasLevel": "HasLevel#332:3",
+        "Level": "Level#332:6",
+        "RightAction": "RightAction#333:0"
+      },
+      "composes": [
+        "Icon/ChevronLeft(93:72)",
+        "Icon/MoreHorizontal(96:34)"
+      ],
+      "minted_tokens": {},
+      "created_at": "2026-05-29",
+      "$comment": "Phase 3C batch C6 (DomainDashboardHeader). Hamza-CONFIRMED via AskUserQuestion: (1) DROP the 12-domain axis — domain color is a per-instance prop (domainToneClasses[domain]); build ONE representative domain (fitness 4:11) with a REAL Variant[Compact,Expanded] axis = 2 variants (settled precedent: DomainSkillCard / SuggestionChip / RichInlineCard-ring all dropped a 12-domain axis — designers recolor per instance). (2) Compact trailing = HasLevel BOOLEAN (default true) toggling the Lv-pill vs a MoreHorizontal action slot. SHARED: both variants 375 FIXED-wide, ink-900 (4:5) fill @0.95 (paint-multiplier fix-up); backdrop-blur NOT modeled. COMPACT (Variant=Compact 324:153): h56 FIXED HORIZONTAL counterAxis CENTER, padX spacing/16 (8:5), itemSpacing spacing/12 (8:4); BackBtn 44x44 center FRAME + ChevronLeft (93:72)@20 recolored text/primary (5:6) [React -ml-2 negative margin DROPPED — fine-alignment detail]; TitleCol VERTICAL FILL itemSpacing spacing/4 (8:2 = mt-1): Title BAKED Sora SemiBold 20/26 text/primary (5:6) FILL truncate -> Title TEXT prop; AccentBar plain FRAME h2 (h-0.5) w140 FIXED ≈ React w-64% (auto-layout has NO % child width — fixed approx, documented) radius/pill (9:8) domain fitness (4:11) full. TrailingGroup HORIZONTAL HUG holds LvPill + ActionSlot: LvPill HUG h44 FIXED radius/pill padX spacing/12 (8:4) domain fitness (4:11)@0.15 (paint fix-up) bg + 'Lv.5' Sora SemiBold 12/18 BAKED domain fitness (4:11) full -> Level TEXT prop; LvPill.visible bound to HasLevel#332:3 (default true). ActionSlot 44x44 center + MoreHorizontal (96:34)@20 recolored white-60 (147:5); visible=false default (React rightAction is a ReactNode slot shown when NO level; a single Figma BOOLEAN cannot invert visibility, so the action is the manual alternate — documented). EXPANDED (Variant=Expanded 327:154): h88 FIXED VERTICAL itemSpacing 0; TopRow h44 FILL HORIZONTAL SPACE_BETWEEN counterAxis CENTER padX spacing/16: BackBtn ChevronLeft@20 white (5:6) + ActionSlot MoreHorizontal (96:34)@20 white (5:6 full — NOT white/60); React's invisible text-white/0 centered <h1> (a layout spacer) DROPPED, documented. AccentStrip full-width FILL h3 (h-[3px]) FIXED domain fitness (4:11)@0.80 (paint fix-up). BottomRow h41 FILL HORIZONTAL counterAxis CENTER padX spacing/24 (8:7) itemSpacing spacing/8 (8:3 = ml-2): Title BAKED Sora Bold 28/34 text/primary (5:6) HUG truncate -> SHARES Title TEXT prop (content shared, styling differs per variant) + Dot 8x8 ELLIPSE domain fitness (4:11) full. PROPS (set-level): Title#332:0 TEXT 'Fitness' (both variants), HasLevel#332:3 BOOLEAN true (compact pill visible), Level#332:6 TEXT 'Lv.5' (compact pill), RightAction#333:0 INSTANCE_SWAP default Icon/MoreHorizontal node 96:34 (preferredValues key bf4da9ce5778...) wired on BOTH action-slot icons (compact + expanded). SET = VERTICAL doc card (DomainDashboardHeader 329:158): ink-900 (4:5) full doc fill, cornerRadius 24, padding+itemSpacing spacing/24 (8:7), counterAxis MIN (variants differ in height). 423x216 at (100,6494) on Organisms page 17:13. ZERO new tokens minted (domain colors, ink-900, white, spacing, radius/pill all exist; h-0.5/h-[3px] bar thicknesses are intrinsic geometry; w-64% is a fraction). VALIDATED structurally (variant names, all 4 prop defs, every fill binding) + via pixel screenshot — both variants faithful to React. 21 of 28 organisms."
     }
   },
   "ds_icons": {
