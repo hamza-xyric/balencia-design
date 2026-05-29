@@ -668,7 +668,13 @@
           "Domain"
         ]
       },
-      "figma_node_id": null
+      "figma_node_id": "201:31",
+      "figma_component_key": "7bce04ea02b2dab99fdeb362f8244f46edf10a14",
+      "composes": [
+        "Icon/Check(93:54)",
+        "DomainTag(52:39)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C1 organism #5). match-code: inventory Variant[Default/Accent/Domain] DROPPED (not in React). State[Default,Completed] axis (opacity 0.55 + name strikethrough + completion fill) + Expanded BOOLEAN (SIA note). Domain via nested DomainTag. Card surface/card+white-06 border+radius/xl+Elevation/1. DomainTag(ShowDot=true,0.15 fix-up)+Name(SemiBold 16/22)+Meta[Time Caption white-50 + bullet + Xp SemiBold 13/18 cta]; Completion 44 round (cta fill when done) + inner 24 ring border-current + Check visible when done; SiaNote white-06 bg radius/md Caption white-60 gated by Expanded. Props Name#201:0/Time#201:3/Xp#201:6/Expanded#201:9. Deviations: Expanded defaults true (doc); note bg white-06 vs 4%; outer border-white/30 dead code not modeled. No new tokens."
     },
     "RichInlineCard": {
       "phase": "3C_organisms",

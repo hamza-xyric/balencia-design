@@ -2004,6 +2004,45 @@
       "minted_tokens": {},
       "$comment": "C1 organism #4. SCOPE/match-code: inventory's 2-value Connected boolean UNDER-COUNTS code; React status is a 3-value union (connected/not-connected/coming-soon) -> Status[Connected,NotConnected,ComingSoon] axis (confirmed by Hamza). ACTION BUTTONS = BAKED custom pills (confirmed by Hamza, NOT Button-atom instances): Button atom's smallest size is 44px but these are h-9/36px, and 3 of 4 styles (border-white/10 outline pills w/ error-red, white-30, white-80 text) have no matching atom variant. Each baked btn = HORIZONTAL auto-layout, height 36 FIXED, radius/pill, padX (spacing/12 for Force sync+Disconnect grid btns, spacing/16 for Connect+Notify), text Sora SemiBold 14/18 BAKED (non-ramp 14px). Connected -> 2 FILL btns (Force sync border white-10 text white-80 | Disconnect border white-10 text color/state/error). NotConnected -> 1 HUG btn minWidth 112 right-aligned (Connect bg color/brand/cta text color/text/primary). ComingSoon -> card opacity 0.6 + 1 btn (Notify me border white-10 text white-30). Card chrome: VERTICAL auto-layout 327 FIXED, padding spacing/16 (p-4), itemSpacing spacing/16 (mt-4), fill color/surface/card, 1px INSIDE border color/alpha/white-06, radius/xl (rounded-xl=28), Elevation/1 effect. TopBlock HORIZONTAL gap spacing/12 counterAxis MIN: IconBox 36x36 FIXED radius/md border white-10 bg ink-900 + 18x18 Link2 INSTANCE_SWAP (strokes->white-70) | Content VERTICAL FILL gap spacing/8: Header SPACE_BETWEEN [Name Sora SemiBold 16/22 baked FILL truncate + Badge] + Description (Caption linked, white-50, FILL) + (Connected only) LastSync (Caption, white-40, BAKED). Badge = HUG pill padX spacing/10 padY spacing/4, Sora SemiBold 11/14 baked: Connected=success@0.15 tint bg (REQUIRED read-modify-write opacity fix-up — paint-multiplier gotcha; the other 2 badges use intrinsic-alpha vars white-10/white-06 so NO fix-up)+success text; NotConnected=white-10 bg+white-50 text; ComingSoon=white-06 bg+white-30 text. Name+Description linked TEXT props (shared defaults). Badge text + action labels + LastSync BAKED per-variant (differ across status -> clobber if linked). DEVIATIONS: (a) coming-soon badge bg uses white-06 (6%) vs React white/[0.05] (5%) — no white-05 token, 1% imperceptible. (b) React description prefixes 'Syncing: ' on connected — runtime data formatting, NOT modeled (Description is a plain shared prop). Set frame VERTICAL ink-900 radius24 padding/gap spacing/24. No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "ActionCard": {
+      "node_id": "201:31",
+      "page_node_id": "17:13",
+      "key": "7bce04ea02b2dab99fdeb362f8244f46edf10a14",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 726,
+        "h": 288
+      },
+      "position": {
+        "x": 80,
+        "y": 1320
+      },
+      "variant_axes": {
+        "State": [
+          "Default",
+          "Completed"
+        ]
+      },
+      "properties": [
+        "Name",
+        "Time",
+        "Xp",
+        "Expanded"
+      ],
+      "property_keys": {
+        "Name": "Name#201:0",
+        "Time": "Time#201:3",
+        "Xp": "Xp#201:6",
+        "Expanded": "Expanded#201:9"
+      },
+      "composes": [
+        "Icon/Check(93:54)",
+        "DomainTag(52:39 ShowDot=true default)"
+      ],
+      "minted_tokens": {},
+      "$comment": "C1 organism #5. SCOPE/match-code: inventory's Variant[Default/Accent/Domain] DOES NOT exist in React (confirmed by Hamza) -> DROPPED. Real axes: State[Default,Completed] VARIANT (completed changes card opacity 0.55 + name STRIKETHROUGH + completion-circle fill) + Expanded BOOLEAN (gates SIA note block visibility). Domain via NESTED DomainTag instance variant (MissionCard precedent), NOT a card-level axis. Card VERTICAL 327 FIXED, padding spacing/24 (p-6), itemSpacing spacing/16 (mt-4), fill color/surface/card, 1px INSIDE white-06 border, radius/xl (rounded-xl=28), Elevation/1. Completed -> card.opacity=0.55. TopRow HORIZONTAL gap spacing/12 counterAxis CENTER: LeftCol VERTICAL FILL itemSpacing spacing/12 (mt-3) [DomainTag instance(default Fitness, ShowDot=true kept, 0.15 opacity fix-up) + TextGroup VERTICAL itemSpacing spacing/4 (mt-1): Name(Sora SemiBold 16/22 BAKED, text/primary, FILL truncate, STRIKETHROUGH when Completed) + Meta HORIZONTAL gap spacing/8 (Time Caption white-50 + bullet '•' Caption white-50 + Xp Sora SemiBold 13/18 BAKED color/brand/cta)] | Completion 44x44 FIXED round (radius/pill): Completed->fill cta else transparent; inner Ring 24x24 round 2px INSIDE stroke color/text/primary (border-current) holding 14x14 Check(93:54) visible only when Completed. SiaNote VERTICAL FILL padding spacing/12 (p-3), radius/md (rounded-md=14), bg+border white-06, Note text Caption white-60, visible gated by Expanded BOOLEAN. Name+Time+Xp linked TEXT props (shared defaults; per-state strikethrough is node style not prop). DECISIONS/deviations: (a) Expanded BOOLEAN defaults TRUE (React default is collapsed/false) so the component library shows the rich expanded state; designers collapse per instance. (b) SiaNote bg uses white-06 (6%) vs React bg-white/[0.04] (4%) — no white-04 token, 2% imperceptible. (c) React completion outer border-white/30 is dead Tailwind (color w/o width); only the inner ring (border-current=text/primary white) is modeled. Set frame HORIZONTAL ink-900 radius24 padding/gap spacing/24. No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
