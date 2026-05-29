@@ -704,6 +704,7 @@
       "key": "0d68a190da7a7b3f332f93e689b8fe932286d2bd",
       "phase": "3B_molecules",
       "size": { "w": 1157, "h": 136 },
+      "position": { "x": 80, "y": 2140 },
       "variant_axes": { "Tone": ["Primary","Muted","Soft"] },
       "variants": {
         "Tone=Primary": { "node_id": "151:5",  "key": "a6049a8d1f4192fd8a5afb1d7d8808ae505ed399" },
@@ -712,7 +713,20 @@
       },
       "properties": ["Label (TEXT)", "Value (TEXT)", "TargetLabel (TEXT)", "HasTarget (BOOLEAN)"],
       "property_keys": { "label": "Label#152:0", "value": "Value#152:4", "targetLabel": "TargetLabel#152:8", "hasTarget": "HasTarget#152:12" },
-      "$comment": "9th Phase 3B molecule (B2 batch). 3 Tone variants matching React fillClasses: Primary=color/brand/cta, Muted=color/alpha/white-40, Soft=color/alpha/white-20 (clean bind — cta full opacity, white-40/-20 intrinsic alpha, NO fix-up). Each variant 327 FIXED-wide VERTICAL auto-layout (counterAxis FIXED, primaryAxis HUG), itemSpacing bound spacing/8 (mb-2). LabelRow = HORIZONTAL FILL SPACE_BETWEEN + counterAxis CENTER, gap spacing/12: Label (Sora Regular 15/20, color/text/primary, FILL) + Value (Sora SemiBold 15/20, color/text/primary, HUG). TrackGroup = VERTICAL FILL, gap spacing/4 (mt-1): Track (plain FRAME FILL×8 FIXED, clipsContent, bg color/alpha/white-08, radius/pill) with absolute Fill RECTANGLE baked 229px (~70% static snapshot, XPBar precedent) bound per-tone + radius/pill; TargetLabel (Sora Regular 12/16, color/alpha/white-40). 15px/12px text is component-intrinsic Sora (NO style link). Track 8px + Fill 229px intrinsic geometry. PROPERTIES (shared defaults → linked across all 3 tones, XPBar/SettingsRow precedent): Label#152:0 'Protein', Value#152:4 '120g', TargetLabel#152:8 '120 / 150g', HasTarget#152:12 BOOLEAN default true gating TargetLabel.visible (React target? optional). Set frame ink-900 bg + radius 24 for documentation visibility. Zero new tokens minted.",
+      "$comment": "9th Phase 3B molecule (B2 batch). Placed at (80,2140) — moved below WaterIntakeRing (both were briefly at 1730). 3 Tone variants matching React fillClasses: Primary=color/brand/cta, Muted=color/alpha/white-40, Soft=color/alpha/white-20 (clean bind — cta full opacity, white-40/-20 intrinsic alpha, NO fix-up). Each variant 327 FIXED-wide VERTICAL auto-layout (counterAxis FIXED, primaryAxis HUG), itemSpacing bound spacing/8 (mb-2). LabelRow = HORIZONTAL FILL SPACE_BETWEEN + counterAxis CENTER, gap spacing/12: Label (Sora Regular 15/20, color/text/primary, FILL) + Value (Sora SemiBold 15/20, color/text/primary, HUG). TrackGroup = VERTICAL FILL, gap spacing/4 (mt-1): Track (plain FRAME FILL×8 FIXED, clipsContent, bg color/alpha/white-08, radius/pill) with absolute Fill RECTANGLE baked 229px (~70% static snapshot, XPBar precedent) bound per-tone + radius/pill; TargetLabel (Sora Regular 12/16, color/alpha/white-40). 15px/12px text is component-intrinsic Sora (NO style link). Track 8px + Fill 229px intrinsic geometry. PROPERTIES (shared defaults → linked across all 3 tones, XPBar/SettingsRow precedent): Label#152:0 'Protein', Value#152:4 '120g', TargetLabel#152:8 '120 / 150g', HasTarget#152:12 BOOLEAN default true gating TargetLabel.visible (React target? optional). Set frame ink-900 bg + radius 24 for documentation visibility. Zero new tokens minted.",
+      "created_at": "2026-05-29"
+    },
+    "MoodSelector": {
+      "node_id": "155:5",
+      "page_node_id": "17:12",
+      "key": "68d490b1601be30838ba5dba76f68c9871e5f95d",
+      "phase": "3B_molecules",
+      "size": { "w": 327, "h": 96 },
+      "position": { "x": 80, "y": 2346 },
+      "variant_axes": {},
+      "properties": [],
+      "property_keys": {},
+      "$comment": "10th Phase 3B molecule (B2 batch, final). Lone COMPONENT (no variant axis) on Molecules page (17:12) at (80,2346). React selection is per-button INTERNAL state (selectedLabel prop), not a component-level axis → representative snapshot with one mood selected (StatTile/ChainProgressBar lone-component precedent; a 6-way Selected axis would be low value). Component root = the card: 327 FIXED-wide HORIZONTAL auto-layout (primaryAxis FIXED, counterAxis HUG + CENTER), padding spacing/16 (p-4), itemSpacing bound spacing/4 (gap-1), bg color/surface/card (bg-ink-brown-800), 1px INSIDE stroke color/alpha/white-06, radius/xl (rounded-xl), Elevation/1 (shadow-1). 6 cells = VERTICAL auto-layout (CENTER/CENTER, gap spacing/4 = mt-1), FILL width (= grid-cols-6 equal distribution) × 64 FIXED height, radius/md (rounded-md). Each cell: emoji TEXT (Sora Regular 28px; selected 31px ≈ scale-110) + label TEXT (Small style 11px Regular linked, textAlign CENTER, FILL width, textTruncation ENDING = React truncate). SELECTED (baked index 3 'Good'): bg color/domain/wellbeing @15% paint-multiplier (read-modify-write fix-up REQUIRED), opacity 1, label color/alpha/white-70. UNSELECTED: transparent fill, opacity 0.5, label color/alpha/white-40. Emojis render full-color via Figma emoji fallback. NO doc frame (card supplies its own dark surface/card bg). NO component properties — mood content customized per-instance via detach. Baked moods: Awful/Low/Okay/Good/Great/Amazing. Zero new tokens minted.",
       "created_at": "2026-05-29"
     }
   },
