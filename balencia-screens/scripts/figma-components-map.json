@@ -974,14 +974,30 @@
     "VoiceWaveform": {
       "phase": "3C_organisms",
       "source": "src/components/screens/VoiceWaveform.tsx",
+      "figma_node_id": "351:165",
+      "figma_component_key": "43ff62cd2ae2ce9d17b597c8554bc7f39fe66e5f",
       "variants": {
-        "State": [
-          "Idle",
-          "Listening",
-          "Speaking"
-        ]
+        "State=Idle": {
+          "node_id": "348:165",
+          "key": "5e58fff01e1135b71bc98a1fd13b84bb4e14a826"
+        },
+        "State=Listening": {
+          "node_id": "349:165",
+          "key": "253073e40bc7f3f446212cba14a4fade87d30c62"
+        },
+        "State=Speaking": {
+          "node_id": "350:165",
+          "key": "c1a46cdfbed2bc3a56f7c4886ac049ab1d95b355"
+        }
       },
-      "figma_node_id": null
+      "properties": {
+        "State": "Idle/Listening/Speaking"
+      },
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created": "2026-05-29",
+      "$comment": "Phase 3C batch C7 (VoiceWaveform). Hamza-CONFIRMED via AskUserQuestion: (1) axis named State[Idle,Listening,Speaking] (the inventory-stub semantic the screens consume) mapping onto the React `tone` prop [idle,purple,orange] 1:1 — Idle=tone'idle', Listening=tone'purple', Speaking=tone'orange'; tone mapping documented here. (2) DROP the React `compact` form (h-48 w-full + bars scaled max(8,round(bar*0.82))) — model ONLY the default 280x48 (settled drop-speculative/per-instance-layout precedent: SuggestionChip / ScheduleItem / DomainDashboardHeader). (3) NO component properties — pure decorative aria-hidden visual; State is the only (variant) axis. Each variant COMPONENT 280x48 FIXED HORIZONTAL, primaryAxis CENTER (justify-center) + counterAxis CENTER (items-center), itemSpacing spacing/4 (8:2 = gap-1), clipsContent=true (overflow-hidden), transparent fill. LOOP the 24-element bars height array [10,18,28,16,36,44,24,38,48,32,20,42,30,18,34,46,26,14,24,36,22,12,18,28]: each Bar = RECTANGLE 3px FIXED wide (w-[3px], intrinsic geometry NOT tokenized) x array-height (intrinsic geometry), all 4 corners bound radius/pill (9:8), fill bound to the variant tone color, then PER-BAR opacity fix-up via .map (setBoundVariableForPaint strips paint opacity back to 1 — the LevelBadge/DomainTag alpha-tint fix-up applied per-bar in the loop). Opacity formula: distanceFromCenter=abs(index-11.5); Idle=0.12 FLAT every bar; Listening/Speaking=max(0.3, 0.86 - distanceFromCenter*0.045) (center bars brightest ~0.84, edges fade to floor ~0.34). Bar layoutSizing FIXED/FIXED (intrinsic geometry, not FILL/HUG). State=Idle (348:165) fill text/primary white (5:6) @0.12 flat; State=Listening (349:165) fill royal-purple (4:4) gradient; State=Speaking (350:165) fill brand/cta (5:13) gradient. animationDelay / the voice-wave-bar CSS keyframe animation is RUNTIME-ONLY — NOT statically modeled (static frame = the resting bar shape). Set = VERTICAL doc card: ink-900 (4:5) full fill, cornerRadius 24, padding+itemSpacing spacing/24 (8:7), counterAxis MIN; 328x240 at (100,6790). ZERO new tokens minted (royal-purple/cta/white/spacing-4/radius-pill all exist; 3px bar width + bar heights are intrinsic geometry; per-bar opacity is a paint-level value not a token; 0.12 is a one-off paint opacity). VALIDATED structurally (all 3 variant fill bindings + per-bar opacities + radius/gap bindings + clipsContent) + via pixel screenshot (curl HTTP 200 valid PNG — Idle flat-dim white, Listening purple center-bright gradient, Speaking orange center-bright gradient, all faithful to React)."
     },
     "VoiceInterfacePanel": {
       "phase": "3C_organisms",
@@ -1042,15 +1058,31 @@
     "HealthMetricsStrip": {
       "phase": "3C_organisms",
       "source": "src/components/screens/HealthMetricsStrip.tsx",
-      "figma_node_id": "245:83",
+      "figma_node_id": "345:165",
       "doc_frame_id": "246:90",
-      "figma_component_key": "16df1ef8e07b22ee83b8ef79fd14a233abcd3052",
+      "figma_component_key": "4eb14f851ce50ca0c0cd95e467f243f2be9d963f",
+      "variant_axes": {
+        "State": [
+          "Default",
+          "Pressed"
+        ]
+      },
+      "variants": {
+        "Default": {
+          "node_id": "245:83",
+          "key": "16df1ef8e07b22ee83b8ef79fd14a233abcd3052"
+        },
+        "Pressed": {
+          "node_id": "344:165",
+          "key": "3ab3216fd9a9cc060761031134ca8acde8b03e40"
+        }
+      },
       "composes": [
         "Icon/HeartPulse",
         "Icon/Footprints",
         "Icon/Moon"
       ],
-      "$comment": "BUILT 2026-05-29 (C3 #2) Organisms 17:13 (80,4410). NO variants/props — list-driven (MealCard precedent), 3 baked tiles. React grid-cols-3 gap-2 -> HORIZONTAL 327 FIXED, itemSpacing 8, 3 tiles FILL. Tile=HORIZONTAL minHeight44 ink-brown-800 + 1px white-08 border + radius/pill + Elevation/1 + padX 8 gap 4, centered. Icon@14 (recolor strokes white-50) + value Sora SemiBold 14/20 text/primary + unit Sora Reg 10/16 white-40. Baked: HeartPulse 72 bpm / Footprints 8.2k steps / Moon 7.5 hrs. Lone comp -> ink-900 doc frame [doc] (246:90) radius24 spacing/24."
+      "$comment": "BUILT 2026-05-29 (C3 #2) Organisms 17:13. React grid-cols-3 gap-2 -> HORIZONTAL 327 FIXED, itemSpacing 8, 3 tiles FILL. Tile=HORIZONTAL minHeight44 ink-brown-800 + 1px white-08 border + radius/pill + Elevation/1 + padX 8 gap 4, centered. Icon@14 (recolor strokes white-50) + value Sora SemiBold 14/20 text/primary + unit Sora Reg 10/16 white-40. Baked: HeartPulse 72 bpm / Footprints 8.2k steps / Moon 7.5 hrs. UPDATED 2026-05-29 (X-004/C-007 fix): promoted lone COMPONENT to COMPONENT_SET (345:165) with State=Default|Pressed. Pressed = whole strip rescaled 0.95, documenting the source's per-button `active:scale-95`. Default variant retains original node 245:83. Set lives in the [doc] frame (246:90)."
     },
     "QuickActionsRow": {
       "phase": "3C_organisms",
