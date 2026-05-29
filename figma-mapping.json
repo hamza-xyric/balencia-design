@@ -1929,6 +1929,44 @@
       },
       "$comment": "C1 organism #2. Direction[Income,Expense] axis. Each variant 327 FIXED HORIZONTAL auto-layout, counterAxis CENTER, itemSpacing+paddingTop/Bottom bound spacing/12 (gap-3, py-3), paddingX 0, fills=[] (transparent row; set frame provides dark bg). minHeight 56 intrinsic. Children: (1) IconCircle 32x32 FIXED auto-layout center/center, fill color/alpha/white-06, radius/pill all 4 corners, holding an 18x18 INSTANCE_SWAP icon (default Icon/ShoppingCart 98:67) whose vector strokes are read-modify-write rebound to color/alpha/white-70 (NotificationRow stroke-override precedent — note: swapping the icon resets the white-70 override to the icon's default text/primary). (2) TextCol VERTICAL FILL, itemSpacing bound to MINTED spacing/2 (mt-0.5=2px): Merchant (Sora SemiBold 16/22 BAKED no style link — emphasis size, fill color/text/primary, FILL truncate-ENDING) + Date (Caption style 13 Regular linked, fill color/alpha/white-50, FILL truncate-ENDING). (3) Amount (Sora SemiBold 17/22 BAKED, HUG). SCOPE/match-code: Amount is BAKED per-variant (NOT a linked TEXT prop) because the text differs per Direction (sign +/-) and the fill differs (Income=color/brand/success, Expense=color/text/primary) — linking a shared TEXT prop would clobber across variants (gotcha). Merchant+Date ARE linked TEXT props (identical defaults across both variants → safe). Icon INSTANCE_SWAP wired on both variants via componentPropertyReferences.mainComponent. tabular-nums from React not modeled (Sora has no tabular variant). withDivider border-t SKIPPED (list concern). Set frame = VERTICAL auto-layout, ink-900 fill, radius 24, padding/itemSpacing spacing/24 (doc bg). MINTED spacing/2 (VariableID:193:4) in Spacing collection 2:4: value 2, scopes WIDTH_HEIGHT+GAP, WEB code syntax literal '2px'. APPLIED the VariableID:-prefix fix from ScheduleItem throughout — all bindings stuck first try.",
       "created_at": "2026-05-29"
+    },
+    "HabitRow": {
+      "node_id": "196:17",
+      "page_node_id": "17:13",
+      "key": "3a2305f65ee7643c6542f972d66a104c52311aaf",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 375,
+        "h": 224
+      },
+      "position": {
+        "x": 80,
+        "y": 480
+      },
+      "variant_axes": {
+        "Completed": [
+          "False",
+          "True"
+        ]
+      },
+      "properties": [
+        "Name",
+        "Days",
+        "HasStreak"
+      ],
+      "property_keys": {
+        "Name": "Name#196:0",
+        "Days": "Days#196:3",
+        "HasStreak": "HasStreak#196:6"
+      },
+      "composes": [
+        "Icon/Check(93:54)",
+        "Icon/Flame(94:79)",
+        "DomainTag(52:39 ShowDot=false)"
+      ],
+      "minted_tokens": {},
+      "$comment": "C1 organism #3. SCOPE/match-code: React has `completed` (bool) and `streak` (number, shown when >0). `completed` changes FILLS (checkbox bg/border, name color) so it is a VARIANT AXIS Completed[False,True] (2 variants). `streak>0` is pure VISIBILITY of the flame+days group so it is HOISTED to a HasStreak BOOLEAN property (SettingsRow HasIcon / hoist-visibility convention; inventory's 3-state State[Default/CheckedToday/Streak] collapses to this 2-axis-bool model). Each variant 327 FIXED HORIZONTAL, counterAxis CENTER, itemSpacing spacing/12, paddingX spacing/16 (px-4), paddingY spacing/12 (py-3), minHeight 64 (min-h-16), fills=[] (set frame gives dark bg). Children: (1) Checkbox 24x24 FIXED auto-layout center/center, radius/xs (rounded-xs), strokeWeight 1 INSIDE; Completed=True -> fill+stroke color/brand/cta + Check instance(93:54,14x14, default text/primary stroke=white) visible; Completed=False -> fills=[] + stroke color/alpha/white-20 + check hidden. (2) TextCol VERTICAL FILL itemSpacing spacing/4 (mt-1): Name (Body style linked, fill Completed?white-50:text/primary, FILL truncate-ENDING) + MetaRow HORIZONTAL FILL itemSpacing spacing/8 (gap-2): StreakGroup HORIZONTAL HUG itemSpacing spacing/4 (gap-1) [Flame instance(94:79,14x14, strokes rebound color/brand/cta) + Days text (Sora SemiBold 11/14 BAKED — text-small font-semibold, no SemiBold-11 ramp, fill color/alpha/white-60)] gated by HasStreak BOOLEAN visible-ref (default true) on BOTH variants + DomainTag instance(default Fitness, ShowDot=false, 0.15 opacity fix-up). Name+Days linked TEXT props (identical defaults across variants). Domain via nested DomainTag instance variant (MissionCard precedent), NOT a card axis. withDivider border-t SKIPPED. Set frame VERTICAL ink-900 radius24 padding/gap spacing/24. No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {

@@ -776,7 +776,14 @@
           "Streak"
         ]
       },
-      "figma_node_id": null
+      "figma_node_id": "196:17",
+      "figma_component_key": "3a2305f65ee7643c6542f972d66a104c52311aaf",
+      "composes": [
+        "Icon/Check(93:54)",
+        "Icon/Flame(94:79)",
+        "DomainTag(52:39)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C1 organism #3). match-code: Completed[False,True] VARIANT axis (changes checkbox fill/border + name color); streak>0 -> HasStreak BOOLEAN (visibility of flame+days group). Inventory's 3-state State axis collapses to this. Checkbox 24x24 radius/xs + Check(93:54) visible when done (cta fill); Name(Body, white-50 when done)+MetaRow[StreakGroup(Flame 94:79 cta + Days Sora SemiBold 11/14 baked white-60) gated by HasStreak + DomainTag ShowDot=false]. Props Name#196:0/Days#196:3/HasStreak#196:6. No new tokens."
     },
     "LeaderboardRow": {
       "phase": "3C_organisms",
