@@ -978,7 +978,17 @@
           "Expanded"
         ]
       },
-      "figma_node_id": null
+      "figma_node_id": "260:108",
+      "figma_component_key": "4cf9f0c536b01a5945d01482baaa0348bd427dd6",
+      "properties": [
+        "Question (TEXT)",
+        "Answer (TEXT)"
+      ],
+      "composes": [
+        "Icon/ChevronRight (Collapsed)",
+        "Icon/ChevronDown (Expanded)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C3 #6, final) Organisms 17:13 (80,5250). State[Collapsed,Expanded] CONFIRMED real 2-variant axis (answer panel + chevron differ). Both = VERTICAL 327 FIXED ink-brown-800, itemSpacing 0, border-b strokeBottomWeight=1 white-05 (237:2). QuestionRow (HORIZONTAL FILL minHeight 56 gap 12 padX 16 padY 12): question Sora SemiBold 15/20 text/primary FILL (wraps 2 lines) -> Question prop (both); chevron@15 white-30 — ChevronRight collapsed / ChevronDown expanded BAKED per-variant. Expanded adds AnswerPanel (border-t strokeTopWeight=1 white-05, padX 16 pt 12 pb 16): answer Sora Reg 15/22 white-70 FILL -> Answer prop (Expanded only). Set = ink-900 doc bg radius24 spacing/24 counterAxis MIN. Uses white-05 (minted in JournalEntryCard)."
     },
     "LifePowerDisplay": {
       "phase": "3C_organisms",

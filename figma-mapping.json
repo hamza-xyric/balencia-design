@@ -2457,6 +2457,41 @@
       },
       "$comment": "BUILT 2026-05-29 (C3 organism #5). Match-code: NO variant axis; bools HasVoice/HasMood/WithDivider hoisted from pure-visibility props (HabitRow/ModuleCard precedent). Card = VERTICAL 327 FIXED-wide HUG-height, transparent fill (article over list bg), padding spacing/16 (8:5, px-4 py-4), itemSpacing spacing/12 (8:4, the mt-3 header-group->domains gap). TOP DIVIDER = absolute RECTANGLE (layoutPositioning ABSOLUTE — parent is auto-layout, C2 gotcha #1 allows it) x0 y0 327x1 white-05 (237:2) constraints STRETCH/MIN, visible=false -> WithDivider BOOLEAN (default false, matches React border-t withDivider). HeaderPreview group (VERTICAL FILL itemSpacing spacing/8 8:3 = the mt-2 date->preview gap): Header (HORIZONTAL FILL SPACE_BETWEEN counterAxis CENTER gap spacing/12) [DateGroup (HORIZONTAL FILL gap spacing/8 counterAxis CENTER): date Sora SemiBold 15/20 BAKED text/primary (5:6) HUG+truncate -> Date prop + VoiceBadge (HORIZONTAL HUG h20 FIXED white-05 fill radius/sm 9:3 padX spacing/6 52:2 gap spacing/4 8:2) [Mic@11 recolored white-40 (4:42) + 'voice' Sora Reg 11/16 white-40] visible=true -> HasVoice BOOLEAN default true] + mood emoji '😊' Sora Reg 20/20 HUG, visible -> HasMood BOOLEAN default true AND Mood TEXT prop (characters+visible both referenced on same node)]; preview Sora Reg 14/20 BAKED white-60 (147:5) FILL + maxHeight 40 + textTruncation ENDING (line-clamp-2) -> Preview prop. Domains (HORIZONTAL WRAP FILL itemSpacing+counterAxisSpacing spacing/8): 2 DomainTag instances (52:39 default 52:3) Fitness+Nutrition, setProperties Domain + ShowDot#52:13=false, THEN 0.15 bg opacity fix-up on each (DomainTag instance gotcha). Defaults HasVoice/HasMood=true (showcase) vs React false/undefined — DS authoring choice, documented; WithDivider=false matches React. Lone comp -> ink-900 (4:5) doc FRAME 'JournalEntryCard [doc]' (256:106) radius24 + spacing/24. MINTED color/alpha/white-05 (VariableID:237:2) this batch.",
       "created_at": "2026-05-29"
+    },
+    "FAQAccordion": {
+      "node_id": "260:108",
+      "page_node_id": "17:13",
+      "key": "4cf9f0c536b01a5945d01482baaa0348bd427dd6",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 327,
+        "h": 202
+      },
+      "position": {
+        "x": 80,
+        "y": 5250
+      },
+      "variant_axes": {
+        "State": [
+          "Collapsed",
+          "Expanded"
+        ]
+      },
+      "properties": [
+        "Question",
+        "Answer"
+      ],
+      "property_keys": {
+        "Question": "Question#260:0",
+        "Answer": "Answer#260:3"
+      },
+      "composes": [
+        "Icon/ChevronRight(93:75 Collapsed)",
+        "Icon/ChevronDown(93:69 Expanded)"
+      ],
+      "minted_tokens": {},
+      "$comment": "BUILT 2026-05-29 (C3 organism #6, final C3). Match-code: inventory State[Collapsed,Expanded] CONFIRMED a real 2-variant axis — answer panel shown/hidden + chevron icon differs. Both variants = VERTICAL 327 FIXED-wide HUG-height, ink-brown-800 (4:7) fill, itemSpacing 0, border-b via strokeBottomWeight=1 white-05 (237:2)/other sides 0 (MealCard per-side border precedent; React `border-b border-white/[0.05]`; last:border-b-0 is a list-composition concern handled at use site). QuestionRow (HORIZONTAL FILL minHeight 56 = min-h-14, gap spacing/12 8:4, padX spacing/16 8:5, padY spacing/12, counterAxis CENTER): question Sora SemiBold 15/20 BAKED text/primary (5:6) FILL (wraps to 2 lines at this content width — faithful, min-h-14 is a MIN) -> Question prop linked to BOTH (identical default); chevron @15 recolored white-30 (160:2) — Collapsed=ChevronRight (93:75), Expanded=ChevronDown (93:69), BAKED per-variant (intrinsic to state, no INSTANCE_SWAP). Expanded adds AnswerPanel (VERTICAL FILL, border-t via strokeTopWeight=1 white-05/others 0, padX spacing/16 pt spacing/12 pb spacing/16 8:5): answer Sora Reg 15/22 BAKED white-70 (4:40) FILL -> Answer prop (Expanded only). Set = ink-900 (4:5) doc bg + radius24 (9:7) + spacing/24 padding & itemSpacing, counterAxis MIN (variants differ in height — align top). Uses white-05 (237:2, minted in JournalEntryCard this batch). No new tokens for this comp.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
