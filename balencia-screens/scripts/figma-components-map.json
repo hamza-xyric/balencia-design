@@ -1154,15 +1154,33 @@
     "BreathingVisual": {
       "phase": "3C_organisms",
       "source": "src/components/domain/BreathingVisual.tsx",
+      "figma_node_id": "358:165",
+      "figma_component_key": "5651efb3d20b57344c84403264860481328bced5",
       "variants": {
-        "Phase": [
-          "InhaleHold",
-          "Inhale",
-          "ExhaleHold",
-          "Exhale"
-        ]
+        "Phase=Inhale": {
+          "node_id": "354:165",
+          "key": "b55a2f51cf82bdb7c8f5195c1d023449afd54438"
+        },
+        "Phase=Hold": {
+          "node_id": "356:165",
+          "key": "5f8e48862c9111b3bebe3bf7f72df53d93236c12"
+        },
+        "Phase=Exhale": {
+          "node_id": "356:171",
+          "key": "1a494199fcb51a16e3effedcac49855caacb5405"
+        }
       },
-      "figma_node_id": null
+      "properties": {
+        "Phase": "Inhale/Hold/Exhale",
+        "Seconds": "3.2s"
+      },
+      "property_keys": {
+        "Seconds": "Seconds#359:0"
+      },
+      "composes": [],
+      "minted_tokens": {},
+      "created": "2026-05-29",
+      "$comment": "Phase 3C batch C8 (BreathingVisual). Hamza-CONFIRMED via AskUserQuestion (all 4 as recommended): (1) Phase axis = 3 variants Phase[Inhale,Hold,Exhale] matching the React `phase` prop (inhale/hold/exhale -> labels INHALE/HOLD/EXHALE); the inventory stub's 4-value box-breathing axis [InhaleHold,Inhale,ExhaleHold,Exhale] was REDUCED to 3 — the two 'hold' phases render identically (both label HOLD) and that split does not exist in the component (match-code / drop-speculative precedent). (2) DROP the React `size` axis (large 240 / compact 160 / mini 48-hides-text) — model ONLY large 240x240 (settled drop-speculative-size precedent: VoiceWaveform-compact, SuggestionChip). (3) Glow modeled with a static LAYER_BLUR effect radius 40 (= blur-2xl) for fidelity; the quiet-pulse opacity-pulse + breathing-guide scale animations are RUNTIME-ONLY and NOT modeled (static frame = resting circle). (4) Seconds TEXT prop (Seconds#359:0, default '3.2s') linked across all 3 variants; phaseLabel BAKED per-variant (it IS the Phase axis). Each variant COMPONENT = plain frame (layoutMode NONE) 240x240 FIXED, fills=[] transparent, clipsContent=false (so the blur glow is not cropped — React container has no overflow-hidden). Z-order children: (1) Glow ELLIPSE 240x240 at (0,0) fill domain/wellbeing (4:19) @0.10 + LAYER_BLUR radius 40; (2) Ring ELLIPSE 240x240 at (0,0) fill wellbeing (4:19) @0.10 + 3px INSIDE stroke wellbeing (4:19) @0.60 (3px border = intrinsic geometry, NOT tokenized); (3) TextGroup VERTICAL auto-layout HUG itemSpacing spacing/8 (8:3 = mt-2) counterAxis CENTER, centered in container via constraints CENTER/CENTER + manual x/y ((240-w)/2,(240-h)/2): PhaseLabel text Eyebrow style (S:04ba98... Sora SemiBold 12 UPPER 12% tracking; React's leading-4 is a minor divergence) fill white-70 (4:40) BAKED per-phase + Seconds text H1 style (S:423e14... Sora Bold 28/34) fill text/primary white (5:6) -> Seconds TEXT prop. tabular-nums font-feature SKIPPED (not exposed in Figma text styles). CENTRAL GOTCHA THIS BATCH: domain/wellbeing (4:19) is a FULL-OPACITY primitive (no intrinsic-alpha wellbeing token), so the @0.10/@0.60 paint-level tints required the read-modify-write fix-up AFTER assignment — el.fills = el.fills.map(p=>({...p,opacity:0.10})) on BOTH fills and strokes (setBoundVariableForPaint strips paint opacity back to 1; setting opacity on the paint object BEFORE assignment does NOT survive — confirmed this batch, the .map must run on the already-assigned array). Built Inhale fresh then cloned x2 (Hold/Exhale) patching only the PhaseLabel text + re-centering the TextGroup (TierCard clone precedent — glow/ring/seconds identical across variants). Set = HORIZONTAL doc card: ink-900 (4:5) full fill, cornerRadius 24, padding+itemSpacing spacing/24 (8:7), counterAxis MIN; 816x288 at (100,7110). ZERO new tokens minted (wellbeing/white-70/white/spacing-8/spacing-24 all exist; @0.10/@0.60 are paint-level opacities not tokens; 3px border + 240 diameter intrinsic geometry; blur radius 40 is an effect value). VALIDATED structurally (all 3 variants 240x240 clip=false, glow+ring fill/stroke bindings & opacities 0.10/0.10/0.60, LAYER_BLUR:40, text style links + fill bound vars, Seconds prop linked x3) + via pixel screenshot (curl HTTP 200 valid PNG — 3 wellbeing-green glowing circles INHALE/HOLD/EXHALE each with 3.2s, faithful to React)."
     },
     "LineChart": {
       "phase": "3D_charts",
