@@ -756,7 +756,15 @@
           "Expense"
         ]
       },
-      "figma_node_id": null
+      "figma_node_id": "194:10",
+      "figma_component_key": "03555aef0a9b3d3efffc245f025d882b800b88f6",
+      "composes": [
+        "Icon/ShoppingCart(98:67)"
+      ],
+      "minted_tokens": {
+        "spacing/2": "VariableID:193:4"
+      },
+      "$comment": "BUILT 2026-05-29 (C1 organism #2). Direction[Income,Expense]. 32x32 white-06 circle + 18x18 INSTANCE_SWAP icon (default ShoppingCart, strokes->white-70); Merchant(Sora SemiBold 16/22 baked)+Date(Caption white-50) TextCol; Amount baked per-variant (Income +$ success-green, Expense -$ text-primary) — NOT a TEXT prop (per-variant text+color differs->clobber). Props Merchant#194:0/Date#194:3/Icon#194:6. Minted spacing/2 for mt-0.5 gap. Row border skipped."
     },
     "HabitRow": {
       "phase": "3C_organisms",
