@@ -750,7 +750,13 @@
     "WorkoutCard": {
       "phase": "3C_organisms",
       "source": "src/components/domain/WorkoutCard.tsx",
-      "figma_node_id": null
+      "figma_node_id": "213:47",
+      "figma_component_key": "d6acee121117ecac7034c55efd789186adfdda70",
+      "doc_frame_id": "215:55",
+      "composes": [
+        "Button(43:8 Primary/Md)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C2 organism #2). Lone COMPONENT. Card-default chrome BAKED (not a Card instance): surface/card + white-06 border + radius/xl + Elevation/1 + padding spacing/24, root gap spacing/20. Eyebrow flattened to raw text+Eyebrow style+text/quaternary. Nested groups for mixed margins: Header(gap 16)[Eyebrow + NameMeta(gap 4)[Name, Meta]]. Name Sora SemiBold 17/22 BAKED (no H3 link) -> Name TEXT prop; Meta Caption white-50 -> Meta TEXT prop. ExerciseChips row (gap 8, clipsContent): exercise chips ink-900 + Caption white, overflow '+3' white-08 + SemiBold white-70. Button = INSTANCE atom 43:8 Primary/Md (h48), Label='Start workout', HasRightIcon=true (ArrowRight), FILL. Props: Name#215:0, Meta#215:1. No new tokens."
     },
     "MealCard": {
       "phase": "3C_organisms",

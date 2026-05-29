@@ -2119,6 +2119,36 @@
       "minted_tokens": {},
       "$comment": "BUILT 2026-05-29 (C2 organism #1, simplest-first). Lone COMPONENT (no variant axis — React has no variant prop). Self-surfaced card wrapped in ink-900 doc FRAME (210:47, radius 24, padding spacing/24) per lone-comp precedent (ScheduleItem 180:8). Root: 327 FIXED VERTICAL HUG, bg color/neutral/ink-brown-800 (4:7), 1px INSIDE white-06 (4:44) stroke, radius/xl (9:6) all corners, Elevation/1, padding spacing/24, itemSpacing spacing/12 (12; React gaps are mt-3/mt-3/mt-4 — collapsed to one 12 gap, 16->12 minor), clipsContent=true. AI ACCENT BAR: RECTANGLE absolute (layoutPositioning ABSOLUTE, x0 y0, w3, constraints vertical STRETCH, height=root.height 244) fill color/brand/ai (5:15 royal-purple) @0.6 — needed paint-multiplier opacity at create (intrinsic-alpha N/A since ai is a full-opacity color var); clipped to rounded corners by root clipsContent (models border-l-[3px] border-l-royal-purple/60). Children: (1) Header HORIZONTAL HUG gap spacing/8 counterAxis CENTER: Avatar 24x24 (radius/pill, bg ink-brown-800, 2px INSIDE brand/ai stroke, Glow/Purple effect) holding 'S' Sora SemiBold 11 text/primary + 'SIA' Eyebrow style white-50 (4:41). (2) Message Sora Regular 15/20 BAKED (non-ramp size), text/primary (white-90 approx; no white-90 token), FILL width — linked Message TEXT prop. (3) Action HORIZONTAL FILL primaryAxis MAX (justify-end) minHeight 32: 'View in chat' Caption white-50 — linked ActionLabel TEXT prop; gated by HasAction BOOLEAN (default true). (4) MoodChips HORIZONTAL FILL gap spacing/6 clipsContent (overflow-x scroll not modeled): 3 representative chips (Good selected / Okay / Tough), each HUG h44 (min-h-11) radius/pill 1px INSIDE border padX spacing/12 gap spacing/4 [emoji Sora 11 + label Small 11]; selected = brand/cta @0.15 bg + @0.35 border (read-modify-write fix-up Gotcha #3) + white-100 (4:39) label; unselected = ink-brown-800 bg + white-10 border + white-60 (147:5) label; gated by HasMoods BOOLEAN (default true). SiaAvatarMark md variant (h-8 text-13) not modeled (sm only). No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "WorkoutCard": {
+      "node_id": "213:47",
+      "page_node_id": "17:13",
+      "key": "d6acee121117ecac7034c55efd789186adfdda70",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 327,
+        "h": 244
+      },
+      "position": {
+        "x": 80,
+        "y": 2360
+      },
+      "doc_frame_id": "215:55",
+      "variant_axes": {},
+      "properties": [
+        "Name",
+        "Meta"
+      ],
+      "property_keys": {
+        "Name": "Name#215:0",
+        "Meta": "Meta#215:1"
+      },
+      "composes": [
+        "Button(43:8 Primary/Md, Label='Start workout', HasRightIcon=true, RightIcon=ArrowRight default)"
+      ],
+      "minted_tokens": {},
+      "$comment": "BUILT 2026-05-29 (C2 organism #2). Lone COMPONENT (no variant prop in React). Self-surfaced via Card-default chrome BAKED (NOT a Card instance — Card molecule is a slot container, can't append children to an instance; C1 self-surface precedent): bg color/surface/card (5:4), 1px INSIDE white-06 (4:44), radius/xl (9:6), Elevation/1, padding spacing/24, root itemSpacing spacing/20 (mt-5 gaps to chips & button). Eyebrow FLATTENED to raw text + Eyebrow style + text/quaternary (5:9) NOT an Eyebrow-atom instance (SectionHeader text-only-atom precedent). Nested groups model React's mixed margins: Header VERTICAL gap spacing/16 [Eyebrow + NameMeta VERTICAL gap spacing/4 [Name + Meta]] => eyebrow->name 16 (mt-4), name->meta 4 (mt-1). Name Sora SemiBold 17/22 BAKED (17-SemiBold is SemiBold-at-ramp-size -> bake, no H3 link), text/primary, FILL. Meta Caption style + white-50 (4:41), FILL -> Meta TEXT prop. Name -> Name TEXT prop. ExerciseChips HORIZONTAL FILL gap spacing/8 clipsContent (overflow-x scroll; +3 chip clips at edge, faithful): each chip HUG h32 radius/sm (9:3) padX spacing/12 [Caption text]; exercise = bg ink-900 (4:5) + text/primary; overflow '+3' = bg white-08 (140:2) + Sora SemiBold + white-70 (4:40). Button = INSTANCE of atom 43:8 (Primary/Md, h48 matches React h-48), Label='Start workout', HasRightIcon=true (RightIcon default ArrowRight 92:23), FILL width. Exercise list + overflowCount not exposed as props (variable list -> baked reps). No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
