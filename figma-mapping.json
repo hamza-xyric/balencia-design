@@ -120,6 +120,7 @@
       "color/alpha/white-10": "VariableID:4:43",
       "color/alpha/white-08": "VariableID:140:2",
       "color/alpha/white-06": "VariableID:4:44",
+      "color/alpha/white-05": "VariableID:237:2",
       "color/alpha/white-60": "VariableID:147:5",
       "color/alpha/glow-orange-bg": "VariableID:4:45",
       "color/alpha/white-15": "VariableID:47:2",
@@ -2299,6 +2300,38 @@
       ],
       "minted_tokens": {},
       "$comment": "BUILT 2026-05-29 (C2 organism #6, final C2). SCOPE (Hamza-CONFIRMED via AskUserQuestion): inventory's Tier[Free,Premium,Pro] x Selected[True,False]=6 DROPPED — neither prop exists in React. Real axes from code: State[Current,Upgrade,Downgrade] (3, the border + CTA differences) + Recommended BOOLEAN + HasSavings BOOLEAN. State drives: Current = 2px brand/cta (5:13) border + CTA bg ink-700 (4:6)/label white-50 'Current plan' (disabled); Upgrade = 1px white-06 (4:44) border + CTA bg cta/label text-primary 'Upgrade'; Downgrade = white-06 border + CTA transparent + 1px white-10 (4:43) border/label white-80 (167:2) 'Downgrade'. CTA label BAKED per variant (differs -> no shared TEXT prop). Card 260x360 FIXED VERTICAL, ink-brown-800 (4:7), radius/xl (9:6), Elevation/1, padding spacing/24, itemSpacing spacing/12. Built Current fully then root.clone() x2 -> Upgrade/Downgrade, fixing only border + CTA (fills/strokes/label). Header VERTICAL gap spacing/8 counterAxis CENTER: EyebrowWrap (h20 reserve) 'Recommended' Eyebrow style + cta fill, visible=false -> Recommended BOOLEAN (default false); Name Sora SemiBold 18/24 BAKED text/primary CENTER -> Name prop; Price HORIZONTAL CENTER counterAxis BASELINE [Price Sora BOLD 32/36 -> Price prop + Cadence Sora Regular 15/20 white-50 -> Cadence prop]; SavingsWrap (h24 reserve) SavingsPill (success 5:14 @0.15 fix-up, padX spacing/10, Sora SemiBold 11 success 'Save 20%' -> SavingsLabel prop) visible -> HasSavings BOOLEAN (default true). Features VERTICAL gap spacing/8: 4 baked li (list-driven, not props) HORIZONTAL counterAxis MIN gap spacing/8 [Icon@14 (Check 93:54 cta included / Minus 96:26 white-20 excluded, y2 for mt-0.5) + Caption label white-70 (4:40) included / white-30 (160:2)+STRIKETHROUGH excluded, FILL]. Spacer FRAME FILL vertical pushes CTA to bottom (mt-auto). CTA HORIZONTAL FILL minHeight 44 radius/pill padX spacing/16. Name/Price/Cadence/SavingsLabel linked across all 3 (identical defaults). No new tokens.",
+      "created_at": "2026-05-29"
+    },
+    "LifePowerDisplay": {
+      "node_id": "243:83",
+      "page_node_id": "17:13",
+      "key": "a71099799245a3ec7474302303a19d6f7b3fc177",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 314,
+        "h": 96
+      },
+      "position": {
+        "x": 80,
+        "y": 4230
+      },
+      "variant_axes": {
+        "Layout": [
+          "Stacked",
+          "Inline"
+        ]
+      },
+      "properties": [
+        "Value",
+        "Label"
+      ],
+      "property_keys": {
+        "Value": "Value#243:0",
+        "Label": "Label#243:3"
+      },
+      "composes": [],
+      "minted_tokens": {},
+      "$comment": "BUILT 2026-05-29 (C3 organism #1). Match-code: real Layout axis from React `layout?: 'stacked'|'inline'` prop (2 variants, structure differs). Both h-12 (48px FIXED), centered. Inline = HORIZONTAL gap spacing/8 (8:3): diamond '◆' Sora Reg 18 brand/cta (5:13) + number Sora BOLD 28/34 brand/cta BAKED + label Caption style white-50 (4:41). Stacked = VERTICAL gap spacing/4 (8:2): inner PowerRow HORIZONTAL gap spacing/8 [◆ + number same as inline] then label Sora Reg 12/16 BAKED white-50 (label is 12px in stacked vs 13 Caption in inline — distinct font sizes, but Value/Label TEXT props only control characters so linked across BOTH variants safely, identical defaults '847'/'Life Power'). Number/diamond use brand/cta via setBoundVariableForPaint (NOT setBoundVariable('fills') — that throws 'must be set on paints directly' for text). Diamond ◆ = unicode glyph text node (LevelBadge precedent), aria-hidden in code. Stacked forced to FIXED 48 (primaryAxisSizingMode FIXED / counterAxis AUTO width-hug) to honor h-12 even though content is 54px (centered, slight overflow matches React). Set = ink-900 (4:5) doc bg + radius/2xl... actually radius 24 (9:7) + spacing/24 padding & itemSpacing (variant-SET doc bg convention). No new tokens for this comp.",
       "created_at": "2026-05-29"
     }
   },

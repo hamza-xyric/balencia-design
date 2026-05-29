@@ -948,7 +948,20 @@
     "LifePowerDisplay": {
       "phase": "3C_organisms",
       "source": "src/components/screens/LifePowerDisplay.tsx",
-      "figma_node_id": null
+      "figma_node_id": "243:83",
+      "figma_component_key": "a71099799245a3ec7474302303a19d6f7b3fc177",
+      "variants": {
+        "Layout": [
+          "Stacked",
+          "Inline"
+        ]
+      },
+      "properties": [
+        "Value (TEXT)",
+        "Label (TEXT)"
+      ],
+      "composes": [],
+      "$comment": "BUILT 2026-05-29 (C3 #1) on Organisms 17:13 at (80,4230). Real Layout[Stacked,Inline] axis from React layout prop. Both h-12 (48px FIXED), centered. Inline=HORIZONTAL gap 8: diamond ◆ Sora Reg 18 brand/cta + number Sora BOLD 28/34 brand/cta + label Caption white-50. Stacked=VERTICAL gap 4: PowerRow[◆+number] then label Sora Reg 12/16 white-50. Value/Label TEXT props linked across both (identical defaults). Text fills via setBoundVariableForPaint (text fills can't use setBoundVariable('fills')). ◆ = unicode glyph text node. Set = ink-900 doc bg + radius24 + spacing/24."
     },
     "DomainSkillCard": {
       "phase": "3C_organisms",
