@@ -99,7 +99,8 @@
       "color/alpha/glow-orange-bg": "VariableID:4:45",
       "color/alpha/white-15":       "VariableID:47:2",
       "color/alpha/white-30":       "VariableID:160:2",
-      "color/alpha/orange-20":      "VariableID:160:3"
+      "color/alpha/orange-20":      "VariableID:160:3",
+      "color/alpha/white-80":       "VariableID:167:2"
     },
     "color": {
       "color/bg/screen":            "VariableID:5:2",
@@ -759,6 +760,20 @@
       "variant_keys": { "State=Empty": "0caca97fd5a6c00d5afa3ef5374f5d73f1d33c01", "State=Typing": "c5a27928c9fdb6916b00929fe4917e8a29b9954e", "State=Mic": "fc6ce42946a33770ad46da3c35f64cf4604fd57d" },
       "minted_tokens": { "color/alpha/white-30": "VariableID:160:2" },
       "$comment": "12th Phase 3B molecule (B3 batch). SCOPE (match-code): no 'Recording' state in React — 3 real states derive from action('send'|'mic') + value. Inventory [Empty,Typing,Recording] RENAMED [Empty,Typing,Mic]: Empty/Typing = send (empty vs filled), Mic = action='mic' && !value. Disabled (opacity-60) NOT a 4th variant (pure-opacity overlay). NO component props — input text differs in content+color per variant so BAKED, not a linked TEXT prop. Each variant 327x52 FIXED HORIZONTAL auto-layout, counterAxis CENTER, primaryAxis SPACE_BETWEEN, padding L16/R4/T4/B4, all corners bound radius/pill, fill color/surface/card, 1px INSIDE stroke color/alpha/white-10. Input = Sora Regular 14/18 FILL (intrinsic, no 14px ramp): Empty/Mic placeholder color/alpha/white-30 (NEW VariableID:160:2 = rgba(255,255,255,0.3), mirrors placeholder:text-white/30 ×87 in src); Typing color/text/primary. Button = 44x44 createAutoLayout frame cornerRadius 9999: send variants fill color/brand/cta + Glow/Orange + ArrowUp instance (92:27 @16, white) — Empty opacity 0.45, Typing opacity 1; Mic fill color/surface/card + 1px INSIDE stroke color/alpha/white-10 + Mic instance (96:10 @18, stroke overridden color/alpha/white-60). Set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/white-30.",
+      "created_at": "2026-05-29"
+    },
+    "NotificationRow": {
+      "node_id": "170:48",
+      "page_node_id": "17:12",
+      "key": "b10ec97c7190861eecc644b45d284611c9dfca69",
+      "phase": "3B_molecules",
+      "size": { "w": 782, "h": 476 },
+      "position": { "x": 80, "y": 3190 },
+      "variant_axes": { "State": ["Unread", "Read"], "Category": ["Sia", "Reminder", "CheckIn", "Social"] },
+      "properties": ["Title", "Preview", "Timestamp"],
+      "property_keys": { "Title": "Title#170:0", "Preview": "Preview#170:9", "Timestamp": "Timestamp#170:18" },
+      "minted_tokens": { "color/alpha/white-80": "VariableID:167:2" },
+      "$comment": "13th Phase 3B molecule (B3 batch). SCOPE (match-code): inventory pre-declared only State(Unread/Read), but React `category` ALSO varies the row (icon glyph + color via categoryMeta) — INSTANCE_SWAP can't carry per-category color so Category is a real 2nd axis. State(2)×Category(4)=8, within ≤30 cap. State → unread dot opacity 1/0 + title (Unread Sora SemiBold color/text/primary, Read Sora Regular color/alpha/white-80). Category → icon: Sia=Brain(93:11) color/brand/ai, Reminder=Bell(92:61) color/brand/cta, CheckIn=BarChart3(92:45) color/brand/success, Social=Users(99:89) color/alpha/white-60. Each variant 327 FIXED HORIZONTAL auto-layout counterAxis MIN, itemSpacing spacing/12 (gap-3), padding 16/12, minHeight 80 (min-h-20), fill color/surface/card. border-b SKIPPED (screen-composition concern, SettingsRow precedent). DotSlot = VERTICAL paddingTop 18 (mt-[18px] intrinsic) + 8x8 ELLIPSE color/brand/cta opacity 1/0. IconSlot = VERTICAL paddingTop spacing/8 (mt-2) + 24x24 category icon instance, stroke overridden to category color. Text = VERTICAL FILL itemSpacing 4: TitleRow HORIZONTAL FILL SPACE_BETWEEN [Title 15/20 FILL truncate-ENDING intrinsic Sora + Timestamp Sora Regular 12/16 HUG color/alpha/white-40]; Preview Caption style (13 Regular linked) color/alpha/white-50 FILL. Title/Preview/Timestamp TEXT props (shared defaults → linked across all 8; per-state title weight is node style not prop default, no clobber). Variants laid out in a manual 2-col (Unread|Read) x 4-row (category) grid; set frame ink-900 bg + radius 24 for doc visibility. Minted color/alpha/white-80 (rgba 255,255,255,0.8; mirrors text-white/80 ×32 in src).",
       "created_at": "2026-05-29"
     }
   },
