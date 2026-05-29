@@ -697,6 +697,23 @@
       "minted_tokens": { "color/alpha/white-60": "VariableID:147:5" },
       "$comment": "8th Phase 3B molecule (B2 batch 'Domain widgets'). 2 State variants on Molecules page (17:12) at (80,1730). State axis = React's achieved boolean (progress>=1): InProgress (teal color/domain/wellbeing) vs Achieved (forest-green color/brand/success) — mirrors ProgressRing's Color axis (code derives complete state). SCOPE: bespoke 200px ring, does NOT instance ProgressRing (its sizes Sm36/Md48/Lg96 don't include 200, and WaterIntakeRing has unique center content + glow + status line). RING: two concentric ELLIPSE donut-arcs 188×188 at (6,6) via arcData (ProgressRing technique). Outer Ø=2*(88+6)=188; innerRadius=(88-6)/(88+6)=0.87234 gives the 12px band. Track = full 0→2π bound color/alpha/white-06 (alpha intrinsic, no fix-up). Progress start -π/2 clockwise: InProgress baked 75% bound color/domain/wellbeing; Achieved full sweep bound color/brand/success. Glow = 168×168 ELLIPSE at (16,16) + LAYER_BLUR 40 (React blur-2xl), tint @15% paint-multiplier (wellbeing / success) — REQUIRED read-modify-write opacity fix-up (LevelBadge/MissionTypeBadge precedent). Center col (VERTICAL HUG CENTER, gap spacing/4) centered absolutely in the 200 ring via computed x/y: number row (HORIZONTAL, counterAxis BASELINE, gap spacing/4) consumed (Sora Bold 36/40, color/text/primary) + '/' (Sora Regular 24/28, color/alpha/white-40) + target (Sora Bold 36/40, color/alpha/white-50); 'Glasses' (Sora Regular 14/18, color/alpha/white-50); ml caption 13/17 (InProgress Sora Regular bound color/domain/wellbeing @80% paint-multiplier fix-up, Achieved bound color/brand/success full). Status below at y=212 (React mt-3): InProgress '75% of daily target' (Sora SemiBold 15/20 bound color/alpha/white-60 = NEW primitive VariableID:147:5); Achieved status col (VERTICAL CENTER gap spacing/4) 'Target achieved +30 XP' (Sora SemiBold 15/20, color/brand/success) + 'at 6:30 PM' (Sora Regular 13/17, color/alpha/white-40). All text is component-intrinsic Sora (NO style links — ramp has no matching SemiBold/Bold sizes; ProgressRing/StatTile precedent). NO TEXT props — center data + status copy differ per variant (DomainTag/MissionTypeBadge precedent); designers override per-instance. Each variant is a plain (non-auto-layout) COMPONENT with absolute children. Set frame ink-900 bg + radius 24 for documentation visibility (no instance propagation). Minted color/alpha/white-60.",
       "created_at": "2026-05-29"
+    },
+    "MacroBar": {
+      "node_id": "152:5",
+      "page_node_id": "17:12",
+      "key": "0d68a190da7a7b3f332f93e689b8fe932286d2bd",
+      "phase": "3B_molecules",
+      "size": { "w": 1157, "h": 136 },
+      "variant_axes": { "Tone": ["Primary","Muted","Soft"] },
+      "variants": {
+        "Tone=Primary": { "node_id": "151:5",  "key": "a6049a8d1f4192fd8a5afb1d7d8808ae505ed399" },
+        "Tone=Muted":   { "node_id": "151:13", "key": "25e1f4521b68e6c9345b69d8ba3fdcbe612ae96d" },
+        "Tone=Soft":    { "node_id": "151:21", "key": "4c07bc3d60ebc46b04ec946c15d320284f81dce4" }
+      },
+      "properties": ["Label (TEXT)", "Value (TEXT)", "TargetLabel (TEXT)", "HasTarget (BOOLEAN)"],
+      "property_keys": { "label": "Label#152:0", "value": "Value#152:4", "targetLabel": "TargetLabel#152:8", "hasTarget": "HasTarget#152:12" },
+      "$comment": "9th Phase 3B molecule (B2 batch). 3 Tone variants matching React fillClasses: Primary=color/brand/cta, Muted=color/alpha/white-40, Soft=color/alpha/white-20 (clean bind — cta full opacity, white-40/-20 intrinsic alpha, NO fix-up). Each variant 327 FIXED-wide VERTICAL auto-layout (counterAxis FIXED, primaryAxis HUG), itemSpacing bound spacing/8 (mb-2). LabelRow = HORIZONTAL FILL SPACE_BETWEEN + counterAxis CENTER, gap spacing/12: Label (Sora Regular 15/20, color/text/primary, FILL) + Value (Sora SemiBold 15/20, color/text/primary, HUG). TrackGroup = VERTICAL FILL, gap spacing/4 (mt-1): Track (plain FRAME FILL×8 FIXED, clipsContent, bg color/alpha/white-08, radius/pill) with absolute Fill RECTANGLE baked 229px (~70% static snapshot, XPBar precedent) bound per-tone + radius/pill; TargetLabel (Sora Regular 12/16, color/alpha/white-40). 15px/12px text is component-intrinsic Sora (NO style link). Track 8px + Fill 229px intrinsic geometry. PROPERTIES (shared defaults → linked across all 3 tones, XPBar/SettingsRow precedent): Label#152:0 'Protein', Value#152:4 '120g', TargetLabel#152:8 '120 / 150g', HasTarget#152:12 BOOLEAN default true gating TargetLabel.visible (React target? optional). Set frame ink-900 bg + radius 24 for documentation visibility. Zero new tokens minted.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
