@@ -927,7 +927,15 @@
     "HealthMetricsStrip": {
       "phase": "3C_organisms",
       "source": "src/components/screens/HealthMetricsStrip.tsx",
-      "figma_node_id": null
+      "figma_node_id": "245:83",
+      "doc_frame_id": "246:90",
+      "figma_component_key": "16df1ef8e07b22ee83b8ef79fd14a233abcd3052",
+      "composes": [
+        "Icon/HeartPulse",
+        "Icon/Footprints",
+        "Icon/Moon"
+      ],
+      "$comment": "BUILT 2026-05-29 (C3 #2) Organisms 17:13 (80,4410). NO variants/props — list-driven (MealCard precedent), 3 baked tiles. React grid-cols-3 gap-2 -> HORIZONTAL 327 FIXED, itemSpacing 8, 3 tiles FILL. Tile=HORIZONTAL minHeight44 ink-brown-800 + 1px white-08 border + radius/pill + Elevation/1 + padX 8 gap 4, centered. Icon@14 (recolor strokes white-50) + value Sora SemiBold 14/20 text/primary + unit Sora Reg 10/16 white-40. Baked: HeartPulse 72 bpm / Footprints 8.2k steps / Moon 7.5 hrs. Lone comp -> ink-900 doc frame [doc] (246:90) radius24 spacing/24."
     },
     "QuickActionsRow": {
       "phase": "3C_organisms",
