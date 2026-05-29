@@ -127,11 +127,15 @@
           "1",
           "2",
           "3"
+        ],
+        "Size": [
+          "Sm",
+          "Md"
         ]
       },
       "figma_node_id": "49:69",
       "figma_component_key": "8a48e47bba6048456605e1081e19df9656f18421",
-      "$comment": "Built 2026-05-28 on Atoms page (17:11). 9 variants total: Count=2→ActiveIndex 0-1, Count=3→0-2, Count=4→0-3 (invalid combos skipped). Pill container with card surface + white-10 1px border. Segments 72×44, Sora SemiBold (Button/Sm style). Active=brand/cta+white text; inactive=transparent+white-50 text. Padding/gap bound to spacing/4. Labels 1/2/3/4 (numeric — designers swap per-instance)."
+      "$comment": "Built 2026-05-28 on Atoms page (17:11). 18 variants: 9 per Size × (Count=2→ActiveIndex 0-1, Count=3→0-2, Count=4→0-3; invalid combos skipped). Pill container with card surface + white-10 1px border. Sora SemiBold. Active=brand/cta+white text; inactive=transparent+white-50 text. Padding/gap bound to spacing/4. Size=Sm: ~52px min-height, 13px (caption text style). Size=Md (added 2026-05-30, C-017): 56px min-height, 14px (used in /subscription). Labels 1/2/3/4 (numeric — designers swap per-instance)."
     },
     "SearchBar": {
       "phase": "3A_atoms",
@@ -489,13 +493,31 @@
       "figma_component_key": "0d68a190da7a7b3f332f93e689b8fe932286d2bd",
       "$comment": "9th Phase 3B molecule (B2 batch). 3 Tone variants on Molecules page (17:12) at (80,2140) matching React fillClasses: Primary=color/brand/cta, Muted=color/alpha/white-40, Soft=color/alpha/white-20 (all clean bind — cta full opacity, white-40/-20 intrinsic alpha, NO fix-up). Each variant = 327 FIXED-wide VERTICAL auto-layout (counterAxisSizingMode FIXED, primaryAxis HUG height), itemSpacing bound spacing/8 (React mb-2). Children: (1) LabelRow = HORIZONTAL FILL, SPACE_BETWEEN + counterAxis CENTER, itemSpacing bound spacing/12 (gap-3): Label (Sora Regular 15/20, color/text/primary, FILL width) + Value (Sora SemiBold 15/20, color/text/primary, HUG). (2) TrackGroup = VERTICAL FILL, itemSpacing bound spacing/4 (React mt-1): Track (plain FRAME, FILL width × 8 FIXED, clipsContent, bg color/alpha/white-08, all corners radius/pill) holding an absolute Fill RECTANGLE baked 229px (≈70% of 327 — progress % is a static snapshot, XPBar precedent) bound to the per-tone fill + radius/pill; TargetLabel (Sora Regular 12/16, color/alpha/white-40). 15px/12px text is component-intrinsic Sora (NO style link — ramp has no 15px or 12px-Regular style; XPBar/StatTile precedent). Track height 8px + Fill 229px are intrinsic geometry (not token-bound — bar convention, Divider precedent). PROPERTIES (shared identical defaults across all 3 tones → linked TEXT props OK, XPBar/SettingsRow precedent): Label TEXT (Label#152:0, 'Protein'), Value TEXT (Value#152:4, '120g'), TargetLabel TEXT (TargetLabel#152:8, '120 / 150g'), HasTarget BOOLEAN (HasTarget#152:12, default true) gating TargetLabel.visible — all linked on all 3 variants. React's optional target (target?) becomes the HasTarget BOOLEAN. Set frame ink-900 bg + radius 24 for documentation visibility. Zero new tokens minted."
     },
+    "MoodOption": {
+      "phase": "3A_atoms",
+      "source": "src/components/domain/MoodSelector.tsx",
+      "variants": {
+        "State": [
+          "Default",
+          "Selected",
+          "Pressed"
+        ]
+      },
+      "properties": {
+        "Emoji": "TEXT",
+        "Label": "TEXT"
+      },
+      "figma_node_id": "404:31",
+      "figma_component_key": "548271b813eaf86d2987afcd249ae17d87e4b9fa",
+      "$comment": "Extracted 2026-05-30 (audit C-014) on Atoms page (17:11) at (3000,80) so MoodSelector's interactive states become real variants instead of a baked snapshot. State=Default (opacity 0.5, transparent bg, label color/alpha/white-40 — maps unselected opacity-50 + text-white/40), State=Selected (bg color/domain/wellbeing @15% read-modify-write fix-up, opacity 1, emoji 31px ≈ scale-110, label color/alpha/white-70 — maps selected bg-domain-wellbeing/15 + scale-110 + text-white/70), State=Pressed (Default rescaled 0.95 = active:scale-95). Emoji + Label exposed as TEXT component properties (Emoji#406:0, Label#406:4). Each MoodOption is 56×64 (Pressed 53×61). MoodSelector (155:5) recomposed from 6 FILL-width instances of this atom."
+    },
     "MoodSelector": {
       "phase": "3B_molecules",
       "source": "src/components/domain/MoodSelector.tsx",
       "variants": {},
       "figma_node_id": "155:5",
       "figma_component_key": "68d490b1601be30838ba5dba76f68c9871e5f95d",
-      "$comment": "10th Phase 3B molecule (B2 batch, final). SCOPE: lone COMPONENT (no component-level variant axis) on Molecules page (17:12) at (80,2346). React MoodSelector's selection is per-button INTERNAL state (selectedLabel prop), NOT a discrete component-level variant axis — so it's a representative snapshot with one mood selected (StatTile/ChainProgressBar lone-component precedent). A per-button Selected axis would be 6 low-value variants; rejected. Component root IS the card: 327 FIXED-wide HORIZONTAL auto-layout (primaryAxis FIXED width, counterAxis HUG height + CENTER), padding spacing/16 all sides (React p-4), itemSpacing bound spacing/4 (gap-1), bg color/surface/card (React bg-ink-brown-800), 1px INSIDE stroke color/alpha/white-06 (React border-white/[0.06]), radius/xl (React rounded-xl), Elevation/1 effect (React shadow-1). 6 mood cells = VERTICAL auto-layout (CENTER/CENTER, gap spacing/4 = mt-1), FILL width (equal 6-col distribution = React grid-cols-6) × 64 FIXED height, radius/md (rounded-md). Each cell: emoji TEXT (Sora Regular, 28px; selected 31px ≈ React scale-110) + label TEXT (Small text style 11px Regular linked — React text-small weightless so Regular keeps the link clean, ChainProgressBar precedent; textAlign CENTER, FILL width, textTruncation ENDING = React truncate). SELECTED cell (baked index 3 'Good'): bg color/domain/wellbeing @15% paint-multiplier (REQUIRED read-modify-write fix-up), opacity 1, label color/alpha/white-70. UNSELECTED cells: transparent fill, opacity 0.5 (React opacity-50), label color/alpha/white-40. Emojis render in full color via Figma's emoji fallback (font set to Sora, codepoints substituted automatically). NO doc frame needed — the card supplies its own dark surface/card bg (legible on Figma's light canvas, unlike transparent StatTile/ChainProgressBar). NO component properties — mood emoji/label content is customized per-instance via detach/override (6 cells × emoji+label = 12 props would over-engineer a snapshot widget). Baked moods: Awful/Low/Okay/Good/Great/Amazing. Zero new tokens minted."
+      "$comment": "Recomposed 2026-05-30 (audit C-014): the 6 inline mood cells are now FILL-width INSTANCES of the new MoodOption atom (404:31). State drives selected/default/pressed; Emoji+Label TEXT props set per instance (Awful/Low/Okay/Good/Great/Amazing). Index 3 (Good) = State=Selected with bg color/domain/wellbeing @15% restored via paint-multiplier fix-up after the variant switch reset it to full opacity. Card root unchanged (327 FIXED HORIZONTAL auto-layout, padding spacing/16, itemSpacing spacing/4, bg color/surface/card, 1px white-06 stroke, radius/xl, Elevation/1). ORIGINAL (superseded): lone COMPONENT (no component-level variant axis) on Molecules page (17:12) at (80,2346). React MoodSelector's selection is per-button INTERNAL state (selectedLabel prop), NOT a discrete component-level variant axis — so it's a representative snapshot with one mood selected (StatTile/ChainProgressBar lone-component precedent). A per-button Selected axis would be 6 low-value variants; rejected. Component root IS the card: 327 FIXED-wide HORIZONTAL auto-layout (primaryAxis FIXED width, counterAxis HUG height + CENTER), padding spacing/16 all sides (React p-4), itemSpacing bound spacing/4 (gap-1), bg color/surface/card (React bg-ink-brown-800), 1px INSIDE stroke color/alpha/white-06 (React border-white/[0.06]), radius/xl (React rounded-xl), Elevation/1 effect (React shadow-1). 6 mood cells = VERTICAL auto-layout (CENTER/CENTER, gap spacing/4 = mt-1), FILL width (equal 6-col distribution = React grid-cols-6) × 64 FIXED height, radius/md (rounded-md). Each cell: emoji TEXT (Sora Regular, 28px; selected 31px ≈ React scale-110) + label TEXT (Small text style 11px Regular linked — React text-small weightless so Regular keeps the link clean, ChainProgressBar precedent; textAlign CENTER, FILL width, textTruncation ENDING = React truncate). SELECTED cell (baked index 3 'Good'): bg color/domain/wellbeing @15% paint-multiplier (REQUIRED read-modify-write fix-up), opacity 1, label color/alpha/white-70. UNSELECTED cells: transparent fill, opacity 0.5 (React opacity-50), label color/alpha/white-40. Emojis render in full color via Figma's emoji fallback (font set to Sora, codepoints substituted automatically). NO doc frame needed — the card supplies its own dark surface/card bg (legible on Figma's light canvas, unlike transparent StatTile/ChainProgressBar). NO component properties — mood emoji/label content is customized per-instance via detach/override (6 cells × emoji+label = 12 props would over-engineer a snapshot widget). Baked moods: Awful/Low/Okay/Good/Great/Amazing. Zero new tokens minted."
     },
     "ChatInputBar": {
       "phase": "3B_molecules",
@@ -556,7 +578,12 @@
           "Chevron",
           "Toggle",
           "Value",
-          "None"
+          "None",
+          "Destructive"
+        ],
+        "Disabled": [
+          "False",
+          "True"
         ]
       },
       "properties": {
@@ -567,7 +594,7 @@
       },
       "figma_node_id": "128:32",
       "figma_component_key": "cf8f3249920c6913acf4db01e7fbe3dce0c87a34",
-      "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80, 560). 4 Trailing variants (Chevron/Toggle/Value/None) per Figma plan. Scope decisions: (a) Destructive variant SKIPPED — React 'destructive' style is structurally different (centered red text, no border) and would split the axis; treat as per-instance manual override or future SettingsRowDestructive molecule. (b) HasIcon BOOLEAN + Icon INSTANCE_SWAP ADDED to wire the optional 32×32 round white-06 icon group on the left (default Icon/Settings, designers swap per-instance). Phase 3A Button/Input/Chip precedent. Composition: ToggleSwitch atom instanced for Trailing=Toggle (from 48:2 default state); ChevronRight icon instanced for Trailing=Chevron at 16×16; Icon/Settings instanced for the left icon slot. Label uses Body text style + color/text/primary, FILL horizontal so it truncates. Title TEXT prop linked on all 4 variants (LevelBadge precedent — shared default 'Setting label'). Value TEXT prop linked only on Trailing=Value variant (no clobbering). HasIcon BOOLEAN gates iconGroup.visible via componentPropertyReferences on all 4 variants. Icon INSTANCE_SWAP default takes local node ID (98:43), preferredValues uses { type: 'COMPONENT', key } (Phase 3A retrofit precedent). NEW GOTCHA: figma.createComponent can't have COMPONENT children — inner FRAMEs (iconGroup) must use figma.createAutoLayout, only variant wrappers use createComponent. Helper mkAutoFrame added. React per-row bottom border (border-b border-white/[0.05]) deliberately skipped — it's a screen-composition concern (SettingsGroup wraps rows with overflow-hidden). Zero new tokens minted."
+      "$comment": "Built 2026-05-29 on Molecules page (17:12) at (80, 560). 2026-05-30 (audit C-009): added Disabled=False|True axis (Disabled=True → row opacity 45%, maps source `disabled`) and Trailing=Destructive (centered error-red label via color/state/error 5:16, no icon — maps source variant='destructive'). 10 variants total = Trailing(5) × Disabled(2). CHECKED state is intentionally NOT a SettingsRow axis — the Toggle variant composes a nested ToggleSwitch instance (48:10); set its `On` property True/False to drive checked (documented in the Figma set description). Original build: 4 Trailing variants (Chevron/Toggle/Value/None) per Figma plan. Scope decisions: (a) [SUPERSEDED 2026-05-30] Destructive now added as a Trailing value. (b) HasIcon BOOLEAN + Icon INSTANCE_SWAP ADDED to wire the optional 32×32 round white-06 icon group on the left (default Icon/Settings, designers swap per-instance). Phase 3A Button/Input/Chip precedent. Composition: ToggleSwitch atom instanced for Trailing=Toggle (from 48:2 default state); ChevronRight icon instanced for Trailing=Chevron at 16×16; Icon/Settings instanced for the left icon slot. Label uses Body text style + color/text/primary, FILL horizontal so it truncates. Title TEXT prop linked on all 4 variants (LevelBadge precedent — shared default 'Setting label'). Value TEXT prop linked only on Trailing=Value variant (no clobbering). HasIcon BOOLEAN gates iconGroup.visible via componentPropertyReferences on all 4 variants. Icon INSTANCE_SWAP default takes local node ID (98:43), preferredValues uses { type: 'COMPONENT', key } (Phase 3A retrofit precedent). NEW GOTCHA: figma.createComponent can't have COMPONENT children — inner FRAMEs (iconGroup) must use figma.createAutoLayout, only variant wrappers use createComponent. Helper mkAutoFrame added. React per-row bottom border (border-b border-white/[0.05]) deliberately skipped — it's a screen-composition concern (SettingsGroup wraps rows with overflow-hidden). Zero new tokens minted."
     },
     "NotificationRow": {
       "phase": "3B_molecules",
@@ -1140,16 +1167,22 @@
     "DomainSkillCard": {
       "phase": "3C_organisms",
       "source": "src/components/screens/DomainSkillCard.tsx",
-      "figma_node_id": "251:99",
+      "figma_node_id": "373:176",
       "doc_frame_id": "252:99",
       "figma_component_key": "2f569da4b071076d81b6e8bec0bb696a3d4de0b5",
+      "variants": {
+        "State": [
+          "Default",
+          "Pressed"
+        ]
+      },
       "properties": [
         "Label (TEXT)",
         "Stat (TEXT)",
         "Level (TEXT)"
       ],
       "composes": [],
-      "$comment": "BUILT 2026-05-29 (C3 #4) Organisms 17:13 (80,4770). NO variant axis — domain color is a per-instance prop (domainToneClasses), DROP 12-domain axis, build ONE Fitness rep (SuggestionChip precedent). Card=VERTICAL 104x78 FIXED ink-brown-800 + 1px white-06 border + radius/md + Elevation/1 + padding spacing/10. Top(VERTICAL FILL gap 4): LabelRow[8px dot fitness + label Small white-50 FILL truncate] + StatLevel[stat Sora BOLD 24/28 text/primary -> Stat prop + level Sora SemiBold 12/16 white-60 -> Level prop]. Spacer FILL (mt-auto). ProgressTrack FILL h3 white-08 radius/pill clipped + ProgressFill 65% fitness. Props Label/Stat/Level TEXT. Lone comp -> ink-900 doc frame [doc] (252:99)."
+      "$comment": "2026-05-30 (audit C-013): promoted to COMPONENT_SET 373:176 with State=Default|Pressed (Pressed = Default rescaled 0.95 = source active:scale-95; mirrors HealthMetricsStrip 345:165 pattern). Default variant = original 251:99. ORIGINAL BUILD 2026-05-29 (C3 #4) Organisms 17:13 (80,4770). NO variant axis — domain color is a per-instance prop (domainToneClasses), DROP 12-domain axis, build ONE Fitness rep (SuggestionChip precedent). Card=VERTICAL 104x78 FIXED ink-brown-800 + 1px white-06 border + radius/md + Elevation/1 + padding spacing/10. Top(VERTICAL FILL gap 4): LabelRow[8px dot fitness + label Small white-50 FILL truncate] + StatLevel[stat Sora BOLD 24/28 text/primary -> Stat prop + level Sora SemiBold 12/16 white-60 -> Level prop]. Spacer FILL (mt-auto). ProgressTrack FILL h3 white-08 radius/pill clipped + ProgressFill 65% fitness. Props Label/Stat/Level TEXT. Lone comp -> ink-900 doc frame [doc] (252:99)."
     },
     "BreathingVisual": {
       "phase": "3C_organisms",

@@ -482,6 +482,10 @@
           "1",
           "2",
           "3"
+        ],
+        "Size": [
+          "Sm",
+          "Md"
         ]
       },
       "variants": {
@@ -1384,7 +1388,12 @@
           "Chevron",
           "Toggle",
           "Value",
-          "None"
+          "None",
+          "Destructive"
+        ],
+        "Disabled": [
+          "False",
+          "True"
         ]
       },
       "variants": {
@@ -1662,7 +1671,7 @@
       "variant_axes": {},
       "properties": [],
       "property_keys": {},
-      "$comment": "10th Phase 3B molecule (B2 batch, final). Lone COMPONENT (no variant axis) on Molecules page (17:12) at (80,2346). React selection is per-button INTERNAL state (selectedLabel prop), not a component-level axis → representative snapshot with one mood selected (StatTile/ChainProgressBar lone-component precedent; a 6-way Selected axis would be low value). Component root = the card: 327 FIXED-wide HORIZONTAL auto-layout (primaryAxis FIXED, counterAxis HUG + CENTER), padding spacing/16 (p-4), itemSpacing bound spacing/4 (gap-1), bg color/surface/card (bg-ink-brown-800), 1px INSIDE stroke color/alpha/white-06, radius/xl (rounded-xl), Elevation/1 (shadow-1). 6 cells = VERTICAL auto-layout (CENTER/CENTER, gap spacing/4 = mt-1), FILL width (= grid-cols-6 equal distribution) × 64 FIXED height, radius/md (rounded-md). Each cell: emoji TEXT (Sora Regular 28px; selected 31px ≈ scale-110) + label TEXT (Small style 11px Regular linked, textAlign CENTER, FILL width, textTruncation ENDING = React truncate). SELECTED (baked index 3 'Good'): bg color/domain/wellbeing @15% paint-multiplier (read-modify-write fix-up REQUIRED), opacity 1, label color/alpha/white-70. UNSELECTED: transparent fill, opacity 0.5, label color/alpha/white-40. Emojis render full-color via Figma emoji fallback. NO doc frame (card supplies its own dark surface/card bg). NO component properties — mood content customized per-instance via detach. Baked moods: Awful/Low/Okay/Good/Great/Amazing. Zero new tokens minted.",
+      "$comment": "Recomposed 2026-05-30 (audit C-014): the 6 inline cells are now FILL-width INSTANCES of the new MoodOption atom (404:31) — State drives selected/default/pressed; Emoji+Label TEXT props per instance. Index 3 (Good) = State=Selected (bg color/domain/wellbeing @15% restored via paint-multiplier fix-up after variant switch). Card root unchanged: 327 FIXED HORIZONTAL auto-layout, padding spacing/16, itemSpacing spacing/4, bg color/surface/card, 1px white-06 stroke, radius/xl, Elevation/1. ORIGINAL: lone snapshot component with baked cells (superseded). Zero new tokens.",
       "created_at": "2026-05-29"
     },
     "MessageBubble": {
@@ -2407,7 +2416,7 @@
       "created_at": "2026-05-29"
     },
     "DomainSkillCard": {
-      "node_id": "251:99",
+      "node_id": "373:176",
       "page_node_id": "17:13",
       "doc_frame_id": "252:99",
       "key": "2f569da4b071076d81b6e8bec0bb696a3d4de0b5",
@@ -2420,7 +2429,12 @@
         "x": 80,
         "y": 4770
       },
-      "variant_axes": {},
+      "variant_axes": {
+        "State": [
+          "Default",
+          "Pressed"
+        ]
+      },
       "properties": [
         "Label",
         "Stat",
@@ -2767,6 +2781,38 @@
       "minted_tokens": {},
       "created_at": "2026-05-29",
       "$comment": "Phase 3C batch C8 (BreathingVisual). Hamza-CONFIRMED via AskUserQuestion (all 4 as recommended): (1) Phase axis = 3 variants Phase[Inhale,Hold,Exhale] matching the React `phase` prop (inhale/hold/exhale -> labels INHALE/HOLD/EXHALE); the inventory stub's 4-value box-breathing axis [InhaleHold,Inhale,ExhaleHold,Exhale] was REDUCED to 3 — the two 'hold' phases render identically (both label HOLD) and that split does not exist in the component (match-code / drop-speculative precedent). (2) DROP the React `size` axis (large 240 / compact 160 / mini 48-hides-text) — model ONLY large 240x240 (settled drop-speculative-size precedent: VoiceWaveform-compact, SuggestionChip). (3) Glow modeled with a static LAYER_BLUR effect radius 40 (= blur-2xl) for fidelity; the quiet-pulse opacity-pulse + breathing-guide scale animations are RUNTIME-ONLY and NOT modeled (static frame = resting circle). (4) Seconds TEXT prop (Seconds#359:0, default '3.2s') linked across all 3 variants; phaseLabel BAKED per-variant (it IS the Phase axis). Each variant COMPONENT = plain frame (layoutMode NONE) 240x240 FIXED, fills=[] transparent, clipsContent=false (so the blur glow is not cropped — React container has no overflow-hidden). Z-order children: (1) Glow ELLIPSE 240x240 at (0,0) fill domain/wellbeing (4:19) @0.10 + LAYER_BLUR radius 40; (2) Ring ELLIPSE 240x240 at (0,0) fill wellbeing (4:19) @0.10 + 3px INSIDE stroke wellbeing (4:19) @0.60 (3px border = intrinsic geometry, NOT tokenized); (3) TextGroup VERTICAL auto-layout HUG itemSpacing spacing/8 (8:3 = mt-2) counterAxis CENTER, centered in container via constraints CENTER/CENTER + manual x/y ((240-w)/2,(240-h)/2): PhaseLabel text Eyebrow style (S:04ba98... Sora SemiBold 12 UPPER 12% tracking; React's leading-4 is a minor divergence) fill white-70 (4:40) BAKED per-phase + Seconds text H1 style (S:423e14... Sora Bold 28/34) fill text/primary white (5:6) -> Seconds TEXT prop. tabular-nums font-feature SKIPPED (not exposed in Figma text styles). CENTRAL GOTCHA THIS BATCH: domain/wellbeing (4:19) is a FULL-OPACITY primitive (no intrinsic-alpha wellbeing token), so the @0.10/@0.60 paint-level tints required the read-modify-write fix-up AFTER assignment — el.fills = el.fills.map(p=>({...p,opacity:0.10})) on BOTH fills and strokes (setBoundVariableForPaint strips paint opacity back to 1; setting opacity on the paint object BEFORE assignment does NOT survive — confirmed this batch, the .map must run on the already-assigned array). Built Inhale fresh then cloned x2 (Hold/Exhale) patching only the PhaseLabel text + re-centering the TextGroup (TierCard clone precedent — glow/ring/seconds identical across variants). Set = HORIZONTAL doc card: ink-900 (4:5) full fill, cornerRadius 24, padding+itemSpacing spacing/24 (8:7), counterAxis MIN; 816x288 at (100,7110). ZERO new tokens minted (wellbeing/white-70/white/spacing-8/spacing-24 all exist; @0.10/@0.60 are paint-level opacities not tokens; 3px border + 240 diameter intrinsic geometry; blur radius 40 is an effect value). VALIDATED structurally (all 3 variants 240x240 clip=false, glow+ring fill/stroke bindings & opacities 0.10/0.10/0.60, LAYER_BLUR:40, text style links + fill bound vars, Seconds prop linked x3) + via pixel screenshot (curl HTTP 200 valid PNG — 3 wellbeing-green glowing circles INHALE/HOLD/EXHALE each with 3.2s, faithful to React)."
+    },
+    "MoodOption": {
+      "node_id": "404:31",
+      "page_node_id": "17:11",
+      "key": "548271b813eaf86d2987afcd249ae17d87e4b9fa",
+      "phase": "3A_atoms",
+      "size": {
+        "w": 261,
+        "h": 112
+      },
+      "position": {
+        "x": 3000,
+        "y": 80
+      },
+      "variant_axes": {
+        "State": [
+          "Default",
+          "Selected",
+          "Pressed"
+        ]
+      },
+      "properties": [
+        "Emoji",
+        "Label",
+        "State"
+      ],
+      "property_keys": {
+        "Emoji": "Emoji#406:0",
+        "Label": "Label#406:4"
+      },
+      "$comment": "Extracted 2026-05-30 (audit C-014) so MoodSelector states are real variants. State=Default (opacity 0.5, label color/alpha/white-40, transparent bg), State=Selected (bg color/domain/wellbeing @15% read-modify-write fix-up, opacity 1, emoji 31px ~scale-110, label color/alpha/white-70), State=Pressed (Default rescaled 0.95 = active:scale-95). Emoji + Label exposed as TEXT component properties. MoodSelector (155:5) recomposed from 6 FILL-width instances of this atom.",
+      "created_at": "2026-05-30"
     }
   },
   "ds_icons": {
