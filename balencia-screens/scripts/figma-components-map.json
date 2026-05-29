@@ -772,7 +772,20 @@
     "RecipeCard": {
       "phase": "3C_organisms",
       "source": "src/components/domain/RecipeCard.tsx",
-      "figma_node_id": null
+      "variants": {
+        "Compact": [
+          "False",
+          "True"
+        ]
+      },
+      "figma_node_id": "226:67",
+      "figma_component_key": "d2711a74723dde51f1909b1709a01eb168c271b7",
+      "composes": [
+        "Icon/Utensils(99:94)",
+        "Icon/Heart(95:27)",
+        "Icon/Clock(93:91)"
+      ],
+      "$comment": "BUILT 2026-05-29 (C2 organism #4, first multi-variant in C2). Compact[False,True] VARIANT axis (React `compact` bool -> variant because width 164/156, image h 112/92, radius md/lg, footer shown/hidden all differ). Card-small chrome BAKED: surface/card + white-06 + radius (md/lg) + Elevation/1, p-0, clipsContent. Image PLAIN FRAME w/ GRADIENT_LINEAR (raw RGB stops nutrition@0.15/ink-brown-800/ink-900 — gradient stops can't bind vars); abs children x/y: Utensils@28 white-20 centered, SiaPick pill brand/ai@0.15 -> HasSiaPick bool, HeartBtn 32 ink-900@0.8 + Heart@16 cta. Content p-3: default gap 12 [NameMacro gap 4 + Footer], compact gap 4 no footer. Name Sora SemiBold 15/20 BAKED minHeight 38 -> Name prop; Macro Small white-50 -> Macro prop. Footer (default) SPACE_BETWEEN: Clock@12+time -> Time prop (default only) | Difficulty badge success@0.15 (baked easy). Props: Name#226:0, Macro#226:3, Time#226:6, HasSiaPick#226:9. Set frame ink-900 + radius24 HORIZONTAL. No new tokens."
     },
     "TransactionRow": {
       "phase": "3C_organisms",

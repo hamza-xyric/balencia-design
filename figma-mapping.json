@@ -2173,6 +2173,46 @@
       "minted_tokens": {},
       "$comment": "BUILT 2026-05-29 (C2 organism #3). Lone COMPONENT, NO component properties (React is list-driven by meals[] — modeled as 3 baked representative rows; designers duplicate/edit per instance). Self-surfaced Card-default chrome BAKED: surface/card (5:4) + 1px INSIDE white-06 (4:44) + radius/xl (9:6) + Elevation/1 + padding spacing/24, root itemSpacing spacing/16 (eyebrow->list mt-4). Eyebrow flattened raw text + Eyebrow style + text/quaternary (5:9). List VERTICAL itemSpacing 0; each MealRow VERTICAL itemSpacing spacing/4 (mt-1), paddingY spacing/12 (py-3); FIRST row paddingTop 0; rows 2+ get a TOP-ONLY border (strokeTopWeight 1, others 0, white-10 4:43, INSIDE) modeling border-t. Row = [Top HORIZONTAL gap spacing/8 counterAxis CENTER [logged-only CheckBadge 16x16 success (5:14) pill holding Check icon instance resized 10 (default white stroke) + MealType Eyebrow style white-40/text-quaternary] + Name Sora SemiBold 16/22 BAKED (16-SemiBold at-ramp -> bake) text/primary FILL + Macro Sora Regular 12/16 BAKED (non-ramp) white-50 (4:41) FILL]. 3 reps: Breakfast(logged,first), Lunch(logged), Dinner(unlogged). active:scale press not modeled. No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "RecipeCard": {
+      "node_id": "226:67",
+      "page_node_id": "17:13",
+      "key": "d2711a74723dde51f1909b1709a01eb168c271b7",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 392,
+        "h": 278
+      },
+      "position": {
+        "x": 80,
+        "y": 3160
+      },
+      "variant_axes": {
+        "Compact": [
+          "False",
+          "True"
+        ]
+      },
+      "properties": [
+        "Name",
+        "Macro",
+        "Time",
+        "HasSiaPick"
+      ],
+      "property_keys": {
+        "Name": "Name#226:0",
+        "Macro": "Macro#226:3",
+        "Time": "Time#226:6",
+        "HasSiaPick": "HasSiaPick#226:9"
+      },
+      "composes": [
+        "Icon/Utensils(99:94)",
+        "Icon/Heart(95:27)",
+        "Icon/Clock(93:91 Default only)"
+      ],
+      "minted_tokens": {},
+      "$comment": "BUILT 2026-05-29 (C2 organism #4, first multi-variant in C2). match-code: Compact[False,True] 2-variant axis (React `compact` bool — modeled as a VARIANT not a BOOLEAN because dimensions+structure differ: width 164 vs 156, image height 112 vs 92, radius/md vs radius/lg, footer shown vs hidden). Card-small chrome BAKED: surface/card (5:4) + 1px INSIDE white-06 (4:44) + radius (md 9:4 default / lg 9:5 compact) + Elevation/1, NO padding (p-0), clipsContent=true (overflow-hidden), itemSpacing 0. Image = PLAIN FRAME (clipsContent) with GRADIENT_LINEAR fill (45deg, stops domain-nutrition@0.15 / ink-brown-800 / ink-900 — RAW RGB, gradient stops CAN'T bind variables; nutrition rgb 0.518/0.8/0.086) h112/h92; absolute children via x/y (NOT layoutPositioning — plain frame): Utensils icon@28 white-20 (143:5) centered (constraints CENTER), SiaPick pill (brand/ai 5:15 @0.15 fix-up, padX spacing/8 padY spacing/4, Small SemiBold brand/ai text) top-left x8 y8 -> HasSiaPick BOOLEAN, HeartBtn 32 circle (ink-900 4:5 @0.8 fix-up) + Heart icon@16 cta (5:13) top-right. Content VERTICAL padding spacing/12 (p-3): default itemSpacing spacing/12 [NameMacro VERTICAL gap spacing/4 [Name + Macro] + Footer]; compact itemSpacing spacing/4 [Name + Macro] NO footer. Name Sora SemiBold 15/20 BAKED (15-SemiBold non-ramp) text/primary FILL minHeight 38 (line-clamp-2 reserve) -> Name TEXT prop (both). Macro Small style white-50 (4:41) FILL -> Macro TEXT prop (both). Footer (default only) HORIZONTAL SPACE_BETWEEN: Time group [Clock@12 white-40 (4:42) + '20 min' Small white-40 -> Time TEXT prop default-only] + Difficulty badge (success 5:14 @0.15 fix-up bg + Small SemiBold success text, radius/sm) — difficulty color BAKED easy/green (medium=stalled-amber 4:37, hard=error per instance). dietPlan left-border + favorite-fill toggle NOT modeled (per-instance). Set frame = ink-900 (4:5) + radius 24 + HORIZONTAL auto-layout padding/gap spacing/24 counterAxis MIN (variant-set doc precedent). No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
