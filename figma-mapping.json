@@ -2213,6 +2213,49 @@
       "minted_tokens": {},
       "$comment": "BUILT 2026-05-29 (C2 organism #4, first multi-variant in C2). match-code: Compact[False,True] 2-variant axis (React `compact` bool — modeled as a VARIANT not a BOOLEAN because dimensions+structure differ: width 164 vs 156, image height 112 vs 92, radius/md vs radius/lg, footer shown vs hidden). Card-small chrome BAKED: surface/card (5:4) + 1px INSIDE white-06 (4:44) + radius (md 9:4 default / lg 9:5 compact) + Elevation/1, NO padding (p-0), clipsContent=true (overflow-hidden), itemSpacing 0. Image = PLAIN FRAME (clipsContent) with GRADIENT_LINEAR fill (45deg, stops domain-nutrition@0.15 / ink-brown-800 / ink-900 — RAW RGB, gradient stops CAN'T bind variables; nutrition rgb 0.518/0.8/0.086) h112/h92; absolute children via x/y (NOT layoutPositioning — plain frame): Utensils icon@28 white-20 (143:5) centered (constraints CENTER), SiaPick pill (brand/ai 5:15 @0.15 fix-up, padX spacing/8 padY spacing/4, Small SemiBold brand/ai text) top-left x8 y8 -> HasSiaPick BOOLEAN, HeartBtn 32 circle (ink-900 4:5 @0.8 fix-up) + Heart icon@16 cta (5:13) top-right. Content VERTICAL padding spacing/12 (p-3): default itemSpacing spacing/12 [NameMacro VERTICAL gap spacing/4 [Name + Macro] + Footer]; compact itemSpacing spacing/4 [Name + Macro] NO footer. Name Sora SemiBold 15/20 BAKED (15-SemiBold non-ramp) text/primary FILL minHeight 38 (line-clamp-2 reserve) -> Name TEXT prop (both). Macro Small style white-50 (4:41) FILL -> Macro TEXT prop (both). Footer (default only) HORIZONTAL SPACE_BETWEEN: Time group [Clock@12 white-40 (4:42) + '20 min' Small white-40 -> Time TEXT prop default-only] + Difficulty badge (success 5:14 @0.15 fix-up bg + Small SemiBold success text, radius/sm) — difficulty color BAKED easy/green (medium=stalled-amber 4:37, hard=error per instance). dietPlan left-border + favorite-fill toggle NOT modeled (per-instance). Set frame = ink-900 (4:5) + radius 24 + HORIZONTAL auto-layout padding/gap spacing/24 counterAxis MIN (variant-set doc precedent). No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "ModuleCard": {
+      "node_id": "229:71",
+      "page_node_id": "17:13",
+      "key": "5e3c7ca7de7c102d3b7ad873db952e16a29ec6df",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 392,
+        "h": 168
+      },
+      "position": {
+        "x": 80,
+        "y": 3500
+      },
+      "variant_axes": {
+        "Variant": [
+          "Suggested",
+          "Grid"
+        ]
+      },
+      "properties": [
+        "Name",
+        "Description",
+        "DomainLabel",
+        "Icon",
+        "HasBadge",
+        "HasLock"
+      ],
+      "property_keys": {
+        "Name": "Name#229:0",
+        "Description": "Description#229:3",
+        "DomainLabel": "DomainLabel#229:6",
+        "Icon": "Icon#229:9",
+        "HasBadge": "HasBadge#229:12",
+        "HasLock": "HasLock#229:15"
+      },
+      "composes": [
+        "Icon/Sparkles(98:102 Grid INSTANCE_SWAP default)",
+        "Icon/Lock(95:87)"
+      ],
+      "minted_tokens": {},
+      "$comment": "BUILT 2026-05-29 (C2 organism #5). match-code: Variant[Suggested,Grid] EXPANDED from empty inventory (React `variant:'suggested'|'grid'` — the two branches differ structurally). Both: ink-brown-800 (4:7) + 1px INSIDE white-06 (4:44) + radius/md (9:4) + Elevation/1, FIXED. SUGGESTED 160x120 padding spacing/16 itemSpacing spacing/12 (mt-3): [Domain HORIZONTAL gap spacing/6 [8px Ellipse dot domain/sleep (4:12, per-domain rep) + DomainLabel Small white-50 (4:41) -> DomainLabel TEXT prop] + NameDesc VERTICAL gap spacing/4 [Name Sora SemiBold 15/20 BAKED + Desc Caption white-40 (4:42)]]. GRID 160x88 padding spacing/12 itemSpacing spacing/8 (mt-2): [Icon INSTANCE_SWAP@20 (default Sparkles 98:102, recolored white-60 147:5) -> Icon prop + NameDesc gap spacing/4 [Name Sora SemiBold 14/18 BAKED + Desc Sora Regular 12/16 BAKED white-40]]. Name+Description linked TEXT props on BOTH variants (identical defaults). ABSOLUTE children (layoutPositioning ABSOLUTE — root IS auto-layout): Badge (suggested only) top-right (x w-w-12, y12, MAX/MIN), forest-green (4:3) solid 'new' rep (badge color per-type baked: orange cta / green / white-10; React badgeClasses) Sora SemiBold 10/14 text/primary, gated HasBadge BOOLEAN default true; LockedTier (BOTH) bottom-right (MAX/MAX) white-10 (4:43) pill + Lock icon@10 white-50 + 'Premium' Sora SemiBold 10, gated HasLock BOOLEAN default FALSE (hidden). Set frame ink-900 + radius24 HORIZONTAL counterAxis MIN. active:scale + domainToneClasses full tone map not modeled. No new tokens.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {
