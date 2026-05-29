@@ -2416,6 +2416,47 @@
       "minted_tokens": {},
       "$comment": "BUILT 2026-05-29 (C3 organism #4). Match-code: NO variant axis — React drives dot/bar color via stat.domain prop (domainToneClasses), so DROP a 12-domain variant axis and build ONE Fitness (4:11) representative; domain color applied per-instance at use site (SuggestionChip precedent). Card = VERTICAL h-78 (78 FIXED) x 104 FIXED, ink-brown-800 (4:7) + 1px INSIDE white-06 (4:44) border + radius/md (9:4) + Elevation/1 + padding spacing/10 (62:2, p-2.5), itemSpacing 0. Children: Top (VERTICAL FILL itemSpacing spacing/4 8:2): LabelRow (HORIZONTAL FILL gap spacing/6 52:2 counterAxis CENTER) [8px ELLIPSE dot fitness + label Small style (Sora Reg 11) white-50 (4:41) FILL+textTruncation ENDING] then StatLevel (VERTICAL FILL itemSpacing 0 counterAxis CENTER) [stat Sora BOLD 24/28 BAKED text/primary (5:6) CENTER -> Stat prop + level Sora SemiBold 12/16 BAKED white-60 (147:5) CENTER -> Level prop]. Then Spacer FRAME FILL-vertical (mt-auto pushes progress to bottom — TierCard precedent). Then ProgressTrack plain FRAME FILL-width h3 white-08 (140:2) radius/pill (9:8) clipsContent + ProgressFill RECT 65% width (plain-frame child x/y direct, C2 gotcha) fitness radius/pill. Props Label/Stat/Level TEXT. Lone comp -> ink-900 (4:5) doc FRAME 'DomainSkillCard [doc]' (252:99) radius24 + spacing/24. No new tokens.",
       "created_at": "2026-05-29"
+    },
+    "JournalEntryCard": {
+      "node_id": "253:99",
+      "page_node_id": "17:13",
+      "doc_frame_id": "256:106",
+      "key": "3eeeeda0550d809e32e59e1ab26868bb87921d07",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 327,
+        "h": 136
+      },
+      "position": {
+        "x": 80,
+        "y": 4980
+      },
+      "variant_axes": {},
+      "properties": [
+        "Date",
+        "Preview",
+        "Mood",
+        "HasVoice",
+        "HasMood",
+        "WithDivider"
+      ],
+      "property_keys": {
+        "Date": "Date#256:0",
+        "Preview": "Preview#256:1",
+        "Mood": "Mood#256:2",
+        "HasVoice": "HasVoice#256:3",
+        "HasMood": "HasMood#256:4",
+        "WithDivider": "WithDivider#256:5"
+      },
+      "composes": [
+        "DomainTag(52:39 x2: Fitness+Nutrition, ShowDot=false)",
+        "Icon/Mic(96:10)"
+      ],
+      "minted_tokens": {
+        "color/alpha/white-05": "VariableID:237:2"
+      },
+      "$comment": "BUILT 2026-05-29 (C3 organism #5). Match-code: NO variant axis; bools HasVoice/HasMood/WithDivider hoisted from pure-visibility props (HabitRow/ModuleCard precedent). Card = VERTICAL 327 FIXED-wide HUG-height, transparent fill (article over list bg), padding spacing/16 (8:5, px-4 py-4), itemSpacing spacing/12 (8:4, the mt-3 header-group->domains gap). TOP DIVIDER = absolute RECTANGLE (layoutPositioning ABSOLUTE — parent is auto-layout, C2 gotcha #1 allows it) x0 y0 327x1 white-05 (237:2) constraints STRETCH/MIN, visible=false -> WithDivider BOOLEAN (default false, matches React border-t withDivider). HeaderPreview group (VERTICAL FILL itemSpacing spacing/8 8:3 = the mt-2 date->preview gap): Header (HORIZONTAL FILL SPACE_BETWEEN counterAxis CENTER gap spacing/12) [DateGroup (HORIZONTAL FILL gap spacing/8 counterAxis CENTER): date Sora SemiBold 15/20 BAKED text/primary (5:6) HUG+truncate -> Date prop + VoiceBadge (HORIZONTAL HUG h20 FIXED white-05 fill radius/sm 9:3 padX spacing/6 52:2 gap spacing/4 8:2) [Mic@11 recolored white-40 (4:42) + 'voice' Sora Reg 11/16 white-40] visible=true -> HasVoice BOOLEAN default true] + mood emoji '😊' Sora Reg 20/20 HUG, visible -> HasMood BOOLEAN default true AND Mood TEXT prop (characters+visible both referenced on same node)]; preview Sora Reg 14/20 BAKED white-60 (147:5) FILL + maxHeight 40 + textTruncation ENDING (line-clamp-2) -> Preview prop. Domains (HORIZONTAL WRAP FILL itemSpacing+counterAxisSpacing spacing/8): 2 DomainTag instances (52:39 default 52:3) Fitness+Nutrition, setProperties Domain + ShowDot#52:13=false, THEN 0.15 bg opacity fix-up on each (DomainTag instance gotcha). Defaults HasVoice/HasMood=true (showcase) vs React false/undefined — DS authoring choice, documented; WithDivider=false matches React. Lone comp -> ink-900 (4:5) doc FRAME 'JournalEntryCard [doc]' (256:106) radius24 + spacing/24. MINTED color/alpha/white-05 (VariableID:237:2) this batch.",
+      "created_at": "2026-05-29"
     }
   },
   "ds_icons": {

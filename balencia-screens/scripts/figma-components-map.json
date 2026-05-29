@@ -864,7 +864,25 @@
     "JournalEntryCard": {
       "phase": "3C_organisms",
       "source": "src/components/domain/JournalEntryCard.tsx",
-      "figma_node_id": null
+      "figma_node_id": "253:99",
+      "doc_frame_id": "256:106",
+      "figma_component_key": "3eeeeda0550d809e32e59e1ab26868bb87921d07",
+      "properties": [
+        "Date (TEXT)",
+        "Preview (TEXT)",
+        "Mood (TEXT)",
+        "HasVoice (BOOL)",
+        "HasMood (BOOL)",
+        "WithDivider (BOOL)"
+      ],
+      "composes": [
+        "DomainTag x2 (Fitness+Nutrition, ShowDot=false)",
+        "Icon/Mic"
+      ],
+      "minted_tokens": {
+        "color/alpha/white-05": "VariableID:237:2"
+      },
+      "$comment": "BUILT 2026-05-29 (C3 #5) Organisms 17:13 (80,4980). NO variants; bools HasVoice/HasMood/WithDivider hoisted (HabitRow/ModuleCard precedent). Card=VERTICAL 327 FIXED transparent, padding spacing/16, itemSpacing 12 (mt-3). Top DIVIDER = absolute RECT 327x1 white-05 (237:2) STRETCH visible=false -> WithDivider (default false). HeaderPreview (VERTICAL FILL gap 8 = mt-2): Header (SPACE_BETWEEN) [DateGroup: date Sora SemiBold 15/20 text/primary truncate -> Date prop + VoiceBadge (h20 white-05 radius/sm padX 6 gap 4) [Mic@11 white-40 + 'voice' 11/16 white-40] -> HasVoice + mood 😊 20/20 -> HasMood+Mood prop]; preview Sora Reg 14/20 white-60 maxHeight40 truncate (line-clamp-2) -> Preview prop]. Domains (WRAP gap 8): 2 DomainTag Fitness+Nutrition ShowDot=false + 0.15 fixup. HasVoice/HasMood default true (showcase); WithDivider false (React). Lone comp -> ink-900 doc frame [doc] (256:106). MINTED white-05 (237:2)."
     },
     "CelebrationOverlay": {
       "phase": "3C_organisms",
