@@ -1327,23 +1327,64 @@
     "LineChart": {
       "phase": "3D_charts",
       "source": "src/components/charts/LineChart.tsx",
-      "$comment": "Static visual snapshot in Figma; Code Connect references live recharts implementation.",
-      "figma_node_id": null
+      "figma_node_id": "510:2",
+      "figma_component_key": "33eafebfa140107c4d7eb2442324a7a0d44c484d",
+      "doc_frame_id": "510:13",
+      "variants": {},
+      "properties": {},
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created": "2026-05-30",
+      "$comment": "Static visual snapshot in Figma; Code Connect references live recharts implementation. 3D. Monotone brand-orange(4:2) polyline VECTOR (strokeWeight 3) over Sora-Regular-11 white-40(4:42) Mon-Sun labels. DROPPED 'use client', recharts ResponsiveContainer/YAxis/Tooltip/activeDot/dot. ZERO mints/fixups. See ds_components.LineChart."
     },
     "BarChart": {
       "phase": "3D_charts",
       "source": "src/components/charts/BarChart.tsx",
-      "figma_node_id": null
+      "figma_node_id": "508:2",
+      "figma_component_key": "622731bdaf5c44a03f15f44f3f8129e8fadb4ef3",
+      "doc_frame_id": "508:19",
+      "variants": {},
+      "properties": {},
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created": "2026-05-30",
+      "$comment": "3D. Static snapshot of recharts BarChart: 7 brand-orange(4:2) rounded bars (radius 8) over Sora-Regular-11 white-40(4:42) Mon-Sun labels. DROPPED 'use client', recharts ResponsiveContainer/YAxis/Tooltip; sample data baked. Code Connect references live recharts. ZERO mints/fixups. See ds_components.BarChart."
     },
     "RadarChart": {
       "phase": "3D_charts",
       "source": "src/components/charts/RadarChart.tsx",
-      "figma_node_id": null
+      "figma_node_id": "520:2",
+      "figma_component_key": "0f2414e7995dfb41d5af007a5cebe5e579625e95",
+      "doc_frame_id": "514:2",
+      "variants": {},
+      "properties": {},
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created": "2026-05-30",
+      "$comment": "3D. Bespoke 280x280 radar (NOT recharts) from bound primitives: 5 rings white-05(237:2), 10 axes white-10(4:43), 10 labels Sora-SemiBold-11 white-70(4:40), data polygon orange-15(471:3) fill + brand-orange@0.8 FIXUP stroke, 10 domain-color dots (4:11..4:20). Frame->COMPONENT via createComponentFromNode. DROPPED radar-grow/radar-dot animations + animationDelay. 1 fixup, ZERO mints. See ds_components.RadarChart."
     },
     "CalendarHeatmap": {
       "phase": "3D_charts",
       "source": "src/components/charts/CalendarHeatmap.tsx",
-      "figma_node_id": null
+      "figma_node_id": "519:2",
+      "figma_component_key": "170b50362432005aa9e76e8ce9e3e501e8317d13",
+      "doc_frame_id": "519:3",
+      "variants": {
+        "Tone": [
+          "Brand",
+          "Creativity",
+          "Learning"
+        ]
+      },
+      "properties": {},
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created": "2026-05-30",
+      "$comment": "3D. Tone[Brand,Creativity,Learning] SET (built Brand, clone+patched rest). 7x5 grid: white-30(160:2) day labels, 28px rounded-xs(9:2) cells by intensity 0-4 + future, isToday dashed tone border, footer monthLabel white-40 + summary. Brand ramp white-05/orange-20/orange@.50 FIXUP/@.75 FIXUP/orange; summary forest-green(4:3). Creativity/Learning ramp white-05/domain@.30/.60/.80 FIXUP(4:21,4:22)/domain; summary=tone. DROPPED active:scale/transition/aria-label; baked cellSize 28. ZERO mints. See ds_components.CalendarHeatmap."
     },
     "ConversationAvatar": {
       "phase": "3C_organisms",

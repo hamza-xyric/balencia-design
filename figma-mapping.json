@@ -3337,6 +3337,117 @@
       "minted_tokens": {},
       "created_at": "2026-05-30",
       "$comment": "Phase 3F layout chrome. React src/components/layout/TabBar.tsx bottom nav (flex h-56 items-center justify-around bg-ink-900 px-2, border-t-0). Hamza-CONFIRMED via AskUserQuestion (x4, all as recommended): placed on Templates page 17:15; modeled Active[Today,SIA,Goals,Me]=4 variants (built Today, clone+patched the other 3). Component = HORIZONTAL-AL 375x56 FIXED, ink-900(4:5) fill, padX spacing/8(8:3), SPACE_BETWEEN+center (represents justify-around -> divergence). 4 tabs each = VERTICAL-AL w-64 FIXED, gap spacing/2(193:4), center; icon INSTANCE @24 + label Sora Regular 11. Active tab -> brand-orange(4:2) + strokeWidth 2.5; inactive -> white-60(147:5 intrinsic-alpha) + strokeWidth 1.5 (honored on lucide vectors). Goals variant displays label 'Missions' (RPG terminology) though axis value is 'Goals'. Tab icons: Today=Calendar(93:21), SIA=MessageCircle(95:99), Goals=Flag(94:76), Me=User(99:77). DROPPED runtime: 'use client', data-testid. Custom inline 11px BAKED (Sora Regular). ZERO mints, ZERO fixups. COMPONENT_SET 498:36, doc card 503:45. VALIDATED pixel screenshot (4 active states on dark doc)."
+    },
+    "BarChart": {
+      "node_id": "508:2",
+      "page_node_id": "17:14",
+      "doc_frame_id": "508:19",
+      "key": "622731bdaf5c44a03f15f44f3f8129e8fadb4ef3",
+      "phase": "3D_charts",
+      "size": {
+        "w": 258,
+        "h": 142
+      },
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "variant_axes": {},
+      "variants": {},
+      "properties": [],
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3D charts. Static visual snapshot of recharts BarChart (src/components/charts/BarChart.tsx). 7 brand-orange(4:2) rounded bars (cornerRadius 8 literal) of varying heights, bottom-aligned, over a Sora-Regular-11 white-40(4:42) x-axis label row (Mon-Sun). DROPPED runtime: 'use client', recharts ResponsiveContainer/YAxis(hide)/Tooltip; per-instance sample data baked. Code Connect (3E) references the live recharts implementation. ZERO mints, ZERO fixups. COMPONENT 508:2, doc card 508:19. VALIDATED pixel screenshot."
+    },
+    "LineChart": {
+      "node_id": "510:2",
+      "page_node_id": "17:14",
+      "doc_frame_id": "510:13",
+      "key": "33eafebfa140107c4d7eb2442324a7a0d44c484d",
+      "phase": "3D_charts",
+      "size": {
+        "w": 258,
+        "h": 142
+      },
+      "position": {
+        "x": 100,
+        "y": 370
+      },
+      "variant_axes": {},
+      "variants": {},
+      "properties": [],
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3D charts. Static visual snapshot of recharts LineChart (src/components/charts/LineChart.tsx). Monotone brand-orange(4:2) polyline built as a bound VECTOR (Catmull-Rom->bezier, strokeWeight 3, round cap/join) over Sora-Regular-11 white-40(4:42) x-axis labels (Mon-Sun). NOTE: createVector normalizes path coords to node-local space -> node positioned at path bbox-min. DROPPED runtime: 'use client', recharts ResponsiveContainer/YAxis(hide)/Tooltip/activeDot, dot=false; sample data baked. Code Connect (3E) references the live recharts implementation. ZERO mints, ZERO fixups. COMPONENT 510:2, doc card 510:13. VALIDATED pixel screenshot."
+    },
+    "RadarChart": {
+      "node_id": "520:2",
+      "page_node_id": "17:14",
+      "doc_frame_id": "514:2",
+      "key": "0f2414e7995dfb41d5af007a5cebe5e579625e95",
+      "phase": "3D_charts",
+      "size": {
+        "w": 280,
+        "h": 280
+      },
+      "position": {
+        "x": 100,
+        "y": 640
+      },
+      "variant_axes": {},
+      "variants": {},
+      "properties": [],
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3D charts. Bespoke 280x280 radar (src/components/charts/RadarChart.tsx, NOT recharts), built from bound primitives (geometry computed per React pointFor; createVector path coords normalized -> nodes positioned at bbox-min; frame converted to COMPONENT via createComponentFromNode). 5 ring polygons stroke white-05(237:2); 10 axis lines stroke white-10(4:43); 10 axis labels Sora-SemiBold-11 white-70(4:40) anchored start/middle/end by angle; data polygon fill orange-15(471:3 intrinsic clean) + stroke brand-orange(4:2) @0.8 PAINT-OPACITY FIXUP strokeWeight 2; 10 vertex dots r4 in their domain color (fitness 4:11..meditation 4:20). Representative sample stat values baked. DROPPED runtime: radar-grow/radar-dot CSS animations + animationDelay, aria-label. 1 paint-opacity fixup (orange-0.8 stroke), ZERO mints. COMPONENT 520:2, doc card 514:2. VALIDATED pixel screenshot on dark."
+    },
+    "CalendarHeatmap": {
+      "node_id": "519:2",
+      "page_node_id": "17:14",
+      "doc_frame_id": "519:3",
+      "key": "170b50362432005aa9e76e8ce9e3e501e8317d13",
+      "phase": "3D_charts",
+      "size": {
+        "w": 268,
+        "h": 756
+      },
+      "position": {
+        "x": 100,
+        "y": 1048
+      },
+      "variant_axes": {
+        "Tone": [
+          "Brand",
+          "Creativity",
+          "Learning"
+        ]
+      },
+      "variants": {
+        "Brand": {
+          "node_id": "515:2",
+          "key": "69d9587ab5f1e583ea9fc109253933f2dfeb51c8"
+        },
+        "Creativity": {
+          "node_id": "518:2",
+          "key": "5aca928635e4c62f77f0db7dbd650e497d2077fc"
+        },
+        "Learning": {
+          "node_id": "518:56",
+          "key": "04da446eb8200095f29d7544d65608d78ce4a4fb"
+        }
+      },
+      "properties": [],
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3D charts. CalendarHeatmap (src/components/charts/CalendarHeatmap.tsx) Tone[Brand,Creativity,Learning] SET = 3 variants (built Brand, clone+patched cell fills/today-border/summary-color for Creativity & Learning). Representative 7-col x 5-row grid: Sora-Regular-11 white-30(160:2) day-label header (S M T W T F S); 28px rounded-xs(9:2) cells 1px border; fill by intensity 0-4 + future; one isToday cell = dashed tone-colored border; footer = monthLabel Sora-Regular-13 white-40(4:42) + summary Sora-SemiBold-13. Brand fill ramp: white-05(237:2), orange-20(160:3), orange@0.50 FIXUP, orange@0.75 FIXUP, orange(4:2); future=white-03(302:2); summary=forest-green(4:3). Creativity/Learning ramp: white-05, domain@0.30/0.60/0.80 PAINT-OPACITY FIXUP (4:21/4:22), domain@1.0; today border + summary = tone color. DROPPED runtime: active:scale-110, transition-*, aria-label; baked cellSize 28 (dropped 28|32 axis). PAINT-OPACITY FIXUPS for orange-50/75 + domain /30/60/80; ZERO mints. SET 519:2, doc card 519:3. VALIDATED pixel screenshot on dark (3 tones)."
     }
   },
   "ds_icons": {
