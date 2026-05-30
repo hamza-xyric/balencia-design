@@ -4165,8 +4165,21 @@
   },
   "screens_frames": {
     "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion.",
-    "01": { "node_id": "6:25", "page_node_id": "0:1", "$comment": "Splash — Phase 4 pilot #1 (2026-05-31). ScreenShell-Template instance (tabbar hidden, placeholders hidden) + BrandSymbol Lg→72 + ContinuousStroke Base + BrandWordmark Md→140 + hero-glow ellipse (brand-orange@0.15, blur 64). bg/glow fills bound to ink-900/brand-orange vars. On page 'Page 1'." },
-    "12": { "node_id": "17:25", "page_node_id": "0:1", "$comment": "Home/Today — Phase 4 pilot #2 (composed prior session; verified 2026-05-31). 375×1959. HomeHeader 21:310 (greeting/date + LevelBadge 21:313 Rarity=Epic Lv14), InsightCard 22:262 (2 DomainTags Sleep+Fitness), 3 ActionCards (18:265/286/304, Expanded=false 128px), 2 MissionCards (19:280/336), ScheduleCard wrapping ScheduleItems 19:380/388/394, ActivityRows 23:264/268, View-all 23:272, TabBar 24:331 Active=Today. VERIFY NOTE: after DS republish, 11 DomainTag/LevelBadge instances were stuck on the OLD full-alpha binding (Figma does not propagate a variable RE-BIND to already-imported library components). Fixed by rebinding each instance bg fill to the published color/{domain,rarity}/*-subtle vars (α0.15) — fresh DS instances were already correct. On page 'Page 1'." }
+    "01": {
+      "node_id": "6:25",
+      "page_node_id": "0:1",
+      "$comment": "Splash — Phase 4 pilot #1 (2026-05-31). ScreenShell-Template instance (tabbar hidden, placeholders hidden) + BrandSymbol Lg→72 + ContinuousStroke Base + BrandWordmark Md→140 + hero-glow ellipse (brand-orange@0.15, blur 64). bg/glow fills bound to ink-900/brand-orange vars. On page 'Page 1'."
+    },
+    "12": {
+      "node_id": "17:25",
+      "page_node_id": "0:1",
+      "$comment": "Home/Today — Phase 4 pilot #2 (composed prior session; verified 2026-05-31). 375×1959. HomeHeader 21:310 (greeting/date + LevelBadge 21:313 Rarity=Epic Lv14), InsightCard 22:262 (2 DomainTags Sleep+Fitness), 3 ActionCards (18:265/286/304, Expanded=false 128px), 2 MissionCards (19:280/336), ScheduleCard wrapping ScheduleItems 19:380/388/394, ActivityRows 23:264/268, View-all 23:272, TabBar 24:331 Active=Today. VERIFY NOTE: after DS republish, 11 DomainTag/LevelBadge instances were stuck on the OLD full-alpha binding (Figma does not propagate a variable RE-BIND to already-imported library components). Fixed by rebinding each instance bg fill to the published color/{domain,rarity}/*-subtle vars (α0.15) — fresh DS instances were already correct. On page 'Page 1'."
+    },
+    "09": {
+      "node_id": "50:289",
+      "page_node_id": "0:1",
+      "$comment": "SIA Chat — Phase 4 pilot #3 (composed + verified 2026-05-31). 375×2488. Plain wrapper (bg→ink-900) with absolute-positioned chrome (matches #12 pattern, no ScreenShell instance): SiaChatTopBar 50:326 (Title=SIA, Subtitle=\"Adaptive coach online\") at y44; bespoke \"Live context\" hero card 51:322 (royal-purple 145deg gradient as raw RGBA — faithful to React inline gradient, no token exists at those alphas; eyebrow→royal-purple, H2 Sora-SemiBold-19, Sparkles avatar 51:327 royal-purple+glow, 3 SignalPills purple/orange/green with text overridden, \"Open conversations hub\" link pill) at y112 h244; SiaConversation 53:567 (ShowSuggestions=false) at y372; 2 representative MessageBubbles (user 53:858 + SIA 53:861); suggestion row 54:629 (3 SuggestionChips + View-mission orange-outline + Start-workout orange-fill link pills, overflows=horizontal-scroll); ChatInputBar 55:652 State=Mic at y2364; TabBar 55:662 Active=SIA at y2432. Voice overlay OMITTED (transient; covered by #10/#11). X-013 FIX: the 5 DomainTags baked inside SiaConversation composite carried stale full-alpha bindings (op1) — rebound each to color/domain/*-subtle vars in this Screens file (DS-source composite still needs rebind+republish; logged). On page Page 1."
+    }
   },
   "code_connect": {
     "$comment": "Phase 3 + 6 — tracks .figma.tsx files published. component name -> { figma_tsx_path, published_at }."
