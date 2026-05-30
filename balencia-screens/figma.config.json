@@ -9,7 +9,10 @@
       ".next/**"
     ],
     "importPaths": {
-      "src/components/*": "@/components/*"
+      "@/*": "@/*"
+    },
+    "paths": {
+      "@/*": ["src/*"]
     },
     "documentUrlSubstitutions": {
       "BALENCIA_DS": "https://www.figma.com/design/XF2diepp3IfcWuDWHwL4ez"
