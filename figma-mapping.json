@@ -4164,7 +4164,8 @@
     }
   },
   "screens_frames": {
-    "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion."
+    "$comment": "Filled in Phase 4-5. screen number -> { node_id, page_node_id }. 97 entries expected at completion.",
+    "01": { "node_id": "6:25", "page_node_id": "0:1", "$comment": "Splash — Phase 4 pilot #1 (2026-05-31). ScreenShell-Template instance (tabbar hidden, placeholders hidden) + BrandSymbol Lg→72 + ContinuousStroke Base + BrandWordmark Md→140 + hero-glow ellipse (brand-orange@0.15, blur 64). bg/glow fills bound to ink-900/brand-orange vars. On page 'Page 1'." }
   },
   "code_connect": {
     "$comment": "Phase 3 + 6 — tracks .figma.tsx files published. component name -> { figma_tsx_path, published_at }."
