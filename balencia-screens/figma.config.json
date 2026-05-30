@@ -2,7 +2,9 @@
   "codeConnect": {
     "parser": "react",
     "include": [
-      "src/components/**/*.figma.tsx"
+      "src/components/**/*.figma.tsx",
+      "src/components/**/*.tsx",
+      "src/data/**/*.ts"
     ],
     "exclude": [
       "node_modules/**",
@@ -12,7 +14,9 @@
       "@/*": "@/*"
     },
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
     "documentUrlSubstitutions": {
       "BALENCIA_DS": "https://www.figma.com/design/XF2diepp3IfcWuDWHwL4ez"
