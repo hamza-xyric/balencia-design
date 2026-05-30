@@ -68,6 +68,13 @@
         "color/rarity/epic-subtle":      { "type": "COLOR", "value": "#FF5E00", "opacity": 0.15, "css_var": "--color-rarity-epic-subtle",      "code_syntax": { "WEB": "var(--color-rarity-epic-subtle)" } },
         "color/rarity/legendary-subtle": { "type": "COLOR", "value": "#FFD700", "opacity": 0.15, "css_var": "--color-rarity-legendary-subtle", "code_syntax": { "WEB": "var(--color-rarity-legendary-subtle)" } },
 
+        "color/mission/gold-subtle":   { "type": "COLOR", "value": "#D4A017", "opacity": 0.15, "css_var": "--color-mission-gold-subtle",   "code_syntax": { "WEB": "var(--color-mission-gold-subtle)" } },
+        "color/mission/silver-subtle": { "type": "COLOR", "value": "#A8A9AD", "opacity": 0.15, "css_var": "--color-mission-silver-subtle", "code_syntax": { "WEB": "var(--color-mission-silver-subtle)" } },
+        "color/mission/bronze-subtle": { "type": "COLOR", "value": "#CD7F32", "opacity": 0.15, "css_var": "--color-mission-bronze-subtle", "code_syntax": { "WEB": "var(--color-mission-bronze-subtle)" } },
+        "color/mission/steel-subtle":  { "type": "COLOR", "value": "#5B7FA5", "opacity": 0.15, "css_var": "--color-mission-steel-subtle",  "code_syntax": { "WEB": "var(--color-mission-steel-subtle)" } },
+        "color/mission/sage-subtle":   { "type": "COLOR", "value": "#6B8E6B", "opacity": 0.15, "css_var": "--color-mission-sage-subtle",   "code_syntax": { "WEB": "var(--color-mission-sage-subtle)" } },
+        "color/mission/copper-subtle": { "type": "COLOR", "value": "#B87333", "opacity": 0.15, "css_var": "--color-mission-copper-subtle", "code_syntax": { "WEB": "var(--color-mission-copper-subtle)" } },
+
         "color/rpg/stalled-amber":    { "type": "COLOR", "value": "#F59E0B", "css_var": "--color-stalled-amber",     "code_syntax": { "WEB": "var(--color-stalled-amber)" } },
         "color/rpg/freeze-blue":      { "type": "COLOR", "value": "#4FC3F7", "css_var": "--color-freeze-blue",       "code_syntax": { "WEB": "var(--color-freeze-blue)" } },
 

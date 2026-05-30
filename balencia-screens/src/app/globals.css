@@ -73,6 +73,15 @@
   --color-rarity-epic-subtle: rgba(255, 94, 0, 0.15);
   --color-rarity-legendary-subtle: rgba(255, 215, 0, 0.15);
 
+  /* Mission type subtle fills (15% alpha — MissionTypeBadge backgrounds; mirror Figma color/mission/*-subtle.
+     DS components bind the -subtle token so the metallic chip bg survives instancing — see X-012. */
+  --color-mission-gold-subtle: rgba(212, 160, 23, 0.15);
+  --color-mission-silver-subtle: rgba(168, 169, 173, 0.15);
+  --color-mission-bronze-subtle: rgba(205, 127, 50, 0.15);
+  --color-mission-steel-subtle: rgba(91, 127, 165, 0.15);
+  --color-mission-sage-subtle: rgba(107, 142, 107, 0.15);
+  --color-mission-copper-subtle: rgba(184, 115, 51, 0.15);
+
   /* RPG Accents */
   --color-stalled-amber: #F59E0B;
   --color-freeze-blue: #4FC3F7;

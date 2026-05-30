@@ -105,6 +105,12 @@
       "color/mission/steel": "VariableID:4:29",
       "color/mission/sage": "VariableID:4:30",
       "color/mission/copper": "VariableID:4:31",
+      "color/mission/gold-subtle": "VariableID:554:2",
+      "color/mission/silver-subtle": "VariableID:554:3",
+      "color/mission/bronze-subtle": "VariableID:554:4",
+      "color/mission/steel-subtle": "VariableID:554:5",
+      "color/mission/sage-subtle": "VariableID:554:6",
+      "color/mission/copper-subtle": "VariableID:554:7",
       "color/rarity/common": "VariableID:4:32",
       "color/rarity/uncommon": "VariableID:4:33",
       "color/rarity/rare": "VariableID:4:34",
@@ -4179,6 +4185,11 @@
       "node_id": "50:289",
       "page_node_id": "0:1",
       "$comment": "SIA Chat — Phase 4 pilot #3 (composed + verified 2026-05-31). 375×2488. Plain wrapper (bg→ink-900) with absolute-positioned chrome (matches #12 pattern, no ScreenShell instance): SiaChatTopBar 50:326 (Title=SIA, Subtitle=\"Adaptive coach online\") at y44; bespoke \"Live context\" hero card 51:322 (royal-purple 145deg gradient as raw RGBA — faithful to React inline gradient, no token exists at those alphas; eyebrow→royal-purple, H2 Sora-SemiBold-19, Sparkles avatar 51:327 royal-purple+glow, 3 SignalPills purple/orange/green with text overridden, \"Open conversations hub\" link pill) at y112 h244; SiaConversation 53:567 (ShowSuggestions=false) at y372; 2 representative MessageBubbles (user 53:858 + SIA 53:861); suggestion row 54:629 (3 SuggestionChips + View-mission orange-outline + Start-workout orange-fill link pills, overflows=horizontal-scroll); ChatInputBar 55:652 State=Mic at y2364; TabBar 55:662 Active=SIA at y2432. Voice overlay OMITTED (transient; covered by #10/#11). X-013 FIX: the 5 DomainTags baked inside SiaConversation composite carried stale full-alpha bindings (op1) — rebound each to color/domain/*-subtle vars in this Screens file (DS-source composite still needs rebind+republish; logged). On page Page 1."
+    },
+    "13": {
+      "node_id": "62:675",
+      "page_node_id": "0:1",
+      "$comment": "Mission Board (Goals) — Phase 4 pilot #4 (composed + verified 2026-05-31, ONE gated follow-up). 375×1334. Plain wrapper bg→ink-900. Header 62:676 (\"Your missions\" H1 + BookOpen+Funnel icons); type-filter pill row 63:672 (All active-orange + Life/Main/Side/Weekly/Daily, primitives, overflows=h-scroll); SegmentedControl 64:807 (SegmentCount=3 ActiveIndex=0 Size=Md, labels Active/Done/All); LifeAreasPreview 66:678 (mini hex-radar from 2 polygons + chevron); PINNED eyebrow 67:738; 2 pinned MissionCards 67:739 (Run a half marathon) + 69:734 (Save $5,000); SIA-suggestions collapsed header 70:762 (\"SIA SUGGESTIONS (2)\"); 2 listed MissionCards 70:767 (Meditate daily) + 71:789 (Read 2 books); FAB 72:870 floating bottom-right; TabBar 72:824 Active=Goals. Each MissionCard fully overridden per-mock: Title/Subtitle(Next:)/HasChain/HasPin props + nested DomainTag Domain (patched to *-subtle) + nested texts Percent/XP/StreakText/Count/SiaNote + MissionTypeBadge Type variant. DEFERRED (C-030): ProgressRing ARC geometry stays baked (only Percent text overridden); secondary domains dropped (DS card has 1 DomainTag). 🔴 GATED FOLLOW-UP (C-037): MissionTypeBadge had X-012 solid-subtle-fill bug + NO color/mission/*-subtle tokens existed → created 6 (gold c146ae67/silver 94d472ef/bronze baaf20db/steel 42a4c4a6/sage f93346cf/copper 050837687, DS Primitives 554:2..7, globals+map authored) + rebound the DS MissionTypeBadge 6 variant bgs (verified legible in DS). UNTIL Hamza REPUBLISHES the DS, #13 4 badge instances render SOLID (no label) — post-republish PATCH owed: rebind each badge bg to color/mission/{silver,bronze,sage,steel}-subtle (Main/Side/Daily/Weekly). On page Page 1."
     }
   },
   "code_connect": {
