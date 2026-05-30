@@ -1141,7 +1141,17 @@
     "ConversationSuite": {
       "phase": "3C_organisms",
       "source": "src/components/screens/ConversationSuite.tsx",
-      "figma_node_id": null
+      "figma_node_id": null,
+      "split_into": [
+        "ConversationAvatar",
+        "SignalPill",
+        "ConversationRow",
+        "ThreadMessage",
+        "TypingIndicator",
+        "MembersRail",
+        "PrivacyPill"
+      ],
+      "$comment": "C13. ConversationSuite.tsx is a module of 7 exported conversation primitives, NOT one organism. Hamza-confirmed to model each export as its own DS component (see the 7 keys above, same source). This meta-entry retained as a pointer; figma_node_id stays null (no single suite component). This batch COMPLETES Phase 3C organisms = 28/28."
     },
     "ScheduleCalendarGrid": {
       "phase": "3C_organisms",
@@ -1314,6 +1324,161 @@
       "phase": "3D_charts",
       "source": "src/components/charts/CalendarHeatmap.tsx",
       "figma_node_id": null
+    },
+    "ConversationAvatar": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ConversationSuite.tsx",
+      "figma_node_id": "475:346",
+      "figma_component_key": "24412bfa3f22de580584d0cfc0f29ba191a1f555",
+      "doc_frame_id": "490:404",
+      "variants": {
+        "Size": [
+          "Default",
+          "Large"
+        ],
+        "IsSia": [
+          "False",
+          "True"
+        ]
+      },
+      "properties": {
+        "Active": "BOOLEAN"
+      },
+      "property_keys": {},
+      "composes": [],
+      "minted_tokens": {},
+      "created": "2026-05-30",
+      "$comment": "C13. ConversationAvatar SET. See figma-mapping.json ds_components.ConversationAvatar for full spec. 4 variants + Active boolean (green presence-dot toggle). Shared dependency instanced by ConversationRow/ThreadMessage/MembersRail."
+    },
+    "SignalPill": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ConversationSuite.tsx",
+      "figma_node_id": "477:371",
+      "figma_component_key": "4555e3fd963d2d7ef396545cff6b4ee391a21eca",
+      "doc_frame_id": "490:405",
+      "variants": {
+        "Tone": [
+          "Orange",
+          "Purple",
+          "Green",
+          "Muted"
+        ]
+      },
+      "properties": {},
+      "property_keys": {},
+      "composes": [
+        "Icon/Sparkles"
+      ],
+      "minted_tokens": {
+        "purple-10": "471:6",
+        "purple-25": "471:7",
+        "green-10": "471:4",
+        "green-25": "471:5"
+      },
+      "created": "2026-05-30",
+      "$comment": "C13. SignalPill SET, 4 Tone variants. MINTED first purple+green alpha primitives. See ds_components.SignalPill."
+    },
+    "ConversationRow": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ConversationSuite.tsx",
+      "figma_node_id": "479:362",
+      "figma_component_key": "c87da9564ba138ca4aa3fbb2b2f1980af3c08149",
+      "doc_frame_id": "490:406",
+      "variants": {},
+      "properties": {},
+      "property_keys": {},
+      "composes": [
+        "ConversationAvatar",
+        "DomainTag",
+        "Icon/Pin",
+        "Icon/Sparkles"
+      ],
+      "minted_tokens": {
+        "white-45": "471:2"
+      },
+      "created": "2026-05-30",
+      "$comment": "C13. ConversationRow lone COMPONENT, single representative. Instances ConversationAvatar+DomainTag(+0.15 fixup)+Pin+Sparkles. See ds_components.ConversationRow."
+    },
+    "ThreadMessage": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ConversationSuite.tsx",
+      "figma_node_id": "485:385",
+      "figma_component_key": "8aa661ddfe5d9be7918940decbe1528611ada042",
+      "doc_frame_id": "490:407",
+      "variants": {
+        "Sender": [
+          "User",
+          "Sia",
+          "Other"
+        ]
+      },
+      "properties": {},
+      "property_keys": {},
+      "composes": [
+        "ConversationAvatar",
+        "Icon/Star",
+        "Icon/CheckCheck"
+      ],
+      "minted_tokens": {
+        "orange-15": "471:3",
+        "purple-25": "471:7",
+        "white-45": "471:2"
+      },
+      "created": "2026-05-30",
+      "$comment": "C13. ThreadMessage SET, 3 Sender variants (User/Sia/Other). AttachmentCard+ReactionStrip+StatusIcon baked into representatives. See ds_components.ThreadMessage."
+    },
+    "TypingIndicator": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ConversationSuite.tsx",
+      "figma_node_id": "487:385",
+      "figma_component_key": "2761a307c2266e9ea43749d480ea3a1f8769f8c6",
+      "doc_frame_id": "490:408",
+      "variants": {},
+      "properties": {},
+      "property_keys": {},
+      "composes": [
+        "Icon/MessageCircle"
+      ],
+      "minted_tokens": {
+        "white-45": "471:2"
+      },
+      "created": "2026-05-30",
+      "$comment": "C13. TypingIndicator lone COMPONENT. 3 static dots (pulse animation dropped). See ds_components.TypingIndicator."
+    },
+    "MembersRail": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ConversationSuite.tsx",
+      "figma_node_id": "488:388",
+      "figma_component_key": "692aac0bc12f0d3ecf0e7696d00070273f781d88",
+      "doc_frame_id": "490:409",
+      "variants": {},
+      "properties": {},
+      "property_keys": {},
+      "composes": [
+        "Icon/Users",
+        "ConversationAvatar"
+      ],
+      "minted_tokens": {
+        "white-45": "471:2"
+      },
+      "created": "2026-05-30",
+      "$comment": "C13. MembersRail lone COMPONENT. Overlapping (-8) ConversationAvatar instances w/ ink-900 rings. See ds_components.MembersRail."
+    },
+    "PrivacyPill": {
+      "phase": "3C_organisms",
+      "source": "src/components/screens/ConversationSuite.tsx",
+      "figma_node_id": "487:393",
+      "figma_component_key": "b00c7efc2bfa050833cad6c9b8acd6a46646d034",
+      "doc_frame_id": "490:410",
+      "variants": {},
+      "properties": {},
+      "property_keys": {},
+      "composes": [
+        "Icon/Lock"
+      ],
+      "minted_tokens": {},
+      "created": "2026-05-30",
+      "$comment": "C13. PrivacyPill lone COMPONENT. Lock + Private. No mints. See ds_components.PrivacyPill."
     }
   },
   "excluded_from_figma": {

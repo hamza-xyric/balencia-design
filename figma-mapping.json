@@ -133,7 +133,13 @@
       "color/alpha/white-04": "VariableID:302:3",
       "color/alpha/white-55": "VariableID:384:2",
       "color/alpha/orange-10": "VariableID:440:2",
-      "color/alpha/orange-25": "VariableID:440:3"
+      "color/alpha/orange-25": "VariableID:440:3",
+      "color/alpha/white-45": "VariableID:471:2",
+      "color/alpha/orange-15": "VariableID:471:3",
+      "color/alpha/green-10": "VariableID:471:4",
+      "color/alpha/green-25": "VariableID:471:5",
+      "color/alpha/purple-10": "VariableID:471:6",
+      "color/alpha/purple-25": "VariableID:471:7"
     },
     "color": {
       "color/bg/screen": "VariableID:5:2",
@@ -2956,6 +2962,273 @@
       "minted_tokens": {},
       "created_at": "2026-05-30",
       "$comment": "Phase 3C batch C12 (CelebrationOverlay). Lone COMPONENT 458:338 (key 6f20086fdf02df8f7c49445bb2d2d7d5c9c49ff9) in [doc] frame 467:346 (VERTICAL ink-900 4:5, cornerRadius 24 literal, padding+itemSpacing spacing/24 8:7, counterAxis MIN) on Organisms page 17:13 at (100,11018), doc 423x772. Hamza-CONFIRMED via AskUserQuestion (x4, all as recommended): (1) C12=CelebrationOverlay; (2) NO variant axis -- single representative (fitness 4:11 tone, shared=false -> 'Share'), all copy BAKED, NO component props; (3) INSTANCE ContinuousStroke Base(80:5)+ShieldCheck(98:62)+Share2(98:50), bake the rest; (4) ZERO mints (stalled-amber 4:37 + orange-10 440:2 already exist). STRUCTURE -- COMPONENT = 375x724 FIXED VERTICAL auto-layout (full-screen surface representative), fill ink-900 (4:5), counterAxis CENTER (items-center), primaryAxis MIN, padX spacing/24 (8:7), padBottom 28 literal (mb-7), clipsContent=true (overflow-hidden). 5 children in z-order: (1) bg-overlay RECT 375x724 ABSOLUTE @(0,0) orange (4:2) @0.05 paint-fixup (bg-brand-orange/5 -- one-off, not minted); (2) glow-blob RECT 279x256 ABSOLUTE @(48,96) [inset-x-12 top-24 h-64] cornerRadius 9999, fill orange-10 (440:2), LAYER_BLUR radius 64 (blur-3xl); (3) confetti plain-frame 375x724 ABSOLUTE @(0,0) fills=[] clip=false, holds 8 static particles positioned by left/top%*box: each RECT w/h intrinsic (6x6 full=cornerRadius9999 / 4x12 pill=cornerRadius9999 / 6x6 xs=radius/xs 9:2), colors brand-orange(4:2)@0.80/0.70/0.70, forest-green(4:3)@0.60/0.50, stalled-amber(4:37)@0.60/0.50, white-20(143:5 intrinsic-alpha no-fixup) -- paint-opacity fixup on the full-opacity primitives; confetti FALL animation (animationDelay/Duration) DROPPED runtime; (4) content VERTICAL FILL+layoutGrow1 (flex-1 justify-center items-center), padTop spacing/32 (8:8 pt-8), itemSpacing 0 -- per-child mt-* encoded as wrapper paddingTop. content children: badge[plain-frame 96x96 cornerRadius9999, fill ink-brown-800 (4:7) (NOTE: React lists bg-ink-brown-800 + tone.subtle bg-domain-fitness/15 -- last-wins ambiguous; chose the opaque surface 4:7 as the badge body, tone.subtle/15 overlay not separately modeled), 2px INSIDE stroke domain-fitness (4:11), Elevation/2, clip=false; inner-circle 56x56 @(20,20) cornerRadius9999 ink-900 (4:5) holding ShieldCheck INSTANCE @26 recolored fitness (4:11) @(15,15); badge-label pill HORIZONTAL HUG ABSOLUTE @(27.5,82) [-bottom-2] cornerRadius9999 ink-900 (4:5) bg + 1px INSIDE white-06 (4:44) + padX spacing/12 (8:4) padY spacing/4 (8:2) + 'XP' Sora SemiBold 12/14 white (5:6) BAKED (text-small font-semibold, baked not style-linked to keep semibold weight)] / xp-wrap[padTop spacing/32 (8:8 mt-8) > xp-pill HORIZONTAL HUG counterAxis BASELINE (items-baseline) cornerRadius9999 fill orange-10 (440:2) + itemSpacing spacing/8 (8:3 gap-2) + padX spacing/20 (8:6 px-5) padY spacing/8 (8:3 py-2) + Glow/Orange: '+' Sora Reg 20/28 white-60 (147:5) | '250' Sora Bold 36/40 white (5:6) [representative xp] | 'XP' Sora SemiBold 20/28 brand-orange (4:2); all BAKED custom sizes] / title-block[padTop 28 literal (mt-7, no spacing/28 token), FIXED 300 (max-w-300) counterAxis CENTER itemSpacing spacing/8 (8:3 mt-2): h1 'Mission Complete' H2 style-linked (S:6c48..) white (5:6) FILL center + desc '“7-day workout streak”' Body style-linked (S:ef00..) white-70 (4:40) FILL center] / stroke-wrap[padTop spacing/32 (8:8 mt-8) > ContinuousStroke Base INSTANCE (80:5, strokeWidth4=React default) resized 160x60 (w-160 from 128 viewbox) opacity 0.80 (opacity-80)] / message-block[padTop spacing/24 (8:7 mt-6), FIXED 288 (max-w-288) counterAxis CENTER itemSpacing spacing/12 (8:4 mt-3): msg '“Consistency compounds...”' Sora Reg 15/22 white-80 (167:2) FILL center BAKED (React italic DROPPED -- Sora has no italic face) + attribution-row HORIZONTAL HUG counterAxis CENTER itemSpacing spacing/8 (8:3 gap-2): dot ELLIPSE 6x6 royal-purple (4:4) @0.70 paint-fixup + '- SIA' Sora SemiBold 13/18 royal-purple (4:4) @0.70 paint-fixup BAKED] / share-wrap[padTop spacing/32 (8:8 mt-8) > share-button HORIZONTAL 160x44 FIXED (h-11 w-40) cornerRadius9999 fills=[] (bg-transparent) + 1px INSIDE white-20 (143:5) + itemSpacing spacing/8 (8:3 gap-2) center: Share2 INSTANCE @16 recolored white (5:6) + 'Share' Sora SemiBold 15/20 white (5:6) -- shared=false default; the shared->'Shared' toggle NOT modeled (single rep, decision #2)]. (5) continue-button HORIZONTAL HUG (direct child of COMPONENT, after content) minHeight 44 (min-h-11) cornerRadius9999 fills=[] padX spacing/20 (8:6 px-5): 'Continue' Caption style-linked (S:0b81..) white-40 (4:42). DROPPED/divergences: className + onDismiss/onShare handlers (runtime); celebration-badge-pop/animate-fade-up/animationDelay/celebration-particle fall/active:scale (runtime animations NOT modeled); h-full min-h-[724px] -> FIXED 724; xp/title/description/message/attribution/badgeLabel/domain all per-instance -> baked ONE representative (fitness tone, no props); React italic on message dropped (Sora lacks italic); badge tone.subtle/15 overlay not modeled (opaque ink-brown-800 4:7 chosen). composes ContinuousStroke(80:5)/ShieldCheck(98:62)/Share2(98:50). VALIDATED structurally (COMPONENT key, 375x724, fill 4:5 clip, 5 children, 8 confetti, badge fitness stroke 4:11 2px + ink-brown 4:7 fill, 3 instances mainComponents, glow blur 64 fill 440:2) + via pixel screenshots x2 (curl HTTP 200 valid PNG -- component + doc-card, both faithful to React). ds_components now 64 entries."
+    },
+    "ConversationAvatar": {
+      "node_id": "475:346",
+      "page_node_id": "17:13",
+      "doc_frame_id": "490:404",
+      "key": "24412bfa3f22de580584d0cfc0f29ba191a1f555",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 320,
+        "h": 104
+      },
+      "position": {
+        "x": 100,
+        "y": 11870
+      },
+      "variant_axes": {
+        "Size": [
+          "Default",
+          "Large"
+        ],
+        "IsSia": [
+          "False",
+          "True"
+        ]
+      },
+      "variants": {
+        "Default/False": {
+          "node_id": "473:346",
+          "key": "f6f2e59aa6ab59304eea5a5b6559e079e11d23f7"
+        },
+        "Default/True": {
+          "node_id": "474:346",
+          "key": "3012b324b3b107a89bf050d1dfd7cc02f526ae7a"
+        },
+        "Large/False": {
+          "node_id": "474:351",
+          "key": "4e1df1b4e1c2dd04c3f7fd9e23195431f3fe0ff6"
+        },
+        "Large/True": {
+          "node_id": "474:356",
+          "key": "412ce5a52fc053c05a8fe6fb30633473a9558e70"
+        }
+      },
+      "properties": [
+        "Active (BOOLEAN)"
+      ],
+      "property_keys": {
+        "active": "Active#475:0"
+      },
+      "composes": [],
+      "minted_tokens": {},
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3C batch C13 (ConversationSuite split). React source src/components/screens/ConversationSuite.tsx is a MODULE of 7 exported conversation primitives, NOT one organism; Hamza-CONFIRMED via AskUserQuestion (x3, all as recommended): (1) model each exported primitive as its own DS component in ONE C13 batch; (2) recommended per-component variant axes; (3) mint the 6 recurring fractional alphas + paint-opacity fixup the 2 one-offs. This COMPLETES Phase 3C organisms = 28/28. Shared dependency ConversationAvatar built first then INSTANCED inside ConversationRow/ThreadMessage/MembersRail. All copy BAKED (per-instance initials/names/timestamps/counts). DROPPED runtime: next/link href + hover/transition states (group-hover, hover:border/bg, transition-*), sia-thinking-dot animation + animationDelay. COMPONENT_SET 475:346, 4 variants Size[Default,Large] x IsSia[False,True], + Active BOOLEAN (Active#475:0, default false). STRUCTURE per variant: non-AL COMPONENT frame (44x44 default / 56x56 large) fills=[] clip=false, 3 children: (1) Circle HORIZONTAL-AL center/center cornerRadius 999 literal (rounded-full intrinsic) holding initials text (Sora SemiBold 14 default / 17 large, white 5:6) -- non-sia: fill domain-fitness(4:11)@0.15 paint-fixup + 1px INSIDE stroke domain-fitness(4:11) full + Elevation/1; isSia: fill royal-purple(4:4) full + 1px INSIDE stroke royal-purple(4:4)@0.45 paint-fixup (purple-45 one-off, NOT minted) + Glow/Purple (replaces Elevation/1); (2) PresenceBase ELLIPSE 12x12 @(32,32)/(44,44) white-20(143:5 intrinsic) fill + 2px INSIDE ink-900(4:5) ring; (3) PresenceActive ELLIPSE same pos forest-green(4:3) fill + 2px ink-900 ring, visible bound to Active boolean (default hidden). NOTE Active modeled as green overlay-dot visibility toggle (BOOLEAN can't switch a fill). NO mints (all bound vars pre-existing; the 2 fractional tints are paint-opacity fixups). VALIDATED: structural + pixel screenshot (4 variants render: domain-tint vs purple+glow, default vs large)."
+    },
+    "SignalPill": {
+      "node_id": "477:371",
+      "page_node_id": "17:13",
+      "doc_frame_id": "490:405",
+      "key": "4555e3fd963d2d7ef396545cff6b4ee391a21eca",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 416,
+        "h": 76
+      },
+      "position": {
+        "x": 100,
+        "y": 12062
+      },
+      "variant_axes": {
+        "Tone": [
+          "Orange",
+          "Purple",
+          "Green",
+          "Muted"
+        ]
+      },
+      "variants": {
+        "Orange": {
+          "node_id": "476:346",
+          "key": "28cbc47dc94c21912a06fcdcf66aac620625e586"
+        },
+        "Purple": {
+          "node_id": "477:350",
+          "key": "9d4f50e3e747b868f26e00d4a161042aeeb03df6"
+        },
+        "Green": {
+          "node_id": "477:357",
+          "key": "18414b3bf6f39040901dcd2f8fd4091e72d81671"
+        },
+        "Muted": {
+          "node_id": "477:364",
+          "key": "0a481111f4b9a436ea930d6fae8f11ed3fbe8a5e"
+        }
+      },
+      "properties": [],
+      "property_keys": {},
+      "composes": [
+        "Icon/Sparkles"
+      ],
+      "minted_tokens": {
+        "purple-10": "471:6",
+        "purple-25": "471:7",
+        "green-10": "471:4",
+        "green-25": "471:5"
+      },
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3C batch C13 (ConversationSuite split). React source src/components/screens/ConversationSuite.tsx is a MODULE of 7 exported conversation primitives, NOT one organism; Hamza-CONFIRMED via AskUserQuestion (x3, all as recommended): (1) model each exported primitive as its own DS component in ONE C13 batch; (2) recommended per-component variant axes; (3) mint the 6 recurring fractional alphas + paint-opacity fixup the 2 one-offs. This COMPLETES Phase 3C organisms = 28/28. Shared dependency ConversationAvatar built first then INSTANCED inside ConversationRow/ThreadMessage/MembersRail. All copy BAKED (per-instance initials/names/timestamps/counts). DROPPED runtime: next/link href + hover/transition states (group-hover, hover:border/bg, transition-*), sia-thinking-dot animation + animationDelay. COMPONENT_SET 477:371, 4 Tone variants. Each = HORIZONTAL-AL h-7 (28 FIXED) HUG width center, itemSpacing spacing/6(52:2 gap-1.5), padX spacing/10(62:2 px-2.5), cornerRadius radius/pill(9:8), 1px INSIDE border. Children: Sparkles INSTANCE @12 recolored to tone-fg + 'Signal' Sora SemiBold 11/11 (leading-none, BAKED representative children). TONES (border/bg/fg): Orange = orange-25(440:3)/orange-10(440:2)/brand-orange(4:2); Purple = purple-25(MINTED 471:7)/purple-10(MINTED 471:6)/royal-purple(4:4); Green = green-25(MINTED 471:5)/green-10(MINTED 471:4)/forest-green(4:3); Muted = white-08(140:2)/white-04(302:3)/white-60(147:5). MINTED purple-10/25 + green-10/25 (first purple+green alpha primitives). VALIDATED pixel screenshot (4 tones on dark doc, muted reads)."
+    },
+    "ConversationRow": {
+      "node_id": "479:362",
+      "page_node_id": "17:13",
+      "doc_frame_id": "490:406",
+      "key": "c87da9564ba138ca4aa3fbb2b2f1980af3c08149",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 360,
+        "h": 74
+      },
+      "position": {
+        "x": 100,
+        "y": 12226
+      },
+      "variant_axes": {},
+      "variants": {},
+      "properties": [],
+      "property_keys": {},
+      "composes": [
+        "ConversationAvatar",
+        "DomainTag",
+        "Icon/Pin",
+        "Icon/Sparkles"
+      ],
+      "minted_tokens": {
+        "white-45": "471:2"
+      },
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3C batch C13 (ConversationSuite split). React source src/components/screens/ConversationSuite.tsx is a MODULE of 7 exported conversation primitives, NOT one organism; Hamza-CONFIRMED via AskUserQuestion (x3, all as recommended): (1) model each exported primitive as its own DS component in ONE C13 batch; (2) recommended per-component variant axes; (3) mint the 6 recurring fractional alphas + paint-opacity fixup the 2 one-offs. This COMPLETES Phase 3C organisms = 28/28. Shared dependency ConversationAvatar built first then INSTANCED inside ConversationRow/ThreadMessage/MembersRail. All copy BAKED (per-instance initials/names/timestamps/counts). DROPPED runtime: next/link href + hover/transition states (group-hover, hover:border/bg, transition-*), sia-thinking-dot animation + animationDelay. Lone COMPONENT 479:362, single representative (kind/unread/pin per-instance baked). HORIZONTAL-AL minHeight 74, items-center, gap spacing/12(8:4), pad spacing/12(8:4), cornerRadius radius/lg(9:5), fill ink-brown-800(4:7) + 1px INSIDE white-06(4:44) + Elevation/1. NOTE comp height FIXED 74 (resize reset hug) -- representative content fits. Children: (1) ConversationAvatar INSTANCE (Default/False variant 473:346, Active=true override, initials override 'MC'); (2) Middle VERTICAL-AL FILL, itemSpacing spacing/4(8:2): NameRow[HORIZONTAL gap spacing/8(8:3): 'Maya Chen' Sora SemiBold 15/20 white(5:6) + Pin INSTANCE @12 brand-orange(4:2) + Sparkles INSTANCE @12 royal-purple(4:4)] / SubBlock VERTICAL itemSpacing spacing/8(8:3 mt-2): subtitle Sora Reg 12/16 white-45(MINTED 471:2) FILL + KindRow[gap spacing/8: KindPill HORIZONTAL HUG padX spacing/8(8:3) padY spacing/4(8:2) cornerRadius pill(9:8) fill white-05(237:2) 'Direct' Sora SemiBold 10/10 white-45(471:2) + DomainTag INSTANCE (52:3, Domain=Fitness, +0.15 bg paint-fixup)]; (3) Trailing VERTICAL-AL FILL height items-end space-between: '2m' Sora SemiBold 11/16 white-35(269:3) + Unread badge HORIZONTAL h20 minW20 padX spacing/6(52:2) cornerRadius 999 fill brand-orange(4:2) + Glow/Orange + '3' Sora SemiBold 11/11 white(5:6). NOTE representative shows unread>0 (badge); unread=0 -> ArrowUpRight(white-25) NOT modeled. composes ConversationAvatar(473:346)/DomainTag(52:3)/Pin(96:97)/Sparkles(98:102). MINTED white-45. VALIDATED pixel screenshot."
+    },
+    "ThreadMessage": {
+      "node_id": "485:385",
+      "page_node_id": "17:13",
+      "doc_frame_id": "490:407",
+      "key": "8aa661ddfe5d9be7918940decbe1528611ada042",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 368,
+        "h": 511
+      },
+      "position": {
+        "x": 100,
+        "y": 12388
+      },
+      "variant_axes": {
+        "Sender": [
+          "User",
+          "Sia",
+          "Other"
+        ]
+      },
+      "variants": {
+        "Other": {
+          "node_id": "481:374",
+          "key": "9e4477ea3f521bc50643794b7029de3059cb66fd"
+        },
+        "Sia": {
+          "node_id": "482:378",
+          "key": "f067c53e01fc46973f005573d9afdcd6a89ef8e4"
+        },
+        "User": {
+          "node_id": "484:383",
+          "key": "d5c317d4606d601f8c0ab353283bccee60c42a3d"
+        }
+      },
+      "properties": [],
+      "property_keys": {},
+      "composes": [
+        "ConversationAvatar",
+        "Icon/Star",
+        "Icon/CheckCheck"
+      ],
+      "minted_tokens": {
+        "orange-15": "471:3",
+        "purple-25": "471:7",
+        "white-45": "471:2"
+      },
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3C batch C13 (ConversationSuite split). React source src/components/screens/ConversationSuite.tsx is a MODULE of 7 exported conversation primitives, NOT one organism; Hamza-CONFIRMED via AskUserQuestion (x3, all as recommended): (1) model each exported primitive as its own DS component in ONE C13 batch; (2) recommended per-component variant axes; (3) mint the 6 recurring fractional alphas + paint-opacity fixup the 2 one-offs. This COMPLETES Phase 3C organisms = 28/28. Shared dependency ConversationAvatar built first then INSTANCED inside ConversationRow/ThreadMessage/MembersRail. All copy BAKED (per-instance initials/names/timestamps/counts). DROPPED runtime: next/link href + hover/transition states (group-hover, hover:border/bg, transition-*), sia-thinking-dot animation + animationDelay. COMPONENT_SET 485:385, 3 Sender variants (each comp width FIXED 320, height HUG -- re-applied counterAxisSizingMode=AUTO after resize gotcha). article HORIZONTAL-AL gap spacing/8(8:3). USER (right, justify-end, no avatar): BubbleCol items-end itemSpacing spacing/4(8:2) > Bubble VERTICAL padX spacing/12(8:4) padY spacing/10(62:2 py-2.5) radii TL/TR/BL=18 literal + BR=radius/xs(9:2 rounded-br-xs), fill orange-15(MINTED 471:3) + 1px INSIDE orange-20(160:3) + Elevation/1, text Sora Reg 14/21 white(5:6); Footer HORIZONTAL gap spacing/4 padX spacing/4 justify-end: '9:42 AM' Sora SemiBold 10/10 white-30(160:2) + StatusIcon CheckCheck INSTANCE @13 forest-green(4:3 read). SIA (left, avatar isSia+active): ConversationAvatar INSTANCE (474:346 Default/True, Active=true, initials 'S'); BubbleCol > Header[px spacing/4, gap spacing/8: 'SIA' Sora SemiBold 11/16 royal-purple(4:4) + '9:40 AM' 10/10 white-25(269:2)] / Bubble radii TL/TR/BR=18 + BL=xs(9:2 rounded-bl-xs) fill royal-purple(4:4)@0.12 paint-fixup (purple-12 one-off, NOT minted) + 1px INSIDE purple-25(MINTED 471:7) + Elevation/1, itemSpacing spacing/8(mt-2): text + AttachmentCard[HORIZONTAL FILL p spacing/12(8:4) gap spacing/8 cornerRadius radius/md(9:4) fill white-04(302:3) + 1px white-08(140:2): IconBox 32x32 cornerRadius radius/sm(9:3) fill domain-fitness(4:11)@0.15 fixup holding Star INSTANCE @15 fitness(4:11) + TextCol FILL itemSpacing spacing/2(193:4): 'Morning Plan' Sora SemiBold 13/18 white(5:6) + '3 blocks 45 min' Sora Reg 11/14 white-45(MINTED 471:2)] + ReactionStrip[HORIZONTAL WRAP gap spacing/6(52:2): 2 pills h-6(24) padX spacing/8 cornerRadius pill(9:8) fill white-04 + 1px white-08, label Sora SemiBold 10/10 white-55(384:2) + count white-35(269:3)]. OTHER (left, avatar inactive domain, initials 'MA'): Header 'Maya'(white-45 471:2)+timestamp(white-25); Bubble rounded-bl-xs fill ink-brown-800(4:7) + 1px white-08(140:2), neutral text. NOTE AttachmentCard+ReactionStrip baked into Sia (rich representative); Other/User minimal. composes ConversationAvatar(473:346/474:346)/Star(98:108)/CheckCheck(93:58). MINTED orange-15/purple-25/white-45 (+ purple-12 one-off fixup). VALIDATED pixel screenshot (3 senders, bubble tails, attachment, reactions, status)."
+    },
+    "TypingIndicator": {
+      "node_id": "487:385",
+      "page_node_id": "17:13",
+      "doc_frame_id": "490:408",
+      "key": "2761a307c2266e9ea43749d480ea3a1f8769f8c6",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 207,
+        "h": 29
+      },
+      "position": {
+        "x": 100,
+        "y": 12987
+      },
+      "variant_axes": {},
+      "variants": {},
+      "properties": [],
+      "property_keys": {},
+      "composes": [
+        "Icon/MessageCircle"
+      ],
+      "minted_tokens": {
+        "white-45": "471:2"
+      },
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3C batch C13 (ConversationSuite split). React source src/components/screens/ConversationSuite.tsx is a MODULE of 7 exported conversation primitives, NOT one organism; Hamza-CONFIRMED via AskUserQuestion (x3, all as recommended): (1) model each exported primitive as its own DS component in ONE C13 batch; (2) recommended per-component variant axes; (3) mint the 6 recurring fractional alphas + paint-opacity fixup the 2 one-offs. This COMPLETES Phase 3C organisms = 28/28. Shared dependency ConversationAvatar built first then INSTANCED inside ConversationRow/ThreadMessage/MembersRail. All copy BAKED (per-instance initials/names/timestamps/counts). DROPPED runtime: next/link href + hover/transition states (group-hover, hover:border/bg, transition-*), sia-thinking-dot animation + animationDelay. Lone COMPONENT 487:385. HORIZONTAL-AL HUG center, gap spacing/8(8:3), padX spacing/12(8:4) padY spacing/8(8:3 py-2), cornerRadius pill(9:8), fill ink-brown-800(4:7) + 1px INSIDE white-06(4:44) + Elevation/1. Children: MessageCircle INSTANCE @13 royal-purple(4:4) + 'SIA is preparing a reply' Sora Reg 11/11 white-45(MINTED 471:2) + Dots[HORIZONTAL gap spacing/4(8:2): 3x ELLIPSE 6x6 white-40(4:42)]. sia-thinking-dot pulse animation + animationDelay DROPPED (3 static dots). MINTED white-45. VALIDATED pixel screenshot."
+    },
+    "MembersRail": {
+      "node_id": "488:388",
+      "page_node_id": "17:13",
+      "doc_frame_id": "490:409",
+      "key": "692aac0bc12f0d3ecf0e7696d00070273f781d88",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 160,
+        "h": 44
+      },
+      "position": {
+        "x": 100,
+        "y": 13104
+      },
+      "variant_axes": {},
+      "variants": {},
+      "properties": [],
+      "property_keys": {},
+      "composes": [
+        "Icon/Users",
+        "ConversationAvatar"
+      ],
+      "minted_tokens": {
+        "white-45": "471:2"
+      },
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3C batch C13 (ConversationSuite split). React source src/components/screens/ConversationSuite.tsx is a MODULE of 7 exported conversation primitives, NOT one organism; Hamza-CONFIRMED via AskUserQuestion (x3, all as recommended): (1) model each exported primitive as its own DS component in ONE C13 batch; (2) recommended per-component variant axes; (3) mint the 6 recurring fractional alphas + paint-opacity fixup the 2 one-offs. This COMPLETES Phase 3C organisms = 28/28. Shared dependency ConversationAvatar built first then INSTANCED inside ConversationRow/ThreadMessage/MembersRail. All copy BAKED (per-instance initials/names/timestamps/counts). DROPPED runtime: next/link href + hover/transition states (group-hover, hover:border/bg, transition-*), sia-thinking-dot animation + animationDelay. Lone COMPONENT 488:388, representative 3 members. HORIZONTAL-AL HUG center gap spacing/8(8:3). Children: UsersCircle 36x36 cornerRadius 999 fill white-04(302:3) + 1px INSIDE white-08(140:2) holding Users INSTANCE @16 white-45(MINTED 471:2); Overlap HORIZONTAL-AL itemSpacing -8 (-space-x-2): 3x Ring frame 44x44 fills=[] cornerRadius 999 + 2px OUTSIDE ink-900(4:5) stroke (border-2 border-ink-900 separator) each holding a ConversationAvatar INSTANCE (473:346 Default/False, initials AK/MC/JD, middle Active=true). composes Users(99:89)/ConversationAvatar(473:346). MINTED white-45. VALIDATED pixel screenshot (overlap + rings + active dot)."
+    },
+    "PrivacyPill": {
+      "node_id": "487:393",
+      "page_node_id": "17:13",
+      "doc_frame_id": "490:410",
+      "key": "b00c7efc2bfa050833cad6c9b8acd6a46646d034",
+      "phase": "3C_organisms",
+      "size": {
+        "w": 78,
+        "h": 28
+      },
+      "position": {
+        "x": 100,
+        "y": 13236
+      },
+      "variant_axes": {},
+      "variants": {},
+      "properties": [],
+      "property_keys": {},
+      "composes": [
+        "Icon/Lock"
+      ],
+      "minted_tokens": {},
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3C batch C13 (ConversationSuite split). React source src/components/screens/ConversationSuite.tsx is a MODULE of 7 exported conversation primitives, NOT one organism; Hamza-CONFIRMED via AskUserQuestion (x3, all as recommended): (1) model each exported primitive as its own DS component in ONE C13 batch; (2) recommended per-component variant axes; (3) mint the 6 recurring fractional alphas + paint-opacity fixup the 2 one-offs. This COMPLETES Phase 3C organisms = 28/28. Shared dependency ConversationAvatar built first then INSTANCED inside ConversationRow/ThreadMessage/MembersRail. All copy BAKED (per-instance initials/names/timestamps/counts). DROPPED runtime: next/link href + hover/transition states (group-hover, hover:border/bg, transition-*), sia-thinking-dot animation + animationDelay. Lone COMPONENT 487:393. HORIZONTAL-AL h-7(28 FIXED) HUG center, gap spacing/6(52:2 gap-1.5), padX spacing/10(62:2 px-2.5), cornerRadius pill(9:8), fill white-04(302:3) + 1px INSIDE white-08(140:2). Children: Lock INSTANCE @12 white-50(4:41) + 'Private' Sora SemiBold 11/11 white-50(4:41). NO mints. VALIDATED pixel screenshot (faint on white, reads on dark doc)."
     }
   },
   "ds_icons": {
