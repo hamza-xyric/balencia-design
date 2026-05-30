@@ -3229,6 +3229,114 @@
       "minted_tokens": {},
       "created_at": "2026-05-30",
       "$comment": "Phase 3C batch C13 (ConversationSuite split). React source src/components/screens/ConversationSuite.tsx is a MODULE of 7 exported conversation primitives, NOT one organism; Hamza-CONFIRMED via AskUserQuestion (x3, all as recommended): (1) model each exported primitive as its own DS component in ONE C13 batch; (2) recommended per-component variant axes; (3) mint the 6 recurring fractional alphas + paint-opacity fixup the 2 one-offs. This COMPLETES Phase 3C organisms = 28/28. Shared dependency ConversationAvatar built first then INSTANCED inside ConversationRow/ThreadMessage/MembersRail. All copy BAKED (per-instance initials/names/timestamps/counts). DROPPED runtime: next/link href + hover/transition states (group-hover, hover:border/bg, transition-*), sia-thinking-dot animation + animationDelay. Lone COMPONENT 487:393. HORIZONTAL-AL h-7(28 FIXED) HUG center, gap spacing/6(52:2 gap-1.5), padX spacing/10(62:2 px-2.5), cornerRadius pill(9:8), fill white-04(302:3) + 1px INSIDE white-08(140:2). Children: Lock INSTANCE @12 white-50(4:41) + 'Private' Sora SemiBold 11/11 white-50(4:41). NO mints. VALIDATED pixel screenshot (faint on white, reads on dark doc)."
+    },
+    "Header": {
+      "node_id": "501:44",
+      "page_node_id": "17:15",
+      "doc_frame_id": "503:44",
+      "key": "b06c3a15c3d3d40e14451d5732c123c29fd70ac4",
+      "phase": "3F_layout",
+      "size": {
+        "w": 407,
+        "h": 304
+      },
+      "position": {
+        "x": 100,
+        "y": 1154
+      },
+      "variant_axes": {
+        "HasBack": [
+          "True",
+          "False"
+        ],
+        "HasRightAction": [
+          "True",
+          "False"
+        ]
+      },
+      "variants": {
+        "True/True": {
+          "node_id": "499:36",
+          "key": "71e1fd1605f2d574ef7778e892a6addf47dc16d2"
+        },
+        "True/False": {
+          "node_id": "500:40",
+          "key": "ca138aec3b7eff8081fdb138f86546b603295846"
+        },
+        "False/True": {
+          "node_id": "500:46",
+          "key": "d0bae71886b9712c1c836cacbd3b85ff5f42fcea"
+        },
+        "False/False": {
+          "node_id": "500:52",
+          "key": "c220476ec2088ebf576cae25d276b7912b35713a"
+        }
+      },
+      "properties": [
+        "Title (TEXT)"
+      ],
+      "property_keys": {
+        "title": "Title#501:0"
+      },
+      "composes": [
+        "Icon/ChevronLeft",
+        "Icon/MoreHorizontal"
+      ],
+      "minted_tokens": {},
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3F layout chrome. React src/components/layout/Header.tsx is a FLAT chrome bar (flex items-center h-56 px-4 bg-ink-900 relative). Hamza-CONFIRMED via AskUserQuestion (x4, all as recommended): placed on Templates page 17:15; modeled HasBack[True,False]xHasRightAction[True,False]=4 variants + Title TEXT prop; representative right-action = MoreHorizontal icon button; DROPPED the SPECULATIVE stub Variant[Default,Scroll,Glass] axis (no scroll/glass styling exists in the React). Component = plain 375x56 frame, ink-900(4:5) fill, 3 absolute-positioned children: BackButton (44x44 transparent rounded-full @x16, ChevronLeft 20 white) + Title (Sora SemiBold 17 white, fixed-width 200 box @x87.5, textAlign CENTER + truncate-ending -> matches absolute left-1/2 -translate-x-1/2 max-w-200; Title TEXT prop default 'Screen Title') + RightAction (44x44 transparent rounded-full @x315, MoreHorizontal 20 white). Title prop key Title#501:0, referenced from each variant's title node. DROPPED runtime: 'use client', goBack()+window.history/href nav, backHref/fallbackHref props, active:scale-90 + transition-*, aria-label. Custom inline 17px BAKED (Sora SemiBold), not style-linked. ZERO mints, ZERO fixups (only ink-900/white). COMPONENT_SET 501:44, doc card 503:44. VALIDATED pixel screenshot (4 variants on dark doc; back/title/right slots toggle correctly)."
+    },
+    "TabBar": {
+      "node_id": "498:36",
+      "page_node_id": "17:15",
+      "doc_frame_id": "503:45",
+      "key": "7d399ab2c6052287823d8f9b67e5ca89661bc4c0",
+      "phase": "3F_layout",
+      "size": {
+        "w": 407,
+        "h": 304
+      },
+      "position": {
+        "x": 100,
+        "y": 1546
+      },
+      "variant_axes": {
+        "Active": [
+          "Today",
+          "SIA",
+          "Goals",
+          "Me"
+        ]
+      },
+      "variants": {
+        "Today": {
+          "node_id": "496:4",
+          "key": "a4fd74982d1b287de3818aec4358dc21daf00924"
+        },
+        "SIA": {
+          "node_id": "497:12",
+          "key": "c92bb2d41c895d8f256c67ddf41439f122586d95"
+        },
+        "Goals": {
+          "node_id": "497:33",
+          "key": "256876c14193f853af9d3090ea3f1e4d7522c768"
+        },
+        "Me": {
+          "node_id": "497:54",
+          "key": "6510c5e54a0e707833e3634993a5a284521ffd3a"
+        }
+      },
+      "properties": [],
+      "property_keys": {},
+      "composes": [
+        "Icon/Calendar",
+        "Icon/MessageCircle",
+        "Icon/Flag",
+        "Icon/User"
+      ],
+      "minted_tokens": {},
+      "created_at": "2026-05-30",
+      "$comment": "Phase 3F layout chrome. React src/components/layout/TabBar.tsx bottom nav (flex h-56 items-center justify-around bg-ink-900 px-2, border-t-0). Hamza-CONFIRMED via AskUserQuestion (x4, all as recommended): placed on Templates page 17:15; modeled Active[Today,SIA,Goals,Me]=4 variants (built Today, clone+patched the other 3). Component = HORIZONTAL-AL 375x56 FIXED, ink-900(4:5) fill, padX spacing/8(8:3), SPACE_BETWEEN+center (represents justify-around -> divergence). 4 tabs each = VERTICAL-AL w-64 FIXED, gap spacing/2(193:4), center; icon INSTANCE @24 + label Sora Regular 11. Active tab -> brand-orange(4:2) + strokeWidth 2.5; inactive -> white-60(147:5 intrinsic-alpha) + strokeWidth 1.5 (honored on lucide vectors). Goals variant displays label 'Missions' (RPG terminology) though axis value is 'Goals'. Tab icons: Today=Calendar(93:21), SIA=MessageCircle(95:99), Goals=Flag(94:76), Me=User(99:77). DROPPED runtime: 'use client', data-testid. Custom inline 11px BAKED (Sora Regular). ZERO mints, ZERO fixups. COMPONENT_SET 498:36, doc card 503:45. VALIDATED pixel screenshot (4 active states on dark doc)."
     }
   },
   "ds_icons": {

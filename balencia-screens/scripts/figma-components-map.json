@@ -633,12 +633,10 @@
     "Header": {
       "phase": "3F_layout",
       "source": "src/components/layout/Header.tsx",
+      "figma_node_id": "501:44",
+      "figma_component_key": "b06c3a15c3d3d40e14451d5732c123c29fd70ac4",
+      "doc_frame_id": "503:44",
       "variants": {
-        "Variant": [
-          "Default",
-          "Scroll",
-          "Glass"
-        ],
         "HasBack": [
           "True",
           "False"
@@ -651,11 +649,23 @@
       "properties": {
         "Title": "TEXT"
       },
-      "figma_node_id": null
+      "property_keys": {
+        "title": "Title#501:0"
+      },
+      "composes": [
+        "Icon/ChevronLeft",
+        "Icon/MoreHorizontal"
+      ],
+      "minted_tokens": {},
+      "created": "2026-05-30",
+      "$comment": "3F. Header SET, HasBackxHasRightAction=4 variants + Title TEXT prop. Right-action=MoreHorizontal. Dropped speculative Variant[Default,Scroll,Glass] axis (no scroll/glass styling in React). See ds_components.Header."
     },
     "TabBar": {
       "phase": "3F_layout",
       "source": "src/components/layout/TabBar.tsx",
+      "figma_node_id": "498:36",
+      "figma_component_key": "7d399ab2c6052287823d8f9b67e5ca89661bc4c0",
+      "doc_frame_id": "503:45",
       "variants": {
         "Active": [
           "Today",
@@ -664,7 +674,17 @@
           "Me"
         ]
       },
-      "figma_node_id": null
+      "properties": {},
+      "property_keys": {},
+      "composes": [
+        "Icon/Calendar",
+        "Icon/MessageCircle",
+        "Icon/Flag",
+        "Icon/User"
+      ],
+      "minted_tokens": {},
+      "created": "2026-05-30",
+      "$comment": "3F. TabBar SET, 4 Active variants (built Today, clone+patched rest). Goals variant shows 'Missions' label. ZERO mints. See ds_components.TabBar."
     },
     "PhoneFrame": {
       "phase": "3F_layout",
