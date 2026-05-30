@@ -251,6 +251,17 @@ There is no double-dipping: a single action (e.g., logging a workout) awards dom
 | 19-25 | Life Architect | Prestige eligibility, mentor badge, advanced analytics |
 | 26+ | Grand Master | Prestige levels, custom titles, legacy achievements |
 
+**Level Badge Rarity.** The `LevelBadge` component's rarity styling (Common→Legendary visual tiers, see §3.3) is driven by overall level, reusing the rank bands above:
+
+| Level band | Rank | Badge rarity |
+|-----------|------|-------------|
+| 1–3 | Beginner | Common (white) |
+| 4–7 | Apprentice | Uncommon (cyan/teal) |
+| 8–12 | Dedicated Explorer | Rare (purple) |
+| 13–18 | Rising Champion | Epic (orange/gold) |
+| 19–25 | Life Architect | Legendary (gold gradient) |
+| 26+ | Grand Master | Legendary + prestige star |
+
 ### 2.6 Prestige System
 
 When a user hits Level 25 in a domain, they can **prestige** that domain:
