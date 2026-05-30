@@ -1098,7 +1098,32 @@
     "SiaConversation": {
       "phase": "3C_organisms",
       "source": "src/components/screens/SiaConversation.tsx",
-      "figma_node_id": null
+      "figma_node_id": "442:224",
+      "figma_component_key": "f1a5fefae9a696b63a1682edaa430f5fc13afe34",
+      "doc_frame_id": "454:338",
+      "variants": {},
+      "properties": {
+        "ShowDraft": "BOOLEAN",
+        "ShowThinking": "BOOLEAN",
+        "ShowSuggestions": "BOOLEAN"
+      },
+      "property_keys": {
+        "ShowDraft": "ShowDraft#453:0",
+        "ShowThinking": "ShowThinking#453:1",
+        "ShowSuggestions": "ShowSuggestions#453:2"
+      },
+      "composes": [
+        "MessageBubble",
+        "RichInlineCard",
+        "SuggestionChip",
+        "DomainTag"
+      ],
+      "minted_tokens": {
+        "color/alpha/orange-10": "VariableID:440:2",
+        "color/alpha/orange-25": "VariableID:440:3"
+      },
+      "created": "2026-05-30",
+      "$comment": "Phase 3C batch C11 (SiaConversation). Lone COMPONENT 442:224 (key f1a5fefae9a696b63a1682edaa430f5fc13afe34) in [doc] frame 454:338 (VERTICAL ink-900 4:5, cornerRadius 24 literal, padding+itemSpacing spacing/24 8:7, counterAxis MIN) on Organisms page 17:13 at (100,9122), doc 375x1816. Hamza-CONFIRMED via AskUserQuestion (x4, all as recommended): (1) C11=SiaConversation; (2) NO conversation-level variant axis -- model the 3 React booleans as 3 Figma BOOLEAN props; (3) build the FULL authored thread (match-code), not a trimmed representative; (4) MINT orange-10 + orange-25 (both recurring: 24/14 code uses). COMPONENT = transparent (fills=[]) 327 FIXED-wide VERTICAL auto-layout, counterAxis MIN, itemSpacing spacing/16 8:5 (space-y-4), clipsContent=false. 15 children in source order: DaySeparator(baked) / MessageBubble SIA inst / RichInlineCard Chart inst / MessageBubble User inst / ConnectionMessage(baked) / RichInlineCard Connection inst / MessageBubble User inst / MessageBubble SIA inst / RichInlineCard Mission inst / MessageBubble SIA inst / RichInlineCard Meal inst / RichInlineCard Workout inst / DraftBubble(baked,hidden) / ThinkingIndicator(baked,hidden) / SuggestionRow(baked). INSTANCED DS sets (no re-bake): MessageBubble x5 (set 162:5; SIA variant 161:5, User variant 161:10; Body#162:0 text override per instance), RichInlineCard x5 (chart 315:27, connection 311:17, mission 313:25, meal 309:12, workout 303:2), SuggestionChip x4 (Default 87:2; Label#87:0 override = Tell me more/Show my missions/Log a meal/Something else; 4th recolored border white-30 160:2 + text white-50 4:41 per React border-white/30 text-white/50), DomainTag x2 inside ConnectionMessage (Fitness 52:3 + Sleep 52:6; +0.15 bg paint-opacity fixup -- INSTANCE strips DomainTag root fill opacity to 1, re-applied .map opacity 0.15 even though main comp 52:3 carries 0.15). BAKED helpers (no DS component exists): DaySeparator = HORIZONTAL counterAxis CENTER, itemSpacing spacing/12 8:4, padY spacing/16 8:5; two FILL h1 lines white-05 237:2 + 'Today' Sora Reg 12/16 white-30 160:2. ConnectionMessage = HORIZONTAL gap spacing/8 8:3 items-start; SiaAvatarSmall (24x24 auto-layout circle cornerRadius 9999, fill royal-purple 4:4, 1px INSIDE stroke royal-purple @0.50 paint-opacity fixup, Glow/Purple effect, 'S' Sora SemiBold 11 white 5:6) + bubble (VERTICAL FIXED 250 = max-w-[250px] representative, ink-brown-800 4:7, 1px INSIDE white-08 140:2, padX spacing/12 8:4 padY 10 literal, itemSpacing spacing/4 8:2, corners 16/16/16 literal + bottomLeft bound radius/xs 9:2): Eyebrow-style 'Connection spotted' royal-purple 4:4 + body HORIZONTAL layoutWrap WRAP counterAxis CENTER itemSpacing spacing/4 counterAxisSpacing 4 FILL = ['Your' + DomainTag(Fitness) + 'and' + DomainTag(Sleep) + 'patterns are moving together.'] each text Sora Reg 15/22 white 5:6 (inline-chip-in-text modeled as a WRAP -- Figma has no true inline component runs; mx-1 translate-y-[-1px] DROPPED). ThinkingIndicator = HORIZONTAL gap spacing/8 items-start; same SiaAvatarSmall + bubble (HORIZONTAL HUG, h36 FIXED = h-9, ink-brown-800 4:7, 1px white-08 140:2, padX spacing/16 8:5, itemSpacing spacing/4 8:2, corners 16+bottomLeft radius/xs, counterAxis CENTER) holding 3 ELLIPSE dots 6x6 (h-1.5 w-1.5) fill white-40 4:42; animate-sia-avatar-pulse + per-dot animationDelay DROPPED (runtime). DraftBubble = HORIZONTAL justify-end (primaryAxis MAX); bubble VERTICAL FIXED 250, fill orange-10 440:2 (MINTED), 1px INSIDE DASHED dashPattern[4,4] orange-25 440:3 (MINTED), padX spacing/12 padY 10, corners 16/16/16 + bottomRight bound radius/xs 9:2 (rounded-br-xs), text Sora Reg 15/22 white-80 167:2 FILL = 'I just did thirty minutes of yoga and my energy feels steadier'; voice-cursor caret (h-[18px] w-0.5 brand-orange blink) DROPPED (runtime animation). SuggestionRow = HORIZONTAL counterAxis CENTER itemSpacing spacing/8 8:3, paddingLeft spacing/32 8:8 (pl-8) paddingBottom spacing/4 8:2 (pb-1), clipsContent=true (overflow-x-auto), FILL; 4 SuggestionChip instances. PROPS (3 BOOLEAN, set defaults match React): ShowDraft#453:0=false (DraftBubble.visible), ShowThinking#453:1=false (ThinkingIndicator.visible), ShowSuggestions#453:2=true (SuggestionRow.visible) -- HasLevel/HasTranscript visibility-toggle precedent. React interplay (thinking shows only if !showDraft) NOT enforceable with independent Figma booleans -> documented; default render = suggestions only, matching React defaults. DROPPED: className (runtime), animate-fade-up on every RichInlineCard (runtime), all blink/pulse animations. MINTED 2 intrinsic-alpha primitives in Primitives collection 2:2 mode 2:0 (mirrors orange-20 160:3 sibling: scopes [], WEB rgba codeSyntax): color/alpha/orange-10 (VariableID:440:2, rgba(255,94,0,0.1), 24 code uses) + color/alpha/orange-25 (VariableID:440:3, rgba(255,94,0,0.25), 14 code uses). VALIDATED structurally (COMPONENT key, 327 wide, 15 children correct order, 3 BOOLEAN props + visibility links, draft/thinking hidden by default) + via pixel screenshots (curl HTTP 200 valid PNG -- progress, DraftBubble dashed-orange, full default-state thread all faithful to React). Tooling STABLE (no C4 glitch, no Cloudflare blocks). 26 of 28 organisms."
     },
     "ConversationSuite": {
       "phase": "3C_organisms",
