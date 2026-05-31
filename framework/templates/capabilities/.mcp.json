@@ -1,0 +1,17 @@
+{
+  "_comment": "TEMPLATE (FRAMEWORK.md §C11.5). Project-scoped MCP servers = typed connections to external systems (Figma, image-gen, GitHub, a DB, an issue tracker). Place at the repo root as .mcp.json — it is committable/shareable with the team. Secrets come from ${ENV} expansion (never hard-code tokens). Prefer wrapping MCP calls inside a Skill with guardrails over calling them ad-hoc. Replace the placeholders and delete this _comment key.",
+  "mcpServers": {
+    "<remote-service>": {
+      "type": "http",
+      "url": "${SERVICE_BASE_URL:-https://api.example.com}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SERVICE_API_TOKEN}"
+      }
+    },
+    "<local-server>": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["<mcp-package>", "--dsn", "${DATABASE_URL}"]
+    }
+  }
+}

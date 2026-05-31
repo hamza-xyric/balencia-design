@@ -1,0 +1,37 @@
+{
+  "_comment": "TEMPLATE (FRAMEWORK.md §C11.5). Hooks = deterministic automation at fixed lifecycle events, regardless of what the model decides. Merge this 'hooks' block into .claude/settings.json (project, shared) or ~/.claude/settings.json (personal). Events incl. SessionStart/SessionEnd, UserPromptSubmit, PreToolUse, PostToolUse, Stop, SubagentStop, PreCompact. 'matcher' filters by tool name (e.g. 'Write|Edit'); handler 'type' may be command|http|mcp_tool. Replace the command paths and delete this _comment key.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-destructive.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm run -s lint:fix"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/write-memory-fact.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

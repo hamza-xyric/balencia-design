@@ -1,0 +1,18 @@
+{
+  "_comment": "TEMPLATE (FRAMEWORK.md §C11.6). A plugin bundles your capability layer (skills + commands + agents + hooks + MCP) behind one versioned, namespaced manifest so it is installable across projects — the literal mechanism for 'make this framework repeatable for other projects'. Place this file at <plugin>/.claude-plugin/plugin.json. Replace placeholders and delete the _comment and _layout keys (they are documentation, not schema).",
+  "_layout": [
+    "<plugin>/.claude-plugin/plugin.json   (this manifest)",
+    "<plugin>/skills/<name>/SKILL.md       (bundled skills)",
+    "<plugin>/commands/<name>.md           (bundled slash commands)",
+    "<plugin>/agents/<name>.md             (bundled subagents)",
+    "<plugin>/hooks/hooks.json             (bundled hooks)",
+    "<plugin>/.mcp.json                    (bundled MCP servers)",
+    "Install elsewhere, then invoke namespaced: /<plugin-name>:<command>"
+  ],
+  "name": "<plugin-name>",
+  "description": "<what this capability bundle provides>",
+  "version": "0.1.0",
+  "author": { "name": "<your-name>" },
+  "homepage": "<repo or docs url>",
+  "license": "MIT"
+}
