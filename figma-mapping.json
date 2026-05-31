@@ -4441,6 +4441,56 @@
         "h": 1843
       },
       "$comment": "Creativity dashboard \u2014 Phase 4 FULL PORT Batch 4 #10 (composed+verified 2026-06-01). 375x1843 at x4050 y11600 (row4). Source: balencia-screens/src/app/domains/creativity/page.tsx. EXPANDED DomainDashboardHeader (88px) RECOLORED creativity amber (Title='Creativity'; AccentStrip->color/domain/creativity @0.8 two-step, BottomRow Dot->creativity full \u2014 C-063). Content @y143 padTop16 padX16 itemSpacing24; top sub-group gap16 [SiaDot, Projects, Inspiration]. Bespoke SiaDotNote (radius-lg p-6: royal-purple dot + note white-80). ActiveProjects 267:? (eyebrow + Card radius-lg p-4: 2 rows = name + '\u25b8 milestone' + due + pct + amber ProgressBar radius-xs h-1.5: Short film script/Recording demo tracks/Jun 8/45%, Photography portfolio/Editing final selections/May 30/72% + 'See all'). InspirationPrompt (bespoke card ink-brown: royal-purple '\u2726' glyph + prompt white-80 + chips 'Start creating' [creativity-subtle /15 amber] + 'Reflect on this' [white-10 outline]). ThisWeek 269:2879 (eyebrow + Card radius-lg p-6: BESPOKE 7-cell weekly heatmap [intensity ramp 0=white-05, 0.3/0.6/0.8/1.0 amber via two-step setTint; cells [1,3,4,1,3,0,0]] + day labels M-S + summary '4.5 hrs total' white-40 / 'up 20%' amber \u2014 DS CalendarHeatmap is a 7x5 MONTH grid, doesn't match 1-row weekly, C-074). ActiveMissions 269:2908 (3 tiles: bespoke 64px amber ring + name: Finish short film 55 / Build photo set 80 / Write daily pages 30). Consistency 271:2879 (Card: Flame orange '8-day streak' + 'best: 21' + 7-day grid [complete amber+Check / missed white-08 / today dashed-amber]). CreativeJourney 271:2921 (eyebrow + BESPOKE timeline: amber/30 line [two-step] + 4 nodes (32 thumb + label + amber 12 dot + date): First draft/Jan, Demo recorded/Feb, Portfolio edit/Apr, Short film/May \u2014 no DS timeline, C-074). ActivityLog 272:2885 (Card p-0: 3 rows date72+desc+green +35 XP: today/90 min writing, yesterday/45 min sketching, May 18/120 min recording). Bespoke centered 'Log session' orange pill. DS TabBar Active=Me. Bespoke rings/streak/heatmap/timeline/SiaDot per C-072/C-058/C-064/C-074. OMITTED: log sheet, project expand, See-all 3rd project, toast (+25 XP toast; resting activity rows show +35 XP, REACT WINS). ZERO new DS components/variants/tokens. Verified vs spec 36 + React source + Figma screenshot. On page Page 1."
+    },
+    "37": {
+      "node_id": "281:2907",
+      "frame_name": "37 \u00b7 Journal",
+      "page": "0:1",
+      "size": {
+        "w": 375,
+        "h": 1386
+      },
+      "$comment": "Journal \u2014 Phase 4 FULL PORT Batch 5 #1 (composed+verified 2026-06-01). 375x1386 at x0 y13800 (row5). Source: balencia-screens/src/app/features/journal/page.tsx (mode='entries' resting; sheet/detail/toast omitted). Plain ink-900 wrapper; DS Header(HasBack,Title='Journal') @y54; absolute sections at live-measured y. DS-first: 4x DS JournalEntryCard (3eeeeda0; Date#256:0/Preview#256:1/Mood#256:2/HasMood#256:4/HasVoice#256:3/WithDivider#256:5; May 20 mood/2-domain, May 19 voice+1-domain, May 18 mood/2-domain, May 17 no-mood/1-domain; nested 2nd DomainTag hidden for 1-domain) in a radius-lg Card; DS SegmentedControl(8a48e47b, 2-seg Sm idx0 -> Entries/Check-ins); DS TabBar Active=Me. BESPOKE: ReflectionPrompt card (radius-lg p-6 royal-purple dot + prompt + 'Write about this' pill), Privacy card (radius-md p-4 Lock + copy + SIA-memory checkbox row), search bar (radius-md, Search icon + 'Search journal...'), '4 results' line, Write pill (bottomAction; FAB has no pill variant C-078). Sections @ y126/300/504/556/590/660. C-075: nested JournalEntryCard DomainTags' bg rebound to color/domain/*-subtle (May-18 Fitness rendered SOLID until patched)."
+    },
+    "38": {
+      "node_id": "287:3007",
+      "frame_name": "38 \u00b7 Habits",
+      "page": "0:1",
+      "size": {
+        "w": 375,
+        "h": 1669
+      },
+      "$comment": "Habits \u2014 Phase 4 FULL PORT Batch 5 #2 (composed+verified 2026-06-01). 375x1669 at x450 y13800 (row5). Source: balencia-screens/src/app/features/habits/page.tsx (period='today' resting; sheet/toast omitted). DS-first: DS Header(Title='Habits'); DS SegmentedControl(3-seg Md idx0 Today/Week/Month); 8x DS HabitRow (3a2305f6; Completed=True/False variant, Name#196:0/Days#196:3/HasStreak#196:6 + nested DomainTag subtle-patched C-075) across 3 sections (DS Eyebrow 013d89fc 'MORNING'/'AFTERNOON'/'EVENING' + radius-lg Card; bespoke 1px white/05 dividers since HabitRow has no WithDivider prop C-080); DS CalendarHeatmap (170b5036 Tone=Brand; overrode monthLabel->'May 2026', day-labels->M T W T F S S, summary hidden; baked cells accepted C-077) in radius-lg p-6 Card; DS TabBar Active=Me. BESPOKE: CompletionRate ('5 of 8 today' + '63%' + orange linear progress bar 63% - no DS linear ProgressBar, C-064/C-080); XP card (+75 XP forest-green / 'Keep going - 3 habits left'); 'Add habit' pill (bottomAction, C-078). Sections @ y126/184/248/290/592/819/1129/dynamic; heatmap card h268 (baked) so XP card placed dynamically below."
+    },
+    "39": {
+      "node_id": "293:3199",
+      "frame_name": "39 \u00b7 Leaderboard",
+      "page": "0:1",
+      "size": {
+        "w": 375,
+        "h": 1393
+      },
+      "$comment": "Leaderboard \u2014 Phase 4 FULL PORT Batch 5 #3 (composed+verified 2026-06-01). 375x1393 at x900 y13800 (row5). Source: balencia-screens/src/app/features/leaderboard/page.tsx (type=global, period=week, visibility=global resting; profile modal omitted). DS-first: DS Header(Title='Leaderboard'); 2x DS SegmentedControl(3-seg Md idx0: Global/Competitions/Country + This week/This month/All time); 10x DS LeaderboardRow (8f914bc5; Rank=1/2/3/Other x Self=False -> podium gold/silver/bronze for top3; Avatar#206:0/Name#206:9/Level#206:18/Xp#206:27 + 'Rank' TEXT node overridden #4..#10 + nested DomainTag subtle-patched C-075) in radius-lg Card with bespoke 1px dividers; DS TabBar Active=Me. BESPOKE: OwnRankCard (radius-lg, orange/40 border, p-5: '#12' Bold24 + ArrowUp green '3 this week'; 44 avatar 'A' orange + 'Amira' + 'Lv. 14' orange-border pill + DomainTag Learning; '2,340 XP' + Flame '21-day streak'); FilterToggle (Global active white + orange underline / Friends white/50). No bottomAction. Sections @ y126/194/258/292/474/530."
+    },
+    "40": {
+      "node_id": "298:3372",
+      "frame_name": "40 \u00b7 Community",
+      "page": "0:1",
+      "size": {
+        "w": 375,
+        "h": 750
+      },
+      "$comment": "Community \u2014 Phase 4 FULL PORT Batch 5 #4 (composed+verified 2026-06-01). 375x750 at x1350 y13800 (row5). Source: balencia-screens/src/app/features/community/page.tsx (activeRoom=null -> rooms-list view; room interior + all bottom-sheets omitted). DS-first: DS Header(Title='Community'); 2x DS SectionHeader (616741cb WithAction=False, Title='Discover'/'Your rooms'); DS TabBar Active=Me. BESPOKE (no DS room-list components; DS MembersRail/ThreadMessage are room-INTERIOR only, C-080): 4 Discover cards (124x112 radius-lg; domain-subtle icon circle + Dumbbell/BookOpen/Brain/Wallet recolored domain-full + name + 'N members'; horizontal row width 532 clipped at frame edge = h-scroll) for Fitness lovers/Book club/Mindfulness/Money reset; 3 RoomRows (min-h-80; 44 avatar domain-subtle bg + initials + active forest-green dot if active + name + 'N members' + lastMessage + timestamp + orange unread badge) for Morning crew(fitness,active,3)/Study group(learning,0)/Accountability pod(wellbeing,active,1) in radius-lg Card; 'Create room' pill (bottomAction, C-078). Sections @ y126/156/296/326. Shortest feature frame."
+    },
+    "41": {
+      "node_id": "302:3417",
+      "frame_name": "41 \u00b7 Schedule / calendar",
+      "page": "0:1",
+      "size": {
+        "w": 375,
+        "h": 1498
+      },
+      "$comment": "Schedule/calendar \u2014 Phase 4 FULL PORT Batch 5 #5 (composed+verified 2026-06-01). 375x1498 at x1800 y13800 (row5). Source: balencia-screens/src/app/tabs/today/schedule/page.tsx (view='day', dateOffset=0 resting; add/event modals omitted). **DS TabBar Active=TODAY** (only non-Me feature screen). DS-first: DS Header(Title='Schedule') + BESPOKE 2-icon right overlay (Cloud white/40 + Plus white; DS Header has single right slot, C-079); DS SegmentedControl(3-seg Md idx0 Day/Week/Month); DS ScheduleCalendarGrid (3e74335f; 14 hour-rails 6AM-7PM + orange current-time line @top286 reused; its 2 baked sample EventCards EventCard/Standard+EventCard/Sia HIDDEN, C-076) with 5 BESPOKE EventCards overlaid at top=(startHour-6)*64+8 (72/200/328/520/776, x56 w303 h48): Morning run(fitness,manual)/Meditate 15m(meditation,SIA: dashed orange border+ink-900+purple dot)/Team standup(career,synced)/Meal prep(nutrition,manual)/Gym session(fitness,manual); non-SIA = solid border + 4px left tone-bar domain-full; DomainTags subtle-patched; DS FAB(97e72874 round Primary + Plus swap, bottom-right); DS TabBar Today. BESPOKE: DateNavigator (ChevronLeft + 'Wed, May 20, 2026' + orange today-dot + ChevronRight); UnscheduledTasks (top border + 'Unscheduled (2)'/'Tap to place' + radius-md Card: 2 rows checkbox + name + DomainTag for Read 20 min/Learning, Log expenses/Finance). Sections @ y118/186/238/420."
     }
   },
   "code_connect": {
