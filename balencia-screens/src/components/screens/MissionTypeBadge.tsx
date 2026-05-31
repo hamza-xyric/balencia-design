@@ -1,13 +1,15 @@
 import type { HTMLAttributes } from 'react'
 import type { MissionType } from '@/data/mock'
 
+// bg binds the alpha-baked -subtle token (15%) to mirror the Figma DS
+// color/mission/*-subtle fills — see X-012/X-014. Text + border stay full-tone.
 const missionTypeClasses: Record<MissionType, string> = {
-  life: 'bg-mission-gold/20 text-mission-gold border-mission-gold/35',
-  main: 'bg-mission-silver/20 text-mission-silver border-mission-silver/35',
-  side: 'bg-mission-bronze/20 text-mission-bronze border-mission-bronze/35',
-  weekly: 'bg-mission-steel/20 text-mission-steel border-mission-steel/35',
-  daily: 'bg-mission-sage/20 text-mission-sage border-mission-sage/35',
-  group: 'bg-mission-copper/20 text-mission-copper border-mission-copper/35',
+  life: 'bg-mission-gold-subtle text-mission-gold border-mission-gold/35',
+  main: 'bg-mission-silver-subtle text-mission-silver border-mission-silver/35',
+  side: 'bg-mission-bronze-subtle text-mission-bronze border-mission-bronze/35',
+  weekly: 'bg-mission-steel-subtle text-mission-steel border-mission-steel/35',
+  daily: 'bg-mission-sage-subtle text-mission-sage border-mission-sage/35',
+  group: 'bg-mission-copper-subtle text-mission-copper border-mission-copper/35',
 }
 
 const missionTypeLabels: Record<MissionType, string> = {
