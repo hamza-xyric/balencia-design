@@ -389,3 +389,36 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen [48] — Intelligence Dashboard (purple accent line, eyebrow style, correlation strength encoding, SIA insight pattern), Screen [09] — SIA Chat (context pre-loading for "ask SIA")
 - **Patterns used**: Back Button (Batch 1), Bottom Sheet (_shared-patterns.md), AI-Mode Header (Screen 48), Strength Indicator Bar (Screen 48)
 - **Patterns established**: **Knowledge Graph Canvas** — force-directed interactive network visualization with domain-colored nodes, purple correlation edges, pinch-to-zoom, tap-to-select. Mobile-optimized for 60fps with GPU-accelerated rendering. **Node Detail Panel** — compact bottom sheet (~45%) showing selected node's connections with strength bars, SIA insight quote, and dual action buttons (ask SIA / go to domain). **Graph Controls** — floating button stack for zoom/reset with backdrop-blur. **Graph Legend** — expandable floating card explaining visual encoding. **VoiceOver Alternative View** — accessible list fallback for graph visualization.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-10.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U05`
+**Prototype route**: `/tabs/me/knowledge-graph`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q17 progress photos are private, encrypted, user-deletable, and AI analysis is premium opt-in.
+- Q20 OAuth flows need scope and revocation clarity.
+- Q21 Data Sources may be a demo/no-live-sync trust placeholder for prototype acceptance.
+- Q39 achievement density adapts for low-motivation users.
+- Q43 Knowledge Graph V1 is a guided insight map.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B10-F01 | critical | information-architecture | Implement node selection, pan/zoom/reset, legend/help, Ask SIA context routing, and Go to domain navigation. |
+| B10-F02 | major | visual-polish | Start with the graph fully visible and show the detail panel only after node selection. |
+| B10-F03 | major | accessibility | Add labels, 44x44 hit areas, selected-node state, keyboard behavior, and a text correlation fallback. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+

@@ -411,3 +411,37 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [03] — Welcome / Sign Up (input fields, CTA button, social auth buttons, divider, nav link), Screen [05] — Forgot Password (input field, CTA button, back button)
 - **Patterns used**: Auth Screen Template (from [03]), Text Input Field Pattern, Brand CTA Button, Social Auth Button Pattern, Auth Divider Pattern, Auth Nav Link Pattern
 - **Patterns established**: **Back Button Pattern** — left chevron, white, 20pt icon, 44x44pt touch target, 16pt left margin. Used on all non-root screens in the auth flow. **Forgot Password Link Pattern** — right-aligned within form field width, 15pt Sora Regular, orange, 44pt touch target, positioned 8pt below the password field. **Biometric Opt-In Prompt** — bottom sheet shown after first successful login on biometric-capable devices. Face ID/fingerprint icon (40pt, orange) + heading + body + enable CTA + "not now" dismiss. Reusable pattern for any post-auth system permission prompt. **Biometric Icon Button** — 24pt system biometric icon (Face ID/fingerprint), white at 50%, centered, 44pt touch target. Appears below social auth when biometric is enrolled.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-02.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U01`
+**Prototype route**: `/auth/sign-in`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q06 minimal auth: remove DOB as account-creation legal gate.
+- Q07 social auth profile completion must not block first SIA value.
+- Q08 move first-name collection into SIA onboarding.
+- Q09 WhatsApp is optional coaching/reminder opt-in with STOP/settings controls.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B02-F05 | critical | conversion | Disable until valid, show validation, submit credentials, and route successful users to Today. |
+| B02-F06 | major | trust-privacy | Default Remember me to off and make persistence an explicit user choice. |
+| B02-F07 | major | brand-fit | Use platform-compliant provider marks with accessible labels. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

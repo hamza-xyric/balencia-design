@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import { AlertTriangle, ChevronRight, Plus, ShieldAlert, Users } from 'lucide-react'
 import { Card } from '@/components/design-system/Card'
 import { SegmentedControl } from '@/components/design-system/SegmentedControl'
@@ -26,8 +29,8 @@ function PermissionDot({ permission }: { permission: string }) {
   return <span className={`h-1.5 w-1.5 rounded-full ${color}`} aria-hidden="true" />
 }
 
-function ConsentBanner() {
-  if (accountability.consentConfigured) return null
+function ConsentBanner({ configured, onConfigure }: { configured: boolean; onConfigure: () => void }) {
+  if (configured) return null
 
   return (
     <Card className="border-l-[3px] border-l-brand-orange p-5 animate-fade-up">
@@ -38,7 +41,7 @@ function ConsentBanner() {
           <p className="mt-1 text-[14px] leading-5 text-white/60">
             Configure what your partners can see before accountability features activate
           </p>
-          <button type="button" className="mt-3 inline-flex h-8 items-center gap-1 text-[14px] font-semibold leading-5 text-brand-orange">
+          <button type="button" onClick={onConfigure} className="mt-3 inline-flex min-h-11 items-center gap-1 rounded-pill pr-2 text-[14px] font-semibold leading-5 text-brand-orange">
             Configure
             <ChevronRight size={14} strokeWidth={2.2} />
           </button>
@@ -87,24 +90,28 @@ function PartnerRow({ partner, withDivider }: { partner: (typeof accountability.
   )
 }
 
-function PartnersSection() {
+function PartnersSection({ consentConfigured }: { consentConfigured: boolean }) {
   return (
     <section className="mt-4 animate-fade-up" style={{ animationDelay: '160ms' }}>
       <SectionHeader title="Partners" className="px-1" />
       <Card variant="small" className="rounded-lg p-0">
         {accountability.partners.map((partner, index) => (
-          <PartnerRow key={partner.id} partner={partner} withDivider={index > 0} />
+          <div key={partner.id} className={!consentConfigured ? 'opacity-45' : ''}>
+            <PartnerRow partner={partner} withDivider={index > 0} />
+          </div>
         ))}
       </Card>
     </section>
   )
 }
 
-function AddPartnerButton() {
+function AddPartnerButton({ disabled, onClick }: { disabled: boolean; onClick: () => void }) {
   return (
     <button
       type="button"
-      className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-md border border-dashed border-white/10 bg-ink-brown-800 text-[15px] font-semibold leading-5 text-brand-orange transition-transform duration-[var(--dur-fast)] active:scale-[0.98] animate-fade-up"
+      onClick={onClick}
+      disabled={disabled}
+      className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-md border border-dashed border-white/10 bg-ink-brown-800 text-[15px] font-semibold leading-5 text-brand-orange transition-transform duration-[var(--dur-fast)] active:scale-[0.98] disabled:opacity-45 animate-fade-up"
       style={{ animationDelay: '240ms' }}
     >
       <Plus size={16} strokeWidth={2.4} />
@@ -113,7 +120,7 @@ function AddPartnerButton() {
   )
 }
 
-function GroupsSection() {
+function GroupsSection({ onManage }: { onManage: (name: string) => void }) {
   return (
     <section className="mt-6 animate-fade-up" style={{ animationDelay: '320ms' }}>
       <SectionHeader title="Groups" className="px-1" />
@@ -143,7 +150,7 @@ function GroupsSection() {
                     </span>
                   ))}
                 </div>
-                <button type="button" className="text-caption font-semibold leading-[18px] text-brand-orange">Manage</button>
+                <button type="button" onClick={() => onManage(group.name)} className="min-h-11 rounded-pill px-3 text-caption font-semibold leading-[18px] text-brand-orange">Manage</button>
               </div>
             )}
           </article>
@@ -189,30 +196,101 @@ function PlusContextStrip() {
   )
 }
 
+function LockedPreview({ onConfigure }: { onConfigure: () => void }) {
+  return (
+    <Card className="mt-4 p-5 animate-fade-up" style={{ animationDelay: '120ms' }}>
+      <h2 className="text-h3 font-semibold leading-[22px] text-white">Locked until consent</h2>
+      <p className="mt-2 text-caption leading-[18px] text-white/55">
+        Partner names, groups, contracts, triggers, emergency contacts, and SIA-read access stay hidden until you choose what to share.
+      </p>
+      <div className="mt-4 grid gap-2">
+        {['Partners hidden', 'Contracts private', 'Triggers off'].map((item) => (
+          <div key={item} className="flex min-h-11 items-center justify-between rounded-md border border-white/[0.06] bg-ink-900 px-3 text-[14px] font-semibold leading-5 text-white/60">
+            <span>{item}</span>
+            <span className="text-caption leading-[18px] text-brand-orange">Needs consent</span>
+          </div>
+        ))}
+      </div>
+      <button type="button" onClick={onConfigure} className="mt-4 h-11 w-full rounded-pill bg-brand-orange text-[15px] font-semibold leading-5 text-white">
+        Configure consent
+      </button>
+    </Card>
+  )
+}
+
 export default function AccountabilityScreen() {
+  const [tab, setTab] = useState('partners')
+  const [consentConfigured, setConsentConfigured] = useState(accountability.consentConfigured)
+  const [dialog, setDialog] = useState('')
+
   return (
     <PhoneFrame>
       <ScreenShell header={<Header title="Accountability" showBack />} activeTab="me">
         <main className="px-4 pb-20 pt-3">
-          <ConsentBanner />
+          <ConsentBanner configured={consentConfigured} onConfigure={() => setDialog('consent')} />
 
-          <SegmentedControl
-            options={[
-              { label: 'Partners', value: 'partners' },
-              { label: 'Contracts', value: 'contracts' },
-              { label: 'Triggers', value: 'triggers' },
-            ]}
-            activeValue="partners"
-            className="mt-4 animate-fade-up"
-            size="md"
-          />
+          {!consentConfigured ? (
+            <>
+              <LockedPreview onConfigure={() => setDialog('consent')} />
+              <PlusContextStrip />
+            </>
+          ) : (
+            <>
+              <SegmentedControl
+                options={[
+                  { label: 'Partners', value: 'partners' },
+                  { label: 'Contracts', value: 'contracts' },
+                  { label: 'Triggers', value: 'triggers' },
+                ]}
+                activeValue={tab}
+                onValueChange={setTab}
+                className="mt-4 animate-fade-up"
+                size="md"
+              />
 
-          <PartnersSection />
-          <AddPartnerButton />
-          <GroupsSection />
-          <EmergencySection />
-          <PlusContextStrip />
+              {tab === 'partners' && (
+                <>
+                  <PartnersSection consentConfigured={consentConfigured} />
+                  <AddPartnerButton disabled={!consentConfigured} onClick={() => setDialog('partner')} />
+                  <GroupsSection onManage={(name) => setDialog(`group:${name}`)} />
+                  <EmergencySection />
+                </>
+              )}
+              {tab === 'contracts' && (
+                <Card className="mt-4 p-5 animate-fade-up">
+                  <h2 className="text-h3 font-semibold leading-[22px] text-white">Contracts</h2>
+                  <p className="mt-2 text-caption leading-[18px] text-white/55">Proof windows, partner visibility, and SIA-read consent are reviewed before activation.</p>
+                  <button type="button" onClick={() => setDialog('contract')} className="mt-4 h-11 w-full rounded-pill bg-brand-orange text-[15px] font-semibold leading-5 text-white">Review contract</button>
+                </Card>
+              )}
+              {tab === 'triggers' && (
+                <Card className="mt-4 p-5 animate-fade-up">
+                  <h2 className="text-h3 font-semibold leading-[22px] text-white">Triggers</h2>
+                  <p className="mt-2 text-caption leading-[18px] text-white/55">Choose what counts as a missed check-in before a partner notification is sent.</p>
+                  <button type="button" onClick={() => setDialog('trigger')} className="mt-4 h-11 w-full rounded-pill bg-brand-orange text-[15px] font-semibold leading-5 text-white">Configure trigger</button>
+                </Card>
+              )}
+              <PlusContextStrip />
+            </>
+          )}
         </main>
+
+        {dialog && (
+          <div className="absolute inset-0 z-40 flex items-end bg-ink-900/70 px-4 pb-4" role="dialog" aria-modal="true" aria-label="Accountability setup">
+            <div className="w-full rounded-xl border border-white/[0.08] bg-ink-brown-800 p-5 shadow-3">
+              <h2 className="text-h3 font-semibold leading-[22px] text-white">
+                {dialog === 'consent' ? 'Consent setup' : dialog === 'partner' ? 'Add partner' : dialog === 'contract' ? 'Contract review' : dialog === 'trigger' ? 'Trigger rules' : 'Manage group'}
+              </h2>
+              <p className="mt-2 text-caption leading-[18px] text-white/55">
+                {dialog === 'consent'
+                  ? 'Choose partner visibility, proof sharing, and whether SIA can read contract context.'
+                  : 'Prototype flow opened. Save shows success and returns to the accountability screen.'}
+              </p>
+              <button type="button" onClick={() => { if (dialog === 'consent') setConsentConfigured(true); setDialog('') }} className="mt-4 h-11 w-full rounded-pill bg-brand-orange text-[15px] font-semibold leading-5 text-white">Save</button>
+              <button type="button" onClick={() => setDialog('')} className="mt-3 h-11 w-full rounded-pill text-[15px] font-semibold leading-5 text-white/60">Cancel</button>
+            </div>
+          </div>
+        )}
       </ScreenShell>
     </PhoneFrame>
   )

@@ -365,3 +365,34 @@ Same 8-state model as Sign Up [03] password field.
 - **Shared components with**: Screen [05] -- Forgot Password (success icon, heading, instructional text, CTA), Screen [03] -- Sign Up (password field, requirements)
 - **Patterns used**: Auth Screen Template, Text Input Field, Brand CTA Button, Confirmation State Pattern (from Screen 05)
 - **Patterns established**: **Password Requirements Checklist** -- real-time validation feedback with status icons that transition from not-met (white at 30%) to met (green checkmark) as the user types. Reusable for any password creation/change form. **Token Expired State** -- amber warning circle (56pt, #F59E0B, white exclamation) + explanation text + recovery CTA + secondary text link. Reusable for any expired/invalid deep-link.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-02.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U01`
+**Prototype route**: `/auth/reset-password`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q06 minimal auth: remove DOB as account-creation legal gate.
+- Q07 social auth profile completion must not block first SIA value.
+- Q08 move first-name collection into SIA onboarding.
+- Q09 WhatsApp is optional coaching/reminder opt-in with STOP/settings controls.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B02-F10 | critical | conversion | Drive requirements from input state, enable valid submit, and add token-validating success/expired states. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

@@ -495,3 +495,39 @@ Not applicable. This is a utility screen that appears identically regardless of 
 - **Shared components with**: Screen [49] — Progress Photos (Photo Comparison Mode slider pattern is inherited and displayed full-screen here; gallery pagination dot pattern matches the photo strip's selection state), Screen [69] — App Rating (bottom toast pattern for error/privacy warnings), Screen [65] — Force Update (full-screen overlay z-index pattern, chrome toggle concept).
 - **Patterns used**: 8-State Interaction Model (shared pattern), Error Toast (inline variant, adapted from Screen 04/65), Chrome Toggle (established here), Shared Element Transition (established here), Swipe-Down Dismiss (established here), Pinch-to-Zoom Canvas (established here), Gallery Pagination Dots (established here).
 - **Patterns established**: **Chrome Toggle** — tap-to-show/hide UI chrome over immersive content, with auto-hide after 3 seconds of inactivity, synchronized status bar visibility, and gradient fade instead of hard edge. **Swipe-Down Dismiss** — velocity-based (>800pt/s) or displacement-based (>150pt) dismissal with proportional background opacity and image scale tracking, spring-back on cancel. **Pinch-to-Zoom Canvas** — gesture-driven zoom (1x-5x) with double-tap toggle (1x/2x), bounded pan when zoomed, zoom-state-aware gesture routing (pan vs. dismiss vs. gallery nav). **Shared Element Transition** — thumbnail-to-fullscreen expand on enter, fullscreen-to-thumbnail contract on exit, with center-scale fade fallback when source/destination position is unavailable. **Gallery Navigation** — horizontal swipe between images with pagination dots, rubber-band on boundary, zoom-reset on image change. **Progressive Image Loading** — blurred thumbnail placeholder cross-fading to high-resolution on load complete.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-17.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U09`
+**Prototype route**: `/features/image-viewer`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q02 system overlays may be QA fixtures but production needs native trigger/dismiss/API states.
+- Q05 music/video use honest demo recommendations without implying live provider sync.
+- Q18 progress-photo sharing is disabled in V1.
+- Q22 accountability partners see only opted-in contract/proof/check-in data; SIA reads with consent.
+- Q42 reports remain in-app with screenshot-level sharing only.
+- Q48 app rating uses non-coercive prompt fixtures.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B17-F04 | critical | retention | Render actual passed media with loading/error states, pinch/double-tap zoom, pan, and left/right gallery swipe. |
+| B17-F05 | critical | navigation | Wire close/swipe-down/back dismissal and native share, and add accessible names for Close image viewer and Share image. |
+| B17-F06 | major | trust-privacy | Add a decrypted-photo warning/confirmation before sharing, or disable share until the photo privacy policy is finalized. |
+
+### Prototype Implications
+
+- Treat 2 critical findings as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

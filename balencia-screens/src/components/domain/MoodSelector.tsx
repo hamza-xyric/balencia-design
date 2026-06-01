@@ -6,14 +6,15 @@ type MoodOption = {
 type MoodSelectorProps = {
   options: MoodOption[]
   selectedLabel: string
+  onSelect?: (label: string) => void
   className?: string
 }
 
-export function MoodSelector({ options, selectedLabel, className = '' }: MoodSelectorProps) {
+export function MoodSelector({ options, selectedLabel, onSelect, className = '' }: MoodSelectorProps) {
   return (
     <div
       className={[
-        'rounded-xl border border-white/[0.06] bg-ink-brown-800 p-4 shadow-1',
+        'rounded-xl border border-alpha-white-06 bg-ink-brown-800 p-4 shadow-1',
         className,
       ].filter(Boolean).join(' ')}
     >
@@ -25,11 +26,13 @@ export function MoodSelector({ options, selectedLabel, className = '' }: MoodSel
             <button
               key={option.label}
               type="button"
+              onClick={() => onSelect?.(option.label)}
               className={[
                 'flex h-[64px] min-w-0 flex-col items-center justify-center rounded-md transition-transform duration-[var(--dur-fast)] active:scale-95',
                 selected ? 'bg-domain-wellbeing/15 opacity-100' : 'opacity-50',
               ].filter(Boolean).join(' ')}
               aria-pressed={selected}
+              aria-label={`${option.label} mood${selected ? ', selected' : ''}`}
             >
               <span className={['text-[28px] leading-8', selected ? 'scale-110' : ''].join(' ')} aria-hidden="true">
                 {option.emoji}

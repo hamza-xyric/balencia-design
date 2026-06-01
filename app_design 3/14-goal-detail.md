@@ -642,3 +642,37 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Home Screen [12] (Domain Tag Chip, Progress Ring large variant, Section Eyebrow, Pinned Mission Card reference), Mission Board [13] (Domain Tag Chip, Progress Ring references, Mission Card as data source, Chain Progress Bar, Difficulty Tier Indicator, Mission Type Badge), Create Mission [15] (domain chips, action list, Mission Type Badge)
 - **Patterns used**: Back Button, Domain Tag Chip (from Screen 12), Progress Ring large variant, Section Eyebrow (from Screen 12), Action Card checkbox pattern (from Screen 12), Mission Type Badge (Phase 2), Chain Progress Bar (Phase 2, adapted to vertical timeline), Difficulty Tier Indicator (Phase 2), Stalled Mission Nudge (Phase 2), 8-State Interaction Model, Motion Tokens, Staggered Content Entry
 - **Patterns established**: Mission Detail Screen Template (hero element → type badge → summary → expandable detail with chain section), Pin Toggle, Stalled Mission Conditional Card, Mission Chain Vertical Timeline, Archive State (gray ring, partial XP, contextual note, restart/delete options), Archive Confirmation Bottom Sheet
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-06.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U03`
+**Prototype route**: `/tabs/goals/detail`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q14 SIA in chats requires explicit invocation.
+- Q15 group health/recovery signals require per-user permission.
+- Q23 call follow-up scheduling should reuse the voice-history scheduling sheet.
+- Q24 create mission starts from blank natural-language intent.
+- Q25 streak details preserve source tab context.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B06-F05 | critical | retention | Implement next-action completion, progress/stat updates, next-action replacement, undo, and failure states. |
+| B06-F06 | major | information-architecture | Wire expanded sections, pin/unpin state, persisted detail changes, and accessible disclosure behavior. |
+| B06-F07 | major | mobile-ergonomics | Wrap the 28px visual checkbox in a 44x44 labeled touch target with focus and completion states. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

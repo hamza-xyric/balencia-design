@@ -470,3 +470,38 @@ The one exception: if the screen is triggered from Accountability Partners [46] 
 - **Shared components with**: Screen [03] — Welcome/Sign Up (Brand CTA Button pattern: full-width, 56pt, --r-pill, orange). Screen [65] — Force Update (full-screen interstitial with single CTA pattern, though Force Update is non-dismissible while this screen is always dismissible). Screen [03e] — WhatsApp Enrollment (optional enrollment interstitial with skip link, benefit preview list pattern). Screen [69] — App Rating (modal presentation pattern from system trigger, "not now" dismissal link).
 - **Patterns used**: Brand CTA Button (Screen 03: full-width, 56pt, --r-pill, orange fill, white text), Skip Link Pattern (Screen 02/03e: low-priority text link, white at 50%, 44pt touch target), Content Entry Animation (staggered fade-in, shared pattern), CTA Glow Pulse (Screen 65: infinite --glow-orange oscillation), 8-State Interaction Model (shared pattern), Brand Mode color register (orange-dominant, purple/green supporting).
 - **Patterns established**: **Pre-Permission Screen** — a custom interstitial shown before an irreversible OS permission dialog, designed to prime the user with concrete benefits and provide a soft "Not now" exit that preserves the system prompt for later. Reusable for any OS permission (camera, microphone, location, health data) where a single system dialog has permanent consequences. **Benefit Row with Color-Coded Icon** — a horizontal row layout with a 36pt colored circle (brand color at 15% fill + icon at 100%) + title + description text, used to list concrete feature benefits. The color-coding ties each benefit to its semantic meaning in the design system (purple = AI, orange = action, green = success/social). Reusable for any feature explanation or value proposition screen. **Open Settings Fallback** — a variant of the CTA button that deep-links to the iOS Settings app when the OS permission has been permanently denied. The CTA label changes to "Open Settings" and the app monitors permission status on return from Settings, auto-dismissing the screen on success.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-17.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U09`
+**Prototype route**: `/features/notification-permission`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q02 system overlays may be QA fixtures but production needs native trigger/dismiss/API states.
+- Q05 music/video use honest demo recommendations without implying live provider sync.
+- Q18 progress-photo sharing is disabled in V1.
+- Q22 accountability partners see only opted-in contract/proof/check-in data; SIA reads with consent.
+- Q42 reports remain in-app with screenshot-level sharing only.
+- Q48 app rating uses non-coercive prompt fixtures.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B17-F02 | critical | conversion | Implement the pre-permission flow: native prompt request, allow/deny recording, destination dismissal, and Not now skip without burning the system prompt. |
+| B17-F03 | major | trust-privacy | Add explicit allowed, denied, skipped, already-enabled, and blocked-with-settings states with analytics/cooldown behavior. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

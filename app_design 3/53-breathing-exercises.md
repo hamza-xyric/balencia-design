@@ -620,3 +620,38 @@ This screen is the user's guided breathing practice space -- a calm, meditative 
 - **Shared components with**: Screen [34] -- Spirituality Dashboard (Contemplation Timer Shortcut pattern reused conceptually for breathing timers), Screen [38] -- Habits (Streak tracking pattern, Stats Card layout), Screen [37] -- Journal (Post-Session Rating mirrors Writing Mode Bottom Sheet pattern), Screen [27] -- Workout Detail (Active session full-screen immersive mode, timer controls)
 - **Patterns used**: Domain Dashboard Header (Screen 26 canonical), Filter Chip / Filter Tab Row (Screen 13), Brand CTA Button (Batch 1), Text Input Field (Screen 03), Bottom Sheet Modal (Screen 15), 8-State Interaction Model, Back Button, Stat Tile (Screen 26), Section Eyebrow Label (Screen 12), RPG Skill Badge (Screen 26)
 - **Patterns established**: Breathing Circle (animated expand/contract circle with glow, phase labels, and symmetric easing for guided breathing), Active Session Immersive Mode (full-screen practice view with tab bar hidden, similar to but distinct from Active Workout on Screen 27), Phase Transition Haptics (light haptic on inhale/exhale transitions for eyes-free guidance), Post-Session Effectiveness Rating (5-star domain-colored rating + optional note bottom sheet), "When to Use" Contextual Filter Tags (pre-activated based on navigation source context), Breathing Exercise Card (technique name + rhythm pattern + when-to-use tags + duration options)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-14.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/breathing`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B14-F13 | critical | retention | Make exercise cards semantic buttons and wire filters, pause/resume, duration, close, completion, and save states. |
+| B14-F14 | major | information-architecture | Separate library and full-screen active-session modes with no tab bar during practice. |
+| B14-F15 | major | accessibility | Add accessible labels, 44px hit areas, selected filter state, and semantic exercise/session controls. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

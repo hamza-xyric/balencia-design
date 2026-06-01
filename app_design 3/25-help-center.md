@@ -478,3 +478,36 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Settings [21] (Navigation Header, Section Header, Section Group Container, Settings Row — Navigation for FAQ categories), Notification History [24] (Section Group Container)
 - **Patterns used**: Back Button (Batch 1), Text Input Field (Batch 1 — adapted for search bar with search icon and shorter height), Section Header (Batch 5), Section Group Container (Batch 5), Settings Row — Navigation (Batch 5), SIA Note concept (Batch 5 — elevated to full card here)
 - **Patterns established**: Ask SIA Card (with orange solid CTA — standard brand action color), FAQ Accordion Item (collapsed/expanded with chevron rotation), Search Bar with inline results (adapted Text Input), Contact Support Card (low-prominence ghost CTA), Search No-Results state (with SIA redirect), FAQ Category Sub-Screen (stack-pushed category detail)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-09.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U05`
+**Prototype route**: `/tabs/me/help`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q17 progress photos are private, encrypted, user-deletable, and AI analysis is premium opt-in.
+- Q20 OAuth flows need scope and revocation clarity.
+- Q21 Data Sources may be a demo/no-live-sync trust placeholder for prototype acceptance.
+- Q39 achievement density adapts for low-motivation users.
+- Q43 Knowledge Graph V1 is a guided insight map.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B09-F04 | major | information-architecture | Render a real search input with results/no-results and route or expand FAQ categories. |
+| B09-F05 | major | retention | Wire contact support to an in-app support form or mail flow with fallback/error handling. |
+| B09-F06 | major | accessibility | Use semantic input/link/button elements, add labeled Back, and expand compact CTA hit areas to 44px. |
+
+### Prototype Implications
+
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

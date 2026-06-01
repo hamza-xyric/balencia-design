@@ -1,3 +1,5 @@
+'use client'
+
 type SegmentOption = {
   label: string
   value: string
@@ -6,6 +8,8 @@ type SegmentOption = {
 type SegmentedControlProps = {
   options: SegmentOption[]
   activeValue: string
+  onValueChange?: (value: string) => void
+  ariaLabel?: string
   className?: string
   size?: 'sm' | 'md'
 }
@@ -13,10 +17,12 @@ type SegmentedControlProps = {
 export function SegmentedControl({
   options,
   activeValue,
+  onValueChange,
+  ariaLabel,
   className = '',
   size = 'sm',
 }: SegmentedControlProps) {
-  const heightClass = size === 'md' ? 'h-11' : 'h-9'
+  const heightClass = size === 'md' ? 'h-[56px]' : 'min-h-[52px]'
   const textClass = size === 'md' ? 'text-[14px]' : 'text-caption'
 
   return (
@@ -28,6 +34,7 @@ export function SegmentedControl({
       ].filter(Boolean).join(' ')}
       style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
       role="tablist"
+      aria-label={ariaLabel}
     >
       {options.map((option) => {
         const active = option.value === activeValue
@@ -35,8 +42,9 @@ export function SegmentedControl({
           <button
             key={option.value}
             type="button"
+            onClick={() => onValueChange?.(option.value)}
             className={[
-              'flex h-full items-center justify-center rounded-pill font-semibold leading-[18px] transition-colors duration-[var(--dur-base)] ease-[var(--ease-out-soft)]',
+              'flex h-full min-h-11 items-center justify-center rounded-pill font-semibold leading-[18px] transition-colors duration-[var(--dur-base)] ease-[var(--ease-out-soft)]',
               textClass,
               active ? 'bg-brand-orange text-white' : 'text-white/50',
             ].filter(Boolean).join(' ')}

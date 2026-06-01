@@ -434,3 +434,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Patterns used**: Auth Screen Template (from [03] -- simplified variant), Text Input Field Pattern, Date Picker Field Pattern, Gender Selector Pattern, Split Name Row Pattern, Brand CTA Button
 - **Patterns established**: **SIA Coaching Note Pattern** -- 24pt circular SIA avatar with 1pt purple (#7F24FF) border + explanatory text in 15pt Sora Regular white at 70%, left-aligned row, 8pt gap between avatar and text. Used to provide SIA's voice in non-chat contexts. **Conditional Field Pattern** -- form fields that render only when data is missing from a previous step (OAuth in this case). Layout adapts without visible empty slots or placeholders for hidden fields.
 - **API endpoint**: POST /api/auth/complete-profile -- fields: dateOfBirth (required, 18+), gender (required: male, female, non_binary, prefer_not_to_say), firstName (optional), lastName (optional). Response: { user, nextStep: "consent" }.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-02.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U01`
+**Prototype route**: `/auth/complete-profile`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q06 minimal auth: remove DOB as account-creation legal gate.
+- Q07 social auth profile completion must not block first SIA value.
+- Q08 move first-name collection into SIA onboarding.
+- Q09 WhatsApp is optional coaching/reminder opt-in with STOP/settings controls.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B02-F01 | critical | conversion | If DOB/gender are shown in this interim profile step, render them as editable optional controls with validation when filled; empty Continue and Skip must still navigate to consent so social-auth users are not blocked before SIA. |
+| B02-F02 | major | trust-privacy | Do not block social-auth users with DOB/gender before SIA; defer these fields until a contextual health or personalization moment with a concise reason-for-ask. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.

@@ -662,3 +662,37 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Mission Board [13] (Domain Tag Chip, Mission Card in mission preview, Mission Type Badge), Mission Detail [14] (Domain Tag Chip, action list pattern, milestone list pattern, Mission Type Badge, chain context)
 - **Patterns used**: Brand CTA Button (from Batch 1), Domain Tag Chip (from Screen 12), Section Eyebrow Label (from Screen 12), Modal Presentation (from _shared-patterns.md), Mission Type Badge (Phase 2), 8-State Interaction Model, Motion Tokens
 - **Patterns established**: Multi-State Screen (Input → Processing → Result → Edit), Natural Language Input (large text area with cycling placeholder), SIA Processing Animation (three-dot pulse + status text), Editable AI-Generated List (actions with reorder, edit, delete, add), Mission Type Suggestion (type pills with SIA auto-classification), Chain Suggestions ("What comes next?" section with toggle), Chain Context Banner (chain-linked creation indicator), Strictness Toggle (3-segment control with contextual descriptions), Mission Preview (mini Mission Card preview with type badge), Domain Picker Dropdown, Tracking Signal Toggle
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-06.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U03`
+**Prototype route**: `/tabs/goals/create`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q14 SIA in chats requires explicit invocation.
+- Q15 group health/recovery signals require per-user permission.
+- Q23 call follow-up scheduling should reuse the voice-history scheduling sheet.
+- Q24 create mission starts from blank natural-language intent.
+- Q25 streak details preserve source tab context.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B06-F08 | critical | conversion | Restore the input-first SIA planning flow with a real text area, planning CTA, processing, result, timeout, and error states. |
+| B06-F09 | critical | conversion | Wire modal dismissal, generated-plan editing, type/domain/action controls, strictness state, chain toggle, and create/save navigation. |
+| B06-F10 | major | mobile-ergonomics | Give editing controls 44px hit areas, prevent clipped type options, and add accessible labels for edit/remove controls. |
+
+### Prototype Implications
+
+- Treat 2 critical findings as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

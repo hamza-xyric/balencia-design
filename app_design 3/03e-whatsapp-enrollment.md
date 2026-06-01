@@ -554,3 +554,36 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [03b] — OTP Verification (SMS code box pattern, resend link pattern, CTA states, error handling), Screen [03] — Welcome / Sign Up (phone input style, country picker concept), Screen [02] — Motion Carousel (skip link pattern)
 - **Patterns used**: Auth Screen Template (two-phase variant), Brand CTA Button (full-width), Skip Button Pattern (from [02]), Countdown Resend Pattern (from [03b], adapted for 6-digit SMS)
 - **Patterns established**: **Phone Input with Country Picker** — side-by-side layout: 60pt country code picker (flag + code + chevron) + flexible-width phone input, 8pt gap, matching heights (52pt), both ink-brown-800 bg with --r-md radius. Reusable for any phone number collection. **Two-Phase Auth Flow** — single screen that transitions between data entry (Phase 1) and verification (Phase 2) via content crossfade, without navigation. Back button in Phase 2 returns to Phase 1 while retaining entered data. Reusable for any verify-then-confirm pattern. **Value Preview List** — compact bulleted benefit list with green checkmarks, used to justify optional enrollment steps.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-02.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U01`
+**Prototype route**: `/auth/whatsapp`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q06 minimal auth: remove DOB as account-creation legal gate.
+- Q07 social auth profile completion must not block first SIA value.
+- Q08 move first-name collection into SIA onboarding.
+- Q09 WhatsApp is optional coaching/reminder opt-in with STOP/settings controls.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B02-F03 | critical | conversion | Add real phone entry, country selection, skip navigation, SMS code verification, and resend cooldown. |
+| B02-F04 | major | trust-privacy | Add concise opt-out, message-frequency, and settings reassurance copy before collecting a phone number. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

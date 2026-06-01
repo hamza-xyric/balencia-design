@@ -716,3 +716,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [19] — RPG Character (Stats Summary pattern — streak count, XP bar visual language), Screen [38] — Habits (Calendar Heatmap pattern adapted to monthly streak calendar, Streak flame indicator), Screen [39] — Leaderboard (Rank Row pattern, Podium Colors, Limited User Profile bottom sheet, "see full leaderboard" link pattern), Screen [42] — Celebration Overlay (XP reward display, milestone achievement trigger)
 - **Patterns used**: Back Button (_shared-patterns.md), 8-State Model (_shared-patterns.md), In-Card CTA Button (_shared-patterns.md), Section Eyebrow Label (_shared-patterns.md), Bottom Tab Bar (_shared-patterns.md), Leaderboard Rank Row (Screen 39), Podium Accent Colors (Screen 39), Limited User Profile Bottom Sheet (Screen 39), Pull-to-Refresh (_shared-patterns.md), Staggered Content Entry Animation (_shared-patterns.md), SIA Coaching Note — Compact Variant (_shared-patterns.md, for streak break state)
 - **Patterns established**: Current Streak Hero Card (flame icon + count + longest comparison + progress bar), Streak Calendar (monthly grid with green/blue/grey day indicators and day-detail tooltip), XP Multiplier Card (multiplier tier display with progress bar to next tier — 3 tiers: 1.0x/1.5x/2.0x), **Recovery Multiplier Card** (rested XP bonus display — 1.3x after rest day, stacks with streak multiplier up to 2.0x total cap), Streak Freeze Card (available count + rules + confirmation flow), Streak Milestone Ladder (vertical progression with connecting line, earned/next/locked states), Freeze Confirmation Sheet (lightweight bottom sheet for destructive-adjacent action confirmation), Streak History Row (length + status badge + date range + break reason)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-06.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U03`
+**Prototype route**: `/tabs/goals/streaks`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q14 SIA in chats requires explicit invocation.
+- Q15 group health/recovery signals require per-user permission.
+- Q23 call follow-up scheduling should reuse the voice-history scheduling sheet.
+- Q24 create mission starts from blank natural-language intent.
+- Q25 streak details preserve source tab context.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B06-F11 | critical | retention | Implement month navigation, day tooltips, freeze confirmation/used states, leaderboard navigation, and failure/offline states. |
+| B06-F12 | major | information-architecture | Decide the product owner for streaks and align route/tab context with that decision. |
+| B06-F13 | major | product-sense | Align streak multiplier math and copy with the XP reward table, or update the spec if the reward model changed. |
+| B06-F14 | major | accessibility | Use 44x44 semantic controls with labels for completed, freeze, missed, today, and future states. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

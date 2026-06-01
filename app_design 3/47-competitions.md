@@ -801,3 +801,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [39] -- Leaderboard (Rank Row, Podium Colors, User Position Row with orange border, Limited User Profile sheet), Screen [40] -- Community (Chat Message Bubble pattern for Competition Chat, Message Input Bar), Screen [38] -- Habits (7-Day Calendar Dot Row concept adapted as bar chart), Screen [18] -- Explore (Suggested For You section pattern, Filter Chip Row), Screen [42] -- Celebration (join success uses mini confetti burst)
 - **Patterns used**: Back Button, 8-State Model, Filter Chip / Filter Tab Row (_shared-patterns.md), Section Eyebrow Label, Brand CTA Button, In-Card CTA Button, Modal Presentation (bottom sheets), Expandable/Collapsible Section, Leaderboard Rank Row (Screen 39), Chat Message Bubble (Screen 40), Message Input Bar (Screen 40), Limited User Profile (Screen 39), Skeleton Loading States, Pull-to-Refresh
 - **Patterns established**: Hero Banner Card (featured competition with countdown timer, participant count, prize, and inline join CTA), Competition Card (name + type badge + date + status dot + participant count + rank + contextual CTA), Competition Type Badge ("AI" purple / "Admin" neutral pill), Status Indicator Dot (green active, orange upcoming, gray past), Countdown Timer Display (DD:HH:MM with per-second digit crossfade), Progress Bar Chart (vertical daily score bars with proportional height, tooltip on tap), Chat Preview Card (last 2 messages + open chat CTA, within a non-chat screen), Invitation Badge Card (orange-bordered notification with accept/decline actions), AI Competition Preview Sheet (difficulty dots + SIA note + start CTA), Leave Confirmation Sheet (destructive action confirmation with red CTA), Mini Confetti Burst (8-12 particles from button origin on join success)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-14.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/competitions`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B14-F04 | critical | retention | Implement filter state, join/remind/view-detail/result flows, and competition detail navigation. |
+| B14-F05 | major | mobile-ergonomics | Expand row CTA hit areas to 44px high and make filters semantic selected controls. |
+| B14-F06 | major | navigation | Make invitations, suggestions, hero body, and Back semantic links/buttons with clear destinations. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

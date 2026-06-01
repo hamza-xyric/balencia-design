@@ -552,3 +552,36 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen 28 (Domain Dashboard Header, SIA Coaching Note Card, Active Goals Section, FAB, Section Heading Row — same components, different domain data)
 - **Patterns used**: Back Button (Batch 1), Brand CTA Button (Batch 1), 8-State Interaction Model, Stack Navigation, Content Entry Animation (staggered fade-in)
 - **Patterns established**: Domain Dashboard Template (canonical layout with named slots), Domain Dashboard Header (back + title + accent line + RPG badge), SIA Coaching Note Card (purple dot + contextual message), Floating Action Button (above tab bar, auto-hides on scroll), Stat Tile (compact value + label metric), Section Heading Row (title + "see all" link), Exercise Preview Chip (horizontal scroll list), WHOOP Integration Card (3-column recovery data)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-10.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U05`
+**Prototype route**: `/domains/fitness`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q17 progress photos are private, encrypted, user-deletable, and AI analysis is premium opt-in.
+- Q20 OAuth flows need scope and revocation clarity.
+- Q21 Data Sources may be a demo/no-live-sync trust placeholder for prototype acceptance.
+- Q39 achievement density adapts for low-motivation users.
+- Q43 Knowledge Graph V1 is a guided insight map.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B10-F06 | major | product-sense | Route Log workout to a manual workout logging flow and reserve active workout for the planned workout. |
+| B10-F07 | major | navigation | Make the SIA note a semantic link/button to SIA with domain/workout context. |
+| B10-F08 | minor | mobile-ergonomics | Expand secondary hit areas while preserving compact visual styling. |
+
+### Prototype Implications
+
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

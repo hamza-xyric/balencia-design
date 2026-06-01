@@ -235,3 +235,33 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: None (unique screen)
 - **Patterns used**: Continuous Stroke Line (Brand Guidelines 5.1), Hero Glow (--glow-orange), Brand Logo Treatment
 - **Patterns established**: **Brand Logo Cluster** — symbol (72pt) + stroke line + wordmark vertical stack with 16pt gap, optically centered at 40% screen height. **Splash-to-Screen Crossfade** — 280ms crossfade transition for auto-advancing screens.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-01.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U01`
+**Prototype route**: `/auth/splash`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q06 minimal auth: remove DOB as account-creation legal gate.
+- Q07 social auth profile completion must not block first SIA value.
+- Q08 move first-name collection into SIA onboarding.
+- Q09 WhatsApp is optional coaching/reminder opt-in with STOP/settings controls.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B01-F01 | minor | brand-fit | Decide whether this lockup is intentional; otherwise use the 72pt symbol as hero and reveal the wordmark after the stroke. |
+
+### Prototype Implications
+
+- Keep the existing visual direction, then verify touch targets, labels, and route parity in the prototype phase.
+

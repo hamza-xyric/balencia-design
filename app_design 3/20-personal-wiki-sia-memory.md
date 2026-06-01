@@ -521,3 +521,37 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [18] — Explore Section (search bar pattern — identical), Screen [17] — Me Main (back navigation returns here)
 - **Patterns used**: Back Button (Batch 1), Search Bar (established in Screen [18] this batch), Bottom Tab Bar (_shared-patterns.md), Brand CTA Button (Batch 1 — for confirmation sheet CTAs), Modal/Bottom Sheet (from _shared-patterns.md Modal Presentation pattern)
 - **Patterns established**: Chapter tab bar (horizontal scrolling pill selector), Entry card (with source indicator, edit/delete/"this is wrong" actions), Confidence badge (high/medium/low), Inline edit mode (card transforms in-place), "This Is Wrong" confirmation flow, Delete confirmation bottom sheet
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-08.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U04`
+**Prototype route**: `/tabs/me/personal-wiki`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q20 OAuth flows must preview scopes, purpose, sync cadence, storage, disconnect, delete, and revocation.
+- Q33 Life Areas comparison is Plus-gated only after enough history exists.
+- Q34 Explore tier labels distinguish included vs locked states.
+- Q35 billing follows mobile-store purchase, restore, trial, cancellation, error, and entitlement patterns.
+- Q50 obstacle reconnection uses per-blocker accept/dismiss controls before accept-all.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B08-F04 | critical | trust-privacy | Implement real search, chapter state, inline edit, delete confirmation, and "This is wrong" review/removal flows. |
+| B08-F05 | major | mobile-ergonomics | Give tabs and memory-control actions at least 44px touch height. |
+| B08-F06 | major | accessibility | Replace it with a real input, clear button, focus state, and search result semantics. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

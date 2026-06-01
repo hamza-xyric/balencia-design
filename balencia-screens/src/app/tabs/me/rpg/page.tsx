@@ -1,5 +1,9 @@
+'use client'
+
 import Link from 'next/link'
+import { useState } from 'react'
 import { Check, ChevronRight, Flame, Snowflake } from 'lucide-react'
+import { Button } from '@/components/design-system/Button'
 import { Card } from '@/components/design-system/Card'
 import { domainToneClasses } from '@/components/design-system/Chip'
 import { Header } from '@/components/layout/Header'
@@ -10,9 +14,34 @@ import { LifePowerDisplay } from '@/components/screens/LifePowerDisplay'
 import { MissionTypeBadge } from '@/components/screens/MissionTypeBadge'
 import { StatTile } from '@/components/screens/StatTile'
 import { completedMissions, domainStats, missions, user } from '@/data/mock'
+import { domainDashboardRoutes, domains, type DomainKey } from '@/data/domains'
 
 // Screen 19 of 78: RPG character
 // Spec: /Users/hamza/yHealth/app_design 3/19-rpg-character-screen.md
+
+const subStatLabels: Record<DomainKey, string[]> = {
+  fitness: ['Consistency', 'Training depth', 'Recovery'],
+  sleep: ['Schedule rhythm', 'Sleep quality', 'Wind-down'],
+  career: ['Focused output', 'Skill growth', 'Opportunity'],
+  nutrition: ['Protein target', 'Meal quality', 'Planning'],
+  finance: ['Savings pace', 'Budget control', 'Impulse guard'],
+  faith: ['Practice rhythm', 'Reflection', 'Community'],
+  productivity: ['Deep work', 'Task closure', 'Weekly planning'],
+  relationships: ['Reach-outs', 'Repair work', 'Presence'],
+  wellbeing: ['Stress regulation', 'Energy', 'Self-care'],
+  meditation: ['Session rhythm', 'Breath control', 'Mindful recovery'],
+  creativity: ['Practice rhythm', 'Original work', 'Creative recovery'],
+  learning: ['Study rhythm', 'Retention', 'Application'],
+}
+
+function tierForScore(score: number) {
+  if (score >= 85) return 'Expert'
+  if (score >= 70) return 'Advanced'
+  if (score >= 55) return 'Proficient'
+  if (score >= 40) return 'Established'
+  if (score >= 25) return 'Developing'
+  return 'Newcomer'
+}
 
 function CharacterCard() {
   const progress = Math.max(0, Math.min(user.currentLevelXP / user.nextLevelXP, 1))
@@ -91,7 +120,7 @@ function StreakRewards() {
               {reward}
             </span>
           ))}
-          <Link href="/tabs/goals/streaks" className="ml-auto text-[13px] font-semibold leading-[18px] text-brand-orange">
+          <Link href="/tabs/goals/streaks" className="ml-auto flex min-h-11 items-center px-2 text-[13px] font-semibold leading-[18px] text-brand-orange">
             View all
           </Link>
         </div>
@@ -141,11 +170,14 @@ function MissionHistory() {
 }
 
 export default function RpgCharacterScreen() {
+  const [selectedDomain, setSelectedDomain] = useState<DomainKey | null>(null)
   const sortedStats = [...domainStats].sort((a, b) => b.stat - a.stat)
+  const selectedStat = sortedStats.find((stat) => stat.domain === selectedDomain)
+  const selectedTone = selectedStat ? domainToneClasses[selectedStat.domain] : null
 
   return (
     <PhoneFrame>
-      <ScreenShell header={<Header title="Your character" showBack />} activeTab="me">
+      <ScreenShell header={<Header title="Your character" showBack fallbackHref="/tabs/me" />} activeTab="me">
         <main className="px-4 pb-16 pt-3">
           <CharacterCard />
 
@@ -162,12 +194,19 @@ export default function RpgCharacterScreen() {
             </h2>
             <div className="grid grid-cols-3 gap-2">
               {sortedStats.map((stat, index) => (
-                <DomainSkillCard
+                <button
                   key={stat.domain}
-                  stat={stat}
-                  className="animate-fade-up"
-                  style={{ animationDelay: `${380 + index * 40}ms` }}
-                />
+                  type="button"
+                  onClick={() => setSelectedDomain(stat.domain)}
+                  className="min-h-[88px] rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-orange/70"
+                  aria-label={`Open ${domains[stat.domain].label} sub-stats`}
+                >
+                  <DomainSkillCard
+                    stat={stat}
+                    className="animate-fade-up"
+                    style={{ animationDelay: `${380 + index * 40}ms` }}
+                  />
+                </button>
               ))}
             </div>
           </section>
@@ -179,6 +218,48 @@ export default function RpgCharacterScreen() {
           <StreakRewards />
           <MissionHistory />
         </main>
+        {selectedStat && selectedTone && (
+          <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 px-4 pb-4" role="dialog" aria-modal="true" aria-label={`${domains[selectedStat.domain].label} sub-stats`}>
+            <div className="w-full max-w-[390px] rounded-t-xl border border-white/10 bg-ink-900 p-5 shadow-2">
+              <div className="mx-auto mb-4 h-1 w-10 rounded-pill bg-white/20" aria-hidden="true" />
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <h2 className="text-[18px] font-semibold leading-6 text-white">{domains[selectedStat.domain].label}</h2>
+                  <p className="mt-1 text-[13px] leading-[18px] text-white/45">
+                    What is driving this domain score.
+                  </p>
+                </div>
+                <div className="text-right">
+                  <div className="text-[28px] font-bold leading-8 text-white tabular-nums">{selectedStat.stat}</div>
+                  <div className="text-[12px] leading-4 text-white/45">Lv.{selectedStat.level}</div>
+                </div>
+              </div>
+
+              <div className="mt-5 space-y-4">
+                {subStatLabels[selectedStat.domain].map((label, index) => {
+                  const value = Math.max(8, Math.min(99, selectedStat.stat + (index === 0 ? 7 : index === 1 ? -3 : -10)))
+                  return (
+                    <div key={label}>
+                      <div className="mb-2 flex items-center justify-between gap-3">
+                        <span className="text-[14px] leading-5 text-white/80">{label}</span>
+                        <span className="text-[12px] leading-4 text-white/45">{tierForScore(value)}</span>
+                      </div>
+                      <div className="h-1.5 overflow-hidden rounded-pill bg-white/[0.08]">
+                        <div className={`h-full rounded-pill ${selectedTone.bar}`} style={{ width: `${value}%` }} />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <Button variant="ghost" onClick={() => setSelectedDomain(null)}>Close</Button>
+                <Link href={domainDashboardRoutes[selectedStat.domain]} className="flex h-12 items-center justify-center rounded-pill bg-brand-orange text-[15px] font-semibold text-white">
+                  Dashboard
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </ScreenShell>
     </PhoneFrame>
   )

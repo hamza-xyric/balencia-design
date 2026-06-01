@@ -20,7 +20,7 @@ export function ChainProgressBar({ current, total, className = '', ...props }: C
         </span>
       </div>
       <div className="relative flex h-3 items-center">
-        <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2 rounded-pill bg-white/[0.08]" />
+        <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2 rounded-pill bg-alpha-white-08" />
         <div className="relative z-10 flex w-full items-center justify-between">
           {steps.map((step) => {
             const isComplete = step < current

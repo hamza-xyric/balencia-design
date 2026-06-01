@@ -4,6 +4,8 @@ import type { HTMLAttributes } from 'react'
 type SIACoachingNoteProps = HTMLAttributes<HTMLDivElement> & {
   message: string
   moodChips?: { emoji: string; label: string }[]
+  selectedMood?: string | null
+  onMoodSelect?: (label: string) => void
   actionLabel?: string
   actionHref?: string
 }
@@ -27,6 +29,8 @@ export function SiaAvatarMark({ size = 'sm' }: { size?: 'sm' | 'md' }) {
 export function SIACoachingNote({
   message,
   moodChips = [],
+  selectedMood,
+  onMoodSelect,
   actionLabel,
   actionHref = '/tabs/sia',
   className = '',
@@ -35,7 +39,7 @@ export function SIACoachingNote({
   return (
     <section
       className={[
-        'rounded-xl border border-white/[0.06] border-l-[3px] border-l-royal-purple/60 bg-ink-brown-800 p-6 shadow-1',
+        'rounded-xl border border-alpha-white-06 border-l-[3px] border-l-royal-purple/60 bg-ink-brown-800 p-6 shadow-1',
         className,
       ].filter(Boolean).join(' ')}
       aria-label={`SIA says: ${message}`}
@@ -61,7 +65,15 @@ export function SIACoachingNote({
           {moodChips.map((chip) => (
             <button
               key={chip.label}
-              className="inline-flex h-8 shrink-0 items-center gap-1 rounded-pill border border-white/10 bg-ink-brown-800 px-2.5 text-small leading-[14px] text-white/60 transition-transform duration-[var(--dur-fast)] active:scale-95"
+              type="button"
+              onClick={() => onMoodSelect?.(chip.label)}
+              aria-pressed={selectedMood === chip.label}
+              className={[
+                'inline-flex min-h-11 shrink-0 items-center gap-1 rounded-pill border px-3 text-small leading-[14px] transition-transform duration-[var(--dur-fast)] active:scale-95',
+                selectedMood === chip.label
+                  ? 'border-brand-orange/35 bg-brand-orange/15 text-white'
+                  : 'border-white/10 bg-ink-brown-800 text-white/60',
+              ].join(' ')}
               aria-label={`Select mood: ${chip.label}`}
             >
               <span aria-hidden="true">{chip.emoji}</span>

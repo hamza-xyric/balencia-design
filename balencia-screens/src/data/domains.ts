@@ -26,3 +26,18 @@ export const domains: Record<DomainKey, Domain> = {
 }
 
 export const domainList = Object.values(domains)
+
+export const domainDashboardRoutes: Record<DomainKey, string> = {
+  fitness: '/domains/fitness',
+  sleep: '/features/sleep',
+  career: '/domains/career',
+  nutrition: '/domains/nutrition',
+  finance: '/domains/finance',
+  faith: '/domains/spirituality',
+  productivity: '/features/reminders',
+  relationships: '/domains/relationships',
+  wellbeing: '/features/stress',
+  meditation: '/features/meditation',
+  creativity: '/domains/creativity',
+  learning: '/domains/learning',
+}

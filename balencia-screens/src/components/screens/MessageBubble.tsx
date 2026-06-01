@@ -28,7 +28,7 @@ export function MessageBubble({ sender, children, className = '' }: MessageBubbl
         className={[
           'max-w-[250px] px-3 py-2.5 text-[15px] leading-[22px] text-white',
           isSia
-            ? 'rounded-[16px] rounded-bl-xs border border-white/[0.08] bg-ink-brown-800'
+            ? 'rounded-[16px] rounded-bl-xs border border-alpha-white-08 bg-ink-brown-800'
             : 'rounded-[16px] rounded-br-xs border border-brand-orange/20 bg-brand-orange/15',
         ].filter(Boolean).join(' ')}
       >

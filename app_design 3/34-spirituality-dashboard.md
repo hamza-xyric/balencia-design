@@ -511,3 +511,40 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen 30 — Finance Dashboard (Domain Header, SIA Coaching Note), Screen 32 — Career Dashboard (Domain Header, SIA Note, action checkbox pattern), Screen 33 — Relationships Dashboard (Domain Header, SIA Note, streak tracking). All domain dashboards share header and SIA note patterns. Practice checkbox shares visual pattern with Career's AI Action Checkbox.
 - **Patterns used**: Domain Dashboard Header, SIA Coaching Note Card, Bottom Tab Bar, Stack Navigation, Back Button, 8-State Interaction Model, Bottom Sheet Modal
 - **Patterns established**: Practice Tracker (adaptive checklist with times, streak, and completion counter), Reading Progress Card (book/text tracking with daily goal), Fasting Tracker Card (real-time countdown with progress), Daily Reflection Card (SIA prompt + write CTA), Contemplation Timer Shortcut (dual-card quick-launch), Prayer Schedule Card (location-based calculated prayer times with per-prayer notifications and calculation method selector), Reflection Entry Bottom Sheet, Log Reading Bottom Sheet, belief-adaptive content pattern (same UI structure, different content per faith)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-12.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/domains/spirituality`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B12-F01 | critical | retention | Make every practice row a semantic 44px toggle with completion, undo, missed/late states, XP feedback, persistence, and accessible labels. |
+| B12-F02 | major | navigation | Wire reading/reflection sheets and timer modals with 44px action hit areas and saved/error states. |
+| B12-F03 | major | trust-privacy | Add belief/unconfigured states, source and location provenance, qualified-reference rules, and adaptive labels. |
+| B12-F04 | minor | design-system-consistency | Align the fixture/spec level or document why spirituality level changed. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

@@ -780,3 +780,39 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen [38] — Habits (Checkbox Row pattern, Calendar Heatmap, FAB pattern, Time-of-Day Section Headers), Screen [37] — Journal (Domain Tag Chip, FAB pattern), Screen [26] — Fitness Dashboard (Domain Dashboard Header, SIA Coaching Note Card, Section Heading Row), Screen [34] — Spirituality Dashboard (Practice Tracker checklist pattern)
 - **Patterns used**: Domain Dashboard Header (Screen 26), SIA Coaching Note Card — Compact Variant (Screen 26), Brand CTA Button (Batch 1), Text Input Field (Batch 1), Segmented Control (Screen 15), Toggle Switch (Screen 15), Filter Chip (Screen 13), Calendar Heatmap (Screen 38), Section Eyebrow Label (Screen 12), Section Heading Row (Screen 26), FAB — Extended Pill variant (Screen 35), Back Button (Batch 1), Modal Presentation (Batch 1), 8-State Interaction Model, Staggered Content Entry Animation
 - **Patterns established**: Medication Check Row (checkbox + name + dosage + frequency + time, within time-of-day groups), Medication Card (name + dosage + frequency + start date + reminder indicator + notes preview), Adherence Summary Bar (count + domain-colored progress bar — variant of Completion Rate Bar with domain color), Interactions Warning Banner (amber-bordered persistent safety notice), Privacy Notice Card (lock icon + privacy assurance text with domain accent), Add Medication Modal (multi-field form with frequency segmented control, time chips, reminder toggle, and date pickers), Reminder Offset Selector (toggle + chip row for notification timing)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-16.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/medication`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B16-F01 | critical | retention | Render dose rows as semantic controls with persisted taken state and wire Add medication to the medication form. |
+| B16-F02 | major | trust-privacy | Add medication detail/history/reminder routes or sheets, and link safety/privacy copy to explanatory detail. |
+| B16-F03 | minor | mobile-ergonomics | Expand compact hit areas to at least 44px while preserving visual size. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

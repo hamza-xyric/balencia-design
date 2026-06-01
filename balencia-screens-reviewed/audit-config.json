@@ -1,0 +1,55 @@
+{
+  "name": "Balencia Screen Audit",
+  "screen_count": 90,
+  "batch_size": 12,
+  "review_order": "product-flow",
+  "prototype": {
+    "root": "../balencia-screens",
+    "registry": "../balencia-screens/src/data/screens.ts",
+    "base_url": "http://localhost:3000",
+    "server_command": "npm run dev"
+  },
+  "sources": {
+    "screen_specs": "../app_design 3",
+    "shared_patterns": "../app_design 3/_shared-patterns.md",
+    "design_direction": "../app_design 3/Balencia-Design-Direction.md",
+    "competitor_analysis": "../app_design 3/competitor-analysis.md"
+  },
+  "findings": {
+    "ledger": "findings/findings-ledger.md",
+    "accepted_improvements": "findings/accepted-improvements.md",
+    "deferred_decisions": "findings/deferred-decisions.md",
+    "screen_template": "findings/_screen-template.md"
+  },
+  "a_plus_plus_review": {
+    "root": "a-plus-plus-review",
+    "index": "a-plus-plus-review/index.md",
+    "final_rollup": "a-plus-plus-review/final-rollup.md",
+    "evidence_root": "../balencia-screens/output/a-plus-plus-review",
+    "finding_prefix": "R",
+    "mode": "audit-only",
+    "grade_bar": "figma-ready"
+  },
+  "rubric": [
+    "product sense",
+    "user friction",
+    "visual appeal",
+    "brand fit",
+    "mobile ergonomics",
+    "accessibility",
+    "trust/privacy",
+    "industry best practice"
+  ],
+  "severity_levels": [
+    "critical",
+    "major",
+    "minor",
+    "nit"
+  ],
+  "decision_statuses": [
+    "proposed",
+    "accepted",
+    "deferred",
+    "rejected"
+  ]
+}

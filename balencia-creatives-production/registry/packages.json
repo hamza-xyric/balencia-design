@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "source": "../balencia-screens-reviewed/findings/creative-opportunities.md",
+  "packages": [
+    {
+      "id": "sia-identity",
+      "name": "SIA identity package",
+      "description": "3D or 2D avatar, small chat avatar, voice avatar states, waveform/particle style, error/permission states.",
+      "default_asset_types": ["avatar", "illustration", "motion-still"],
+      "higgsfield_allowed": true,
+      "default_models": {
+        "avatar": "soul_cast",
+        "illustration": "nano_banana_pro"
+      }
+    },
+    {
+      "id": "onboarding-motion",
+      "name": "Onboarding motion package",
+      "description": "Splash reveal, four carousel motion scenes, SIA onboarding canvas, reduced-motion stills.",
+      "default_asset_types": ["motion-still", "motion-loop", "illustration"],
+      "higgsfield_allowed": true,
+      "default_models": {
+        "motion-loop": "seedance_2_0",
+        "motion-still": "marketing_studio_image"
+      }
+    },
+    {
+      "id": "domain-content",
+      "name": "Domain content package",
+      "description": "Exercise, yoga, recipe, meal, finance, learning, creativity, spirituality, relationship visual systems.",
+      "default_asset_types": ["thumbnail", "photo", "illustration", "video-poster"],
+      "higgsfield_allowed": true,
+      "default_models": {
+        "photo": "marketing_studio_image",
+        "illustration": "nano_banana_pro"
+      }
+    },
+    {
+      "id": "media-content",
+      "name": "Media and content package",
+      "description": "Photo thumbnails, video posters, playlist/album art, receipt/photo placeholders, protected media states.",
+      "default_asset_types": ["thumbnail", "video-poster", "photo"],
+      "higgsfield_allowed": true,
+      "default_models": {
+        "photo": "marketing_studio_image",
+        "video-poster": "marketing_studio_image"
+      }
+    },
+    {
+      "id": "gamification",
+      "name": "Gamification package",
+      "description": "Achievement badges, XP celebration, streak flame, freeze token, mission-type badges.",
+      "default_asset_types": ["badge", "illustration", "motion-still"],
+      "higgsfield_allowed": true,
+      "default_models": {
+        "badge": "nano_banana_pro",
+        "illustration": "nano_banana_pro"
+      }
+    },
+    {
+      "id": "empty-system",
+      "name": "Empty and system package",
+      "description": "No notifications, no journal entries, no schedule, help, permissions, force update, search no-results, app rating.",
+      "default_asset_types": ["illustration", "icon-set"],
+      "higgsfield_allowed": true,
+      "default_models": {
+        "illustration": "nano_banana_pro"
+      }
+    },
+    {
+      "id": "provider-logo",
+      "name": "Provider and logo package",
+      "description": "Google, Apple, WhatsApp, Spotify, YouTube, WHOOP, calendar/health sources — official usage only.",
+      "default_asset_types": ["official-mark"],
+      "higgsfield_allowed": false,
+      "default_models": {}
+    }
+  ]
+}

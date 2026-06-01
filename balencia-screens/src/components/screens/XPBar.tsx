@@ -17,7 +17,7 @@ export function XPBar({ current, total, label, className = '', ...props }: XPBar
           <span>{current.toLocaleString()} / {total.toLocaleString()} XP</span>
         </div>
       )}
-      <div className="h-2 overflow-hidden rounded-pill bg-white/[0.08]">
+      <div className="h-2 overflow-hidden rounded-pill bg-alpha-white-08">
         <div
           className="h-full rounded-pill bg-brand-orange"
           style={{ width: `${progress * 100}%` }}

@@ -684,3 +684,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [12] — Home Screen (Mood Chip row shares emoji selection pattern), Screen [37] — Journal (writing mode bottom sheet modal pattern, domain tag chip style adapted as emotion tags), Screen [38] — Habits (time-of-day awareness, streak tracking pattern), Screen [35/36] — Dashboards (SIA Coaching Note Card style adapted for Tomorrow Preview SIA note)
 - **Patterns used**: Brand CTA Button (Submit CTA), Text Input Field (Batch 1 — intention, reflection, gratitude inputs), Modal Presentation (Batch 1 — bottom sheet with drag handle), 8-State Interaction Model, Section Eyebrow Label (Screen 12), Back Button (stack push variant only)
 - **Patterns established**: Mood Emoji Selector (6-emoji row with labels and domain-colored selection state — distinct from Journal's 5-emoji selector by adding "anxious" and "tired"), Wellbeing Slider (horizontal 1-10 with domain-color fill and floating value badge), Fulfillment Toggle (custom switch for yes/no reflection), Intention Reflection Card (displays morning data for evening reflection), Expandable Context Note (collapsed-by-default text area), Emotion Tag Chips (multi-select flowing grid with domain-color selection), Tomorrow Preview Card (schedule preview with SIA note), Time-Aware Greeting (morning/evening variant greeting with streak), Motivation-Reduced Check-in (radically simplified low-motivation variant fitting one viewport)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-04.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U02`
+**Prototype route**: `/tabs/today/daily-checkin`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q10 guest preview may remain a clearly labeled preview/demo entry form.
+- Q11 SIA onboarding only needs enough interactivity to reach Initial plan.
+- Q12 voice-inline can remain a QA route but production should treat it as SIA chat state.
+- Q13 voice privacy requires permission, consent, transcript control, deletion, and raw-audio handling states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B04-F03 | critical | retention | Build controlled mood, slider, text, note, save, submit, validation, and dismiss behavior. |
+| B04-F04 | major | mobile-ergonomics | Expand hit areas and expose sliders with proper accessible semantics. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

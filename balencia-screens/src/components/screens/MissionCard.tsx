@@ -22,7 +22,7 @@ export function MissionCard({ mission, className = '', ...props }: MissionCardPr
   return (
     <article
       className={[
-        'relative rounded-xl border border-white/[0.06] bg-ink-brown-800 p-6 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]',
+        'relative rounded-xl border border-alpha-white-06 bg-ink-brown-800 p-6 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]',
         mission.status === 'completed' ? 'opacity-70' : '',
         mission.status === 'paused' ? 'opacity-60' : '',
         className,

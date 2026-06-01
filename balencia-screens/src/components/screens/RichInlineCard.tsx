@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { CSSProperties, ReactNode } from 'react'
 import { ArrowUpRight, Dumbbell, Utensils, WalletCards } from 'lucide-react'
 import { DomainTag } from '@/components/design-system/DomainTag'
@@ -22,25 +23,25 @@ function InlineCardShell({
   return (
     <div className={['flex w-full gap-2', className].filter(Boolean).join(' ')}>
       <div className="w-6 shrink-0" />
-      <div className="w-full rounded-xl border border-white/[0.08] bg-ink-brown-800 p-4 shadow-1">
+      <div className="w-full rounded-xl border border-alpha-white-08 bg-ink-brown-800 p-4 shadow-1">
         {children}
       </div>
     </div>
   )
 }
 
-function CardLink({ children }: { children: ReactNode }) {
+function CardLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <div className="mt-3 flex items-center justify-end gap-1 text-[12px] font-semibold leading-4 text-brand-orange">
+    <Link href={href} className="mt-3 flex min-h-11 items-center justify-end gap-1 text-[12px] font-semibold leading-4 text-brand-orange">
       <span>{children}</span>
       <ArrowUpRight size={13} strokeWidth={2} />
-    </div>
+    </Link>
   )
 }
 
 function MiniLineChart() {
   return (
-    <div className="mt-3 h-[112px] rounded-md border border-white/[0.06] bg-white/[0.03] px-2 py-3">
+    <div className="mt-3 h-[112px] rounded-md border border-alpha-white-06 bg-alpha-white-03 px-2 py-3">
       <svg viewBox="0 0 240 88" className="h-full w-full" aria-hidden="true">
         <path d="M8 72 H232" className="stroke-white/10" strokeWidth="1" />
         <path d="M8 44 H232" className="stroke-white/10" strokeWidth="1" />
@@ -102,7 +103,7 @@ function MiniProgressRing({ mission }: { mission: Mission }) {
 
 function MacroPill({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-sm border border-white/[0.06] bg-white/[0.04] px-2 py-1">
+    <div className="rounded-sm border border-alpha-white-06 bg-alpha-white-04 px-2 py-1">
       <span className="text-small font-semibold leading-[14px] text-white/50">{label}</span>
       <span className="ml-1 text-small font-semibold leading-[14px] text-white">{value}</span>
     </div>
@@ -111,7 +112,7 @@ function MacroPill({ label, value }: { label: string; value: string }) {
 
 function FinanceRow({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
   return (
-    <div className="flex h-8 items-center justify-between border-b border-white/[0.05] last:border-b-0">
+    <div className="flex h-8 items-center justify-between border-b border-alpha-white-05 last:border-b-0">
       <span className="text-caption leading-[18px] text-white/50">{label}</span>
       <span className={['text-caption font-semibold leading-[18px]', positive ? 'text-forest-green' : 'text-white'].join(' ')}>
         {value}
@@ -129,7 +130,7 @@ export function RichInlineCard(props: RichInlineCardProps) {
         <p className="mt-2 text-[12px] leading-4 text-white/50">
           Morning workouts are tracking with better sleep consistency.
         </p>
-        <CardLink>View more</CardLink>
+        <CardLink href="/features/intelligence">View more</CardLink>
       </InlineCardShell>
     )
   }
@@ -146,10 +147,10 @@ export function RichInlineCard(props: RichInlineCardProps) {
             </p>
           </div>
         </div>
-        <div className="mt-3 rounded-md border border-white/[0.06] bg-white/[0.04] p-3">
+        <div className="mt-3 rounded-md border border-alpha-white-06 bg-alpha-white-04 p-3">
           <p className="text-caption leading-[18px] text-white/70">{props.mission.nextAction}</p>
         </div>
-        <CardLink>View mission</CardLink>
+        <CardLink href="/tabs/goals/detail">View mission</CardLink>
       </InlineCardShell>
     )
   }
@@ -169,7 +170,7 @@ export function RichInlineCard(props: RichInlineCardProps) {
           <MacroPill label="Carbs" value={`${props.meal.carbs}g`} />
           <MacroPill label="Fat" value={`${props.meal.fat}g`} />
         </div>
-        <CardLink>Add to plan</CardLink>
+        <CardLink href="/domains/meal">Add to plan</CardLink>
       </InlineCardShell>
     )
   }
@@ -188,7 +189,7 @@ export function RichInlineCard(props: RichInlineCardProps) {
           <FinanceRow label="Expenses" value="$2,860" />
           <FinanceRow label="Net" value="$1,340" positive />
         </div>
-        <CardLink>View finances</CardLink>
+        <CardLink href="/domains/finance">View finances</CardLink>
       </InlineCardShell>
     )
   }
@@ -207,9 +208,9 @@ export function RichInlineCard(props: RichInlineCardProps) {
             </p>
           </div>
         </div>
-        <button className="mt-3 h-8 rounded-pill bg-brand-orange px-4 text-[12px] font-semibold leading-4 text-white shadow-[var(--glow-orange)]">
+        <Link href="/domains/workout" className="mt-3 inline-flex min-h-11 items-center rounded-pill bg-brand-orange px-4 text-[12px] font-semibold leading-4 text-white shadow-[var(--glow-orange)]">
           Start workout
-        </button>
+        </Link>
       </InlineCardShell>
     )
   }
@@ -227,10 +228,10 @@ export function RichInlineCard(props: RichInlineCardProps) {
         <DomainTag domain="fitness" />
         <DomainTag domain="nutrition" />
       </div>
-      <div className="mt-3 h-2 overflow-hidden rounded-pill bg-white/[0.08]">
+      <div className="mt-3 h-2 overflow-hidden rounded-pill bg-alpha-white-08">
         <div className="h-full rounded-pill bg-royal-purple" style={{ width: '72%' } as CSSProperties} />
       </div>
-      <CardLink>Tell me more</CardLink>
+      <CardLink href="/features/intelligence">Tell me more</CardLink>
     </InlineCardShell>
   )
 }

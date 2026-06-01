@@ -406,3 +406,35 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen [03] — Welcome / Sign Up (email input, CTA button), Screen [04] — Sign In (back button, email input, CTA button)
 - **Patterns used**: Auth Screen Template (simplified — single input variant), Text Input Field Pattern, Brand CTA Button, Back Button Pattern
 - **Patterns established**: **Confirmation State Pattern** — form-to-confirmation crossfade within the same screen. Green success icon (56pt circle, #34A853, white checkmark) + heading change + CTA change. Used when a form submission results in a "check your email/phone" confirmation. **Resend Link Pattern** — "Didn't receive it? send again" with tap → "sent" green confirmation text (3s) → cooldown after 2 sends.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-02.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U01`
+**Prototype route**: `/auth/forgot-password`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q06 minimal auth: remove DOB as account-creation legal gate.
+- Q07 social auth profile completion must not block first SIA value.
+- Q08 move first-name collection into SIA onboarding.
+- Q09 WhatsApp is optional coaching/reminder opt-in with STOP/settings controls.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B02-F08 | critical | conversion | Wire reset submission, masked-email confirmation, back-to-sign-in CTA, and resend/cooldown states. |
+| B02-F09 | minor | accessibility | Add a Back aria-label and ensure it performs stack pop. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

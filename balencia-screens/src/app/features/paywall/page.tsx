@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import { Check, Lock } from 'lucide-react'
 import { Button } from '@/components/design-system/Button'
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
@@ -57,6 +60,33 @@ function FeatureHighlights() {
   )
 }
 
+const paywallPlans = [
+  {
+    id: 'plus-monthly',
+    name: 'Plus monthly',
+    price: '$20/mo',
+    detail: 'Full SIA coaching with monthly renewal after a 7-day trial.',
+    renewal: 'Renews Jun 3, 2026 at $20/mo after trial unless cancelled in the store.',
+    cta: 'Start Plus trial',
+  },
+  {
+    id: 'pro-monthly',
+    name: 'Pro monthly',
+    price: '$60/mo',
+    detail: 'Advanced analytics and higher SIA limits for active planning.',
+    renewal: 'Renews Jun 3, 2026 at $60/mo after trial unless cancelled in the store.',
+    cta: 'Start Pro trial',
+  },
+  {
+    id: 'plus-annual',
+    name: 'Plus annual',
+    price: '$192/yr',
+    detail: 'Same Plus access with annual billing and two months saved.',
+    renewal: 'Renews Jun 3, 2027 at $192/yr after trial unless cancelled in the store.',
+    cta: 'Start annual trial',
+  },
+]
+
 function TierCard() {
   return (
     <section className="mt-4 rounded-xl border border-brand-orange/30 bg-ink-900 p-4">
@@ -78,6 +108,27 @@ function TierCard() {
 
 export default function PaywallScreen() {
   const [accent, ...rest] = paywallPrompt.headline.split(' ')
+  const [state, setState] = useState<'offer' | 'processing' | 'success' | 'error' | 'plans' | 'dismissed'>('offer')
+  const [selectedPlanId, setSelectedPlanId] = useState(paywallPlans[0].id)
+  const selectedPlan = paywallPlans.find((plan) => plan.id === selectedPlanId) ?? paywallPlans[0]
+  const startPurchase = () => {
+    setState('processing')
+    window.setTimeout(() => setState('success'), 700)
+  }
+
+  if (state === 'dismissed') {
+    return (
+      <PhoneFrame>
+        <ScreenShell showTabBar={false}>
+          <main className="flex min-h-full flex-col items-center justify-center bg-ink-900 px-6 text-center">
+            <h1 className="text-h2 font-semibold leading-[26px] text-white">Upgrade dismissed</h1>
+            <p className="mt-2 text-caption leading-[18px] text-white/55">Returned to the gated feature trigger.</p>
+            <button type="button" onClick={() => setState('offer')} className="mt-5 h-11 rounded-pill bg-brand-orange px-5 text-[15px] font-semibold leading-5 text-white">Show paywall again</button>
+          </main>
+        </ScreenShell>
+      </PhoneFrame>
+    )
+  }
 
   return (
     <PhoneFrame>
@@ -92,9 +143,9 @@ export default function PaywallScreen() {
             </div>
           </div>
 
-          <div className="absolute inset-0 bg-ink-900/60" aria-hidden="true" />
+          <button type="button" className="absolute inset-0 bg-ink-900/60" aria-label="Dismiss upgrade prompt" onClick={() => setState('dismissed')} />
 
-          <section className="relative z-10 max-h-[684px] overflow-y-auto rounded-t-2xl border border-b-0 border-white/[0.08] bg-ink-brown-800 px-4 pb-5 pt-4 shadow-3 hide-scrollbar animate-fade-up">
+          <section className="relative z-10 max-h-[660px] overflow-y-auto overscroll-contain rounded-t-2xl border border-b-0 border-white/[0.08] bg-ink-brown-800 px-4 pb-0 pt-4 shadow-3 hide-scrollbar animate-fade-up" role="dialog" aria-modal="true" aria-label="Upgrade to Pro">
             <div className="mx-auto h-1 w-10 rounded-pill bg-white/20" />
 
             <div className="mt-5 px-1">
@@ -109,21 +160,75 @@ export default function PaywallScreen() {
 
             <div className="px-1">
               <FeatureHighlights />
-              <TierCard />
+              {state === 'plans' ? (
+                <div className="mt-4 grid gap-2">
+                  {paywallPlans.map((plan) => {
+                    const selected = selectedPlanId === plan.id
+                    return (
+                      <button
+                        key={plan.id}
+                        type="button"
+                        aria-pressed={selected}
+                        onClick={() => setSelectedPlanId(plan.id)}
+                        className={[
+                          'min-h-[72px] rounded-md border px-4 py-3 text-left transition-colors duration-[var(--dur-fast)]',
+                          selected ? 'border-brand-orange bg-brand-orange/10' : 'border-white/10 bg-ink-900',
+                        ].join(' ')}
+                      >
+                        <span className="flex items-center justify-between gap-3 text-[15px] font-semibold leading-5 text-white">
+                          <span>{plan.name}</span>
+                          <span className="text-brand-orange">{plan.price}</span>
+                        </span>
+                        <span className="mt-1 block text-[12px] leading-4 text-white/50">{plan.detail}</span>
+                        {selected && (
+                          <span className="mt-2 inline-flex h-6 items-center rounded-pill bg-brand-orange px-2.5 text-[11px] font-semibold leading-[14px] text-white">
+                            Selected
+                          </span>
+                        )}
+                      </button>
+                    )
+                  })}
+                  <p className="rounded-md bg-white/[0.04] p-3 text-[12px] leading-4 text-white/55">
+                    Selected: {selectedPlan.name}. {selectedPlan.renewal} Final purchase, cancellation, and restore happen through the App Store or Google Play sheet.
+                  </p>
+                </div>
+              ) : (
+                <TierCard />
+              )}
             </div>
 
-            <div className="mt-4 px-1">
-              <Button fullWidth size="auth">
-                {paywallPrompt.cta}
-              </Button>
-            </div>
+            <div className="sticky bottom-0 z-20 -mx-4 mt-4 border-t border-white/[0.06] bg-ink-brown-800 px-5 pb-3 pt-3">
+              <div className="px-1">
+                <Button fullWidth size="auth" onClick={startPurchase} disabled={state === 'processing' || state === 'success'}>
+                  {state === 'processing' ? 'Opening purchase...' : state === 'success' ? 'Unlocked' : state === 'plans' ? selectedPlan.cta : paywallPrompt.cta}
+                </Button>
+              </div>
 
-            <button type="button" className="mt-1 flex h-9 w-full items-center justify-center text-[15px] leading-5 text-white/50">
-              Maybe later
-            </button>
-            <button type="button" className="flex h-9 w-full items-center justify-center text-[15px] font-semibold leading-5 text-brand-orange">
-              See all plans
-            </button>
+              {state === 'success' && (
+                <p className="mt-3 rounded-md bg-forest-green/15 p-3 text-center text-caption font-semibold leading-[18px] text-forest-green" role="status">
+                  Trial active for {selectedPlan.name}. Store receipt synced; cancellation remains available through subscription settings.
+                </p>
+              )}
+
+              {state === 'error' && (
+                <p className="mt-3 rounded-md bg-error-red/15 p-3 text-center text-caption font-semibold leading-[18px] text-error-red" role="alert">
+                  Purchase could not complete. Try again or restore purchases.
+                </p>
+              )}
+
+              <button type="button" onClick={() => setState('dismissed')} className="mt-1 flex h-11 w-full items-center justify-center text-[15px] leading-5 text-white/50">
+                Maybe later
+              </button>
+              <button type="button" onClick={() => setState(state === 'plans' ? 'offer' : 'plans')} className="flex h-11 w-full items-center justify-center text-[15px] font-semibold leading-5 text-brand-orange">
+                {state === 'plans' ? 'Back to recommended plan' : 'See all plans'}
+              </button>
+              <button type="button" onClick={() => setState('success')} className="flex h-11 w-full items-center justify-center text-[15px] font-semibold leading-5 text-white/60">
+                Restore purchases
+              </button>
+              <button type="button" onClick={() => setState('error')} className="flex h-11 w-full items-center justify-center text-[15px] font-semibold leading-5 text-white/50">
+                Payment did not complete
+              </button>
+            </div>
           </section>
         </main>
       </ScreenShell>

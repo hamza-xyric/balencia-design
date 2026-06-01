@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "updated": "2026-05-26",
+  "source": [
+    "../balencia-screens-reviewed/findings/creative-opportunities.md",
+    "../balencia-screens-reviewed/questions-for-user.md"
+  ],
+  "decisions": [
+    {
+      "id": "sia-avatar-3d-first",
+      "status": "resolved",
+      "summary": "Target proper 3D SIA avatar; 2D reactive fallback only if 3D infeasible for V1. Do not lead production with AI-generated avatar assets unless the quality/reference direction is strong enough to build premium trust.",
+      "batches": ["CP-02"]
+    },
+    {
+      "id": "first-slice-onboarding-first",
+      "status": "resolved",
+      "summary": "Finish CP-01 carousel flow, SIA onboarding canvas, and controlled domain visual language before leading with SIA avatar, media/trust, or Knowledge Graph production.",
+      "screen_ids": ["01", "02", "07"],
+      "batches": ["CP-01"]
+    },
+    {
+      "id": "progress-photos-private-no-share",
+      "status": "resolved",
+      "summary": "Encrypted, private by default, no V1 share; premium opt-in AI analysis; secure thumbnail and provenance states.",
+      "screen_ids": ["49", "67"],
+      "batches": ["CP-03"]
+    },
+    {
+      "id": "reports-in-app-only",
+      "status": "resolved",
+      "summary": "No PDF/data export V1; in-app preview and reviewed summaries only.",
+      "screen_ids": ["78"],
+      "batches": ["CP-07"]
+    },
+    {
+      "id": "provider-demo-honest",
+      "status": "resolved",
+      "summary": "Demo recommendations and no-live-sync placeholders; no implied real playback/sync.",
+      "screen_ids": ["80", "81", "84"],
+      "batches": ["CP-03", "CP-07", "CP-09"]
+    },
+    {
+      "id": "guest-preview-lightweight",
+      "status": "resolved",
+      "summary": "Honest preview/demo visual only; not full browsable guest shell.",
+      "screen_ids": ["06"],
+      "batches": ["CP-07"]
+    },
+    {
+      "id": "social-friends-private-first",
+      "status": "resolved",
+      "summary": "Friends/private-first; avoid global ranking and public-room default creatives.",
+      "screen_ids": ["39", "40", "46", "47"],
+      "batches": ["CP-07"]
+    },
+    {
+      "id": "knowledge-graph-guided-map",
+      "status": "resolved",
+      "summary": "Guided insight-map with explainable paths; not dense force-graph hero.",
+      "screen_ids": ["72"],
+      "batches": ["CP-06"]
+    },
+    {
+      "id": "achievements-motivation-adaptive",
+      "status": "resolved",
+      "summary": "Earned, near-next, progress, and quiet hidden/locked badge variants.",
+      "screen_ids": ["71"],
+      "batches": ["CP-05"]
+    },
+    {
+      "id": "photography-source-mix",
+      "status": "resolved",
+      "summary": "Best asset wins by surface: real/licensed/owned or non-identifiable demo fixtures for sensitive people/body/trust; generated or licensed allowed for food, posters, abstract, empty/system, gamification, and demo content when credible and QA-passed.",
+      "batches": ["CP-03", "CP-04", "CP-07"]
+    }
+  ]
+}

@@ -571,3 +571,39 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [39] — Leaderboard (Limited User Profile sheet, Level Badge on member rows), Screen [09] — SIA Chat (message bubble pattern — community uses simpler variant without rich cards)
 - **Patterns used**: Back Button, 8-State Model, FAB (Screen 35), Modal Presentation (Batch 1), Text Input Field (Batch 1), Brand CTA Button (Batch 1)
 - **Patterns established**: Room List Row (avatar + name + members + preview + time + unread badge), Discover Card (emoji + name + member count, horizontal scroll), Chat Message Bubble — Group (sender avatar + name + bubble + timestamp, left/right alignment), Shared Achievement Card (green-bordered celebration within chat), Message Input Bar (input field + send button with active/inactive states), Date Separator (centered text with horizontal rules), Room Preview Sheet, Create Room Modal, Member List Sheet, Room Settings Sheet, Typing Indicator (three-dot pulse), Unread Badge (orange circle with count)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-13.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/community`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B13-F07 | critical | navigation | Make discover cards and room rows semantic controls, open room preview or room interior, and wire Create room to its bottom sheet. |
+| B13-F08 | major | trust-privacy | Add visibility defaults, preview/join copy, room settings, member controls, and moderation/report/block entry points. |
+| B13-F09 | major | accessibility | Use labeled links/buttons for discover cards, room rows, unread state, active status, and back navigation. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

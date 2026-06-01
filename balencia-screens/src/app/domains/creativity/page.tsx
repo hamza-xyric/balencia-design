@@ -1,9 +1,12 @@
+'use client'
+
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
-import { Check, Flame, Plus } from 'lucide-react'
+import { useState } from 'react'
+import { Check, Flame, Plus, X } from 'lucide-react'
 import { CalendarHeatmap } from '@/components/charts/CalendarHeatmap'
+import { Button } from '@/components/design-system/Button'
 import { Card } from '@/components/design-system/Card'
-import { FAB } from '@/components/design-system/FAB'
 import { DomainDashboardHeader } from '@/components/domain/DomainDashboardHeader'
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
 import { ScreenShell } from '@/components/layout/ScreenShell'
@@ -63,25 +66,33 @@ function CreativityProgressCircle({ progress }: { progress: number }) {
 
 function SiaDotNote() {
   return (
-    <Card variant="small" className="rounded-lg p-6 animate-fade-up">
+    <Link href="/tabs/sia?context=creativity" className="block animate-fade-up">
+    <Card variant="small" className="rounded-lg p-6">
       <div className="flex items-start gap-3">
         <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-royal-purple" aria-hidden="true" />
         <p className="text-[15px] leading-[21px] text-white/90">{creativityDashboard.siaNote}</p>
       </div>
     </Card>
+    </Link>
   )
 }
 
 function ActiveProjects() {
+  const [expanded, setExpanded] = useState('')
+  const [all, setAll] = useState(false)
+
   return (
     <section className="mt-4 animate-fade-up" style={{ animationDelay: '80ms' }}>
       <Eyebrow>Active projects</Eyebrow>
       <Card variant="small" className="rounded-lg p-4">
-        {creativityDashboard.projects.map((project, index) => (
-          <div
+        {creativityDashboard.projects.concat(all ? [{ id: 'archive', name: 'Sketch archive', milestone: 'Select strongest pieces', progress: 0.34, due: 'Jun' }] : []).map((project, index) => (
+          <button
             key={project.id}
+            type="button"
+            onClick={() => setExpanded(expanded === project.id ? '' : project.id)}
+            aria-expanded={expanded === project.id}
             className={[
-              'py-3',
+              'w-full py-3 text-left',
               index > 0 ? 'border-t border-white/[0.05]' : 'pt-0',
             ].join(' ')}
           >
@@ -98,9 +109,10 @@ function ActiveProjects() {
               </div>
               <ProgressBar progress={project.progress} />
             </div>
-          </div>
+            {expanded === project.id && <div className="mt-3 rounded-md bg-ink-900 p-3 text-caption leading-[18px] text-white/55">Project detail: next milestone, notes, and session history. Tap Log session to attach time here.</div>}
+          </button>
         ))}
-        <button type="button" className="flex h-9 w-full items-center justify-center border-t border-white/[0.05] text-caption font-semibold leading-[18px] text-brand-orange">
+        <button type="button" onClick={() => setAll(!all)} className="flex h-11 w-full items-center justify-center border-t border-white/[0.05] text-caption font-semibold leading-[18px] text-brand-orange" aria-expanded={all}>
           See all
         </button>
       </Card>
@@ -108,7 +120,7 @@ function ActiveProjects() {
   )
 }
 
-function InspirationPrompt() {
+function InspirationPrompt({ onStart }: { onStart: (context: string) => void }) {
   return (
     <section className="mt-4 animate-fade-up" style={{ animationDelay: '160ms' }}>
       <div className="rounded-lg border border-white/[0.06] bg-ink-brown-800 p-6 shadow-1">
@@ -117,12 +129,12 @@ function InspirationPrompt() {
           <div className="min-w-0">
             <p className="text-body leading-[22px] text-white/85">{creativityDashboard.prompt}</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <span className="inline-flex h-8 items-center rounded-pill bg-domain-creativity/15 px-4 text-caption font-semibold leading-[18px] text-domain-creativity">
+              <button type="button" onClick={() => onStart('Prompt: ' + creativityDashboard.prompt)} className="inline-flex h-11 items-center rounded-pill bg-domain-creativity/15 px-4 text-caption font-semibold leading-[18px] text-domain-creativity">
                 Start creating
-              </span>
+              </button>
               <Link
-                href="/features/journal"
-                className="inline-flex h-8 items-center rounded-pill border border-white/10 bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white/60"
+                href={`/features/journal?prompt=${encodeURIComponent(creativityDashboard.prompt)}`}
+                className="inline-flex h-11 items-center rounded-pill border border-white/10 bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white/60"
               >
                 Reflect on this
               </Link>
@@ -187,8 +199,8 @@ function StreakTracker() {
           <div className="text-caption leading-[18px] text-white/40">best: {creativityDashboard.streak.best}</div>
         </div>
         <div className="mt-4 grid grid-cols-7 gap-2">
-          {creativityDashboard.streak.days.map((day) => (
-            <div key={day.label + day.state} className="flex flex-col items-center gap-2">
+          {creativityDashboard.streak.days.map((day, index) => (
+            <div key={`${day.label}-${day.state}-${index}`} className="flex flex-col items-center gap-2">
               <span
                 className={[
                   'flex h-8 w-8 items-center justify-center rounded-full border text-white',
@@ -255,29 +267,54 @@ function ActivityLog() {
 }
 
 export default function CreativityScreen() {
+  const [sheetOpen, setSheetOpen] = useState(false)
+  const [context, setContext] = useState('')
+  const [minutes, setMinutes] = useState('')
+  const [toast, setToast] = useState('')
+  const openSheet = (value = '') => {
+    setContext(value)
+    setSheetOpen(true)
+  }
+  const save = () => {
+    setSheetOpen(false)
+    setToast('Creative session logged: +25 XP')
+    window.setTimeout(() => setToast(''), 3000)
+  }
+
   return (
     <PhoneFrame>
       <ScreenShell
         header={<DomainDashboardHeader title="Creativity" domain="creativity" variant="expanded" />}
         activeTab="me"
-        bottomAction={
-          <FAB
-            label="Log session"
-            icon={<Plus size={16} strokeWidth={2.4} />}
-            display="pill"
-          />
-        }
+        bottomAction={<button type="button" onClick={() => openSheet()} className="mx-auto flex h-[48px] w-fit items-center justify-center gap-2 rounded-pill bg-brand-orange px-6 text-[15px] font-semibold leading-5 text-white shadow-2 shadow-brand-orange/30" aria-label="Log creative session"><Plus size={16} strokeWidth={2.4} />Log session</button>}
       >
         <main className="px-4 pb-6 pt-4">
           <SiaDotNote />
           <ActiveProjects />
-          <InspirationPrompt />
+          <InspirationPrompt onStart={openSheet} />
           <PracticeHeatmap />
           <ActiveMissions />
           <StreakTracker />
           <PortfolioTimeline />
           <ActivityLog />
         </main>
+        {sheetOpen && (
+          <div className="absolute inset-x-0 bottom-[84px] z-20 mx-3 rounded-xl border border-white/10 bg-ink-brown-800 p-4 shadow-2" role="dialog" aria-label="Log creative session">
+            <div className="flex items-center justify-between">
+              <h2 className="text-[17px] font-semibold text-white">Log creative session</h2>
+              <button type="button" onClick={() => setSheetOpen(false)} className="flex h-11 w-11 items-center justify-center rounded-full text-white/60" aria-label="Cancel"><X size={18} /></button>
+            </div>
+            <label className="mt-3 block text-caption leading-[18px] text-white/50">Project or prompt
+              <input value={context} onChange={(event) => setContext(event.target.value)} className="mt-1 h-11 w-full rounded-md border border-white/10 bg-ink-900 px-3 text-[15px] text-white outline-none" placeholder="Film edit, sketch, draft..." />
+            </label>
+            <label className="mt-3 block text-caption leading-[18px] text-white/50">Minutes
+              <input value={minutes} onChange={(event) => setMinutes(event.target.value)} type="number" className="mt-1 h-11 w-full rounded-md border border-white/10 bg-ink-900 px-3 text-[15px] text-white outline-none" />
+            </label>
+            <div className="mt-3 rounded-md bg-ink-900 p-3 text-caption leading-[18px] text-white/55">Save attaches this session to your creative heatmap and selected project context.</div>
+            <Button disabled={!context.trim() || !Number(minutes)} onClick={save} fullWidth variant="completion" className="mt-3">Save session</Button>
+          </div>
+        )}
+        {toast && <div className="absolute inset-x-4 bottom-[96px] z-30 rounded-pill bg-forest-green px-4 py-3 text-[14px] font-semibold text-white shadow-2" role="status">{toast}</div>}
       </ScreenShell>
     </PhoneFrame>
   )

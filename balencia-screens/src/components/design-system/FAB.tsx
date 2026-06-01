@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import type { ReactNode } from 'react'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { Plus } from 'lucide-react'
 
 type FABProps = {
@@ -9,7 +9,7 @@ type FABProps = {
   display?: 'icon' | 'pill'
   tone?: 'primary' | 'neutral'
   className?: string
-}
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
 export function FAB({
   href,
@@ -18,11 +18,12 @@ export function FAB({
   display = 'icon',
   tone = 'primary',
   className = '',
+  ...props
 }: FABProps) {
   const visibleLabel = display === 'pill'
   const toneClasses = tone === 'primary'
     ? 'bg-brand-orange shadow-brand-orange/30'
-    : 'border border-white/[0.06] bg-ink-brown-800'
+    : 'border border-alpha-white-06 bg-ink-brown-800'
   const classes = [
     'flex items-center justify-center text-white transition-transform duration-[var(--dur-fast)] ease-[var(--ease-out-soft)] active:scale-[0.93]',
     visibleLabel
@@ -41,7 +42,7 @@ export function FAB({
   }
 
   return (
-    <button type="button" className={classes} aria-label={label}>
+    <button type="button" className={classes} aria-label={label} {...props}>
       {icon}
       {visibleLabel && <span>{label}</span>}
     </button>

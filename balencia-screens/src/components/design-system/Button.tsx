@@ -21,7 +21,7 @@ const variantClasses: Record<ButtonVariant, string> = {
 const sizeClasses: Record<ButtonSize, string> = {
   auth: 'h-[56px] px-6 text-[17px]',
   card: 'h-[48px] px-5 text-body',
-  compact: 'h-[40px] px-4 text-caption',
+  compact: 'h-11 px-4 text-caption',
 }
 
 export function Button({

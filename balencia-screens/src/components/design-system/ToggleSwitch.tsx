@@ -18,6 +18,7 @@ export function ToggleSwitch({
   ...props
 }: ToggleSwitchProps) {
   const inputId = id || props.name
+  const isControlled = checked !== undefined
 
   return (
     <label className={['relative inline-flex h-5 w-[34px] shrink-0 items-center', disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'].join(' ')}>
@@ -25,7 +26,9 @@ export function ToggleSwitch({
         id={inputId}
         type="checkbox"
         role="switch"
-        defaultChecked={checked ?? defaultChecked}
+        checked={isControlled ? checked : undefined}
+        defaultChecked={isControlled ? undefined : defaultChecked}
+        readOnly={isControlled && !onCheckedChange ? true : undefined}
         disabled={disabled}
         className="peer sr-only"
         onChange={(event) => onCheckedChange?.(event.currentTarget.checked)}

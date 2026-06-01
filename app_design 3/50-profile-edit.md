@@ -621,3 +621,38 @@ All fields populated from profile data. Avatar shows the user's photo (or initia
 - **Patterns established**: **Read-Only Field Pattern** -- dimmed ink-brown-800 at 60% bg, 1pt white at 5% border, white at 50% text, no focus state, optional verified badge. Used for non-editable form fields that need to be visible for context. **Phone Input with Country Code Pattern** -- split field with flag + dial code prefix (72pt) and phone number area, separated by vertical divider. Country code opens searchable bottom sheet. **Timezone Selector with Auto-Detect Pattern** -- field with auto-detected value from device, "auto" badge indicator, manual override via searchable bottom sheet with "Use device timezone" pinned option. **Avatar Upload Section Pattern** -- large circular avatar with camera overlay icon, "change photo" link below, triggers system action sheet (camera/library/remove), upload with spinner overlay, crossfade on success. **Dirty Form Tracking Pattern** -- snapshot field values on mount, compare on each change, enable/disable save CTA based on delta existence.
 - **API endpoints**: GET /api/auth/me (load profile), PATCH /api/auth/profile (update fields), POST /api/upload/avatar (upload photo), DELETE /api/auth/account (delete account)
 - **Database fields**: users.first_name, users.last_name, users.email (read-only), users.date_of_birth, users.gender (male/female/non_binary/prefer_not_to_say), users.phone, users.avatar, users.timezone
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-09.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U05`
+**Prototype route**: `/tabs/me/profile-edit`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q17 progress photos are private, encrypted, user-deletable, and AI analysis is premium opt-in.
+- Q20 OAuth flows need scope and revocation clarity.
+- Q21 Data Sources may be a demo/no-live-sync trust placeholder for prototype acceptance.
+- Q39 achievement density adapts for low-motivation users.
+- Q43 Knowledge Graph V1 is a guided insight map.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B09-F10 | critical | retention | Replace display blocks with controlled fields, add avatar sheet, dirty tracking, validation, loading/error/success, and stack-pop after save. |
+| B09-F11 | major | trust-privacy | Implement typed destructive confirmation, cancel path, loading/error states, and account-deletion root reset. |
+| B09-F12 | major | accessibility | Make Back a labeled control and use semantic fields, picker/sheet controls, labels, and read-only email copy behavior. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

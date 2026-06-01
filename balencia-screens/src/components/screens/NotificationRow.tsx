@@ -1,4 +1,5 @@
 import { BarChart3, Bell, Brain, Users } from 'lucide-react'
+import type { ButtonHTMLAttributes } from 'react'
 
 type NotificationCategory = 'sia' | 'reminder' | 'check-in' | 'social'
 
@@ -9,7 +10,7 @@ type NotificationRowProps = {
   timestamp: string
   unread?: boolean
   className?: string
-}
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
 const categoryMeta = {
   sia: { Icon: Brain, className: 'text-royal-purple' },
@@ -25,6 +26,7 @@ export function NotificationRow({
   timestamp,
   unread = false,
   className = '',
+  ...props
 }: NotificationRowProps) {
   const { Icon, className: iconClassName } = categoryMeta[category]
 
@@ -32,9 +34,10 @@ export function NotificationRow({
     <button
       type="button"
       className={[
-        'flex min-h-20 w-full items-start gap-3 border-b border-white/[0.05] bg-ink-brown-800 px-4 py-3 text-left transition-transform duration-[var(--dur-fast)] last:border-b-0 active:scale-[0.99]',
+        'flex min-h-20 w-full items-start gap-3 border-b border-alpha-white-05 bg-ink-brown-800 px-4 py-3 text-left transition-transform duration-[var(--dur-fast)] last:border-b-0 active:scale-[0.99]',
         className,
       ].filter(Boolean).join(' ')}
+      {...props}
     >
       <span
         className={['mt-[18px] h-2 w-2 shrink-0 rounded-full bg-brand-orange', unread ? 'opacity-100' : 'opacity-0'].join(' ')}
@@ -46,9 +49,9 @@ export function NotificationRow({
           <span className={unread ? 'truncate text-[15px] font-semibold leading-5 text-white' : 'truncate text-[15px] leading-5 text-white/80'}>
             {title}
           </span>
-          <span className="shrink-0 text-[12px] leading-4 text-white/40">{timestamp}</span>
+          <span className="shrink-0 text-[12px] leading-4 text-white/60">{timestamp}</span>
         </span>
-        <span className="mt-1 line-clamp-2 text-[13px] leading-[18px] text-white/50">
+        <span className="mt-1 line-clamp-2 text-[13px] leading-[18px] text-white/70">
           {preview}
         </span>
       </span>

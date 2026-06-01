@@ -16,7 +16,7 @@ export function Card({ variant = 'default', className = '', children, ...props }
   return (
     <div
       className={[
-        'bg-ink-brown-800 border border-white/[0.06] shadow-1',
+        'bg-ink-brown-800 border border-alpha-white-06 shadow-1',
         variantClasses[variant],
         className,
       ].filter(Boolean).join(' ')}

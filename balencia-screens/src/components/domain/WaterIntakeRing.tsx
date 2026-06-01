@@ -46,7 +46,7 @@ export function WaterIntakeRing({
             fill="none"
             stroke="currentColor"
             strokeWidth={stroke}
-            className="text-white/[0.06]"
+            className="text-alpha-white-06"
           />
           <circle
             cx={size / 2}

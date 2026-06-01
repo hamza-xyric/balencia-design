@@ -487,3 +487,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [09] — SIA Chat (SIA Message Bubble, User Message Bubble, Suggestion Chip Row, Chat Input Bar, SIA Avatar Small)
 - **Patterns used**: Brand Symbol (from Batch 1), Continuous Stroke Line (from brand guidelines)
 - **Patterns established**: **SIA Message Bubble** — left-aligned, ink-brown-800 bg, white 8% border, 16/16/16/4pt radius, 15pt Sora Regular white text, SIA avatar to the left. **User Message Bubble** — right-aligned, orange 15% bg, 16/16/4/16pt radius, 15pt Sora Regular white text. **Suggestion Chip Row** — horizontal scroll, pill chips, ink-brown-800 bg, orange 30% border, orange text, 36pt height, 8pt gaps. **Chat Input Bar** — full-width pill, ink-brown-800 bg, 44pt height, send button appears on text entry (36pt orange circle, white arrow). **SIA Avatar (Small)** — 24pt orange circle, white symbol, subtle purple glow ring, appears next to SIA message groups. **Domain Bubble (Interactive)** — 56pt circle, domain color tint, tappable for selection, animated drift. **Progress Indicator (Soft)** — 5 dots, left-aligned, orange filled/pulsing, white outline for upcoming.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-03.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U02`
+**Prototype route**: `/auth/sia-onboarding`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q10 guest preview may remain a clearly labeled preview/demo entry form.
+- Q11 SIA onboarding only needs enough interactivity to reach Initial plan.
+- Q12 voice-inline can remain a QA route but production should treat it as SIA chat state.
+- Q13 voice privacy requires permission, consent, transcript control, deletion, and raw-audio handling states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B03-F03 | critical | conversion | Wire a real composer, chip-to-message behavior, conversation state, and transition to Initial plan. |
+| B03-F04 | major | brand-fit | Expand and animate the visual area so the first SIA encounter feels collaborative and premium. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

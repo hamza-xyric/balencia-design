@@ -1,0 +1,40 @@
+<svg width="720" height="1280" viewBox="0 0 720 1280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Balencia carousel SIA presence start frame</title>
+  <desc id="desc">An abstract coach presence made from restrained purple rings and warm light, without a face or avatar.</desc>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 486) rotate(90) scale(520 430)">
+      <stop stop-color="#211008"/>
+      <stop offset="1" stop-color="#0C0603"/>
+    </radialGradient>
+    <radialGradient id="presence" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 454) rotate(90) scale(118 102)">
+      <stop stop-color="#F2ECD8" stop-opacity="0.88"/>
+      <stop offset="0.58" stop-color="#FF5E00" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#7F24FF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="purpleGlow" x="-80%" y="-80%" width="260%" height="260%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="22" flood-color="#7F24FF" flood-opacity="0.34"/>
+    </filter>
+    <filter id="orangeGlow" x="-80%" y="-80%" width="260%" height="260%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="#FF5E00" flood-opacity="0.22"/>
+    </filter>
+    <style>
+      .line { stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <rect width="720" height="1280" fill="url(#bg)"/>
+  <circle cx="360" cy="455" r="190" fill="#7F24FF" fill-opacity="0.05" filter="url(#purpleGlow)"/>
+  <path class="line" d="M187 471C239 306 394 229 512 330C622 424 550 625 379 655C222 681 145 602 187 471Z" stroke="#7F24FF" stroke-opacity="0.28" stroke-width="5"/>
+  <path class="line" d="M235 473C284 358 392 319 475 382C553 442 511 571 389 591C279 609 204 546 235 473Z" stroke="#F2ECD8" stroke-opacity="0.16" stroke-width="3"/>
+  <path class="line" d="M269 458C311 381 393 369 447 415C500 460 468 542 385 552C313 561 242 510 269 458Z" stroke="#7F24FF" stroke-opacity="0.36" stroke-width="4"/>
+  <path d="M301 424C323 374 399 370 431 421C462 470 423 532 363 524C309 517 282 469 301 424Z" fill="url(#presence)" filter="url(#orangeGlow)"/>
+  <path class="line" d="M318 461C336 438 365 435 385 451C405 467 397 495 369 502C341 510 317 489 318 461Z" stroke="#211008" stroke-opacity="0.32" stroke-width="5"/>
+  <g opacity="0.84">
+    <circle cx="227" cy="333" r="6" fill="#7F24FF"/>
+    <circle cx="500" cy="323" r="4" fill="#F2ECD8" fill-opacity="0.58"/>
+    <circle cx="552" cy="521" r="5" fill="#7F24FF" fill-opacity="0.72"/>
+    <circle cx="197" cy="575" r="4" fill="#F2ECD8" fill-opacity="0.42"/>
+    <circle cx="456" cy="666" r="6" fill="#7F24FF" fill-opacity="0.48"/>
+  </g>
+  <path class="line" d="M277 739C324 704 393 704 444 739" stroke="#7F24FF" stroke-opacity="0.24" stroke-width="4"/>
+  <path class="line" d="M303 774H417" stroke="#F2ECD8" stroke-opacity="0.18" stroke-width="8"/>
+</svg>

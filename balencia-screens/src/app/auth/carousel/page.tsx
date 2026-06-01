@@ -1,3 +1,5 @@
+'use client'
+
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
 import { ScreenShell } from '@/components/layout/ScreenShell'
 import { Button } from '@/components/design-system/Button'
@@ -17,6 +19,8 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import type { CSSProperties, ReactNode } from 'react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 // Screen 02 of 78: Motion carousel
 // Spec: /Users/hamza/yHealth/app_design 3/02-motion-carousel.md
@@ -208,12 +212,16 @@ const panels: Array<{
 function CarouselPanel({
   panel,
   index,
+  activeIndex,
+  onAction,
 }: {
   panel: (typeof panels)[number]
   index: number
+  activeIndex: number
+  onAction: () => void
 }) {
   return (
-    <section className="flex h-full w-full min-w-full snap-center flex-col">
+    <section className="flex h-full w-full flex-col">
       <div className="flex flex-1 items-center justify-center">
         {panel.graphic}
       </div>
@@ -231,13 +239,19 @@ function CarouselPanel({
         {panels.map((_, dotIndex) => (
           <span
             key={dotIndex}
-            className={dotIndex === index ? 'h-2 w-6 rounded-pill bg-brand-orange' : 'h-2 w-2 rounded-full bg-white/30'}
+            className={dotIndex === activeIndex ? 'h-2 w-6 rounded-pill bg-brand-orange' : 'h-2 w-2 rounded-full bg-white/30'}
           />
         ))}
       </div>
 
       <div className="mt-6">
-        <Button size="auth" fullWidth rightIcon={index < panels.length - 1 ? <ArrowRight size={18} /> : undefined}>
+        <Button
+          size="auth"
+          fullWidth
+          onClick={onAction}
+          aria-label={index < panels.length - 1 ? 'Next carousel panel' : 'Get started'}
+          rightIcon={index < panels.length - 1 ? <ArrowRight size={18} /> : undefined}
+        >
           {panel.button}
         </Button>
       </div>
@@ -246,22 +260,35 @@ function CarouselPanel({
 }
 
 export default function MotionCarouselScreen() {
+  const router = useRouter()
+  const [activeIndex, setActiveIndex] = useState(0)
+  const activePanel = panels[activeIndex]
+  const goToSignUp = () => router.push('/auth/sign-up')
+  const handleAction = () => {
+    if (activeIndex < panels.length - 1) setActiveIndex((index) => index + 1)
+    else goToSignUp()
+  }
+
   return (
     <PhoneFrame>
       <ScreenShell showTabBar={false}>
         <div className="flex h-full flex-col px-6 pb-4">
           <div className="flex h-11 items-center justify-end">
-            <button className="flex h-11 items-center justify-center px-1 text-[15px] text-white/60 transition-colors duration-[var(--dur-fast)] hover:text-white">
+            <button
+              onClick={goToSignUp}
+              className="flex h-11 min-w-11 items-center justify-center px-3 text-[15px] text-white/60 transition-colors duration-[var(--dur-fast)] hover:text-white"
+            >
               Skip
             </button>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-x-auto snap-x snap-mandatory hide-scrollbar">
-            <div className="flex h-full">
-              {panels.map((panel, index) => (
-                <CarouselPanel key={index} panel={panel} index={index} />
-              ))}
-            </div>
+          <div className="min-h-0 flex-1">
+            <CarouselPanel
+              panel={activePanel}
+              index={activeIndex}
+              activeIndex={activeIndex}
+              onAction={handleAction}
+            />
           </div>
         </div>
       </ScreenShell>

@@ -665,3 +665,37 @@ N/A — Universal Search is a pure utility screen. It does not adapt based on mo
 - **Shared components with**: Quick Notes [62] (search input pattern, tag filter chips), Home Screen [12] (domain tag chip, section eyebrow label), Goals List [13] (domain color dots, progress percentage display), Habits [38] (checkbox icon, streak badge), Settings [21] (gear icon, setting value display)
 - **Patterns used**: Section Eyebrow Label, Domain Tag Chip, --r-md (14pt) for result row sections, --r-pill (999pt) for filter chips, 8-State Interaction Model (adapted: no disabled state on result rows), Motion Tokens (160ms/280ms/520ms), Content Entry Animation (staggered fade-in for results), Flat Row Pattern (from Home Screen schedule rows), Pull-Dismiss Gesture (adapted from bottom sheet patterns)
 - **Patterns established**: Full-Screen Search Overlay (z-40 modal with auto-focused input), SIA Suggestion Row (AI intent prediction), Query Match Highlighting (orange highlight on matched characters within result text), Category Filter Chips with Count Badges, Search Result Deep-Linking (overlay dismiss + navigate in parallel), 8 Result Row Variants (goals, habits, recipes, notes, journal, settings, screens, community), Inline Error Banner (for degraded search), Pull-Down-to-Open-Search gesture (on Today tab screens)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-17.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U09`
+**Prototype route**: `/features/universal-search`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q02 system overlays may be QA fixtures but production needs native trigger/dismiss/API states.
+- Q05 music/video use honest demo recommendations without implying live provider sync.
+- Q18 progress-photo sharing is disabled in V1.
+- Q22 accountability partners see only opted-in contract/proof/check-in data; SIA reads with consent.
+- Q42 reports remain in-app with screenshot-level sharing only.
+- Q48 app rating uses non-coercive prompt fixtures.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B17-F07 | critical | information-architecture | Replace the static query with an auto-focused input, controlled clear/cancel behavior, semantic result rows, and deep-link navigation. |
+| B17-F08 | major | design-system-consistency | Align filters with the product taxonomy and show recent searches only in the empty-query state. |
+| B17-F09 | major | accessibility | Use 44px semantic filter controls and make every result/recent row a labeled button or link. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+

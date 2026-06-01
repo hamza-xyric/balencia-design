@@ -43,7 +43,7 @@ export function WorkoutCard({
           </span>
         ))}
         {overflowCount > 0 && (
-          <span className="inline-flex h-8 shrink-0 items-center rounded-sm bg-white/[0.08] px-3 text-caption font-semibold leading-[18px] text-white/70">
+          <span className="inline-flex h-8 shrink-0 items-center rounded-sm bg-alpha-white-08 px-3 text-caption font-semibold leading-[18px] text-white/70">
             +{overflowCount}
           </span>
         )}

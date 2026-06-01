@@ -382,3 +382,37 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [09] — SIA Chat (shares the entire chat view above the voice panel, top bar, tab bar). Screen [11] — SIA Voice Full-Screen (Batch 3, shares waveform visualization concept but at larger scale with 3D avatar).
 - **Patterns used**: User Message Bubble (draft variant), SIA Thinking Indicator (after send), Top Bar, Bottom Tab Bar (dimmed variant), Waveform Visualization (new)
 - **Patterns established**: **Voice Interface Panel** — ink-brown-800 bg, slides up from bottom, ~200pt height, contains waveform + controls, replaces keyboard area. **Waveform Visualization** — 24-32 orange bars, responsive to audio input, center-weighted opacity, smooth height animation. **Draft Transcription Bubble** — user bubble variant with orange 10% bg, dashed orange 20% border, white 80% text, cursor blink, solidifies on completion. **Stop/Send Button** — 56pt orange circle, icon morphs from square (stop) to arrow (send), pulsing glow during recording. **Tab Bar Dimmed State** — all tab elements at 40% opacity during overlay modes.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-04.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U02`
+**Prototype route**: `/tabs/sia/voice-inline`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q10 guest preview may remain a clearly labeled preview/demo entry form.
+- Q11 SIA onboarding only needs enough interactivity to reach Initial plan.
+- Q12 voice-inline can remain a QA route but production should treat it as SIA chat state.
+- Q13 voice privacy requires permission, consent, transcript control, deletion, and raw-audio handling states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B04-F08 | critical | navigation | Implement it as state inside SIA chat with working enter, cancel, stop/send, silence, and transcript behavior. |
+| B04-F09 | major | trust-privacy | Add microphone permission, idle/listening/processing/error states, real transcription, and clear recording status. |
+| B04-F10 | major | accessibility | Add dynamic stop/send labels and a live region for transcription. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

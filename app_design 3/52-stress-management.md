@@ -759,3 +759,38 @@ This screen is the user's stress command center — a unified view that surfaces
 - **Shared components with**: Screen [26] — Fitness Dashboard (Domain Dashboard Header, Domain Dashboard Template slot structure, WHOOP Integration Card pattern, FAB), Screen [35] — Learning Dashboard (SIA Coaching Note Card contextual variant, Active Goals Section pattern, Streak Tracker), Screen [36] — Creativity Dashboard (Practice Heatmap pattern reused as weekly stress heatmap in high-motivation variant), Screen [38] — Habits (Calendar Heatmap in high-motivation variant), Screen [14] — Goal Detail (Line Chart pattern for stress trend)
 - **Patterns used**: Domain Dashboard Template (established Screen 26), Domain Dashboard Header (Screen 26), SIA Coaching Note Card — Contextual Variant (Screen 30), Line Chart (Screen 14), In-Card CTA Button (Screen 26), FAB Extended Pill (Screen 35), Section Eyebrow Label (Screen 12), 8-State Model, Content Entry Animation (staggered fade-in), Pull-to-Refresh
 - **Patterns established**: Stress Gauge (semicircle dial with graduated severity arc + sub-score row), Stress Slider (graduated track with floating value label), Trigger Multi-Select Chips (domain-colored multi-select chip row with "Other" expansion), Trigger Donut Chart (color-coded donut with interactive segments and legend), Mental Recovery Gauge (circular gauge with component breakdown grid and trend arrow), Relief Tool Quick Action Cards (icon + label navigation cards with SIA recommendation badges)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-14.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/stress`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B14-F10 | critical | retention | Build a real slider, multi-select triggers, optional notes, submit, success/reset, undo, and failure states. |
+| B14-F11 | major | navigation | Make Ask SIA contextual and implement 7d/14d/30d trend state with selected semantics. |
+| B14-F12 | major | accessibility | Use semantic range, button, and link controls with 44px hit areas and live status announcements. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

@@ -973,3 +973,39 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [38] — Habits (Segmented Control, Toggle Switch), Screen [39] — Leaderboard (Filter Toggle pattern), Screen [33] — Relationships (Person Row pattern in partner search), Screen [40] — Community (avatar patterns, group member display), Screen [13] — Goals List (Filter Chip Row)
 - **Patterns used**: Back Button, 8-State Model, Segmented Control (Screen 38), Filter Chip / Filter Tab Row (Screen 13), Toggle Switch (Screen 15), Expandable/Collapsible Section (Screen 14), FAB (Screen 35), Modal Presentation (Batch 1), Text Input Field (Batch 1), Brand CTA Button (Batch 1), Section Eyebrow Label (Screen 12), Person Row (Screen 33)
 - **Patterns established**: Master Consent Banner (warning icon + orange border + configure CTA, privacy gateway), Contact Row (avatar + nickname + role badge + permission chips + emergency badge), Role Badge (pill with role-specific color), Permission Indicator (colored dot + label), Group Card (expandable with overlapping member avatars), Emergency Contact Row (red accent + SOS configuration), Contract Card (title + condition + penalty + dual-fill progress bar + status badge), Contract Status Badge (signed/draft/paused/cancelled pill), Violation Alert Card (orange border + dispute CTA), AI Suggestion Card (lightbulb + SIA-generated contract), Trigger Row (name + condition + action + AI toggle + cooldown), AI Intervene Toggle (green ON/OFF pill), Trigger Log Entry (date + name + outcome icon), Create Trigger Modal (condition builder + target picker + cooldown selector), Create Contract Modal (condition builder + penalty builder + duration + verification), Consent Configuration Modal (master switch + permission toggles + SOS config + cooldown), Dispute Modal (violation summary + reason input), Dashed Border Add Button (dashed outline + orange text CTA)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-14.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/accountability`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B14-F01 | critical | retention | Add real tab state plus consent, add-partner, group-management, contract, and trigger flows with loading/success/error states. |
+| B14-F02 | major | trust-privacy | Gate partner actions and sensitive permission details behind consent setup with disabled/explanatory states until configured. |
+| B14-F03 | major | accessibility | Render Back as a labeled 44x44 link/button and expand compact action hit areas. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

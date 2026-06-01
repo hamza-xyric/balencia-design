@@ -6,6 +6,7 @@ import type { ScheduleEvent } from '@/data/mock'
 type ScheduleCalendarGridProps = {
   events: ScheduleEvent[]
   className?: string
+  onEventSelect?: (event: ScheduleEvent) => void
 }
 
 const hours = [
@@ -28,21 +29,24 @@ const hours = [
 const hourHeight = 64
 const firstHour = 6
 
-function EventCard({ event }: { event: ScheduleEvent }) {
+function EventCard({ event, onSelect }: { event: ScheduleEvent; onSelect?: (event: ScheduleEvent) => void }) {
   const tone = domainToneClasses[event.domain]
   const top = (((event.startHour ?? firstHour) - firstHour) * hourHeight) + (((event.startMinute ?? 0) / 60) * hourHeight) + 8
   const height = Math.max(48, ((event.durationMinutes ?? 45) / 60) * hourHeight - 8)
   const isSia = event.source === 'sia' || event.isSIASuggested
 
   return (
-    <article
+    <button
+      type="button"
+      onClick={() => onSelect?.(event)}
       className={[
-        'absolute left-[56px] right-0 overflow-hidden rounded-md px-3 py-2 shadow-1',
+        'absolute left-[56px] right-0 overflow-hidden rounded-md px-3 py-2 text-left shadow-1',
         isSia
           ? 'border border-dashed border-brand-orange/40 bg-ink-900'
           : 'border border-white/10 bg-ink-brown-800',
       ].join(' ')}
       style={{ top, height }}
+      aria-label={`Open schedule event ${event.name}`}
     >
       {!isSia && <span className={`absolute bottom-0 left-0 top-0 w-1 ${tone.bar}`} aria-hidden="true" />}
       <div className="flex min-w-0 items-start justify-between gap-2 pl-1">
@@ -61,11 +65,11 @@ function EventCard({ event }: { event: ScheduleEvent }) {
         {isSia ? <Sparkles size={12} className="text-royal-purple" /> : <Cloud size={12} />}
         <span>{isSia ? 'SIA suggested' : event.source === 'synced' ? 'Synced' : 'Manual'}</span>
       </div>
-    </article>
+    </button>
   )
 }
 
-export function ScheduleCalendarGrid({ events, className = '' }: ScheduleCalendarGridProps) {
+export function ScheduleCalendarGrid({ events, className = '', onEventSelect }: ScheduleCalendarGridProps) {
   return (
     <section
       className={[
@@ -79,7 +83,7 @@ export function ScheduleCalendarGrid({ events, className = '' }: ScheduleCalenda
         <div key={slot.hour} className="relative h-16">
           <div className="flex items-start gap-3">
             <span className="w-11 shrink-0 pt-0.5 text-[13px] leading-[18px] text-white/30">{slot.label}</span>
-            <span className="mt-2 h-px flex-1 bg-white/[0.05]" aria-hidden="true" />
+            <span className="mt-2 h-px flex-1 bg-alpha-white-05" aria-hidden="true" />
           </div>
         </div>
       ))}
@@ -94,7 +98,7 @@ export function ScheduleCalendarGrid({ events, className = '' }: ScheduleCalenda
       </div>
 
       {events.map((event) => (
-        <EventCard key={event.id} event={event} />
+        <EventCard key={event.id} event={event} onSelect={onEventSelect} />
       ))}
     </section>
   )

@@ -564,3 +564,38 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Patterns used**: Back Button (Batch 1), 8-State Interaction Model (Batch 1), Content Entry Animation (staggered fade-in, Batch 1)
 - **Patterns established**: Streak Tracker (7-day dots), Active Goals Section (horizontal progress rings), Activity Log, Daily Study Prompt, AI Learning Path Card (checkable actions), Book/Course Library List
 - **Patterns referenced** (established elsewhere): Domain Dashboard Template (Screen 26), Domain Dashboard Header (Screen 26), SIA Coaching Note Card — Compact (Screen 26), Floating Action Button — Extended Pill (Screen 26)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-12.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/domains/learning`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B12-F05 | critical | retention | Implement a log-session sheet with activity type, duration, book/course selection, notes, save/cancel, validation, and feedback. |
+| B12-F06 | major | retention | Render suggestions as semantic 44px buttons/checkboxes with completion state, XP animation, undo, and refresh behavior. |
+| B12-F07 | major | navigation | Link the SIA note to contextual chat and wire current item/library rows and See all to details/library views. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

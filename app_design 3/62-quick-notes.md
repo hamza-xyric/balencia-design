@@ -582,3 +582,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [37] — Journal (Tag Chip pattern, note text styling, bottom sheet presentation), Screen [38] — Habits (Section Headers in full-screen date groups), Screen [24] — Notification History (reverse chronological list with date grouping), Screen [42] — Celebration (Undo Toast shares Small Win Toast pattern)
 - **Patterns used**: Modal Presentation / Bottom Sheet (Batch 1), Tag Chip (Screen 37), Section Headers/Eyebrow (Screen 38), Swipe Actions (Screen 38), Search Bar (established Screen 18 Explore), 8-State Model, Text Input Field (Batch 1)
 - **Patterns established**: Quick Add Bar (inline text input with circular send button — reusable for any fast-capture surface), Global Bottom Sheet Trigger (FAB long-press to invoke cross-screen overlay — could extend to other quick actions), Undo Toast (slide-up recovery toast with timed auto-dismiss), Auto-Tag Shimmer (tag area shimmer while AI classification runs), Offline Sync Indicator (cloud-with-arrow icon for pending sync)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-16.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/quick-notes`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B16-F07 | critical | retention | Build a real quick-add input with send/save/keyboard states and a real search input in archive mode. |
+| B16-F08 | major | navigation | Make filters stateful with selected semantics and route Ask SIA to SIA chat with note context. |
+| B16-F09 | minor | design-system-consistency | Normalize tag keys before lookup or store canonical tag ids plus display labels. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

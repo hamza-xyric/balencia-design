@@ -1,6 +1,9 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
 import { VoiceWaveform } from '@/components/screens/VoiceWaveform'
-import { Mic, X } from 'lucide-react'
+import { Mic, MicOff, X } from 'lucide-react'
 
 // Screen 11 of 78: Voice mode full
 // Spec: /Users/hamza/yHealth/app_design 3/11-sia-voice-full-screen.md
@@ -38,12 +41,15 @@ function AmbientParticles() {
   )
 }
 
-function SiaAvatar() {
+function SiaAvatar({ state }: { state: string }) {
   return (
     <div className="relative flex h-[248px] items-center justify-center">
       <div className="absolute h-[240px] w-[240px] rounded-full bg-royal-purple/20 blur-3xl" />
       <div className="avatar-breathe relative flex h-[200px] w-[200px] items-center justify-center rounded-full">
-        <div className="absolute inset-0 rounded-full border border-royal-purple/30 bg-ink-brown-800/80 shadow-[var(--glow-purple)]" />
+        <div className={[
+          'absolute inset-0 rounded-full border bg-ink-brown-800/80 shadow-[var(--glow-purple)]',
+          state === 'speaking' ? 'border-brand-orange/40' : state === 'thinking' ? 'border-royal-purple/50' : 'border-royal-purple/30',
+        ].join(' ')} />
         <div className="absolute inset-6 rounded-full border border-white/[0.06] bg-white/[0.03]" />
         <div className="absolute left-10 top-9 h-16 w-11 rounded-full bg-royal-purple/20 blur-xl" />
         <div className="absolute bottom-10 right-10 h-20 w-12 rounded-full bg-royal-purple/25 blur-xl" />
@@ -56,6 +62,40 @@ function SiaAvatar() {
 }
 
 export default function VoiceModeFullScreen() {
+  const [permission, setPermission] = useState(false)
+  const [muted, setMuted] = useState(false)
+  const [state, setState] = useState<'listening' | 'thinking' | 'speaking'>('listening')
+  const [transcript, setTranscript] = useState('Balencia needs microphone access for voice mode.')
+
+  const allow = () => {
+    setPermission(true)
+    setTranscript("I'm listening. Tell me what needs attention today.")
+    setState('listening')
+  }
+
+  useEffect(() => {
+    if (!permission || muted) return
+
+    const readyTimer = window.setTimeout(() => {
+      setState('listening')
+      setTranscript("I'm listening. Tell me what needs attention today.")
+    }, 0)
+    const thinkingTimer = window.setTimeout(() => {
+      setState('thinking')
+      setTranscript('Thinking through your recovery, schedule, and missions...')
+    }, 1200)
+    const speakingTimer = window.setTimeout(() => {
+      setState('speaking')
+      setTranscript('SIA: Start with the short recovery walk, then protect your deep work block.')
+    }, 2300)
+
+    return () => {
+      window.clearTimeout(readyTimer)
+      window.clearTimeout(thinkingTimer)
+      window.clearTimeout(speakingTimer)
+    }
+  }, [permission, muted])
+
   return (
     <PhoneFrame>
       <div className="relative h-full overflow-hidden bg-ink-900">
@@ -71,17 +111,33 @@ export default function VoiceModeFullScreen() {
 
           <div className="flex flex-1 flex-col items-center justify-center pb-8">
             <div className="h-[72px]" />
-            <SiaAvatar />
+            <SiaAvatar state={state} />
 
             <div className="mt-8 max-w-[280px] text-center text-[15px] leading-5 text-white/70">
-              Hey. I&apos;m here. You can talk to me about missions, how your day went, or what is worth your attention next.
+              <span aria-live="polite">{muted ? 'Microphone muted. Unmute when you are ready.' : transcript}</span>
             </div>
 
             <VoiceWaveform tone="purple" className="mt-6" />
 
-            <button className="mt-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 text-white/70" aria-label="Mute microphone">
-              <Mic size={22} strokeWidth={1.8} />
-            </button>
+            {!permission ? (
+              <div className="mt-5 max-w-[300px] text-center">
+                <p className="text-caption leading-[18px] text-white/45">
+                  Voice starts only after permission. Raw audio is discarded; transcripts can be reviewed or deleted and are not used for model training or human review.
+                </p>
+                <button type="button" onClick={allow} className="mt-4 h-12 rounded-pill bg-brand-orange px-5 text-[15px] font-semibold text-white">
+                  Allow microphone
+                </button>
+              </div>
+            ) : (
+              <div className="mt-5 flex items-center gap-3">
+                <button type="button" onClick={() => setMuted((current) => !current)} className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 text-white/70" aria-pressed={muted} aria-label={muted ? 'Unmute microphone, currently muted' : 'Mute microphone'}>
+                  {muted ? <MicOff size={22} strokeWidth={1.8} /> : <Mic size={22} strokeWidth={1.8} />}
+                </button>
+                <div className="rounded-pill border border-white/10 px-4 py-2 text-caption font-semibold leading-[18px] text-white/55" aria-live="polite">
+                  {state === 'listening' ? 'Listening' : state === 'thinking' ? 'Thinking' : 'Speaking'}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@ export function DomainSkillCard({ stat, className = '', ...props }: DomainSkillC
   return (
     <div
       className={[
-        'flex h-[78px] min-w-0 flex-col rounded-md border border-white/[0.06] bg-ink-brown-800 p-2.5 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-95',
+        'flex h-[78px] min-w-0 flex-col rounded-md border border-alpha-white-06 bg-ink-brown-800 p-2.5 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-95',
         className,
       ].filter(Boolean).join(' ')}
       aria-label={`${domains[stat.domain].label}, stat score ${stat.stat}, level ${stat.level}`}
@@ -32,7 +32,7 @@ export function DomainSkillCard({ stat, className = '', ...props }: DomainSkillC
       <div className="text-center text-[12px] font-semibold leading-4 text-white/60 tabular-nums">
         Lv.{stat.level}
       </div>
-      <div className="mt-auto h-[3px] overflow-hidden rounded-pill bg-white/[0.08]">
+      <div className="mt-auto h-[3px] overflow-hidden rounded-pill bg-alpha-white-08">
         <div className={`h-full rounded-pill ${tone.bar}`} style={{ width: `${progress * 100}%` }} />
       </div>
     </div>

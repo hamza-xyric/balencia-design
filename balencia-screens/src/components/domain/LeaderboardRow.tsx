@@ -1,8 +1,8 @@
-import type { HTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes } from 'react'
 import { DomainTag } from '@/components/design-system/DomainTag'
 import type { DomainKey } from '@/data/domains'
 
-type LeaderboardRowProps = HTMLAttributes<HTMLDivElement> & {
+type LeaderboardRowProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   rank: number
   name: string
   avatar: string
@@ -33,19 +33,21 @@ export function LeaderboardRow({
   ...props
 }: LeaderboardRowProps) {
   return (
-    <article
+    <button
+      type="button"
       className={[
-        'relative flex min-h-[72px] items-center gap-3 px-4 py-3 transition-colors duration-[var(--dur-fast)] active:bg-white/[0.05]',
-        withDivider ? 'border-t border-white/[0.05]' : '',
+        'relative flex min-h-[72px] w-full items-center gap-3 px-4 py-3 text-left transition-colors duration-[var(--dur-fast)] active:bg-alpha-white-05',
+        withDivider ? 'border-t border-alpha-white-05' : '',
         isOwn ? 'before:absolute before:left-0 before:top-3 before:h-12 before:w-1 before:rounded-r-pill before:bg-brand-orange' : '',
         className,
       ].filter(Boolean).join(' ')}
+      aria-label={`Open limited profile for ${name}, rank ${rank}`}
       {...props}
     >
       <div className={`w-9 shrink-0 text-[17px] font-bold leading-[22px] tabular-nums ${rankClass(rank)}`}>
         #{rank}
       </div>
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-white/[0.08] text-[14px] font-semibold text-white">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-alpha-white-08 text-[14px] font-semibold text-white">
         {avatar}
       </div>
       <div className="min-w-0 flex-1">
@@ -62,6 +64,6 @@ export function LeaderboardRow({
           <DomainTag domain={topDomain} showDot={false} className="max-w-[112px] shrink-0" />
         </div>
       </div>
-    </article>
+    </button>
   )
 }

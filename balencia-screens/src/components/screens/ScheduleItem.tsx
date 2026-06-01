@@ -10,7 +10,7 @@ export function ScheduleItem({ event, className = '', ...props }: ScheduleItemPr
   return (
     <div
       className={[
-        'flex min-h-11 items-center gap-3 border-b border-white/[0.05] py-3 last:border-b-0',
+        'flex min-h-11 items-center gap-3 border-b border-alpha-white-05 py-3 last:border-b-0',
         className,
       ].filter(Boolean).join(' ')}
       {...props}

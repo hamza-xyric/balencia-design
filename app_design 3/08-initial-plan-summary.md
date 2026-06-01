@@ -400,3 +400,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [07] — SIA Onboarding (SIA Avatar Small, Domain Tag Chip). Screen [13] — Goals List (Batch 3, Goal Plan Card pattern reused for goal cards). Screen [14] — Goal Detail (Batch 3, action items pattern reused).
 - **Patterns used**: SIA Avatar (Small) from Screen [07], Domain Tag Chip from Screen [07], Brand CTA Button from Batch 1
 - **Patterns established**: **Goal Plan Card** — ink-brown-800 bg, --r-xl corners, 4pt domain color left bar, goal name + domain tag row, expandable action list (circles + text), optional milestone timeline, optional cross-domain connection. **RPG Status Bar** — ink-brown-800 card, level label (orange uppercase eyebrow) + XP text, 8pt progress bar beneath, --r-xl corners. **SIA Greeting Card** — SIA avatar (small) + heading + coaching note text, left-aligned, used here and adapted for Home Screen [12] in Batch 3. **Domain Tag Chip** — pill shape, domain color bg at 20%, domain color text, 24pt height, used across all domain-tagged screens going forward.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-03.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U02`
+**Prototype route**: `/auth/initial-plan`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q10 guest preview may remain a clearly labeled preview/demo entry form.
+- Q11 SIA onboarding only needs enough interactivity to reach Initial plan.
+- Q12 voice-inline can remain a QA route but production should treat it as SIA chat state.
+- Q13 voice privacy requires permission, consent, transcript control, deletion, and raw-audio handling states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B03-F05 | critical | conversion | Wire plan acceptance to Today and make customize/edit controls functional. |
+| B03-F06 | major | product-sense | Keep the plan consistent with onboarding inputs or explain why SIA changed a life area. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

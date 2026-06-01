@@ -1,10 +1,14 @@
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/design-system/Button'
 import { Chip, domainToneClasses } from '@/components/design-system/Chip'
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
 import { ScreenShell } from '@/components/layout/ScreenShell'
 import { SiaAvatarSmall } from '@/components/screens/MessageBubble'
 import type { DomainKey } from '@/data/domains'
-import { Circle, Link2, Pencil } from 'lucide-react'
+import { Check, Circle, Link2, Pencil, X } from 'lucide-react'
 
 // Screen 08 of 78: Initial plan
 // Spec: /Users/hamza/yHealth/app_design 3/08-initial-plan-summary.md
@@ -18,7 +22,7 @@ type MissionPlan = {
   connection?: { label: string; domain: DomainKey }
 }
 
-const missionPlans: MissionPlan[] = [
+const initialMissionPlans: MissionPlan[] = [
   {
     title: 'Run a half marathon',
     domain: 'fitness',
@@ -36,11 +40,11 @@ const missionPlans: MissionPlan[] = [
     connection: { label: 'Career', domain: 'career' },
   },
   {
-    title: 'Read 2 books this month',
-    domain: 'learning',
-    domainLabel: 'Learning',
-    actions: ['Read 30 minutes daily', 'Capture 3 notes per session', 'Review notes every Sunday'],
-    milestones: ['Book one', 'Book two', 'Review notes'],
+    title: 'Build a calmer evening rhythm',
+    domain: 'wellbeing',
+    domainLabel: 'Wellbeing',
+    actions: ['10-minute wind-down', 'No phone in bed', 'Evening check-in'],
+    milestones: ['3 calm nights', '7-day rhythm', 'Sleep review'],
   },
 ]
 
@@ -62,7 +66,15 @@ function RpgStatusBar() {
   )
 }
 
-function MissionPlanCard({ plan, highlighted = false }: { plan: MissionPlan; highlighted?: boolean }) {
+function MissionPlanCard({
+  plan,
+  highlighted = false,
+  onEdit,
+}: {
+  plan: MissionPlan
+  highlighted?: boolean
+  onEdit: () => void
+}) {
   const tone = domainToneClasses[plan.domain]
 
   return (
@@ -76,7 +88,14 @@ function MissionPlanCard({ plan, highlighted = false }: { plan: MissionPlan; hig
         <h2 className="min-w-0 flex-1 text-h3 font-semibold leading-[22px] text-white">
           {plan.title}
         </h2>
-        <Pencil size={16} className="mt-1 shrink-0 text-white/30" strokeWidth={1.8} />
+        <button
+          type="button"
+          onClick={onEdit}
+          className="mt-[-6px] flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white/45 transition-colors active:bg-white/[0.05] active:text-white"
+          aria-label={`Edit ${plan.title}`}
+        >
+          <Pencil size={16} strokeWidth={1.8} />
+        </button>
       </div>
 
       <div className="mt-3 space-y-2">
@@ -111,6 +130,29 @@ function MissionPlanCard({ plan, highlighted = false }: { plan: MissionPlan; hig
 }
 
 export default function InitialPlanScreen() {
+  const router = useRouter()
+  const [plans, setPlans] = useState(initialMissionPlans)
+  const [editingIndex, setEditingIndex] = useState<number | null>(null)
+  const [draftTitle, setDraftTitle] = useState('')
+  const [expanded, setExpanded] = useState(false)
+  const [accepted, setAccepted] = useState(false)
+
+  const openEditor = (index: number) => {
+    setEditingIndex(index)
+    setDraftTitle(plans[index].title)
+  }
+
+  const saveEdit = () => {
+    if (editingIndex === null || !draftTitle.trim()) return
+    setPlans((current) => current.map((plan, index) => index === editingIndex ? { ...plan, title: draftTitle.trim() } : plan))
+    setEditingIndex(null)
+  }
+
+  const startJourney = () => {
+    setAccepted(true)
+    window.setTimeout(() => router.push('/tabs/today'), 450)
+  }
+
   return (
     <PhoneFrame>
       <ScreenShell showTabBar={false}>
@@ -132,30 +174,78 @@ export default function InitialPlanScreen() {
           </div>
 
           <div className="mt-6 space-y-4">
-            {missionPlans.map((plan, index) => (
+            {plans.map((plan, index) => (
               <div
                 key={plan.title}
                 className="animate-fade-up"
                 style={{ animationDelay: `${220 + index * 90}ms` }}
               >
-                <MissionPlanCard plan={plan} highlighted={index === 0} />
+                <MissionPlanCard plan={plan} highlighted={index === 0} onEdit={() => openEditor(index)} />
               </div>
             ))}
           </div>
 
           <div className="mt-8 animate-fade-up" style={{ animationDelay: '520ms' }}>
-            <Button size="auth" fullWidth className="shadow-[var(--glow-orange)]">
-              Start your journey
+            <Button size="auth" fullWidth className="shadow-[var(--glow-orange)]" onClick={startJourney} disabled={accepted}>
+              {accepted ? 'Opening Today...' : 'Start your journey'}
             </Button>
           </div>
 
           <button
+            type="button"
+            onClick={() => setExpanded((current) => !current)}
             className="mx-auto mt-4 flex h-11 animate-fade-up items-center justify-center px-4 text-[15px] font-semibold leading-5 text-brand-orange"
             style={{ animationDelay: '600ms' }}
+            aria-expanded={expanded}
           >
-            Customize
+            {expanded ? 'Hide customization' : 'Customize'}
           </button>
+
+          {expanded && (
+            <section className="mt-3 rounded-xl border border-white/[0.08] bg-ink-brown-800 p-4">
+              <p className="text-[15px] font-semibold leading-5 text-white">Plan consistency</p>
+              <p className="mt-1 text-caption leading-[18px] text-white/50">
+                Built from the areas you chose in onboarding: fitness, finance, and wellbeing.
+              </p>
+              <div className="mt-3 grid gap-2">
+                {plans.map((plan) => (
+                  <button
+                    key={plan.title}
+                    type="button"
+                    onClick={() => setPlans((current) => current.filter((item) => item.title !== plan.title))}
+                    className="flex min-h-11 items-center justify-between rounded-md border border-white/[0.06] px-3 text-left text-caption text-white/70"
+                  >
+                    <span>{plan.title}</span>
+                    <X size={14} className="text-white/35" />
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
+
+        {editingIndex !== null && (
+          <div className="absolute inset-0 z-40 flex items-end bg-black/55 p-4" role="dialog" aria-modal="true" aria-label="Edit plan mission">
+            <div className="w-full rounded-xl border border-white/[0.08] bg-ink-brown-800 p-5 shadow-3">
+              <div className="flex items-center justify-between">
+                <h2 className="text-h3 font-semibold text-white">Edit mission</h2>
+                <button type="button" onClick={() => setEditingIndex(null)} className="flex h-11 w-11 items-center justify-center rounded-full text-white/60" aria-label="Close editor">
+                  <X size={18} />
+                </button>
+              </div>
+              <label className="mt-4 block text-caption font-semibold text-white/60" htmlFor="plan-title">Mission title</label>
+              <input
+                id="plan-title"
+                value={draftTitle}
+                onChange={(event) => setDraftTitle(event.target.value)}
+                className="mt-2 h-[52px] w-full rounded-md border border-white/10 bg-ink-900 px-4 text-body text-white outline-none focus:border-brand-orange"
+              />
+              <Button fullWidth size="card" className="mt-4" onClick={saveEdit} leftIcon={<Check size={17} />}>
+                Save change
+              </Button>
+            </div>
+          </div>
+        )}
       </ScreenShell>
     </PhoneFrame>
   )

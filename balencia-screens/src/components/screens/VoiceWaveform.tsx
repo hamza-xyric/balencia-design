@@ -24,7 +24,7 @@ export function VoiceWaveform({ tone = 'purple', compact = false, className = ''
     >
       {bars.map((bar, index) => {
         const distanceFromCenter = Math.abs(index - (bars.length - 1) / 2)
-        const opacity = tone === 'idle' ? 0.12 : Math.max(0.3, 0.86 - distanceFromCenter * 0.045)
+        const opacity = tone === 'idle' ? 0.25 : Math.max(0.3, 0.86 - distanceFromCenter * 0.045)
         return (
           <span
             key={`${bar}-${index}`}

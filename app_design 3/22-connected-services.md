@@ -465,3 +465,39 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Settings [21] (Section Header, Navigation Header), Subscription & Billing [23] (Status Badge pattern)
 - **Patterns used**: Back Button (Batch 1), Brand CTA Button (Batch 1 — adapted to 36pt for card-internal use), Section Header (Batch 5), SIA Note (Batch 5)
 - **Patterns established**: Integration Card (with 3 variants: connected, not connected, coming soon), Status Badge (connected/not-connected/coming-soon), Disconnect Confirmation Alert, Ghost Button — Destructive variant, Force Sync inline loading pattern
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-08.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U04`
+**Prototype route**: `/tabs/me/connected-services`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q20 OAuth flows must preview scopes, purpose, sync cadence, storage, disconnect, delete, and revocation.
+- Q33 Life Areas comparison is Plus-gated only after enough history exists.
+- Q34 Explore tier labels distinguish included vs locked states.
+- Q35 billing follows mobile-store purchase, restore, trial, cancellation, error, and entitlement patterns.
+- Q50 obstacle reconnection uses per-blocker accept/dismiss controls before accept-all.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B08-F10 | major | navigation | Make the shared back affordance semantic and route-aware. |
+| B08-F11 | critical | integration-control | Implement OAuth launch/loading/error states, force-sync state, disconnect confirmation, and status updates. |
+| B08-F12 | major | trust-privacy | Add per-service scope previews and concise disconnect/deletion policy copy before OAuth and in disconnect confirmation. |
+| B08-F13 | major | mobile-ergonomics | Increase integration action hit areas to at least 44px height. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

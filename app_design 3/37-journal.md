@@ -469,3 +469,40 @@ This screen is the user's private reflection space — AI-guided journaling with
 - **Shared components with**: Screen [38] — Habits (Domain Tag Chip, FAB pattern), Screen [35/36] — Dashboards (SIA Coaching Note Card pattern reused as SIA Reflection Prompt Card), Screen [45] — Daily Check-in (mood emoji selector shares visual pattern, check-in history shown via mode toggle)
 - **Patterns used**: Back Button (Batch 1), Modal Presentation (Batch 1), 8-State Model, FAB pattern (established Screen 35)
 - **Patterns established**: Journal Entry Row (date + mood + preview + domain tags), Writing Mode Bottom Sheet (rich text editor with prompt, tags, mood), Voice Recording Mode (microphone + waveform + transcription → text editor, triggered via FAB long-press), Journal/Check-in Mode Toggle (segmented control switching between text entries and daily check-in history), Domain Tag Chip (first full specification with all 9 domain colors), Mood Selector (5-emoji row with selection state), Voice Entry Indicator (microphone icon + "voice" badge on transcribed entries)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-12.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/features/journal`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B12-F15 | critical | retention | Implement the writing bottom sheet with editor, prompt prefill, tags, mood, save/cancel, drafts, unsaved-change warning, and errors. |
+| B12-F16 | major | navigation | Make entry rows semantic links/buttons and wire Entries/Check-ins segmented state with read-only check-in details. |
+| B12-F17 | major | accessibility | Render Back as a labeled 44px control, expand compact hit areas, and expose entry labels, mood, tags, and voice indicators. |
+| B12-F18 | major | trust-privacy | Add concise journal privacy and SIA-memory controls, voice retention guidance, and clear free/premium boundaries. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

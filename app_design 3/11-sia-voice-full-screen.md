@@ -383,3 +383,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: None — this screen is visually self-contained. The SIA Processing Animation (three-dot pulse) concept is shared with Create/Edit Goal [15], but the visual treatment differs (purple dots here, orange there).
 - **Patterns used**: Close Button (similar to modal close from Screen 15, but positioned differently), 8-State Interaction Model (adapted for 2 interactive elements only), Motion Tokens (160ms/280ms/520ms/1200ms)
 - **Patterns established**: Full-Screen Immersive Overlay Template (z-50, tab bar hidden, slide up/down, ambient environment), SIA Avatar (3D/2D with 4 behavioral states), Waveform Visualization (user=orange, SIA=purple), Ambient Particle System, Voice Transcription Display (real-time word-by-word, max 3 lines, fade after silence), Avatar Glow (radial purple, state-reactive), Purple-Dominant Screen (exception to 60/30/10 for pure SIA experiences)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-04.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U02`
+**Prototype route**: `/tabs/sia/voice-fullscreen`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q10 guest preview may remain a clearly labeled preview/demo entry form.
+- Q11 SIA onboarding only needs enough interactivity to reach Initial plan.
+- Q12 voice-inline can remain a QA route but production should treat it as SIA chat state.
+- Q13 voice privacy requires permission, consent, transcript control, deletion, and raw-audio handling states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B04-F11 | critical | retention | Build a full voice-session state machine with permission, mute, listening, processing, speaking, transcription, and chat handoff. |
+| B04-F12 | major | brand-fit | Create a state-reactive SIA avatar, particles, glow, and waveform behavior; use 2D fallback if needed. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

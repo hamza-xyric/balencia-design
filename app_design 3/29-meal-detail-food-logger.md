@@ -882,3 +882,38 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen 27 (Detail Header, Multi-Mode Pattern — entry-point determined vs. sequential, SIA compact note), Screen 28 (Macro Progress Bar pattern in nutrition breakdown, meal type labels)
 - **Patterns used**: Detail Screen Template (Screen 27), Multi-Mode Screen Pattern (Screen 27 — adapted for entry-point-determined modes), Back Button (Batch 1), Text Input Field (Batch 1), 8-State Interaction Model
 - **Patterns established**: Search-First Input Pattern (search field with embedded scanner icons, results replacing default lists), Quick-Add Row (food item with [+] expand → portion → confirm), Manual Entry Inline Form (collapsible form that expands in place), Barcode Scanner Half-Sheet (camera overlay for barcode detection), Receipt Scanner Overlay (camera + AI extraction + checklist review), Portion Selector Dropdown (inline dropdown with live macro update)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-11.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/domains/meal`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B11-F01 | critical | retention | Build real food search, meal-type state, scanner flows, quick-add, portion editing, manual entry, confirmation, undo, and error/offline states. |
+| B11-F02 | major | information-architecture | Support entry-point-driven meal view and logging modes, or split meal detail and food logging into separate routes. |
+| B11-F03 | major | accessibility | Use semantic inputs/selectors/buttons with accessible names, state, and at least 44x44 hit areas. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

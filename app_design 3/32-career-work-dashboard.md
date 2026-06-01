@@ -389,3 +389,38 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen 30 — Finance Dashboard (Domain Header, SIA Coaching Note patterns), Screen 33 — Relationships Dashboard (Domain Header, SIA Note, action-oriented layout), Screen 34 — Spirituality Dashboard (Domain Header, SIA Note). All domain dashboards share these patterns.
 - **Patterns used**: Domain Dashboard Header, SIA Coaching Note Card, Bottom Tab Bar, Stack Navigation, Back Button, 8-State Interaction Model
 - **Patterns established**: Career Goal Card (with progress ring and next action), AI Action Card (checkbox + description + XP), Skills Snapshot Card (skill level pills), Deadline Row (countdown timer with urgency states), XP Float Animation (earned XP rising and fading)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-11.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/domains/career`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B11-F10 | critical | retention | Render suggested actions as semantic completable rows with XP feedback, undo, skip/reschedule, failure recovery, and SIA explanation states. |
+| B11-F11 | major | navigation | Make skill pills and deadline rows semantic controls with detail, goal links, edit/reschedule actions, and contextual SIA routing. |
+| B11-F12 | minor | mobile-ergonomics | Expand compact text-link and level-badge hit areas to at least 44px high. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

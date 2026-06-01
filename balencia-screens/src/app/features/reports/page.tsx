@@ -1,4 +1,7 @@
-import { Download, FileText, Share2, Sparkles } from 'lucide-react'
+'use client'
+
+import { useState } from 'react'
+import { Camera, Check, FileText, Share2, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/design-system/Button'
 import { Card } from '@/components/design-system/Card'
 import { Header } from '@/components/layout/Header'
@@ -39,15 +42,16 @@ function ReportHero() {
       <div className="mt-4 flex flex-wrap gap-2">
         <SignalPill tone="purple">SIA summary</SignalPill>
         <SignalPill tone="green">Private by default</SignalPill>
-        <SignalPill tone="muted">PDF ready</SignalPill>
+        <SignalPill tone="muted">In-app only</SignalPill>
       </div>
     </section>
   )
 }
 
-function ReportCard({ report, index }: { report: (typeof reportCards)[number]; index: number }) {
+function ReportCard({ report, index, onOpen }: { report: (typeof reportCards)[number]; index: number; onOpen: (report: (typeof reportCards)[number]) => void }) {
   return (
-    <Card variant="small" className="animate-fade-up rounded-lg p-4" style={{ animationDelay: `${index * 70}ms` }}>
+    <button type="button" onClick={() => onOpen(report)} className="w-full text-left">
+      <Card variant="small" className="animate-fade-up rounded-lg p-4" style={{ animationDelay: `${index * 70}ms` }}>
       <div className="flex items-start gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-white/[0.08] bg-white/[0.04] text-brand-orange">
           <FileText size={18} strokeWidth={2} />
@@ -60,34 +64,38 @@ function ReportCard({ report, index }: { report: (typeof reportCards)[number]; i
           {report.status}
         </span>
       </div>
-    </Card>
+      </Card>
+    </button>
   )
 }
 
-function BottomAction() {
+function BottomAction({ onShare, onReview }: { onShare: () => void; onReview: () => void }) {
   return (
     <div className="grid grid-cols-2 gap-2">
-      <Button variant="ghost" leftIcon={<Share2 size={16} strokeWidth={2.2} />}>
-        Share
+      <Button variant="ghost" onClick={onShare} leftIcon={<Share2 size={16} strokeWidth={2.2} />}>
+        Screenshot
       </Button>
-      <Button leftIcon={<Download size={16} strokeWidth={2.2} />}>
-        Export PDF
+      <Button onClick={onReview} leftIcon={<Check size={16} strokeWidth={2.2} />}>
+        Review data
       </Button>
     </div>
   )
 }
 
 export default function ReportsScreen() {
+  const [selectedReport, setSelectedReport] = useState<(typeof reportCards)[number] | null>(null)
+  const [sheet, setSheet] = useState<'none' | 'share' | 'review'>('none')
+
   return (
     <PhoneFrame>
-      <ScreenShell header={<Header title="Reports" showBack />} activeTab="me" bottomAction={<BottomAction />}>
+      <ScreenShell header={<Header title="Reports" showBack />} activeTab="me" bottomAction={<BottomAction onShare={() => setSheet('share')} onReview={() => setSheet('review')} />}>
         <main className="space-y-5 px-4 pb-6 pt-4">
           <ReportHero />
           <section>
             <SectionHeader title="Recent reports" />
             <div className="space-y-3">
               {reportCards.map((report, index) => (
-                <ReportCard key={report.title} report={report} index={index} />
+                <ReportCard key={report.title} report={report} index={index} onOpen={setSelectedReport} />
               ))}
             </div>
           </section>
@@ -102,6 +110,37 @@ export default function ReportsScreen() {
               ))}
             </div>
           </section>
+          {selectedReport && (
+            <section className="rounded-lg border border-forest-green/20 bg-forest-green/10 p-4" aria-live="polite">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h2 className="text-[15px] font-semibold leading-5 text-white">{selectedReport.title} preview</h2>
+                  <p className="mt-1 text-caption leading-[18px] text-white/55">Includes selected domains only. Private notes remain excluded until you explicitly add them.</p>
+                </div>
+                <button type="button" aria-label="Close report preview" onClick={() => setSelectedReport(null)} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white/45"><X size={17} /></button>
+              </div>
+            </section>
+          )}
+          {sheet !== 'none' && (
+            <section className="rounded-lg border border-white/[0.08] bg-ink-brown-800 p-4" aria-live="polite">
+              {sheet === 'share' ? (
+                <>
+                  <div className="flex items-center gap-2 text-[15px] font-semibold leading-5 text-white"><Camera size={16} className="text-brand-orange" /> Screenshot sharing only</div>
+                  <p className="mt-1 text-caption leading-[18px] text-white/55">V1 does not export PDFs or raw data. Use an in-app screenshot after reviewing visible sections.</p>
+                </>
+              ) : (
+                <>
+                  <h2 className="text-[15px] font-semibold leading-5 text-white">Included data</h2>
+                  <div className="mt-3 space-y-2 text-caption leading-[18px] text-white/60">
+                    <label className="flex min-h-11 items-center gap-3"><input type="checkbox" defaultChecked /> Fitness, sleep, nutrition</label>
+                    <label className="flex min-h-11 items-center gap-3"><input type="checkbox" defaultChecked /> Mission progress and streaks</label>
+                    <label className="flex min-h-11 items-center gap-3"><input type="checkbox" /> Private notes and journal excerpts</label>
+                  </div>
+                  <p className="mt-2 text-small leading-[14px] text-white/35">Private notes are excluded by default.</p>
+                </>
+              )}
+            </section>
+          )}
         </main>
       </ScreenShell>
     </PhoneFrame>

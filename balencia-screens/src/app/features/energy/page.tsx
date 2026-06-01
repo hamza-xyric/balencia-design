@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import { BatteryCharging, Bird, Clock, Plus } from 'lucide-react'
 import { Card } from '@/components/design-system/Card'
 import { SegmentedControl } from '@/components/design-system/SegmentedControl'
@@ -18,20 +21,20 @@ function SectionEyebrow({ children }: { children: React.ReactNode }) {
   )
 }
 
-function CurrentEnergyCard() {
+function CurrentEnergyCard({ value, context, note }: { value: number; context: string; note: string }) {
   return (
     <Card className="mt-4 animate-fade-up text-center" style={{ animationDelay: '80ms' }}>
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-domain-wellbeing/15 text-domain-wellbeing">
         <BatteryCharging size={26} strokeWidth={2.1} />
       </div>
-      <div className="mt-3 text-display-xl font-bold leading-[48px] text-white tabular-nums">{energyTracking.current.value}</div>
-      <div className="text-caption font-semibold leading-[18px] text-domain-wellbeing">{energyTracking.current.context}</div>
-      <p className="mt-1 text-caption leading-[18px] text-white/50">{energyTracking.current.note}</p>
+      <div className="mt-3 text-display-xl font-bold leading-[48px] text-white tabular-nums">{value}</div>
+      <div className="text-caption font-semibold leading-[18px] text-domain-wellbeing">{context}</div>
+      <p className="mt-1 text-caption leading-[18px] text-white/50">{note}</p>
     </Card>
   )
 }
 
-function QuickLogCard() {
+function QuickLogCard({ value, setValue, tag, setTag, note, setNote, onLog }: { value: number; setValue: (value: number) => void; tag: string; setTag: (tag: string) => void; note: string; setNote: (note: string) => void; onLog: () => void }) {
   return (
     <section className="mt-5 animate-fade-up" style={{ animationDelay: '160ms' }}>
       <SectionEyebrow>Quick log</SectionEyebrow>
@@ -40,24 +43,22 @@ function QuickLogCard() {
           <span>1</span>
           <span>10</span>
         </div>
-        <div className="relative mt-3 h-3 rounded-pill bg-white/10">
-          <div className="h-full w-[70%] rounded-pill bg-domain-wellbeing" />
-          <div className="absolute left-[68%] top-1/2 h-7 w-7 -translate-y-1/2 rounded-full bg-white shadow-1" />
-        </div>
+        <input type="range" min="1" max="10" value={value} onChange={(event) => setValue(Number(event.target.value))} aria-label="Energy level" className="mt-3 h-11 w-full accent-brand-orange" />
         <div className="mt-4 flex flex-wrap gap-2">
-          {energyTracking.tags.map((tag, index) => (
-            <span
-              key={tag}
-              className={['rounded-pill border px-3 py-2 text-caption font-semibold leading-[18px]', index === 1 ? 'border-domain-wellbeing/30 bg-domain-wellbeing/15 text-domain-wellbeing' : 'border-white/10 bg-ink-900 text-white/60'].join(' ')}
+          {energyTracking.tags.map((option) => (
+            <button
+              type="button"
+              key={option}
+              onClick={() => setTag(option)}
+              aria-pressed={tag === option}
+              className={['min-h-11 rounded-pill border px-3 py-2 text-caption font-semibold leading-[18px]', tag === option ? 'border-domain-wellbeing/30 bg-domain-wellbeing/15 text-domain-wellbeing' : 'border-white/10 bg-ink-900 text-white/60'].join(' ')}
             >
-              {tag}
-            </span>
+              {option}
+            </button>
           ))}
         </div>
-        <div className="mt-4 h-12 rounded-md border border-white/10 bg-ink-900 px-4 py-3 text-[15px] leading-5 text-white/35">
-          Optional note...
-        </div>
-        <button type="button" className="mt-5 h-12 w-full rounded-pill bg-brand-orange text-body font-semibold leading-[22px] text-white">
+        <input value={note} onChange={(event) => setNote(event.target.value)} placeholder="Optional note..." className="mt-4 h-12 w-full rounded-md border border-white/10 bg-ink-900 px-4 text-[15px] leading-5 text-white outline-none placeholder:text-white/35" />
+        <button type="button" onClick={onLog} className="mt-5 h-12 w-full rounded-pill bg-brand-orange text-body font-semibold leading-[22px] text-white">
           Log energy
         </button>
       </Card>
@@ -94,7 +95,7 @@ function EnergyTimeline() {
   )
 }
 
-function EnergyTrend() {
+function EnergyTrend({ period, onPeriod }: { period: string; onPeriod: (period: string) => void }) {
   return (
     <section className="mt-6 animate-fade-up" style={{ animationDelay: '320ms' }}>
       <SectionEyebrow>Energy trend</SectionEyebrow>
@@ -104,7 +105,9 @@ function EnergyTrend() {
           { label: '14d', value: '14d' },
           { label: '30d', value: '30d' },
         ]}
-        activeValue="7d"
+        activeValue={period}
+        onValueChange={onPeriod}
+        ariaLabel="Energy trend range"
         className="mb-3"
       />
       <Card>
@@ -113,7 +116,7 @@ function EnergyTrend() {
           <path d="M0 132 L0 112 C38 90 44 30 82 28 C126 26 128 88 166 68 C204 48 220 40 280 52 L280 132 Z" className="fill-brand-orange/10" />
         </svg>
         <div className="mt-2 flex justify-between text-caption leading-[18px]">
-          <span className="font-semibold text-white">Avg: 6.4</span>
+          <span className="font-semibold text-white">Avg: {period === '30d' ? '6.8' : period === '14d' ? '6.6' : '6.4'}</span>
           <span className="font-semibold text-domain-wellbeing">Best: 9-11am</span>
         </div>
       </Card>
@@ -188,14 +191,14 @@ function CorrelationsCard() {
   )
 }
 
-function SiaInsight() {
+function SiaInsight({ onAsk }: { onAsk: () => void }) {
   return (
     <Card className="mt-6 border-l-[3px] border-l-royal-purple/50 p-5 animate-fade-up" style={{ animationDelay: '640ms' }}>
       <div className="flex items-start gap-3">
         <Clock size={16} className="mt-1 shrink-0 text-royal-purple" strokeWidth={2.1} />
         <div className="min-w-0">
           <p className="text-[15px] leading-[22px] text-white/80">{energyTracking.insight}</p>
-          <div className="mt-3 text-right text-caption font-semibold leading-[18px] text-royal-purple">Ask SIA more</div>
+          <button type="button" onClick={onAsk} className="mt-3 min-h-11 w-full rounded-pill border border-royal-purple/25 bg-royal-purple/10 text-caption font-semibold leading-[18px] text-royal-purple">Ask SIA more</button>
         </div>
       </div>
     </Card>
@@ -203,28 +206,36 @@ function SiaInsight() {
 }
 
 export default function EnergyTrackingScreen() {
+  const [value, setValue] = useState(7)
+  const [tag, setTag] = useState('Afternoon')
+  const [note, setNote] = useState('')
+  const [period, setPeriod] = useState('7d')
+  const [notice, setNotice] = useState('')
+  const log = () => setNotice(`Energy logged: ${value}/10, ${tag}${note ? `, ${note}` : ''}`)
+
   return (
     <PhoneFrame>
       <ScreenShell
         header={<DomainDashboardHeader title="Energy tracking" domain="wellbeing" level={8} backHref="/tabs/me/explore" />}
         activeTab="me"
         bottomAction={(
-          <button type="button" className="mx-auto flex h-[48px] items-center justify-center gap-2 rounded-pill bg-brand-orange px-6 text-[15px] font-semibold leading-5 text-white shadow-2 shadow-brand-orange/30">
+          <button type="button" onClick={() => document.getElementById('energy-quick-log')?.scrollIntoView({ behavior: 'smooth' })} className="mx-auto flex h-[48px] items-center justify-center gap-2 rounded-pill bg-brand-orange px-6 text-[15px] font-semibold leading-5 text-white shadow-2 shadow-brand-orange/30">
             <Plus size={16} strokeWidth={2.4} />
             Log
           </button>
         )}
       >
         <main className="px-4 pb-6 pt-4">
+          {notice && <div className="mb-3 rounded-md bg-forest-green/10 px-3 py-2 text-caption text-forest-green" role="status">{notice}</div>}
           <SIACoachingNote message={energyTracking.siaNote} className="p-4 animate-fade-up" />
-          <CurrentEnergyCard />
-          <QuickLogCard />
+          <CurrentEnergyCard value={value} context={tag} note={note || energyTracking.current.note} />
+          <div id="energy-quick-log"><QuickLogCard value={value} setValue={setValue} tag={tag} setTag={setTag} note={note} setNote={setNote} onLog={log} /></div>
           <EnergyTimeline />
-          <EnergyTrend />
+          <EnergyTrend period={period} onPeriod={setPeriod} />
           <PeakHoursCard />
           <ChronotypeCard />
           <CorrelationsCard />
-          <SiaInsight />
+          <SiaInsight onAsk={() => setNotice('Opening SIA with energy trend context')} />
         </main>
       </ScreenShell>
     </PhoneFrame>

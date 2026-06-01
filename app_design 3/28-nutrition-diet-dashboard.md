@@ -633,3 +633,36 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen 26 (Domain Dashboard Header, SIA Coaching Note Card, Active Goals Section, FAB, Section Heading Row — identical pattern, different domain data), Screen 29 (Macro Progress Bar pattern reused in meal detail)
 - **Patterns used**: Domain Dashboard Template (Screen 26), Domain Dashboard Header (Screen 26), SIA Coaching Note Card (Screen 26), FAB (Screen 26), Section Heading Row (Screen 26), Active Goals Section (Screen 26), Back Button (Batch 1), 8-State Interaction Model
 - **Patterns established**: Macro Progress Bar (horizontal bar with fill color, target, value — reusable for budgets, any target-based metric), Water Intake Tracker (visual icon counter with inline [+] increment and long-press decrement), Meal Row (meal type eyebrow + name + macro badges, tappable), Daily Macros Card (4-bar macro tracking layout)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-10.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U05`
+**Prototype route**: `/domains/nutrition`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q17 progress photos are private, encrypted, user-deletable, and AI analysis is premium opt-in.
+- Q20 OAuth flows need scope and revocation clarity.
+- Q21 Data Sources may be a demo/no-live-sync trust placeholder for prototype acceptance.
+- Q39 achievement density adapts for low-motivation users.
+- Q43 Knowledge Graph V1 is a guided insight map.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B10-F12 | major | retention | Make Add water a 44x44 control with immediate increment, undo, target feedback, and failure/offline handling. |
+| B10-F13 | major | navigation | Make the SIA note a semantic link/button to SIA with nutrition context and a suggested follow-up prompt. |
+| B10-F14 | minor | design-system-consistency | Align the fixture/spec level or document why nutrition level changed. |
+
+### Prototype Implications
+
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

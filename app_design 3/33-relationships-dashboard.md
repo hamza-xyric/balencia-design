@@ -474,3 +474,40 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen 30 — Finance Dashboard (Domain Header, SIA Coaching Note, FAB), Screen 32 — Career Dashboard (Domain Header, SIA Note), Screen 34 — Spirituality Dashboard (Domain Header, SIA Note, streak tracking pattern). All domain dashboards share header and SIA note patterns.
 - **Patterns used**: Domain Dashboard Header, SIA Coaching Note Card, FAB with scroll-hide, Bottom Tab Bar, Stack Navigation, Back Button, 8-State Interaction Model, Bottom Sheet Modal
 - **Patterns established**: Person Row (avatar + name + relationship + last interaction), AI Reminder Card (swipeable, with warning icon and action states), Quality Time Log Entry, SIA Suggestion Card (with "do it"/"skip" inline actions), Upcoming Date Row (with countdown urgency states), Add Person Bottom Sheet, Log Quality Time Bottom Sheet
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-11.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/domains/relationships`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B11-F13 | critical | retention | Implement add-person and quality-time sheets, suggestion do/skip states, full log navigation, validation, save/cancel, success, and error states. |
+| B11-F14 | major | accessibility | Make rows semantic buttons/links with expand/detail behavior, dismiss alternatives, clear labels, and 44px touch targets. |
+| B11-F15 | major | trust-privacy | Add source/explanation affordances, snooze/dismiss/log paths, per-person visibility controls, and relationship tracking settings. |
+| B11-F16 | minor | design-system-consistency | Align the fixture/spec level or document why the relationships level changed. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

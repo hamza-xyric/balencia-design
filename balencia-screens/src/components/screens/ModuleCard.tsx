@@ -101,7 +101,7 @@ export function ModuleCard({ module, variant = 'grid', className = '', style }: 
     <Link
       href={module.route}
       className={[
-        'relative flex shrink-0 flex-col border border-white/[0.06] bg-ink-brown-800 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-[0.97]',
+        'relative flex shrink-0 flex-col border border-alpha-white-06 bg-ink-brown-800 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-[0.97]',
         isSuggested ? 'h-[120px] w-40 rounded-md p-4' : 'h-[88px] rounded-md p-3',
         className,
       ].filter(Boolean).join(' ')}

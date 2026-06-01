@@ -602,3 +602,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Habits [38] (checkbox pattern, Domain Tag Chip, FAB, swipe actions, completion behavior), Schedule [41] (FAB, event/task overlap, calendar integration), Notification History [24] (reminder-type notifications originate here), Settings [21] (Toggle Switch pattern), Goals List [13] (task-to-goal linkage)
 - **Patterns used**: Back Button (_shared-patterns.md), 8-State Interaction Model (_shared-patterns.md), FAB Extended Pill (_shared-patterns.md), Domain Tag Chip (_shared-patterns.md), Toggle Switch (_shared-patterns.md), Text Input Field (_shared-patterns.md), Segmented Control (_shared-patterns.md), Filter Chip Row (_shared-patterns.md), Brand CTA Button (_shared-patterns.md), Expandable/Collapsible Section (_shared-patterns.md), Section Eyebrow Label (_shared-patterns.md), SIA Coaching Note -- Contextual Variant (_shared-patterns.md), Modal Presentation (_shared-patterns.md), Skeleton Loading States (_shared-patterns.md)
 - **Patterns established**: Task Row (checkbox + priority bar + title + domain tag + due time, with overdue/recurring variants), Reminder Row (bell icon + title + schedule + channel indicators + toggle), Priority Pill Selector (3-pill low/medium/high with color coding), Day Circle Selector (7-day recurring picker), Notification Channel Toggles (push/email/SMS triple toggle row), Task Color Selector (8-color dot row with ring selection), Tag Input (type-to-create chip input with removal), Add Chooser Bottom Sheet (2-option routing sheet for task vs reminder creation), Smart Suggestion Action Row ("add as task" + "ask SIA" dual action pattern)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-16.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/reminders`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B16-F04 | critical | retention | Make task rows completable controls, wire add/detail/swipe behavior, and implement SIA suggestion conversion. |
+| B16-F05 | major | navigation | Render Back as a labeled 44px link/button and disambiguate Add task from Add suggested task. |
+| B16-F06 | major | accessibility | Make full reminder rows or 44x44 switch targets toggle state, preserve switch semantics, and update reminder copy. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

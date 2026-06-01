@@ -17,9 +17,10 @@ const quickActionIcons = {
 
 type QuickActionsRowProps = HTMLAttributes<HTMLDivElement> & {
   actions: QuickAction[]
+  onAction?: (id: QuickAction['id']) => void
 }
 
-export function QuickActionsRow({ actions, className = '', ...props }: QuickActionsRowProps) {
+export function QuickActionsRow({ actions, onAction, className = '', ...props }: QuickActionsRowProps) {
   return (
     <div
       className={['flex gap-2 overflow-x-auto pb-1 hide-scrollbar', className].filter(Boolean).join(' ')}
@@ -30,7 +31,9 @@ export function QuickActionsRow({ actions, className = '', ...props }: QuickActi
         return (
           <button
             key={action.id}
-            className="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-white/[0.08] bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white shadow-1"
+            type="button"
+            onClick={() => onAction?.(action.id)}
+            className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-pill border border-alpha-white-08 bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white shadow-1"
             aria-label={`${action.label}, tap to open`}
           >
             {action.isSIASuggested && <span className="h-1 w-1 rounded-full bg-royal-purple" aria-hidden="true" />}

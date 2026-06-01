@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
+import { useState } from 'react'
 import {
   ArrowDown,
   ArrowUp,
@@ -32,7 +35,7 @@ function pointsFor(values: number[], width: number, height: number, padding = 2)
   }).join(' ')
 }
 
-function IntelligenceHeader() {
+function IntelligenceHeader({ onMore }: { onMore: () => void }) {
   return (
     <header className="z-30 h-[88px] shrink-0 bg-ink-900/95 backdrop-blur-md">
       <div className="flex h-11 items-center px-4">
@@ -40,7 +43,7 @@ function IntelligenceHeader() {
           <ChevronLeft size={20} strokeWidth={2.1} />
         </Link>
         <h1 className="min-w-0 flex-1 truncate text-h2 font-semibold leading-[26px] text-white">Intelligence</h1>
-        <button type="button" className="flex h-11 w-11 items-center justify-center rounded-full text-white/60" aria-label="More intelligence options">
+        <button type="button" onClick={onMore} className="flex h-11 w-11 items-center justify-center rounded-full text-white/60" aria-label="More intelligence options">
           <MoreHorizontal size={20} strokeWidth={2.1} />
         </button>
       </div>
@@ -132,15 +135,16 @@ function DailyScoreHero() {
   )
 }
 
-function Contradictions() {
+function Contradictions({ dismissed, onDismiss, onResolve }: { dismissed: Set<string>; onDismiss: (id: string) => void; onResolve: (id: string) => void }) {
+  const items = intelligenceDashboard.contradictions.filter((item) => !dismissed.has(item.id))
   return (
     <section className="mt-4 animate-fade-up" style={{ animationDelay: '80ms' }}>
       <div className="mb-3 flex items-center gap-1 px-1">
         <span className="text-eyebrow font-semibold uppercase leading-4 tracking-[0.12em] text-white/40">Contradictions</span>
-        <span className="text-eyebrow font-semibold leading-4 text-brand-orange">({intelligenceDashboard.contradictions.length})</span>
+        <span className="text-eyebrow font-semibold leading-4 text-brand-orange">({items.length})</span>
       </div>
       <div className="space-y-2">
-        {intelligenceDashboard.contradictions.map((item) => (
+        {items.map((item) => (
           <Card key={item.id} className="p-5">
             <div className="flex items-start gap-3">
               <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-orange text-white">
@@ -150,10 +154,10 @@ function Contradictions() {
                 <p className="text-[15px] leading-5 text-white/85">{item.text}</p>
                 <p className="mt-1 text-small leading-[14px] text-white/40">{item.source}</p>
                 <div className="mt-3 flex justify-end gap-2">
-                  <button type="button" className="h-8 rounded-pill border border-white/10 bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white/50">
+                  <button type="button" onClick={() => onDismiss(item.id)} className="h-11 rounded-pill border border-white/10 bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white/50">
                     Dismiss
                   </button>
-                  <button type="button" className="h-8 rounded-pill bg-royal-purple/15 px-4 text-caption font-semibold leading-[18px] text-royal-purple">
+                  <button type="button" onClick={() => onResolve(item.id)} className="h-11 rounded-pill bg-royal-purple/15 px-4 text-caption font-semibold leading-[18px] text-royal-purple">
                     Resolve
                   </button>
                 </div>
@@ -166,7 +170,7 @@ function Contradictions() {
   )
 }
 
-function ScoreTrendChart() {
+function ScoreTrendChart({ range: selectedRange, onRange }: { range: string; onRange: (range: string) => void }) {
   const width = 280
   const height = 132
   const values = intelligenceDashboard.trendPoints.map((point) => point.score)
@@ -183,14 +187,16 @@ function ScoreTrendChart() {
       <Card>
         <div className="text-eyebrow font-semibold uppercase leading-4 tracking-[0.12em] text-white/40">Score trend</div>
         <div className="mt-3 flex gap-2">
-          {['7d', '14d', '30d'].map((range, index) => (
+          {['7d', '14d', '30d'].map((range) => (
             <button
               key={range}
               type="button"
               className={[
-                'h-8 rounded-pill px-3 text-caption font-semibold leading-[18px]',
-                index === 0 ? 'bg-royal-purple text-white' : 'border border-white/10 bg-ink-900 text-white/50',
+                'h-11 rounded-pill px-4 text-caption font-semibold leading-[18px]',
+                selectedRange === range ? 'bg-royal-purple text-white' : 'border border-white/10 bg-ink-900 text-white/50',
               ].join(' ')}
+              onClick={() => onRange(range)}
+              aria-pressed={selectedRange === range}
             >
               {range}
             </button>
@@ -215,7 +221,7 @@ function ScoreTrendChart() {
   )
 }
 
-function Correlations() {
+function Correlations({ onSeeAll }: { onSeeAll: () => void }) {
   return (
     <section className="mt-6 animate-fade-up" style={{ animationDelay: '240ms' }}>
       <div className="mb-3 px-1 text-eyebrow font-semibold uppercase leading-4 tracking-[0.12em] text-royal-purple">Correlations</div>
@@ -231,7 +237,7 @@ function Correlations() {
             </div>
           </article>
         ))}
-        <button type="button" className="flex h-11 w-full items-center justify-center text-caption leading-[18px] text-brand-orange">
+        <button type="button" onClick={onSeeAll} className="flex h-11 w-full items-center justify-center text-caption leading-[18px] text-brand-orange">
           See all
         </button>
       </Card>
@@ -275,7 +281,7 @@ function BestDayFormula() {
   )
 }
 
-function WeeklyReport() {
+function WeeklyReport({ onOpen }: { onOpen: () => void }) {
   return (
     <Card className="mt-6 animate-fade-up" style={{ animationDelay: '400ms' }}>
       <div className="text-eyebrow font-semibold uppercase leading-4 tracking-[0.12em] text-white/40">Weekly report</div>
@@ -284,7 +290,7 @@ function WeeklyReport() {
         <ChevronRight size={16} className="rotate-90 text-white/40" strokeWidth={2.2} />
       </div>
       <p className="mt-3 text-[15px] leading-5 text-white/70">{intelligenceDashboard.weeklyReport.summary}</p>
-      <button type="button" className="mt-3 flex h-8 w-full items-center justify-end text-caption font-semibold leading-[18px] text-brand-orange">
+      <button type="button" onClick={onOpen} className="mt-3 flex h-11 w-full items-center justify-end text-caption font-semibold leading-[18px] text-brand-orange">
         See full report
       </button>
     </Card>
@@ -292,6 +298,7 @@ function WeeklyReport() {
 }
 
 function Predictions() {
+  const [feedback, setFeedback] = useState<'up' | 'down' | null>(null)
   return (
     <Card className="mt-6 text-center animate-fade-up" style={{ animationDelay: '480ms' }}>
       <div className="text-left text-eyebrow font-semibold uppercase leading-4 tracking-[0.12em] text-royal-purple">Predictions</div>
@@ -304,9 +311,9 @@ function Predictions() {
         <span className="rounded-pill bg-forest-green/15 px-3 py-1.5 text-[12px] font-semibold leading-4 text-forest-green">
           {intelligenceDashboard.prediction.accuracy}
         </span>
-        <span className="flex items-center gap-3 text-white/30">
-          <ThumbsUp size={16} className="text-forest-green" strokeWidth={2.2} />
-          <ThumbsDown size={16} strokeWidth={2.2} />
+        <span className="flex items-center gap-1 text-white/30">
+          <button type="button" onClick={() => setFeedback('up')} aria-pressed={feedback === 'up'} aria-label="Prediction helpful" className="flex h-11 w-11 items-center justify-center rounded-full"><ThumbsUp size={16} className={feedback === 'up' ? 'text-forest-green' : ''} strokeWidth={2.2} /></button>
+          <button type="button" onClick={() => setFeedback('down')} aria-pressed={feedback === 'down'} aria-label="Prediction not helpful" className="flex h-11 w-11 items-center justify-center rounded-full"><ThumbsDown size={16} className={feedback === 'down' ? 'text-brand-orange' : ''} strokeWidth={2.2} /></button>
         </span>
       </div>
     </Card>
@@ -314,24 +321,64 @@ function Predictions() {
 }
 
 function RecentInsights() {
+  const initialFeedback: Record<string, 'up' | 'down' | null> = Object.fromEntries(
+    intelligenceDashboard.insights.map((insight) => [insight.id, insight.feedback === 'up' ? 'up' : insight.feedback === 'down' ? 'down' : null]),
+  )
+  const [feedback, setFeedback] = useState<Record<string, 'up' | 'down' | null>>(initialFeedback)
+  const [status, setStatus] = useState('')
+
+  const setVote = (id: string, vote: 'up' | 'down', text: string) => {
+    setFeedback((current) => {
+      const next = { ...current }
+      next[id] = current[id] === vote ? null : vote
+      return next
+    })
+    setStatus(feedback[id] === vote ? `Feedback cleared for ${text}.` : vote === 'up' ? `Marked helpful: ${text}.` : `Marked not helpful: ${text}.`)
+  }
+
   return (
     <section className="mt-6 animate-fade-up" style={{ animationDelay: '560ms' }}>
       <div className="mb-3 px-1 text-eyebrow font-semibold uppercase leading-4 tracking-[0.12em] text-royal-purple">Recent insights</div>
       <Card className="p-0">
-        {intelligenceDashboard.insights.map((insight, index) => (
-          <article key={insight.id} className={['flex gap-3 p-5', index > 0 ? 'border-t border-white/[0.05]' : ''].join(' ')}>
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-royal-purple" aria-hidden="true" />
-            <div className="min-w-0 flex-1">
-              <p className="text-[14px] leading-5 text-white/80">{insight.text}</p>
-              <p className="mt-1 text-small leading-[14px] text-white/30">{insight.time}</p>
-            </div>
-            <div className="flex shrink-0 gap-2 text-white/25">
-              <ThumbsUp size={14} className={insight.feedback === 'up' ? 'text-forest-green' : ''} strokeWidth={2.2} />
-              <ThumbsDown size={14} strokeWidth={2.2} />
-            </div>
-          </article>
-        ))}
+        {intelligenceDashboard.insights.map((insight, index) => {
+          const vote = feedback[insight.id]
+          return (
+            <article key={insight.id} className={['flex gap-3 p-5', index > 0 ? 'border-t border-white/[0.05]' : ''].join(' ')}>
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-royal-purple" aria-hidden="true" />
+              <div className="min-w-0 flex-1">
+                <p className="text-[14px] leading-5 text-white/80">{insight.text}</p>
+                <p className="mt-1 text-small leading-[14px] text-white/30">{insight.time}</p>
+                {vote && (
+                  <p className="mt-2 inline-flex items-center rounded-pill bg-royal-purple/15 px-2 py-0.5 text-[11px] font-semibold leading-4 text-royal-purple" role="status">
+                    {vote === 'up' ? 'Marked helpful. SIA will surface more like this.' : 'Marked not helpful. SIA will down-weight this pattern.'}
+                  </p>
+                )}
+              </div>
+              <div className="flex shrink-0 items-start gap-1 text-white/25">
+                <button
+                  type="button"
+                  onClick={() => setVote(insight.id, 'up', insight.text)}
+                  aria-pressed={vote === 'up'}
+                  aria-label={`Mark ${insight.text} helpful`}
+                  className={['flex h-11 w-11 items-center justify-center rounded-full', vote === 'up' ? 'bg-forest-green/15' : ''].join(' ')}
+                >
+                  <ThumbsUp size={16} className={vote === 'up' ? 'text-forest-green' : ''} strokeWidth={2.2} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setVote(insight.id, 'down', insight.text)}
+                  aria-pressed={vote === 'down'}
+                  aria-label={`Mark ${insight.text} not helpful`}
+                  className={['flex h-11 w-11 items-center justify-center rounded-full', vote === 'down' ? 'bg-brand-orange/15' : ''].join(' ')}
+                >
+                  <ThumbsDown size={16} className={vote === 'down' ? 'text-brand-orange' : ''} strokeWidth={2.2} />
+                </button>
+              </div>
+            </article>
+          )
+        })}
       </Card>
+      <div className="sr-only" role="status" aria-live="polite">{status}</div>
     </section>
   )
 }
@@ -351,20 +398,37 @@ function KnowledgeGraphLink() {
 }
 
 export default function IntelligenceScreen() {
+  const [dismissed, setDismissed] = useState(new Set<string>())
+  const [range, setRange] = useState('7d')
+  const [dialog, setDialog] = useState('')
+  const resolveContradiction = (id: string) => setDialog(`Review sources for ${id}`)
+
   return (
     <PhoneFrame>
-      <ScreenShell header={<IntelligenceHeader />} activeTab="me">
+      <ScreenShell header={<IntelligenceHeader onMore={() => setDialog('Intelligence options')} />} activeTab="me">
         <main className="px-4 pb-20 pt-4">
           <DailyScoreHero />
-          <Contradictions />
-          <ScoreTrendChart />
-          <Correlations />
+          <Contradictions dismissed={dismissed} onDismiss={(id) => setDismissed((current) => new Set(current).add(id))} onResolve={resolveContradiction} />
+          <ScoreTrendChart range={range} onRange={setRange} />
+          <p className="sr-only" aria-live="polite">{range} range selected</p>
+          <Correlations onSeeAll={() => setDialog('All correlations')} />
           <BestDayFormula />
-          <WeeklyReport />
+          <WeeklyReport onOpen={() => setDialog('Weekly report')} />
           <Predictions />
           <RecentInsights />
           <KnowledgeGraphLink />
         </main>
+
+        {dialog && (
+          <div className="absolute inset-0 z-40 flex items-end bg-ink-900/70 px-4 pb-4" role="dialog" aria-modal="true" aria-label={dialog}>
+            <div className="w-full rounded-xl border border-white/[0.08] bg-ink-brown-800 p-5 shadow-3">
+              <h2 className="text-h3 font-semibold leading-[22px] text-white">{dialog}</h2>
+              <p className="mt-2 text-caption leading-[18px] text-white/55">Review source data, correction options, export-free report details, and model explanation before saving.</p>
+              <button type="button" onClick={() => { if (dialog.startsWith('Review')) setDismissed((current) => new Set(current).add(dialog.split(' ').pop() || '')); setDialog('') }} className="mt-4 h-11 w-full rounded-pill bg-royal-purple text-[15px] font-semibold leading-5 text-white">Save resolution</button>
+              <button type="button" onClick={() => setDialog('')} className="mt-3 h-11 w-full rounded-pill text-[15px] font-semibold leading-5 text-white/60">Close</button>
+            </div>
+          </div>
+        )}
       </ScreenShell>
     </PhoneFrame>
   )

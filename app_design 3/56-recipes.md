@@ -933,3 +933,38 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Serving scaling**: when user adjusts servings in Recipe Detail, all ingredient quantities scale proportionally. Macros display updates to show per-serving values (unchanged) with a "Total for X servings: Y cal" line below.
 - **"Log as Meal" flow**: on successful log, increment `times_made` counter and navigate to Meal Detail [29] with success state. Macro data from the recipe populates the food log entry.
 - **Performance**: horizontal scroll sections (AI suggestions, Favorites) use lazy rendering. Grid uses windowed list for recipes beyond the initial 12.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-15.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/recipes`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B15-F07 | critical | retention | Replace search with a real input, make filters stateful, and wire recipe creation, save, and open behavior. |
+| B15-F08 | major | navigation | Make cards and rows semantic links/buttons with detail, Add to shopping list, Log as meal, favorite, and SIA actions. |
+| B15-F09 | major | accessibility | Use 44px semantic controls for filters, section actions, favorites, recipe cards, and create entry. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

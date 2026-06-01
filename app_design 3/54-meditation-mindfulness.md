@@ -647,3 +647,38 @@ SIA fills every zone so no screen feels barren:
 - **Shared components with**: Screen 34 -- Spirituality Dashboard (Contemplation Timer Shortcut pattern informs session view, Practice Tracker informs practice cards), Screen 38 -- Habits (7-Day Dot Row, Streak indicator, Calendar Heatmap in high-motivation variant), Screen 26 -- Fitness Dashboard (Domain Dashboard Header, Stat Tiles, SIA Coaching Note), Screen 27 -- Workout Detail (Multi-Mode pattern informs library->session->post-session flow)
 - **Patterns used**: Domain Dashboard Header (Screen 26), SIA Coaching Note Card -- Compact Variant (Screen 26), Filter Chip Row (Screen 13), Stat Tile (Screen 26), 7-Day Calendar Dot Row (Screen 26), Domain Tag Chip (Screen 12), Brand CTA Button (Screen 02), Text Input Field (Screen 03), Back Button, Bottom Tab Bar, 8-State Interaction Model, Staggered Fade-In content entry, Pull-to-Refresh, RPG Skill Badge (Screen 26), XP Earned Badge (Screen 27), Calendar Heatmap (Screen 38, high-motivation variant only)
 - **Patterns established**: Practice Card (name + category tag + duration + why + when_to_use), Active Session Overlay (full-screen pulsing circle timer with breathe animation), Timer Controls (pause/skip/end icon row), Post-Session Feedback View (effectiveness rating circles + optional note + XP), Pulsing Breathe Circle (ambient visual for meditation/mindfulness), Rating Circle Row (1-5 tappable circles with cascade fill), SIA Recommended Practice Card (AI-personalized suggestion with inline begin CTA)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-15.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/meditation`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B15-F01 | critical | retention | Implement the library, active-session, and post-session state machine with semantic Begin controls, timer controls, feedback, XP/streak updates, and exits. |
+| B15-F02 | major | information-architecture | Move active and post-session content into a full-screen overlay or true mode that appears only after a practice starts. |
+| B15-F03 | major | accessibility | Add 44px hit areas, selected-state semantics, labeled timer controls, live timer announcements, and real rating controls. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

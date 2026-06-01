@@ -409,3 +409,36 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [17] — Me Main (module card pattern — identical card spec), Screen [12] — Home Screen (domain-colored tags)
 - **Patterns used**: Back Button (Batch 1), Text Input Field (Batch 1 — adapted for search), Bottom Tab Bar (_shared-patterns.md), Module Card (established in Screen [17] this batch), Domain Tag Chip (domain dot variant — color dot + name)
 - **Patterns established**: Search bar (pill variant), Domain section with sticky header, Grid module card (2-column variant), Standalone features section, Client-side search filter behavior
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-07.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U04`
+**Prototype route**: `/tabs/me/explore`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q20 OAuth flows must preview scopes, purpose, sync cadence, storage, disconnect, delete, and revocation.
+- Q33 Life Areas comparison is Plus-gated only after enough history exists.
+- Q34 Explore tier labels distinguish included vs locked states.
+- Q35 billing follows mobile-store purchase, restore, trial, cancellation, error, and entitlement patterns.
+- Q50 obstacle reconnection uses per-blocker accept/dismiss controls before accept-all.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B07-F09 | major | information-architecture | Replace the static search surface with a controlled input, live filtering, clear button, hidden suggestions during search, and no-results state. |
+| B07-F10 | major | monetization | Drive lock badges from subscription state, hide Plus locks for Plus users, and route truly locked modules to preview/paywall behavior. |
+| B07-F11 | major | navigation | Render a labeled 44x44 back button/link with stack-pop behavior. |
+
+### Prototype Implications
+
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

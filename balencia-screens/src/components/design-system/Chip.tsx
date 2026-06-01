@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react'
 import type { DomainKey } from '@/data/domains'
 
 export const domainToneClasses: Record<DomainKey, { dot: string; selected: string; subtle: string; text: string; border: string; bar: string }> = {
@@ -112,27 +112,53 @@ export function Chip({
   icon,
   className = '',
   children,
+  type,
+  onClick,
+  onKeyDown,
+  onMouseDown,
+  disabled,
   ...props
 }: ChipProps) {
   const domainClasses = domain ? domainToneClasses[domain] : null
+  const interactive = Boolean(onClick || onKeyDown || onMouseDown || disabled || props['aria-pressed'] !== undefined)
+  const classes = [
+    'inline-flex items-center justify-center gap-2 rounded-pill border px-3 text-caption font-semibold transition-all duration-[var(--dur-fast)] ease-[var(--ease-out-soft)]',
+    interactive ? 'min-h-11 active:scale-[0.96]' : 'h-9',
+    domainClasses
+      ? selected
+        ? `${domainClasses.selected} text-white`
+        : `border-white/10 bg-ink-brown-800 text-white/70`
+      : selected
+        ? 'border-brand-orange bg-brand-orange/15 text-brand-orange'
+        : 'border-white/10 bg-ink-brown-800 text-white/70',
+    className,
+  ].filter(Boolean).join(' ')
+  const content = (
+    <>
+      {icon || (domainClasses && <span className={`h-2.5 w-2.5 rounded-full ${domainClasses.dot}`} aria-hidden="true" />)}
+      <span>{children}</span>
+    </>
+  )
+
+  if (!interactive) {
+    return (
+      <span className={classes} {...(props as HTMLAttributes<HTMLSpanElement>)}>
+        {content}
+      </span>
+    )
+  }
 
   return (
     <button
-      className={[
-        'inline-flex h-9 items-center justify-center gap-2 rounded-pill border px-3 text-caption font-semibold transition-all duration-[var(--dur-fast)] ease-[var(--ease-out-soft)] active:scale-[0.96]',
-        domainClasses
-          ? selected
-            ? `${domainClasses.selected} text-white`
-            : `border-white/10 bg-ink-brown-800 text-white/70`
-          : selected
-            ? 'border-brand-orange bg-brand-orange/15 text-brand-orange'
-            : 'border-white/10 bg-ink-brown-800 text-white/70',
-        className,
-      ].filter(Boolean).join(' ')}
+      type={type ?? 'button'}
+      className={classes}
+      disabled={disabled}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      onMouseDown={onMouseDown}
       {...props}
     >
-      {icon || (domainClasses && <span className={`h-2.5 w-2.5 rounded-full ${domainClasses.dot}`} aria-hidden="true" />)}
-      <span>{children}</span>
+      {content}
     </button>
   )
 }

@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "title": "Balencia Life Correlation Matrix — base layer",
+    "source": "LIFE_CORRELATION_MATRIX.md §3 (population-level base weights)",
+    "domains": 10,
+    "uniquePairs": 45,
+    "weightRange": [0.0, 1.0],
+    "note": "Symmetric co-movement weights (not causality). hubAvg = mean of a domain's 9 off-diagonal weights. Edge weights are verbatim from the base matrix.",
+    "caveat": "Cross-domain insight percentages are illustrative prototype figures, not validated product claims. Do not ship a stat as fact until validated."
+  },
+  "domains": [
+    { "key": "fitness",       "label": "Fitness",       "short": "FIT", "token": "--color-domain-fitness",       "accent": "#EF4444", "cluster": "physical",     "bridge": false, "hubAvg": 0.50 },
+    { "key": "sleep",         "label": "Sleep",         "short": "SLP", "token": "--color-domain-sleep",         "accent": "#818CF8", "cluster": "physical",     "bridge": false, "hubAvg": 0.56 },
+    { "key": "career",        "label": "Career",        "short": "CAR", "token": "--color-domain-career",        "accent": "#6366F1", "cluster": "professional", "bridge": false, "hubAvg": 0.49 },
+    { "key": "nutrition",     "label": "Nutrition",     "short": "NUT", "token": "--color-domain-nutrition",     "accent": "#84CC16", "cluster": "physical",     "bridge": false, "hubAvg": 0.46 },
+    { "key": "finance",       "label": "Finance",       "short": "FIN", "token": "--color-domain-finance",       "accent": "#10B981", "cluster": "professional", "bridge": false, "hubAvg": 0.39 },
+    { "key": "faith",         "label": "Faith",         "short": "FAI", "token": "--color-domain-faith",         "accent": "#A855F7", "cluster": "inner",        "bridge": false, "hubAvg": 0.38 },
+    { "key": "productivity",  "label": "Productivity",  "short": "PRD", "token": "--color-domain-productivity",  "accent": "#F97316", "cluster": "professional", "bridge": true,  "hubAvg": 0.54 },
+    { "key": "relationships", "label": "Relationships", "short": "REL", "token": "--color-domain-relationships", "accent": "#EC4899", "cluster": "bridge",       "bridge": true,  "hubAvg": 0.43 },
+    { "key": "wellbeing",     "label": "Wellbeing",     "short": "WEL", "token": "--color-domain-wellbeing",     "accent": "#14B8A6", "cluster": "inner",        "bridge": true,  "hubAvg": 0.68 },
+    { "key": "meditation",    "label": "Meditation",    "short": "MED", "token": "--color-domain-meditation",    "accent": "#A78BFA", "cluster": "inner",        "bridge": false, "hubAvg": 0.51 }
+  ],
+  "clusters": {
+    "physical":     { "label": "Physical",     "members": ["fitness", "sleep", "nutrition"],        "note": "all 0.60+ with each other" },
+    "professional": { "label": "Professional", "members": ["career", "finance", "productivity"],     "note": "all 0.50+ with each other" },
+    "inner":        { "label": "Inner life",   "members": ["faith", "meditation", "wellbeing"],      "note": "all 0.65+ with each other" }
+  },
+  "bridges": {
+    "wellbeing": "bridges all three clusters (most-connected domain)",
+    "productivity": "bridges physical and professional",
+    "relationships": "bridges inner life and professional"
+  },
+  "edges": [
+    { "a": "fitness", "b": "sleep", "w": 0.85 },
+    { "a": "fitness", "b": "career", "w": 0.35 },
+    { "a": "fitness", "b": "nutrition", "w": 0.80 },
+    { "a": "fitness", "b": "finance", "w": 0.25 },
+    { "a": "fitness", "b": "faith", "w": 0.20 },
+    { "a": "fitness", "b": "productivity", "w": 0.50 },
+    { "a": "fitness", "b": "relationships", "w": 0.35 },
+    { "a": "fitness", "b": "wellbeing", "w": 0.75 },
+    { "a": "fitness", "b": "meditation", "w": 0.45 },
+    { "a": "sleep", "b": "career", "w": 0.55 },
+    { "a": "sleep", "b": "nutrition", "w": 0.60 },
+    { "a": "sleep", "b": "finance", "w": 0.20 },
+    { "a": "sleep", "b": "faith", "w": 0.25 },
+    { "a": "sleep", "b": "productivity", "w": 0.75 },
+    { "a": "sleep", "b": "relationships", "w": 0.35 },
+    { "a": "sleep", "b": "wellbeing", "w": 0.80 },
+    { "a": "sleep", "b": "meditation", "w": 0.70 },
+    { "a": "career", "b": "nutrition", "w": 0.30 },
+    { "a": "career", "b": "finance", "w": 0.80 },
+    { "a": "career", "b": "faith", "w": 0.30 },
+    { "a": "career", "b": "productivity", "w": 0.75 },
+    { "a": "career", "b": "relationships", "w": 0.45 },
+    { "a": "career", "b": "wellbeing", "w": 0.60 },
+    { "a": "career", "b": "meditation", "w": 0.35 },
+    { "a": "nutrition", "b": "finance", "w": 0.45 },
+    { "a": "nutrition", "b": "faith", "w": 0.25 },
+    { "a": "nutrition", "b": "productivity", "w": 0.50 },
+    { "a": "nutrition", "b": "relationships", "w": 0.25 },
+    { "a": "nutrition", "b": "wellbeing", "w": 0.65 },
+    { "a": "nutrition", "b": "meditation", "w": 0.35 },
+    { "a": "finance", "b": "faith", "w": 0.25 },
+    { "a": "finance", "b": "productivity", "w": 0.50 },
+    { "a": "finance", "b": "relationships", "w": 0.35 },
+    { "a": "finance", "b": "wellbeing", "w": 0.55 },
+    { "a": "finance", "b": "meditation", "w": 0.20 },
+    { "a": "faith", "b": "productivity", "w": 0.30 },
+    { "a": "faith", "b": "relationships", "w": 0.50 },
+    { "a": "faith", "b": "wellbeing", "w": 0.65 },
+    { "a": "faith", "b": "meditation", "w": 0.75 },
+    { "a": "productivity", "b": "relationships", "w": 0.40 },
+    { "a": "productivity", "b": "wellbeing", "w": 0.60 },
+    { "a": "productivity", "b": "meditation", "w": 0.55 },
+    { "a": "relationships", "b": "wellbeing", "w": 0.75 },
+    { "a": "relationships", "b": "meditation", "w": 0.45 },
+    { "a": "wellbeing", "b": "meditation", "w": 0.80 }
+  ],
+  "featured": {
+    "a": "meditation",
+    "b": "finance",
+    "base": 0.20,
+    "personal": 0.55,
+    "weeks": 6,
+    "confidenceMilestones": [
+      { "week": 2, "confidence": 0.25 },
+      { "week": 5, "confidence": 0.50 }
+    ],
+    "quote": "I've noticed something interesting. On days you meditate, your spending the next day tends to be lower. It looks like mindfulness might be helping you make more intentional financial decisions. Want to explore this?"
+  },
+  "insights": [
+    { "a": "fitness", "b": "sleep", "text": "When your sleep dips, I lower tomorrow's training ceiling — so you build instead of break.", "stat": null },
+    { "a": "nutrition", "b": "career", "text": "On meeting-heavy days, skipping lunch tends to cost you your afternoon focus. I flag it before it happens.", "stat": "~31% afternoon focus" },
+    { "a": "relationships", "b": "wellbeing", "text": "The weeks you stay close to people tend to be the weeks you recover best.", "stat": "~24% recovery" },
+    { "a": "finance", "b": "career", "text": "Your spending often climbs during your most stressful work weeks. I name the pattern early, gently.", "stat": "~40% spending" },
+    { "a": "meditation", "b": "career", "text": "A few quiet minutes in the evening tends to show up as sharper focus the next day.", "stat": null },
+    { "a": "relationships", "b": "relationships", "text": "You have not spoken to Maya in 14 days. A two-minute message might be worth more than it looks.", "stat": null }
+  ]
+}

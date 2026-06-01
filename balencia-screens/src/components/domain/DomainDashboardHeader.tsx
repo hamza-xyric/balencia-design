@@ -72,13 +72,13 @@ export function DomainDashboardHeader({
       </div>
 
       {rightAction ? (
-        <div className="ml-3 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white/60 transition-colors duration-[var(--dur-fast)] active:bg-white/[0.05] active:text-white">
+        <div className="ml-3 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white/60 transition-colors duration-[var(--dur-fast)] active:bg-alpha-white-05 active:text-white">
           {rightAction}
         </div>
       ) : typeof level === 'number' && (
         <Link
           href="/tabs/me/rpg"
-          className={`ml-3 inline-flex h-7 shrink-0 items-center rounded-pill px-3 text-caption font-semibold leading-[18px] ${tone.subtle} ${tone.text} transition-transform duration-[var(--dur-fast)] active:scale-95`}
+          className={`ml-3 inline-flex h-11 shrink-0 items-center rounded-pill px-3 text-caption font-semibold leading-[18px] ${tone.subtle} ${tone.text} transition-transform duration-[var(--dur-fast)] active:scale-95`}
         >
           Lv.{level}
         </Link>

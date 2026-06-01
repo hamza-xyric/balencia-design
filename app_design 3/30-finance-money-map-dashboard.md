@@ -482,3 +482,38 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Patterns used**: Bottom Tab Bar, Stack Navigation, Back Button, 8-State Interaction Model (from _shared-patterns.md)
 - **Patterns established**: Transaction Row, Budget Category Row, Savings Goal Card, KPI Strip, Spending Trend Chart, FAB with long-press expand, scroll-hide FAB behavior
 - **Patterns referenced** (established elsewhere): Domain Dashboard Header (Screen 26), SIA Coaching Note Card — Contextual (Screen 30 variant)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-11.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/domains/finance`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B11-F04 | major | navigation | Route budget and transaction rows to distinct contexts and wire the FAB to add/scan transaction flows. |
+| B11-F05 | major | retention | Make KPI cards, savings targets, chart toggles, and chart points semantic controls with filtering, expansion, and accessible summaries. |
+| B11-F06 | major | trust-privacy | Add source/confidence/context details and a path to manage data used for sensitive financial inferences. |
+
+### Prototype Implications
+
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

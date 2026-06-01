@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { useState } from 'react'
 import { BarChart3, BookOpen, Plus, ShoppingCart } from 'lucide-react'
 import { Card } from '@/components/design-system/Card'
 import { DomainTag } from '@/components/design-system/DomainTag'
@@ -37,7 +40,14 @@ function DailyMacrosCard() {
 }
 
 function WaterCard() {
-  const glasses = Array.from({ length: nutritionDashboard.water.target }, (_, index) => index < nutritionDashboard.water.current)
+  const [current, setCurrent] = useState(nutritionDashboard.water.current)
+  const [toast, setToast] = useState('')
+  const glasses = Array.from({ length: nutritionDashboard.water.target }, (_, index) => index < current)
+
+  function addWater() {
+    setCurrent((value) => Math.min(nutritionDashboard.water.target, value + 1))
+    setToast(current + 1 >= nutritionDashboard.water.target ? 'Target reached. Nice hydration streak.' : '1 glass added. Undo')
+  }
 
   return (
     <Card className="mt-4 animate-fade-up" style={{ animationDelay: '320ms' }}>
@@ -45,7 +55,7 @@ function WaterCard() {
         <span className="text-eyebrow font-semibold uppercase leading-4 tracking-[0.12em] text-white/40">
           Water
         </span>
-        <button className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-ink-900 text-white" type="button" aria-label="Add water">
+        <button className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-ink-900 text-white" type="button" onClick={addWater} aria-label="Add one glass of water">
           <Plus size={16} strokeWidth={2.3} />
         </button>
       </div>
@@ -62,8 +72,13 @@ function WaterCard() {
         ))}
       </div>
       <div className="mt-3 text-caption leading-[18px] text-white/50">
-        {nutritionDashboard.water.current} / {nutritionDashboard.water.target} glasses
+        {current} / {nutritionDashboard.water.target} glasses
       </div>
+      {toast && (
+        <button type="button" onClick={() => { setCurrent((value) => Math.max(0, value - 1)); setToast('Last water entry undone') }} className="mt-3 min-h-11 rounded-md bg-white/[0.04] px-3 text-[12px] font-semibold leading-4 text-white/55" aria-live="polite">
+          {toast}
+        </button>
+      )}
     </Card>
   )
 }
@@ -124,7 +139,7 @@ function ActiveMissionsSection() {
     <section className="mt-4 animate-fade-up" style={{ animationDelay: '480ms' }}>
       <div className="mb-3 flex h-8 items-center justify-between">
         <h2 className="text-[18px] font-semibold leading-6 text-white">Active missions</h2>
-        <Link href="/tabs/goals" className="flex h-8 items-center text-caption leading-[18px] text-brand-orange">
+        <Link href="/tabs/goals" className="flex min-h-11 items-center rounded-full px-2 text-caption leading-[18px] text-brand-orange">
           See all
         </Link>
       </div>
@@ -138,7 +153,7 @@ function RecentFoodLog() {
     <section className="mt-4 animate-fade-up" style={{ animationDelay: '560ms' }}>
       <div className="mb-3 flex h-8 items-center justify-between">
         <h2 className="text-[18px] font-semibold leading-6 text-white">Recent food log</h2>
-        <Link href="/domains/meal" className="flex h-8 items-center text-caption leading-[18px] text-brand-orange">
+        <Link href="/domains/meal" className="flex min-h-11 items-center rounded-full px-2 text-caption leading-[18px] text-brand-orange">
           See all
         </Link>
       </div>
@@ -148,7 +163,7 @@ function RecentFoodLog() {
             href="/domains/meal"
             key={item.name}
             className={[
-              'flex min-h-10 items-center justify-between gap-3 py-2 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]',
+              'flex min-h-11 items-center justify-between gap-3 py-2 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]',
               index > 0 ? 'border-t border-white/10' : '',
             ].join(' ')}
           >
@@ -167,15 +182,17 @@ export default function NutritionDashboardScreen() {
   return (
     <PhoneFrame>
       <ScreenShell
-        header={<DomainDashboardHeader title="Nutrition & diet" domain="nutrition" level={9} />}
+        header={<DomainDashboardHeader title="Nutrition & diet" domain="nutrition" level={8} />}
         activeTab="me"
         bottomAction={<FAB href="/domains/meal" label="Log food" icon={<Plus size={16} strokeWidth={2.4} />} display="pill" />}
       >
         <main className="px-4 pb-6 pt-4">
-          <SIACoachingNote
-            message={nutritionDashboard.siaNote}
-            className="animate-fade-up p-4"
-          />
+          <Link href="/tabs/sia?context=nutrition" className="block" aria-label="Ask SIA about nutrition plan">
+            <SIACoachingNote
+              message={nutritionDashboard.siaNote}
+              className="animate-fade-up p-4"
+            />
+          </Link>
 
           <MealCard
             meals={nutritionDashboard.meals}

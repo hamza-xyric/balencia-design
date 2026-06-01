@@ -1,3 +1,8 @@
+'use client'
+
+import { useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { DomainTag } from '@/components/design-system/DomainTag'
 import { LevelBadge } from '@/components/design-system/LevelBadge'
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
@@ -41,9 +46,14 @@ function HomeHeader() {
   )
 }
 
-function InsightCard() {
+function InsightCard({ onOpen }: { onOpen: () => void }) {
   return (
-    <section className="rounded-xl border border-white/[0.06] border-t-2 border-t-brand-orange bg-ink-brown-800 p-6 shadow-1">
+    <button
+      type="button"
+      onClick={onOpen}
+      className="block w-full rounded-xl border border-white/[0.06] border-t-2 border-t-brand-orange bg-ink-brown-800 p-6 text-left shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]"
+      aria-label="Open SIA insight conversation"
+    >
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
           <p className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-brand-orange">
@@ -60,14 +70,22 @@ function InsightCard() {
         </div>
         <ChevronRight size={16} className="mt-1 shrink-0 text-white/40" strokeWidth={1.8} />
       </div>
-    </section>
+    </button>
   )
 }
 
-function ActivityFeed() {
+function ActivityFeed({
+  expanded,
+  onToggle,
+}: {
+  expanded: boolean
+  onToggle: () => void
+}) {
+  const visibleItems = expanded ? recentActivity : recentActivity.slice(0, 2)
+
   return (
     <div className="space-y-2">
-      {recentActivity.map((item) => (
+      {visibleItems.map((item) => (
         <div key={item.id} className="flex h-9 items-center gap-2">
           <span className="w-[58px] shrink-0 text-small font-semibold leading-[14px] text-brand-orange">
             +{item.xp} XP
@@ -78,17 +96,52 @@ function ActivityFeed() {
           <span className="text-[12px] leading-4 text-white/30">{item.timestamp}</span>
         </div>
       ))}
-      <button className="mt-1 h-9 text-[14px] font-semibold leading-[18px] text-brand-orange">
-        View all
+      {expanded && (
+        <div className="rounded-md border border-white/[0.06] bg-white/[0.03] px-3 py-2 text-caption leading-[18px] text-white/50">
+          Full activity history is shown for this prototype session. Older entries load here before SIA uses them in coaching.
+        </div>
+      )}
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={expanded}
+        className="mt-1 min-h-11 text-[14px] font-semibold leading-[18px] text-brand-orange"
+      >
+        {expanded ? 'Show less' : 'View all'}
       </button>
     </div>
   )
 }
 
 export default function HomeScreen() {
-  const visibleActions = todayActions.slice(0, 3)
+  const router = useRouter()
+  const [actions, setActions] = useState(todayActions)
+  const [selectedMood, setSelectedMood] = useState<string | null>(null)
+  const [expandedAction, setExpandedAction] = useState<string | null>(null)
+  const [activityExpanded, setActivityExpanded] = useState(false)
+  const [toast, setToast] = useState('')
+  const visibleActions = actions.slice(0, 3)
   const pinnedMissions = missions.filter((mission) => mission.pinned).slice(0, 2)
   const upcomingSchedule = schedule.slice(1, 4)
+  const quickRoutes = {
+    breathe: '/features/breathing',
+    water: '/tabs/today/water-intake',
+    journal: '/features/journal',
+    'check-in': '/tabs/today/daily-checkin',
+    'quick-note': '/features/quick-notes',
+  }
+  const metricRoutes = {
+    'heart-rate': '/domains/fitness',
+    steps: '/domains/fitness',
+    sleep: '/features/sleep',
+  }
+
+  const toggleAction = (id: string) => {
+    setActions((current) => current.map((action) => action.id === id ? { ...action, completed: !action.completed } : action))
+    const action = actions.find((item) => item.id === id)
+    setToast(action?.completed ? 'Action reopened.' : `Completed ${action?.name}. +${action?.xp} XP`)
+    window.setTimeout(() => setToast(''), 2200)
+  }
 
   return (
     <PhoneFrame>
@@ -98,16 +151,28 @@ export default function HomeScreen() {
             <SIACoachingNote
               message="You followed through yesterday. What's worth your attention today?"
               moodChips={homeMoodChips}
+              selectedMood={selectedMood}
+              onMoodSelect={(label) => {
+                setSelectedMood(label)
+                setToast(`Mood captured: ${label}`)
+                window.setTimeout(() => setToast(''), 2000)
+              }}
             />
           </div>
 
           <div className="mt-4 animate-fade-up" style={{ animationDelay: '80ms' }}>
-            <HealthMetricsStrip metrics={healthMetrics} />
+            <HealthMetricsStrip metrics={healthMetrics} onMetricSelect={(id) => router.push(metricRoutes[id])} />
           </div>
 
           <div className="mt-3 animate-fade-up" style={{ animationDelay: '160ms' }}>
-            <QuickActionsRow actions={quickActions} />
+            <QuickActionsRow actions={quickActions} onAction={(id) => router.push(quickRoutes[id])} />
           </div>
+
+          {toast && (
+            <div className="mt-3 rounded-md border border-forest-green/25 bg-forest-green/10 px-4 py-3 text-caption font-semibold leading-[18px] text-forest-green" role="status">
+              {toast}
+            </div>
+          )}
 
           <section className="mt-8">
             <SectionHeader title="Today's actions" />
@@ -116,6 +181,9 @@ export default function HomeScreen() {
                 <ActionCard
                   key={action.id}
                   action={action}
+                  expanded={expandedAction === action.id}
+                  onOpen={() => setExpandedAction((current) => current === action.id ? null : action.id)}
+                  onToggleComplete={() => toggleAction(action.id)}
                   className="animate-fade-up"
                   style={{ animationDelay: `${240 + index * 80}ms` }}
                 />
@@ -127,19 +195,25 @@ export default function HomeScreen() {
             <SectionHeader
               title="Pinned missions"
               action={
-                <a href="/tabs/goals" className="text-caption font-semibold leading-[18px] text-brand-orange">
+                <a href="/tabs/goals" className="inline-flex min-h-11 items-center text-caption font-semibold leading-[18px] text-brand-orange">
                   View all missions
                 </a>
               }
             />
             <div className="space-y-3">
               {pinnedMissions.map((mission, index) => (
-                <MissionCard
+                <Link
                   key={mission.id}
-                  mission={mission}
-                  className="animate-fade-up"
-                  style={{ animationDelay: `${480 + index * 80}ms` }}
-                />
+                  href={`/tabs/goals/detail?mission=${mission.id}&source=today`}
+                  className="block rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-orange/70"
+                  aria-label={`Open mission details for ${mission.name}`}
+                >
+                  <MissionCard
+                    mission={mission}
+                    className="animate-fade-up"
+                    style={{ animationDelay: `${480 + index * 80}ms` }}
+                  />
+                </Link>
               ))}
             </div>
           </section>
@@ -148,18 +222,26 @@ export default function HomeScreen() {
             <SectionHeader title="Coming up" />
             <div className="rounded-xl border border-white/[0.06] bg-ink-brown-800 px-6 py-3 shadow-1">
               {upcomingSchedule.map((event) => (
-                <ScheduleItem key={event.id} event={event} />
+                <button
+                  key={event.id}
+                  type="button"
+                  onClick={() => router.push('/tabs/today/schedule')}
+                  className="block w-full text-left"
+                  aria-label={`Open schedule item ${event.name}`}
+                >
+                  <ScheduleItem event={event} />
+                </button>
               ))}
             </div>
           </section>
 
           <div className="mt-8 animate-fade-up" style={{ animationDelay: '720ms' }}>
-            <InsightCard />
+            <InsightCard onOpen={() => router.push('/tabs/sia')} />
           </div>
 
           <section className="mt-8">
             <SectionHeader title="Recent activity" />
-            <ActivityFeed />
+            <ActivityFeed expanded={activityExpanded} onToggle={() => setActivityExpanded((current) => !current)} />
           </section>
 
           <div className="h-4" />

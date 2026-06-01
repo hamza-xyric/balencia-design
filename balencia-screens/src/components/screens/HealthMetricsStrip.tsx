@@ -15,9 +15,10 @@ const metricIcons = {
 
 type HealthMetricsStripProps = HTMLAttributes<HTMLDivElement> & {
   metrics: HealthMetric[]
+  onMetricSelect?: (id: HealthMetric['id']) => void
 }
 
-export function HealthMetricsStrip({ metrics, className = '', ...props }: HealthMetricsStripProps) {
+export function HealthMetricsStrip({ metrics, onMetricSelect, className = '', ...props }: HealthMetricsStripProps) {
   if (metrics.length === 0) return null
 
   return (
@@ -30,7 +31,9 @@ export function HealthMetricsStrip({ metrics, className = '', ...props }: Health
         return (
           <button
             key={metric.id}
-            className="flex h-9 min-w-0 items-center justify-center gap-1 rounded-pill border border-white/[0.08] bg-ink-brown-800 px-2 shadow-1"
+            type="button"
+            onClick={() => onMetricSelect?.(metric.id)}
+            className="flex min-h-11 min-w-0 items-center justify-center gap-1 rounded-pill border border-alpha-white-08 bg-ink-brown-800 px-2 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-95"
             aria-label={`${metric.id}: ${metric.value} ${metric.unit}`}
           >
             <Icon size={14} className="shrink-0 text-white/50" strokeWidth={1.8} />

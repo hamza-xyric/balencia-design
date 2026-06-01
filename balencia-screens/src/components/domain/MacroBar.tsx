@@ -36,7 +36,7 @@ export function MacroBar({
         <span className="truncate text-white">{label}</span>
         <span className="shrink-0 font-semibold text-white tabular-nums">{value}</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-pill bg-white/[0.08]">
+      <div className="h-2 overflow-hidden rounded-pill bg-alpha-white-08">
         <div className={`h-full rounded-pill ${fillClasses[tone]}`} style={{ width }} />
       </div>
       {target && (

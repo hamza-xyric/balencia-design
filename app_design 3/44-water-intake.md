@@ -586,3 +586,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [26] — Fitness Dashboard (Domain Dashboard Header pattern, Section Header eyebrow, Stat Tile 3-column layout), Screen [38] — Habits (streak indicator, completion celebration pattern), Screen [42] — Celebration Overlay (confetti particle system, XP popup float), Screen [28] — Nutrition Dashboard (progress ring visual language, daily logging pattern)
 - **Patterns used**: Domain Dashboard Header (Screen 26 — back + title + accent line), Brand CTA Button (Batch 1), 8-State Interaction Model, Stack Navigation, Content Entry Animation (staggered fade-in), Section Header Eyebrow (Screen 38), Stat Tile 3-column (Screen 26), SIA Coaching Note Card (Screen 26, used in empty state and target modal), Swipe Actions (Screen 38 — swipe-left delete), Modal Presentation (Batch 1)
 - **Patterns established**: Circular Progress Ring (large ring with stroke fill, center text, glow, and unit toggle), Quick Add Button Row (preset pill buttons for instant logging with success animation), Drink Entry Row (timeline-style entry with water drop icon, timestamp, amount), Inline Goal Celebration (confetti burst + ring color transition + XP popup without full-screen overlay — lighter than Screen 42, appropriate for daily micro-achievements), Water Weekly Bar Chart (7-day vertical bars with target line overlay and day indicator), Custom Amount Numeric Keypad Modal (bottom sheet with large display + keypad for precise input)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-04.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U02`
+**Prototype route**: `/tabs/today/water-intake`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q10 guest preview may remain a clearly labeled preview/demo entry form.
+- Q11 SIA onboarding only needs enough interactivity to reach Initial plan.
+- Q12 voice-inline can remain a QA route but production should treat it as SIA chat state.
+- Q13 voice privacy requires permission, consent, transcript control, deletion, and raw-audio handling states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B04-F01 | critical | retention | Wire preset logging, custom numeric entry, success feedback, undo/delete, target celebration, and failure recovery. |
+| B04-F02 | major | accessibility | Make the gear a labeled 44x44 button/link that opens the target-setting sheet. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

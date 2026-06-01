@@ -510,3 +510,36 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [07] — SIA Onboarding (SIA Message Bubble, User Message Bubble, Suggestion Chip Row, Chat Input Bar, SIA Avatar Small), Screen [10] — SIA Voice In-Chat (shares the chat view, only input area changes), Screen [12] — Home Screen (Batch 3, SIA Greeting Card adapted from SIA message pattern), Screen [24] — Notification History (Date Group Header for search results)
 - **Patterns used**: SIA Message Bubble, User Message Bubble, Suggestion Chip Row, Chat Input Bar, SIA Avatar (Small), Domain Tag Chip, Bottom Tab Bar — all from Screen [07] and shared patterns
 - **Patterns established**: **Rich Inline Card** — ink-brown-800 bg, --r-xl corners, white 8% border, embeds charts/progress/summaries within conversation flow, tappable for navigation. **Chat Input Bar with Mic** — extends Chat Input Bar with mic button (tap → voice mode, long-press → immersive voice), mic/send crossfade on text entry. **SIA Thinking Indicator** — 3 pulsing dots in a SIA bubble, sequential animation. **Day Separator** — centered date text with horizontal rules. **Proactive Message Entry** — SIA-initiated messages slide up with bounce, distinct from response messages. **Connection Spotted Variant** — SIA bubble with orange eyebrow header, indicates cross-domain insight. **Conversational Logging Confirmation** — green "logged" badge inline with SIA's confirmation. **Chat Search Overlay** — search bar slides down from top bar, results show matching messages grouped by date with keyword highlighting. Tap result scrolls to and highlights the message in the chat. Reusable for any chat-based search.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-04.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U02`
+**Prototype route**: `/tabs/sia`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q10 guest preview may remain a clearly labeled preview/demo entry form.
+- Q11 SIA onboarding only needs enough interactivity to reach Initial plan.
+- Q12 voice-inline can remain a QA route but production should treat it as SIA chat state.
+- Q13 voice privacy requires permission, consent, transcript control, deletion, and raw-audio handling states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B04-F05 | critical | retention | Implement text input, send/streaming states, suggestion-chip messages, inline voice, and full-screen voice entry. |
+| B04-F06 | major | navigation | Deep-link rich cards and CTAs to the appropriate domain, mission, meal, workout, or detail screens. |
+| B04-F07 | major | mobile-ergonomics | Add 44px hit areas around chat icons, chips, and inline CTAs. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

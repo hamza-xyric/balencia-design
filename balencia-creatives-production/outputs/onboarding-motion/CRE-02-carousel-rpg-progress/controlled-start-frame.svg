@@ -1,0 +1,51 @@
+<svg width="720" height="1280" viewBox="0 0 720 1280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Balencia carousel progress start frame</title>
+  <desc id="desc">A mature progress ring, blank mission card, and earned badge shape for the Balencia life-RPG onboarding panel.</desc>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 500) rotate(90) scale(560 450)">
+      <stop stop-color="#211008"/>
+      <stop offset="1" stop-color="#0C0603"/>
+    </radialGradient>
+    <filter id="shadow" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#0C0603" flood-opacity="0.42"/>
+    </filter>
+    <filter id="orangeGlow" x="-70%" y="-70%" width="240%" height="240%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#FF5E00" flood-opacity="0.36"/>
+    </filter>
+    <filter id="greenGlow" x="-70%" y="-70%" width="240%" height="240%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="13" flood-color="#34A853" flood-opacity="0.34"/>
+    </filter>
+    <style>
+      .line { stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <rect width="720" height="1280" fill="url(#bg)"/>
+  <g transform="translate(360 396)" filter="url(#shadow)">
+    <circle r="126" fill="#211008" stroke="#F2ECD8" stroke-opacity="0.08" stroke-width="2"/>
+    <circle r="102" fill="none" stroke="#F2ECD8" stroke-opacity="0.10" stroke-width="16"/>
+    <path d="M0-102C55-102 102-55 102 0C102 52 62 94 12 101" stroke="#34A853" stroke-width="16" class="line" filter="url(#greenGlow)"/>
+    <path d="M-70 32C-38 60 42 59 72 26" stroke="#FF5E00" stroke-width="7" stroke-opacity="0.62" class="line"/>
+    <circle cx="-34" cy="-8" r="9" fill="#F2ECD8" fill-opacity="0.70"/>
+    <circle cx="0" cy="-25" r="9" fill="#F2ECD8" fill-opacity="0.70"/>
+    <circle cx="34" cy="-8" r="9" fill="#F2ECD8" fill-opacity="0.70"/>
+  </g>
+
+  <rect x="132" y="604" width="456" height="196" rx="34" fill="#211008" stroke="#F2ECD8" stroke-opacity="0.08" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="178" y="650" width="116" height="34" rx="17" fill="rgba(255,94,0,0.16)" stroke="#FF5E00" stroke-opacity="0.68" stroke-width="3"/>
+  <rect x="178" y="708" width="280" height="12" rx="6" fill="#F2ECD8" fill-opacity="0.12"/>
+  <rect x="178" y="740" width="206" height="12" rx="6" fill="#F2ECD8" fill-opacity="0.08"/>
+  <rect x="178" y="760" width="320" height="8" rx="4" fill="#F2ECD8" fill-opacity="0.08"/>
+  <rect x="178" y="760" width="214" height="8" rx="4" fill="#FF5E00" fill-opacity="0.82" filter="url(#orangeGlow)"/>
+
+  <g transform="translate(508 670)" filter="url(#shadow)">
+    <path d="M0-38L34-21V17C34 37 16 54 0 62C-16 54-34 37-34 17V-21L0-38Z" fill="rgba(52,168,83,0.13)" stroke="#34A853" stroke-width="4" class="line"/>
+    <path d="M-16 12L-3 25L20-15" stroke="#F2ECD8" stroke-width="6" class="line"/>
+  </g>
+
+  <g transform="translate(360 880)">
+    <circle cx="-64" cy="0" r="7" fill="#FF5E00" fill-opacity="0.95"/>
+    <circle cx="-24" cy="0" r="7" fill="#FF5E00" fill-opacity="0.62"/>
+    <circle cx="16" cy="0" r="7" fill="#F2ECD8" fill-opacity="0.24"/>
+    <circle cx="56" cy="0" r="7" fill="#F2ECD8" fill-opacity="0.16"/>
+  </g>
+</svg>

@@ -449,3 +449,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [37] — Journal (Domain Tag Chip, FAB pattern), Screen [35/36] — Dashboards (Streak Indicator), Screen [39] — Leaderboard (Segmented Control, XP/RPG elements)
 - **Patterns used**: Back Button, 8-State Model, FAB (Screen 35), Domain Tag Chip (Screen 37), Text Input Field (Batch 1), Brand CTA Button (Batch 1)
 - **Patterns established**: Habit Row (checkbox + name + streak + domain tag), Completion Rate Bar (count + orange progress bar), Calendar Heatmap (4-week graduated grid), XP Summary Card (RPG feedback), Time-of-Day Section Headers (Morning/Afternoon/Evening grouping), Habit Swipe Actions (swipe-left edit/delete), Add Habit Modal
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-13.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/habits`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B13-F01 | critical | retention | Make habit rows/checkboxes semantic controlled actions with completion, progress/XP updates, undo, and failure handling. |
+| B13-F02 | major | navigation | Implement Today/Week/Month state, Add Habit bottom sheet, and a labeled 44x44 back control. |
+| B13-F03 | major | accessibility | Add 44x44 hit areas, accessible checked state, focus order, and semantic controls. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

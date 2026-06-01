@@ -1,6 +1,6 @@
 # Shared Patterns — Balencia Screen Designs
 
-This document tracks every reusable pattern established across all 73 screen design files. It is the single source of truth for component specs, layout templates, color tokens, motion tokens, typography, interaction models, and gesture conventions. A developer should be able to implement any component from this document alone, without reading individual screen drafts.
+This document tracks every reusable pattern established across all 90 screen design docs (85 numbered screens + 5 lettered auth sub-screens). It is the single source of truth for component specs, layout templates, color tokens, motion tokens, typography, interaction models, and gesture conventions. A developer should be able to implement any component from this document alone, without reading individual screen drafts.
 
 Updated: complete consolidation covering Screens 01–72, all 14 batches + gap audit + full remediation. Includes input validation, keyboard behavior, small screen adaptations, offline behavior, permission request flows, typography convention, and device support scope (all finalized 2026-05-22).
 
@@ -32,8 +32,9 @@ Updated: complete consolidation covering Screens 01–72, all 14 batches + gap a
 22. [Small Screen Adaptations](#small-screen-adaptations)
 23. [Offline Behavior Standard](#offline-behavior-standard)
 24. [Permission Request Flows](#permission-request-flows)
-25. [Typography Convention](#typography-convention)
-26. [Device Support](#device-support)
+25. [Screen Registry Additions 74-85](#screen-registry-additions-74-85)
+26. [Typography Convention](#typography-convention)
+27. [Device Support](#device-support)
 
 ---
 
@@ -3739,7 +3740,7 @@ When SIA has a proactive insight to share (not in response to user action):
 
 ## Accessibility Standards
 
-Global accessibility rules applied to all 73 screens. Screen-specific annotations are only needed where behavior deviates from these defaults.
+Global accessibility rules applied to all 90 design docs. Screen-specific annotations are only needed where behavior deviates from these defaults.
 
 ### Screen Reader (VoiceOver / TalkBack)
 
@@ -4185,9 +4186,75 @@ All OS permission requests follow Screen 66's pre-permission interstitial patter
 
 ---
 
+## Screen Registry Additions 74-85
+
+The 2026-05-25 registry audit added screens 74-85 from the production screen registry. These screens reuse existing navigation, card, tab bar, modal, and SIA patterns with the lightweight additions below.
+
+### Conversation Suite Row
+
+Used on: Conversations Hub [74], Direct Chat [75], Group Chat [76], Message Actions [77].
+
+- Row height: 74pt minimum, rounded-lg, ink-brown-800, 1pt white at 6% border.
+- Avatar: initials inside domain-tinted circle; active presence dot uses forest-green.
+- Metadata: timestamp at right, unread badge in brand-orange, arrow when no unread messages.
+- Tags: conversation kind pill (Coach, Direct, Group, Room) plus Domain Tag.
+- Optional icons: pin uses brand-orange; SIA assist sparkles use royal-purple.
+- Tap opens the target thread. Long press opens message/thread actions where supported.
+
+### Thread Message Bubble
+
+Used on: Direct Chat [75], Group Chat [76], Message Actions [77].
+
+- Incoming human messages: left aligned, ink-brown-800 bubble, author/time above.
+- User messages: right aligned, brand-orange at 15% bubble, status below.
+- SIA assist messages: left aligned, royal-purple at 12% bubble, SIA avatar and author.
+- Attachments render as nested cards with icon tile, title, metadata, and domain tint.
+- Reactions render as compact pills below the bubble.
+- Long press lifts the bubble and routes to Message Actions [77].
+
+### Signal And Privacy Pills
+
+Used on: Screens 74-85.
+
+- Signal pill: 28pt height, rounded-pill, 1pt border, 11pt Semibold label.
+- Tones: orange for action/reward, purple for SIA/intelligence, green for ready/success, muted for metadata.
+- Privacy pill: lock icon + "Private", white at 50% text, white at 8% border, white at 4% bg.
+- Pills must include text labels; color never carries status alone.
+
+### Report And Data Source Rows
+
+Used on: Reports Center [78], Data Sources [84].
+
+- Row/card surface: ink-brown-800 or white at 4%, rounded-lg, 16pt padding.
+- Left icon tile: 40-44pt square/circle, domain or status tint.
+- Primary label: 15pt Semibold, white.
+- Metadata: 12pt Regular, white at 45%.
+- Right status text/pill: Ready, Draft, Connected, Needs refresh, Synced time.
+- Tap opens detail/preview. Failed refresh/export states show inline error or toast.
+
+### Media Recommendation Card
+
+Used on: Music Coach [80], Video Library [81].
+
+- Featured media cards use rounded-xl containers, 16-20pt padding, and domain-tinted hero area.
+- Playback controls are icon buttons with 44pt touch targets.
+- SIA matching rationale is shown as a visible note or signal pill, not hidden in tooltip-only UI.
+- External provider actions (Spotify, YouTube) remain explicit CTAs and show loading/success/error states.
+
+### Accountability And Obstacle Diagnosis Cards
+
+Used on: Accountability Contract [82], Social Buddy Profile [83], Obstacle Coach [85].
+
+- Contract/status cards use green for active/signed, orange for due/reconnection, purple for SIA timing.
+- Verification and blocker rows use icon tile + title + detail + proposed action.
+- Proposed action text is written directly on the card; users should not infer action from color alone.
+- Accept/dismiss/refresh actions must be available through buttons or sheets, not swipe-only gestures.
+
+---
+
 ## Typography Convention
 
-All 77 screens include a `## Typography` section. Screen-level typography sections document **only overrides and screen-specific text roles** — the global 7-tier type scale defined in [Design Tokens → Typography Tokens](#design-tokens) applies universally unless explicitly overridden. There is no need to repeat the global scale on each screen.
+All 90 design docs include screen-level typography guidance either explicitly or through shared-pattern inheritance. Screen-level typography sections document **only overrides and screen-specific text roles** — the global 7-tier type scale defined in [Design Tokens → Typography Tokens](#design-tokens) applies universally unless explicitly overridden. There is no need to repeat the global scale on each screen.
 
 When a screen's typography section says "follows global type scale," a developer refers to this document's type scale. When it lists specific elements (e.g., a custom stat size or a unique title treatment), those take precedence for that screen only.
 
@@ -4210,10 +4277,10 @@ When a screen's typography section says "follows global type scale," a developer
 | Design Tokens | 6 token groups (color, radius, shadow, spacing, glassmorphism, domain colors) |
 | Navigation Patterns | 4 (tab bar, stack, modal, scroll-reactive nav) |
 | Layout Templates | 4 (auth, domain dashboard, detail screen, multi-mode) |
-| Component Patterns | 250 (buttons, inputs, cards, rows, chips, controls, overlays, modals, sheets, badges, selectors, trackers, coach marks, toasts, audio selectors, user profiles) |
-| SIA Patterns | 12 (greeting, compact note, contextual note, inline upgrade, processing, real-time, shortcut, suggestion, inspiration, daily prompt, recommended practice, search suggestion) |
+| Component Patterns | 262 (buttons, inputs, cards, rows, chips, controls, overlays, modals, sheets, badges, selectors, trackers, coach marks, toasts, audio selectors, user profiles, conversation rows/messages, report/source rows, media recommendation cards) |
+| SIA Patterns | 15 (greeting, compact note, contextual note, inline upgrade, processing, real-time, shortcut, suggestion, inspiration, daily prompt, recommended practice, search suggestion, assist strip, post-call summary, obstacle diagnosis) |
 | RPG/Gamification Patterns | 13 (XP badge, XP bar, XP float, skill badge, level-up bar, streak hero, streak calendar, XP multiplier, streak freeze, streak milestone ladder, streak history, inline goal celebration, mini confetti) |
-| Domain-Specific Patterns | 34 (header, calendar dots, heatmap, macros, water, meal, donut, portions, budget, transaction, savings, KPI, spending chart, reminders, timer, stress gauge, stress slider, trigger donut, mental recovery, weight trend, bedtime consistency, sleep trend, medication check, adherence bar, energy slider, energy sparkline, etc.) |
+| Domain-Specific Patterns | 36 (header, calendar dots, heatmap, macros, water, meal, donut, portions, budget, transaction, savings, KPI, spending chart, reminders, timer, stress gauge, stress slider, trigger donut, mental recovery, weight trend, bedtime consistency, sleep trend, medication check, adherence bar, energy slider, energy sparkline, data source health, accountability verification, etc.) |
 | Chart/Visualization Patterns | 8 (line chart, radar, mini radar, circular countdown, donut, correlations bar, competition progress bar, trigger donut variant) |
 | Typography Patterns | 8 roles in type scale + 2 title treatments |
 | Color Patterns | 3 rule sets (60/30/10, domain usage, surface hierarchy) |
@@ -4224,14 +4291,15 @@ When a screen's typography section says "follows global type scale," a developer
 | Motivation Adaptation | 3-tier system applied across all content screens |
 | Error Handling & Recovery | 5 patterns (timeout states, failed send, network error banner, partial failure recovery, form validation) |
 | Interrupt & Notification Layering | 7-layer z-index hierarchy, screen exclusion list, batching rules, SIA proactive display rules, achievement timing |
-| Accessibility Standards | Screen reader defaults, focus order, touch targets, reduced motion, dynamic type |
+| Accessibility Standards | Screen reader defaults, focus order, touch targets, reduced motion, dynamic type, conversation/message semantics |
 | SIA Suggestion Chip Variants | 2 variant types (conversational, action) with selection rule |
 | Input Validation Rules | 13 field types, password strength indicator, character counter, validation error display |
 | Keyboard Behavior Standard | Keyboard types per field, KeyboardAvoidingView behavior, dismiss triggers, input accessory view |
 | Small Screen Adaptations | Compact breakpoint (≤375pt) rules, 10 component adaptation rules, landscape deferral |
 | Offline Behavior Standard | 4 offline states, write queue (6 queued / 5 blocked actions), cache strategy (3 tiers) |
 | Permission Request Flows | Pre-permission interstitial pattern, 5 permission types mapped, re-request strategy |
+| Screen Registry Additions 74-85 | 6 pattern groups (conversation row, thread bubble, signal/privacy pills, report/source rows, media recommendation cards, accountability/obstacle diagnosis cards) |
 | Typography Convention | Global type scale authority note, screen-level override convention |
 | Device Support | iPhone-only V1 scope (375pt–430pt), tablet deferred to V2 |
 
-**Total documented patterns: ~412 unique patterns across 26 categories, covering all 77 screens.**
+**Total documented patterns: ~424 unique patterns across 27 categories, covering all 90 design docs.**

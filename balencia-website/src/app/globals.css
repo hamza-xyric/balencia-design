@@ -1,0 +1,282 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Balencia website tokens.
+   Canonical source: balencia-screens/src/app/globals.css (mirrored).
+   Web additions: larger display type, cinematic/scrim utilities,
+   and a prefers-reduced-motion block (the prototype lacks one).
+   ============================================================ */
+
+@theme inline {
+  --font-sans: var(--font-sora);
+
+  /* Brand Colors (60/30/10) */
+  --color-brand-orange: #FF5E00;
+  --color-forest-green: #34A853;
+  --color-royal-purple: #7F24FF;
+
+  /* Cross-domain connection lines (gold) */
+  --color-connection-gold: #F59E0B;
+
+  /* Neutrals */
+  --color-ink-900: #0A0A0F;
+  --color-ink-brown-800: #211008;
+  --color-ink-700: #171717;
+  --color-paper-100: #FEFAF3;
+  --color-paper-50: #FDFDFB;
+  --color-error-red: #F44336;
+
+  /* Domain Colors */
+  --color-domain-fitness: #EF4444;
+  --color-domain-sleep: #818CF8;
+  --color-domain-career: #6366F1;
+  --color-domain-nutrition: #84CC16;
+  --color-domain-finance: #10B981;
+  --color-domain-faith: #A855F7;
+  --color-domain-productivity: #F97316;
+  --color-domain-relationships: #EC4899;
+  --color-domain-wellbeing: #14B8A6;
+  --color-domain-meditation: #A78BFA;
+
+  /* Corner Radius */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 40px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-1: 0 8px 24px rgba(33, 16, 8, 0.18);
+  --shadow-2: 0 18px 48px rgba(33, 16, 8, 0.22);
+  --shadow-3: 0 32px 80px rgba(33, 16, 8, 0.28);
+
+  /* Alpha whites */
+  --color-alpha-white-03: rgba(255, 255, 255, 0.03);
+  --color-alpha-white-05: rgba(255, 255, 255, 0.05);
+  --color-alpha-white-06: rgba(255, 255, 255, 0.06);
+  --color-alpha-white-08: rgba(255, 255, 255, 0.08);
+  --color-alpha-white-10: rgba(255, 255, 255, 0.1);
+  --color-alpha-white-15: rgba(255, 255, 255, 0.15);
+  --color-alpha-white-40: rgba(255, 255, 255, 0.4);
+  --color-alpha-white-50: rgba(255, 255, 255, 0.5);
+  --color-alpha-white-70: rgba(255, 255, 255, 0.7);
+
+  /* Spacing (8pt) */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
+
+  /* Typography — app sizes */
+  --text-h1: 28px;
+  --text-h2: 20px;
+  --text-h3: 17px;
+  --text-body: 16px;
+  --text-caption: 13px;
+  --text-eyebrow: 12px;
+  --text-small: 11px;
+
+  /* Typography — web display scale (fluid; for hero billboards) */
+  --text-display-2xl: clamp(48px, 8.5vw, 112px);
+  --text-display-xl: clamp(40px, 6vw, 80px);
+  --text-display-l: clamp(32px, 4.4vw, 60px);
+  --text-display-m: clamp(26px, 3vw, 40px);
+  --text-lead: clamp(18px, 1.6vw, 22px);
+}
+
+:root {
+  /* Glow effects */
+  --glow-orange: 0 0 32px rgba(255, 94, 0, 0.45);
+  --glow-green: 0 0 32px rgba(52, 168, 83, 0.40);
+  --glow-purple: 0 0 32px rgba(127, 36, 255, 0.40);
+  --glow-gold: 0 0 28px rgba(245, 158, 11, 0.45);
+
+  /* Motion */
+  --ease-flow: cubic-bezier(0.65, 0.05, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out-brand: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 520ms;
+  --dur-flow: 1200ms;
+
+  /* Glass */
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-border-strong: rgba(255, 255, 255, 0.1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink-900);
+  color: var(--color-paper-100);
+  font-family: var(--font-sora), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Lenis smooth-scroll plumbing */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background-color: var(--color-ink-brown-800);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-1);
+}
+.glass-card-sm {
+  background-color: var(--color-ink-brown-800);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ---------- Cinematic atmosphere ---------- */
+/* Warm-dark vignette + horizon glow used behind hero frames */
+.atmosphere-warm {
+  background:
+    radial-gradient(120% 80% at 50% 8%, rgba(255, 94, 0, 0.16) 0%, rgba(255, 94, 0, 0) 55%),
+    radial-gradient(140% 120% at 50% 120%, rgba(127, 36, 255, 0.20) 0%, rgba(127, 36, 255, 0) 60%),
+    linear-gradient(180deg, #0A0A0F 0%, #120a14 55%, #0A0A0F 100%);
+}
+.scrim-bottom {
+  background: linear-gradient(0deg, rgba(10, 10, 15, 0.92) 0%, rgba(10, 10, 15, 0.55) 35%, rgba(10, 10, 15, 0) 75%);
+}
+.scrim-top {
+  background: linear-gradient(180deg, rgba(10, 10, 15, 0.78) 0%, rgba(10, 10, 15, 0) 70%);
+}
+
+/* ---------- Keyframes (mirrored from the prototype + web additions) ---------- */
+@keyframes stroke-draw {
+  from { stroke-dashoffset: var(--stroke-length, 1000); }
+  to { stroke-dashoffset: 0; }
+}
+.stroke-animate { animation: stroke-draw var(--dur-flow) var(--ease-flow) forwards; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up var(--dur-slow) var(--ease-out-soft) both; }
+
+@keyframes radar-grow {
+  from { opacity: 0.35; transform: scale(0.18); }
+  to { opacity: 1; transform: scale(1); }
+}
+.radar-grow { transform-box: fill-box; transform-origin: center; animation: radar-grow var(--dur-slow) var(--ease-flow) both; }
+
+@keyframes radar-dot-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+.radar-dot { opacity: 0; transform-box: fill-box; transform-origin: center; animation: radar-dot-in var(--dur-fast) var(--ease-out-soft) both; }
+
+@keyframes sia-thinking {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  45% { opacity: 1; transform: scale(1.25); }
+}
+.sia-thinking-dot { animation: sia-thinking 900ms var(--ease-in-out-brand) infinite; }
+
+@keyframes voice-cursor-blink {
+  0%, 45% { opacity: 1; }
+  46%, 100% { opacity: 0; }
+}
+.voice-cursor { animation: voice-cursor-blink 900ms steps(1) infinite; }
+
+@keyframes ambient-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(8px, -12px, 0); }
+}
+.ambient-drift { animation: ambient-drift 7200ms ease-in-out infinite; }
+
+@keyframes aurora-drift {
+  0% { transform: translate3d(-6%, 0, 0) scale(1.05); opacity: 0.5; }
+  50% { transform: translate3d(6%, -2%, 0) scale(1.12); opacity: 0.78; }
+  100% { transform: translate3d(-6%, 0, 0) scale(1.05); opacity: 0.5; }
+}
+.aurora-drift { animation: aurora-drift 16000ms ease-in-out infinite; }
+
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+.node-pulse { animation: node-pulse 3600ms var(--ease-in-out-brand) infinite; }
+
+@keyframes edge-flow {
+  to { stroke-dashoffset: -40; }
+}
+/* Flowing current along the hero ground-energy lines (reuses edge-flow). */
+.edge-flow-anim { animation: edge-flow 1400ms linear infinite; }
+
+/* Hero fog bands — slow warm drift. */
+@keyframes fog-drift {
+  0%   { transform: translate3d(-4%, 0, 0) scale(1.08); }
+  50%  { transform: translate3d(4%, -1.5%, 0) scale(1.14); }
+  100% { transform: translate3d(-4%, 0, 0) scale(1.08); }
+}
+.fog-drift { animation: fog-drift 24000ms ease-in-out infinite; }
+
+/* Hero sky traffic — drones drift across the upper frame. */
+@keyframes drone-ltr {
+  from { transform: translateX(-14vw); }
+  to   { transform: translateX(114vw); }
+}
+@keyframes drone-rtl {
+  from { transform: translateX(114vw); }
+  to   { transform: translateX(-14vw); }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .stroke-animate,
+  .radar-grow,
+  .radar-dot { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .stroke-animate { stroke-dashoffset: 0 !important; }
+  /* Hero ambient loops hold a static frame under reduced motion. */
+  .fog-drift,
+  .edge-flow-anim,
+  [data-hero-loop] { animation: none !important; }
+}

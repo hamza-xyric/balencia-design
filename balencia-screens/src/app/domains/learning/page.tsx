@@ -1,8 +1,11 @@
+'use client'
+
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
-import { Check, Flame, Plus } from 'lucide-react'
+import { useState } from 'react'
+import { Check, Flame, Plus, RefreshCw, X } from 'lucide-react'
+import { Button } from '@/components/design-system/Button'
 import { Card } from '@/components/design-system/Card'
-import { FAB } from '@/components/design-system/FAB'
 import { DomainDashboardHeader } from '@/components/domain/DomainDashboardHeader'
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
 import { ScreenShell } from '@/components/layout/ScreenShell'
@@ -71,20 +74,23 @@ function DomainProgressCircle({
 
 function SiaDotNote() {
   return (
-    <Card variant="small" className="rounded-lg p-6 animate-fade-up">
+    <Link href="/tabs/sia?context=learning" className="block animate-fade-up">
+    <Card variant="small" className="rounded-lg p-6">
       <div className="flex items-start gap-3">
         <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-royal-purple" aria-hidden="true" />
         <p className="text-[15px] leading-[21px] text-white/90">{learningDashboard.siaNote}</p>
       </div>
     </Card>
+    </Link>
   )
 }
 
-function CurrentBookCard() {
+function CurrentBookCard({ onOpen }: { onOpen: (title: string) => void }) {
   const item = learningDashboard.currentItem
 
   return (
-    <Card variant="small" className="mt-4 rounded-lg p-6 animate-fade-up" style={{ animationDelay: '80ms' }}>
+    <button type="button" onClick={() => onOpen(item.title)} className="mt-4 block w-full text-left animate-fade-up" style={{ animationDelay: '80ms' }} aria-label={`Open learning item ${item.title}`}>
+    <Card variant="small" className="rounded-lg p-6">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="truncate text-h3 font-semibold leading-[22px] text-white">{item.title}</h2>
@@ -103,10 +109,14 @@ function CurrentBookCard() {
         {item.streak}-day reading streak
       </div>
     </Card>
+    </button>
   )
 }
 
 function LearningPathCard() {
+  const [completed, setCompleted] = useState(learningDashboard.suggestions.filter((item) => item.completed).map((item) => item.id))
+  const [toast, setToast] = useState('')
+
   return (
     <section className="mt-4 animate-fade-up" style={{ animationDelay: '160ms' }}>
       <Eyebrow>SIA suggests</Eyebrow>
@@ -119,26 +129,38 @@ function LearningPathCard() {
               index > 0 ? 'border-t border-white/[0.05]' : '',
             ].filter(Boolean).join(' ')}
           >
-            <span
+            <button
+              type="button"
+              onClick={() => {
+                const nextDone = !completed.includes(action.id)
+                setCompleted((items) => nextDone ? [...items, action.id] : items.filter((item) => item !== action.id))
+                setToast(nextDone ? `Completed: +${action.xp} XP` : 'Suggestion reopened')
+                window.setTimeout(() => setToast(''), 2600)
+              }}
               className={[
-                'flex h-6 w-6 shrink-0 items-center justify-center rounded-xs border',
-                action.completed ? 'border-domain-learning bg-domain-learning text-white' : 'border-white/20 text-transparent',
+                'flex h-11 w-11 shrink-0 items-center justify-center rounded-xs border',
+                completed.includes(action.id) ? 'border-domain-learning bg-domain-learning text-white' : 'border-white/20 text-transparent',
               ].join(' ')}
-              aria-hidden="true"
+              aria-pressed={completed.includes(action.id)}
+              aria-label={`Complete ${action.name}`}
             >
               <Check size={13} strokeWidth={2.6} />
-            </span>
-            <span className={`min-w-0 flex-1 text-[15px] leading-5 ${action.completed ? 'text-white/40 line-through' : 'text-white/80'}`}>
+            </button>
+            <span className={`min-w-0 flex-1 text-[15px] leading-5 ${completed.includes(action.id) ? 'text-white/40 line-through' : 'text-white/80'}`}>
               {action.name}
             </span>
-            {action.completed && (
+            {completed.includes(action.id) && (
               <span className="shrink-0 text-small font-semibold leading-[14px] text-forest-green">
                 +{action.xp} XP
               </span>
             )}
           </div>
         ))}
+        <button type="button" onClick={() => setToast('SIA refreshed the next study action set.')} className="mt-2 flex h-11 w-full items-center justify-center gap-2 border-t border-white/[0.05] text-caption font-semibold text-brand-orange">
+          <RefreshCw size={14} />Refresh suggestions
+        </button>
       </Card>
+      {toast && <div className="mt-3 rounded-pill bg-forest-green px-4 py-3 text-caption font-semibold text-white" role="status">{toast}</div>}
     </section>
   )
 }
@@ -150,7 +172,7 @@ function ActiveMissions() {
       <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 hide-scrollbar">
         {learningDashboard.activeMissions.map((mission) => (
           <Link
-            href="/tabs/goals/detail"
+            href={`/tabs/goals/detail?source=learning&title=${encodeURIComponent(mission.name)}&type=weekly&domains=learning&progress=${mission.progress}&next=${encodeURIComponent('Continue next learning session')}`}
             key={mission.id}
             className="flex min-h-[120px] min-w-[100px] flex-col items-center justify-start rounded-lg border border-white/[0.06] bg-ink-brown-800 px-3 py-4 shadow-1"
           >
@@ -200,30 +222,46 @@ function StreakTracker() {
 }
 
 function LibraryCard() {
+  const [selectedId, setSelectedId] = useState('')
+  const [showAll, setShowAll] = useState(false)
+  const visibleItems = showAll
+    ? learningDashboard.library.concat([{ id: 'systems-thinking', title: 'Systems Thinking', status: 'queued', progress: 0.05 }])
+    : learningDashboard.library
+
   return (
     <section className="mt-6 animate-fade-up" style={{ animationDelay: '400ms' }}>
       <Eyebrow>Your library</Eyebrow>
       <Card variant="small" className="rounded-lg p-0">
-        {learningDashboard.library.map((item, index) => (
-          <div
+        {visibleItems.map((item, index) => (
+          <button
+            type="button"
+            onClick={() => setSelectedId(selectedId === item.id ? '' : item.id)}
+            aria-expanded={selectedId === item.id}
             key={item.id}
             className={[
-              'flex min-h-14 items-center gap-3 px-4 py-3',
+              'w-full px-4 py-3 text-left',
               index > 0 ? 'border-t border-white/[0.05]' : '',
             ].join(' ')}
           >
-            <DomainProgressCircle progress={item.progress} size={32} label={item.completed ? <Check size={13} strokeWidth={2.5} /> : undefined} />
-            <div className="min-w-0 flex-1">
-              <div className="truncate text-[15px] font-semibold leading-5 text-white">{item.title}</div>
-              <div className="mt-0.5 text-caption leading-[18px] text-white/40">{item.status}</div>
+            <div className="flex min-h-14 items-center gap-3">
+              <DomainProgressCircle progress={item.progress} size={32} label={'completed' in item && item.completed ? <Check size={13} strokeWidth={2.5} /> : undefined} />
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-[15px] font-semibold leading-5 text-white">{item.title}</div>
+                <div className="mt-0.5 text-caption leading-[18px] text-white/40">{item.status}</div>
+              </div>
+              <div className={`text-[15px] leading-5 ${'completed' in item && item.completed ? 'text-forest-green' : 'text-white/50'} tabular-nums`}>
+                {'completed' in item && item.completed ? <Check size={16} strokeWidth={2.4} /> : `${Math.round(item.progress * 100)}%`}
+              </div>
             </div>
-            <div className={`text-[15px] leading-5 ${item.completed ? 'text-forest-green' : 'text-white/50'} tabular-nums`}>
-              {item.completed ? <Check size={16} strokeWidth={2.4} /> : `${Math.round(item.progress * 100)}%`}
-            </div>
-          </div>
+            {selectedId === item.id && (
+              <div className="mt-3 rounded-md bg-ink-900 p-3 text-caption leading-[18px] text-white/55">
+                Learning detail: progress, notes, and next study action stay inside Learning rather than sending you to Journal.
+              </div>
+            )}
+          </button>
         ))}
-        <button type="button" className="flex h-11 w-full items-center justify-center border-t border-white/[0.05] text-caption font-semibold leading-[18px] text-brand-orange">
-          See all
+        <button type="button" onClick={() => setShowAll((current) => !current)} aria-expanded={showAll} className="flex h-11 w-full items-center justify-center border-t border-white/[0.05] text-caption font-semibold leading-[18px] text-brand-orange">
+          {showAll ? 'Show fewer' : 'See all'}
         </button>
       </Card>
     </section>
@@ -261,8 +299,8 @@ function StudyPrompt() {
       <div className="rounded-lg border border-dashed border-white/10 bg-ink-900 p-6">
         <p className="text-[15px] italic leading-[21px] text-white/70">{learningDashboard.prompt}</p>
         <Link
-          href="/features/journal"
-          className="mt-3 inline-flex h-8 items-center rounded-pill border border-white/10 bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white/70"
+          href={`/features/journal?source=learning&prompt=${encodeURIComponent(learningDashboard.prompt)}`}
+          className="mt-3 inline-flex min-h-11 items-center rounded-pill border border-white/10 bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white/70"
         >
           Reflect
         </Link>
@@ -272,22 +310,27 @@ function StudyPrompt() {
 }
 
 export default function LearningScreen() {
+  const [sheetOpen, setSheetOpen] = useState(false)
+  const [learningDetail, setLearningDetail] = useState('')
+  const [type, setType] = useState('Read')
+  const [duration, setDuration] = useState('')
+  const [toast, setToast] = useState('')
+  const save = () => {
+    setSheetOpen(false)
+    setToast('Learning session logged: +20 XP')
+    window.setTimeout(() => setToast(''), 3000)
+  }
+
   return (
     <PhoneFrame>
       <ScreenShell
         header={<DomainDashboardHeader title="Learning & growth" domain="learning" variant="expanded" />}
         activeTab="me"
-        bottomAction={
-          <FAB
-            label="Log session"
-            icon={<Plus size={16} strokeWidth={2.4} />}
-            display="pill"
-          />
-        }
+        bottomAction={<button type="button" onClick={() => setSheetOpen(true)} className="mx-auto flex h-[48px] w-fit items-center justify-center gap-2 rounded-pill bg-brand-orange px-6 text-[15px] font-semibold leading-5 text-white shadow-2 shadow-brand-orange/30" aria-label="Log learning session"><Plus size={16} strokeWidth={2.4} />Log session</button>}
       >
         <main className="px-4 pb-6 pt-4">
           <SiaDotNote />
-          <CurrentBookCard />
+          <CurrentBookCard onOpen={setLearningDetail} />
           <LearningPathCard />
           <ActiveMissions />
           <StreakTracker />
@@ -295,6 +338,38 @@ export default function LearningScreen() {
           <ActivityLog />
           <StudyPrompt />
         </main>
+        {sheetOpen && (
+          <div className="absolute inset-x-0 bottom-[84px] z-20 mx-3 rounded-xl border border-white/10 bg-ink-brown-800 p-4 shadow-2" role="dialog" aria-label="Log learning session">
+            <div className="flex items-center justify-between">
+              <h2 className="text-[17px] font-semibold text-white">Log session</h2>
+              <button type="button" onClick={() => setSheetOpen(false)} className="flex h-11 w-11 items-center justify-center rounded-full text-white/60" aria-label="Cancel"><X size={18} /></button>
+            </div>
+            <label className="mt-3 block text-caption leading-[18px] text-white/50">Activity type
+              <select value={type} onChange={(event) => setType(event.target.value)} className="mt-1 h-11 w-full rounded-md border border-white/10 bg-ink-900 px-3 text-[15px] text-white outline-none">
+                <option>Read</option><option>Course</option><option>Practice</option>
+              </select>
+            </label>
+            <label className="mt-3 block text-caption leading-[18px] text-white/50">Duration minutes
+              <input value={duration} onChange={(event) => setDuration(event.target.value)} type="number" className="mt-1 h-11 w-full rounded-md border border-white/10 bg-ink-900 px-3 text-[15px] text-white outline-none" />
+            </label>
+            <label className="mt-3 block text-caption leading-[18px] text-white/50">Notes
+              <textarea className="mt-1 min-h-[72px] w-full rounded-md border border-white/10 bg-ink-900 p-3 text-[15px] text-white outline-none" defaultValue={`${type}: ${learningDashboard.currentItem.title}`} />
+            </label>
+            <Button disabled={!Number(duration)} onClick={save} fullWidth variant="completion" className="mt-3">Save session</Button>
+          </div>
+        )}
+        {learningDetail && (
+          <div className="absolute inset-x-0 bottom-[84px] z-20 mx-3 rounded-xl border border-white/10 bg-ink-brown-800 p-4 shadow-2" role="dialog" aria-label="Learning item detail">
+            <div className="flex items-center justify-between">
+              <h2 className="text-[17px] font-semibold text-white">{learningDetail}</h2>
+              <button type="button" onClick={() => setLearningDetail('')} className="flex h-11 w-11 items-center justify-center rounded-full text-white/60" aria-label="Close learning item detail"><X size={18} /></button>
+            </div>
+            <p className="mt-2 text-caption leading-[18px] text-white/55">Reading progress, daily target, notes, and next study action are handled in this Learning detail state.</p>
+            <div className="mt-3 rounded-md bg-ink-900 p-3 text-caption leading-[18px] text-white/60">Next: read 15 pages and add one note. Journal reflection stays optional after the session.</div>
+            <Button onClick={() => setLearningDetail('')} fullWidth variant="completion" className="mt-3">Done</Button>
+          </div>
+        )}
+        {toast && <div className="absolute inset-x-4 bottom-[96px] z-30 rounded-pill bg-forest-green px-4 py-3 text-[14px] font-semibold text-white shadow-2" role="status">{toast}</div>}
       </ScreenShell>
     </PhoneFrame>
   )

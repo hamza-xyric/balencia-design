@@ -1,9 +1,9 @@
-import type { HTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes } from 'react'
 import { Check, Flame } from 'lucide-react'
 import { DomainTag } from '@/components/design-system/DomainTag'
 import type { DomainKey } from '@/data/domains'
 
-type HabitRowProps = HTMLAttributes<HTMLDivElement> & {
+type HabitRowProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   name: string
   domain: DomainKey
   streak: number
@@ -21,12 +21,15 @@ export function HabitRow({
   ...props
 }: HabitRowProps) {
   return (
-    <div
+    <button
+      type="button"
       className={[
-        'flex min-h-16 items-center gap-3 px-4 py-3',
-        withDivider ? 'border-t border-white/[0.05]' : '',
+        'flex min-h-16 w-full items-center gap-3 px-4 py-3 text-left transition-colors duration-[var(--dur-fast)] active:bg-alpha-white-05',
+        withDivider ? 'border-t border-alpha-white-05' : '',
         className,
       ].filter(Boolean).join(' ')}
+      aria-pressed={completed}
+      aria-label={`${completed ? 'Mark incomplete' : 'Mark complete'}: ${name}`}
       {...props}
     >
       <span
@@ -53,6 +56,6 @@ export function HabitRow({
           <DomainTag domain={domain} showDot={false} className="shrink-0" />
         </div>
       </div>
-    </div>
+    </button>
   )
 }

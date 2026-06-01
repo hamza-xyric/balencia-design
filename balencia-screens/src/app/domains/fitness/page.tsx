@@ -1,5 +1,10 @@
+'use client'
+
 import Link from 'next/link'
+import { useState } from 'react'
 import { Plus } from 'lucide-react'
+import { BottomSheet, PhoneModalLayer } from '@/components/design-system/BottomSheet'
+import { Button } from '@/components/design-system/Button'
 import { Card } from '@/components/design-system/Card'
 import { DomainTag } from '@/components/design-system/DomainTag'
 import { FAB } from '@/components/design-system/FAB'
@@ -117,8 +122,8 @@ function ThisWeekSection() {
       </div>
       <Card>
         <div className="grid grid-cols-7 gap-2">
-          {fitnessDashboard.week.days.map((day) => (
-            <div key={`${day.label}-${day.state}`} className="flex flex-col items-center gap-2">
+          {fitnessDashboard.week.days.map((day, index) => (
+            <div key={`${day.label}-${day.state}-${index}`} className="flex flex-col items-center gap-2">
               <span className="text-[12px] leading-4 text-white/40">{day.label}</span>
               <DayDot state={day.state} />
             </div>
@@ -138,18 +143,23 @@ function ThisWeekSection() {
 }
 
 export default function FitnessDashboardScreen() {
+  const [logOpen, setLogOpen] = useState(false)
+  const [message, setMessage] = useState('')
+
   return (
     <PhoneFrame>
       <ScreenShell
         header={<DomainDashboardHeader title="Fitness & workouts" domain="fitness" level={12} />}
         activeTab="me"
-        bottomAction={<FAB href="/domains/workout" label="Log workout" icon={<Plus size={16} strokeWidth={2.4} />} display="pill" />}
+        bottomAction={<FAB label="Log workout" icon={<Plus size={16} strokeWidth={2.4} />} display="pill" onClick={() => setLogOpen(true)} />}
       >
         <main className="px-4 pb-6 pt-4">
-          <SIACoachingNote
-            message={fitnessDashboard.siaNote}
-            className="animate-fade-up p-4"
-          />
+          <Link href="/tabs/sia?context=fitness-workouts" className="block" aria-label="Ask SIA about fitness recovery and workouts">
+            <SIACoachingNote
+              message={fitnessDashboard.siaNote}
+              className="animate-fade-up p-4"
+            />
+          </Link>
 
           <WorkoutCard
             name={fitnessDashboard.workout.name}
@@ -164,6 +174,24 @@ export default function FitnessDashboardScreen() {
           <WhoopRecoveryCard />
           <ActiveMissionsSection />
           <ThisWeekSection />
+          {message && <p className="mt-4 rounded-md bg-forest-green/10 p-3 text-[12px] font-semibold leading-4 text-forest-green" aria-live="polite">{message}</p>}
+          {logOpen && (
+            <PhoneModalLayer>
+              <BottomSheet
+                title="Log workout"
+                onClose={() => setLogOpen(false)}
+                closeLabel="Close log workout"
+                variant="modal"
+                contentClassName="px-4 pb-1 pt-1"
+              >
+              <div className="grid grid-cols-2 gap-2">
+                <Button variant="skip" onClick={() => { setMessage('Manual workout log saved.'); setLogOpen(false) }}>Manual log</Button>
+                <Link href="/domains/workout" className="flex h-12 items-center justify-center rounded-pill bg-brand-orange text-[14px] font-semibold text-white">Start planned</Link>
+              </div>
+              <p className="mt-3 text-[12px] leading-4 text-white/45">Manual logging is separate from the immersive active workout tracker.</p>
+              </BottomSheet>
+            </PhoneModalLayer>
+          )}
         </main>
       </ScreenShell>
     </PhoneFrame>

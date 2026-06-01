@@ -451,3 +451,34 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [19] — RPG Character (stats row pattern, XP progress bar), Screen [18] — Explore Section (module card pattern), Screen [12] — Home Screen (bottom tab bar), Screen [49] — Progress Photos (photo thumbnail on quick link card), Screen [50] — Profile Edit (avatar tap target), Screen [59] — Streak Details (streak count on quick link card)
 - **Patterns used**: Back Button (Batch 1, for sub-screens returning here), Bottom Tab Bar (_shared-patterns.md)
 - **Patterns established**: Product Mode screen layout (no large title here — profile section replaces it), Stats row, Quick links grid (2x4 layout), Module card (Explore), Settings gear icon position, Avatar Camera Overlay (small camera icon indicating upload capability)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-07.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U04`
+**Prototype route**: `/tabs/me`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q20 OAuth flows must preview scopes, purpose, sync cadence, storage, disconnect, delete, and revocation.
+- Q33 Life Areas comparison is Plus-gated only after enough history exists.
+- Q34 Explore tier labels distinguish included vs locked states.
+- Q35 billing follows mobile-store purchase, restore, trial, cancellation, error, and entitlement patterns.
+- Q50 obstacle reconnection uses per-blocker accept/dismiss controls before accept-all.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B07-F08 | minor | mobile-ergonomics | Keep compact visuals but expand important text-link hit areas to at least 44px high with focus-visible styling. |
+
+### Prototype Implications
+
+- Keep the existing visual direction, then verify touch targets, labels, and route parity in the prototype phase.
+

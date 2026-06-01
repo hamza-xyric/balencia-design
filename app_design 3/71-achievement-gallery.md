@@ -325,3 +325,37 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen [70] — Exercise Library (2-column grid layout, filter chip row), Screen [19] — RPG Character (achievement badges in Streak & Rewards), Screen [13] — Goals List (Filter Chip Row pattern), Screen [42] — Celebration Overlay (achievement celebration trigger)
 - **Patterns used**: Filter Chip Row (Screen 13), Back Button (Batch 1), Bottom Sheet (_shared-patterns.md), 2-Column Grid (Screen 70)
 - **Patterns established**: **Achievement Card** — 2-column grid card with badge icon, name, domain tag, earned/locked/progress state. Earned badges get domain-colored glow and border. **Achievement Detail Bottom Sheet** — ~70% height sheet with badge hero, description, tier indicator, domain pill, rarity percentage. Contextual CTA and progress display based on earned/locked/in-progress state. **Achievement Summary Strip** — compact card with completion ring + earned count + streak badge. **Tier Indicator** — horizontal row of bronze/silver/gold circles showing tiered achievement progression.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-09.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U05`
+**Prototype route**: `/tabs/me/achievements`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q17 progress photos are private, encrypted, user-deletable, and AI analysis is premium opt-in.
+- Q20 OAuth flows need scope and revocation clarity.
+- Q21 Data Sources may be a demo/no-live-sync trust placeholder for prototype acceptance.
+- Q39 achievement density adapts for low-motivation users.
+- Q43 Knowledge Graph V1 is a guided insight map.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B09-F13 | critical | retention | Make filters stateful, render cards as buttons, and implement earned/progress/locked detail sheets. |
+| B09-F14 | major | product-sense | Load the full achievement set or align the summary with visible/cached data; add loading, partial-load, and offline states. |
+| B09-F15 | major | accessibility | Increase chip hit areas, expose selected state, and label each card with name, domain, state, and progress. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

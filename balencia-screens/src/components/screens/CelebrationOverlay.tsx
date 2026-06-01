@@ -12,6 +12,9 @@ type CelebrationOverlayProps = {
   domain: DomainKey
   badgeLabel?: string
   className?: string
+  onDismiss?: () => void
+  onShare?: () => void
+  shared?: boolean
 }
 
 const particles = [
@@ -34,6 +37,9 @@ export function CelebrationOverlay({
   domain,
   badgeLabel = 'XP',
   className = '',
+  onDismiss,
+  onShare,
+  shared = false,
 }: CelebrationOverlayProps) {
   const tone = domainToneClasses[domain]
 
@@ -44,6 +50,9 @@ export function CelebrationOverlay({
         className,
       ].filter(Boolean).join(' ')}
       aria-label="Achievement celebration"
+      role="dialog"
+      aria-modal="true"
+      aria-live="polite"
     >
       <div className="absolute inset-0 bg-brand-orange/5" aria-hidden="true" />
       <div className="absolute inset-x-12 top-24 h-64 rounded-full bg-brand-orange/10 blur-3xl" aria-hidden="true" />
@@ -78,7 +87,7 @@ export function CelebrationOverlay({
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-ink-900">
             <ShieldCheck size={26} className={tone.text} strokeWidth={2.2} />
           </div>
-          <span className="absolute -bottom-2 rounded-pill border border-white/[0.06] bg-ink-900 px-3 py-1 text-small font-semibold leading-[14px] text-white">
+          <span className="absolute -bottom-2 rounded-pill border border-alpha-white-06 bg-ink-900 px-3 py-1 text-small font-semibold leading-[14px] text-white">
             {badgeLabel}
           </span>
         </div>
@@ -108,16 +117,17 @@ export function CelebrationOverlay({
 
         <button
           type="button"
+          onClick={onShare}
           className="mt-8 inline-flex h-11 w-40 items-center justify-center gap-2 rounded-pill border border-white/20 bg-transparent text-[15px] font-semibold leading-5 text-white transition-transform duration-[var(--dur-fast)] active:scale-95"
         >
           <Share2 size={16} strokeWidth={2.2} />
-          <span>Share</span>
+          <span>{shared ? 'Shared' : 'Share'}</span>
         </button>
       </div>
 
-      <p className="celebration-hint relative z-20 pb-7 text-caption leading-[18px] text-white/40">
-        tap anywhere to continue
-      </p>
+      <button type="button" onClick={onDismiss} className="celebration-hint relative z-20 mb-7 min-h-11 rounded-pill px-5 text-caption leading-[18px] text-white/40">
+        Continue
+      </button>
     </section>
   )
 }

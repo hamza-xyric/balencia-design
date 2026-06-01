@@ -435,3 +435,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [03] -- Welcome / Sign Up (brand symbol, heading style, CTA button pattern), Screen [04] -- Sign In (CTA button, brand symbol), Screen [21] -- Settings (toggle switch pattern reused for notification preferences)
 - **Patterns used**: Auth Screen Template (simplified -- no form inputs, no social auth), Brand CTA Button (full-width), Brand Symbol (Small)
 - **Patterns established**: **Consent Checkbox Pattern** -- 22pt square, --r-xs (6pt) corners, unchecked = 1pt white 20% border, checked = orange fill + white checkmark (14pt). 44pt touch target. Used wherever binary legal consent is required. **Consent Card Pattern** -- ink-brown-800 card with --r-xl (28pt) corners, rows separated by 1pt white 10% dividers, 16pt internal padding. Groups related consent items. **Toggle Switch Pattern** -- 34x20pt track, --r-pill, white 15% track when OFF, orange track when ON, white 16pt thumb circle. 44pt touch target. Reused in Settings [21] and notification preferences. **Optional Section Header Pattern** -- 12pt Sora Semibold, white at 30%, uppercase, letter-spacing 1.5pt. Eyebrow label used to clearly mark non-required sections.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-01.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U01`
+**Prototype route**: `/auth/consent`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q06 minimal auth: remove DOB as account-creation legal gate.
+- Q07 social auth profile completion must not block first SIA value.
+- Q08 move first-name collection into SIA onboarding.
+- Q09 WhatsApp is optional coaching/reminder opt-in with STOP/settings controls.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B01-F07 | critical | trust-privacy | Default required consents to unchecked, make them user-controlled, and disable Continue until both are checked. |
+| B01-F08 | major | trust-privacy | Link to real policy views and make the full non-link row a 44px checkbox toggle while preserving independent legal links. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

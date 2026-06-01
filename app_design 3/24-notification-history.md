@@ -329,3 +329,37 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Settings [21] (Section Header, Navigation Header, Section Group Container), Help Center [25] (Section Group Container)
 - **Patterns used**: Back Button (Batch 1), Section Header (Batch 5), Section Group Container (Batch 5)
 - **Patterns established**: Notification Row (with unread/read variants), Date Group Header (sticky, with backdrop-blur), Header Action Button ("mark all read" right-side action), Notification Category Icons (SIA = purple brain, Reminder = orange bell, Check-in = green chart, Social = neutral people), Notification Empty State (with SIA promise message)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-09.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U05`
+**Prototype route**: `/tabs/me/notifications`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q17 progress photos are private, encrypted, user-deletable, and AI analysis is premium opt-in.
+- Q20 OAuth flows need scope and revocation clarity.
+- Q21 Data Sources may be a demo/no-live-sync trust placeholder for prototype acceptance.
+- Q39 achievement density adapts for low-motivation users.
+- Q43 Knowledge Graph V1 is a guided insight map.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B09-F01 | critical | navigation | Give every notification a deep-link target, mark tapped unread rows as read, and handle unavailable targets. |
+| B09-F02 | major | retention | Implement optimistic mark-all-read behavior with fade-out, retry toast, and disabled all-read state. |
+| B09-F03 | major | accessibility | Make Back a labeled link/button and expose notification rows with read status, category, title, preview, and timestamp. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

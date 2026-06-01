@@ -25,8 +25,8 @@ export function JournalEntryCard({
   return (
     <article
       className={[
-        'px-4 py-4 transition-colors duration-[var(--dur-fast)] active:bg-white/[0.05]',
-        withDivider ? 'border-t border-white/[0.05]' : '',
+        'px-4 py-4 transition-colors duration-[var(--dur-fast)] active:bg-alpha-white-05',
+        withDivider ? 'border-t border-alpha-white-05' : '',
         className,
       ].filter(Boolean).join(' ')}
       {...props}
@@ -35,7 +35,7 @@ export function JournalEntryCard({
         <div className="flex min-w-0 items-center gap-2">
           <h2 className="truncate text-[15px] font-semibold leading-5 text-white">{date}</h2>
           {voice && (
-            <span className="inline-flex h-5 shrink-0 items-center gap-1 rounded-sm bg-white/[0.05] px-1.5 text-[11px] leading-4 text-white/40">
+            <span className="inline-flex h-5 shrink-0 items-center gap-1 rounded-sm bg-alpha-white-05 px-1.5 text-[11px] leading-4 text-white/40">
               <Mic size={11} strokeWidth={2.1} />
               voice
             </span>

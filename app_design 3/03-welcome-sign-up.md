@@ -498,3 +498,36 @@ When a user signs up via Google or Apple, the OAuth provider may not supply date
 4. After completion → redirect to Consent [03c]
 
 This ensures all users have DOB and gender before proceeding, regardless of auth method.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-01.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U01`
+**Prototype route**: `/auth/sign-up`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q06 minimal auth: remove DOB as account-creation legal gate.
+- Q07 social auth profile completion must not block first SIA value.
+- Q08 move first-name collection into SIA onboarding.
+- Q09 WhatsApp is optional coaching/reminder opt-in with STOP/settings controls.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B01-F03 | major | onboarding-friction | Reduce account creation to minimum inputs and defer DOB/gender until the app can explain the value or legal need. |
+| B01-F04 | critical | conversion | Wire validation for the reduced email/password form and enable submit only when the remaining required fields are valid. Do not restore DOB/gender to account creation. |
+| B01-F05 | major | trust-privacy | Use platform-compliant provider marks with accessible labels and polished OAuth button styling. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.

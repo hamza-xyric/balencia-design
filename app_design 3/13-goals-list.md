@@ -584,3 +584,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Home Screen [12] (Domain Tag Chip, Progress Ring small/medium, Section Eyebrow, Pull-to-Refresh, Pinned Mission Card), Mission Detail [14] (Domain Tag Chip, Progress Ring, Mission Card as reference, Chain Progress Bar, Difficulty Tier Indicator, Mission Type Badge), Create Mission [15] (Mission Type Badge, Domain Tag Chip)
 - **Patterns used**: Product Mode Screen Title (from Screen 12), Domain Tag Chip (from Screen 12), Progress Ring small variant, Pull-to-Refresh (from Screen 12), Mission Type Badge (Phase 2), Chain Progress Bar (Phase 2), Difficulty Tier Indicator (Phase 2), SIA Mission Suggestion Card (Phase 2), 8-State Interaction Model, Motion Tokens, Content Entry Animation (staggered fade-in)
 - **Patterns established**: Mission Card (evolves Goal Card with type badge, chain bar, difficulty dot), Type Filter Chips Row, Status Segmented Control, Domain Filter Bottom Sheet, Pinned Missions Section, SIA Suggestions Collapsible Section, Quick Actions Menu (updated with pin action)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-06.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U03`
+**Prototype route**: `/tabs/goals`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q14 SIA in chats requires explicit invocation.
+- Q15 group health/recovery signals require per-user permission.
+- Q23 call follow-up scheduling should reuse the voice-history scheduling sheet.
+- Q24 create mission starts from blank natural-language intent.
+- Q25 streak details preserve source tab context.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B06-F03 | major | information-architecture | Implement mission filtering, domain filter bottom sheet, and expandable/actionable SIA suggestions. |
+| B06-F04 | major | mobile-ergonomics | Add 44px hit areas and selected/pressed semantics while preserving compact visual styling. |
+
+### Prototype Implications
+
+- Keep the existing visual direction, then verify touch targets, labels, and route parity in the prototype phase.
+

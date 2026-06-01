@@ -565,3 +565,37 @@ Not applicable — this overlay never shows in a "zero" state. It only appears w
 - **Shared components with**: Home Screen (12) — activity feed uses same XP display style; RPG Character Screen (19) — level/XP bar uses same visual language; Goals List (13) — completion checkmark triggers XP popup; Achievement Gallery [71] — badge visual language shared
 - **Patterns used**: Brand CTA Button style (for share button, adapted to secondary), Continuous Stroke Line (_shared-patterns.md — celebration is an approved use context)
 - **Patterns established**: Full-Screen Celebration Overlay (backdrop + confetti + badge + staggered content entrance), XP Count-Up Animation (count from 0 with orange glow), Level-Up Bar Animation (fill + overflow + reset), Small Win Toast (slide-down notification bar with auto-dismiss), XP Popup Float (in-place floating "+NN XP" text at completion point), **Domain Level-Up Toast** (domain color dot + "[Domain] Level [N]" + "+25 XP" — toast format for per-domain level-ups), **Radar Vertex Pulse** (domain-colored glow ring expansion on radar chart vertex when stat increases), Motivation-Adapted Celebration (celebration intensity scales inversely with motivation tier), **Subscription Success Celebration** (gold-themed celebration with tier-specific messaging, "explore new features" CTA, no XP counter)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-13.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/celebration`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B13-F10 | critical | navigation | Implement overlay dismissal, return to trigger screen, native share flow, and queued celebration handling. |
+| B13-F11 | major | accessibility | Announce the achievement, add a labeled dismiss action, trap/return focus, and honor reduced motion. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

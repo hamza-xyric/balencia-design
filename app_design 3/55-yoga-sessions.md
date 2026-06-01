@@ -800,3 +800,38 @@ The Yoga Sessions screen is the user's gateway to guided yoga practice within Ba
 - **Shared components with**: Screen 26 (Domain Dashboard Header -- same component, wellbeing-teal domain color instead of fitness-red), Screen 26 (SIA Coaching Note Card -- compact variant), Screen 26 (Stat Tile), Screen 27 (Circular Countdown / Pose Timer Ring -- adapted from rest timer), Screen 38 (Streak Tracker / Calendar Heatmap pattern -- could be added in high motivation variant), Screen 13 (Filter Chip Row), Screen 29 (Search Bar -- in pose library "see all" view)
 - **Patterns used**: Back Button (Batch 1), In-Card CTA Button (Screen 26), 8-State Interaction Model, Stack Navigation, Content Entry Animation (staggered fade-in), Domain Dashboard Header (Screen 26), SIA Coaching Note Card -- Compact Variant (Screen 26), Filter Chip / Filter Tab Row (Screen 13), Section Heading Row (Screen 26), Stat Tile (Screen 26), Circular Countdown (Screen 27 -- adapted for pose timer), Multi-Mode Screen Pattern (Screen 27 -- Browse > Active > Post-Session), Modal Presentation (Screen 15), Search Bar (Screen 25), Pull-to-Refresh (Screen 12)
 - **Patterns established**: Yoga Streak Banner (flame icon + current/longest streak, reusable for any streak-driven feature), Pose Timer Ring (teal variant of circular countdown for wellbeing domain), Session Card (thumbnail + meta + difficulty badge + CTA -- reusable for any guided activity: meditation sessions, breathing exercises), Pose Grid Card (compact image + name + difficulty dot -- reusable for any instructional library: exercise library, recipe library), Difficulty Rating Row (1-5 circle selector with extremity labels -- reusable for any post-activity rating), Post-Session Summary Card (2x2 stat grid with XP -- reusable for any activity completion recap), Active Session View (full-screen immersive mode with timer, instructions, next preview, controls -- reusable for guided meditation, breathing exercises), YouTube Integration Card (lazy-loaded video embed in modal -- reusable for any instructional content)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-15.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/yoga`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B15-F04 | critical | retention | Implement filter state plus browse, active-session, pause/skip, completion, and post-session summary behavior. |
+| B15-F05 | major | information-architecture | Make active yoga a true focused mode with tab bar hidden, close/pause paths, next-pose preview, and summary state. |
+| B15-F06 | major | accessibility | Expand hit areas, add selected semantics, make pose cards open details, and route SIA coaching to contextual chat. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

@@ -1,0 +1,139 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Balencia onboarding domain visual kit</title>
+  <desc id="desc">Nine controlled domain symbols, connector strokes, chips, and mission badge shapes for Balencia onboarding and carousel creatives.</desc>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(820 420) rotate(90) scale(610 980)">
+      <stop stop-color="#211008"/>
+      <stop offset="1" stop-color="#0C0603"/>
+    </radialGradient>
+    <filter id="soft-shadow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0C0603" flood-opacity="0.36"/>
+    </filter>
+    <filter id="orange-glow" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="16" flood-color="#FF5E00" flood-opacity="0.42"/>
+    </filter>
+    <filter id="green-glow" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#34A853" flood-opacity="0.34"/>
+    </filter>
+    <filter id="purple-glow" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#7F24FF" flood-opacity="0.28"/>
+    </filter>
+    <style>
+      .bg { fill: url(#bg); }
+      .panel { fill: #211008; stroke: rgba(253,253,251,0.08); stroke-width: 2; }
+      .node { fill: #211008; stroke-width: 4; filter: url(#soft-shadow); }
+      .orange { stroke: #FF5E00; }
+      .green { stroke: #34A853; }
+      .purple { stroke: #7F24FF; }
+      .paper { stroke: #F2ECD8; }
+      .muted { stroke: rgba(242,236,216,0.46); }
+      .fill-orange { fill: rgba(255,94,0,0.16); }
+      .fill-green { fill: rgba(52,168,83,0.14); }
+      .fill-purple { fill: rgba(127,36,255,0.12); }
+      .line { stroke-linecap: round; stroke-linejoin: round; }
+      .thin { stroke-width: 5; }
+      .base { stroke-width: 8; }
+      .bold { stroke-width: 12; }
+      .chip { fill: rgba(253,253,251,0.04); stroke-width: 3; }
+    </style>
+    <symbol id="fitness" viewBox="-48 -48 96 96">
+      <path class="paper base line" d="M-32 0H32"/>
+      <path class="paper base line" d="M-42-17V17M42-17V17"/>
+      <path class="green thin line" d="M-20 26C-12 8-4 8 4 26C12 44 20 44 28 26"/>
+    </symbol>
+    <symbol id="nutrition" viewBox="-48 -48 96 96">
+      <path class="paper base line" d="M-28-4H26C23 23 8 34-10 34C-27 34-36 19-28-4Z"/>
+      <path class="green base line" d="M0-14C7-31 24-31 32-18C18-16 8-11 0-2"/>
+      <path class="paper thin line" d="M-34 34H28"/>
+    </symbol>
+    <symbol id="sleep" viewBox="-48 -48 96 96">
+      <path class="paper base line" d="M16-32C1-28-10-14-10 2C-10 18 2 31 18 34C9 41-7 39-20 29C-36 17-39-5-28-23C-19-38 0-43 16-32Z"/>
+      <path class="purple thin line" d="M21 20H33"/>
+    </symbol>
+    <symbol id="finance" viewBox="-48 -48 96 96">
+      <path class="paper base line" d="M-30 20H-8M-19 20V-4M-4 20H18M7 20V-17M22 20H36M29 20V-28"/>
+      <path class="green base line" d="M-32-18L-12-30L2-17L30-38"/>
+      <path class="green thin line" d="M30-38V-20M30-38H12"/>
+    </symbol>
+    <symbol id="career" viewBox="-48 -48 96 96">
+      <path class="paper base line" d="M-34-8H34V30H-34V-8Z"/>
+      <path class="paper base line" d="M-12-8V-24H12V-8"/>
+      <path class="green thin line" d="M-24 18H24M-8 18V30"/>
+      <path class="orange thin line" d="M22-25L34-37"/>
+    </symbol>
+    <symbol id="relationships" viewBox="-48 -48 96 96">
+      <path class="paper base line" d="M-24 8C-40-6-32-30-13-28C-4-27 1-21 3-16C5-22 11-28 21-28C39-27 45-5 30 9L3 34L-24 8Z"/>
+      <path class="green thin line" d="M-24 8L3 34L30 9"/>
+    </symbol>
+    <symbol id="creativity" viewBox="-48 -48 96 96">
+      <path class="paper base line" d="M-18 30C-6 22 0 13 0 2C0-14 11-24 27-29C22-13 14-2 4 4"/>
+      <path class="orange base line" d="M-25 34C-31 26-28 17-19 14C-9 11-3 17 0 26C-8 23-15 26-25 34Z"/>
+      <path class="green thin line" d="M14-31L24-39M29-20H39"/>
+    </symbol>
+    <symbol id="spirituality" viewBox="-48 -48 96 96">
+      <path class="paper base line" d="M0 33C-19 22-31 6-31-13C-15-12-4-5 0 9C4-5 15-12 31-13C31 6 19 22 0 33Z"/>
+      <path class="purple thin line" d="M0 33V-18"/>
+      <path class="purple thin line" d="M-15 18C-6 13 6 13 15 18"/>
+    </symbol>
+    <symbol id="learning" viewBox="-48 -48 96 96">
+      <path class="paper base line" d="M-32-26C-18-31-6-26 0-17C6-26 18-31 32-26V28C18 23 6 25 0 34C-6 25-18 23-32 28V-26Z"/>
+      <path class="green thin line" d="M0-17V34"/>
+      <path class="orange thin line" d="M15-3H26M15 10H26"/>
+    </symbol>
+  </defs>
+
+  <rect class="bg" width="1600" height="900"/>
+  <path class="orange line" filter="url(#orange-glow)" stroke-width="12" d="M118 468C254 248 465 205 642 319C773 404 854 579 1035 545C1193 515 1255 346 1482 372"/>
+  <path class="green line" filter="url(#green-glow)" stroke-width="7" d="M184 646C380 548 515 714 688 662C829 620 868 452 1016 389C1139 336 1292 386 1432 278"/>
+  <path class="purple line" filter="url(#purple-glow)" stroke-width="5" d="M1132 242C1212 281 1260 352 1282 446"/>
+
+  <rect x="102" y="104" width="1396" height="688" rx="38" class="panel"/>
+
+  <g transform="translate(255 248)">
+    <circle r="86" class="node orange fill-orange"/>
+    <use href="#fitness" width="96" height="96" x="-48" y="-48"/>
+  </g>
+  <g transform="translate(514 224)">
+    <circle r="86" class="node green fill-green"/>
+    <use href="#nutrition" width="96" height="96" x="-48" y="-48"/>
+  </g>
+  <g transform="translate(785 252)">
+    <circle r="86" class="node purple fill-purple"/>
+    <use href="#sleep" width="96" height="96" x="-48" y="-48"/>
+  </g>
+  <g transform="translate(1056 222)">
+    <circle r="86" class="node green fill-green"/>
+    <use href="#finance" width="96" height="96" x="-48" y="-48"/>
+  </g>
+  <g transform="translate(1322 260)">
+    <circle r="86" class="node orange fill-orange"/>
+    <use href="#career" width="96" height="96" x="-48" y="-48"/>
+  </g>
+  <g transform="translate(371 565)">
+    <circle r="86" class="node green fill-green"/>
+    <use href="#relationships" width="96" height="96" x="-48" y="-48"/>
+  </g>
+  <g transform="translate(650 575)">
+    <circle r="86" class="node orange fill-orange"/>
+    <use href="#creativity" width="96" height="96" x="-48" y="-48"/>
+  </g>
+  <g transform="translate(944 585)">
+    <circle r="86" class="node purple fill-purple"/>
+    <use href="#spirituality" width="96" height="96" x="-48" y="-48"/>
+  </g>
+  <g transform="translate(1223 565)">
+    <circle r="86" class="node green fill-green"/>
+    <use href="#learning" width="96" height="96" x="-48" y="-48"/>
+  </g>
+
+  <g opacity="0.92">
+    <rect x="208" y="758" width="156" height="46" rx="23" class="chip orange"/>
+    <rect x="396" y="758" width="116" height="46" rx="23" class="chip green"/>
+    <rect x="544" y="758" width="192" height="46" rx="23" class="chip orange"/>
+    <rect x="768" y="758" width="136" height="46" rx="23" class="chip purple"/>
+    <rect x="936" y="758" width="218" height="46" rx="23" class="chip green"/>
+    <path class="paper thin line" opacity="0.44" d="M1218 781H1422"/>
+    <path class="orange bold line" d="M1218 781H1326"/>
+    <circle cx="1458" cy="781" r="24" class="node orange fill-orange"/>
+  </g>
+</svg>

@@ -1,0 +1,1796 @@
+{
+  "version": 2,
+  "generated_at": "2026-05-26",
+  "source": "../balencia-screens-reviewed/findings/creative-opportunities.md",
+  "product_decisions": "../registry/product-decisions.json",
+  "count": 90,
+  "opportunities": [
+    {
+      "id": "CRE-01",
+      "screen_id": "01",
+      "screen_name": "Splash screen",
+      "route": "/auth/splash",
+      "priority": "P0",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Symbol reveal, continuous stroke, brand glow.",
+      "production_batch": "CP-01",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "in_progress",
+      "brief_path": "briefs/CRE-01-splash-reveal.md",
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-02",
+      "screen_id": "02",
+      "screen_name": "Motion carousel",
+      "route": "/auth/carousel",
+      "priority": "P0",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-loop",
+        "motion-still"
+      ],
+      "placement": "Motion-graphic panels, not a pre-recorded video.",
+      "production_batch": "CP-01",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "in_progress",
+      "brief_path": "briefs/CRE-02-carousel-life-domains.md",
+      "notes": "CP-01: four panel briefs CRE-02-carousel-*"
+    },
+    {
+      "id": "CRE-03",
+      "screen_id": "03",
+      "screen_name": "Sign up",
+      "route": "/auth/sign-up",
+      "priority": "P3",
+      "package": "provider-logo",
+      "asset_types": [
+        "official-mark"
+      ],
+      "placement": "Official OAuth marks only.",
+      "production_batch": "CP-09",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-03b",
+      "screen_id": "03b",
+      "screen_name": "OTP verification",
+      "route": "/auth/otp",
+      "priority": "P3",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "None beyond input/state polish.",
+      "production_batch": "CP-10",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-03c",
+      "screen_id": "03c",
+      "screen_name": "Consent",
+      "route": "/auth/consent",
+      "priority": "P3",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Legal/status icons only.",
+      "production_batch": "CP-10",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-03d",
+      "screen_id": "03d",
+      "screen_name": "Complete profile",
+      "route": "/auth/complete-profile",
+      "priority": "P3",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Tiny SIA/trust marker only if needed.",
+      "production_batch": "CP-10",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-03e",
+      "screen_id": "03e",
+      "screen_name": "WhatsApp enrollment",
+      "route": "/auth/whatsapp",
+      "priority": "P2",
+      "package": "provider-logo",
+      "asset_types": [
+        "official-mark"
+      ],
+      "placement": "WhatsApp mark, channel-benefit mini illustration.",
+      "production_batch": "CP-09",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-04",
+      "screen_id": "04",
+      "screen_name": "Sign in",
+      "route": "/auth/sign-in",
+      "priority": "P3",
+      "package": "provider-logo",
+      "asset_types": [
+        "official-mark"
+      ],
+      "placement": "Official OAuth marks only.",
+      "production_batch": "CP-09",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-05",
+      "screen_id": "05",
+      "screen_name": "Forgot password",
+      "route": "/auth/forgot-password",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Optional small email/security illustration.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-05b",
+      "screen_id": "05b",
+      "screen_name": "Reset password",
+      "route": "/auth/reset-password",
+      "priority": "P3",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Minimal security iconography.",
+      "production_batch": "CP-10",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-06",
+      "screen_id": "06",
+      "screen_name": "Guest preview",
+      "route": "/auth/guest-preview",
+      "priority": "P1",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Lightweight preview/demo visual and sample app data.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "guest_preview_lightweight",
+        "no_full_demo_shell_montage"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-07",
+      "screen_id": "07",
+      "screen_name": "SIA onboarding",
+      "route": "/auth/sia-onboarding",
+      "priority": "P0",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Animated domain brainstorming canvas.",
+      "production_batch": "CP-01",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "in_progress",
+      "brief_path": "briefs/CRE-07-onboarding-canvas.md",
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-08",
+      "screen_id": "08",
+      "screen_name": "Initial plan",
+      "route": "/auth/initial-plan",
+      "priority": "P1",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Plan reveal motion and mission card polish.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-12",
+      "screen_id": "12",
+      "screen_name": "Home screen",
+      "route": "/tabs/today",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Subtle insight/data visual, no big hero image.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-41",
+      "screen_id": "41",
+      "screen_name": "Schedule / calendar",
+      "route": "/tabs/today/schedule",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Empty-day illustration and sync/provider marks.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-44",
+      "screen_id": "44",
+      "screen_name": "Water intake",
+      "route": "/tabs/today/water-intake",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Water fill/ring animation and goal celebration.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-45",
+      "screen_id": "45",
+      "screen_name": "Daily check-in",
+      "route": "/tabs/today/daily-checkin",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Mood visual system and check-in states.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-09",
+      "screen_id": "09",
+      "screen_name": "SIA chat",
+      "route": "/tabs/sia",
+      "priority": "P1",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "illustration"
+      ],
+      "placement": "SIA avatar, rich card charts/media thumbnails.",
+      "production_batch": "CP-02",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-10",
+      "screen_id": "10",
+      "screen_name": "Voice mode (in-chat)",
+      "route": "/tabs/sia/voice-inline",
+      "priority": "P1",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "illustration"
+      ],
+      "placement": "Reactive waveform and mic-state visuals.",
+      "production_batch": "CP-02",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-11",
+      "screen_id": "11",
+      "screen_name": "Voice mode (full)",
+      "route": "/tabs/sia/voice-fullscreen",
+      "priority": "P0",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "motion-still"
+      ],
+      "placement": "3D or premium 2D SIA avatar.",
+      "production_batch": "CP-02",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "sia_avatar_3d_first",
+        "2d_fallback_states"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-51",
+      "screen_id": "51",
+      "screen_name": "Voice call history",
+      "route": "/tabs/sia/voice-history",
+      "priority": "P2",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "illustration"
+      ],
+      "placement": "Waveform thumbnails and call status visuals.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-74",
+      "screen_id": "74",
+      "screen_name": "Conversations hub",
+      "route": "/tabs/sia/conversations",
+      "priority": "P1",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "illustration"
+      ],
+      "placement": "Contact avatars and thread media previews.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-75",
+      "screen_id": "75",
+      "screen_name": "Direct chat",
+      "route": "/tabs/sia/direct",
+      "priority": "P1",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "illustration"
+      ],
+      "placement": "Contact avatar and shared-media thumbnails.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-76",
+      "screen_id": "76",
+      "screen_name": "Group chat",
+      "route": "/tabs/sia/group",
+      "priority": "P1",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "illustration"
+      ],
+      "placement": "Group avatars and mission/media cards.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-77",
+      "screen_id": "77",
+      "screen_name": "Message actions",
+      "route": "/tabs/sia/message-actions",
+      "priority": "P1",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "illustration"
+      ],
+      "placement": "Protected media preview and reaction visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-79",
+      "screen_id": "79",
+      "screen_name": "Call summary",
+      "route": "/tabs/sia/call-summary",
+      "priority": "P1",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "illustration"
+      ],
+      "placement": "Waveform, transcript highlight, action conversion visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-13",
+      "screen_id": "13",
+      "screen_name": "Mission board",
+      "route": "/tabs/goals",
+      "priority": "P2",
+      "package": "gamification",
+      "asset_types": [
+        "badge",
+        "illustration"
+      ],
+      "placement": "Mission badges and status visuals.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-14",
+      "screen_id": "14",
+      "screen_name": "Mission detail",
+      "route": "/tabs/goals/detail",
+      "priority": "P2",
+      "package": "gamification",
+      "asset_types": [
+        "badge",
+        "illustration"
+      ],
+      "placement": "Mission identity/progress hero.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-15",
+      "screen_id": "15",
+      "screen_name": "Create mission",
+      "route": "/tabs/goals/create",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "SIA planning/generation state visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-59",
+      "screen_id": "59",
+      "screen_name": "Streak details",
+      "route": "/tabs/goals/streaks",
+      "priority": "P1",
+      "package": "gamification",
+      "asset_types": [
+        "badge",
+        "illustration"
+      ],
+      "placement": "Flame/trophy/reward visuals.",
+      "production_batch": "CP-05",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-73",
+      "screen_id": "73",
+      "screen_name": "Mission journal",
+      "route": "/tabs/goals/journal",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Mission photo memories and journal thumbnails.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-85",
+      "screen_id": "85",
+      "screen_name": "Obstacle coach",
+      "route": "/tabs/goals/obstacles",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Coaching/obstacle illustration and recovery-state visuals.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-16",
+      "screen_id": "16",
+      "screen_name": "Life areas overview",
+      "route": "/tabs/me/life-areas",
+      "priority": "P1",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Life-area wheel/radar or domain constellation.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-17",
+      "screen_id": "17",
+      "screen_name": "Me main",
+      "route": "/tabs/me",
+      "priority": "P1",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Avatar/character glimpse and profile visual.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-18",
+      "screen_id": "18",
+      "screen_name": "Explore section",
+      "route": "/tabs/me/explore",
+      "priority": "P1",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Module thumbnails/icons per domain.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-19",
+      "screen_id": "19",
+      "screen_name": "RPG character",
+      "route": "/tabs/me/rpg",
+      "priority": "P1",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Character/avatar art and reward visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-20",
+      "screen_id": "20",
+      "screen_name": "Personal wiki",
+      "route": "/tabs/me/personal-wiki",
+      "priority": "P1",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Memory map, node visuals, source cards.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-21",
+      "screen_id": "21",
+      "screen_name": "Settings",
+      "route": "/tabs/me/settings",
+      "priority": "P3",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Icons only.",
+      "production_batch": "CP-10",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-22",
+      "screen_id": "22",
+      "screen_name": "Connected services",
+      "route": "/tabs/me/connected-services",
+      "priority": "P2",
+      "package": "provider-logo",
+      "asset_types": [
+        "official-mark"
+      ],
+      "placement": "Provider logos and status visuals.",
+      "production_batch": "CP-09",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-23",
+      "screen_id": "23",
+      "screen_name": "Subscription & billing",
+      "route": "/tabs/me/subscription",
+      "priority": "P1",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Premium feature preview, plan comparison visuals, restore/trial/error states.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-24",
+      "screen_id": "24",
+      "screen_name": "Notification history",
+      "route": "/tabs/me/notifications",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Category icons and empty state.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-25",
+      "screen_id": "25",
+      "screen_name": "Help center",
+      "route": "/tabs/me/help",
+      "priority": "P2",
+      "package": "sia-identity",
+      "asset_types": [
+        "avatar",
+        "illustration"
+      ],
+      "placement": "SIA support illustration/topic icons.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-49",
+      "screen_id": "49",
+      "screen_name": "Progress photos",
+      "route": "/tabs/me/progress-photos",
+      "priority": "P0",
+      "package": "media-content",
+      "asset_types": [
+        "thumbnail",
+        "video-poster",
+        "photo"
+      ],
+      "placement": "Actual photo thumbnails, compare, privacy states.",
+      "production_batch": "CP-03",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "progress_photos_private",
+        "no_progress_photo_share_v1",
+        "secure_thumbnails",
+        "analysis_provenance_states"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-50",
+      "screen_id": "50",
+      "screen_name": "Profile edit",
+      "route": "/tabs/me/profile-edit",
+      "priority": "P3",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Avatar/photo picker only.",
+      "production_batch": "CP-10",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-71",
+      "screen_id": "71",
+      "screen_name": "Achievement gallery",
+      "route": "/tabs/me/achievements",
+      "priority": "P1",
+      "package": "gamification",
+      "asset_types": [
+        "badge",
+        "illustration"
+      ],
+      "placement": "Earned, near-next, progress, and motivation-adaptive hidden/locked badge variants.",
+      "production_batch": "CP-05",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "motivation_adaptive_badges",
+        "hide_most_locked_badges"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-72",
+      "screen_id": "72",
+      "screen_name": "Knowledge graph",
+      "route": "/tabs/me/knowledge-graph",
+      "priority": "P0",
+      "package": "domain-content",
+      "asset_types": [
+        "illustration",
+        "motion-still",
+        "insight-map"
+      ],
+      "placement": "Guided interactive insight-map with explainable relationship visuals.",
+      "production_batch": "CP-06",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "guided_insight_map",
+        "no_raw_force_graph_hero"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-84",
+      "screen_id": "84",
+      "screen_name": "Data sources",
+      "route": "/tabs/me/data-sources",
+      "priority": "P1",
+      "package": "provider-logo",
+      "asset_types": [
+        "official-mark"
+      ],
+      "placement": "Provider logos, source-health, demo/no-live-sync, and connection-placeholder visuals.",
+      "production_batch": "CP-09",
+      "higgsfield_allowed": false,
+      "constraints": [
+        "demo_no_live_sync_placeholder"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-26",
+      "screen_id": "26",
+      "screen_name": "Fitness dashboard",
+      "route": "/domains/fitness",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Workout thumbnail, recovery visual, exercise cue.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-27",
+      "screen_id": "27",
+      "screen_name": "Workout detail",
+      "route": "/domains/workout",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Exercise form visual/video poster and active-state visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-28",
+      "screen_id": "28",
+      "screen_name": "Nutrition dashboard",
+      "route": "/domains/nutrition",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Meal thumbnails, macro visuals, water states.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-29",
+      "screen_id": "29",
+      "screen_name": "Meal detail",
+      "route": "/domains/meal",
+      "priority": "P1",
+      "package": "media-content",
+      "asset_types": [
+        "thumbnail",
+        "video-poster",
+        "photo"
+      ],
+      "placement": "Meal photo, barcode/photo scan states.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-30",
+      "screen_id": "30",
+      "screen_name": "Finance dashboard",
+      "route": "/domains/finance",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Money-map visualization and category visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-31",
+      "screen_id": "31",
+      "screen_name": "Budget detail",
+      "route": "/domains/budget",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Receipt photo and category visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-32",
+      "screen_id": "32",
+      "screen_name": "Career dashboard",
+      "route": "/domains/career",
+      "priority": "P2",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Career-path visual and project icons.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-33",
+      "screen_id": "33",
+      "screen_name": "Relationships dashboard",
+      "route": "/domains/relationships",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Real/profile avatars, relationship state visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-34",
+      "screen_id": "34",
+      "screen_name": "Spirituality dashboard",
+      "route": "/domains/spirituality",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Respectful belief-adaptive motifs, configured/unconfigured states, source/status visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "belief_adaptive",
+        "configured_and_unconfigured_states"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-35",
+      "screen_id": "35",
+      "screen_name": "Learning dashboard",
+      "route": "/domains/learning",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Book/course cover art and study progress visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-36",
+      "screen_id": "36",
+      "screen_name": "Creativity dashboard",
+      "route": "/domains/creativity",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Portfolio/project thumbnails and prompt artwork.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-70",
+      "screen_id": "70",
+      "screen_name": "Exercise library",
+      "route": "/domains/exercise-library",
+      "priority": "P0",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Exercise thumbnails/form illustrations/video posters.",
+      "production_batch": "CP-04",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-37",
+      "screen_id": "37",
+      "screen_name": "Journal",
+      "route": "/features/journal",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Empty writing illustration and attachment thumbnails.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-38",
+      "screen_id": "38",
+      "screen_name": "Habits",
+      "route": "/features/habits",
+      "priority": "P2",
+      "package": "gamification",
+      "asset_types": [
+        "badge",
+        "illustration"
+      ],
+      "placement": "Habit icons, streak visuals, empty state.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-39",
+      "screen_id": "39",
+      "screen_name": "Leaderboard",
+      "route": "/features/leaderboard",
+      "priority": "P1",
+      "package": "gamification",
+      "asset_types": [
+        "badge",
+        "illustration"
+      ],
+      "placement": "Friends/private-first avatars, podium/badge visuals, no global-rank emphasis.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "friends_private_first",
+        "no_global_ranking_visuals"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-40",
+      "screen_id": "40",
+      "screen_name": "Community",
+      "route": "/features/community",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Friends/private-first room avatars and community cover chips.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "friends_private_first",
+        "no_global_ranking_visuals"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-42",
+      "screen_id": "42",
+      "screen_name": "Celebration overlay",
+      "route": "/features/celebration",
+      "priority": "P0",
+      "package": "gamification",
+      "asset_types": [
+        "badge",
+        "illustration"
+      ],
+      "placement": "Badge artwork, XP burst, share-card visual.",
+      "production_batch": "CP-05",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-43",
+      "screen_id": "43",
+      "screen_name": "Paywall",
+      "route": "/features/paywall",
+      "priority": "P1",
+      "package": "onboarding-motion",
+      "asset_types": [
+        "motion-still",
+        "motion-loop"
+      ],
+      "placement": "Blurred premium preview from real product surfaces.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-46",
+      "screen_id": "46",
+      "screen_name": "Accountability",
+      "route": "/features/accountability",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Partner avatars, proof thumbnails, commitment visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "friends_private_first",
+        "opt_in_proof_only"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-47",
+      "screen_id": "47",
+      "screen_name": "Competitions",
+      "route": "/features/competitions",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Challenge badges/covers, locked previews, self-only/private challenge visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "friends_private_first",
+        "self_only_private_challenge_modes",
+        "locked_preview_states"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-48",
+      "screen_id": "48",
+      "screen_name": "Intelligence dashboard",
+      "route": "/features/intelligence",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Correlation/forecast visual system.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-52",
+      "screen_id": "52",
+      "screen_name": "Stress management",
+      "route": "/features/stress",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Stress/recovery visualizer.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-53",
+      "screen_id": "53",
+      "screen_name": "Breathing exercises",
+      "route": "/features/breathing",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Animated breathing visual.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-54",
+      "screen_id": "54",
+      "screen_name": "Meditation",
+      "route": "/features/meditation",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Session artwork, ambient active state.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-55",
+      "screen_id": "55",
+      "screen_name": "Yoga sessions",
+      "route": "/features/yoga",
+      "priority": "P0",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Pose illustrations or video thumbnails.",
+      "production_batch": "CP-04",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-56",
+      "screen_id": "56",
+      "screen_name": "Recipes",
+      "route": "/features/recipes",
+      "priority": "P0",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Recipe photos and fallback food illustrations.",
+      "production_batch": "CP-04",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-57",
+      "screen_id": "57",
+      "screen_name": "Shopping list",
+      "route": "/features/shopping-list",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Ingredient/source thumbnails, sparingly.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-58",
+      "screen_id": "58",
+      "screen_name": "Sleep tracking",
+      "route": "/features/sleep",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Sleep-stage chart and calm ambient motif.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-60",
+      "screen_id": "60",
+      "screen_name": "Medication tracking",
+      "route": "/features/medication",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Medication icon set and safety states.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-61",
+      "screen_id": "61",
+      "screen_name": "Reminders & tasks",
+      "route": "/features/reminders",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Source icons and empty state.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-62",
+      "screen_id": "62",
+      "screen_name": "Quick notes",
+      "route": "/features/quick-notes",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Empty-note illustration and attachment icons.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-63",
+      "screen_id": "63",
+      "screen_name": "Energy tracking",
+      "route": "/features/energy",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Energy scale and trend visual.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-64",
+      "screen_id": "64",
+      "screen_name": "Report / block",
+      "route": "/features/report-block",
+      "priority": "P3",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Neutral safety icon only.",
+      "production_batch": "CP-10",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-65",
+      "screen_id": "65",
+      "screen_name": "Force update",
+      "route": "/features/force-update",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "App icon/update illustration.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-66",
+      "screen_id": "66",
+      "screen_name": "Notification permission",
+      "route": "/features/notification-permission",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Bell/benefit illustration and prompt states.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-67",
+      "screen_id": "67",
+      "screen_name": "Image viewer",
+      "route": "/features/image-viewer",
+      "priority": "P0",
+      "package": "media-content",
+      "asset_types": [
+        "thumbnail",
+        "video-poster",
+        "photo"
+      ],
+      "placement": "Actual media viewer with zoom/pan/gallery.",
+      "production_batch": "CP-03",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "progress_photos_private",
+        "no_progress_photo_share_v1",
+        "secure_thumbnails",
+        "analysis_provenance_states"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-68",
+      "screen_id": "68",
+      "screen_name": "Universal search",
+      "route": "/features/universal-search",
+      "priority": "P2",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Category icons and no-results state.",
+      "production_batch": "CP-08",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-69",
+      "screen_id": "69",
+      "screen_name": "App rating",
+      "route": "/features/app-rating",
+      "priority": "P3",
+      "package": "empty-system",
+      "asset_types": [
+        "illustration",
+        "icon-set"
+      ],
+      "placement": "Star micro-interactions and non-coercive prompt-state variants only.",
+      "production_batch": "CP-10",
+      "higgsfield_allowed": false,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-78",
+      "screen_id": "78",
+      "screen_name": "Reports center",
+      "route": "/features/reports",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Report preview thumbnails and data-review visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "in_app_reports_only",
+        "no_pdf_export_visuals"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-80",
+      "screen_id": "80",
+      "screen_name": "Music coach",
+      "route": "/features/music",
+      "priority": "P0",
+      "package": "media-content",
+      "asset_types": [
+        "thumbnail",
+        "video-poster",
+        "photo"
+      ],
+      "placement": "Album/playlist artwork and player visual states.",
+      "production_batch": "CP-03",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "demo_recommendations_ok",
+        "no_implied_live_sync"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-81",
+      "screen_id": "81",
+      "screen_name": "Video library",
+      "route": "/features/videos",
+      "priority": "P0",
+      "package": "media-content",
+      "asset_types": [
+        "thumbnail",
+        "video-poster",
+        "photo"
+      ],
+      "placement": "Video thumbnails/posters and player states.",
+      "production_batch": "CP-03",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "demo_recommendations_ok",
+        "no_implied_live_sync"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-82",
+      "screen_id": "82",
+      "screen_name": "Accountability contract",
+      "route": "/features/accountability-contract",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Signature/proof/partner permission visuals.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [
+        "friends_private_first",
+        "opt_in_proof_only"
+      ],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    },
+    {
+      "id": "CRE-83",
+      "screen_id": "83",
+      "screen_name": "Social buddy profile",
+      "route": "/features/social-buddy",
+      "priority": "P1",
+      "package": "domain-content",
+      "asset_types": [
+        "thumbnail",
+        "photo",
+        "illustration"
+      ],
+      "placement": "Profile avatar, shared mission visuals, privacy-state artwork.",
+      "production_batch": "CP-07",
+      "higgsfield_allowed": true,
+      "constraints": [],
+      "status": "not_started",
+      "brief_path": null,
+      "notes": "From creative-opportunities.md screen matrix"
+    }
+  ]
+}

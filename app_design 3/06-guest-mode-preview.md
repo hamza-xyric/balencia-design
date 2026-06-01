@@ -467,3 +467,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [03] — Welcome/Sign Up (Text Input Field, Brand CTA Button, Auth Navigation Link, Back Button, Brand Symbol)
 - **Patterns used**: Brand CTA Button (full-width), Text Input Field, Back Button, Auth Navigation Link, Bottom Tab Bar
 - **Patterns established**: **Domain Interest Picker** — 9 domain chips in 3x3 grid, pill shape, domain color tinting on selection, max 3 selections. **Persistent Sign-Up Banner** — floating above tab bar, full-width with inline CTA pill, minimizable via swipe, expandable via tap. **Guest Mode Demo Data Treatment** — full app with pre-populated seed data, user name injected, medium-density default.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-03.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U02`
+**Prototype route**: `/auth/guest-preview`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q10 guest preview may remain a clearly labeled preview/demo entry form.
+- Q11 SIA onboarding only needs enough interactivity to reach Initial plan.
+- Q12 voice-inline can remain a QA route but production should treat it as SIA chat state.
+- Q13 voice privacy requires permission, consent, transcript control, deletion, and raw-audio handling states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B03-F01 | critical | conversion | For this prototype, keep the entry-form placeholder if needed, but label it as preview/demo and provide a clear continuation; full browsable demo tabs can wait. |
+| B03-F02 | major | onboarding-friction | Start empty, require a name plus 1-3 domains, and expose accessible selected state with max-selection feedback. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

@@ -25,6 +25,9 @@ Source-of-truth files in this repo:
 - `scripts/figma-components-map.json` — 68-component inventory with build phase, variant axes, properties. Drives Phase 3.
 - `figma.config.json` — Code Connect parser config.
 
+### DS build audit
+The Figma DS build is graded against this prototype by a standing audit system in `../figma-build-audit/` (repo root): `REPORT.md` (living grade report), `RUBRIC.md`, `findings-ledger.md`. Re-run / extend with the `/figma-build-auditor` skill (`<batch>` · `--all` · `--deep`). It is **read-only on Figma** — it never edits the DS file or this prototype.
+
 ### Code Connect
 
 Every Balencia component has a colocated `.figma.tsx` file (e.g., `src/components/design-system/Button.tsx` ↔ `Button.figma.tsx`). These map Figma component properties to React props so Dev Mode shows the real JSX.

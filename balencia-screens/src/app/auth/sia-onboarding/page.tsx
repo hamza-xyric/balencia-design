@@ -1,8 +1,12 @@
+'use client'
+
+import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { ArrowUp } from 'lucide-react'
 import { ContinuousStroke } from '@/components/design-system/ContinuousStroke'
 import { domainToneClasses } from '@/components/design-system/Chip'
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
 import { ScreenShell } from '@/components/layout/ScreenShell'
-import { ChatInputBar } from '@/components/screens/ChatInputBar'
 import { MessageBubble } from '@/components/screens/MessageBubble'
 import { SuggestionChip } from '@/components/screens/SuggestionChip'
 import type { DomainKey } from '@/data/domains'
@@ -16,9 +20,27 @@ const visualDomains: { label: string; domain: DomainKey; selected?: boolean }[] 
   { label: 'Finance', domain: 'finance', selected: true },
   { label: 'Career', domain: 'career' },
   { label: 'Wellbeing', domain: 'wellbeing', selected: true },
+  { label: 'Sleep', domain: 'sleep' },
+  { label: 'Faith', domain: 'faith' },
+  { label: 'Learning', domain: 'learning' },
+  { label: 'Creative', domain: 'creativity' },
 ]
 
-const progressDots = ['filled', 'filled', 'current', 'empty', 'empty', 'empty', 'empty']
+type Message = { id: string; sender: 'sia' | 'user'; text: string }
+
+const initialMessages: Message[] = [
+  { id: 'm1', sender: 'sia', text: "Hey Amira. I'm SIA, your personal coach." },
+  { id: 'm2', sender: 'sia', text: "I'm here to help you see your life as one connected system." },
+  { id: 'm3', sender: 'user', text: 'Fitness, finance, and wellbeing matter most right now.' },
+  { id: 'm4', sender: 'sia', text: 'Good. What would make the next 90 days feel meaningful?' },
+]
+
+const suggestions = [
+  'Run a half marathon',
+  'Save $5,000',
+  'Sleep better',
+  'Something else',
+]
 
 function DomainBubble({ label, domain, selected }: { label: string; domain: DomainKey; selected?: boolean }) {
   const tone = domainToneClasses[domain]
@@ -48,12 +70,15 @@ function MissionPreviewCard({ children, tone }: { children: React.ReactNode; ton
   )
 }
 
-function ProgressDots() {
+function ProgressDots({ step }: { step: number }) {
   return (
     <div className="flex h-6 items-center gap-2 px-4">
-      {progressDots.map((dot, index) => (
+      {Array.from({ length: 7 }).map((_, index) => {
+        const dot = index < step ? 'filled' : index === step ? 'current' : 'empty'
+
+        return (
         <span
-          key={`${dot}-${index}`}
+          key={index}
           className={[
             'rounded-full transition-all duration-[var(--dur-base)]',
             dot === 'current'
@@ -63,34 +88,91 @@ function ProgressDots() {
                 : 'h-1.5 w-1.5 border border-white/20',
           ].join(' ')}
         />
-      ))}
+        )
+      })}
     </div>
   )
 }
 
 export default function SiaOnboardingScreen() {
+  const router = useRouter()
+  const [input, setInput] = useState('')
+  const [messages, setMessages] = useState<Message[]>(initialMessages)
+  const [generating, setGenerating] = useState(false)
+  const [step, setStep] = useState(2)
+  const sentCount = useMemo(() => messages.filter((message) => message.sender === 'user').length, [messages])
+
+  const sendMessage = (text: string) => {
+    const trimmed = text.trim()
+    if (!trimmed || generating) return
+
+    setInput('')
+    setMessages((current) => [...current, { id: `user-${Date.now()}`, sender: 'user', text: trimmed }])
+    setStep((current) => Math.min(current + 1, 5))
+    setGenerating(true)
+
+    window.setTimeout(() => {
+      if (sentCount >= 2) {
+        setMessages((current) => [
+          ...current,
+          { id: `sia-${Date.now()}`, sender: 'sia', text: 'I love this. I have enough to shape your first plan.' },
+        ])
+        setGenerating(false)
+        window.setTimeout(() => router.push('/auth/initial-plan'), 550)
+        return
+      }
+
+      setMessages((current) => [
+        ...current,
+        { id: `sia-${Date.now()}`, sender: 'sia', text: 'Great. What support would make that easier to follow through on this week?' },
+      ])
+      setGenerating(false)
+    }, 500)
+  }
+
   return (
     <PhoneFrame>
       <ScreenShell
         showTabBar={false}
-        composer={<ChatInputBar placeholder="Type a message" value="" />}
+        composer={
+          <form className="px-4 pb-4" onSubmit={(event) => { event.preventDefault(); sendMessage(input) }}>
+            <label className="sr-only" htmlFor="sia-onboarding-message">Type a message to SIA</label>
+            <div className="relative h-[52px] rounded-pill border border-white/10 bg-ink-brown-800">
+              <input
+                id="sia-onboarding-message"
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                placeholder="Type a message"
+                className="h-full w-full rounded-pill bg-transparent px-4 pr-14 text-[14px] text-white outline-none placeholder:text-white/30"
+              />
+              <button
+                type="submit"
+                disabled={!input.trim() || generating}
+                className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-orange text-white shadow-[var(--glow-orange)] disabled:opacity-40"
+                aria-label="Send message"
+              >
+                <ArrowUp size={16} strokeWidth={2.4} />
+              </button>
+            </div>
+          </form>
+        }
       >
         <div className="flex min-h-full flex-col bg-ink-900">
           <section
-            className="relative mx-4 mt-2 h-[232px] overflow-hidden rounded-2xl border border-white/[0.06]"
+            className="relative mx-4 mt-2 overflow-hidden rounded-2xl border border-white/[0.06]"
             style={{ background: 'radial-gradient(circle at 50% 35%, var(--glow-orange-bg), transparent 58%)' }}
           >
             <div className="absolute left-5 top-4 opacity-80">
               <ContinuousStroke />
             </div>
 
-            <div className="relative z-10 grid grid-cols-5 gap-2 px-5 pt-12">
+            <div className="relative z-10 grid grid-cols-3 gap-x-4 gap-y-2 px-5 pb-3 pt-9">
               {visualDomains.map((item) => (
                 <DomainBubble key={item.label} {...item} />
               ))}
             </div>
 
-            <div className="absolute inset-x-5 bottom-4 grid gap-2">
+            <div className="relative z-10 grid gap-2 px-5 pb-4">
               <MissionPreviewCard tone="border-l-4 border-l-domain-fitness">
                 Run a half marathon
               </MissionPreviewCard>
@@ -100,29 +182,34 @@ export default function SiaOnboardingScreen() {
             </div>
           </section>
 
-          <ProgressDots />
+          <ProgressDots step={step} />
           <div className="h-px bg-white/[0.05]" />
 
           <section className="flex-1 px-4 py-2">
             <div className="space-y-3">
-              <MessageBubble sender="sia">
-                Hey Amira. I&apos;m SIA, your personal coach.
-              </MessageBubble>
-              <MessageBubble sender="sia">
-                I&apos;m here to help you see your life as one connected system.
-              </MessageBubble>
-              <MessageBubble sender="user">
-                Fitness, finance, and wellbeing matter most right now.
-              </MessageBubble>
-              <MessageBubble sender="sia">
-                Good. What would make the next 90 days feel meaningful?
-              </MessageBubble>
+              {messages.map((message) => (
+                <MessageBubble key={message.id} sender={message.sender}>
+                  {message.text}
+                </MessageBubble>
+              ))}
+              {generating && (
+                <div className="pl-8 text-caption leading-[18px] text-white/40" role="status">
+                  SIA is shaping your plan...
+                </div>
+              )}
             </div>
 
-            <div className="mt-3 flex gap-2 overflow-x-auto pb-1 hide-scrollbar">
-              <SuggestionChip domain="fitness">Run a half marathon</SuggestionChip>
-              <SuggestionChip domain="finance">Save $5,000</SuggestionChip>
-              <SuggestionChip>Something else</SuggestionChip>
+            <div className="mt-3 flex gap-2 overflow-x-auto pb-3 hide-scrollbar">
+              {suggestions.map((suggestion, index) => (
+                <SuggestionChip
+                  key={suggestion}
+                  domain={index === 0 ? 'fitness' : index === 1 ? 'finance' : undefined}
+                  onClick={() => sendMessage(suggestion)}
+                  className="min-h-11"
+                >
+                  {suggestion}
+                </SuggestionChip>
+              ))}
             </div>
           </section>
         </div>

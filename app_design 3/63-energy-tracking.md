@@ -664,3 +664,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [26] -- Fitness Dashboard (Domain Dashboard Header, SIA Coaching Note Card -- Compact Variant, RPG Skill Badge), Screen [35/36] -- Learning/Creativity Dashboards (Domain Dashboard Template structure, Streak-style data viz, domain-colored eyebrows), Screen [38] -- Habits (Segmented Control pattern), Screen [30] -- Finance Dashboard (SIA Coaching Note Card -- Contextual Variant on insight card)
 - **Patterns used**: Domain Dashboard Header (Screen 26), SIA Coaching Note Card -- Compact Variant (Screen 26), SIA Coaching Note Card -- Contextual Variant (Screen 30), Segmented Control (Screen 38), In-Card CTA Button (Screen 26), Text Input Field (Screen 03), Section Eyebrow Label (Screen 12), Back Button, 8-State Model, Content Entry Animation, Pull-to-Refresh
 - **Patterns established**: Energy Slider (graduated color 1-10 with discrete snapping + floating value label), Current Energy Display (large number + color-coded glow bg), Energy Sparkline Timeline (horizontal time-based sparkline with tappable dot markers), Chronotype Badge Card (center-aligned identity card with icon + name + description), Correlations Bar Chart (horizontal impact bars with positive/negative coloring + domain drill-down), Context Tag Auto-Select (time-aware default chip selection)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-16.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/energy`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B16-F10 | critical | retention | Replace visual controls with semantic inputs, enabled submit, success/reset, undo, and persisted or local prototype state. |
+| B16-F11 | major | information-architecture | Wire trend state and SIA follow-up, and make the bottom Log scroll to Quick log or remove the duplicate action. |
+| B16-F12 | major | accessibility | Use a labeled range input, 44px segmented controls, selected states, and live confirmation after logging. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

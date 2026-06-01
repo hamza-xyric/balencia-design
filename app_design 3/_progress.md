@@ -1,8 +1,8 @@
 # Screen Draft Progress
 
-Last updated: 2026-05-22
-Completed: 78 / 78 (verified: all files present)
-Current batch: — (all complete, including gap audit additions)
+Last updated: 2026-05-25
+Completed: 90 / 90 design docs (85 numbered screens + 5 lettered auth sub-screens; verified against `balencia-screens/src/data/screens.ts`)
+Current batch: — (all complete, including screen-registry gap audit additions)
 
 | # | Screen | File | Status | Batch | Date Completed |
 |---|--------|------|--------|-------|----------------|
@@ -84,6 +84,44 @@ Current batch: — (all complete, including gap audit additions)
 | 71 | Achievement Gallery | 71-achievement-gallery.md | done | gap-audit | 2026-05-22 |
 | 72 | Knowledge Graph | 72-knowledge-graph.md | done | gap-audit | 2026-05-22 |
 | 73 | Mission Journal | 73-mission-journal.md | done | 14 | 2026-05-22 |
+| 74 | Conversations Hub | 74-conversations-hub.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 75 | Direct Chat | 75-direct-chat.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 76 | Group Chat | 76-group-chat.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 77 | Message Actions | 77-message-actions.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 78 | Reports Center | 78-reports-center.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 79 | Call Summary | 79-call-summary.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 80 | Music Coach | 80-music-coach.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 81 | Video Library | 81-video-library.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 82 | Accountability Contract | 82-accountability-contract.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 83 | Social Buddy Profile | 83-social-buddy-profile.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 84 | Data Sources | 84-data-sources.md | done | screen-registry-gap-audit | 2026-05-25 |
+| 85 | Obstacle Coach | 85-obstacle-coach.md | done | screen-registry-gap-audit | 2026-05-25 |
+
+---
+
+## Screen Registry Gap Audit (2026-05-25)
+
+Compared `balencia-screens/src/data/screens.ts` against the existing numbered files in `app_design 3/`. The previous missing set was exactly 12 production-registered routes: 74 Conversations Hub, 75 Direct Chat, 76 Group Chat, 77 Message Actions, 78 Reports Center, 79 Call Summary, 80 Music Coach, 81 Video Library, 82 Accountability Contract, 83 Social Buddy Profile, 84 Data Sources, and 85 Obstacle Coach.
+
+### New Screens (12)
+- **74** — Conversations Hub (unified SIA/social inbox with pinned SIA coach)
+- **75** — Direct Chat (one-to-one buddy chat with SIA assist strip)
+- **76** — Group Chat (group mission room with members and SIA pacing)
+- **77** — Message Actions (selected message actions, reactions, protected media)
+- **78** — Reports Center (SIA-assisted shareable reports and PDF export)
+- **79** — Call Summary (post-call action items and transcript highlights)
+- **80** — Music Coach (SIA-matched playlists and Spotify connection)
+- **81** — Video Library (SIA-curated coaching videos and YouTube search)
+- **82** — Accountability Contract (verification checks and partner consent)
+- **83** — Social Buddy Profile (trusted buddy profile and shared missions)
+- **84** — Data Sources (source health and detected correlations)
+- **85** — Obstacle Coach (SIA blocker diagnosis and reconnection plan)
+
+### Updated Shared Patterns
+- Added lightweight shared patterns for conversation suite rows/messages, signal/privacy pills, report/data-source rows, and obstacle diagnosis cards.
+
+### Registry Verification
+- `balencia-screens/src/data/screens.ts` now has matching design docs for every registered screen number.
 
 ---
 
@@ -124,4 +162,4 @@ Feature-to-screen gap analysis comparing 675+ backend features against 78 screen
 - Maintenance Mode Screen (graceful "we'll be right back" with auto-retry)
 
 ### Pattern Count
-- From ~362 to ~376 patterns across 78 screens
+- From ~362 to ~376 patterns across 78 screens in the 2026-05-22 audit; 2026-05-25 registry audit brings total documented patterns to ~424 across 90 design docs.

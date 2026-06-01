@@ -1,0 +1,18 @@
+{
+  "brief_id": "CRE-07-onboarding-canvas",
+  "asset_type": "motion-still",
+  "route": "/auth/sia-onboarding",
+  "screen": "07 SIA onboarding",
+  "placement": "SIA onboarding visual brainstorming area above chat.",
+  "source": "Higgsfield generated image, user-approved 2026-05-26.",
+  "license_or_permission": "Generated for Balencia project use.",
+  "job_id": "0491ac66-abbe-4e81-a2e6-b26754d433d5",
+  "model": "marketing_studio_image",
+  "prompt_hash_or_note": "Original CP-01 generated variant; user approved variant-02 as onboarding canvas direction.",
+  "aspect_ratio": "9:16",
+  "dimensions": "768x1376",
+  "accepted_variant": "variant-02.png",
+  "alt_text": "Floating life-domain bubbles connected on a warm dark onboarding canvas.",
+  "reduced_motion_fallback": "Static accepted canvas; no separate motion fallback required until a loop is generated.",
+  "integration_path": "SIA onboarding visual area in /auth/sia-onboarding."
+}

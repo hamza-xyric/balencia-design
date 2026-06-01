@@ -502,3 +502,39 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen 30 — Finance Dashboard (Transaction Row component reused in budget view's filtered list, SIA Coaching Note pattern)
 - **Patterns used**: Bottom Tab Bar, Stack Navigation, Back Button, 8-State Interaction Model, Bottom Sheet Modal (from _shared-patterns.md)
 - **Patterns established**: Amount Display (hero-sized financial figure), Category Chip (tappable category indicator), Details Card (structured metadata with eyebrow labels), Budget Overview Card (allocated/spent/remaining with progress), Delete Confirmation Sheet, Edit Budget Bottom Sheet
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-11.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/domains/budget`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B11-F07 | critical | retention | Implement the edit budget sheet with amount input, SIA suggestion, save/cancel, validation, loading, success, and error states. |
+| B11-F08 | major | information-architecture | Implement transaction and budget modes driven by route/query context, and make filtered transactions open transaction detail. |
+| B11-F09 | major | trust-privacy | Add transaction metadata editing, receipt image handling, recategorization, delete confirmation, and recovery/error behavior. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

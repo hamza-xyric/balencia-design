@@ -1,0 +1,18 @@
+{
+  "brief_id": "CRE-02-domain-visual-kit",
+  "asset_type": "icon-set",
+  "route": "/auth/carousel",
+  "screen": "02 Motion carousel and 07 SIA onboarding",
+  "placement": "Reusable domain symbol, connector, chip, and badge reference for onboarding creative direction.",
+  "source": "Higgsfield variant-02 user-approved as creative reference; coded SVG remains draft/reference.",
+  "license_or_permission": "Generated under project account; draft SVG is project-authored.",
+  "job_id": null,
+  "model": null,
+  "prompt_hash_or_note": "User-approved Higgsfield variant-02 for more defined icon reference; all other files remain draft/reference.",
+  "aspect_ratio": "16:9",
+  "dimensions": "1600x900 SVG viewBox",
+  "accepted_variant": "variant-02.png",
+  "alt_text": "Nine Balencia domain symbols connected by warm orange, green, and purple flow lines.",
+  "reduced_motion_fallback": "Static raster reference for future controlled symbols and motion start frames.",
+  "integration_path": "Use as reference when converting symbols into controlled app SVG/components."
+}

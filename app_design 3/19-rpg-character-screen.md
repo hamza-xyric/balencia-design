@@ -510,3 +510,36 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [17] — Me Main (Stats row pattern — identical spec, Avatar — same tap behavior), Screen [16] — Life Areas Overview (radar chart, domain stats, Life Power — shared data, domain color dot), Screen [59] — Streak Details (streak count, freeze status, XP multiplier — shared data, deeper view), Screen [42] — Celebration Overlay (achievement badges trigger celebration)
 - **Patterns used**: Back Button (Batch 1), Stats Row (established in Screen [17] this batch), Bottom Tab Bar (_shared-patterns.md), Domain Color Dot (established in Screen [16] this batch)
 - **Patterns established**: Character card hero (avatar + level + rank + XP bar), Life Power display (diamond + score + label), Domain skill card (3-column grid with stat scores + levels), Domain Sub-Stats Bottom Sheet (sub-stat rows + tier labels + "view dashboard" link), Mission history row (checkmark + name + domain tags + XP), Level rank title system, Level-up celebration animation, Streak & Rewards Card (flame icon + multiplier badge + freeze count + recent badges)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-08.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U04`
+**Prototype route**: `/tabs/me/rpg`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q20 OAuth flows must preview scopes, purpose, sync cadence, storage, disconnect, delete, and revocation.
+- Q33 Life Areas comparison is Plus-gated only after enough history exists.
+- Q34 Explore tier labels distinguish included vs locked states.
+- Q35 billing follows mobile-store purchase, restore, trial, cancellation, error, and entitlement patterns.
+- Q50 obstacle reconnection uses per-blocker accept/dismiss controls before accept-all.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B08-F01 | major | navigation | Make `showBack` render a 44x44 labeled button/link that pops history or routes to the previous Me screen. |
+| B08-F02 | major | navigation | Make each domain card a semantic button that opens the Domain Sub-Stats sheet and links to the domain dashboard. |
+| B08-F03 | minor | mobile-ergonomics | Expand the touch area to at least 44px high while preserving the compact visual treatment. |
+
+### Prototype Implications
+
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

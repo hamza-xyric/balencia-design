@@ -418,3 +418,36 @@ Not applicable. This is a system-level screen that appears identically regardles
 - **Shared components with**: Screen [01] — Splash Screen (Balencia wordmark treatment, though Splash uses Chillax ExtraBold and this screen uses Monda Bold per the logo font spec). Screen [03] — Welcome/Sign Up (Brand CTA Button pattern — full-width, 56pt, --r-pill, orange). Screen [43] — Paywall (full-screen blocking pattern with a single CTA, though Paywall is dismissible and this screen is not).
 - **Patterns used**: Brand CTA Button (Screen 03), Glassmorphism Card (shared pattern), 8-State Interaction Model (shared pattern), Content Entry Animation (staggered fade-in, shared pattern), Error Toast (inline variant, adapted from Screen 04 validation pattern), Brand Mode color register (orange-dominant)
 - **Patterns established**: **Force Update Gate** — a root-level version check component that wraps the navigation tree, comparing `app_version` against `config.min_supported_version`. Triggers on cold start (config endpoint check) and mid-session (API response header `X-Min-Version`). Non-dismissible overlay with z-index above all navigation layers including modals and tab bar. **Store Deep Link CTA** — a button pattern that opens platform-specific store URLs with graceful error handling when the store is unreachable. **Hardware Back Block** — Android-specific `BackHandler` pattern that consumes back press events and shows an informational toast on repeated attempts.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-17.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U09`
+**Prototype route**: `/features/force-update`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q02 system overlays may be QA fixtures but production needs native trigger/dismiss/API states.
+- Q05 music/video use honest demo recommendations without implying live provider sync.
+- Q18 progress-photo sharing is disabled in V1.
+- Q22 accountability partners see only opted-in contract/proof/check-in data; SIA reads with consent.
+- Q42 reports remain in-app with screenshot-level sharing only.
+- Q48 app rating uses non-coercive prompt fixtures.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B17-F01 | critical | navigation | Wire the CTA to platform-specific App Store / Play Store deep links with loading, return, unavailable-store, and retry/error states. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

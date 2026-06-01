@@ -1,0 +1,14 @@
+# Generated creative binaries — keep folder structure via README and .gitkeep
+outputs/**/*.png
+outputs/**/*.jpg
+outputs/**/*.jpeg
+outputs/**/*.webp
+outputs/**/*.gif
+outputs/**/*.mp4
+outputs/**/*.mov
+outputs/**/*.webm
+
+# Optional local manifests with absolute paths
+outputs/manifest.local.json
+
+.DS_Store

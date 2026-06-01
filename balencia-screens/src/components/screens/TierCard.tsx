@@ -14,6 +14,8 @@ type TierCardProps = {
   recommended?: boolean
   actionVariant?: 'upgrade' | 'downgrade'
   ctaLabel: string
+  savingsLabel?: string
+  onCtaClick?: () => void
   className?: string
 }
 
@@ -26,6 +28,8 @@ export function TierCard({
   recommended = false,
   actionVariant = 'upgrade',
   ctaLabel,
+  savingsLabel,
+  onCtaClick,
   className = '',
 }: TierCardProps) {
   const isDowngrade = actionVariant === 'downgrade'
@@ -33,8 +37,8 @@ export function TierCard({
   return (
     <article
       className={[
-        'flex h-[330px] w-[260px] shrink-0 flex-col rounded-xl border bg-ink-brown-800 p-6 shadow-1',
-        current ? 'border-2 border-brand-orange' : 'border-white/[0.06]',
+        'flex h-[360px] w-[260px] shrink-0 flex-col rounded-xl border bg-ink-brown-800 p-6 shadow-1',
+        current ? 'border-2 border-brand-orange' : 'border-alpha-white-06',
         className,
       ].filter(Boolean).join(' ')}
     >
@@ -50,8 +54,15 @@ export function TierCard({
         <span className="text-[32px] font-bold leading-9 text-white">{price}</span>
         <span className="ml-1 text-[15px] leading-5 text-white/50">{cadence}</span>
       </div>
+      <div className="mt-2 h-6 text-center">
+        {savingsLabel && (
+          <span className="inline-flex h-6 items-center rounded-pill bg-forest-green/15 px-2.5 text-[11px] font-semibold leading-[14px] text-forest-green">
+            {savingsLabel}
+          </span>
+        )}
+      </div>
 
-      <ul className="mt-5 space-y-2">
+      <ul className="mt-3 space-y-2">
         {features.map((feature) => {
           const included = feature.included !== false
           const Icon = included ? Check : Minus
@@ -71,8 +82,12 @@ export function TierCard({
       </ul>
 
       <button
+        type="button"
+        onClick={onCtaClick}
+        disabled={current}
+        aria-disabled={current}
         className={[
-          'mt-auto h-11 rounded-pill px-4 text-[15px] font-semibold leading-5',
+          'mt-auto min-h-11 shrink-0 rounded-pill px-4 text-[15px] font-semibold leading-5',
           current
             ? 'bg-ink-700 text-white/50'
             : isDowngrade

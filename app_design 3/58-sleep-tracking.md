@@ -655,3 +655,38 @@ This screen is the user's sleep command center -- a comprehensive view of sleep 
 - **Shared components with**: Screen 26 (Domain Dashboard Header, SIA Coaching Note Card, FAB pattern, Segmented Control), Screen 38 (Calendar Heatmap concept adapted to scatter/band visualization), Screen 14 (Line Chart pattern for quality trend, Expandable Section), Screen 22 (Wearable Integration Badge)
 - **Patterns used**: Domain Dashboard Header (Screen 26), SIA Coaching Note Card -- Compact Variant (Screen 26), Segmented Control (Screen 15/38), Expandable/Collapsible Section (Screen 14), Line Chart (Screen 14), Section Eyebrow Label (Screen 12), Brand CTA Button (Screen 02), Text Input Field (Screen 03), FAB Extended Pill (Screen 26), Modal Presentation (Screen 15), Back Button (Screen 04), 8-State Interaction Model, Content Entry Animation (staggered fade-in), Pull-to-Refresh (Screen 12)
 - **Patterns established**: Last Night Summary Card (hero sleep data with hours, stars, bedtime/wake, recovery), Sleep Trend Bar Chart (duration bars with target line and period selector), Bedtime Consistency Visualization (time-range bands with scatter dots), Quality Star Rating (5-star tappable rating with orange fill), Sleep Tag Chip (multi-select domain-colored tag for sleep characteristics), Wearable Sync Badge (inline provider attribution badge)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-15.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/sleep`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B15-F13 | critical | retention | Wire Log sleep, period state, chart detail tooltips, validation, saved states, and empty/offline fallbacks. |
+| B15-F14 | major | accessibility | Use 44px tab hit areas, semantic tips disclosure, accessible chart summaries/data tables, and focusable day-detail controls. |
+| B15-F15 | minor | design-system-consistency | Use `sleep-indigo` as the canonical sleep accent and align the spec, domain registry, and implementation; wellbeing teal remains for broader wellbeing/stress surfaces. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

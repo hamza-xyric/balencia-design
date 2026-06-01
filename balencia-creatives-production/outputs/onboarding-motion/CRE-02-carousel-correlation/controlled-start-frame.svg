@@ -1,0 +1,59 @@
+<svg width="720" height="1280" viewBox="0 0 720 1280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Balencia carousel correlation start frame</title>
+  <desc id="desc">Sleep and finance domain symbols connected by an explainable path and a blank insight-card shape.</desc>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 500) rotate(90) scale(560 450)">
+      <stop stop-color="#211008"/>
+      <stop offset="1" stop-color="#0C0603"/>
+    </radialGradient>
+    <filter id="shadow" x="-45%" y="-45%" width="190%" height="190%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0C0603" flood-opacity="0.42"/>
+    </filter>
+    <filter id="greenGlow" x="-80%" y="-80%" width="260%" height="260%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#34A853" flood-opacity="0.34"/>
+    </filter>
+    <style>
+      .line { stroke-linecap: round; stroke-linejoin: round; }
+      .node { fill: #211008; stroke-width: 4; filter: url(#shadow); }
+      .paper { stroke: #F2ECD8; }
+      .green { stroke: #34A853; }
+      .orange { stroke: #FF5E00; }
+      .purple { stroke: #7F24FF; }
+    </style>
+    <symbol id="sleep" viewBox="-48 -48 96 96">
+      <path class="paper line" stroke-width="7" d="M19-34C2-29-11-14-11 2C-11 20 3 34 21 37C10 44-9 42-24 30C-42 16-45-7-32-26C-22-42 0-48 19-34Z"/>
+      <path class="purple line" stroke-width="5" d="M25 22H38"/>
+    </symbol>
+    <symbol id="finance" viewBox="-48 -48 96 96">
+      <path class="paper line" stroke-width="7" d="M-32 26H-10M-21 26V-6M-3 26H20M9 26V-22M28 26H42M35 26V-34"/>
+      <path class="green line" stroke-width="6" d="M-34-22L-13-34L2-19L34-40"/>
+      <path class="green line" stroke-width="5" d="M34-40V-22M34-40H16"/>
+    </symbol>
+  </defs>
+  <rect width="720" height="1280" fill="url(#bg)"/>
+  <path class="line" d="M168 487C228 329 421 638 552 428" stroke="#F2ECD8" stroke-opacity="0.12" stroke-width="2" stroke-dasharray="8 14"/>
+  <path class="green line" filter="url(#greenGlow)" stroke-width="8" d="M168 487C228 329 421 638 552 428"/>
+  <path class="orange line" stroke-width="5" stroke-opacity="0.74" d="M252 520C317 577 406 578 476 520"/>
+
+  <g transform="translate(160 476)">
+    <circle r="72" class="node purple" fill="rgba(127,36,255,0.10)"/>
+    <use href="#sleep" width="96" height="96" x="-48" y="-48"/>
+  </g>
+  <g transform="translate(560 420)">
+    <circle r="72" class="node green" fill="rgba(52,168,83,0.12)"/>
+    <use href="#finance" width="96" height="96" x="-48" y="-48"/>
+  </g>
+
+  <g opacity="0.95">
+    <circle cx="269" cy="411" r="7" fill="#34A853"/>
+    <circle cx="335" cy="530" r="6" fill="#FF5E00"/>
+    <circle cx="429" cy="543" r="7" fill="#34A853"/>
+    <circle cx="497" cy="469" r="5" fill="#F2ECD8" fill-opacity="0.62"/>
+  </g>
+
+  <rect x="155" y="690" width="410" height="150" rx="30" fill="#211008" stroke="#F2ECD8" stroke-opacity="0.08" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="205" cy="738" r="12" fill="#7F24FF"/>
+  <path class="line" d="M235 738H382" stroke="#F2ECD8" stroke-opacity="0.16" stroke-width="8"/>
+  <path class="line" d="M205 785H512" stroke="#F2ECD8" stroke-opacity="0.10" stroke-width="8"/>
+  <path class="line" d="M205 817H430" stroke="#F2ECD8" stroke-opacity="0.08" stroke-width="8"/>
+</svg>

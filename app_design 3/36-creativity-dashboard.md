@@ -481,3 +481,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [35] — Learning Dashboard (Domain Dashboard Template: Domain Header, SIA Coaching Note Card, Active Goals, Streak Tracker, Activity Log, FAB), Screen [38] — Habits (Streak Indicator, Practice Heatmap pattern)
 - **Patterns used**: Domain Dashboard Template (established in Screen 35), Back Button, 8-State Model, Content Entry Animation
 - **Patterns established**: Inspiration Prompt Card (with subtle domain gradient), Practice Heatmap (graduated domain-color cells), Portfolio Timeline (horizontal milestone visualization with connecting line)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-12.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/domains/creativity`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B12-F08 | critical | retention | Wire both to a creative-session logging modal with prompt/project context and save/cancel/error states. |
+| B12-F09 | major | navigation | Make project rows semantic links/buttons, add project detail or expansion, and wire See all to the project library. |
+| B12-F10 | major | navigation | Link the coaching note to contextual SIA chat and pass prompt context into Journal via semantic prompt chips. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

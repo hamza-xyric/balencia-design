@@ -575,3 +575,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Community Chat Rooms [40] — uses the same avatar component and username display pattern for the reported entity card. Paywall [43] — shares the modal bottom sheet presentation pattern (slide-up, drag-to-dismiss, backdrop dim, --r-2xl top corners). Celebration [42] — the success checkmark uses the same circle-with-icon pattern from the small win toast. Settings [21] — the block toggle uses the same toggle switch component spec.
 - **Patterns used**: Modal Bottom Sheet Presentation (_shared-patterns.md -- slide up from bottom, drag-to-dismiss, 40pt top corners, 60% backdrop dim). Brand CTA Button (_shared-patterns.md -- full-width, 56pt height, --r-pill, Burnt Orange). Radio Button Group (single-select, 52pt row height, orange fill on selection). Toggle Switch (iOS-native sizing, orange active track). Toast Notification (post-dismiss confirmation on source screen).
 - **Patterns established**: Report Context Object (standardized payload: { userId, contentId, contentType, sourceScreen } passed to this sheet from any triggering screen -- future UGC screens should adopt this pattern). Co-located Block Toggle (presenting block as an optional add-on within the report flow rather than a separate action, reducing steps for users who need both). Moderation Success Auto-Dismiss (success state with 1.5s display before automatic sheet dismissal + toast on source screen). Rate-Limited System Modal (sheet presentation blocked entirely when rate limit is active, with toast explanation on source screen instead).
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-16.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/report-block`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B16-F13 | critical | trust-privacy | Build a real modal state machine with radio inputs, optional textarea, disabled submit, loading, success, error, and dismissal. |
+| B16-F14 | major | trust-privacy | Default block off unless explicitly justified, require opt-in, persist state, and confirm block only after submission. |
+| B16-F15 | major | accessibility | Use semantic radio rows, textarea, 44px cancel/close target, full-row switch target, focus trapping, and dismiss behavior. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

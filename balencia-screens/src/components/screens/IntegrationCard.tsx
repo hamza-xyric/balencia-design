@@ -21,7 +21,7 @@ const statusCopy: Record<IntegrationStatus, string> = {
 const statusClasses: Record<IntegrationStatus, string> = {
   connected: 'bg-forest-green/15 text-forest-green',
   'not-connected': 'bg-white/10 text-white/50',
-  'coming-soon': 'bg-white/[0.05] text-white/30',
+  'coming-soon': 'bg-alpha-white-05 text-white/30',
 }
 
 export function IntegrationCard({
@@ -39,7 +39,7 @@ export function IntegrationCard({
   return (
     <article
       className={[
-        'rounded-xl border border-white/[0.06] bg-ink-brown-800 p-4 shadow-1',
+        'rounded-xl border border-alpha-white-06 bg-ink-brown-800 p-4 shadow-1',
         isComingSoon ? 'opacity-60' : '',
         className,
       ].filter(Boolean).join(' ')}

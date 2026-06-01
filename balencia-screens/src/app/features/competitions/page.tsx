@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import { Bell, Brain, ChevronRight, Dumbbell, Flag, Sparkles, Trophy, Users, Wallet } from 'lucide-react'
 import { Card } from '@/components/design-system/Card'
 import { Chip } from '@/components/design-system/Chip'
@@ -16,7 +19,7 @@ const suggestionIcons = {
   finance: Wallet,
 }
 
-function HeroBanner() {
+function HeroBanner({ onJoin, onDetails }: { onJoin: () => void; onDetails: () => void }) {
   return (
     <Card variant="small" className="relative overflow-hidden rounded-xl border-brand-orange/25 p-5 animate-fade-up">
       <div className="absolute inset-0 bg-brand-orange/5" aria-hidden="true" />
@@ -53,24 +56,35 @@ function HeroBanner() {
 
         <button
           type="button"
+          onClick={onJoin}
           className="mt-4 flex h-12 w-full items-center justify-center rounded-pill bg-brand-orange text-body font-semibold leading-[22px] text-white transition-transform duration-[var(--dur-fast)] active:scale-[0.98]"
         >
           Join now
+        </button>
+        <button type="button" onClick={onDetails} className="mt-2 flex h-11 w-full items-center justify-center rounded-pill text-[15px] font-semibold leading-5 text-white/60">
+          View details
         </button>
       </div>
     </Card>
   )
 }
 
-function FilterRow() {
-  const filters = ['All', 'Active', 'Upcoming', 'Past', 'My competitions (3)']
+const competitionFilters = [
+  { label: 'All', value: 'all' },
+  { label: 'Active', value: 'active' },
+  { label: 'Upcoming', value: 'upcoming' },
+  { label: 'Past', value: 'past' },
+  { label: 'My competitions', value: 'mine' },
+]
+
+function FilterRow({ active, counts, onChange }: { active: string; counts: Record<string, number>; onChange: (value: string) => void }) {
 
   return (
     <div className="-mx-4 mt-4 overflow-x-auto px-4 pb-1 hide-scrollbar animate-fade-up" style={{ animationDelay: '120ms' }}>
       <div className="flex gap-2">
-        {filters.map((filter, index) => (
-          <Chip key={filter} selected={index === 0} className="shrink-0">
-            {filter}
+        {competitionFilters.map((filter) => (
+          <Chip key={filter.value} selected={active === filter.value} onClick={() => onChange(filter.value)} aria-pressed={active === filter.value} className="h-11 shrink-0">
+            {filter.label} ({counts[filter.value]})
           </Chip>
         ))}
       </div>
@@ -78,9 +92,9 @@ function FilterRow() {
   )
 }
 
-function InvitationCard() {
+function InvitationCard({ onOpen }: { onOpen: () => void }) {
   return (
-    <Card variant="small" className="mt-4 rounded-md border-l-4 border-l-brand-orange p-4 animate-fade-up" style={{ animationDelay: '200ms' }}>
+    <button type="button" onClick={onOpen} className="mt-4 block w-full rounded-md border border-white/[0.06] border-l-4 border-l-brand-orange bg-ink-brown-800 p-4 text-left shadow-1 animate-fade-up" style={{ animationDelay: '200ms' }}>
       <div className="flex items-center gap-3">
         <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-orange/15 text-brand-orange">
           <Bell size={17} strokeWidth={2.2} />
@@ -92,11 +106,11 @@ function InvitationCard() {
         </div>
         <ChevronRight size={16} className="shrink-0 text-white/30" strokeWidth={2.2} />
       </div>
-    </Card>
+    </button>
   )
 }
 
-function SuggestionsSection() {
+function SuggestionsSection({ onOpen }: { onOpen: (name: string) => void }) {
   return (
     <section className="mt-5 animate-fade-up" style={{ animationDelay: '280ms' }}>
       <SectionHeader title="Suggested for you" className="px-1" />
@@ -106,7 +120,7 @@ function SuggestionsSection() {
             const Icon = suggestionIcons[suggestion.icon as keyof typeof suggestionIcons]
 
             return (
-              <Card key={suggestion.id} variant="small" className="h-[110px] w-[140px] shrink-0 rounded-md p-3">
+              <button key={suggestion.id} type="button" onClick={() => onOpen(suggestion.name)} className="h-[118px] w-[144px] shrink-0 rounded-md border border-white/[0.06] bg-ink-brown-800 p-3 text-left shadow-1">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.08] text-white/70">
                     <Icon size={17} strokeWidth={2.2} />
@@ -118,7 +132,7 @@ function SuggestionsSection() {
                 </div>
                 <h2 className="mt-3 line-clamp-2 text-[14px] font-semibold leading-[18px] text-white">{suggestion.name}</h2>
                 <p className="mt-1 text-small leading-[14px] text-white/40">{suggestion.duration}</p>
-              </Card>
+              </button>
             )
           })}
         </div>
@@ -133,7 +147,19 @@ function statusDot(status: string) {
   return 'bg-white/25'
 }
 
-function CompetitionRow({ competition, withDivider }: { competition: (typeof competitionRows)[number]; withDivider?: boolean }) {
+function CompetitionRow({
+  competition,
+  withDivider,
+  joined,
+  reminded,
+  onAction,
+}: {
+  competition: (typeof competitionRows)[number]
+  withDivider?: boolean
+  joined?: boolean
+  reminded?: boolean
+  onAction: (label: string) => void
+}) {
   const isAi = competition.type === 'AI'
 
   return (
@@ -170,10 +196,21 @@ function CompetitionRow({ competition, withDivider }: { competition: (typeof com
             your rank: #{competition.rank}
           </span>
         )}
+        {joined && (
+          <span className="shrink-0 rounded-pill bg-forest-green/15 px-2 py-1 text-[10px] font-semibold leading-3 text-forest-green">
+            joined
+          </span>
+        )}
+        {reminded && !joined && (
+          <span className="shrink-0 rounded-pill bg-brand-orange/15 px-2 py-1 text-[10px] font-semibold leading-3 text-brand-orange">
+            reminder
+          </span>
+        )}
         <button
           type="button"
+          onClick={() => onAction(competition.cta === 'View results' ? `${competition.name} results` : competition.name)}
           className={[
-            'ml-auto shrink-0 text-caption leading-[18px]',
+            'ml-auto min-h-11 shrink-0 rounded-pill px-3 text-caption leading-[18px]',
             competition.cta === 'Join' ? 'font-semibold text-brand-orange' : 'text-white/55',
           ].join(' ')}
         >
@@ -184,30 +221,117 @@ function CompetitionRow({ competition, withDivider }: { competition: (typeof com
   )
 }
 
-function CompetitionList() {
+function CompetitionList({
+  rows,
+  filterLabel,
+  joinedNames,
+  reminderNames,
+  onAction,
+}: {
+  rows: typeof competitionRows
+  filterLabel: string
+  joinedNames: string[]
+  reminderNames: string[]
+  onAction: (label: string) => void
+}) {
   return (
     <section className="mt-6 animate-fade-up" style={{ animationDelay: '360ms' }}>
-      <SectionHeader title="All competitions" className="px-1" />
+      <SectionHeader title={`${filterLabel} (${rows.length})`} className="px-1" />
       <Card variant="small" className="rounded-md p-0">
-        {competitionRows.map((competition, index) => (
-          <CompetitionRow key={competition.id} competition={competition} withDivider={index > 0} />
+        {rows.map((competition, index) => (
+          <CompetitionRow
+            key={competition.id}
+            competition={competition}
+            withDivider={index > 0}
+            joined={joinedNames.includes(competition.name)}
+            reminded={reminderNames.includes(competition.name)}
+            onAction={onAction}
+          />
         ))}
+        {rows.length === 0 && (
+          <div className="p-4 text-[13px] leading-[18px] text-white/55">
+            No competitions in this filter. Try All or create a private self-only challenge from a detail sheet.
+          </div>
+        )}
       </Card>
     </section>
   )
 }
 
 export default function CompetitionsScreen() {
+  const [filter, setFilter] = useState('all')
+  const [dialog, setDialog] = useState('')
+  const [dialogResult, setDialogResult] = useState('')
+  const [joinedNames, setJoinedNames] = useState<string[]>([])
+  const [reminderNames, setReminderNames] = useState<string[]>([])
+  const myCompetitionNames = new Set([
+    ...competitionRows.filter((competition) => competition.rank).map((competition) => competition.name),
+    ...joinedNames,
+  ])
+  const filteredRows = competitionRows.filter((competition) => {
+    if (filter === 'active') return competition.status === 'active'
+    if (filter === 'upcoming') return competition.status === 'upcoming'
+    if (filter === 'past') return competition.status === 'past'
+    if (filter === 'mine') return myCompetitionNames.has(competition.name)
+    return true
+  })
+  const counts = {
+    all: competitionRows.length,
+    active: competitionRows.filter((competition) => competition.status === 'active').length,
+    upcoming: competitionRows.filter((competition) => competition.status === 'upcoming').length,
+    past: competitionRows.filter((competition) => competition.status === 'past').length,
+    mine: competitionRows.filter((competition) => myCompetitionNames.has(competition.name)).length,
+  }
+  const filterLabel = competitionFilters.find((item) => item.value === filter)?.label ?? 'All'
+  const openDialog = (name: string) => {
+    setDialog(name)
+    setDialogResult('')
+  }
+  const markJoined = (mode: 'private' | 'self-only') => {
+    setJoinedNames((names) => names.includes(dialog) ? names : [...names, dialog])
+    setDialogResult(mode === 'private'
+      ? `${dialog} joined privately. Only opted-in friends can see your participation.`
+      : `${dialog} started as self-only. You get motivation without public ranking exposure.`
+    )
+  }
+  const markReminder = () => {
+    setReminderNames((names) => names.includes(dialog) ? names : [...names, dialog])
+    setDialogResult(`Reminder set for ${dialog}. You will be nudged before it starts.`)
+  }
+
   return (
     <PhoneFrame>
       <ScreenShell header={<Header title="Competitions" showBack />} activeTab="me">
         <main className="px-4 pb-20 pt-4">
-          <HeroBanner />
-          <FilterRow />
-          <InvitationCard />
-          <SuggestionsSection />
-          <CompetitionList />
+          <HeroBanner onJoin={() => openDialog(featuredCompetition.name)} onDetails={() => openDialog(featuredCompetition.name)} />
+          <FilterRow active={filter} counts={counts} onChange={setFilter} />
+          <p className="mt-2 px-1 text-caption leading-[18px] text-white/45" aria-live="polite">{filterLabel} shows {filteredRows.length} competitions.</p>
+          <InvitationCard onOpen={() => openDialog('Competition invitations')} />
+          <SuggestionsSection onOpen={openDialog} />
+          <CompetitionList rows={filteredRows} filterLabel={filterLabel} joinedNames={joinedNames} reminderNames={reminderNames} onAction={openDialog} />
         </main>
+
+        {dialog && (
+          <div className="absolute inset-0 z-40 flex items-end bg-ink-900/70 px-4 pb-4" role="dialog" aria-modal="true" aria-label="Competition detail">
+            <div className="w-full rounded-xl border border-white/[0.08] bg-ink-brown-800 p-5 shadow-3">
+              <h2 className="text-h3 font-semibold leading-[22px] text-white">{dialog}</h2>
+              <p className="mt-2 text-caption leading-[18px] text-white/55">Competition detail with private/self-only participation, consent checks, leaderboard visibility, reminders, and results.</p>
+              <div className="mt-4 grid gap-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <button type="button" onClick={() => markJoined('private')} className="h-11 rounded-pill bg-brand-orange text-[15px] font-semibold leading-5 text-white">Join private</button>
+                  <button type="button" onClick={() => markJoined('self-only')} className="h-11 rounded-pill border border-white/10 text-[15px] font-semibold leading-5 text-white/70">Self-only</button>
+                </div>
+                <button type="button" onClick={markReminder} className="h-11 rounded-pill border border-white/10 text-[15px] font-semibold leading-5 text-white/70">Remind me</button>
+              </div>
+              {dialogResult && (
+                <p className="mt-3 rounded-md bg-forest-green/10 p-3 text-caption font-semibold leading-[18px] text-forest-green" role="status">
+                  {dialogResult}
+                </p>
+              )}
+              <button type="button" onClick={() => setDialog('')} className="mt-3 h-11 w-full rounded-pill text-[15px] font-semibold leading-5 text-white/60">Close</button>
+            </div>
+          </div>
+        )}
       </ScreenShell>
     </PhoneFrame>
   )

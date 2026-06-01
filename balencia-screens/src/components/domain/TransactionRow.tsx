@@ -31,7 +31,7 @@ export function TransactionRow({
   icon,
   href,
   className = '',
-  iconClassName = 'bg-white/[0.06] text-white/70',
+  iconClassName = 'bg-alpha-white-06 text-white/70',
   withDivider = false,
 }: TransactionRowProps) {
   const content = (
@@ -51,7 +51,7 @@ export function TransactionRow({
 
   const classes = [
     'flex min-h-[56px] items-center gap-3 py-3 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]',
-    withDivider ? 'border-t border-white/[0.05]' : '',
+    withDivider ? 'border-t border-alpha-white-05' : '',
     className,
   ].filter(Boolean).join(' ')
 

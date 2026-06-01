@@ -19,7 +19,7 @@ export function ScreenNav() {
       {previous && (
         <Link
           href={previous.route}
-          className="flex h-11 w-11 items-center justify-center rounded-pill border border-white/[0.06] bg-ink-brown-800 text-white/70 shadow-1 transition-colors hover:text-white"
+          className="flex h-11 w-11 items-center justify-center rounded-pill border border-alpha-white-06 bg-ink-brown-800 text-white/70 shadow-1 transition-colors hover:text-white"
           aria-label={`Previous screen: ${previous.name}`}
         >
           <ChevronLeft size={20} aria-hidden="true" />
@@ -28,7 +28,7 @@ export function ScreenNav() {
       {next && (
         <Link
           href={next.route}
-          className="flex h-11 w-11 items-center justify-center rounded-pill border border-white/[0.06] bg-ink-brown-800 text-white/70 shadow-1 transition-colors hover:text-white"
+          className="flex h-11 w-11 items-center justify-center rounded-pill border border-alpha-white-06 bg-ink-brown-800 text-white/70 shadow-1 transition-colors hover:text-white"
           aria-label={`Next screen: ${next.name}`}
         >
           <ChevronRight size={20} aria-hidden="true" />

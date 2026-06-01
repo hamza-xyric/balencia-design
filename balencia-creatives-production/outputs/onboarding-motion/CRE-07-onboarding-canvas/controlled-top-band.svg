@@ -1,0 +1,64 @@
+<svg width="780" height="464" viewBox="0 0 780 464" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Balencia SIA onboarding controlled top-band canvas</title>
+  <desc id="desc">A crop-safe SIA onboarding canvas with floating domain bubbles, connecting lines, and blank goal chips above the real chat UI.</desc>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(390 192) rotate(90) scale(328 460)">
+      <stop stop-color="#211008"/>
+      <stop offset="1" stop-color="#0C0603"/>
+    </radialGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0C0603" flood-opacity="0.42"/>
+    </filter>
+    <filter id="orangeGlow" x="-80%" y="-80%" width="260%" height="260%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#FF5E00" flood-opacity="0.34"/>
+    </filter>
+    <filter id="greenGlow" x="-80%" y="-80%" width="260%" height="260%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#34A853" flood-opacity="0.28"/>
+    </filter>
+    <style>
+      .line { stroke-linecap: round; stroke-linejoin: round; }
+      .node { fill: #211008; stroke-width: 3; filter: url(#shadow); }
+      .paper { stroke: #F2ECD8; }
+      .orange { stroke: #FF5E00; }
+      .green { stroke: #34A853; }
+      .purple { stroke: #7F24FF; }
+    </style>
+    <symbol id="fitness" viewBox="-28 -28 56 56">
+      <path class="paper line" stroke-width="5" d="M-19 0H19"/>
+      <path class="paper line" stroke-width="5" d="M-25-9V9M25-9V9"/>
+    </symbol>
+    <symbol id="nutrition" viewBox="-28 -28 56 56">
+      <path class="paper line" stroke-width="4" d="M-17-1H17C15 14 6 21-6 21C-17 21-22 12-17-1Z"/>
+      <path class="green line" stroke-width="4" d="M1-10C6-21 17-20 22-12C13-10 7-6 1 0"/>
+    </symbol>
+    <symbol id="sleep" viewBox="-28 -28 56 56">
+      <path class="paper line" stroke-width="5" d="M12-19C3-16-5-8-5 2C-5 12 4 20 14 22C7 26-4 25-12 18C-23 10-24-5-17-15C-11-24 2-27 12-19Z"/>
+    </symbol>
+    <symbol id="finance" viewBox="-28 -28 56 56">
+      <path class="paper line" stroke-width="4" d="M-18 15H-7M-12 15V-2M-1 15H11M5 15V-11M16 15H25M20 15V-20"/>
+      <path class="green line" stroke-width="4" d="M-20-12L-8-20L2-10L21-24"/>
+    </symbol>
+    <symbol id="relationship" viewBox="-28 -28 56 56">
+      <path class="paper line" stroke-width="4" d="M-14 5C-24-4-19-18-8-17C-2-16 1-12 2-9C4-13 8-17 14-17C25-16 28-3 18 6L2 21L-14 5Z"/>
+    </symbol>
+    <symbol id="learning" viewBox="-28 -28 56 56">
+      <path class="paper line" stroke-width="4" d="M-19-16C-10-19-3-16 0-10C3-16 10-19 19-16V17C10 14 3 15 0 21C-3 15-10 14-19 17V-16Z"/>
+    </symbol>
+  </defs>
+
+  <rect width="780" height="464" rx="38" fill="url(#bg)"/>
+  <path d="M80 226C189 94 348 94 458 197C550 284 625 264 710 164" stroke="#FF5E00" stroke-opacity="0.62" stroke-width="6" class="line" filter="url(#orangeGlow)"/>
+  <path d="M103 316C222 212 348 303 472 248C576 202 621 117 706 105" stroke="#34A853" stroke-opacity="0.46" stroke-width="4" class="line" filter="url(#greenGlow)"/>
+
+  <g transform="translate(126 114)"><circle r="45" class="node orange" fill="rgba(255,94,0,0.14)"/><use href="#fitness" width="56" height="56" x="-28" y="-28"/></g>
+  <g transform="translate(269 86)"><circle r="45" class="node green" fill="rgba(52,168,83,0.12)"/><use href="#nutrition" width="56" height="56" x="-28" y="-28"/></g>
+  <g transform="translate(421 118)"><circle r="45" class="node purple" fill="rgba(127,36,255,0.10)"/><use href="#sleep" width="56" height="56" x="-28" y="-28"/></g>
+  <g transform="translate(568 110)"><circle r="45" class="node green" fill="rgba(52,168,83,0.12)"/><use href="#finance" width="56" height="56" x="-28" y="-28"/></g>
+  <g transform="translate(199 273)"><circle r="45" class="node green" fill="rgba(52,168,83,0.12)"/><use href="#relationship" width="56" height="56" x="-28" y="-28"/></g>
+  <g transform="translate(362 251)"><circle r="48" class="node orange" fill="rgba(255,94,0,0.14)"/><path class="paper line" stroke-width="5" d="M-20 8C-5-15 18-13 28 8"/><path class="green line" stroke-width="4" d="M-21 18H20"/><circle cx="0" cy="-5" r="7" fill="#F2ECD8"/></g>
+  <g transform="translate(532 281)"><circle r="45" class="node green" fill="rgba(52,168,83,0.12)"/><use href="#learning" width="56" height="56" x="-28" y="-28"/></g>
+
+  <rect x="74" y="364" width="214" height="52" rx="26" fill="rgba(255,94,0,0.12)" stroke="#FF5E00" stroke-opacity="0.60" stroke-width="3"/>
+  <rect x="318" y="364" width="166" height="52" rx="26" fill="rgba(52,168,83,0.10)" stroke="#34A853" stroke-opacity="0.55" stroke-width="3"/>
+  <rect x="514" y="364" width="192" height="52" rx="26" fill="rgba(127,36,255,0.09)" stroke="#7F24FF" stroke-opacity="0.42" stroke-width="3"/>
+</svg>

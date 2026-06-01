@@ -7,15 +7,16 @@ import { meals, missions, workouts } from '@/data/mock'
 type SiaConversationProps = {
   showDraft?: boolean
   showSuggestions?: boolean
+  showThinking?: boolean
   className?: string
 }
 
 function DaySeparator() {
   return (
     <div className="flex items-center gap-3 py-4">
-      <div className="h-px flex-1 bg-white/[0.05]" />
+      <div className="h-px flex-1 bg-alpha-white-05" />
       <span className="text-[12px] leading-4 text-white/30">Today</span>
-      <div className="h-px flex-1 bg-white/[0.05]" />
+      <div className="h-px flex-1 bg-alpha-white-05" />
     </div>
   )
 }
@@ -24,7 +25,7 @@ function ConnectionMessage() {
   return (
     <div className="flex w-full gap-2">
       <SiaAvatarSmall />
-      <div className="max-w-[250px] rounded-[16px] rounded-bl-xs border border-white/[0.08] bg-ink-brown-800 px-3 py-2.5 text-[15px] leading-[22px] text-white">
+      <div className="max-w-[250px] rounded-[16px] rounded-bl-xs border border-alpha-white-08 bg-ink-brown-800 px-3 py-2.5 text-[15px] leading-[22px] text-white">
         <p className="mb-1 text-eyebrow font-semibold uppercase tracking-[0.12em] text-royal-purple">
           Connection spotted
         </p>
@@ -41,7 +42,7 @@ function ThinkingIndicator() {
   return (
     <div className="flex w-full gap-2">
       <SiaAvatarSmall className="animate-sia-avatar-pulse" />
-      <div className="flex h-9 items-center gap-1 rounded-[16px] rounded-bl-xs border border-white/[0.08] bg-ink-brown-800 px-4">
+      <div className="flex h-9 items-center gap-1 rounded-[16px] rounded-bl-xs border border-alpha-white-08 bg-ink-brown-800 px-4">
         {[0, 1, 2].map((dot) => (
           <span
             key={dot}
@@ -68,6 +69,7 @@ function DraftBubble() {
 export function SiaConversation({
   showDraft = false,
   showSuggestions = true,
+  showThinking = false,
   className = '',
 }: SiaConversationProps) {
   return (
@@ -108,7 +110,7 @@ export function SiaConversation({
 
       {showDraft && <DraftBubble />}
 
-      {!showDraft && <ThinkingIndicator />}
+      {!showDraft && showThinking && <ThinkingIndicator />}
 
       {showSuggestions && (
         <div className="flex gap-2 overflow-x-auto pb-1 pl-8 hide-scrollbar">

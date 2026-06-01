@@ -270,3 +270,9 @@ The following issues were identified by a comprehensive design spec audit and re
 - Accessibility documentation shallow (no focus order, screen reader labels, reduce-motion alternatives)
 - Tablet/iPad layout not addressed
 - ~~13 files had ASCII wireframes being converted to box-drawing characters (in progress)~~ **RESOLVED** (prior audit phase)
+
+---
+
+## Post-Audit Fixes (2026-05-25, Screen Registry Gap)
+
+1. **[Screens 74-85] Production screen registry routes missing from `app_design 3`** — Compared `balencia-screens/src/data/screens.ts` against the numbered markdown files. The missing set was exactly 12 registered routes: Conversations Hub [74], Direct Chat [75], Group Chat [76], Message Actions [77], Reports Center [78], Call Summary [79], Music Coach [80], Video Library [81], Accountability Contract [82], Social Buddy Profile [83], Data Sources [84], and Obstacle Coach [85]. **Fixed**: Created all 12 screen specs, updated `_progress.md` to 90 / 90 design docs, and added lightweight shared patterns for conversation rows/messages, signal/privacy pills, report/source rows, media recommendation cards, and accountability/obstacle diagnosis cards.

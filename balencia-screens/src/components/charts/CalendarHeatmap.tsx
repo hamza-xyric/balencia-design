@@ -20,17 +20,17 @@ type CalendarHeatmapProps = {
 
 const toneClasses = {
   brand: {
-    levels: ['bg-white/[0.05]', 'bg-brand-orange/20', 'bg-brand-orange/50', 'bg-brand-orange/75', 'bg-brand-orange'],
+    levels: ['bg-alpha-white-05', 'bg-brand-orange/20', 'bg-brand-orange/50', 'bg-brand-orange/75', 'bg-brand-orange'],
     border: 'border-brand-orange',
     text: 'text-brand-orange',
   },
   creativity: {
-    levels: ['bg-white/[0.05]', 'bg-domain-creativity/30', 'bg-domain-creativity/60', 'bg-domain-creativity/80', 'bg-domain-creativity'],
+    levels: ['bg-alpha-white-05', 'bg-domain-creativity/30', 'bg-domain-creativity/60', 'bg-domain-creativity/80', 'bg-domain-creativity'],
     border: 'border-domain-creativity',
     text: 'text-domain-creativity',
   },
   learning: {
-    levels: ['bg-white/[0.05]', 'bg-domain-learning/30', 'bg-domain-learning/60', 'bg-domain-learning/80', 'bg-domain-learning'],
+    levels: ['bg-alpha-white-05', 'bg-domain-learning/30', 'bg-domain-learning/60', 'bg-domain-learning/80', 'bg-domain-learning'],
     border: 'border-domain-learning',
     text: 'text-domain-learning',
   },
@@ -51,7 +51,7 @@ export function CalendarHeatmap({
 
   function cellClass(cell: HeatmapCell) {
     const fill = cell.intensity === 'future'
-      ? 'bg-white/[0.03]'
+      ? 'bg-alpha-white-03'
       : toneClass.levels[cell.intensity]
 
     return [

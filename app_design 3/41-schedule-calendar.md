@@ -546,3 +546,34 @@ The time grid shows no events. In place of the grid, a single card appears cente
 - **Shared components with**: Home Screen (12) — schedule preview uses same event card design but compact; Goals List (13) — action items share checkbox + domain tag pattern; Habits (38) — time-based tasks share visual language; Reminders & Tasks (61) — task rows share checkbox + domain tag pattern, scheduled reminders appear as events
 - **Patterns used**: Brand CTA Button (_shared-patterns.md), Back Button (_shared-patterns.md), 8-State Interaction Model (_shared-patterns.md), Stack Navigation (_shared-patterns.md)
 - **Patterns established**: Calendar Day View (time-slot grid with current time indicator), Calendar View Switcher (3-segment day/week/month), SIA-Suggested Event Card (dashed-border treatment for AI suggestions vs solid for confirmed events), Unscheduled Tasks Section (collapsible action items not yet time-placed), Drag-to-Schedule gesture (long-press + drag unscheduled task into time slot), Connect Service Empty State (guidance card with service icon + CTA), Sync Status Indicator (cloud icon with sync state in header), Schedule Templates (horizontal-scroll pre-built routine cards)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-03.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U02`
+**Prototype route**: `/tabs/today/schedule`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q10 guest preview may remain a clearly labeled preview/demo entry form.
+- Q11 SIA onboarding only needs enough interactivity to reach Initial plan.
+- Q12 voice-inline can remain a QA route but production should treat it as SIA chat state.
+- Q13 voice privacy requires permission, consent, transcript control, deletion, and raw-audio handling states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B03-F09 | major | navigation | Implement view switching, date movement, add-event modal, and task drag/placement behavior. |
+| B03-F10 | major | accessibility | Label previous/next date controls and disambiguate the header add button from the floating add button. |
+
+### Prototype Implications
+
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

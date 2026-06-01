@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import { BookOpen, ChevronRight, Funnel } from 'lucide-react'
+import { useMemo, useState } from 'react'
 import { FAB } from '@/components/design-system/FAB'
 import { SegmentedControl } from '@/components/design-system/SegmentedControl'
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
@@ -21,7 +24,7 @@ const typeFilters = [
   { label: 'Daily', value: 'daily' },
 ]
 
-function TypeFilterRow() {
+function TypeFilterRow({ active, onChange }: { active: string; onChange: (value: string) => void }) {
   return (
     <div className="-mx-4 overflow-x-auto px-4 pb-2 hide-scrollbar">
       <div className="flex gap-2">
@@ -30,11 +33,13 @@ function TypeFilterRow() {
             key={filter.value}
             type="button"
             className={[
-              'h-9 shrink-0 rounded-pill border px-4 text-caption font-semibold leading-[18px] transition-transform duration-[var(--dur-fast)] active:scale-95',
-              filter.value === 'all'
+              'h-11 shrink-0 rounded-pill border px-4 text-caption font-semibold leading-[18px] transition-transform duration-[var(--dur-fast)] active:scale-95',
+              filter.value === active
                 ? 'border-brand-orange bg-brand-orange text-white'
                 : 'border-white/10 bg-ink-brown-800 text-white/60',
             ].join(' ')}
+            aria-pressed={filter.value === active}
+            onClick={() => onChange(filter.value)}
           >
             {filter.label}
           </button>
@@ -93,14 +98,18 @@ function LifeAreasPreview() {
 }
 
 function SiaSuggestionsCollapsed() {
+  const [open, setOpen] = useState(false)
+  const [handled, setHandled] = useState<Record<string, 'accepted' | 'dismissed'>>({})
+
   return (
     <section>
       <button
         type="button"
+        onClick={() => setOpen(!open)}
         className="flex h-12 w-full items-center gap-2 rounded-md text-left transition-colors duration-[var(--dur-fast)] active:bg-white/[0.03]"
-        aria-label="SIA suggestions collapsed"
+        aria-expanded={open}
       >
-        <ChevronRight size={14} className="text-white/40" strokeWidth={2} />
+        <ChevronRight size={14} className={['text-white/40 transition-transform', open ? 'rotate-90' : ''].join(' ')} strokeWidth={2} />
         <span className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-white/40">
           SIA suggestions
         </span>
@@ -108,15 +117,44 @@ function SiaSuggestionsCollapsed() {
           ({missionSuggestions.length})
         </span>
       </button>
-      <div className="sr-only">
+      <div className={open ? 'space-y-2' : 'hidden'}>
         {missionSuggestions.map((suggestion) => (
-          <div key={suggestion.id}>
-            {suggestion.name}
-            <MissionTypeBadge type={suggestion.type} />
-            {suggestion.domains.map((domain) => (
-              <DomainTag key={domain} domain={domain} />
-            ))}
-          </div>
+          <article key={suggestion.id} className="rounded-lg border border-white/[0.06] bg-ink-brown-800 p-3 shadow-1">
+            <div className="flex items-center gap-2">
+              <span className="min-w-0 flex-1 text-[15px] font-semibold leading-5 text-white">{suggestion.name}</span>
+              <MissionTypeBadge type={suggestion.type} />
+            </div>
+            <p className="mt-2 text-caption leading-[18px] text-white/45">{suggestion.reason}</p>
+            <div className="mt-2 flex flex-wrap gap-2">{suggestion.domains.map((domain) => <DomainTag key={domain} domain={domain} />)}</div>
+            {handled[suggestion.id] ? (
+              <p className="mt-3 rounded-md border border-forest-green/20 bg-forest-green/10 px-3 py-2 text-caption font-semibold leading-[18px] text-forest-green" aria-live="polite">
+                {handled[suggestion.id] === 'accepted' ? 'Added to draft missions.' : 'Suggestion dismissed for this week.'}
+              </p>
+            ) : (
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setHandled((current) => ({ ...current, [suggestion.id]: 'accepted' }))}
+                  className="h-11 rounded-pill bg-brand-orange px-2 text-small font-semibold leading-[14px] text-white"
+                >
+                  Accept
+                </button>
+                <Link
+                  href="/tabs/goals/create"
+                  className="flex h-11 items-center justify-center rounded-pill border border-white/10 px-2 text-small font-semibold leading-[14px] text-white/65"
+                >
+                  Modify
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setHandled((current) => ({ ...current, [suggestion.id]: 'dismissed' }))}
+                  className="h-11 rounded-pill border border-white/10 px-2 text-small font-semibold leading-[14px] text-white/50"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
+          </article>
         ))}
       </div>
     </section>
@@ -124,8 +162,19 @@ function SiaSuggestionsCollapsed() {
 }
 
 export default function MissionBoardScreen() {
-  const pinnedMissions = missions.filter((mission) => mission.pinned).slice(0, 3)
-  const listedMissions = missions.filter((mission) => mission.pinned === false)
+  const [typeFilter, setTypeFilter] = useState('all')
+  const [statusFilter, setStatusFilter] = useState('active')
+  const [domainSheet, setDomainSheet] = useState(false)
+  const [domainFilter, setDomainFilter] = useState<string>('all')
+  const filtered = useMemo(() => missions.filter((mission) => {
+    const domains = mission.domains ?? [mission.domain]
+    return (typeFilter === 'all' || mission.type === typeFilter)
+      && (statusFilter === 'all' || mission.status === statusFilter)
+      && (domainFilter === 'all' || domains.includes(domainFilter as typeof mission.domain))
+  }), [domainFilter, statusFilter, typeFilter])
+  const pinnedMissions = filtered.filter((mission) => mission.pinned).slice(0, 3)
+  const listedMissions = filtered.filter((mission) => mission.pinned === false)
+  const domains = Array.from(new Set(missions.flatMap((mission) => mission.domains ?? [mission.domain])))
 
   return (
     <PhoneFrame>
@@ -145,27 +194,29 @@ export default function MissionBoardScreen() {
               </Link>
               <button
                 type="button"
+                onClick={() => setDomainSheet(true)}
                 className="relative flex h-11 w-11 items-center justify-center rounded-full text-white/60 transition-transform duration-[var(--dur-fast)] active:scale-90"
                 aria-label="Filter by domain"
               >
                 <Funnel size={20} strokeWidth={1.8} />
-                <span className="absolute right-2.5 top-2.5 h-1 w-1 rounded-full bg-brand-orange" />
+                {domainFilter !== 'all' && <span className="absolute right-2.5 top-2.5 h-1 w-1 rounded-full bg-brand-orange" />}
               </button>
             </div>
           </header>
 
           <div className="mt-2 animate-fade-up">
-            <TypeFilterRow />
+            <TypeFilterRow active={typeFilter} onChange={setTypeFilter} />
           </div>
 
           <div className="mt-2 animate-fade-up" style={{ animationDelay: '80ms' }}>
             <SegmentedControl
               options={[
                 { label: 'Active', value: 'active' },
-                { label: 'Done', value: 'done' },
+                { label: 'Done', value: 'completed' },
                 { label: 'All', value: 'all' },
               ]}
-              activeValue="active"
+              activeValue={statusFilter}
+              onValueChange={setStatusFilter}
             />
           </div>
 
@@ -206,8 +257,26 @@ export default function MissionBoardScreen() {
                 />
               </Link>
             ))}
+            {filtered.length === 0 && <p className="rounded-lg border border-white/[0.06] p-4 text-caption leading-[18px] text-white/45">No missions match those filters.</p>}
           </section>
         </main>
+        {domainSheet && (
+          <section className="absolute inset-x-0 bottom-0 z-40 rounded-t-xl border border-white/[0.06] bg-ink-brown-800 px-4 pb-8 pt-3 shadow-3 animate-fade-up" role="dialog" aria-label="Filter by domain">
+            <div className="mx-auto mb-4 h-1 w-9 rounded-pill bg-white/20" />
+            <h2 className="text-h3 font-semibold leading-[22px] text-white">Filter by domain</h2>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {['all', ...domains].map((domain) => (
+                <button key={domain} type="button" className={['h-11 rounded-pill border px-4 text-caption font-semibold', domainFilter === domain ? 'border-brand-orange bg-brand-orange text-white' : 'border-white/10 text-white/60'].join(' ')} aria-pressed={domainFilter === domain} onClick={() => setDomainFilter(domain)}>
+                  {domain === 'all' ? 'All domains' : domain}
+                </button>
+              ))}
+            </div>
+            <p className="mt-3 text-caption leading-[18px] text-white/40" aria-live="polite">
+              Showing {filtered.length} mission{filtered.length === 1 ? '' : 's'}.
+            </p>
+            <button className="mt-5 h-11 w-full rounded-pill bg-brand-orange text-[15px] font-semibold text-white" onClick={() => setDomainSheet(false)}>Apply</button>
+          </section>
+        )}
       </ScreenShell>
     </PhoneFrame>
   )

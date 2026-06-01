@@ -450,3 +450,36 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Life Power note**: Life Power is displayed on both Screen [16] (Life Areas Overview) and Screen [19] (RPG Character)
 - **Patterns used**: Back Button (Batch 1), Bottom Tab Bar (_shared-patterns.md), Product Mode header (established in this batch)
 - **Patterns established**: Radar chart (life wheel), Domain list row, Time range segmented control, SIA insight card (with purple left border), Domain color dot (10pt identification circle)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-07.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U04`
+**Prototype route**: `/tabs/me/life-areas`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q20 OAuth flows must preview scopes, purpose, sync cadence, storage, disconnect, delete, and revocation.
+- Q33 Life Areas comparison is Plus-gated only after enough history exists.
+- Q34 Explore tier labels distinguish included vs locked states.
+- Q35 billing follows mobile-store purchase, restore, trial, cancellation, error, and entitlement patterns.
+- Q50 obstacle reconnection uses per-blocker accept/dismiss controls before accept-all.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B07-F05 | major | information-architecture | Add accessible 44x44 radar tap zones and link the SIA insight to contextual SIA chat. |
+| B07-F06 | major | mobile-ergonomics | Implement segmented state with aria-pressed, comparison overlays/deltas, and clear Plus explanation or upsell for locked modes. |
+| B07-F07 | major | navigation | Render a labeled 44x44 back button/link with stack-pop behavior. |
+
+### Prototype Implications
+
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

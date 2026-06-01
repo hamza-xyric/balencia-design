@@ -483,3 +483,37 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Connected Services [22] (Settings Row — Navigation, Section Header, Section Group Container), Notification History [24] (Section Header), Help Center [25] (Section Header), Screen [05b] Reset Password (Password Requirements Checklist pattern)
 - **Patterns used**: Back Button (Batch 1), Section Group Container (new), Settings Row — Navigation/Display/Toggle (new), Toggle Switch (new), Destructive Action Row (new), Section Header (new), SIA Note (new)
 - **Patterns established**: Settings Row (3 variants: display, navigation, toggle), Toggle Switch, Section Header, Section Group Container, Destructive Action Row, SIA Note, Delete Account Confirmation Modal, **Biometric Auth Toggle** — device-aware toggle row showing Face ID/Touch ID/Biometric label based on hardware. Reusable for any biometric-gated setting. **Change Password Bottom Sheet** — 3-field password change form with real-time requirements validation. Follows standard bottom sheet modal spec with Password Requirements Checklist from [05b].
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-08.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U04`
+**Prototype route**: `/tabs/me/settings`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q20 OAuth flows must preview scopes, purpose, sync cadence, storage, disconnect, delete, and revocation.
+- Q33 Life Areas comparison is Plus-gated only after enough history exists.
+- Q34 Explore tier labels distinguish included vs locked states.
+- Q35 billing follows mobile-store purchase, restore, trial, cancellation, error, and entitlement patterns.
+- Q50 obstacle reconnection uses per-blocker accept/dismiss controls before accept-all.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B08-F07 | major | navigation | Make the shared back affordance a labeled 44x44 semantic control with stack-pop behavior. |
+| B08-F08 | critical | settings-control | Wire each row to its picker, sheet, confirmation, legal view, or route, and disable unavailable rows. |
+| B08-F09 | major | mobile-ergonomics | Make the full 52px row toggle the setting, keep switch semantics, and persist the changed value. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

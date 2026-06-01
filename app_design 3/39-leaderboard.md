@@ -440,3 +440,37 @@ This screen is the social motivation layer — a leaderboard ranking users by li
 - **Shared components with**: Screen [38] — Habits (Segmented Control, XP/RPG elements, Domain Tag Chip), Screen [19] — RPG Character (Level Badge, XP display), Screen [47] — Competitions (Competition Leaderboard Card, podium colors, rank row format)
 - **Patterns used**: Back Button, 8-State Model, Segmented Control (Screen 38), Domain Tag Chip (Screen 37), Modal Presentation (user profile bottom sheet)
 - **Patterns established**: User Rank Card (highlighted own-position with orange border), Leaderboard Rank Row (rank + avatar + name + level + XP + domain badge), Level Badge ("Lv. N" pill), Filter Toggle (underline tab style), Podium Accent Colors (gold/silver/bronze for top 3), Sticky Rank Card (pins when user scrolls past own position), Leaderboard Type Tabs (global/competitions/country segmented control), Competition Leaderboard Card (mini-leaderboard within competitions tab with top 3 + user position)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-13.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/leaderboard`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B13-F04 | major | information-architecture | Implement leaderboard type, time-period, country, global/friends state, and loading/empty/error behavior. |
+| B13-F05 | major | trust-privacy | Make rank rows semantic buttons that open limited profiles with report/block and clear public-data boundaries. |
+| B13-F06 | major | accessibility | Expand hit areas to 44px, expose selected/pressed state, and make shared back semantic. |
+
+### Prototype Implications
+
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

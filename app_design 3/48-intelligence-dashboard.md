@@ -722,3 +722,37 @@ The Intelligence Dashboard is SIA's analytical command center -- the screen wher
 - **Shared components with**: Screen [14] -- Goal Detail (Line Chart pattern for Score Trend, adapted with purple instead of orange), Screen [35] -- Learning Dashboard (Collapsible Section pattern for Weekly Report), Screen [36] -- Creativity Dashboard (SIA Coaching Note Card pattern adapted for insights), Screen [38] -- Habits (Streak/Heatmap data visualization concepts)
 - **Patterns used**: Back Button, 8-State Interaction Model, Stack Navigation, Content Entry Animation (staggered fade-in), Collapsing Header Variant (from Screen 35), Expandable/Collapsible Section (from Screen 14), Section Eyebrow Label, Pull-to-Refresh
 - **Patterns established**: Intelligence Score Ring (large circular progress with center value, purple fill, radial glow -- unique to intelligence), Contradiction Alert Card (alert icon + description + resolve/dismiss action chips), Correlation Row (description + strength indicator bar + feedback buttons), Best Day Checklist (factor rows with real-time matched/unmatched status + progress bar), Prediction Display (large predicted value + accuracy badge + basis text), Insight Feedback Row (insight text + purple dot + inline thumbs up/down), Knowledge Graph Link Card (purple-accented navigation card to graph sub-screen)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-14.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/intelligence`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B14-F07 | major | trust-privacy | Add contradiction resolution and dismissal flows with source review, correction options, undo, and persisted state. |
+| B14-F08 | major | information-architecture | Wire overflow settings/export/about, time-range state, all-correlations drill-down, and weekly report detail. |
+| B14-F09 | major | accessibility | Expand controls to 44px hit areas and make insight feedback buttons operable with pressed/selected semantics. |
+
+### Prototype Implications
+
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

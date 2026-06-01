@@ -781,3 +781,37 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen 29 (Detail Header, Multi-Mode Pattern, SIA compact note), Screen 26 (SIA Coaching Note Card, Stat Tile)
 - **Patterns used**: Back Button (Batch 1), Brand CTA Button (Batch 1), 8-State Interaction Model, Stack Navigation, Confirmation State crossfade (Batch 1 screen 05)
 - **Patterns established**: Detail Screen Template (canonical drill-down layout), Multi-Mode Screen Pattern (content crossfade between planning/active/summary), Set Tracker Row (weight/reps inputs + green complete), Rest Timer (circular countdown, auto-start, haptic at zero), Progress Bar + Controls (exercise/set progress with session controls), Pause Overlay (semi-transparent with resume/end), XP Earned Badge (animated scale-in + glow for RPG reward), Post-Workout Summary sequence (signature animation choreography)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-10.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U05`
+**Prototype route**: `/domains/workout`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q17 progress photos are private, encrypted, user-deletable, and AI analysis is premium opt-in.
+- Q20 OAuth flows need scope and revocation clarity.
+- Q21 Data Sources may be a demo/no-live-sync trust placeholder for prototype acceptance.
+- Q39 achievement density adapts for low-motivation users.
+- Q43 Knowledge Graph V1 is a guided insight map.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B10-F09 | critical | retention | Build editable set inputs, complete-set progression, rest countdown/skip, pause overlay, end confirmation, summary, and persistence. |
+| B10-F10 | major | information-architecture | Implement planning, active, paused, and summary modes or split manual logging from active tracking. |
+| B10-F11 | major | accessibility | Use real labeled inputs/steppers, live progress/timer announcements, 44px rest controls, and visible next-exercise layout. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

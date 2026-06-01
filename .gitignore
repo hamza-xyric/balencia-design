@@ -21,3 +21,14 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# Generated review / capture artifacts (screenshots + evidence — not source)
+# NOTE: singular `output/` only — creative deliverables live in `outputs/` (plural) and stay tracked
+output/
+.playwright-mcp/
+
+# Repo-root session screenshot scratch (p10-, p13-, p14-, p15- …)
+/p[0-9][0-9]-*.png
+
+# Claude scheduled-task lock
+.claude/scheduled_tasks.lock

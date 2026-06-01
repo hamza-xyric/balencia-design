@@ -34,7 +34,7 @@ const actionToneClasses: Record<Tone, string> = {
   orange: 'border-brand-orange/25 bg-brand-orange/10 text-brand-orange',
   purple: 'border-royal-purple/25 bg-royal-purple/10 text-royal-purple',
   green: 'border-forest-green/25 bg-forest-green/10 text-forest-green',
-  muted: 'border-white/[0.08] bg-white/[0.04] text-white/60',
+  muted: 'border-alpha-white-08 bg-alpha-white-04 text-white/60',
 }
 
 function PresenceDot({ active }: { active?: boolean }) {
@@ -108,7 +108,7 @@ export function ConversationRow({ conversation }: { conversation: ConversationPr
   return (
     <Link
       href={conversation.route}
-      className="group flex min-h-[74px] items-center gap-3 rounded-lg border border-white/[0.06] bg-ink-brown-800 px-3 py-3 shadow-1 transition-all duration-[var(--dur-base)] hover:border-brand-orange/30 hover:bg-white/[0.04]"
+      className="group flex min-h-[74px] items-center gap-3 rounded-lg border border-alpha-white-06 bg-ink-brown-800 px-3 py-3 shadow-1 transition-all duration-[var(--dur-base)] hover:border-brand-orange/30 hover:bg-alpha-white-04"
     >
       <ConversationAvatar
         initials={conversation.initials}
@@ -125,7 +125,7 @@ export function ConversationRow({ conversation }: { conversation: ConversationPr
         </div>
         <p className="mt-1 line-clamp-1 text-[12px] leading-4 text-white/45">{conversation.subtitle}</p>
         <div className="mt-2 flex items-center gap-2">
-          <span className="rounded-pill bg-white/[0.05] px-2 py-1 text-[10px] font-semibold leading-none text-white/45">
+          <span className="rounded-pill bg-alpha-white-05 px-2 py-1 text-[10px] font-semibold leading-none text-white/45">
             {kindLabels[conversation.kind]}
           </span>
           <DomainTag domain={conversation.domain} />
@@ -157,7 +157,7 @@ function AttachmentCard({ attachment }: { attachment: ConversationAttachment }) 
   const tone = domainToneClasses[attachment.domain]
 
   return (
-    <div className="mt-2 rounded-md border border-white/[0.08] bg-white/[0.04] p-3">
+    <div className="mt-2 rounded-md border border-alpha-white-08 bg-alpha-white-04 p-3">
       <div className="flex items-center gap-2">
         <div className={`flex h-8 w-8 items-center justify-center rounded-sm ${tone.subtle} ${tone.text}`}>
           <AttachmentIcon kind={attachment.kind} />
@@ -177,7 +177,7 @@ function ReactionStrip({ reactions }: { reactions: ConversationReaction[] }) {
       {reactions.map((reaction) => (
         <span
           key={reaction.label}
-          className="inline-flex h-6 items-center gap-1 rounded-pill border border-white/[0.08] bg-white/[0.04] px-2 text-[10px] font-semibold leading-none text-white/55"
+          className="inline-flex h-6 items-center gap-1 rounded-pill border border-alpha-white-08 bg-alpha-white-04 px-2 text-[10px] font-semibold leading-none text-white/55"
         >
           {reaction.label}
           <span className="text-white/35">{reaction.count}</span>
@@ -226,7 +226,7 @@ export function ThreadMessage({ message }: { message: ConversationThreadMessage 
               ? 'rounded-br-xs border border-brand-orange/20 bg-brand-orange/15'
               : message.highlighted
                 ? 'rounded-bl-xs border border-royal-purple/25 bg-royal-purple/12'
-                : 'rounded-bl-xs border border-white/[0.08] bg-ink-brown-800',
+                : 'rounded-bl-xs border border-alpha-white-08 bg-ink-brown-800',
           ].join(' ')}
         >
           <p>{message.text}</p>
@@ -247,7 +247,7 @@ export function ThreadMessage({ message }: { message: ConversationThreadMessage 
 
 export function TypingIndicator({ label = 'SIA is preparing a reply' }: { label?: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-pill border border-white/[0.06] bg-ink-brown-800 px-3 py-2 text-[11px] leading-none text-white/45 shadow-1">
+    <div className="flex items-center gap-2 rounded-pill border border-alpha-white-06 bg-ink-brown-800 px-3 py-2 text-[11px] leading-none text-white/45 shadow-1">
       <MessageCircle size={13} className="text-royal-purple" strokeWidth={2} />
       <span>{label}</span>
       <span className="flex gap-1" aria-hidden="true">
@@ -270,7 +270,7 @@ export function MembersRail({
 }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04] text-white/45">
+      <span className="flex h-9 w-9 items-center justify-center rounded-full border border-alpha-white-08 bg-alpha-white-04 text-white/45">
         <Users size={16} strokeWidth={2} />
       </span>
       <div className="flex -space-x-2">
@@ -290,7 +290,7 @@ export function MembersRail({
 
 export function PrivacyPill() {
   return (
-    <span className="inline-flex h-7 items-center gap-1.5 rounded-pill border border-white/[0.08] bg-white/[0.04] px-2.5 text-[11px] font-semibold leading-none text-white/50">
+    <span className="inline-flex h-7 items-center gap-1.5 rounded-pill border border-alpha-white-08 bg-alpha-white-04 px-2.5 text-[11px] font-semibold leading-none text-white/50">
       <Lock size={12} strokeWidth={2} />
       Private
     </span>

@@ -436,3 +436,34 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [03] — Welcome / Sign Up (brand symbol, heading style, CTA button pattern, back button), Screen [05] — Forgot Password (resend link pattern, masked email display, back button)
 - **Patterns used**: Auth Screen Template (simplified — single-purpose OTP variant), Brand CTA Button (full-width), Back Button Pattern (from [04]), Resend Link Pattern (adapted from [05] — countdown-based instead of attempt-based cooldown)
 - **Patterns established**: **OTP Input Pattern** — 4 individual square boxes (56x56pt), ink-brown-800 bg, --r-md corners, 12pt gaps, 24pt Sora Bold digit centered. Auto-advance on entry, back-clear on backspace, paste support. Focused box has 2pt orange border. Error state: red borders + shake animation. This pattern can be reused for any future OTP/PIN entry screens. **Countdown Resend Pattern** — "Resend code" link with integrated countdown timer "(0:59)", disabled during countdown (white at 30%), enabled when countdown reaches 0 (orange), resets on each resend. Success shows "Code sent" in green for 3 seconds.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-01.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U01`
+**Prototype route**: `/auth/otp`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q06 minimal auth: remove DOB as account-creation legal gate.
+- Q07 social auth profile completion must not block first SIA value.
+- Q08 move first-name collection into SIA onboarding.
+- Q09 WhatsApp is optional coaching/reminder opt-in with STOP/settings controls.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B01-F06 | critical | conversion | Render empty numeric OTP inputs with auto-focus, paste/backspace handling, completion-gated Verify, and real resend cooldown. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

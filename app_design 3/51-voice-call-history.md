@@ -719,3 +719,37 @@ Action Items tab shows all items in "completed" state with strikethrough and 50%
 **Why the emotion trend visualization?** Emotional tracking is a core differentiator of SIA's coaching. Showing users their emotional arc across a call validates SIA's attentiveness and helps users recognize their own patterns. The emoji-based approach keeps it approachable — no clinical scales or numbers, just recognizable emotional states.
 
 **Why schedule calls instead of just "call anytime"?** Scheduled calls create commitment and routine. Users who schedule regular check-ins are more likely to build a consistent coaching habit. The scheduling mechanism also enables SIA to prepare contextually relevant conversation starters based on the user's recent data, making each call more valuable than a spontaneous one.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-05.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U03`
+**Prototype route**: `/tabs/sia/voice-history`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q14 SIA in chats requires explicit invocation.
+- Q15 group health/recovery signals require per-user permission.
+- Q23 call follow-up scheduling should reuse the voice-history scheduling sheet.
+- Q24 create mission starts from blank natural-language intent.
+- Q25 streak details preserve source tab context.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B05-F01 | critical | retention | Wire tab state, scheduling, rescheduling, cancellation confirmation, and action-item completion/filtering. |
+| B05-F02 | major | navigation | Make call cards navigable to a detail route/sheet with summary, insights, action items, listen-again, and SIA follow-up. |
+| B05-F03 | major | mobile-ergonomics | Expand hit areas to at least 44x44 and add selected/tab semantics. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

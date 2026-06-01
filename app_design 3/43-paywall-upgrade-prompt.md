@@ -533,3 +533,38 @@ When a user's free trial for a specific feature has ended:
 - **Shared components with**: Subscription & Billing (23) — tier card uses same pricing display and plan naming; SIA Chat (09) — inline upgrade card follows SIA message card styling patterns
 - **Patterns used**: Brand CTA Button (_shared-patterns.md), Modal Presentation (_shared-patterns.md — slide up, drag-to-dismiss, 20pt/40pt top corners, 60% backdrop)
 - **Patterns established**: Contextual Paywall Modal (headline + blurred preview + feature list + tier card + CTA + easy-out, all adapting to trigger context), Blurred Preview Treatment (Gaussian blur with bottom gradient fade for "preview behind lock"), SIA Inline Upgrade Card (in-chat upsell card with lock icon + feature name + CTA + easy-out, within normal message flow), Trial-Aware CTA (button text adapts: "start free trial" vs "upgrade to [tier]" based on trial eligibility), Motivation-Adapted Paywall Frequency (system limits paywall triggers per session based on motivation tier)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-13.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U07`
+**Prototype route**: `/features/paywall`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q31 breathing active sessions use a focused immersive mode without the tab bar.
+- Q32 celebration route is a QA fixture; production requires event triggers.
+- Q36 social V1 stays friends/private-first.
+- Q37 accountability/competitions activation requires Plus and social consent.
+- Q38 competitions support private/self-only challenges.
+- Q40 paywall models IAP-adjacent states without live billing.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B13-F12 | critical | monetization | Wire trial eligibility, native purchase entry, processing, success unlock, cancel/error, restore, and post-purchase dismissal states. |
+| B13-F13 | major | conversion | Make easy-out/backdrop/drag dismiss the modal and route See all plans to plan comparison or Subscription & billing. |
+| B13-F14 | major | accessibility | Use 44px secondary actions, dialog semantics, focus trapping, escape/back dismissal, and return focus to the gated trigger. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

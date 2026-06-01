@@ -18,14 +18,14 @@ import { PhoneFrame } from '@/components/layout/PhoneFrame'
 import { ScreenShell } from '@/components/layout/ScreenShell'
 import { ModuleCard } from '@/components/screens/ModuleCard'
 import { StatTile } from '@/components/screens/StatTile'
-import { suggestedModules, user } from '@/data/mock'
+import { suggestedModules, type ExploreModule, user } from '@/data/mock'
 
 // Screen 17 of 78: Me main
 // Spec: /Users/hamza/yHealth/app_design 3/17-me-main.md
 
 const quickLinks = [
   { label: 'RPG character', subtitle: 'Lv.14 explorer', route: '/tabs/me/rpg', Icon: Shield },
-  { label: 'Mission journal', subtitle: '14 completed', route: '/tabs/goals/journal', Icon: NotebookTabs },
+  { label: 'Mission journal', subtitle: '14 completed', route: '/tabs/goals/journal?source=me', Icon: NotebookTabs },
   { label: 'Book of life', subtitle: 'What SIA knows', route: '/tabs/me/personal-wiki', Icon: BookOpen },
   { label: 'Connected apps', subtitle: '3 connected', route: '/tabs/me/connected-services', Icon: Link2 },
   { label: 'Subscription', subtitle: 'Plus plan', route: '/tabs/me/subscription', Icon: Star },
@@ -35,6 +35,18 @@ const quickLinks = [
   { label: 'Notifications', subtitle: '12 new', route: '/tabs/me/notifications', Icon: Bell, unread: true },
   { label: 'Help center', subtitle: 'FAQ and guides', route: '/tabs/me/help', Icon: HelpCircle },
 ]
+
+const userTier = 'Plus'
+
+function isLocked(module: ExploreModule) {
+  return module.lockedTier === 'Pro' || (module.lockedTier === 'Plus' && userTier !== 'Plus')
+}
+
+function moduleForTier(module: ExploreModule) {
+  if (userTier === 'Plus' && module.lockedTier === 'Plus') return { ...module, lockedTier: undefined }
+  if (isLocked(module)) return { ...module, route: '/features/paywall' }
+  return module
+}
 
 function ProfileSection() {
   const progress = Math.max(0, Math.min(user.currentLevelXP / user.nextLevelXP, 1))
@@ -51,7 +63,7 @@ function ProfileSection() {
       </Link>
 
       <h1 className="mt-3 text-h2 font-semibold leading-[26px] text-white">{user.name}</h1>
-      <Link href="/tabs/me/rpg" className="mt-2">
+      <Link href="/tabs/me/rpg" className="mt-2 flex min-h-11 items-center justify-center rounded-pill px-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-orange/70">
         <LevelBadge level={user.level} />
       </Link>
 
@@ -115,7 +127,7 @@ function ExplorePreview() {
         <h2 className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-white/50">
           Suggested for you
         </h2>
-        <Link href="/tabs/me/explore" className="text-[14px] font-semibold leading-[18px] text-brand-orange">
+        <Link href="/tabs/me/explore" className="flex min-h-11 items-center px-1 text-[14px] font-semibold leading-[18px] text-brand-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-orange/70">
           See all
         </Link>
       </div>
@@ -124,7 +136,7 @@ function ExplorePreview() {
           {suggestedModules.map((module, index) => (
             <ModuleCard
               key={module.id}
-              module={module}
+              module={moduleForTier(module)}
               variant="suggested"
               className="animate-fade-up"
               style={{ animationDelay: `${700 + index * 60}ms` }}

@@ -699,3 +699,38 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Category reassignment**: when SIA auto-categorizes a manually added item, the item smoothly animates from "Other" to the correct category (520ms, ease-flow). A subtle toast confirms: "Moved to Produce".
 - **Concurrent edits**: if shared list feature is added later, optimistic updates with conflict resolution. Last-write-wins for simple fields; additive merge for quantities.
 - **Undo support**: after deleting an item or clearing purchased, a toast appears at bottom: "Undo" (Burnt Orange text, 5-second timeout). Tapping restores deleted items.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-15.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U08`
+**Prototype route**: `/features/shopping-list`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q04 health logging needs visible in-session state, not persistence.
+- Q41 recipes and shopping list support lightweight real mutations; sharing is review-first.
+- Q45 meditation/yoga need library-to-active-to-complete modes.
+- Q46 quick notes prioritize global bottom-sheet capture.
+- Q47 report/block keeps also-block default off.
+- Q49 sleep accent is canonical sleep-indigo.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B15-F10 | critical | retention | Implement inline add, checkbox state with undo, section collapse, purchased visibility, clear/share flows, and persistence. |
+| B15-F11 | major | accessibility | Use labeled 44px buttons/checkboxes for row check-off, headers, overflow, FAB, clear, share, and source links. |
+| B15-F12 | major | mobile-ergonomics | Expand hit areas, make full rows tappable for check-off/detail, and add swipe/edit/delete affordances. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

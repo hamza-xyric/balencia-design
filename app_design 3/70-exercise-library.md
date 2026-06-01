@@ -279,3 +279,39 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Screen [25] — Help Center (Search Bar), Screen [13] — Goals List (Filter Chip Row), Screen [29] — Meal Detail (Search Bar)
 - **Patterns used**: Search Bar (Screen 25), Filter Chip Row (Screen 13), Back Button (Batch 1)
 - **Patterns established**: **Exercise Card** -- 2-column grid card with image, name, muscle group, difficulty dots. Reusable for any exercise browsing context. **Exercise Detail Bottom Sheet** -- ~85% height sheet with hero image, instructions, variations, target areas. Contextual CTA when accessed from workout planning. **Difficulty Indicator** -- 3-dot system (filled orange, empty white at 15%) for beginner/intermediate/advanced rating.
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-12.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U06`
+**Prototype route**: `/domains/exercise-library`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q19 journal keeps basic writing/search free and gates AI/voice features.
+- Q27 exercise library preserves source context.
+- Q28 split meal detail and food logging into explicit modes/routes.
+- Q29 finance details pass explicit type plus ID/context.
+- Q30 workout planning/logging is separate from immersive active workout.
+- Q44 spirituality must support unconfigured and multiple-belief states.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B12-F11 | critical | information-architecture | Implement debounced search, filter state, result-count updates, full virtualized exercise data, and empty/loading/error states. |
+| B12-F12 | critical | navigation | Make exercise cards semantic targets that open the Exercise Detail bottom sheet with conditional Add to workout behavior. |
+| B12-F13 | major | information-architecture | Preserve source stack context, set the correct active tab, and render Back as a labeled 44px link/button. |
+| B12-F14 | major | accessibility | Add aria-pressed/selected semantics, 44px hit areas, a search label, card labels, and focus states. |
+
+### Prototype Implications
+
+- Treat 2 critical findings as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

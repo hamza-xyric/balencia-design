@@ -774,3 +774,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - Photo timeline fetches body_images ordered by creation date, filtered by `image_type` for comparison mode
 - AI Analysis badge reads `analysis_status` and `analysis_result` from the most recent body_images set
 - Photos respect `is_encrypted` flag — decryption happens client-side only
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-09.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U05`
+**Prototype route**: `/tabs/me/progress-photos`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q17 progress photos are private, encrypted, user-deletable, and AI analysis is premium opt-in.
+- Q20 OAuth flows need scope and revocation clarity.
+- Q21 Data Sources may be a demo/no-live-sync trust placeholder for prototype acceptance.
+- Q39 achievement density adapts for low-motivation users.
+- Q43 Knowledge Graph V1 is a guided insight map.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B09-F07 | critical | retention | Implement the Add Progress sheet, logging forms, camera/photo flow, comparison modal, chart range state, and save/error states. |
+| B09-F08 | major | trust-privacy | Define and expose photo privacy, consent, analysis provenance/status, delete controls, and encryption details before showing AI body results. |
+| B09-F09 | major | mobile-ergonomics | Add 44px hit areas, semantic selected state, focus labels, and operable photo thumbnail buttons. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+- Preserve explicit consent, privacy explanation, opt-out, and data-review controls wherever the flow touches personal data.
+

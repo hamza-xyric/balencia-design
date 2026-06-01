@@ -656,3 +656,37 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - **Shared components with**: Settings [21] (Section Header, Section Group Container, Destructive Action Row, Navigation Header), Connected Services [22] (Status Badge concept adapted for plan badge)
 - **Patterns used**: Back Button (Batch 1), Brand CTA Button (Batch 1 — adapted for tier card CTA), Section Header (Batch 5), Section Group Container (Batch 5), Destructive Action Row (Batch 5), Settings Row — Navigation (Batch 5)
 - **Patterns established**: Tier Card (with current/upgrade/downgrade variants), Current Plan Card (with usage bar and renewal), AI Usage Bar (with normal/warning/critical color states), Horizontal Scrolling Card Rail (for tier comparison), Billing Period Toggle (Monthly/Annual segmented control), Annual Save Badge (forest-green pill), Downgrade/Cancel/Upgrade Confirmation Modals (with proration logic), Failed Payment Warning Banner (with grace period countdown), Payment Method Update Bottom Sheet, Restore from Downgrade Confirmation Modal, Payment Failed Warning State
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-08.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U04`
+**Prototype route**: `/tabs/me/subscription`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q20 OAuth flows must preview scopes, purpose, sync cadence, storage, disconnect, delete, and revocation.
+- Q33 Life Areas comparison is Plus-gated only after enough history exists.
+- Q34 Explore tier labels distinguish included vs locked states.
+- Q35 billing follows mobile-store purchase, restore, trial, cancellation, error, and entitlement patterns.
+- Q50 obstacle reconnection uses per-blocker accept/dismiss controls before accept-all.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B08-F14 | major | navigation | Make the shared back affordance semantic and route-aware. |
+| B08-F15 | critical | billing | Implement billing-period state, disabled current-plan controls, upgrade/downgrade/cancel modals, restore flow, and payment/history handling. |
+| B08-F16 | major | accessibility | Render current plan as disabled/aria-disabled and expand segmented-control hit areas to at least 44px. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

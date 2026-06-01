@@ -1,0 +1,18 @@
+{
+  "brief_id": "CRE-02-carousel-rpg-progress",
+  "asset_type": "motion-still",
+  "route": "/auth/carousel",
+  "screen": "02 Motion carousel",
+  "placement": "Panel 4 reduced-motion still above headline Your life, gamified.",
+  "source": "Higgsfield generated image, user-approved 2026-05-26.",
+  "license_or_permission": "Generated for Balencia project use.",
+  "job_id": "a182bce6-4896-419c-8db2-96ce4a87e32f",
+  "model": "nano_banana_2",
+  "prompt_hash_or_note": "Reduced-motion still generated in onboarding-first pass; user approved RPG progress direction.",
+  "aspect_ratio": "9:16",
+  "dimensions": "3072x5504",
+  "accepted_variant": "reduced-motion-still-01.png",
+  "alt_text": "Warm dark progress scene with a green progress ring, mission card shape, and orange action accents.",
+  "reduced_motion_fallback": "This accepted still is the reduced-motion fallback for the RPG progress carousel panel.",
+  "integration_path": "Carousel panel 4 asset slot in /auth/carousel."
+}

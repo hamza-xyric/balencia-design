@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
+import { useState } from 'react'
 import { ArrowUp, Brain, Flower2, Plus, Wind } from 'lucide-react'
 import { Card } from '@/components/design-system/Card'
 import { FAB } from '@/components/design-system/FAB'
@@ -60,7 +63,7 @@ function StressGaugeCard() {
   )
 }
 
-function QuickLogCard() {
+function QuickLogCard({ value, triggers, note, onValue, onTrigger, onNote, onSubmit }: { value: number; triggers: Set<string>; note: string; onValue: (value: number) => void; onTrigger: (label: string) => void; onNote: (value: string) => void; onSubmit: () => void }) {
   return (
     <section className="mt-5 animate-fade-up" style={{ animationDelay: '80ms' }}>
       <SectionEyebrow>Quick log</SectionEyebrow>
@@ -71,26 +74,28 @@ function QuickLogCard() {
             <span>1</span>
             <span>10</span>
           </div>
-          <div className="relative mt-3 h-3 rounded-pill bg-white/10">
-            <div className="h-full w-[60%] rounded-pill bg-gradient-to-r from-forest-green via-brand-orange to-error-red" />
-            <div className="absolute left-[58%] top-1/2 h-7 w-7 -translate-y-1/2 rounded-full bg-white shadow-1" />
-          </div>
-          <div className="mt-3 text-center text-h2 font-bold leading-[26px] text-white tabular-nums">{stressManagement.quickLog.value}</div>
+          <input aria-label="Stress level" className="mt-3 h-11 w-full accent-brand-orange" type="range" min="1" max="10" value={value} onChange={(event) => onValue(Number(event.target.value))} />
+          <div className="mt-1 text-center text-h2 font-bold leading-[26px] text-white tabular-nums">{value}</div>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
           {stressManagement.quickLog.triggers.map((trigger) => (
-            <span
+            <button
               key={trigger.label}
+              type="button"
+              onClick={() => onTrigger(trigger.label)}
+              aria-pressed={triggers.has(trigger.label)}
               className={[
-                'rounded-pill border px-3 py-2 text-caption font-semibold leading-[18px]',
-                trigger.selected ? 'border-domain-wellbeing/30 bg-domain-wellbeing/15 text-domain-wellbeing' : 'border-white/10 bg-ink-900 text-white/60',
+                'min-h-11 rounded-pill border px-3 py-2 text-caption font-semibold leading-[18px]',
+                triggers.has(trigger.label) ? 'border-domain-wellbeing/30 bg-domain-wellbeing/15 text-domain-wellbeing' : 'border-white/10 bg-ink-900 text-white/60',
               ].join(' ')}
             >
               {trigger.label}
-            </span>
+            </button>
           ))}
         </div>
-        <button type="button" className="mt-5 h-12 w-full rounded-pill bg-brand-orange text-body font-semibold leading-[22px] text-white">
+        <label className="mt-4 block text-caption font-semibold leading-[18px] text-white/50" htmlFor="stress-note">Optional note</label>
+        <textarea id="stress-note" value={note} onChange={(event) => onNote(event.target.value)} className="mt-2 min-h-20 w-full resize-none rounded-md border border-white/10 bg-ink-900 p-3 text-[15px] leading-5 text-white outline-none focus:border-brand-orange" placeholder="What is happening?" />
+        <button type="button" onClick={onSubmit} className="mt-5 h-12 w-full rounded-pill bg-brand-orange text-body font-semibold leading-[22px] text-white">
           Log stress
         </button>
       </Card>
@@ -98,14 +103,14 @@ function QuickLogCard() {
   )
 }
 
-function SiaStressNote() {
+function SiaStressNote({ onAsk }: { onAsk: () => void }) {
   return (
     <Card className="mt-5 border-l-[3px] border-l-royal-purple/40 p-5 animate-fade-up" style={{ animationDelay: '160ms' }}>
       <div className="flex items-start gap-3">
         <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-royal-purple text-small font-semibold text-white">S</span>
         <div className="min-w-0">
           <p className="text-[15px] leading-[22px] text-white/80">{stressManagement.siaNote}</p>
-          <div className="mt-2 text-right text-caption font-semibold leading-[18px] text-royal-purple/70">Ask SIA</div>
+          <button type="button" onClick={onAsk} className="mt-2 ml-auto flex h-11 items-center justify-end rounded-pill px-2 text-caption font-semibold leading-[18px] text-royal-purple/70">Ask SIA</button>
         </div>
       </div>
     </Card>
@@ -141,7 +146,7 @@ function TriggerAnalysisCard() {
   )
 }
 
-function TrendChartCard() {
+function TrendChartCard({ range: selectedRange, onRange }: { range: string; onRange: (value: string) => void }) {
   const width = 280
   const height = 132
   const points = stressManagement.trend.map((point, index) => {
@@ -155,10 +160,19 @@ function TrendChartCard() {
       <SectionEyebrow>Stress trend</SectionEyebrow>
       <Card>
         <div className="flex gap-2">
-          {['7d', '14d', '30d'].map((range, index) => (
-            <span key={range} className={['rounded-pill border px-3 py-1.5 text-caption font-semibold leading-[18px]', index === 0 ? 'border-domain-wellbeing/40 bg-domain-wellbeing/15 text-domain-wellbeing' : 'border-white/10 text-white/60'].join(' ')}>
+          {['7d', '14d', '30d'].map((range) => (
+            <button
+              key={range}
+              type="button"
+              onClick={() => onRange(range)}
+              aria-pressed={selectedRange === range}
+              className={[
+                'min-h-11 rounded-pill border px-4 py-1.5 text-caption font-semibold leading-[18px]',
+                selectedRange === range ? 'border-domain-wellbeing/40 bg-domain-wellbeing/15 text-domain-wellbeing' : 'border-white/10 text-white/60',
+              ].join(' ')}
+            >
               {range}
-            </span>
+            </button>
           ))}
         </div>
         <svg className="mt-4 h-[132px] w-full overflow-visible text-brand-orange" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" aria-hidden="true">
@@ -270,19 +284,51 @@ function BiometricCard() {
 }
 
 export default function StressManagementScreen() {
+  const [value, setValue] = useState(stressManagement.quickLog.value)
+  const [triggers, setTriggers] = useState(new Set(stressManagement.quickLog.triggers.filter((trigger) => trigger.selected).map((trigger) => trigger.label)))
+  const [note, setNote] = useState('')
+  const [range, setRange] = useState('7d')
+  const [status, setStatus] = useState('')
+  const toggleTrigger = (label: string) => {
+    setTriggers((current) => {
+      const next = new Set(current)
+      if (next.has(label)) next.delete(label)
+      else next.add(label)
+      return next
+    })
+  }
+
   return (
     <PhoneFrame>
       <ScreenShell
         header={<DomainDashboardHeader title="Stress management" domain="wellbeing" level={5} />}
         activeTab="me"
-        bottomAction={<FAB label="Log" icon={<Plus size={16} strokeWidth={2.4} />} display="pill" />}
+        bottomAction={<FAB label="Log" icon={<Plus size={16} strokeWidth={2.4} />} display="pill" onClick={() => setStatus('Quick log ready')} />}
       >
         <main className="px-4 pb-6 pt-4">
           <StressGaugeCard />
-          <QuickLogCard />
-          <SiaStressNote />
+          <QuickLogCard
+            value={value}
+            triggers={triggers}
+            note={note}
+            onValue={setValue}
+            onTrigger={toggleTrigger}
+            onNote={setNote}
+            onSubmit={() => {
+              setStatus(`Stress ${value} logged${triggers.size ? ` with ${triggers.size} triggers` : ''}. Undo available.`)
+            }}
+          />
+          {status && (
+            <div className="mt-3 rounded-md bg-forest-green/15 p-3 text-caption font-semibold leading-[18px] text-forest-green" role="status">
+              {status}
+              {status.startsWith('Stress ') && status.includes('logged') && (
+                <button type="button" onClick={() => setStatus('Log undone')} className="ml-2 min-h-11 rounded-pill px-2 text-white">Undo</button>
+              )}
+            </div>
+          )}
+          <SiaStressNote onAsk={() => setStatus('SIA opened with stress context')} />
           <TriggerAnalysisCard />
-          <TrendChartCard />
+          <TrendChartCard range={range} onRange={setRange} />
           <RecoveryCard />
           <ReliefTools />
           <BiometricCard />

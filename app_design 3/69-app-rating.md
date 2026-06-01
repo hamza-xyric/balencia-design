@@ -588,3 +588,38 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Screen [42] — Celebration Overlay (SIA avatar display, bottom sheet presentation pattern, post-positive-event context), Screen [15] — Create/Edit Goal (bottom sheet modal pattern, drag-to-dismiss gesture, backdrop overlay), Screen [43] — Paywall (modal bottom sheet UX, CTA button pattern, dismissal link pattern)
 - **Patterns used**: Modal Presentation — Bottom Sheet (_shared-patterns.md: slide up, drag handle, semi-transparent backdrop, drag-to-dismiss), In-Card CTA Button (_shared-patterns.md: orange pill, 52pt height, --r-pill), SIA Avatar Display (_shared-patterns.md: purple border, circle crop), 8-State Interaction Model (_shared-patterns.md), Haptic Feedback Points (_shared-patterns.md), Text Area Input (Screen 62 — Quick Notes: ink-brown-800 bg, orange focus border, character counter)
 - **Patterns established**: Happy Path First Rating Flow (satisfaction question → star rating → branch to App Store or in-app feedback), Deferred Trigger Pattern (storing qualifying events during low-motivation for later presentation), Double-Tap Confirmation for Permanent Actions ("don't ask again" requires two taps within 5 seconds), Star Rating Row (5-star interactive row with drag-to-preview and staggered fill animation)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-17.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U09`
+**Prototype route**: `/features/app-rating`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q02 system overlays may be QA fixtures but production needs native trigger/dismiss/API states.
+- Q05 music/video use honest demo recommendations without implying live provider sync.
+- Q18 progress-photo sharing is disabled in V1.
+- Q22 accountability partners see only opted-in contract/proof/check-in data; SIA reads with consent.
+- Q42 reports remain in-app with screenshot-level sharing only.
+- Q48 app rating uses non-coercive prompt fixtures.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B17-F10 | critical | retention | Implement star selection, positive native-review path, negative feedback path, not-now cooldown, suppression confirmation, drag/backdrop dismissal, and analytics. |
+| B17-F11 | major | product-sense | Start unselected, show only the initial prompt, then branch to positive CTA for 4-5 stars or feedback form for 1-3 stars. |
+| B17-F12 | major | accessibility | Label each star with rating semantics and expand dismissal/suppression hit areas to 44px with two-tap suppression confirmation. |
+
+### Prototype Implications
+
+- Treat 1 critical finding as launch-blocking for the production prototype.
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+

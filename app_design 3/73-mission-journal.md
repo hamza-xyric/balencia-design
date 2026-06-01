@@ -369,3 +369,35 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Shared components with**: Mission Board [13] (Filter Chip, Domain Tag Chip, Mission Type Badge), Mission Detail [14] (Mission Type Badge, Domain Tag Chip, archived state reference)
 - **Patterns used**: Back Button, Domain Tag Chip (from Screen 12), Mission Type Badge (Phase 2), Filter Chips (from Screen 13, adapted for journal), Section Eyebrow Label (adapted as month header), 8-State Interaction Model, Motion Tokens, Staggered Content Entry
 - **Patterns established**: Journal Entry Card (completed variant with SIA summary + photos, archived variant with partial XP + user note), Month-Grouped SectionList, Photo Memory Thumbnails (circular 32pt inline thumbnails linking to Image Viewer)
+---
+
+## Audit Feedback Integration (2026-05-26)
+
+**Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-07.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.
+**Remediation batch**: `U04`
+**Prototype route**: `/tabs/goals/journal`
+**Status**: Accepted into the implementation contract for the spec-first remediation pass.
+
+### Resolved Product Decisions
+
+- Q20 OAuth flows must preview scopes, purpose, sync cadence, storage, disconnect, delete, and revocation.
+- Q33 Life Areas comparison is Plus-gated only after enough history exists.
+- Q34 Explore tier labels distinguish included vs locked states.
+- Q35 billing follows mobile-store purchase, restore, trial, cancellation, error, and entitlement patterns.
+- Q50 obstacle reconnection uses per-blocker accept/dismiss controls before accept-all.
+
+### Conflict Resolution
+
+- If earlier sections conflict with the resolved decisions or finding recommendations below, this audit integration section is the current source of truth for implementation.
+
+### Findings To Carry Into Implementation
+
+| Finding | Severity | Category | Contract update |
+| --- | --- | --- | --- |
+| B07-F01 | major | information-architecture | Wire filter state, domain/type sub-filter rows, mission detail links, and photo thumbnail Image Viewer behavior. |
+| B07-F02 | major | navigation | Render the back affordance as a labeled 44x44 semantic control with stack-pop behavior. |
+
+### Prototype Implications
+
+- Replace inert controls with visible route, state, modal, input, or feedback behavior before launch-readiness QA.
+
