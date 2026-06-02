@@ -1,4 +1,5 @@
 import type { CSSProperties, HTMLAttributes } from 'react'
+import { CountUp } from '@/components/CountUp'
 import type { DomainKey } from '@/data/domains'
 import { domains } from '@/data/domains'
 import type { DomainStat } from '@/data/mock'
@@ -144,8 +145,14 @@ export function ConstellationRadar({
           </span>
         ) : (
           <>
-            <span className="text-h2 font-bold leading-none tabular-nums text-white">{lifePower}</span>
-            <span className="mt-0.5 text-[9px] font-semibold uppercase leading-none tracking-[0.12em] text-white/40">
+            <CountUp
+              value={lifePower}
+              durationMs={520}
+              delayMs={200}
+              enabled={animate}
+              className="text-h2 font-bold leading-none tabular-nums text-white"
+            />
+            <span className="mt-0.5 text-[9px] font-semibold uppercase leading-none tracking-[var(--tracking-eyebrow)] text-white/40">
               Power
             </span>
           </>

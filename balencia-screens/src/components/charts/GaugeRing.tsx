@@ -1,4 +1,5 @@
 import type { CSSProperties, HTMLAttributes } from 'react'
+import { CountUp } from '@/components/CountUp'
 
 // VK-002 · GaugeRing — circular progress with premium depth. Upgrades ProgressRing
 // with an arc-FOLLOWING gradient stroke (conic-gradient behind a circular mask — an
@@ -122,7 +123,7 @@ export function GaugeRing({
       )}
       {showValue && (
         <span className={`absolute font-semibold leading-none tabular-nums text-white ${text}`}>
-          {valueText ?? percent}
+          {valueText ?? <CountUp value={percent} durationMs={520} enabled={animate} />}
         </span>
       )}
     </div>

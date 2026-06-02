@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { ArrowDown, ArrowUp, Minus } from 'lucide-react'
+import { CountUp } from '@/components/CountUp'
 
 // VK-008 · KPIStatTile — headline number + an honest, disclosed-window delta.
 // Up = green (arrival); down = a NEUTRAL muted arrow (never red — a dip is not a danger);
@@ -42,9 +43,18 @@ export function KPIStatTile({
       <span className="text-eyebrow font-semibold uppercase leading-4 tracking-[0.12em] text-white/40">
         {label}
       </span>
-      <span className="mt-1 text-h2 font-bold leading-[var(--leading-snug)] tabular-nums text-white">
-        {value}
-      </span>
+      {typeof value === 'number' ? (
+        <CountUp
+          value={value}
+          durationMs={280}
+          delayMs={120}
+          className="mt-1 text-h2 font-bold leading-[var(--leading-snug)] tabular-nums text-white"
+        />
+      ) : (
+        <span className="mt-1 text-h2 font-bold leading-[var(--leading-snug)] tabular-nums text-white">
+          {value}
+        </span>
+      )}
       {hasDelta && (
         <span className={`mt-1 inline-flex items-center gap-1 text-caption font-semibold leading-4 tabular-nums ${deltaColor}`}>
           <Arrow size={13} strokeWidth={2.2} aria-hidden="true" />

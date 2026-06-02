@@ -34,6 +34,8 @@ export function LifeBalanceCard({
   const top = [...stats].sort((a, b) => b.stat - a.stat).slice(0, 3)
   const avg = Math.round(mean(stats.map((s) => s.stat)))
   const avgDelta = Math.round(mean(progress.map((p) => p.weekDelta)))
+  // Cold-start / Day-1: no Life Power yet — show the calibrating treatment, never fake numbers.
+  const calibrating = lifePower == null
 
   return (
     <button
@@ -69,17 +71,27 @@ export function LifeBalanceCard({
               <span className="min-w-0 flex-1 truncate text-caption leading-[var(--leading-normal)] text-white/70">
                 {domains[s.domain].label}
               </span>
-              <span className="text-h3 font-semibold tabular-nums leading-none text-white">{s.stat}</span>
+              <span className="text-h3 font-semibold tabular-nums leading-none text-white">
+                {calibrating ? <span className="text-white/30">—</span> : s.stat}
+              </span>
             </li>
           ))}
         </ul>
       </div>
 
       <div className="mt-5 flex items-end justify-between border-t border-alpha-white-06 pt-4">
-        <KPIStatTile label="Average stat" value={avg} delta={avgDelta} />
-        <span className="text-caption leading-[var(--leading-normal)] text-white/30">
-          across {stats.length} areas
-        </span>
+        {calibrating ? (
+          <span className="text-caption leading-[var(--leading-normal)] text-white/50">
+            Calibrating — keep logging to fill in your areas.
+          </span>
+        ) : (
+          <>
+            <KPIStatTile label="Average stat" value={avg} delta={avgDelta} />
+            <span className="text-caption leading-[var(--leading-normal)] text-white/30">
+              across {stats.length} areas
+            </span>
+          </>
+        )}
       </div>
     </button>
   )
