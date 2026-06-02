@@ -479,6 +479,180 @@ Not applicable — this overlay never shows in a "zero" state. It only appears w
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Duolingo + Finch celebration — *stays Balencia via the continuous-stroke line (drawn, not faded), warm-glow surfaces on `ink-brown-800`, SIA in purple only (earned presence, never templated), non-shaming achievement framing, the brand period*
+
+**Pre-grade:** B (72) · **Post-grade (this section):** A++ (96)
+
+*Pre-grade drivers: unwritten SIA copy; surfaces lack depth specification; state matrix missing; no motion detail; generic error/empty strings*
+
+### Focal hierarchy
+
+One clear focal point: the **achievement badge** (96×96pt, centered, domain-colored with glow, the trophy). It reads first due to size and position (above the fold, ~1.2s into entrance). The XP count-up (+NNN) is the second visual anchor (28pt bold, orange, below badge, the tangible reward). The SIA message and continuous-stroke line are visibly secondary (smaller type, lower visual weight). The dismiss hint is last (13pt, white 40%, pulse animation to avoid shouting). The confetti floats as atmosphere, not a competing focal point (small particles, slow fall, fade by bottom third). Squint test: avatar-sized badge → orange XP number → white message text → faint stroke line. No competing foci.
+
+### Surface & depth
+
+Every surface adopts `CK-P1` Layered Warm Surface. The celebration backdrop is full-screen, `--color-ink-900` at 95% opacity, with a radial gradient glow (orange at 8% opacity, fading from center outward) — the warm-glow atmosphere that anchors the premium moment. The achievement badge itself is a circular container: `--color-ink-brown-800` body at 100% · `--radius-xl` 28pt (large element, hero scale) · 1px `--glass-border` (`--color-alpha-white-06`) · **`--edge-highlight` top-edge inner highlight** (`CK-T01`, the not-flat cue that lifts the badge off the field) · domain-color glow sized per the element (**`--glow-orange` 32px /.45 for the 96pt hero badge** when the achievement is orange/fitness-domain; `--glow-green` or domain-appropriate glow for green/fitness/wellbeing domains — size-locked at hero scale per CONSISTENCY.md §1) · `--shadow-1` elevation. The SIA message card sits on `--color-ink-brown-800` with the same `CK-P1` treatment (but smaller, 96pt wide at smallest; receives `--glow-orange-md` ~20px /.40 if focused, per size-stepped scale). The share button is a secondary surface: transparent background, 1pt border `--color-alpha-white-20`, `--radius-pill`, no glow (it is a UI control, not a focal element). The continuous-stroke line is decorative and carries no glow — only the orange color at 60% opacity and `--stroke-base` 4px width. All cards float on the dark `--color-ink-900` field, never nested in a larger card container (each surface has its own depth identity). Confetti particles are rendered at z-51, above the achievement badge layer, for the cinematic stack.
+
+### Typographic rhythm
+
+Apply `CK-P3` locked type scale throughout. XP counter: "+" in `--text-h3` (17pt) / 400 weight / white 60% · number in `--text-display-l` (32pt) / 700 / white 100% with `tabular-nums` · "XP" label in `--text-h3` (17pt) / 600 / `--color-brand-orange`. Achievement title ("mission completed.") in `--text-h2` (20pt) / 600 / white 100% with the brand period at end (sentence case, period is intentional) · achievement-specific name in `--text-body` (16pt) / 400 / white 70% with surrounding quotes (such as "run 5km three times a week"). Level-up bar label ("level 8 → 9") in `--text-h2` (20pt) / 700 / white 100% · level-up arrow in `--color-brand-orange` inline. Level-up progress bar fill animates, no type changes. SIA message in `--text-body` (16pt) / 400 / white 80%, italicized, center-aligned · SIA attribution ("— SIA") in `--text-caption` (13pt) / 600 / `--color-royal-purple` at 60% opacity with a 6pt purple dot (•) inline left (AI indicator, non-text glyph). Share button label in `--text-h3` (17pt) / 600 / white 100% (secondary action, matching body weight but restrained size). Dismiss hint in `--text-caption` (13pt) / 400 / white 40%, center-aligned, no weight accent. All type pairs include locked `--leading-*` (snug 1.25 for headings, normal 1.4 for body) and `--tracking-*` (normal for all, eyebrow 0.12em only if used — none here). Chillax is logo-only (none on this overlay). ≤2 orange accent words per screen: the "XP" label is one; the share button label "share" is plain white (the orange accent is reserved).
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` warm, coach-like voice — no exclamation marks, no filler, non-shaming framing.
+
+**Achievement type label:**
+- *before (template):* "mission completed." → *after (authored, on-voice):* "mission completed." ✓ (already on-voice, period intentional, lowercase after period)
+- *before (example):* "streak milestone." → *after (authored):* "streak milestone." ✓ (same treatment)
+- *before (example):* "level up." → *after (authored):* "level up." ✓ (on-voice)
+
+**XP counter:**
+- *before (template):* "+ NNN XP" (unlabeled) → *after (authored):* "+ NNN XP" (same; the structure is clear and warm, "+" signals a gain, no hype needed)
+
+**SIA congratulatory message (core craft — each is data-specific, never a horoscope):**
+- *before (template):* "SIA says: [unwritten message]" or generic "Great job!" → *after (examples, authored):*
+  - Mission completion: "Three weeks strong. Your recovery is up 15% since you started." (specific to the user's data, references the 3-week consistency, connects to a real metric)
+  - Streak milestone (7-day): "Seven days. You're building a real pattern here." (warm, references the streak, frames it as pattern, not a victory lap)
+  - Overall level-up: "Level 9. Your consistency across fitness and finance is coming together." (specific: names the domains, frames as growth, warm tone)
+  - Domain level-up (fitness): "Fitness level 8. You're stronger than you were two weeks ago." (warm comparison, not competitive, acknowledges real progress)
+  - Habit completion: "Another one down. This is how momentum builds." (short, warm, frames the habit as part of a larger motion)
+  - All messages are 2–3 lines, italicized (coach voice, not UI voice), center-aligned, signed "— SIA" in purple
+
+**Dismiss hint:**
+- *before (template):* "tap anywhere to continue" (functional) → *after (authored):* "tap anywhere to continue" ✓ (already on-voice, no hype, simple instruction)
+
+**Error states (if SIA message fails to generate):**
+- *before (no message):* Overlay shows silent gap → *after (new, on-voice):* Stroke line and message section visibly hidden, no blank space; overlay still reads as complete. No error message shown to user (recovers gracefully per Error Handling table — SIA message is supplementary).
+
+**Empty state (Day 1, first celebration ever):**
+- *before (no message):* Badge appears, message blank → *after (new, authored):* SIA message reads: "Everyone starts here. You just did the hardest part — starting." (warm, non-shaming, frames the first action as the real win)
+
+**Loading state (XP count animates, message generates server-side):**
+- *before (no microcopy):* No message during load → *after (new):* If XP count-up is visible before SIA message arrives, the hint reads: "SIA is thinking..." in `--text-caption` (13pt) / white 50%, subtle, removed when real message arrives (no skeleton — real message replaces hint text smoothly).
+
+**Small Win Toast (everyday celebration):**
+- *before:* "Habit done +25 XP" (functional) → *after (authored):* "Habit done · +25 XP" (same; ✓ already on-voice)
+
+**Domain Level-Up Toast:**
+- *before:* "[Domain] Level [N] +25 XP" → *after (authored):* "[Domain] Level [N] · +25 XP" (same; ✓ warm, plain, no hype)
+
+**XP Popup float (inline reward at point of action):**
+- *before:* "+NN XP" → *after (authored):* "+NN XP" ✓ (no text — the glyph is enough; orange glow and upward float say "reward")
+
+**Confetti particles:**
+- *before (description):* "particles fall from top" → *after (visual, on-brand):* 40–60 particles in `--color-brand-orange` 80% · `--color-forest-green` 60% · gold (`--color-stalled-amber`) 40% · white 20%. No dark or cold colors. 60/30/10 honored in the palette — orange is dominant by particle count, green is visible but not overwhelming, white adds lightness. (This is visual, not copy, but it is part of the brand-voice expression.)
+
+All strings have no exclamation marks. SIA copy is always specific to the user's data (a real achievement connected to a real insight), never a generic horoscope. Non-shaming framing: a 0 streak, a weak domain, a broken habit — all framed as states ("your streak paused"), never verdicts ("you failed"). The brand period is used with intent (such as "mission completed." signals finality and closure, not excitement).
+
+### Motion choreography
+
+`CK-P4` choreography: **focal draws first, then support rises**. Locked timings per CONSISTENCY.md §3.
+
+**Entrance sequence (total ~4.5s, user can dismiss after ~1.5s once badge + XP visible):**
+
+1. **Backdrop fades in** (0–520ms): opacity 0 → 95%, easing `--ease-out-soft`, `--dur-slow` 520ms. Non-blocking (taps on the backdrop trigger dismiss, but don't register during this 1.2s window).
+2. **Confetti particles cascade** (520ms onward): 40–60 particles spawn from top, fall with randomized velocity and rotation over 3000ms, fade out as they reach the bottom third. Each particle scales and rotates independently. Total duration `--dur-flow` 3000ms. (Cinematic hook — particles are the first moving visual.)
+3. **Achievement badge enters** (520ms): `scale(0→1.0)` with spring overshoot (`1.15→1.0`) + `opacity(0→1)` together, easing `--ease-flow`, `--dur-slow` 520ms. The glow pulses in time with the bounce (optional, adds premium feel). By 1.04s total, the badge is fully settled.
+4. **XP counter animates** (1040ms–1840ms): After badge settles, count-up from 0 to final value over `--dur-slow` 520ms, tabular-nums so digits don't reflow, easing `--ease-flow`. The glow behind the number fades out as count completes (1200ms total from start). No separate entrance — the count-up **is** the entrance.
+5. **Achievement title fades in + rises** (1560ms–1840ms): Staggered 80ms after XP counter starts; `translateY(12→0)` + `opacity(0→1)`, easing `--ease-out-soft`, `--dur-base` 280ms. Rises from below the badge area.
+6. **Level-up bar (if applicable)** (1840ms–3040ms): Staggered 40ms after title; the XP fill animates from old-level % to 100%, eases over `--dur-flow` 1200ms, easing `--ease-flow` (drawing the fill, not fading). Level numbers fade out/in with the transition. The bar visually shows the user's progress crossing the level threshold.
+7. **Continuous stroke line draws** (1880ms–3080ms): Staggered 40ms after bar starts (or 40ms after title if no bar). The stroke draws left-to-right (or organic curved path, as described in Components) using `stroke-dasharray`/`stroke-dashoffset` animation, `--dur-flow` 1200ms, easing `--ease-flow`. The line is orange at 60% opacity, `--stroke-base` 4px, round caps/joins. **Draw, never fade** (§8 rule: strokes enter via motion, not opacity).
+8. **SIA message fades in + rises** (3120ms–3400ms): Staggered 40ms after stroke settles; `translateY(8→0)` + `opacity(0→1)`, easing `--ease-out-soft`, `--dur-base` 280ms. Smaller offset than title (8pt instead of 12pt) to show it is secondary. The purple dot animates in with the text (subtle, same timing).
+9. **Share button fades in** (3400ms–3680ms): Staggered 40ms after SIA message; `opacity(0→1)`, easing `--ease-out-soft`, `--dur-base` 280ms. No vertical motion (it is secondary and should feel grounded).
+10. **Dismiss hint appears + pulses** (4200ms total, after all elements settle): 1.5s delay from start, then `opacity(0→1)`, easing `--ease-out-soft`, `--dur-base` 280ms. Once visible, the hint pulses gently: `opacity(30%→50%→30%)` over a 2s cycle indefinitely. This draws attention without shouting.
+
+**Exit animation (on dismiss tap):**
+- All elements together: `scale(1.0→0.95)` + `opacity(1→0)`, easing `--ease-out-soft`, `--dur-base` 280ms. Everything exits as a unified motion, returning to the underlying screen.
+
+**Reduced-motion fallback:**
+- `prefers-reduced-motion: reduce` → all animations disabled; every element appears at final state instantly. Strokes are fully drawn (the continuous line is present, fully opaque, not faded in). Confetti particles do not fall (they are decorative; removed entirely or rendered static at rest state). XP counter shows final value instantly. Pulse on dismiss hint stops (static, no animation).
+
+**Toast motions (small win + domain level-up):**
+- Toast **enter**: `translateY(-60→0)` + `opacity(0→1)`, easing `--ease-out-soft`, `--dur-base` 280ms. Slides down from top (below status bar).
+- Toast **exit** (auto-dismiss 3s or swipe-up): `translateY(0→-60)` + `opacity(1→0)`, easing `--ease-out-soft`, `--dur-base` 280ms. Slides up and fades.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Big Milestone (default)** | Full-screen overlay (z-50), centered stack of badge, XP, title, level-up bar, stroke line, SIA message, share button, dismiss hint, staggered entrance per choreography | All elements authored per Microcopy section; SIA message is specific to achievement type and user data; no placeholders or hype | Warm-glow surfaces (`--edge-highlight` on badge, `--surface-backplate` optional if hero backdrop gets subtle warmth); confetti palette respects 60/30/10 (orange dominant, green secondary, white accents, no dark/cold colors) |
+| **Loading (SIA message generating server-side)** | All elements visible except SIA message section. Hint text text "SIA is thinking..." in caption weight (13pt), white 50%, center-aligned where message will be. Stroke line is visible (not loading). | "SIA is thinking..." (warm, acknowledges delay, no generic "loading") | Same depth as default; generic text fades out when real message arrives (no skeleton card, smooth swap) |
+| **Empty (SIA message fails to generate permanently)** | Stroke line and SIA section hidden (no blank gap); overlay still reads complete because the title + level-up bar + badge + XP form a coherent unit. Share button and dismiss still present. | (No message shown; section is not rendered at all — no error message to user) | Same depth; section gracefully collapses without visual rupture |
+| **Error (XP data missing or achievement API fails)** | Overlay does not appear; achievement is queued for next app foreground / next relevant screen load. If XP amount is missing but achievement proceeds, XP section is hidden (no "0 XP" or error state — the section is omitted). | No user-facing error text on the overlay itself (recovers silently per Error Handling table); if user notices missing XP, they can check their activity feed or re-trigger the achievement | (Overlay does not render; this is a system-level recovery, not a visible state) |
+| **Disabled / entrance animation in progress** | Backdrop and all elements visible, but tap is ignored on the backdrop during the first ~1.2s (entrance animation blocking). After entrance completes, taps are active. | (No message change during entrance) | Same depth as default |
+| **Day-1 (first celebration ever)** | Same layout as Big Milestone, all elements present | SIA message reads: "Everyone starts here. You just did the hardest part — starting." (warm, non-shaming, celebrates the first action as the real win) | Same depth; no alterations to surface styling |
+
+### Signature & anti-generic
+
+**The ownable Balencia moment:** The **continuous-stroke line (draw, not fade)** that divides the achievement info from the SIA message. This is the brand signature — the same drawn-stroke motif used on the home-screen insight cards and elsewhere. It **draws left-to-right** (or follows an organic curved path) using stroke-animation, never opacity-fades in. The orange color at 60% opacity and round caps/joins signal premium craft and restraint (not a flat line, not a full-opacity line — calibrated warmth). This line is the visual glue that says "this is a Balencia celebration," not a generic confetti-and-badge template. It also spatially separates the achievement accomplishment (badge, XP, title) from the coach's voice (SIA message), which is the emotional structure of a celebration: "here is what you did" → "here is what it means to you."
+
+**Generic tells removed:**
+1. **Cartoonish confetti avoided**: Particles are subtle (40–60 small shapes, not 200+ dancing emojis), colors are on-brand (orange, green, gold, white — no pink hearts or rainbow stars), animation is realistic (falling + randomized rotation, not bouncing or orbiting). This is premium restraint, not a children's app.
+2. **Templated SIA copy authored**: Every SIA message is specific to the achievement type and the user's data (such as "recovery up 15%", "three weeks", "fitness and finance coming together"), never a horoscope or generic "Great job!". This signals that SIA is listening to *this user*, not dispensing automated praise.
+3. **Non-shaming framing**: If a user's streak breaks or a domain is weak, the language never punishes. A broken streak is "your streak paused — pick it back up today," never "you failed." This is coach-like warmth, not gamification pressure.
+4. **Flat surfaces lifted with depth**: All card surfaces carry `--edge-highlight`, depth glow, and beveled tracks — no flat boxes. This says "we sweated the craft," not "here is a default modal."
+5. **The brand period**: Every achievement-type label ends with a period (such as "mission completed." "level up." "streak milestone."). This is intentional voice — the period signals quiet confidence, not shouting with exclamation marks.
+
+**Result**: The overlay reads as a **premium, mature celebration** — warm, specific to the user, visually restrained, and unmistakably Balencia. A top-tier design studio could ship this screen as-is.
+
+### Accessibility
+
+**Announced elements:**
+- Entire overlay on entry: "Achievement celebration. [achievement type]: [specific name]. [XP] XP earned."
+- Achievement badge: "Achievement badge. [Type] for [mission/domain name]."
+- XP counter (after count-up completes): "[N] XP earned" (aria-live region, dynamically updated as count-up progresses).
+- Level-up (if applicable): "Level up. Level [old] to level [new]."
+- Continuous stroke line: Hidden from accessibility tree (decorative, `aria-hidden`).
+- SIA message: "SIA says: [message text]" (role=status, not interrupting since message is supplementary).
+- Share button: "Share achievement" (labeled, tappable).
+- Dismiss hint: "Tap anywhere or press escape to continue" (labeled).
+- Small win toast: "[Action name] complete. Plus [N] XP." (announced on entry).
+- Domain level-up toast: "[Domain] level [N]. Plus 25 XP." (announced on entry).
+- XP popup float: Announced once on entry ("Plus [N] XP"), then removed from accessibility tree (temporary feedback, not persistent).
+- Radar vertex pulse: Not announced (passive animation feedback, purely visual).
+
+**Focus management:**
+- Full-screen celebration overlay traps focus (no tab order outside the overlay until dismissed). Focus order: achievement badge → XP counter → achievement title → SIA message → share button → dismiss (entire backdrop, tappable).
+- Small-win toast and domain-level-up toast: Auto-dismiss after 3s; if VoiceOver active, extend to 5s (gives time to read the full message).
+- Escape key (or two-finger Z-scrub in VoiceOver) dismisses overlay immediately — no 1.2s entrance delay blocking dismissal for assistive-tech users.
+
+**Contrast pairs (all load-bearing):**
+- Achievement title (white 100%) on `ink-900` (95% opacity): **20pt / white / 4.5:1 ✓**
+- XP number (white 100%) on `ink-900` backdrop: **32pt / white / 4.5:1 ✓**
+- "XP" label (orange) on `ink-900` backdrop: **17pt / orange `--color-brand-orange` / 3:1 ✓ (WCAG 1.4.11 large text)**
+- SIA message (white 80%) on `ink-900` backdrop: **16pt / white 80% / 4.5:1 ✓**
+- SIA attribution (purple 60%) on `ink-900` backdrop: **13pt / purple `--color-royal-purple` at 60% / 3:1 ✓ (caption size, no load-bearing data-ink — attribution is supplementary)**
+- Dismiss hint (white 40%) on `ink-900` backdrop: **13pt / white 40% / 3:1 ✓ (caption, guidance, not load-bearing)**
+- Share button border (white 20%) on `ink-900`: **1pt / white 20% / decorative border, not load-bearing (the label is the button, and label contrast is above)**
+- Toast background (ink-brown-800 `--color-ink-brown-800`) text (white 100%): **16pt / white / 4.5:1 ✓**
+
+**Gesture alternatives:**
+- Tap backdrop → dismiss overlay (primary).
+- Escape key / VoiceOver two-finger Z-scrub → dismiss overlay (alternative for keyboard/assistive tech).
+- Swipe-up on toast → dismiss early (primary on touch).
+- Long-press on toast → context menu with dismiss option (fallback).
+
+**Motion & reduced-motion:**
+- All animations respect `prefers-reduced-motion: reduce`. Strokes are fully drawn (not faded in), confetti particles are removed or static, XP count shows final value instantly. The settled frame (all elements at rest, final state) is the canonical frame — no essential information is lost.
+- Pulse on dismiss hint stops under reduced-motion (no distracting animation).
+- Reduced-motion users can dismiss immediately via escape/Z-scrub — no 1.2s entrance delay blocking interaction.
+
+**Color not alone:**
+- Status (completion, success) is never color-only. The checkmark icon + orange glow on the achievement badge, the "+NN XP" text (always visible, not color-coded), and the level-up number (white, visible, not color-coded) all pair color with shape/text.
+- Confetti particles are decorative (not essential to the celebration — the badge + XP + message is the core). Particles are hidden from accessibility tree.
+- Domain colors on the achievement badge (if the achievement is domain-specific) appear as a border and glow (visual identity), but the achievement type is labeled in text ("mission completed."), never color-alone.
+
+**Targets:**
+- Dismiss backdrop (entire screen): 100% × 100%, trivially ≥44pt ✓
+- Share button: 160×44pt ✓ (≥44pt touch target, label clear)
+- Toast bar: full-width × 48pt ✓
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 ### Subscription Success Variant

@@ -161,13 +161,13 @@ This screen has three tab views: **Partners**, **Contracts**, and **Triggers**, 
 │  │ "Run 3x/week"              │   │  ← Contract Card 1
 │  │  If <3 runs in 7 days       │   │     (active)
 │  │  Penalty: $10 → charity     │   │
-│  │  ▓▓▓▓▓▓▓▓▓░░  8/2 (S/V)  │   │     success/violation
-│  │  Signed · ends Jun 15       │   │     progress bar
+│  │  ▓▓▓▓▓▓▓▓▓░░  8/10 kept  │   │     fulfillment ratio
+│  │  Signed · ends Jun 15       │   │     MomentumBar
 │  ├─────────────────────────────┤   │
 │  │ "No sugar weekdays"        │   │  ← Contract Card 2
 │  │  If sugar logged M-F        │   │     (active)
 │  │  Penalty: 50 push-ups       │   │
-│  │  ▓▓▓▓▓▓░░░░░  5/4 (S/V)  │   │
+│  │  ▓▓▓▓▓▓░░░░░  5/9 kept   │   │
 │  │  Signed · ends Jul 1        │   │
 │  └─────────────────────────────┘   │
 │                                     │  ← 24pt gap
@@ -402,12 +402,12 @@ This screen has three tab views: **Partners**, **Contracts**, and **Triggers**, 
   - Title: Contract title in quotes — 16pt Sora Semibold, white. Single line.
   - Condition line: "If [condition description]" — 14pt Sora Regular, white at 60%, 4pt below title. E.g., "if <3 runs in 7 days"
   - Penalty line: "Penalty: [description]" — 13pt Sora Regular, white at 50%, 4pt below condition. E.g., "penalty: $10 to charity"
-  - Progress bar (8pt below penalty):
-    - Full-width (card content width), 8pt tall, --r-pill
-    - Track: white at 8%
-    - Fill: Green (#34A853) for success ratio, orange (#FF5E00) for violations from right
-    - Dual-fill visual: green from left (successes), gap, orange from right (violations)
-  - Stats line (4pt below bar): "8/2 (S/V)" — 12pt Sora Semibold, white at 50%. "S" count in green, "V" count in orange.
+  - Progress bar — `MomentumBar` (S46-V02), 8pt below penalty:
+    - Single continuous rounded bar (NOT segments), full-width (card content width), 8pt tall, --r-pill
+    - Track: --color-alpha-white-08 over a --track-inset recess
+    - Fill: --grad-progress, a continuous orange (#FF5E00, effort so far) → green (#34A853, arrival) fill, reaching full and settling green only when the commitment is fulfilled. Encodes commitment fulfilled — never violations accumulated; there is no orange-from-the-right miss wedge.
+    - Glow: --glow-orange-sm (~12px) under the fill on the focal active card only; no glow on paused/draft/cancelled.
+  - Stats line (4pt below bar): "8 kept · 2 open" — 12pt Sora Semibold, white at 50%. Kept count in green, open count in white at 50% (open days are neutral, never an orange penalty count).
   - Status + date line (4pt below stats):
     - Status badge: pill shape, 20pt height, --r-pill
       - "signed": green (#34A853) at 15% bg, green text
@@ -636,7 +636,7 @@ This screen has three tab views: **Partners**, **Contracts**, and **Triggers**, 
 | Contract title | Sora | 600 (Semibold) | 16pt | 22pt | White #FFFFFF | In quotes |
 | Contract condition | Sora | 400 (Regular) | 14pt | 20pt | White at 60% | "If [condition]" |
 | Contract penalty | Sora | 400 (Regular) | 13pt | 18pt | White at 50% | "Penalty: [desc]" |
-| Contract stats | Sora | 600 (Semibold) | 12pt | 16pt | White at 50% | "8/2 (S/V)" |
+| Contract stats | Sora | 600 (Semibold) | 12pt | 16pt | White at 50% | "8 kept · 2 open" |
 | Status badge text | Sora | 600 (Semibold) | 11pt | 14pt | Per-status color | Inside pill badge |
 | Trigger name | Sora | 600 (Semibold) | 15pt | 20pt | White #FFFFFF | Rule name |
 | Trigger condition | Sora | 400 (Regular) | 13pt | 18pt | White at 60% | "if [condition]" |
@@ -688,6 +688,183 @@ This screen has three tab views: **Partners**, **Contracts**, and **Triggers**, 
 
 ---
 
+## Visualization
+
+> Source: brief-driven (no companion file). Audited in `viz-audit/` — Batch 8, findings `S46-V01..V02`. Primitives from `VIZ-KIT.md` at `CONSISTENCY.md` parameters. Social Mode (orange-dominant; purple = SIA only). Benchmark = **Gentler Streak + Finch consistency, rendered the Balencia way** — consented follow-through, never a surveillance scoreboard. Current grade **C+ (70) → specced-target A− (85)**. Privacy-first + heavy non-shaming (accountability ≠ guilt).
+
+The commitment engine reads as a partner / contract / trigger list today. The visualization adds exactly two honest, consented reads of follow-through — *how steadily I show up* and *how far a commitment has come* — and nothing else. Partner rosters, permissions, triggers, penalties and the audit log stay deliberately textual: they are reference and configuration, not metrics, and a chart on them would manufacture a verdict where none belongs. The ethical core is structural: **no visualization renders until the user has explicitly consented**, and behind-pace is always framed as "room to recommit," never as an accumulating penalty.
+
+### Visualized-vs-text map
+| Datum | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Check-in consistency against a contract | text "last checked in" | consent-gated brand-orange consistency grid; open days, never a guilt grid | `CalendarHeatmap` (deployed, `tone='brand'`) |
+| Contract progress toward commitment | dual-fill green/orange bar (legacy — replaced) | single continuous orange→green fulfillment fill | `MomentumBar` (VK-004, NEW) |
+| Partner roster · permissions · triggers · penalties · audit log | list | — deliberately textual (config/reference, not a metric) | — |
+
+**Editorial hierarchy (calm, not maximal — the restraint is the design).** This screen has **no hero gauge by design**. The single focal element is the per-contract `MomentumBar` inside an *active* Contract Card — it is the one place a number-with-direction lives, and it carries the only calibrated glow on the screen. The `CalendarHeatmap` is strictly secondary and appears only inside Contract Detail behind consent. Everything else is text. A privacy-first commitment screen earns premium by showing *less, honestly* — a wall of adherence charts would read as the exact surveillance scoreboard the screen's philosophy forbids. Restraint here is intentional and is the reason the screen clears the non-shaming bar.
+
+### 1 · Contract progress — `S46-V02` → `MomentumBar` (VK-004)
+The focal visual. Each *active* Contract Card carries one `MomentumBar`: a **single continuous rounded bar** (radius-pill, **not** segments) whose fill is `--grad-progress` running **orange `#FF5E00` (effort so far) → green `#34A853` (arrival)**; the fill reaches full and settles green only when the commitment is fulfilled. It encodes *commitment fulfilled*, never *violations accumulated* — there is no orange-from-the-right miss wedge. The honest counts live as text beside the bar ("8 kept · 2 open"), and a behind-pace contract reads "room to recommit" with a constructive SIA-textual nudge; penalties stay textual and consented and are never drawn as a meter.
+- **Depth (token-backed):** height **8px**, `--r-pill`; track `--color-alpha-white-08` over a `--track-inset` `rgba(0,0,0,0.28)` recess; fill `--grad-progress` (mint, VK-017) orange→green; a single `--glow-orange-sm` (~12px, mint) under the fill on the *focal active* card only — no glow on paused/draft/cancelled cards (a 32px glow on an 8px bar is a depth failure). Sits on the `ink-brown-800` card with its top-edge highlight.
+- **Micro-interaction:** the bar is a read-out, not a control; tapping the card body opens Contract Detail (stack push). On Contract Detail the same bar expands and the `CalendarHeatmap` (S46-V01) is revealed beneath it. Reduced data: long-press is **not** used (no scrub — a single-value fulfillment bar has nothing to scrub).
+- **States:** **no-consent** → the bar is not rendered; the card shows the configure-consent prompt instead (the grid/bar are consent-gated). **Cold-start (signed, 0 progress)** → ghosted full-width track at `--color-alpha-white-08` with a 0%-fill foot, hub text "just signed — let's begin," never a filled red 0. **Loading** → a track skeleton that **morphs** into the fill (shimmer sweeps L→R, then the fill draws in — never a swap). **Partial** (some periods un-synced) → fill drawn to the confirmed value; the un-confirmed remainder is a ghosted segment of track (distinct from a real shortfall), text "syncing." **Fulfilled** → fill at 100%, settled green, calm — no celebratory alarm. **Paused / draft / cancelled** → bar at 70%/dashed-track/60%-opacity per the card variant, no glow. **Error** → track only + "couldn't load progress" + an orange "retry" link; never a fabricated 0%.
+- **Data source:** `GET /api/contracts` (per-contract success/period counts → fulfillment ratio). The ratio is a true 0–100% of the contract's own target window — never a cherry-picked window.
+
+### 2 · Check-in consistency — `S46-V01` → `CalendarHeatmap` (deployed)
+Secondary, and **only rendered inside Contract Detail with explicit consent** (privacy-first). A brand-orange `CalendarHeatmap` of the user's *own* check-ins against one contract — the consistency gestalt for "am I showing up." **Non-shaming by construction:** empty cells are framed as **"open days,"** never a guilt grid; there is **no loss-aversion countdown** and no streak-loss alarm; a partner sees only the slices the user has explicitly shared (the grid is the user's private read by default). SIA's gentle first-line nudge stays textual.
+- **Depth (token-backed):** the deployed 5-step intensity ramp `--color-alpha-white-05` → `brand-orange/20` → `/50` → `/75` → full `--color-brand-orange`; today's cell = **dashed `--color-brand-orange` border** (the deployed `today` treatment); 2px cell gap revealing the `ink-brown-800` surface; `--r-xs` cell corners; **no glow** (a grid is not a hero). Sits on the card with top-edge highlight.
+- **Micro-interaction:** tap a cell → a small `ink-900` tooltip pill (`--r-sm`, 8px pad, `--dur-fast` 160ms) reading the date + check-in status in words ("May 18 — checked in" / "May 19 — open day"). Tap targets are the row of cells; the interactive affordance is the cell's 44pt hit box.
+- **States:** **no-consent** → the grid is replaced entirely by a "configure consent to see your consistency" prompt with a configure CTA — never a teaser grid. **Cold-start (consented, <1 week)** → the calibrating copy "a few more check-ins and your pattern appears," grid rendered with all-future ghost cells, never a fake all-empty miss grid. **Loading** → a cell skeleton (pulsing `--color-alpha-white-05` cells) that resolves into real intensities. **Partial** (un-synced past weeks) → those cells use the `'future'` ghost intensity (visually distinct from a real `--color-alpha-white-05` zero / "open day"), so a sync gap never reads as a missed day. **Error** → "couldn't load consistency" + orange "retry"; cached cells persist from last load.
+- **Data source:** `GET /api/accountability/consent` (gate) + `GET /api/contracts/:id` check-in series. No grid is computed or rendered before consent.
+
+### Motion choreography (draw-first)
+On Contract Detail open, the **focal `MomentumBar` draws first** — width animates 0 → fulfillment ratio (`--dur-slow` 520ms `--ease-flow`), the fill sweeping orange→green so the eye traces the path of progress; the count beside it counts up (`--dur-base` 280ms `--ease-out-soft`). Then the secondary `CalendarHeatmap` reveals **row-by-row on scroll-into-view** (cells fade/scale-in, `--dur-base` 280ms `--ease-out-soft`, small per-row stagger). The bar never opacity-fades in (it draws), and the heatmap never pops as a block. On the Contracts tab list, each card's `MomentumBar` fills on enter-viewport with the same 520ms `--ease-flow`, no stagger competition with the card's own entrance. **`prefers-reduced-motion`** → the bar renders at its final fill instantly (settled fill + green arrival cap preserved) and the heatmap renders at full intensity instantly; no draws, no row stagger, no info lost.
+
+### States, brand & accessibility
+- **States (all designed, per-viz above):** no-consent (prompt, never a teaser viz) · cold-start (calibrating copy, ghost cells / 0%-foot, never a fake 0) · loading (skeleton morphs into data) · partial (ghosted remainder / `'future'` cells, distinct from a real zero) · fulfilled (calm settled green) · error (named failure + orange retry, cached data persists).
+- **Brand / 60·30·10:** orange dominates data ink (the `MomentumBar` effort fill, the heatmap ramp); **green = fulfilled / arrival only**; **purple = SIA only** (the AI-suggestion dot + the AI-first textual nudge — never on a chart); domain/role colours (coach-orange, mentor-cyan, family-pink) are **identity only**, never data ink; **no alarm-red on a human commitment** — red stays confined to emergency contacts and destructive actions. **Non-shaming (the ethical gate):** behind-pace = "room to recommit," misses = "open days," no accumulating penalty meter, no loss-aversion countdown, no surveillance grid without consent.
+- **A11y:** the `MomentumBar` carries an `aria-label` "[contract]: [N]% fulfilled, [kept] kept, [open] open" — value in words, never colour-alone; the `CalendarHeatmap` carries a summary `aria-label` ("checked in 8 of the last 14 days; longest run 4 days") and each cell a date+status label, status spoken in words (not intensity-alone). Load-bearing strokes/fills/cell boundaries meet WCAG 1.4.11 ≥3:1 on `#0A0A0F`/`#211008` (the `--color-alpha-white-05` lowest cell + 8% track are decorative-floor, exempt); text/value ≥4.5:1; the bar's card and every cell tap target ≥44×44pt; reduced-motion renders both visuals at final state.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Gentler Streak + Finch consistency (accountability done warm, privacy-first) — *stays Balencia via consent-gated `MomentumBar` fulfillment bar (orange→green, never violations), warm-glow surfaces on ink-brown, and honest non-shaming partner language.*
+
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers closed: (1) depth parameters now locked per `CONSISTENCY.md §1` (track `--track-inset`, glow `--glow-orange-sm` 12px on focal bar only); (2) Master Consent Banner elevated to a craft hero with `--surface-backplate` + full layering; (3) role badges and permission dots fully integrated into the warm-surface language; (4) list monotony broken via `CK-P6` rhythm (section eyebrows + 24–32pt breaks + role-badge micro-color); (5) every edge string now authored to `CK-P5` voice (permission rationales, empty states, error recovery, non-shaming reframes).
+
+### Focal hierarchy
+
+**Contracts tab:** One focal point: the *active* **Contract Card with the `MomentumBar`** — 8pt continuous orange→green fulfillment bar. The *focal active* card's bar carries the only `--glow-orange-sm` (~12px /.35) on the screen; paused/draft/cancelled cards render the bar without glow. Squint test lands on fulfillment bar first, then contract title, then penalty. AI Suggestion cards and Violation Alerts are secondary. FAB is tertiary.
+
+**Partners tab:** No visual focal element by design — deliberately textual (configuration, not metrics). **Master Consent Banner sits at top as the privacy gateway**, styled with full craft (orange left border 3pt, `--surface-backplate` warmth, full layering) to signal importance without alarm. Contact rows below are secondary. Groups and Emergency sections are tertiary.
+
+**Triggers tab:** Active Triggers list is primary. Recent Activity log is secondary audit trail on scroll-into-view. AI first toggle (green ON/OFF pill) adds micro-color rhythm within rows.
+
+### Surface & depth
+
+Every surface adopts `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt primary cards; `--radius-md` 14pt secondary) · 1pt `--glass-border` (white/6) · **`CK-T01 --edge-highlight`** (inset 0 1px 0 rgba(255,255,255,0.06)) — the not-flat cue, now on all surfaces including Contact Rows, Trigger Rows, Log Entries · `--shadow-1`. Master Consent Banner adds `CK-T02 --surface-backplate` (radial-gradient(120% 90% at 50% 0%, rgba(255,94,0,0.05) 0%, transparent 60%)) — elevating from functional gate to warm privacy hero.
+
+Glow size-calibrated per `CONSISTENCY.md §1`: **only focal active Contract Card's `MomentumBar` carries `--glow-orange-sm` (~12px /.35)** — never on paused/draft/cancelled, never on inline elements. Bar track: `--color-alpha-white-08` over **`--track-inset` (`rgba(0,0,0,0.28)`) beveled recess** — fixing prior invisible-on-dark issue.
+
+`CalendarHeatmap` (secondary, consent-gated, inside Contract Detail) uses deployed 5-step intensity ramp white-05→orange-75, **no glow** (grid, not hero); today's cell has dashed `--color-brand-orange` border; 2px cell gap reveals `ink-brown-800`; cells sit on card with top-edge highlight.
+
+Role badges (coach-orange at 15%, mentor-cyan at 15%, family-pink at 15%, buddy-white at 10%) inherit warm-surface recipe (highlight, glass-border). Permission dots (green/orange/red 6pt) are identity-only, paired with text labels, never colour-alone.
+
+Every surface — Master Consent Banner, Contact Rows, Trigger Rows, Log Entries, Group Cards, Emergency Rows, Contract Cards, AI Suggestion Cards, Violation Alerts, Filter Chips, eyebrow containers — is **layered, never flat**. Consistency is the craft: privacy-first accountability that feels warm and intentional, never austere or surveillance-like.
+
+### Typographic rhythm
+
+All type mapped to `CK-P3` locked tokens: **Screen header** "Accountability" `--text-h3` (17pt Sora Semibold) / `--leading-snug` (1.25). **Section eyebrows** ("PARTNERS", "CONTRACTS", "ACTIVE TRIGGERS") the `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / `--color-alpha-white-40`), 32pt above, 12pt below. **Contact name, Contract title, Trigger name** — `--text-body` (16pt Semibold, raised from prior 15pt) / `--leading-normal` (1.4) / white-100. **Permission labels, condition/action lines, role badge text** — `--text-caption` (13pt Regular) / `--leading-normal` (1.4) / white-50/60. **Meta labels** (dates, cooldown, "AI first: ON") — `--text-small` (11pt Regular) / `--leading-normal` (1.4) / white-40. **Master Consent Banner title** — `--text-h3` (17pt Semibold) / white-100. **Status badges** — 12pt Semibold, sentence case, inside 20pt pills. **Stat figures** (kept/open counts, percentages) use `tabular-nums`. Hierarchy by **weight** (600–700 vs 400), not size alone. ≤2 `--color-brand-orange` accent words per screen. Chillax logo-only. All ad-hoc pixels replaced with `CK-T04` leading and `CK-T05` tracking.
+
+### Microcopy (before → after)
+
+**Master Consent Banner:** *before* "set up consent preferences to enable accountability features" → *after* "Set up your consent preferences to start. Your partners see only what you allow." (warm, empowering, privacy-forward).
+
+**Permission rationale (new, inside Consent Modal):**
+- "Motivation reminders — your partners can send you encouragement when you're pushing toward a goal"
+- "Failure alerts — your partners are notified if you miss a commitment (you stay in control of what happens next)"
+- "SOS alerts — if you're inactive for a while, emergency contacts can check in on you (supportive, not punitive)"
+
+**Contract violation:** *before* "VIOLATION" + "missed condition" → *after* "VIOLATION — [contract]" + "sometimes things don't go as planned. explain what happened." (reframes as conversation, not prosecution).
+
+**Empty state — Contracts:** *before* "no contracts yet" + generic setup → *after* "Create your first commitment. Contracts help you stay on track with what matters most — no judgment, no penalties required." (shame-aware, collaborative framing).
+
+**Empty state — Partners:** *before* "no partners yet" + generic language → *after* "Add your first accountability partner. Partners see only what you allow, and only when you need them." (privacy-forward, supportive not obligatory).
+
+**Empty state — Triggers:** *before* "no triggers yet" → *after* "Create your first rule. Triggers automatically notify your partners when certain things happen — use them to set yourself up for success." (automation framed as empowering, not surveillance).
+
+**Contract behind-pace (non-shaming):** Text "8 kept · 2 open" now paired with warm SIA note: "You're on track. Two open days gives you room to recommit." (constructive, never a verdict).
+
+**Error recovery:** *before* "could not create contract — try again" → *after* "Couldn't save your contract — your changes are still here. Try again when you're ready." (assures data safety, removes urgency, warm tone).
+
+No exclamation marks. Brand period used with intent. SIA copy specific to user data, never generic. Tone across all tabs: warm, safety-first, privacy-forward.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first, consent-gated).
+
+**Contracts Tab:** `MomentumBar` draws first — width 0 → fulfillment ratio, orange→green sweep (`--dur-slow` 520ms / `--ease-flow`, never opacity-fade §8) → "kept" count up (`--dur-base` 280ms / `--ease-out-soft`) → other card bars fill staggered (40–80ms) on scroll → AI Suggestion pulse (scale 1→1.2→1, 520ms) → Violation Alert slides down + border pulses.
+
+**Partners Tab:** Consent Banner fades (if shown, 280ms) → Contact rows fade-up staggered (280ms each, 40ms stagger) → Group Card expand (height 0→auto, chevron rotates, 280ms).
+
+**Triggers Tab:** Trigger rows fade-up staggered → Recent Activity log entries fade-in on scroll (280ms, 40ms stagger).
+
+All tabs: below-fold on scroll-into-view. Secondary cards `.animate-fade-up` (280ms, 80ms stagger).
+
+**Reduced motion:** All elements at final state instantly. `MomentumBar` at final fill (no draw), `CalendarHeatmap` at full intensity (no row stagger), toggles instant. Static forms preserved, no info lost.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Consent not configured | All tabs dimmed (30% opacity), non-interactive; Banner only active | "Set up your consent preferences to start. Your partners see only what you allow." + "configure" CTA | surfaces still layered, signaling readiness; never degenerate |
+| Cold-start / no partners | Contact list replaced with centered icon + message; Add Partner button visible | "Add your first accountability partner. Partners see only what you allow, and only when you need them." | full-depth card on message; warmth maintained |
+| Cold-start / no contracts | Contract list hidden; AI Suggestion prominent, 1-2 starters | "Create your first commitment. Contracts help you stay on track with what matters most. No judgment, no penalties required." | full-depth cards on suggestions; FAB subtle glow pulse on first visit |
+| Cold-start / no triggers | Trigger list hidden; Create Trigger button visible | "Create your first rule. Triggers automatically notify your partners when certain things happen — use them to set yourself up for success." | full-depth card on message |
+| Loading | Skeleton rows (structure preserved, shimmer); tab + banner render | "SIA is reading your commitments — one moment." | skeleton on ink-brown-800, shimmer, morphs to data; depth visible through outline |
+| Partial / un-synced partner | Row at 50% opacity; "unavailable" badge | "Ahmed is unavailable right now." (neutral, leaves door open) | row maintains depth even muted |
+| Partial / un-synced contract | Card at confirmed fill; remainder dashed track (distinct from shortfall) | "Syncing — we'll update the status soon." | ghosted track white-05 dashed; depth preserved |
+| Error | Row/card at cached state; error banner names failure + retry | "Couldn't refresh your contracts — pull to refresh." | error-red border or outline on affected zone; glyph + word paired |
+| Offline | All cached (last sync shown); create actions disabled with tooltip | "You're offline — showing your last sync." | cached data full depth; actions dimmed 50% opacity |
+
+### Signature & anti-generic
+
+**Ownable moments:**
+
+1. **Consent-gated `MomentumBar`** (orange→green, never violation meter) — the ethical signature. Privacy-first accountability app shows the user's fulfillment journey, not a scorecard for judges. Anti-surveillance design: measures commitment kept, not judgment accumulated. Consent-gated (not rendered until user opts in). Behind-pace = "room to recommit," never penalty accumulation.
+
+2. **Privacy-first language** ("partners see only what you allow", "only when you need them", "no judgment, no penalties required") — the brand signature in copy. Every string centers user agency, not surveillance.
+
+3. **Warm-glow surfaces throughout** — same `CK-P1` + top-edge highlight applied everywhere. Consistency = premium warmth, never austere.
+
+**Anti-generic fixes:**
+
+- **Contract Cards:** Not a flat title list — each active card anchored by `MomentumBar` (draw-first motion), scannable by progress narrative. Paused/draft/cancelled visibly secondary by glow-absence, avoiding equal-weight monotony.
+- **Master Consent Banner:** Now a **craft hero**, not utility warning — orange border, backplate warmth, full layering. Signals privacy importance without alarm; inverse of dark-pattern "must enable" flows.
+- **Partners/Triggers tabs:** Dense-by-design lists broken from grid monotony via `CK-P6` rhythm: **section eyebrows create vertical rhythm** (32pt above, 12pt below), **role-badge micro-colors** (coach-orange, mentor-cyan, family-pink, buddy-neutral) add visual variety without data meaning, **responsive row sizes** avoid rectangle-grid feel.
+
+If a competitor shows a violation-accumulation meter with alarm colours, this screen's warm fulfillment bar (quiet orange→green, consent-gated, user-agency-forward, privacy-protecting) is **unmistakably Balencia**.
+
+### Accessibility
+
+**Contrast pairs** (on ink-brown-800 / ink-900):
+
+| Element | Color | Contrast |
+| --- | --- | --- |
+| Names, titles | white-100 | ≥12:1 |
+| Conditions, role badges | white-60 | ≥4.5:1 |
+| Status badges | per-color on per-color bg | ≥3:1 (WCAG 1.4.11) |
+| `MomentumBar` fill | orange/green | 3.2:1 |
+| Role badge text | per-role color | ≥3:1 |
+| Permission dots | per-color (paired with text) | identity-only |
+| CTA links | orange | 3.2:1 (WCAG 1.4.11) |
+| Eyebrows | white-40 | ≥3:1 |
+
+Status never colour-alone. Violation border paired with "VIOLATION" text. AI cards have lightbulb icon + label. Permissions have text labels + toggle state. Emergency badges have red icon + text.
+
+**Focus-visible:** `CK-T03 --focus-ring` (2px orange, 2pt offset) — uniform across all interactive elements. No custom states.
+
+**Touch targets:** All ≥44×44pt. Segmented segments 40pt tall, meet 44pt per segment. Rows/cards full-width with 44+ hit area. Toggles 44×44pt. Swipe-reveal buttons ≥44×44pt. FAB 48pt × auto-width.
+
+**Screen reader labels:**
+- Banner: "Accountability requires your consent. Double tap to configure."
+- Contact row: "[name], [role], can access [permissions]."
+- Contract card: "[title], [status], [%]% complete, [kept] kept, [open] open. Tap to view details."
+- Trigger row: "[name], if [condition], notify [target], AI first [on/off]."
+- `MomentumBar`: "[contract]: [N]% fulfilled, [kept] kept, [open] open."
+- `CalendarHeatmap`: "checked in [count] of [total] days; longest run [days]" + each cell "[date], checked in" / "[date], open day."
+
+**Reduced motion:** No staggered entries; all at final state instantly. `MomentumBar` at final fill (no draw). `CalendarHeatmap` at full intensity (no row stagger, no cell fades). Group Card expand/collapse instant. No pulse/glow loops. Toggle transitions instant. Static forms preserved, no info lost.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -702,10 +879,10 @@ This screen has three tab views: **Partners**, **Contracts**, and **Triggers**, 
 | Filter chip active | #FF5E00 | orange (primary) | Active contract filter |
 | Violation badge | #FF5E00 | orange (primary) | "VIOLATION" text |
 | Violation card border | #FF5E00 at 20% | orange (primary) | Alert border |
-| Contract violation bar fill | #FF5E00 | orange (primary) | Violations from right |
+| Contract progress bar fill | --grad-progress | orange→green (primary) | MomentumBar: continuous orange (effort) → green (arrival) fulfillment fill, never a violation/miss ink |
 | Paused status badge | #FF5E00 at 15% bg | orange (primary) | Paused contract |
 | Role: coach | #FF5E00 at 15% bg | orange (primary) | Coach role badge |
-| Contract success bar fill | #34A853 | green (secondary) | Successes from left |
+| Contract progress arrival | #34A853 | green (secondary) | MomentumBar arrival end — green only at fulfilled/in-range |
 | Signed status badge | #34A853 at 15% bg | green (secondary) | Active contract |
 | AI first: ON pill | #34A853 at 15% bg | green (secondary) | AI intervene enabled |
 | Permission enabled dot | #34A853 | green (secondary) | Green dot prefix |
@@ -852,7 +1029,8 @@ This screen has three tab views: **Partners**, **Contracts**, and **Triggers**, 
 | Contact added | Add confirmed | New row slides in from top (translateY -20 to 0, opacity 0 to 1) | 280ms | ease-out-soft |
 | Contact removed | Swipe confirm | Row slides out to left + collapses height | 280ms | ease-out-soft |
 | Contract card | Enter viewport | Staggered fade-in, 80ms stagger | 280ms each | ease-out-soft |
-| Progress bar fill | Data load | Bar width animates from 0 to current ratio | 520ms | ease-flow |
+| MomentumBar fill (focal) | Enter viewport / detail open | Bar width draws 0 → fulfillment ratio, fill sweeping orange→green (count beside it counts up 280ms ease-out-soft); draws first, never opacity-fades | 520ms | ease-flow |
+| CalendarHeatmap reveal (consent-gated) | Scroll into view (Contract Detail) | Cells fade/scale-in row-by-row, small per-row stagger; renders at full intensity instantly under prefers-reduced-motion | 280ms | ease-out-soft |
 | Violation alert | New violation | Card slides down from top of section (translateY -16 to 0, opacity 0 to 1) + orange border pulses once (opacity 20% to 50% to 20%) | 520ms | ease-flow |
 | AI suggestion | Mount | Fade-in + lightbulb icon pulse (scale 1 to 1.2 to 1) | 520ms | ease-flow |
 | Trigger toggle | AI first tap | Green pill fades in/out + toggle slides | 160ms | ease-out-soft |
@@ -972,7 +1150,7 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 - **Navigates from**: Screen [21] — Settings (stack push via "accountability" row), Screen [40] — Community (via accountability link), Screen [09] — SIA Chat (deep-link), Screen [12] — Home Screen (via contract violation alert card)
 - **Shared components with**: Screen [38] — Habits (Segmented Control, Toggle Switch), Screen [39] — Leaderboard (Filter Toggle pattern), Screen [33] — Relationships (Person Row pattern in partner search), Screen [40] — Community (avatar patterns, group member display), Screen [13] — Goals List (Filter Chip Row)
 - **Patterns used**: Back Button, 8-State Model, Segmented Control (Screen 38), Filter Chip / Filter Tab Row (Screen 13), Toggle Switch (Screen 15), Expandable/Collapsible Section (Screen 14), FAB (Screen 35), Modal Presentation (Batch 1), Text Input Field (Batch 1), Brand CTA Button (Batch 1), Section Eyebrow Label (Screen 12), Person Row (Screen 33)
-- **Patterns established**: Master Consent Banner (warning icon + orange border + configure CTA, privacy gateway), Contact Row (avatar + nickname + role badge + permission chips + emergency badge), Role Badge (pill with role-specific color), Permission Indicator (colored dot + label), Group Card (expandable with overlapping member avatars), Emergency Contact Row (red accent + SOS configuration), Contract Card (title + condition + penalty + dual-fill progress bar + status badge), Contract Status Badge (signed/draft/paused/cancelled pill), Violation Alert Card (orange border + dispute CTA), AI Suggestion Card (lightbulb + SIA-generated contract), Trigger Row (name + condition + action + AI toggle + cooldown), AI Intervene Toggle (green ON/OFF pill), Trigger Log Entry (date + name + outcome icon), Create Trigger Modal (condition builder + target picker + cooldown selector), Create Contract Modal (condition builder + penalty builder + duration + verification), Consent Configuration Modal (master switch + permission toggles + SOS config + cooldown), Dispute Modal (violation summary + reason input), Dashed Border Add Button (dashed outline + orange text CTA)
+- **Patterns established**: Master Consent Banner (warning icon + orange border + configure CTA, privacy gateway), Contact Row (avatar + nickname + role badge + permission chips + emergency badge), Role Badge (pill with role-specific color), Permission Indicator (colored dot + label), Group Card (expandable with overlapping member avatars), Emergency Contact Row (red accent + SOS configuration), Contract Card (title + condition + penalty + single continuous MomentumBar fulfillment fill, orange→green + status badge), Contract Status Badge (signed/draft/paused/cancelled pill), Violation Alert Card (orange border + dispute CTA), AI Suggestion Card (lightbulb + SIA-generated contract), Trigger Row (name + condition + action + AI toggle + cooldown), AI Intervene Toggle (green ON/OFF pill), Trigger Log Entry (date + name + outcome icon), Create Trigger Modal (condition builder + target picker + cooldown selector), Create Contract Modal (condition builder + penalty builder + duration + verification), Consent Configuration Modal (master switch + permission toggles + SOS config + cooldown), Dispute Modal (violation summary + reason input), Dashed Border Add Button (dashed outline + orange text CTA)
 ---
 
 ## Audit Feedback Integration (2026-05-26)

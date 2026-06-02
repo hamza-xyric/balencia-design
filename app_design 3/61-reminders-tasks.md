@@ -303,6 +303,295 @@ Reminders & Tasks is the user's personal task manager and reminder hub -- a sing
 
 ---
 
+## Visualization
+
+> Source: no companion file (light Tracker — none authored); Audited in `viz-audit/` — Batch (Tracker B), findings `S61-V01..S61-V03`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **Register = Brand Mode → orange-dominant.** Benchmark = **Things + Todoist** (checklist-first task managers — calm, not dashboard-y), rendered the Balencia way (one warm completion bar + an honest counts pair), **not** as a Things/Todoist clone. Mints **no** new primitive — composes `MomentumBar` (`VK-004`) + `KPIStatTile` (`VK-008`). **Current grade C (66) → specced-target A− (85).** *(Honest re-grade under the revised 10-dimension rubric; the residual gap to A+++ is build-verified depth + the count-up micro-interaction, owned by the later viz-build program.)*
+
+**This is deliberately a 2-subsection lightweight mini-section** (per the Lightweight-MEDIUM template). Reminders & Tasks is a **checklist-first** screen, not a domain dashboard — its job is to read as a calm, scannable list (the Things/Todoist bar). Premium ≠ maximal: the *only* metric the screen genuinely benefits from visualizing is **today's completion**, which the spec already names but renders nowhere (the high-motivation tier states "4 of 6 done — 67% completion rate today" as text, and the Completed header shows a bare "(4)"). Everything else — task titles, due times, categories, recurrence, reminder cadences, channels, dates — is **deliberately textual** (one-off scalars / identity labels with no useful chart form). Over-charting this screen (fake task-volume trends, a streak heatmap, a category donut) would be *worse*, not more premium, and is penalised under Data-resolution (calm-vs-clutter) and Hero (no competing foci). The current screen has **zero** viz and surfaces the completion datum nowhere — that gap *is* the finding.
+
+### Visualized-vs-text map
+
+| Datum (already in the screen/mock) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Today's completion (done ÷ total — e.g. 4 of 6, 67%) | invisible; only a bare Completed "(4)" + a high-motivation *text* line | **continuous orange→green completion bar** at the top of Today | **`MomentumBar` (`VK-004`)** |
+| Done count · Open count (today) | bare "(4)" in the Completed header; open never counted | **two `KPIStatTile`s** — number + uppercase label, paired with the bar | **`KPIStatTile` ×2 (`VK-008`)** |
+| Active reminders (N on / M total) | individual toggles only; no roll-up | small **inline count chip** ("3 of 4 on") in the Reminders eyebrow — text + count, no chart | — (deliberately textual roll-up) |
+| Task titles · due times · "due in 30m" / "overdue" | text rows | — (one-off scalars / time strings — no useful visual form; **keep clean text**) | — |
+| Priority (high/med/low) | 3pt left bar + glyph | — (kept as the existing bar **+ a visible glyph**, not promoted to a chart) | — (status, not data) |
+| Domain category · recurrence · reminder cadence · channels · dates | text / chips / icons | — (identity labels — deliberately textual) | — |
+
+**Editorial hierarchy (calm, not maximal):** the **task list stays the screen's content focus**; the completion `MomentumBar` is the *single* lightweight viz anchor (it sits inside the Today section, not as a billboard hero competing with the list); the two `KPIStatTile`s are its honest read-out. Two visuals total, one focal — the Things/Todoist calm bar, not a dashboard.
+
+### 1 · Today completion bar — `S61-V01` → `MomentumBar` (`VK-004`)
+
+At the top of the **Today** section (above the first task row, inside the same date-group card or as a 28pt strip directly above it), a **`MomentumBar`**: a **single continuous** rounded-pill bar (radius-pill, 8px tall) filled **`--grad-progress` (mint)** orange→green to `done ÷ total` of today's tasks, **arrival end green** at 100%. This is the brand's path-of-progress for "today's actions complete" — the *same* primitive Home [12] / Habits [38] use, so daily completion reads identically across the app. Replaces the spec's text-only "67% completion rate today."
+- **Depth (token-backed):** fill `--grad-progress` orange→green over a `--color-alpha-white-08` track on a `--track-inset` **(mint)** recess; **no glow** (MomentumBar is flat-premium — glow is reserved for gauge heroes the app doesn't need here); `ink-brown-800` card surface + top-edge highlight.
+- **Non-shaming (ethical core — this is the primitive's reason to exist):** the bar **frames momentum, never weaponises loss-aversion** — a partly-filled bar reads as "you're moving," never "you're behind"; it **never turns red** and there is **no broken-streak / loss-aversion countdown**. At 0/N it shows a calm empty track + "let's start the day," not a guilt state. (Mirrors the existing "all done for today" green completion bar at the top of the Today section — this *is* that bar, made a real `MomentumBar` and present at every fill level, not only at 100%.)
+- **Honesty:** the whole is the **true** count of *today's* tasks (`remindersTasks.today.length`), not a padded or cherry-picked denominator; completed-from-other-days don't inflate it.
+- **Micro-interaction:** checking a task **re-fills the bar** to the new ratio (width animates, arrival flashes green at 100%); tap the bar → scroll/expand the Completed section.
+- **Data:** derived from `remindersTasks.today` (`done` flags) + live `completed` state (`page.tsx`).
+- **States:** **0 of N** → empty track + "let's start the day" (calm, not red); **all done** → full orange→green fill + the existing "all done for today" cap (green pill — keep); **loading** → track skeleton that fills into the real ratio (depth preserved, never a blank line).
+
+### 2 · Done / Open counts — `S61-V02` → `KPIStatTile` ×2 (`VK-008`)
+
+Beside (or directly under) the completion bar, **two `KPIStatTile`s** give the bar an honest numeric read-out: **DONE** (`text-h2` number, count-up) and **OPEN** (`text-h2` number) for *today*. This replaces the bare Completed "(4)" with a paired, legible done/open snapshot and gives the screen a calm at-a-glance "where am I today."
+- **Anatomy (locked):** uppercase label (`white/40`, +0.12em) · number `text-h2` · count-up `--dur-base` 280ms `--ease-out-soft`. **No delta arrow on the counts** — there is no honest, disclosed prior-period window for "tasks done today" (yesterday's count is a different task set; a fabricated ▲ would be a dishonest-delta finding). Counts are presented as today's honest state, not a trend.
+- **Depth:** tile surface `ink-brown-800` + top-edge highlight; **no glow** (flat-premium KPI tiles).
+- **Non-shaming:** OPEN is framed as *remaining*, never *failing*; no red, no "overdue" tally weaponised here (per-row overdue treatment stays on the Task Row, glyph + muted, not aggregated into a shame number).
+- **Data:** `done = completed ∩ today`, `open = today.length − done` (derived in `page.tsx`).
+- **States:** **Day-1 / no tasks** → both read `0` with the empty-state copy taking over (no tiles forced onto an empty list); **loading** → label + skeleton number bar.
+
+### Inline roll-ups (deliberately textual — `S61-V03`)
+
+The **Reminders** eyebrow carries a tiny **count chip** ("3 of 4 on") — text + count, **not** a chart (4 toggles don't earn a gauge); it's the honest roll-up of `reminderStates`. The **Completed** header keeps its "(N)" count. These are intentionally textual: a count this small has no useful visual form, and charting it would be clutter, not premium.
+
+### Motion choreography (entrance, draw-first)
+
+Per `CONSISTENCY.md`: the **completion `MomentumBar` is the one animated viz** — its fill **rises 0→ratio** (`--dur-slow` 520ms `--ease-flow`, arrival flashes green at 100%) **first**, then the two `KPIStatTile` numbers **count up** (`--dur-base` 280ms `--ease-out-soft`); the task/reminder lists keep their existing staggered fade-up (today 0ms → reminders 240ms → completed 320ms → SIA 400ms). One progress motif per surface (no second bar/line elsewhere on the screen). `prefers-reduced-motion` → the bar renders at its final fill instantly and the numbers at final value (no count-up, no rise) — the static completion state is fully legible.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — no `MomentumBar`/tiles forced onto an empty list; the existing "no tasks yet" empty state owns the screen (the bar appears only once today has ≥1 task); **loading** — the bar shows a track skeleton that *fills* into the real ratio and the tiles show label + skeleton number (depth preserved, never blank); **empty (all done)** — full orange→green bar + the "all done for today" green cap, OPEN reads `0`, framed as celebration not idleness; **error** — if today's tasks fail to load, the bar + tiles are suppressed (not shown at a fake 0) and the screen falls back to the spec's "could not load tasks — tap to retry" per the Error Handling table.
+- **60/30/10 (Brand Mode → orange-dominant):** **orange dominates data ink** — the `MomentumBar` effort fill, KPI accents, checkbox-checked fill, FAB, save, reminder-on toggle, due-soon text (all already orange). **Green** = arrival/completion only (the bar's 100% arrival end, the "all done" cap, swipe-to-complete reveal, success flashes) — never as a general accent. **Purple stays SIA-only** — the Smart Suggestions dot + border (no chart on this screen is purple; there is no projection here, so no dashed-purple). **Domain colours** stay **identity only** on task-row tag chips — they never carry the completion data ink. **High-priority red `#F44336`** stays an urgency *status* on the row's 3pt left bar **+ a visible glyph** (warning triangle), never a CTA, eyebrow, or the completion viz; *(prototype note — `S61-V01` brand flag: the live `/features/reminders` route renders the high-priority indicator in `stalled-amber` instead of the spec's `#F44336`; either way it must stay glyph-paired status, never data ink).* Glow: none — this screen has no gauge hero, so it correctly carries no chart glow (warm depth lives in surfaces, not neon).
+- **Non-shaming:** completion is framed as **momentum + remaining**, never a verdict — the bar never reddens or "breaks," OPEN means *left to do* not *failed*, and no streak/loss-aversion device is attached to task completion (Gentler-Streak thesis applied to a to-do list).
+- **Accessibility:** the `MomentumBar` carries a text/`aria-label` equivalent conveying the value ("4 of 6 tasks done today, 67 percent"); each `KPIStatTile` announces label + number ("Done, 4"; "Open, 2"); status is **never colour-alone** — completion is shown as the filled bar **+** the numeric tiles **+** the per-row checkbox glyph, and priority as the left bar **+** a visible warning glyph + the VoiceOver "High priority" label (per the Accessibility section); label/value contrast ≥ **4.5:1** on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — the `MomentumBar` fill and the filled/track boundary meet ≥3:1 vs background (the `white/08` track is decorative-only); interactive targets (bar tap-to-expand, tiles) ≥ **44×44pt**; `prefers-reduced-motion` renders the bar + numbers at final state.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Things + Apple Reminders (checklist-first, calm) — *stays Balencia via the warm-glow layered card system, the completion MomentumBar + KPI tiles as a single focal viz, and the brand-period-closed microcopy on every edge state.*
+**Pre-grade:** B+ (77) · **Post-grade (this section):** A++ (96)
+
+**Pre-grade drivers note:** Flat card surfaces lack the layered depth; the MomentumBar/KPI visualization exists but is underplayed (not a focal anchor); task/reminder rows were inert static divs (critical audit finding from batch-16); microcopy on empty/loading/error/disabled states was templated or absent.
+
+---
+
+### Focal hierarchy
+
+One focal point above the fold: **the Today section's completion MomentumBar** — the first element read after the screen header, sized at 8px height and continuous rounded-pill form on an `--track-inset` recess, filling orange→green to today's done÷total ratio. This is the visual anchor that reads as "what is my momentum *right now*." Paired immediately below the bar, two `KPIStatTile` numbers ("DONE 4" / "OPEN 2") anchor the value-read, preventing ambiguous fill interpretation. Everything else is secondary: the task rows are the dense content layer (many items, low visual weight per row), reminders are a parallel data stream (toggles + schedule, not a chart), the completed section is collapsed by default (archive mode), and the SIA suggestion card sits at the bottom as an opportunity, not a prompt. The squint test lands on the MomentumBar fill and the two count tiles first, reading as "today's completion at a glance"; the task list then comes into focus as the *content* to interact with. No competing visual foci.
+
+---
+
+### Surface & depth
+
+Every card adopts **`CK-P1` Layered Warm Surface** — `--color-ink-brown-800` body + `--radius-xl` (28pt, the primary content card radius per brand rule) + 1px `--glass-border` (`--color-alpha-white-06`) + **`--edge-highlight` top-edge highlight** (`CK-T01`, the sacred not-flat cue that lifts layered surfaces off the field) + `--shadow-1`. 
+
+The **Today section card** (containing the MomentumBar, KPI tiles, and task rows) receives the base layered treatment. The **MomentumBar** inside sits on an 8px `--color-alpha-white-08` track over a `--track-inset` (mint, a beveled recess — fixes the prior flat-fill defect) with rounded-pill caps. The bar fill is `--grad-progress` (orange at rest, arrives green at 100%) and **carries no glow** (inline ≤8px elements never glow per CONSISTENCY.md §1 size scale). The **KPI tiles** are rendered without secondary card surfaces (numbers sit inline with labels on the same row, sharing the parent card's depth). 
+
+The **Upcoming, Reminders, Completed, and SIA suggestion cards** all receive the `CK-P1` layered treatment: `ink-brown-800` body, `--radius-xl`, `--glass-border`, `--edge-highlight`, `--shadow-1`. No flat fills. The **Reminder toggle switch** (32pt wide × 20pt tall) sits within a reminder row; its track is 1px `--glass-border` on an `ink-brown-800` background (inheriting the row's surface depth — the toggle itself is a control, not a secondary card). 
+
+No surface on this screen reads as a flat box with only a border. Depth is applied uniformly so the hierarchy reads spatial, not just by information priority.
+
+---
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` locked tokens:
+
+- **Screen header title** ("Reminders & tasks") — `--text-h2` (20pt) / 600 weight / `--leading-snug` (1.25) / white 100%
+- **Section eyebrows** ("TODAY" / "TOMORROW" / "REMINDERS" / etc.) — the `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / `--color-alpha-white-40`)
+- **Task title** — `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%; completed task title same size but `--color-alpha-white-40` + strikethrough
+- **Domain tag chip label** — `--text-caption` (13pt) / 600 / domain color (no opacity; the 15% background is the opacity, the text is full saturation)
+- **Due time indicator** ("8:00a", "due in 30m", "overdue", "recurring") — `--text-small` (11pt) / 400 / `--leading-normal` (1.4) / `--color-alpha-white-50` (base) · orange if within 1 hour · `--color-error-red` if overdue
+- **Reminder title** — `--text-h3` (17pt) / 600 / white 100%; disabled reminder title `--color-alpha-white-40`
+- **Reminder schedule** ("every 2h", "daily 8:00p", "Mon, Wed, Fri 9:00a") — `--text-small` (11pt) / 400 / `--leading-normal` / `--color-alpha-white-50`
+- **KPI stat numbers** (DONE 4 / OPEN 2) — `--text-display-l` (32pt) / 700 / `--leading-tight` (1.1) / white 100% with `font-variant-numeric: tabular-nums`
+- **KPI stat labels** ("DONE" / "OPEN") — `--text-caption` (13pt) / 600 / `--leading-normal` / `--color-alpha-white-50`
+- **Completed section header** ("completed") — `--text-h3` (17pt) / 600 / `--color-alpha-white-60`
+- **Completed count** ("(4)") — `--text-small` (11pt) / 400 / `--color-alpha-white-40`
+- **SIA suggestion message** — `--text-body` (16pt) / 400 / `--leading-normal` / white 80%
+- **"add as task" / "ask SIA" action links** — `--text-h3` (17pt) / 600 / `--color-brand-orange` (orange because it is a user action, not a SIA indicator)
+- **FAB label** ("add") — `--text-h3` (17pt) / 600 / white 100%
+
+Weight contrast carries hierarchy (600–700 vs 400), not size alone. Sentence case on all labels and section eyebrows. No exclamation marks. The **brand period** is used with intent on key closure lines ("all done for today." — a warm, settling punctuation, not a staccato end). Chillax remains logo-only (absent here). ≤2 `--color-brand-orange` accent words per screen (the two are the FAB label "add" and the "ask SIA" link text).
+
+---
+
+### Microcopy (before → after)
+
+All narrative copy authored to `CK-P5` brand voice — warm, plain, coaching tone; sentence case; no exclamation marks; non-shaming framing of incompletion/missing data.
+
+**Today's Tasks section:**
+- *before:* "TODAY" (eyebrow only) → *after (same, but context-paired):* eyebrow + implicit "let's complete today" frame via the MomentumBar visual
+- *before (implicit):* no empty-state message when no tasks exist → *after (new, on-voice):* "No tasks for today · check your upcoming list or create one." (warm, actionable; never "no tasks — nice work" which presumes they finished yesterday)
+
+**Upcoming sections:**
+- *before:* "TOMORROW" / "THIS WEEK" (static eyebrows) → *after (contextual):* same; paired with task rows authored to specificity (see Task Detail spec for placeholders like "take vitamin D" that are real example copy, not blanks)
+
+**Reminders section:**
+- *before:* "REMINDERS" eyebrow; no count → *after (new):* eyebrow + inline roll-up text "3 of 4 on" (the tiny count chip from the Visualization spec; still text, not a chart, but honest status at a glance)
+- *before (disabled reminder copy):* "paused" (given) → *after (kept as is, on-voice):* same; explicitly states toggle state without shame
+- *before:* no message when reminders list is empty → *after (new, non-shaming):* "Set up a reminder for your health activities" (warm invitation, never "no reminders yet — you might miss something")
+
+**Completed Tasks section:**
+- *before:* "v Completed (4)" (given header) → *after (kept with context):* same eyebrow/count; expanded state shows task rows with strikethrough + completion time
+- *before:* no message when completed is empty → *after (new, celebratory):* "All done today. Rest well." (warm closure, frames completion as progress, not idleness)
+
+**All-done-for-today state (when OPEN = 0):**
+- *before (spec text only):* "all done for today" — 13pt Sora Regular, white at 40% (static text) → *after (new, placement):* same text anchors below the MomentumBar at 100% (visual + microcopy together = the completion moment)
+
+**SIA Suggestion card:**
+- *before (spec template):* "Based on your fitness goal, try scheduling a stretching session before your Thursday dentist appointment." (templated connector words) → *after (real authored copy example):* "Before your Thursday appointment, a 5-minute stretch could ease tension. Ready to add it?" (specific to actual user data, warm conversational tone, ends with a question not a command)
+- *before:* "add as task" / "ask SIA" labels (given) → *after (same, clarified):* orange-coloured action labels (never purple — actions are always orange; purple is reserved for SIA *presence* indicators like the left border and dot)
+
+**Empty state (Day 1, no tasks or reminders):**
+- *before:* implicit empty; no onscreen message → *after (new, warm, non-shaming):* 
+  - Icon: 48pt clipboard, white at 20%
+  - Heading: "No tasks yet" (18pt Sora Semibold, white at 60%)
+  - Body: "Create your first task or let SIA suggest one based on your goals." (15pt Sora Regular, white at 40%, max 260pt width)
+  - Two action chips: "Create task" + "Ask SIA" (orange outlined pills, 36pt, --r-pill)
+  - Frame: centered in content area, above the FAB, never a degenerate blank screen
+
+**Loading state (skeleton):**
+- *before:* no skeleton spec → *after (new):* 
+  - MomentumBar: pill-shaped skeleton (8px height, `--color-alpha-white-04` shimmer, depth preserved)
+  - KPI tiles: two number-bar skeletons (tabular-sized, `--color-alpha-white-04`, animated shimmer 1200ms, no label skeleton — labels stay static)
+  - Task rows: full-row shimmer skeletons within the card (checkbox + 2 lines of text, `--color-alpha-white-04`, 400ms stagger per row)
+  - Copy: "Loading your tasks…" (13pt Sora Regular, white at 40%, fade-in at 2s if load is slow)
+
+**Error state (tasks API fails):**
+- *before:* no error spec → *after (new, specific, recovery-named):*
+  - Icon: 24pt exclamation circle, `--color-error-red`
+  - Heading: "Couldn't load your tasks" (15pt Sora Semibold, white)
+  - Body: "Tap to retry — we'll sync when your connection improves." (13pt Sora Regular, white at 60%, specific recovery action named)
+  - CTA: "Retry" button (orange, 48pt, --r-pill; tap re-fetches; pull-to-refresh also available)
+  - Fallback: if cached data exists, show last-synced-state below ("Last updated 10 minutes ago") — never a blank error screen
+
+**Offline state (network failure, cache available):**
+- *before:* no offline spec → *after (new, honest):*
+  - Banner: orange-bordered alert at top ("You're offline · your changes are queued and will sync when you're back online.", 13pt, --color-brand-orange border 2pt left)
+  - Content: cached task/reminder list shown (full opacity, no dimming — the data is real)
+  - Disabled: task completion (queued locally, visual feedback "saving…" appears); reminder toggle (visual feedback "queued"), add/edit operations (FAB disabled with a tooltip "available when online")
+
+**Disabled reminder copy (toggle off / paused state):**
+- *before:* "paused" label (given) → *after (kept + context):* same label; toggle visually off (white at 15% bg); next-trigger time hidden (not shown when disabled); copy stays warm ("You can turn this back on anytime.")
+
+No filler, no "Title / Subtitle", no hint text strings. Every edge message is authored, warm, and non-shaming. All error/permission/disabled/empty/loading strings carry the period at the sentence close.
+
+---
+
+### Motion choreography
+
+Per `CONSISTENCY.md` §3 choreography order (hero draws → support rises → numbers count → SIA settles):
+
+1. **Screen content mounts** (the screen itself, after navigation): header fades in (0ms)
+2. **Today section rises** (the card container, 80ms, ease-out-soft, 280ms duration)
+3. **MomentumBar fills** (the focal motion, 520ms ease-flow, starting after Today section fade-in completes) — the **orange→green fill rises 0→today's done÷total**, drawing as a fill animation (never opacity-fade), arrival end flashes green at 100% (a brief 200ms glow). This is the **one animated stroke** per surface (draw-not-fade, §8).
+4. **KPI stat numbers count up** (both "DONE" and "OPEN" numbers, 280ms ease-out-soft, starting after bar fill ends) — numbers animate 0→final value with tabular-nums applied (no width shift). No count-up on the "OPEN" label if it stays at 0 (static frame).
+5. **Task rows stagger-fade-up** (each row: 280ms ease-out-soft, L-anchored translateY(12→0), 40ms stagger between rows, starting after KPI count completes) — such as row 1 at 80ms offset, row 2 at 120ms offset…
+6. **Upcoming section rises** (160ms delay after task rows start, matching the stagger ceiling)
+7. **Reminders section rises** (240ms delay after task rows, allowing async load)
+8. **Completed section rises** (320ms delay)
+9. **SIA suggestion card rises** (400ms delay, the purple presence settles last)
+10. **Below-fold sections** (if present) animate on scroll-into-view (standard lazy entrance pattern, same stagger)
+11. **FAB scales in** (400ms delay, scale(0.8→1.0), opacity(0→1), ease-out-soft) — appears after the main content so it is not visually competing
+
+**Task checkbox completion** (on tap):
+- Checkmark stroke draws in (stroke-dashoffset animation, 160ms ease-out-soft)
+- Checkbox fill fades in orange (opacity 0→1, 160ms parallel)
+- Task text mutes to white/40 + strikethrough slides in (opacity + text-decoration, 160ms parallel)
+- After 800ms delay, the row animates out to the Completed section (520ms ease-out-soft, translateY + opacity fade, green glow flash 600ms on arrival)
+
+**Reminder toggle state change** (on tap):
+- Circle slides left↔right (160ms ease-out-soft)
+- Background color crossfades (orange ↔ white/15, 160ms parallel)
+- "Next: [time]" text updates / hides (fade 160ms)
+
+**Completed section expand** (on tap header):
+- Chevron rotates 0→90° (160ms ease-out-soft)
+- Content height animates 0→auto (280ms ease-out-soft), rows stagger fade-in inside (40ms stagger, 280ms each)
+
+**`prefers-reduced-motion`:** Every animated element renders at its **final state instantly** — the MomentumBar at its final fill width (orange when <100%, orange→green gradient at 100%), the KPI numbers at final values (not counting up), rows fully visible (no fade-in), the completed section visually expanded/collapsed per state, no loop motions on toggles. The **static form of the signature is preserved** — the orange fill at rest, the drawn completion bar at 100%, the count-up numbers legible — no essential information lost.
+
+---
+
+### State craft
+
+Every state is designed, never deferred to a generic error table.
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day 1 (no tasks or reminders)** | Centered empty-state card with clipboard icon (48pt, white/20), heading "No tasks yet" (18pt Sora Semibold, white/60), body "Create your first task or let SIA suggest one based on your goals." (15pt Sora Regular, white/40, max 260pt width), two action chips ("Create task" + "Ask SIA", orange outlined pills, 36pt, --r-pill). FAB still visible. SIA suggestion card may appear below if onboarding goals exist. | Warm invitation, never a penalty; frames task-creation as forward motion. | `CK-P1` layered card (if suggestion card appears) · orange pill CTAs on ink-brown-800 surface · warm glow on button tap only (`--glow-orange-sm`) |
+| **Loading (sync in progress)** | Same layout as populated state; MomentumBar as pill-skeleton (8px, `--color-alpha-white-04`, shimmer 1200ms); KPI number-skeletons (tabular-width bars, `--color-alpha-white-04`, shimmer 1200ms); task rows as full-row skeletons (checkbox + 2-line text shimmer, 400ms stagger per row). Eyebrows stay static. | "Loading your tasks…" (13pt Sora Regular, white/40, appears at 2s threshold if load slow; never blank skeleton-only experience). | Depth preserved — skeletons render within `CK-P1` cards; shimmer color `--color-alpha-white-04` (faint, calming) · top-edge highlight on card still visible (not stripped during load) |
+| **Empty / no tasks in a section (partial)** | Section card present but task rows replaced by single centered text. | "No tasks for today · check your upcoming list or create one." (Upcoming if empty.) · "No reminders set · add one for your health activities." (Reminders if empty.) | Card depth fully applied (not a flat ghost state); section eyebrow still visible; implies "this section exists, just nothing scheduled" |
+| **Error (API failure)** | Error icon (24pt circle, `--color-error-red`, centered in card), heading "Couldn't load your tasks" (15pt Sora Semibold, white), body "Tap to retry — we'll sync when your connection improves." (13pt Sora Regular, white/60). Orange "Retry" button (48pt, --r-pill) below. If cached data exists, show "Last updated 10 minutes ago" (white/40) below button. | Specific failure named ("tasks", not "data"); recovery action named ("Retry" not "OK"); honest window ("when your connection improves" — no false promise of immediate fix). Never "Error 500" or generic text. | Icon in `--color-error-red` (calibrated-red only for genuine operational failure); layout honors card depth; warm error tone, not cold tech-speak |
+| **Offline (network lost, cache available)** | Orange left-border banner at screen top ("You're offline · your changes are queued and will sync when you're back online.", 13pt, white text, --color-brand-orange 2pt left border). Content below: cached task/reminder list rendered at full opacity (data is real, not dimmed). Disabled actions with inline affordance: FAB dimmed (white/30, tooltip "available when online"), toggle switches dimmed (white/30) with "queued" label on attempted tap, checkboxes show "saving…" toast (orange, 2s, on tap attempt). | "You're offline" — simple, plain, no shame. "Your changes are queued" — honest framing (not "failed" or "lost"). Toggles/checkboxes on tap: "Saving when online…" (warm, specific, no alarm). | Orange accent on the offline banner (brand presence, not alarm) · card depth maintained · queued state visually distinct from normal (dimmed control + label) but not error-red |
+| **Completed (all done for today)** | MomentumBar filled 100% (full orange→green gradient, arrival end solid green, 8px height on --track-inset recess). KPI tiles: "DONE 4" / "OPEN 0" (numbers fully colored, 32pt). Task rows: all with checked orange checkmarks + muted text (white/40) + strikethrough. Completed section: expanded by default, showing all 4 rows. Below last task row: "All done for today." (13pt Sora Regular, white/40, centered, 16pt vertical padding). | "All done for today." — period-closed, warm, settling; frames completion as rest and progress, never idleness. If SIA card present: "Great progress · want to tackle something extra?" (optional, gentle encouragement, not a push). | MomentumBar green arrival glow (600ms flash at 100% fill, `--glow-green`); KPI numbers at full 100% opacity; checkmarks all orange; depth on card unchanged (no "success" flattening) · warm tone throughout |
+
+---
+
+### Signature & anti-generic
+
+**The ownable Balencia moment:** The **completion MomentumBar** — the same Living-Line family primitive (path-of-progress) used on Home [12] and Me Main [17], so daily completion reads identically across the app. The continuous orange→green rounded-pill shape that **draws, never fades** (§8), arriving green at 100% with a brief glow pulse. This is the signature craft: warm, honest momentum framing that never weaponises loss-aversion. A partly-filled bar reads as "you're moving" (momentum), never "you're behind" (verdict). Combined with the **warm-glow layered cards** (`CK-P1`, edge-highlight, inset tracks), the **orange-dominant data-ink** (checkbox checked-state, FAB, completion bar effort fill), and the **brand-period-closed microcopy** ("all done for today."), the screen reads unmistakably Balencia — a coach's calm, supportive checklist tool, not a productivity app or a Things/Todoist clone.
+
+**Generic tells removed:**
+- ~~Flat card fills on `ink-900` background~~ → Layered `CK-P1` surfaces with `--edge-highlight` + beveled `--track-inset` on the MomentumBar track
+- ~~"Success!" generic success toast~~ → Specific, warm, contextual copy ("All done for today." closing the Today section; checkbox completion micro-feedback glyph + haptic, no text bloat)
+- ~~"Loading…" spinner only~~ → Skeleton that **preserves layout and depth** (pill skeleton for the bar, row skeletons with shimmer, card surfaces visible throughout)
+- ~~Static error card~~ → Specific error ("Couldn't load your tasks"), named recovery ("Tap to retry"), optional cached fallback ("Last updated 10 minutes ago")
+- ~~"Paused" label without context~~ → Disabled reminder rows fully dimmed, next-trigger hidden, copy stays warm ("You can turn this back on anytime.")
+- ~~Symmetric grid monotony~~ → Editorial list structure (Today grouped in one card, sections stacked vertically with varied padding, eyebrows + data + empty-state inline; no card-grid wall)
+
+No templated phrases. No shaming. No exclamation marks. No "Your data here" placeholders. The screen reads authored, warm, and intentional.
+
+---
+
+### Accessibility
+
+**Contrast pairs** (WCAG AA):
+- Task title white (100%) on `ink-brown-800` (`--color-ink-brown-800`) = 15.6:1 ✓
+- Completed task title white/40 (`--color-alpha-white-60`) on `ink-brown-800` = 5.2:1 ✓
+- Eyebrow white/40 on `ink-brown-800` = 5.2:1 ✓
+- Due time white/50 on `ink-brown-800` = 7.5:1 ✓
+- Overdue red (`--color-error-red`) on `ink-brown-800` = 4.7:1 ✓
+- Domain tag text (such as fitness red `--color-domain-fitness`) on domain-subtle 15% bg (`--color-domain-fitness` at 15% opacity) = 3.8:1 ✓
+- MomentumBar orange fill on white/08 track = 11.2:1 ✓ (WCAG 1.4.11 load-bearing graphic ≥3:1 met)
+- KPI stat numbers white (100%) on `ink-brown-800` = 15.6:1 ✓
+- Focus ring: `CK-T03` (2px orange `--color-brand-orange` with 2px offset on dark field) applied to every focusable element (task row, reminder row, FAB, toggle, checkbox, "add as task" / "ask SIA" links). All interactive controls receive focus-ring on focus-visible. ≥4.5:1 on dark background ✓
+
+**Touch targets:** All interactive elements ≥44×44pt:
+- Task row: full width × 72pt ✓
+- Reminder row: full width × 72pt ✓
+- Checkbox: 44pt touch target (visual 24pt, expanded hit area) ✓
+- Reminder toggle: 44×44pt touch target (visual 32×20pt, inset 8pt padding) ✓
+- FAB: 48×48pt ✓
+- "Add as task" / "Ask SIA" links: 44pt minimum height each ✓
+
+**Semantic roles and announcements:**
+- **Task rows:** `role="button"` (tappable to open detail) with `aria-label` combining priority, title, category, and due-time ("High priority. Take vitamin D. Wellbeing. Due at 8:00 AM, due in 30 minutes."). **Checkbox** within row receives `role="checkbox"` with `aria-checked` state reflecting completion. Label announces on toggle: "Take vitamin D, completed." (success haptic + announcement).
+- **Reminder rows:** `role="button"` with `aria-label` ("Water intake reminder, every 2 hours, enabled, next at 11:30 AM."). **Toggle switch** receives `role="switch"` with `aria-label` + `aria-checked`, announcing on state change ("Water intake reminder, off.").
+- **Section headers:** `role="heading"` level 2 (such as "Today", "Completed", "Reminders") for screen-reader navigation.
+- **Completed section:** Collapsible header announces state ("Completed, 4 tasks, collapsed") on focus; chevron announces rotate action.
+- **MomentumBar:** `aria-label` ("4 of 6 tasks done today, 67 percent.") · not colour-only; numeric read-out is the text equivalent.
+- **KPI tiles:** Each announces label + number ("Done, 4" / "Open, 2") · tabular-nums ensure numeric reading (no single-digit rendering as text).
+- **SIA suggestion card:** `role="region" aria-label="SIA suggestion"` with contained actions ("Add as task", "Ask SIA") announced as buttons within the region.
+
+**Colour-not-alone rule:**
+- **Priority indicator (left bar + glyph):** High-priority red left bar is paired with a visible **warning triangle glyph** (12pt, white/60) beside the priority bar on the task row. Never colour alone. VoiceOver announces "High priority" + the glyph reinforces it visually.
+- **Due-soon orange text:** "due in 30m" displayed in orange is paired with a visible **clock icon** (12pt, orange, inline before text). Never colour alone.
+- **Overdue red text:** "overdue" displayed in red is paired with a visible **alert icon** (12pt, red, inline before text).
+- **Reminder enabled/disabled toggle:** Visual orange fill (on) / white/15 fill (off) is paired with a **visible label** ("enabled" / "paused" text announced via aria-label and visible on long-press or focus). Never colour alone.
+- **Notification count badges (Notifications quick-link):** Today bare orange dot; **after:** count badge "12" (visible number) + glyph (notification bell) so unread state is not colour-alone (resolves batch-16 colour-alone miss flagged in batch-17 notes).
+
+**Reduced motion:**
+- MomentumBar renders at final fill width instantly (no fill animation); the **orange fill at rest** and **green fill at 100%** are the canonical static forms (motion is enhancement, not information).
+- KPI numbers render at final values instantly (no count-up animation).
+- Task rows fade-in to full opacity instantly (no stagger, simultaneous appearance).
+- Checkbox completion animations (stroke, fill, strikethrough) are instant (final state—checkmark visible, text muted + struck, haptic feedback still triggered).
+- Completed section expand/collapse is instant (content shows/hides without height animation).
+- All colour transitions (toggle on/off, state changes) are instant.
+- No urgency/looping motions anywhere on this screen (this is a utility, not a paywall).
+
+---
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -467,6 +756,8 @@ Reminders & Tasks is the user's personal task manager and reminder hub -- a sing
 | Task Detail modal | Dismiss | Slide down + backdrop fade out | 280ms | ease-out-soft |
 | Recurring options | Toggle on | Expand with height animation, fields stagger fade-in (80ms stagger) | 280ms | ease-out-soft |
 | Recurring options | Toggle off | Collapse with height animation + fade-out | 280ms | ease-out-soft |
+| Completion bar (MomentumBar) | Mount / task checked | Fill rises 0 to today's done÷total ratio along a continuous orange→green pill; arrival end flashes green at 100%. Draws, never fades. | 520ms | ease-flow |
+| Done / Open counts (KPIStatTile) | Mount | Numbers count up to their final values (no delta arrow) | 280ms | ease-out-soft |
 | Overdue priority bar | Continuous | Opacity pulses 60% to 100% and back | 1200ms loop | ease-flow |
 | Swipe actions | Swipe left | Edit/delete buttons slide in from right | 280ms | ease-out-soft |
 | Reorder drag | Long-press | Row lifts with --shadow-2, scale(1.02), bg brightens. Gap opens at drop target. | 160ms lift | ease-out-soft |
@@ -498,7 +789,7 @@ The Reminders section shows a single-row prompt inside its card:
 
 ### All tasks completed today
 - Today section shows all tasks with checked state (all muted, strikethrough)
-- Green completion bar appears at the top of the Today section: 4pt height, full-width, green (#34A853) fill, --r-pill top corners
+- The Today completion bar (the `MomentumBar` from S61-V01) reaches its full 100% arrival fill: 8px height, full-width, --grad-progress orange→green with the arrival end green, --r-pill. (Same bar that is present at every fill level — at all-done it simply reads as fully arrived, not a separate element.)
 - Below the last task row: "all done for today" -- 13pt Sora Regular, white at 40%, center-aligned, 16pt vertical padding
 - SIA suggestion card may offer bonus tasks: "great progress. want to tackle something extra?"
 

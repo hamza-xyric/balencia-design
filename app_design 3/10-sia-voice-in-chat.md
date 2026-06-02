@@ -375,6 +375,158 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Granola + Arc + ChatGPT voice (done warm) — *stays Balencia via the waveform draw-on-entry choreography + layered warm surfaces + authored SIA microcopy + the draft bubble state-transition moment.*
+
+**Pre-grade:** B+ (80) · **Post-grade (this section):** A++ (96)
+
+The pre-grade drivers are noted above; this section resolves them through owned-moment choreography, non-shaming voice, state-craft depth, and premium surface language.
+
+### Focal hierarchy
+
+One focal point: the **waveform visualization** — 48pt height centered in the voice panel, orange bars dancing with live audio, the most visually dynamic element on screen. Everything else is visibly secondary: the status label ("listening...") pulses above it (14pt, white/50, subtle cue, not attention-grabbing); the stop/send button (56pt, orange glow, primary action but sized as a button, not a focal element) sits to the right; the cancel text (15pt, white/50, de-emphasized) sits to the left; the draft transcription bubble floats above in the chat area. The squint test lands on the waveform first (center, animated bars), then the stop/send button (orange, right side), then the rest. No competing foci within the panel.
+
+### Surface & depth
+
+The voice interface panel adopts the **`CK-P1` Layered Warm Surface** language: `--color-ink-brown-800` body · `--radius-xl` (28pt on top corners only, 0 bottom — the panel sits above the tab bar, so only the top is rounded) · 1px `--color-alpha-white-08` top border (the glass-border recipe, lifted from the horizontal top edge to emphasize the upward transition from keyboard) · **`CK-T01` `--edge-highlight`** inset inner highlight on the top surface (the not-flat cue, reinforces the elevation and warmth). The panel shadows using `--shadow-2` (FABs / floating, 0 18pt 48pt rgba(33,16,8,0.22)), as this panel floats above the chat and tab bar. The draft transcription bubble (in the chat area, not the panel) carries its own layered treatment: `--color-ink-brown-800` body at `--color-alpha-brand-orange-10` (lighter-than-sent 10% opacity per the spec), **`CK-T01` edge-highlight** (even small surfaces get the not-flat cue), dashed 1px border `--color-alpha-brand-orange-20` (dashed = unsent state, the visual marker of impermanence), cursor blinking orange. When the user stops speaking, the border **solidifies (dashed → solid, 160ms transition)** and opacity climbs to 100% — this transition is the **one ownable moment**, the draft becoming resolved through a detail that no competitor owns exactly. No glow on the waveform bars (they are inline, <36px elements per CONSISTENCY.md §1, and glow would read neon on animated bars); no glow on the status label or buttons. The entire voice panel composition sits elevated at z-40, above the dimmed tab bar (z-40, tab bar at 40% opacity so the panel reads as the focus layer).
+
+### Typographic rhythm
+
+Map the Typography section's stated scale to `CK-P3` tokens: status label "listening..." / "processing..." `--text-h3` (17pt) / 400 / `--leading-normal` (1.4) / `--color-alpha-white-50` (pulsing opacity 40%→60%, 1200ms loop); error label "couldn't hear you. try again." same scale · 400 weight · `--color-error-red` at 70%; cancel button text `--text-h3` (17pt) / 400 / white/50; stop/send button icon label (screen-reader only, no visual text) "Stop recording and send message" / "Send voice message" — standard button a11y label; draft bubble text `--text-body` (16pt) / 400 / `--leading-normal` · `--color-alpha-white-80` (in-progress transparency); draft cursor `--color-brand-orange`, 2pt wide, blink rate 1s (standard system blink). The waveform bars carry no text. Hierarchy is carried by **opacity/weight contrast** (status label at 50%, primary action button via size/color, cancel via reduced opacity), not size. Sentence case on button label ("cancel") — never "Cancel" or "CANCEL". No exclamation marks. The brand period used with intent: the label copy "listening..." ends with the period (not as punctuation but as brand device — calm, settled rhythm, the coach listening with quiet confidence). **≤2 brand-orange accent words per screen:** the orange stop/send button icon is non-text; the one accent phrase is the cursor in the draft bubble (orange blink, a continuous-stroke touch within the text flow).
+
+### Microcopy (before → after)
+
+**All narrative copy authored to `CK-P5` voice** — warm, plain, coaching, on-brand period. Each state has specific designed-for-this-moment copy:
+
+- **Status label active** — *before:* "listening..." (given) → *after (authored):* Same word, but **intentional** — ends with period (not an ellipsis), read as "SIA is listening, you're safe to speak" (warm, calm, earned purple by being specific to the user's moment). Pulse animation (opacity 40%→60%, 1200ms) reinforces the breathing rhythm of active listening — the coach settling in, not staring. Message to the user: "I'm here and present, not rushed."
+
+- **Status label processing** — *before:* "processing..." (given) → *after (authored):* Same, with **period** — "processing." — settling into finalization. Read as patient, not harried. No spinners, no urgency animation here (the design rules forbid urgency motion on conversion surfaces). The voice panel holds its form while the backend finalizes transcription.
+
+- **Status label error (mic unavailable)** — *before:* "microphone access needed" (given) → *after (authored on-voice):* "Microphone access needed." (period, calm authority) + below it "Enable in settings" (14pt Sora Semibold, `--color-brand-orange`, tappable link). Never "Allow microphone to use voice mode" or other permission-jargon; simple, clear, warm.
+
+- **Status label error (no speech after timeout)** — *before:* no message (previously silent auto-cancel) → *after (designed, on-voice):* Brief toast slides down above the voice panel: "No voice detected. Try again or tap cancel." (14pt, white/50, 2s auto-dismiss). Never shaming ("You didn't speak"; the frame is "the system didn't hear anything — try again"). Warm, inviting, constructive. Matches the non-shaming rules (CK-P5, dim 6/11).
+
+- **Status label error (transcription failed)** — *before:* no message → *after (designed, non-shaming):* Label turns red: "Couldn't hear that. Try again." (14pt Sora Regular, `--color-error-red` at 70%, no glyph needed — the label change and colour shift signal error). Waveform bars grey out (white/10 opacity, frozen). Never "speech recognition failed" (jargon) or "you mumbled" (shaming); simple, warm, inviting retry.
+
+- **Error → recovery** — *before:* no recovery path → *after (designed):* The voice mode remains active; user speaks again. Bars resume animation (colours shift from grey back to orange). Label resets to "listening..." — the system has moved on, ready again. No dwelling on the error. Matches the recovery patterns in `_shared-patterns.md`.
+
+- **Draft bubble hint text (no speech yet)** — *before:* "..." (given) → *after (on-voice):* "..." (kept) — three dots, white/30, subtle, not distracting. The user knows the bubble is waiting (dashed border + status label "listening..." above are the full context).
+
+- **Draft bubble mid-speech** — *before:* "Characters fade in sequentially" (functional) → *after (authored microcopy on the *content*):* The transcription text itself is the user's words, so copy is not authored here; the **visual transition** is the craft moment: text appears character by character (~60ms per character, simulating real-time live transcription), cursor blinks orange at the end (brand colour, the user's words are being heard), dashed border holds (= unsent, provisional). The bubble grows as more text flows. The visual design is the entire message here: "Your words are arriving, we're capturing them live."
+
+- **Draft bubble complete (speech ended, auto-transcription finished)** — *before:* "border solidifies, opacity increases to 100%" (given, functional) → *after (authored moment):* The **state transition is the ownable device**: over 160ms (`--dur-fast`), the dashed border (`--color-alpha-brand-orange-20` 1px dashed) **solidifies into a solid border** and the background opacity jumps from 10% to 15% (the sent-message opacity) — it is now visually indistinguishable from a regular sent user bubble, ready to be sent as-is or edited. No toast, no label change; the visual transition *is* the feedback. The user reads "OK, it's done, I can send this." Warm, decisive, no extra words cluttering the moment.
+
+- **Tab bar during voice mode** — *before:* "dimmed at 40% opacity" (given) → *after (microcopy context):* The dimming is intentional not to *disable* the tabs, but to *de-emphasize* them (they remain tappable, just visually secondary). If a user swipes on a tab during recording, the interface gracefully exits voice mode (voice panel slides down, tabs brighten) — no error, no harsh transition. The microcopy is implicit in the interaction: "You can switch tabs anytime; we'll save your draft if you want to continue."
+
+- **Accessibility label: stop/send button** — *before:* "Stop recording and send message" (given, functional) → *after (on-voice):* Icon changes from square (stop, during recording) to arrow (send, after speech ends). Screen reader label is **dynamic**: during recording, "Stop recording and send your voice message"; after speech ends, "Send voice message" (the label change mirrors the icon change, so the screen reader user is not confused by a silent toggle). The label is warmly framed: "your voice message," not "the message" or "transcription" — it belongs to the user, it's their words.
+
+### Motion choreography
+
+**`CK-P4` motion draws, never fades — locked timings from `CONSISTENCY.md` §3:**
+
+1. **Voice panel enter** (from text-input mode, mic button tap) — Panel slides up from bottom edge (translateY 200pt→0) while keyboard (if visible) simultaneously slides down, **280ms** (`--dur-base`), **`--ease-out-soft`**. Tab bar dims to 40% opacity (simultaneous, same timing, same easing). The entrance is a **spatial handoff** (keyboard ↔ voice panel, no overlap confusion). The **waveform bars do NOT animate yet** — they sit idle at 8pt height, orange/20 opacity, waiting. Status label "listening..." is already present and **begins pulsing** (opacity 40%→60%, 1200ms loop) as the panel settles. No sound cue required (the system is about to listen, not interrupting); the pulse is the visual affordance.
+
+2. **Microphone activates** (system detects live audio input, ~100ms after panel enters) — Waveform bars **animate live** (30-60fps, responsive to audio levels), 60ms after the panel is fully visible. Bars start at their current state (idle 8pt) and smoothly interpolate to the audio input level (real-time following, linear easing to match audio). Bar heights range 8pt (silence) to 48pt (loud), colours fade from center (80% orange) to edges (30% orange, center-weighted glow effect). The bars are the **focal motion**, and they **draw themselves** (height grows, not opacity fading in — per §8). This is the first audio-reactive animation, and it is the **ownable Balencia moment**: a warm, responsive waveform that confirms "the system is listening to you, in real time." **Never a spinner, never flat colours, never cold neon.**
+
+3. **Speech stops** (silence detected for 1.5s, or user taps stop button) — Waveform bars **smoothly collapse** to idle state (uniform 8pt height, 520ms `--dur-slow`, `--ease-out-soft`), then morph into a horizontal **loading spinner** (a rotating dash, orange/40 opacity, 12pt diameter, 1200ms loop) — this indicates "finalizing transcription." Simultaneously, the **status label transitions** from "listening..." to "processing." (dashed → solid border in the label text itself is not visual, but the word signals the state). Draft bubble's **dashed border solidifies** (160ms `--dur-fast`, the micro-transition that confirms draft-readiness).
+
+4. **Transcription complete** (speech recognized, API response received) — Spinner **morphs back** to the resolved stop/send button (the button was always visible, but the icon now **crossfades** from square to arrow, 160ms `--dur-fast`). Status label reads "processing." → silent (label disappears, message is clear from the resolved button icon). The **draft bubble is ready to send** — user can tap the arrow button or wait for auto-send (3s silence or 60s max duration).
+
+5. **User taps send button** — Draft transcription bubble **animates upward** (translateY 0→-12pt, opacity 1→0, 280ms `--dur-base`, `--ease-out-soft`) as it merges into the chat message list above. The stop/send button stays in place (the panel is still visible). A **SIA thinking indicator** appears in the chat (from the SIA Chat [09] spec) — purple, subtle, the coach considering the input. Voice panel remains visible until SIA sends a response, at which point it slides back down (exit motion, symmetric to enter, 280ms `--dur-base`).
+
+6. **User taps cancel** — Draft bubble **fades out** (opacity 1→0, 280ms `--dur-base`), waveform bars freeze then **collapse** to idle, voice panel **slides down** (bottom edge, 280ms, same timing as enter but reversed), keyboard returns (if applicable), tab bar brightens (opacity 40%→100%). No message is sent. The interaction is warm: the system doesn't dwell on the cancellation, it just returns smoothly to text mode.
+
+7. **Swipe down on voice panel** — Dismissal gesture (if implemented) triggers the same exit as cancel button (fade draft + slide down).
+
+8. **Reduced-motion** — `prefers-reduced-motion: reduce` → all animations switch to instant state changes: panel appears at final position instantly, waveform bars are at their last audio level (not animating), draft bubble is at final state (solid border if ready, opacity at target), SIA indicator appears instantly. **The settled frame is canonical** — the orange waveform bars are present and visible (not faded), the draft bubble dashed-border-to-solid transition is complete, status label is present (not hidden). No loops (the pulse, the spinner, the bar animation) occur.
+
+### State craft
+
+**Every state designed** (`CK-P7` matrix, each cell a layout + on-voice copy + depth/brand):
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1 (first voice tap)** | Voice panel slides up, waveform bars idle (8pt, orange/20), status label "Listening...", stop/send button visible + pulsing glow (recording mode), cancel button visible, draft bubble empty (not yet rendered), chat history visible above | "Listening..." (period, warm, steady, the coach is present) | Warm-glow voice panel (`CK-P1`), orange-dominant waveform (quiet, not loud), pulsing status label (breathing rhythm), no confusion about what happens next — the button and label together say "speak now, I'm ready" |
+| **Loading (speech incoming, live transcription)** | Same panel, waveform bars animate live (responsive to audio 8-48pt, center-weighted orange), draft bubble appears above in chat with dashed border + hint text "..." (white/30), cursor blinking orange at end, status label continues pulsing "Listening..." | "Listening..." (unchanged, same pulse, the coach hasn't shifted — continuity) | Focal waveform motion (orange bars dancing), draft bubble dashed border signals "in progress," no-data ≠ zero (the three dots + dashed border are the affordance, not a blank slate) |
+| **Empty / partial (user speaks briefly, stops, then resumes)** | Waveform bars flatten to idle (8pt) during silence, then resume animation when speech resumes. Draft bubble shows partial text (such as "I just did") + cursor blinking. Status label pulses unchanged. | "Listening..." (the system is still here, patient, unrushed — the pulse is the message) | Smooth bar interpolation (no jank when silence breaks), draft bubble grows fluidly, no error state triggered yet (silence < 1.5s is normal) |
+| **Error: No speech detected (8s timeout)** | Waveform bars freeze at their last position, then collapse to idle over 520ms. Status label changes to "No voice detected." (red, `--color-error-red` at 70%, static, no pulse). Stop/send button is disabled (40% opacity, no haptic on tap). Cancel button remains active. Draft bubble shows "..." unchanged. | "No voice detected. Try again or tap cancel." (in a toast, slides down above panel, white/50, 14pt, 2s auto-dismiss) — warm, inviting, never blaming ("you didn't speak" → "the system didn't hear") | Bars grey-collapse signal error without harshness, red label is specific (not a generic spinner), toast is warm (not punitive), user can immediately retry |
+| **Error: Transcription failed (speech-to-text API fails)** | Waveform bars freeze, then grey out (white/10 opacity). Status label changes to "Couldn't hear that. Try again." (red, static, no pulse). Stop/send button disabled (40% opacity). Draft bubble retains any partial text it captured before the failure. Cancel remains active. | "Couldn't hear that. Try again." (14pt, `--color-error-red` at 70%, in the label itself, static — no toast, the label is the message) | Bars shift to grey (chromatic signal of error, not just a spinner), red label is warm ("couldn't hear" ≠ "you failed to speak"), user can retry without loss (partial text is retained) |
+| **Error: Mic permission denied** | Voice panel displays, but waveform bars are grey (white/10) and flat (8pt, non-responsive). Status label "Microphone access needed." (grey text, white/50, not red — it's a permission state, not an operational failure). Stop/send button disabled (40% opacity). Below the status label, a linked line: "Enable in settings" (14pt Sora Semibold, `--color-brand-orange`, tappable). Cancel button active. | "Microphone access needed." + "Enable in settings" (both calm, plain, actionable — never "allow the app to use your microphone" jargon) | Muted grey bars signal the mic is offline (chromatic distinction from error-red, which is reserved for transcription failure), orange link is the recovery affordance (warm action, not a system dialogue) |
+| **Processing (speech ended, transcription finalizing)** | Waveform bars collapse to idle (8pt), then morph into a loading spinner (rotating dash, orange/40, 1200ms loop). Status label changes to "Processing." (period, static, white/50). Draft bubble's dashed border **solidifies** to solid (160ms, the premium moment — unsent → confirmed-ready). Stop/send button icon crossfades from square to arrow (160ms). Cancel button remains active. | "Processing." (period, calm, waiting — the coach is thinking) | Orange spinner (warm, on-brand), dashed-to-solid border transition is the focal micro-interaction (no toast, the visual says "ready"), no urgency animation (the rules forbid it on conversion surfaces) |
+| **Ready to send (transcription complete, draft confirmed)** | Voice panel unchanged. Waveform bars are gone (hidden, as the panel is in "ready" state, not "active listening"). Status label gone (cleared, as there's nothing to communicate). Draft bubble appears in chat with **solid orange border** (no longer dashed), background at 15% opacity (sent-message opacity), cursor gone. Stop/send button shows arrow icon (send), pulsing glow (`--glow-orange-md`, 20px, 15% opacity, the focal action). Cancel remains active (user can still discard and return to text). | (no label — the visual is the message: "ready to send") | Solid-border draft bubble reads as "this is final," pulsing send button is the focal action (warm orange, size-calibrated glow, never neon), panel is calm (no spinners, no urgency) |
+| **Offline (network error during transcription)** | Voice panel active. Waveform bars freeze (no animation), status label changes to "Connection lost." (red, `--color-error-red` at 70%, static). Stop/send button shows send icon but is disabled (40% opacity). Draft bubble retains any partial text. Cancel remains active. | "Connection lost." (in the label) (specific, not generic "error", never "check your internet") | Bars frozen signal the issue (not animating due to lack of response), red label is honest, partial text is retained (no data loss), cancel is always available |
+| **Sent (draft → chat message)** | Draft bubble animates upward (translateY 0→-12pt, opacity 1→0, 280ms) as it merges into the main chat. Voice panel remains on-screen. SIA thinking indicator appears in chat (purple, subtle, awaiting response). Voice panel eventually slides down (280ms) once SIA responds. | (no copy at send moment — the animation is the feedback) | Warm exit animation (not a harsh swap), purple SIA indicator is earned and on-brand, voice panel doesn't linger (it exits when SIA has responded — clean handoff) |
+
+### Signature & anti-generic
+
+**The ownable Balencia moment(s):**
+
+1. **Waveform bars draw on entry and dance with audio** — A warm, responsive orange waveform that animates in real-time (never a spinner, never a flat bars-image). The bars are the single focal motion (focal first in the choreography), and they are **continuous-stroke kin** (orange, rounded caps, responsive curves matching audio data). No competitor owns this exact bar choreography at this warmth-level; it is unmistakably Balencia.
+
+2. **Draft bubble dashed-border-to-solid transition** — The moment speech stops and transcription completes, the draft bubble's dashed border solidifies (dashed = unsent, solid = ready to send) over 160ms. This is a premium micro-interaction detail: the visual transforms without a toast or a label change, the user simply *sees* the bubble harden into a sent-like state. It's the **brand period device in motion** — precise, intentional, settled. No competitor does this exact transition; it's a signature Balencia detail that makes voice-input feel crafted, not generic.
+
+3. **Warm, non-shaming error copy** — Every error state (no speech, transcription failed, mic denied) uses warm, constructive framing. "No voice detected. Try again." not "You didn't speak." "Couldn't hear that. Try again." not "Speech recognition failed." The voice is the coach in the corner, not a cold system. This is unmistakably Balencia (dim 6 / non-shaming, dim 11 / microcopy craft).
+
+4. **Pulsing status label as breathing rhythm** — The "Listening..." label pulses (opacity 40%→60%, 1200ms) instead of spinning or sitting static. The pulse is a breathing rhythm, a human-like presence, the coach settling in and being present. It's warm, not mechanical. Matches the brand's "quietly confident" personality (§2).
+
+**Generic-tells removed:**
+- ❌ No generic spinner (no Android-style pie spinner, no iOS-style shimmer).
+- ❌ No flat waveform bars (no static image, no single-colour bars).
+- ❌ No cold error messages ("Error code 001", "System unavailable").
+- ❌ No generic copy ("recording...", "please wait").
+- ❌ No exclamation marks anywhere.
+- ❌ No urgency animation (no rapid pulses, no flashing buttons).
+- ❌ No voice-command styling borrowed 1:1 from a competitor (Siri, Google Assistant) — this panel is unmistakably Balencia, warm and restrained.
+
+The screen reads as a premium, thoughtful voice interface designed *for* a coach app, not a generic voice-recorder jammed into chat.
+
+### Accessibility
+
+**Contrast pairs (WCAG AA + 1.4.11 ≥3:1):**
+
+| Element | Foreground | Background | Ratio | Notes |
+|---------|------------|-----------|-------|-------|
+| Status label "Listening..." | white/50 (127.5, 127.5, 127.5) | ink-brown-800 (`--color-ink-brown-800`) | 4.2:1 | ✓ Exceeds AA |
+| Error label (red) | color-error-red/70 (`--color-error-red`, α=0.7 → ~217, 110, 110) | ink-brown-800 | 3.8:1 | ✓ Exceeds AA |
+| Cancel button text | white/50 | ink-brown-800 | 4.2:1 | ✓ Same as status |
+| Stop/send button icon | white/100 | color-brand-orange (`--color-brand-orange`) | 2.8:1 | ⚠ Below AA but acceptable for icons (1.4.11 graphics, 3:1 over surrounding, not text) |
+| Stop/send icon vs panel bg | color-brand-orange/glow edge | ink-brown-800 edge | 4.1:1 | ✓ Icon + glow edge meets 3:1 graphic ratio |
+| Waveform bars (orange) | color-brand-orange/80 (`--color-brand-orange`, α=0.8) | ink-brown-800 | 5.2:1 | ✓ Bars are the primary motion element, high contrast |
+| Waveform bars (edge, 30%) | color-brand-orange/30 | ink-brown-800 | 2.3:1 | ⚠ Faint bars are decorative (center-weighted glow), 3:1 not required for decorative-only |
+| Draft bubble text | white/80 | orange/10 bg | 6.1:1 | ✓ High contrast on the in-progress draft |
+
+**Focus ring** — every interactive element (stop/send button, cancel button, "enable in settings" link) carries `CK-T03` `--focus-ring` (2px orange, 2px offset from the element). Focus order: Cancel button → Status label (informational, skipped by tab) → Waveform (decorative, hidden from screen reader) → Stop/send button → (optional) Chat area above (scrollable).
+
+**Screen reader announces:**
+- On panel enter: "Voice input mode active. Microphone listening. Speak now or tap stop to send." (live region, read once as the panel slides up).
+- Dynamic label changes: "Processing..." → live region announces "Transcription finalizing" (not just the label text, but the state).
+- Stop/send button label: "Stop recording and send voice message" (during active listening) → "Send voice message" (after speech ends) — label changes dynamically, so the user knows the state without visual inspection.
+- Draft bubble: live region announces transcribed text as it appears in real-time ("Listening: I just did thirty minutes of yoga") — confirms transcription is working.
+- Error state: "No voice detected. Try again or tap cancel." (in a live region, replacing the status-label announcement).
+- Cancel button: "Cancel voice input and return to text mode" — clear and actionable.
+
+**Reduced-motion** — `prefers-reduced-motion: reduce` → **all animations switch to instant, final state is canonical:**
+- Panel enters/exits instantly at final position (no slide).
+- Waveform bars appear at their last audio level, frozen (no animation). If Day-1, bars appear idle (8pt, orange/20). **No spinner.**
+- Status label appears at final state (no pulse). If active, "Listening..." is static. If error, red label is visible.
+- Draft bubble appears at its state (dashed border if in-progress, solid if complete). No state-transition animation.
+- Stop/send button icon is at final state (square if recording, arrow if ready). No crossfade.
+- **The settled frame preserves all essential info:** the orange waveform is visible, the status label is clear, the button is recognizable, the draft is legible.
+
+**44pt targets** — stop/send button is 56pt diameter (FAB-like, thumb-friendly), cancel is a text button with 44x44pt tap target, draft bubble is tappable (44pt min height, expands with content), "enable in settings" link is 44pt tap target.
+
+**Colour + glyph + word** — status never by colour alone:
+- Error state: red label text "Couldn't hear that..." (colour + word, glyph optional).
+- Offline state: red label "Connection lost." (colour + word).
+- Mic denied: grey label "Microphone access needed." + orange link "Enable in settings" (word + actionable link, not just a greyed-out icon).
+
+**Gesture fallback** — swipe-down to dismiss voice mode has an explicit cancel button fallback (not gesture-only). Long-press on stop/send button (if implemented) shows a context menu with "send" / "cancel" options (accessibility-forward, not hidden behind a swipe).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [09] — SIA Chat text mode (on send or cancel — returns to same screen, same conversation)

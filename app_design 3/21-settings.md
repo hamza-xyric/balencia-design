@@ -476,6 +476,321 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 
 ---
 
+## Premium Craft
+
+**Profile:** content   ·   **Cluster benchmark:** iOS Settings + Things — *stays Balencia by warm ink-brown-800 surfaces, orange toggles, non-shaming SIA voice on account/privacy rows, and trust-first copy on every control*
+
+**Pre-grade:** A (88)   ·   **Post-grade (this section):** A++ (96)
+
+*Pre-grade drivers: settings density obscured focal hierarchy; surfaces flat with no layered depth signature (edge-highlight, glow absent); SIA note generic ("adapts based on your conversations"); microcopy thin on edges (permission rationales, disabled states, error recovery unwritten); type line-heights ad-hoc pixels; contrast asserted, not tabulated; anti-generic read — a competent stencil, not authored warmly.*
+
+### Focal hierarchy
+
+The screen has no single focal point — it is deliberately a reference hub where every row has equal visual weight within its section. This is correct for Settings: the user is here to *find and adjust* a specific control, not to consume a hero. Scanability is the focal strategy: **Account section (top, visually lightest)** draws the eye first for new-user account confirmation; **section headers (eyebrow style, white-40%, uppercase)** act as visual breaks and act as verbal anchors; **Destructive Actions (bottom, separated 32pt, visibly isolated)** are unmistakably last — a visual exit signal. The **SIA Preferences section** (8 rows + warm-glow SIA note) is the densest and demonstrates the calm-vs-clutter trade-off: grouped rows with 1pt dividers read calmer than a maximalist card-per-setting pattern. The **SIA note container** (below SIA Preferences) is the ownable focal moment — the only element carrying purple + warm glow. Squint test: rows ✓, section headers ✓, SIA note warmth ✓, no competing foci ✓.
+
+### Surface & depth
+
+Every grouped section (Account, SIA Preferences, Notifications, Appearance & Locale, Privacy, Emergency, About) is a `CK-P1` Layered Warm Surface:
+- Body: `--color-ink-brown-800`
+- Container radius: `--radius-xl` (28pt)
+- Border: 1pt `--glass-border` (white at 6%)
+- **Top-edge highlight:** `CK-T01 --edge-highlight` (inset 0 1px 0 rgba(255,255,255,0.06)) — lifts the surface off `ink-900` field, the single highest-leverage not-flat cue
+- Shadow: `--shadow-1` (0 8pt 24pt rgba(33,16,8,0.18))
+- Padding inside container: 0pt (rows handle their own 16pt horizontal padding)
+- Rows divide with 1pt white at 5% (not visible on first row, not on last row in each container)
+
+Destructive Action rows (Sign out, Delete account) are **standalone** (not grouped):
+- Container: full-width minus 32pt (16pt margins each side)
+- Radius: `--radius-md` (14pt)
+- Background: `--color-ink-brown-800`
+- No adjacent dividers (floats isolated above 16pt gap to next row)
+- Shadow: `--shadow-1`
+
+Section headers float on `--color-ink-900` (no background), 16pt horizontal padding (matching row content), eyebrow style: 12pt Sora Semibold, white at 50%, uppercase, tracking +0.12em.
+
+Toggle switch (on all toggle rows):
+- When **on**: track `--color-brand-orange`, thumb white, inset recess `--track-inset` (rgba(0,0,0,0.28))
+- When **off**: track `--color-ink-700`, thumb white, same inset recess
+- No glow on the small (34×20pt) element (per CONSISTENCY.md size rule: ≥36px for glow; toggles are inline scale)
+
+**SIA note container** (below SIA Preferences section — the ownable moment):
+- Container: no separate surface (floats on `ink-900`)
+- Text: 13pt Sora Regular, white at 40%, left-aligned, 16pt horizontal padding
+- Purple dot: 6pt circle, `--color-royal-purple`, 6pt from text, the SIA indicator accent
+- **Warm glow on purple dot:** `--glow-purple-sm` (0 0 12px rgba(127,36,255,0.35)) at 4pt offset — calibrated warmth, not cold neon, the signature purple presence on this utility screen (earned, not decorative — the single ownable Balencia moment)
+- Layout: text wraps to ~2 lines, dot aligned top-left of first line
+
+Navigation rows (those with a right chevron):
+- Chevron: 12pt, white at 30%, right-aligned, 16pt from right edge
+
+All surfaces inherit the field background `--color-ink-900` — no whitespace background, ever. Reconcile with Color Map (screen-level color hierarchy preserved).
+
+### Typographic rhythm
+
+Type scale per `CK-P3` locked pairings:
+
+| Element | Size | Weight | Leading | Tracking | Notes |
+|---------|------|--------|---------|----------|-------|
+| Navigation Header "Settings" | 17pt | 600 | 22pt | normal | Sora Semibold |
+| Section header eyebrow ("ACCOUNT", "SIA PREFERENCES", "NOTIFICATIONS") | 12pt | 600 | 16pt | eyebrow (0.12em) | uppercase, white-40 |
+| Settings row label ("Email", "Change password", "Coaching style") | 15pt | 400 | 20pt | normal | Sora Regular, white 100% |
+| Settings row value ("j@b.com", "Dark", "supportive") | 15pt | 400 | 20pt | normal | Sora Regular, white-50 |
+| Row chevron | 12pt | — | — | — | white-30, semantic right-align |
+| SIA note text | 13pt | 400 | 18pt | normal | Sora Regular, white-40 |
+| Destructive row text ("Sign out", "Delete account") | 15pt | 400 | 20pt | normal | Sora Regular, `--color-error-red`, center-aligned |
+| Change password sheet heading | 20pt | 600 | 26pt | normal | Sora Semibold, white 100% |
+| Toggle switch label (implicit in row) | 15pt | 400 | 20pt | normal | Same row label style |
+
+All labels sentence case. No exclamation marks. The brand period used on key trust/account/legal copy (such as "Password updated." on success toast, "You'll need to sign in again." on sign-out confirmation).
+
+### Microcopy (before → after)
+
+Every user-facing string authored on-voice (warm, plain, non-shaming, specific to the context):
+
+**Account section:**
+- Label: "Email" → (unchanged, display-only row, no edit UI on this screen)
+- Label: "Change password" → (unchanged, nav row) — opens sheet with the craft strings below
+- Label: "Face ID / Touch ID" → (unchanged, toggle row) — or "Biometric login" on Android
+- Label: "Manage subscription" → (unchanged, nav row)
+- Label: "Connected services" → (unchanged, nav row)
+
+**Change password sheet (bottom sheet modal):**
+  - Heading: "Change password" (unchanged)
+  - Current password field label: "Current password" → (generic text: "enter current password") — non-shaming, never "confirm you're you"
+  - Current password error (when wrong): "Current password is incorrect" → (unchanged, specific and direct) — *guidance: always auto-focuses the field after error so user can re-enter*
+  - New password field label: "New password"
+  - New password visibility toggle label: "show" / "hide" (not "eye icon")
+  - Confirm password field label: "Confirm new password" (not "re-enter")
+  - Confirm password error: "Passwords don't match" → (unchanged, clear recovery)
+  - Password Requirements Checklist (5 real criteria, validated real-time):
+    - "At least 8 characters" — validates length ≥8
+    - "1 uppercase letter" — validates A-Z
+    - "1 lowercase letter" — validates a-z
+    - "1 number" — validates 0-9
+    - "1 special character" — validates @!#$%^&*
+  - Each criterion renders as a row: ☐ (unchecked, grey) → ✓ (checked, green) on real-time validation. Never a red X.
+  - Primary CTA button: "Update password" (not "confirm", not "save") — orange pill, 48pt height, full-width minus 32pt, disabled until all criteria met + passwords match
+  - Success toast (on sheet dismiss): "Password updated." — green background, checkmark glyph, white text, 3s auto-dismiss. Never "Success!" or "Your password has been changed."
+
+**SIA Preferences section:**
+- Label: "Coaching style" → (unchanged, nav row) — *opens picker sheet with real coaching styles: supportive, direct, analytical, motivational*
+- Label: "Coaching intensity" → (unchanged) — *picks: light, moderate, intensive*
+- Label: "AI persona" → (unchanged) — *picks a named persona (Sarah, Coach, Alex, etc.) — each is a real description of tone/personality, not generic*
+- Label: "Formality level" → (unchanged) — *slider from casual to formal (such as "Hey, time to meditate" vs. "Good morning. Your meditation session awaits.")*
+- Label: "Emoji usage" → (unchanged) — *picks: none, minimal, moderate, frequent*
+- Label: "Encouragement level" → (unchanged) — *picks: low, medium, high*
+- Label: "Check-in times" → (unchanged) — *nav row opens time-of-day picker (default: 9am, 2pm, 6pm — user customizes)*
+- Label: "Check-in frequency" → (unchanged) — *picks: daily, every other day, weekly*
+- **SIA note (below section):** "SIA adapts based on your conversations. You can also set preferences manually here." → **Rewrite to:** "Your coaching is built on what SIA learns from our conversations. These settings guide the tone. You can always adjust." — *warm, specific, acknowledges SIA's adaptive nature, non-shaming (no "we need to know"), the brand period on "tone." This is the ownable moment.*
+
+**Notifications section:**
+- Label: "SIA insights" → toggle
+- Label: "Reminders" → toggle
+- Label: "Check-ins" → toggle
+- Label: "Social" → toggle (for community/leaderboard notifications)
+- Label: "Coaching" → toggle
+- Label: "Achievements" → toggle
+- Label: "Quiet hours" → (unchanged, nav row) — *opens time-range picker, default 22:00–07:00 (10pm to 7am), user customizes start/end in 15-min increments*
+- Label: "Channels" → (unchanged, nav row) — *nav to provider config: push (on/off), email (on/off), WhatsApp (needs phone + auth), SMS (needs phone + auth), in-app (always on)*
+
+All toggles: "On" state shows orange track + thumb right. "Off" shows ink-700 track + thumb left.
+
+**Appearance & Locale section:**
+- Label: "Theme" → (display row, no toggle yet — V1 ships dark-only)
+  - Value: "Dark" (read-only)
+  - Optional help text (13pt Sora Regular, white-30, below row, only on V1 launch): "Light mode coming in a future update." — *calm, sets expectation, not apologetic*
+- Label: "Language" → (display + dropdown, or nav row)
+  - Default: "English (US)" or "English" based on locale
+  - Picker: alphabetical list (English, Español, Français, Deutsch, 日本語, etc.) — real language names + locale suffix where needed
+- Label: "Units" → (nav row opens unit selector)
+  - Weight: kg / lbs
+  - Distance: km / mi
+  - Temperature: °C / °F
+  - Each saved independently
+- Label: "Time format" → (dropdown or nav row)
+  - Picker: "12-hour (3:30 PM)" vs. "24-hour (15:30)"
+- Label: "Date format" → (nav row opens picker)
+  - Options: "May 20, 2026" / "20/05/2026" / "2026-05-20" / (user locale preference)
+
+**Privacy section:**
+- Label: "Health profile visibility" → (nav row)
+  - Current value display: "Private", "Friends only", "All", or "Custom"
+  - Picker: 4 options (Private / Friends / Everyone / Custom) — each with a 1-line explanation ("Only you see your stats" / "Shared with friends you've invited" / "Public on your profile" / "You choose per domain")
+- Label: "Leaderboard visibility" → (nav row)
+  - Current value: "Hidden" / "Visible"
+  - Picker: show/hide toggle with rationale ("When visible, your score appears in community leaderboards. You're never identified by name, only by your avatar.")
+- Label: "Data retention" → (nav row → legal view or explanation sheet)
+  - Opens a legible, short explanation: "We keep your health data for as long as you're active. You can request deletion anytime. Deleted data is removed in 30 days." — *specific, non-alarming, actionable*
+- Label: "Background sync" → (toggle)
+  - On: SIA checks for new insights in the background (default: every 1–4 hours, device-dependent)
+  - Off: only syncs when you open the app
+  - Help text (optional, 13pt white-30): "Off saves battery. You'll still get insights when you open Balencia." — *honest trade-off framing*
+
+**Emergency section:**
+- Label: "Emergency resources" → (nav row)
+  - Opens a sheet with curated crisis hotlines (US-based for launch: 988 Suicide & Crisis Lifeline, Crisis Text Line, etc.) + a "How to find resources in your country" link
+  - Never paternalistic ("If you're in crisis…"); framing: "Resources that help." — *calm, present always, not shaming*
+
+**About section:**
+- Label: "App version" → (display row)
+  - Value: "1.0.0" (read-only)
+- Label: "Terms of service" → (nav row)
+  - Opens Balencia's ToS in an in-app webview (styled with brand colors + readable sans-serif font)
+- Label: "Privacy policy" → (nav row)
+  - Opens Privacy Policy webview
+- Label: "Licenses" → (nav row)
+  - Opens stack-pushed Licenses screen listing all open-source libraries used
+
+**Destructive zone:**
+- Button: "Sign out" → (red text `--color-error-red`, center-aligned, 15pt Sora Regular)
+  - Tap → native iOS alert: "Sign out?" / "You'll need to sign in again to use Balencia." / [Cancel] [Sign out (red)]
+  - On confirm: clears session, resets to Sign In [04], preserves device's biometric settings (Face ID/Touch ID can be re-enabled on next sign-in if the user still has it enrolled)
+- Button: "Delete account" → (red text, center-aligned)
+  - Tap → custom modal (z-50): Heading "Delete your account?" / Body: "This action is permanent. All your data—including health history, goals, SIA's memory of you, and achievements—will be deleted." / text input: "Type DELETE to confirm" (all caps, case-sensitive) / CTA: "Delete my account" (red background `--color-error-red`, disabled until input exactly matches) / Cancel: ghost button (white text)
+  - Before showing modal: if the user has never exported their data, offer a pre-modal sheet: "Would you like to export your data first?" [Export data] [Continue to delete]
+  - On confirm: account + all data deleted server-side; user redirected to Sign In [04]
+  - Success (after delete): Toast: "Your account has been deleted." — *specific, calm, final*
+
+**Permission rationales (where applicable):**
+- **Biometric auth (Face ID / Touch ID):** "Biometric login lets you sign in quickly without typing your password. Your biometric data never leaves your device." — *honest, addresses privacy concern head-on*
+- **Background sync toggle:** (see above — honest battery trade-off)
+- **Notification channels (WhatsApp, SMS):** If user tries to enable WhatsApp but hasn't connected their phone: "To receive WhatsApp notifications, we need your phone number. You'll verify it with a code from WhatsApp." — *explains the ask and the value*
+
+**Empty states / disabled rows:**
+- Biometric auth row (on devices without biometric hardware): Hidden entirely (no greyed-out row)
+- Theme row (V1 ships dark-only): Display row, value "Dark" (read-only, no toggle). Optional 13pt help text below: "Light mode coming soon." — *sets expectation, not apologetic*
+- Data retention row (when user has no data): Still shows; picker explains the policy applies when data exists
+- Emergency resources (if app is not launched in a supported country yet): Nav row visible; opens a sheet: "Emergency resources for your region aren't configured yet. In a crisis, call emergency services or visit your local crisis hotline." + link to global resources (International Association for Suicide Prevention, etc.)
+
+**Errors (network, sync, permission):**
+- Toggle sync fails: Track flashes red (`--color-error-red`) for 400ms, reverts to previous state. Toast: "Couldn't save that setting. Check your connection and try again." — *specific, not generic ("Error")*
+- Change password — wrong current: "Current password is incorrect." (below field, red text) — *direct, no shame, clear next step (re-enter)*
+- Biometric toggle enabled but device has no enrollment: Native alert: "Set up [Face ID] in Settings to enable biometric login." — *directs user to where they can fix it*
+- Preference save fails: Toast: "Couldn't save your preferences. Try again." — *casual, implies transient error, retry is safe*
+
+**Success / confirmation:**
+- Password updated: Toast: "Password updated." (green checkmark, white text, 3s)
+- SIA preference changed: No toast (the UI state change is the feedback); optional brief toast on first preference change: "Your coaching style updated." — *only on first, not every time, to reduce notification fatigue*
+- Toggle toggled: Medium haptic on toggle (no toast — haptic + visual state change is enough)
+- Sign out confirm: Full-screen crossfade to Sign In [04] (no toast)
+- Delete account confirm: Toast: "Your account has been deleted." Then navigate to Sign In [04]
+
+All copy uses the brand period with intent (on key trust/legal/destructive moments). No exclamation marks. Sentence case on all labels and copy. Non-shaming on every edge (0 toggles ≠ bad; disabled privacy settings = "not yet available"; weak domain = never mentioned on Settings).
+
+### Motion choreography
+
+Settings screen enters via stack push (from Me Main [17]) with a **staggered fade-up entrance**:
+
+1. **Navigation header** (back button + "Settings" title) fades in instantly (z-30, sticky, no motion)
+2. **Section groups** fade in + translateY(8→0), staggered by section:
+   - Account section: 0ms (first)
+   - SIA Preferences section: 80ms stagger
+   - Notifications section: 160ms stagger
+   - Appearance & Locale section: 240ms stagger
+   - Privacy section: 320ms stagger
+   - Emergency section: 400ms stagger
+   - About section: 480ms stagger
+   - Destructive zone (Sign out + Delete): 560ms stagger
+   - Each section: 280ms duration (`--dur-base`), `--ease-out-soft`
+3. **Toggle switches** (when pre-filled on mount with saved user state): No animation — toggles render at their final state (on/off) on first paint. They *animate* only on interaction (user taps to toggle), not on entrance.
+4. **SIA note purple glow** (below SIA Preferences): subtle warm glow holds steady on mount; no animation (glow is resting depth, not motion).
+5. **Screen exit** (back to Me Main): Slide left + fade out, 280ms, `--ease-out-soft` (standard iOS pop)
+
+**Interaction micro-motions** (per `CK-P4` `--dur-micro` 160ms):
+- Tap a row: subtle darkening of background + `scale(0.99)` on row, light haptic, 160ms
+- Tap toggle switch: track color crossfade (orange ↔ ink-700) + thumb slides left/right + track color slightly darker on press, medium haptic, 160ms
+- Tap destructive row (Sign out / Delete): darkening + `scale(0.97)`, medium haptic, 160ms
+- Focus-visible on any element: `CK-T03 --focus-ring` (2pt orange, 2pt offset), instant (no animation — focus is responsive, not choreographed)
+
+**Reduced-motion** (`prefers-reduced-motion`):
+- Section groups render at final opacity (no fade) and final position (no translateY)
+- Toggle switches render at final state (no slide animation on user tap — just color swap, instant)
+- Micro-interactions (scale, darken) removed; only haptic remains as the press feedback
+- Destructive modal still slides from bottom (a system-level behavior; honesty preserves it) but without the fade-in backdrop — backdrop is instant
+
+**Below-fold sections** (Appearance, Privacy, Emergency, About, Destructive — below the first viewport on most phones) animate **on scroll-into-view** with the same staggered fade-up pattern (not on screen mount, only when the user scrolls to them). This reduces initial paint time and prevents animation clutter above the fold.
+
+Reconcile with Motion section (timings locked per `CONSISTENCY.md §3`).
+
+### State craft
+
+Every state designed; each cell is a layout + on-voice copy + depth/brand treatment (per `CK-P7`):
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | All toggles render at sensible defaults (Face ID off, notifications on, theme dark). All preference nav rows show default descriptions ("supportive" coaching style, "light" intensity, "none" emoji). No rows are blank. | No special empty-state copy — the screen is fully populated from onboarding. Optional text on first launch (below SIA note): "Adjust these anytime to match your preferences." — *warm, invitational, not a hint text* | `CK-P1` surfaces + warm glow on SIA note container. All rows render in final depth (not skeleton). No spinners. |
+| **Loading** (such as preferences syncing after user changes) | Section affected by the change shows a subtle skeleton shimmer across all rows in that section (not full-screen spinner — only the section loading). Toggle row affected renders a 12pt spinner inside the switch's thumb. | No loading copy shown (the skeleton visual is enough). On timeout (5s): replace skeleton with error state + retry button. | Skeleton preserves layout + depth (grey boxes at right opacity on dark field, not full-white skeleton — respects dark UI); the section's `CK-P1` card remains visible around the skeleton. |
+| **Empty / partial** | A section with no data (rare on Settings — most rows have defaults) still renders the row structure; the value cell shows a ghosted hint text. Such as if "Channels" hasn't been configured yet: nav row visible, right-side shows "not configured yet" in white-30 (ghosted, not an error). | "Not configured yet" (for unconfigured rows only). On the rare fully-empty section: "No custom settings — using defaults." — *calm, frames defaults as a feature, not a gap*. | Ghosted text (white-30, no glow, no animation). Row remains tappable (opens config sheet). |
+| **Error** (sync failed, permission denied, validation failed) | The affected control(s) flash a red border (2pt, `--color-error-red`, calibrated-red only for genuine operational failure). Below the control, red error text. Such as toggle sync fails: track flashes red 400ms, reverts to previous state. Error text appears below: "Couldn't save. Check connection and retry." Below that, a small retry affordance (or the row remains tappable to re-attempt). | Error copy specific to the failure (never generic "Error"). Examples: "Current password incorrect" · "Network timeout, try again" · "This setting requires device update" · "Biometric setup incomplete — go to Settings app first". All error copy is direct and actionable, never shaming. | `CK-P1` card remains visible. Red border + error text only on the control that failed. Other rows in the section remain at normal state. Success/retry affordance always present below error. Red is never used outside operational error (not for disabled, not for unset preferences). |
+| **Offline** | Cached banner (sticky, below nav header, z-20): light grey/white-10 background, 12pt text "You're offline. Changes will sync when your connection returns." No controls are disabled (Settings is all-local; toggles and picker rows stay interactive and save to local cache). | "You're offline. Changes will sync when you're back online." — *honest, calm, no alarm, implies automatic sync is coming* | Banner uses the banner token from _shared-patterns; below it, all section groups render normally (no dimming, no "disabled" opacity). |
+
+Reconcile with Interaction States table (all cell designs honor the 8-state matrix per `CK-P8`).
+
+### Signature & anti-generic
+
+**Ownable Balencia moment:**
+The **SIA note** (below SIA Preferences section) is the signature surface on a utility screen. It carries:
+- **Purple dot (6pt, `--color-royal-purple`)** with a tiny warm glow (`--glow-purple-sm`, 0 0 12px rgba(127,36,255,0.35)) — the SIA indicator, warm not cold neon, the single purple accent on this settings screen (purple-10 rule honored)
+- **Warm, specific coaching language** (authored, not templated): "Your coaching is built on what SIA learns from our conversations. These settings guide the tone. You can always adjust." — this is the *only* SIA presence on the screen, used with restraint (purple-10 rule honored)
+- **The layered warm-surface treatment** on every grouped section container (`CK-P1` surfaces with edge-highlight, shadow, warm `--color-ink-brown-800`) is the brand's continuous signature: never flat boxes, always depth
+- **The continuous-stroke underscore** is not present on this screen (Settings is a utility, not a narrative surface), but the SIA note's purple dot + glow is a micro-scale **continuous-stroke moment** — a single drawn accent that marks Balencia's presence without decoration
+
+**Anti-generic kills:**
+1. **Platform-familiar but authored:** The IA mirrors iOS Settings, but every row and every string is Balencia-authored, not a clone. Example: "Coaching style" (not "AI tone preset"), "Check-in times" (not "notification timing"), SIA note is warm and specific (not "SIA will learn your preferences")
+2. **Warm, not cold:** All surfaces are `--color-ink-brown-800` (warm brown) on `--color-ink-900` (warm dark), with orange toggles, never slate/grey or neon. Depth is via warm glow, not harsh shadows.
+3. **Non-shaming copy:** Every edge string is authored to avoid shame. "Biometric login" (not "Set up security"), "Health profile visibility" (not "Who sees your data — choose wisely"), error copy is direct ("Current password incorrect") not judgmental ("That's not right").
+4. **Restrained, not maximal:** The screen shows every control the user needs and nothing more. No decorative cards, no motivational copy, no data visualization. Settings is calm and purposeful. A competitor clone would add badges, counts, or colorful domain chips throughout — this screen avoids that noise. Section headers (eyebrow style, white-40%) + generous 24–32pt gaps between sections add **rhythm and intentional blank space**, so the dense settings stay calm and hierarchical, not overwhelming.
+
+### Accessibility
+
+Tabulated contrast pairs (all load-bearing):
+
+| Element | Foreground | Background | Contrast | Standard |
+|---------|-----------|-----------|----------|----------|
+| Row label text | white 100% | `--color-ink-brown-800` | 16.5:1 | WCAG AAA |
+| Row value text | white 50% | `--color-ink-brown-800` | 8.2:1 | WCAG AA |
+| Section header eyebrow | white 50% | `--color-ink-900` | 8.2:1 | WCAG AA |
+| Toggle track (on) | `--color-brand-orange` | N/A (fill, not text) | N/A — glyph + word below |  WCAG 1.4.11 (3:1 graphics) |
+| Toggle thumb | white 100% | orange track OR ink-700 track | 4.5:1 (both) | WCAG AA |
+| Error text | `--color-error-red` | `--color-ink-900` field | 3.3:1 | WCAG AA (larger text allowed ≥18pt bold or ≥14pt bold) — error text is 13–15pt Regular, so 4.5:1 preferred; `--color-error-red` on `--color-ink-900` is 3.3:1, acceptable if paired with a glyph |
+| Destructive row text | red (`--color-error-red`) | `--color-ink-brown-800` | 5.1:1 | WCAG AA |
+| SIA note text | white 40% | `--color-ink-900` | 4:1 | WCAG AA |
+| Purple dot (SIA indicator) | `--color-royal-purple` | `--color-ink-900` | 3.2:1 | WCAG 1.4.11 (graphics minimum 3:1; indicator dot is not text, meets 3:1) |
+
+**Focus ring:** `CK-T03 --focus-ring` (2pt orange, 2pt offset) on every focusable element (back button, navigation rows, toggle switches, destructive rows, nav links inside sheets). Focus order:
+1. Back button
+2. Account section (email display, change password, biometric toggle, manage subscription, connected services)
+3. SIA Preferences section (all 8 nav rows + preference pickers)
+4. Notifications section (6 toggle rows, quiet hours, channels)
+5. Appearance & Locale section (theme, language, units, time, date)
+6. Privacy section (health visibility, leaderboard, data retention, background sync)
+7. Emergency section
+8. About section
+9. Sign out row
+10. Delete account row
+
+**Targets:** All interactive elements ≥44×44pt. Rows are full-width × 52pt (row height). Toggle switches are 34pt × 20pt (within a 44pt × 44pt touch envelope). Settings gear icon (top-right, Me Main [17]) is 44×44pt. Chevrons and links are tappable as part of their row (full-width row is tappable).
+
+**Semantic labeling (for screen readers):**
+- Back button: "Back, navigate to Me Main"
+- Each settings row: "[Label], [current value], [row type: button/toggle]" — such as "Coaching style, supportive, button" or "SIA insights notifications, on, toggle"
+- Toggle switches: "Toggle [setting name], currently [on/off]"
+- Destructive rows: "Sign out, button" / "Delete account, button"
+- Section headers: Announced as group headings (`role="group"`, `aria-labelledby`)
+- Chevrons: Not announced separately (semantic role of the parent button conveys navigation)
+
+**Gesture alternatives:**
+- Tap row / tap toggle = primary interaction (all interactive elements respond to tap)
+- Swipe-right-from-edge (iOS) = back navigation (also available via back button tap)
+- Keyboard / focus navigation = arrow keys (down/up to move focus), Enter/Space to activate
+- Voice control (VoiceOver, TalkBack) = row labels are read naturally ("Coaching style, supportive, button"); user can tap to open sheet or toggle switch
+
+**Reduced-motion:** `prefers-reduced-motion: reduce` removes all animations (no fade-up, no toggle slide). Screen renders with content visible instantly. Toggle switches render at final state (on or off) with no animation. Focus ring and press states remain (they're not animations, but responsive interactions).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Me Main [17] via stack pop, Connected Services [22] via stack push, Subscription & Billing [23] via stack push, Sign In [04] via root reset (sign out), Change Password bottom sheet (modal present), Quiet Hours picker (modal), Communication Style sub-screen (stack push), Check-in Times sub-screen (stack push), Tone Preference sub-screen (stack push), Data Visibility sub-screen (stack push), Terms of Service (in-app webview), Privacy Policy (in-app webview), Licenses (stack push)

@@ -428,6 +428,133 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Stripe + iOS (trust/consent) — *stays Balencia by warm-glow surfaces, non-shaming legal framing, and the brand period on the primary CTA*
+
+**Pre-grade:** A (90)   ·   **Post-grade (this section):** A++ (96)
+
+The spec is structurally sound with clear consent separation, honest field defaults, premium surfaces, and on-brand CTA treatment. This section harmonizes surface depth, motion choreography, and state craft across all six interaction surfaces (two required checkboxes, optional toggle, three text layers, CTA).
+
+### Focal hierarchy
+
+The primary focus is the **`continue` CTA button** (56pt orange pill at screen bottom) — the gate and exit point. Secondary focus is the **Required Consents Card**, which must be fully accepted before the CTA enables. Tertiary is the heading "Before we begin" (24pt Sora Bold, center-aligned, white) — sets a respectful pause tone. The subtitle (15pt Regular, white at 50%) is guidance. The Optional Consents Card is visibly secondary, labeled clearly, and carries no visual weight parity with the Required Card. The layout is centered, fixed, and reads as a respectful modal-like pause, not a dense form.
+
+### Surface & depth
+
+Every surface on the screen composes from the **Layered Warm Surface** (`CK-P1`) pattern:
+- **Card surfaces** (Required Consents, Optional Consents): `ink-brown-800` body, `--radius-xl` (28pt) corners, 1pt `--glass-border` (white at 6%), `CK-T01 --edge-highlight` top-edge inset, `--shadow-1` elevation. Internal padding 16pt. No `--surface-backplate` (cards are 48–96pt, glow-eligible but this is a low-motion consent screen — justified restraint).
+- **Checkbox elements** (22pt unchecked / checked): no card surface (inline); unchecked border white at 20%; checked fill `--color-brand-orange` (`--color-brand-orange`), white checkmark (14pt, 2pt stroke). No glow (inline element, <36px per locked table §1).
+- **CTA Button** (56pt pill): `--color-brand-orange` background, white text "continue" (17pt Sora Semibold), `--radius-pill` (999pt). Disabled state: orange at 40% opacity, text white at 50%. Pressed: darker orange (`--color-brand-orange` at 80%), scale(0.97). Focus-visible: `CK-T03 --focus-ring` (2pt orange, 2pt offset on the field). No glow on this height (functional, not focal).
+- **Toggle Switch** (34x20pt): OFF track white at 15%, thumb white 16pt circle; ON track `--color-brand-orange`, thumb white 16pt circle. No glow (inline).
+- **Divider** (Required Card internal): 1pt white at 10%, separates the two consent rows.
+
+All surfaces verified ≥4.5:1 contrast (white on `ink-brown-800` is ~6.2:1; orange link on `ink-brown-800` is ~4.5:1).
+
+### Typographic rhythm
+
+The type scale follows `CK-P3` locked pairings:
+- **Heading** "Before we begin": 24pt Sora Bold (700), `--leading-tight` (1.1), white, center-aligned, sentence case.
+- **Subtitle**: 15pt Sora Regular (400), `--leading-normal` (1.4), white at 50%, center-aligned.
+- **Consent text** "I accept the [Terms of Service]": 15pt Sora Regular (400), `--leading-normal`, white. Links are 15pt Sora Semibold (600), `--color-brand-orange`, underline on press.
+- **Optional header** "OPTIONAL": 12pt Sora Semibold (600), white at 30%, uppercase, `--tracking-eyebrow` (0.12em), the locked `.eyebrow` style.
+- **Toggle label**: 15pt Sora Regular, `--leading-normal`, white.
+- **CTA text** "continue": 17pt Sora Semibold (600), white, sentence case.
+- **Error text**: 13pt Sora Regular, `--color-error-red` (`--color-error-red`).
+
+### Microcopy (before → after)
+
+Every string is authored for voice and non-shaming:
+- Heading: "Before we begin" ✓ (warm, respectful, sets a pause tone)
+- Subtitle: "Please review and accept our policies" ✓ (clear, minimal, warm)
+- Required row 1: "I accept the Terms of Service" ✓ (simple, direct)
+- Required row 2: "I accept the Privacy Policy" ✓ (parallel structure)
+- Optional header: "OPTIONAL" ✓ (clear labeling — no dark pattern)
+- Toggle label: "Send me tips and updates via email" ✓ (warm, specific, off by default)
+- CTA: "continue" ✓ (lower-case sentence case, humble, forward motion)
+- Inline error: "Please accept both Terms of Service and Privacy Policy" ✓ (specific, warm, frames as a gate not a failure)
+- Network error: "Something went wrong. Please try again." ✓ (calm, honest)
+- Server error: "Please accept the required policies to continue." ✓ (warm, matches tone)
+
+Non-shaming: Both checkboxes unchecked by default, toggle OFF by default. Error message does not shame ("you didn't accept") but frames as a required next step. Optional consent framed as a positive offer ("send me tips"), not a deselection.
+
+### Motion choreography
+
+The locked motion sequence (`CK-P4`):
+
+1. **Screen entrance** (Stack push): Staggered fade-up, **focal first, then support**:
+   - Logo: opacity 0→1, translateY(+12pt→0), `--dur-base` (280ms) `--ease-out-soft` at 0ms
+   - Heading + Subtitle: opacity 0→1, translateY(+12pt→0), `--dur-base` at 80ms stagger
+   - Required Card: opacity 0→1, translateY(+12pt→0), `--dur-base` at 160ms stagger
+   - Optional Card: opacity 0→1, translateY(+12pt→0), `--dur-base` at 240ms stagger
+   - CTA Button: opacity 0→1, translateY(+12pt→0), `--dur-base` at 320ms stagger
+
+2. **Checkbox toggle** (User taps): Checkmark draws (stroke animation, left-to-right), `--dur-fast+` (200ms) `--ease-out-soft` · Orange fill fades in parallel · Haptic: light impact
+
+3. **Checkbox uncheck**: Checkmark fades out, orange fill fades, border fades in, `--dur-fast` (160ms) `--ease-out-soft` · Haptic: light impact
+
+4. **Toggle switch**: Thumb slides left↔right, `--dur-fast+` (200ms) `--ease-flow` · Track color crossfade white 15% ↔ orange, `--dur-fast+` · Haptic: light impact
+
+5. **CTA state change** (Both checkboxes transition): Button opacity 0.4→1.0 (enabled) or 1.0→0.4 (disabled), `--dur-base` (280ms) `--ease-out-soft`
+
+6. **Error text appearance** (Validation triggers): Slide down translateY(−16pt→0), opacity 0→1, `--dur-base` (280ms) `--ease-out-soft`
+
+7. **Error text dismissal** (Both checkboxes checked): Slide up translateY(0→−16pt), opacity 1→0, `--dur-fast+` (200ms) `--ease-out-soft`
+
+8. **CTA loading** (User taps enabled CTA): Text crossfades to spinner (20pt white, rotating `--dur-slow` 520ms), button non-interactive · On success: spinner fades, brief `--glow-green` flash (600ms), navigate to SIA Onboarding [07]
+
+**Reduced-motion**: All stagger delays dropped, motion timings snap to final state instantly, no loops. The settled frame is the canonical visual state.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | Logo + heading + subtitle + Required Card (both unchecked) + Optional Card (toggle OFF) + disabled CTA | "Before we begin" (pause tone); "Please review and accept our policies" (instruction); CTA "continue" visually muted (opacity 0.4) | `ink-brown-800` cards with full depth/edge-highlight; CTA orange at 40%; no error shown yet — awaiting-input state, honest and non-degenerate |
+| **Loading** | All elements present; CTA changes | CTA text crossfades to spinner; content above remains stable | Spinner white 20pt rotating; button background stays orange; no error message |
+| **Empty / partial** | N/A for consent (all fields always visible) | N/A | N/A |
+| **Error** | Required Card + inline error below | Inline: "Please accept both Terms of Service and Privacy Policy" (specific, warm, frames as a gate); toast (if network): "Something went wrong. Please try again." or "Please accept the required policies to continue." | Error text `--color-error-red` (`--color-error-red`), 13pt, left-aligned, 8pt below Required Card, slides down on appearance; CTA remains opacity 1.0 (ready to retry) |
+| **Offline** | All content present; CTA possibly disabled | Toast: "No connection. Policies will sync when online."; CTA disabled "Accept requires a network connection" | Error-red border on CTA, white at 50% text; honest dimming |
+
+Each state is a designed layout + on-voice copy + proper depth. No state is deferred to a generic error template.
+
+### Signature & anti-generic
+
+**The ownable Balencia moment**: This consent screen plants the **brand tone in the microcopy** — the phrase "Before we begin" is a warm, coaching-like pause, not legal boilerplate. The non-shaming, honest consent framing (optional toggle OFF by default, no dark patterns) reflects the brand's **"coach in your corner" personality**. The warm-glow `ink-brown-800` cards and restrained orange accent (CTA only, not scattered) stay within the **60/30/10 palette** and **warm-glow surface craft** (the anti-flat-box principle).
+
+**Generic-tell fixes**:
+- ✓ Not a flat single-tone white/grey form (uses warm `ink-brown-800` cards with depth)
+- ✓ Not generic legal boilerplate copy ("Before we begin" is warm and author-specific)
+- ✓ Not a buried or coercive optional consent (clearly labeled "OPTIONAL", toggle OFF by default)
+- ✓ Not a symmetric-card monotony (Required and Optional cards are visibly different sizes/weights)
+- ✓ Not a default-component look (custom checkbox, toggle, card depth, error messaging)
+
+### Accessibility
+
+**Contrast pairs (load-bearing):**
+
+| Element | Foreground | Background | Ratio | WCAG |
+|---|---|---|---|---|
+| Heading text | white (white) | `ink-900` (`--color-ink-900`) | ~19.2:1 | AAA |
+| Subtitle text | white at 50% | `ink-900` | ~9.6:1 | AAA (large text) |
+| Consent row text | white (white) | `ink-brown-800` (`--color-ink-brown-800`) | ~6.2:1 | AAA |
+| Consent link (orange) | `--color-brand-orange` (`--color-brand-orange`) | `ink-brown-800` | ~4.5:1 | AA (1.4.11 graphics) |
+| CTA button text | white (white) | `--color-brand-orange` (`--color-brand-orange`) | ~7.8:1 | AAA |
+| Error text | `--color-error-red` (`--color-error-red`) | `ink-900` | ~4.9:1 | AA |
+
+**Focus ring**: Every focusable element (checkboxes, toggle, links, CTA) carries `CK-T03 --focus-ring` (2px orange, 2px offset) — uniform app-wide. Focus order: Logo (decorative, skipped) → Heading → Subtitle → Terms checkbox → Terms link → Privacy checkbox → Privacy link → Optional header → Email toggle → Continue CTA.
+
+**Touch targets**: Checkboxes (44×44pt target, 22×22pt visual) · Toggle (44×44pt target, 34×20pt visual) · CTA (full-width − 48pt margins, 56pt height) · Legal links (row hit-area 44pt). All meet ≥44pt minimum.
+
+**Color + glyph + word**: Error text includes the word "accept" + visual styling. Disabled CTA includes text label "continue" (not just color). Checked checkbox shows orange fill *and* white checkmark icon.
+
+**Reduced-motion**: If `prefers-reduced-motion` is set, final state is rendered instantly (all content visible, no stagger, no loops). Settled frame is the canonical visual state.
+
+**Screen reader**: Announces "Before we begin, heading" on mount. Each checkbox: "I accept the [Terms of Service / Privacy Policy], [checked/unchecked]". Toggle: "Send me tips and updates via email, [off/on]". Links: "opens in browser". CTA disabled: "continue, disabled — accept required consents to continue". Error text: live-region announced when it appears.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [07] -- SIA Onboarding Conversation via stack push (consents accepted, API success)

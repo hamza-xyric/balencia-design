@@ -564,6 +564,172 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Geneva + Discord done warm (private-first; room flows are a product-decision) — *stays Balencia via warm-glow surfaces on ink-brown, the brand period, and non-shaming social tone.*
+**Pre-grade:** B+ (80) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): the Room List shows good IA (discover + your rooms + FAB), but (1) surfaces are flat cards with no top-edge highlight or layered depth; (2) the Room Interior chat bubbles read generic, not Balencia-authored; (3) microcopy (empty states, error messages, achievement phrasing) lacks warmth and non-shaming framing; (4) motion choreography is not locked to draw-first order; (5) a state-craft matrix is missing (cold-start, loading, empty, error, offline per the CONSISTENCY template); (6) no one ownable Balencia moment is named (the brand period, the warm-glow surface, the continuous stroke are present but not called out); (7) contrast pairs are stated generically, not tabulated.
+
+### Focal hierarchy
+
+Two separate focal points, each appropriate to its view:
+
+**Room List**: the **Discover Section** (the horizontal-scroll card carousel) is the above-the-fold focal point — it surfaces entry to new rooms and guides the eye first (16pt eyebrow "DISCOVER", 4–10 cards, horizontal scroll breaking the vertical monotony). The **Your Rooms list below is visibly secondary**: a vertical stack of equal-height rows, sorted by recency, no glow or size variation. The **FAB is persistent but not focal** — a 48pt fixed affordance for creation, not a hero element. On the Room List, the squint test lands on the Discover scroll first, then the rooms list as a dense block.
+
+**Room Interior**: the **chat message stream is the focal point** — the primary interaction zone, full-height scrollable, chronologically ordered. The **Room Header sits above as context** (room name, member count, settings — subtle, supporting); the **Message Input sits below as the action affordance** (always visible, 52pt, simplified). No visual hierarchy within the message stream itself — messages are peer elements, differentiated only by sender/ownership (left/right align, own-message warm tint) and time/date separators. The squint test lands on the message thread, then the input affordance.
+
+### Surface & depth
+
+**Room List:**
+- **Discover cards** (120pt wide × 100pt): `--color-ink-brown-800` body · `--radius-lg` (20pt) · 1px `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`) · `--shadow-1`. No glow (cards are <96pt, per CONSISTENCY.md §1).
+- **Room Row container** (the full card holding all rows): `--color-ink-brown-800` · `--radius-xl` (28pt) · 1px `--glass-border` · **`--edge-highlight`** · `--shadow-1`. Individual rows separated by 1pt `--color-alpha-white-05` dividers (decorative, not load-bearing).
+- **Room header, settings sheets, member list sheet**: ink-900 bg (no card surface — they are modal/overlay contexts, not surfaces). Member/settings sheet bottoms have `--radius-2xl` (40pt) top corners.
+
+**Room Interior:**
+- **Message bubbles** (others): `--color-ink-brown-800` · `--radius-lg` (16pt) · 1px `--glass-border` · **`--edge-highlight`** · no shadow (inline chat elements). Top-left corner 4pt radius (pointer toward avatar).
+- **Message bubbles** (own): same as others, but background is `--color-ink-brown-800` with a **subtle warm tint** — mixed 5% opacity of `--color-brand-orange` (`--color-brand-orange`) into the brown fill, creating a barely-perceptible warm shift. This is the ownable Balencia moment on this screen: the user's own voice reads as **warm, not neutral**. No additional glow.
+- **Shared Achievement Card**: `--color-ink-brown-800` body · `--radius-lg` (16pt) · 1px `--glass-border` · **`--edge-highlight`** · **`--color-forest-green` left border accent** (3pt, celebrating completion) · `--shadow-1` · centered in chat flow. The green accent is the second ownable moment — celebrating *peer* progress in a warm, not cold, way.
+- **Date separator**: no card surface — flat text line with decorative 1pt `--color-alpha-white-05` rules on each side.
+
+All surfaces follow the locked depth recipe: `ink-brown-800` body + `CK-T01` top-edge highlight + 1px `--glass-border` + honest `--shadow-1` (FAB and sheet overlays use `--shadow-2/3` per z-layer). No surface is a flat box. No glow on inline chat elements; the warm-tint on own messages and the green border on achievement cards carry the craft signature without neon.
+
+### Typographic rhythm
+
+Map the existing Typography table to `CK-P3` tokens:
+- Screen header title ("Community") · Room header title (interior) — `--text-h2` (20pt) / 600 / `--leading-snug` (1.25) / white 100%
+- Room name (discover card), chat sender name — `--text-h3` (17pt) / 600 / `--leading-snug` / white 100% (sender) or white 60% (sender label in chat)
+- Room name (row), message text, room description (preview sheet) — `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 90–100%
+- Eyebrow labels ("DISCOVER", "YOUR ROOMS") — `.eyebrow` recipe (`--text-eyebrow` 12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white 40%)
+- Member count, timestamps, captions — `--text-caption` (13pt) / 400 / `--leading-normal` / white 40–50%
+- Unread badge count — `--text-small` (11pt) / 600 / white 100% (high contrast on orange badge bg)
+- FAB label ("create room") — `--text-h3` (17pt) / 600 / white 100%
+- Input field hint text — `--text-body` (15pt) / 400 / white 30%
+
+Hierarchy is carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout (room names, message input hint text "Say something…" not "Message…"). ≤2 `--color-brand-orange` accent words on screen (the "create room" CTA label and the unread badge count, if visible). Chillax stays logo-only (none here). Stat figures (member count, unread count) use tabular-nums.
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` brand voice.
+
+- **Discover card member count** — *before:* "234 ♦" (unclear) → *after:* "234 members" (clear, accessible; diamond icon is brand-only for Life Power, not needed here).
+- **Message input hint text** — *before:* "message..." (lowercase, templated) → *after:* "Say something…" (warm, Balencia voice, conversational).
+- **Unread badge** — *before:* "badge hidden if no unread" (implicit) → *after:* clarified: badge shows only when unread messages exist; the visible numeric count (white 100% on orange) is the unread indicator (never colour-alone — the count is the visible status).
+- **Room row last message preview** — *before:* message shown as-is, may be generic → *after:* if a message is unread, the row reads as active; if from a peer, sender name is shown; if the user's own last message, sender name is omitted. Always warm framing — no judgment on message content.
+- **Shared Achievement Card** — *before:* "[Name] hit their [goal/milestone]. +[XP] XP" (generic, template-like) → *after (on-voice, non-shaming):* "Sarah hit her fitness goal. +150 XP." or "Ahmed leveled up to 12. +250 XP." — warm, specific, no exclamation mark, the period carries intent. The phrasing celebrates *the person*, not the machine (not "Achievement unlocked"). Avoid comparative language ("Sarah beat the room average") — the celebration is personal, not competitive.
+- **Empty State — Day 1 (no rooms)** — *before:* "no rooms yet. join a community above or create your own." → *after (on-voice):* "Accountability is stronger with others. Join a community above or start your own." (Warm, coaching tone, frames *why* social matters, never a blank or shame.)
+- **Empty State — Room Interior (new room, no messages)** — *before:* "this is the beginning of [room name]. say hi." → *after (kept):* same; warm, inviting. (Already on-voice.)
+- **Error — Room list load fails** — *before:* "could not load rooms" + "retry" → *after:* "Couldn't load rooms. Pull to refresh." (Specific, recovery action named, on-voice.)
+- **Error — Message send fails** — *before:* red exclamation + "not sent" → *after:* "Not sent. Tap to retry or delete." (Warm recovery, no shame; the failed message stays in place, user has agency.)
+- **Loading — Room interior messages** — *before:* no loading message → *after (new, on-voice):* a brief skeleton layout (sender avatar outline, message bubble skeleton, timestamp hint text) that morphs into real messages. No spinner-swap; if loading the *new* room interior for the first time, a centered message like "Loading conversation…" (15pt Regular, white 40%) is acceptable.
+- **Offline — Message input disabled** — *before:* input dimmed, no message → *after (on-voice):* generic text "You're offline — messages will send when you reconnect." (Warm, specific, honest.)
+- **WebSocket disconnection banner** — *before:* no banner (silent reconnect) → *after (new):* a subtle 32pt banner below the room header: "Reconnecting…" (amber/white 60%, calm, no urgency). On reconnect success: banner auto-updates to "Connected" (green, 2s auto-dismiss). (Builds trust, not anxiety.)
+
+No exclamation marks anywhere; the brand period is used with intent (the celebration phrasing ends with a period, not punctuation that shouts). SIA is **not present on this screen** (no purple) — social is peer-driven, not AI-mediated. Copy tone is warm, plain, coach-like, never shaming or comparison-driven.
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order:
+
+**Room List entrance** (on mount):
+1. Screen header fades in (`--dur-base` 280ms `--ease-out-soft`)
+2. Discover eyebrow fades in + discover cards slide in from right (280ms each, 60ms stagger, `--ease-out-soft`) — **first visual motion, horizontal breaks vertical monotony**
+3. "YOUR ROOMS" eyebrow fades in
+4. Room rows fade in + rise (`.animate-fade-up`, 280ms each, 80ms stagger, `--ease-out-soft`)
+5. FAB scales in (0.8→1) + opacity(0→1) with 400ms delay (appears last, draws eye to creation affordance after rooms settle)
+
+**Room Interior entrance** (after stack push):
+1. Room header fades in (280ms `--ease-out-soft`)
+2. Message thread loads (existing messages appear at final state instantly; no stagger on historical messages — the thread reads as settled, not animated)
+3. Date separators fade in (280ms)
+4. New messages (received or sent after mount) **fade in + slide up** (`translateY 16→0, opacity 0→1`, 280ms `--ease-out-soft`) — only *new* messages animate, honoring the "draw, never fade" rule by morphing them in as they arrive
+
+**Message sending**:
+- Own message bubble slides in from right (`translateX 24→0, opacity 0→1`, 280ms `--ease-out-soft`)
+- Send button: orange bg fades in on text entry (opacity 0→1, 160ms `--dur-fast` `--ease-out-soft`)
+- Send button (on tap): briefly darkens + `scale(0.90)`, then reverts to orange on success
+
+**Achievement card**:
+- Scales in (`scale 0.8→1`) + green glow pulses (`0→100%→0` opacity, 520ms `--dur-slow` `--ease-flow`) — the one **draw-inspired motion** on this screen, celebrating peer completion warmly
+
+**Unread badge (on new message while on Room List)**:
+- Scales in (0→1) with bounce (`scale 0→1.2→1`, 280ms `--dur-base` `--ease-out-soft`)
+
+**Typing indicator (other user typing)**:
+- Three dots pulse (opacity 30%→100%, staggered 120ms apart, looping, no duration limit) — settles when the message arrives
+
+**Pull-to-refresh**:
+- Branded spinner (Balencia symbol rotates, orange, linear rotation) — no draw motion on refresh (it's a passive action, not a focal entrance)
+
+**`prefers-reduced-motion`**: All elements at final state instantly; the warm-tint own-message bubble, the green achievement border, and the settled chat thread are preserved — no info loss. Typing indicator and achievement glow are disabled. Staggered entrances collapse to instant.
+
+Below-fold rooms and messages animate on scroll-into-view (if the list is long). One line motif per surface (the achievement card green border and own-message warm tint are color accents, not strokes, so no continuous-stroke repetition — but the warm-tint on own messages *is* the ownable moment that differentiates Balencia chat from a generic app).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| **Cold-start / Day 1 (Room List)** | Discover section takes prominent space; "YOUR ROOMS" section replaced with centered message + icon (outlined group 48pt, white 15%) | "Accountability is stronger with others. Join a community above or start your own." | Discover cards render normally; no degenerate empty state; FAB has warm glow/pulse on first visit to draw attention |
+| **Cold-start / Day 1 (Room Interior)** | Chat area centered; room emoji (48pt) above message | "This is the beginning of [room name]. Say hi." | Emoji + message, no date separator yet; Message Input is active and ready; no empty scaffold |
+| **Loading (Room List)** | Discover cards: skeleton shimmer (rounded rectangles, matched card dimensions); Room rows: 3 skeleton rows (avatar outline, text placeholders, shimmer) | No loading message; structure is visible | Skeletons on `--color-ink-brown-800`, radial shimmer morphs into data (never a spinner-swap) |
+| **Loading (Room Interior)** | Sender avatar + message bubble skeleton (outline, shimmer) + timestamp hint text; loads as messages arrive (inverted FlatList, bottom-up) | Brief centered "Loading conversation…" (white 40%, 15pt Regular) in center; then messages populate below | Skeleton preserves layout + depth (bubble outline visible); morphs into real message when data arrives |
+| **Empty / partial (Room List)** | If discover API fails: Discover section hidden or shows cached curated list (graceful degradation). Your Rooms renders normally if that API succeeds (parallel loading). | "Couldn't load rooms. Pull to refresh." (if full failure); if partial, "Couldn't load suggested communities — showing your rooms." | Cached data shown if available; no color change; glyph + word, never colour-alone |
+| **Empty / partial (Room Interior)** | If room has no messages yet (just created): centered welcome message. If message history load fails: cached messages shown, with a "Couldn't load older messages — pull to load more" hint text above. | For new room: "This is the beginning of [room name]. Say hi." For failed history: "Couldn't load older messages. Pull to retry." | No-data ≠ zero; structure intact; message input always active |
+| **Error (message send fails)** | Failed message bubble stays in place; red error indicator (red circle with exclamation, 16pt) appears right of bubble | "Not sent. Tap to retry or delete." (on the bubble, 11pt error-red) | Calibrated `--color-error-red` only for genuine failure; message is preserved (user can retry); glyph + word paired |
+| **Error (WebSocket disconnection)** | 32pt amber banner below room header: "Reconnecting…" (no urgency, calm); message input stays active but sends queue locally | "Reconnecting…" (amber/white 60%); on success: "Connected" (green, auto-dismiss 2s) | No panic colors; green on reconnect success (not cold blue); banner is calm, informational |
+| **Offline** | Room List: all rooms show with "Offline" badge (12pt, white 30%, low visibility). Room Interior: all messages cached; message input disabled with generic text. Pull-to-refresh dimmed. | "You're offline — showing your last sync." (input hint text: "You're offline — messages will send when you reconnect.") | No color change; cached data retained; actions honestly dimmed (50% opacity, no haptic on input tap) |
+
+### Signature & anti-generic
+
+Ownable moments:
+1. **The warm-tint own message bubble** — a 5% orange-mixed warm shift in the `--color-ink-brown-800` fill, subtly differentiating the user's voice from peers. This is *not* a generic app color (not cold blue, not a flat grey). It reads as the user's words being *warmly received*, a Balencia signature that says "your voice matters here, and it's warm."
+2. **The green-bordered achievement card** — a `--color-forest-green` 3pt left border celebrating peer milestones in the chat. Green is the "arrival / completion" signal in the 60/30/10 palette; here it's used to celebrate *another person's* progress within the social context. Warm, not cold, celebration — no algorithm, no reward gamification, just peer warmth.
+3. **The brand period** — used with intent in achievement copy ("Sarah hit her fitness goal." not "Sarah hit her fitness goal!") and in all microcopy (coaching tone, no urgency punctuation).
+
+Anti-generic fixes (CK-P6):
+- The Discover horizontal-scroll breaks the vertical room-list monotony; the cards are not a symmetric grid.
+- Room rows are not flat equal cards — they are rows within a single card container with dividers, breaking the "card wall" pattern.
+- The FAB is persistent and prominent but not a competing focal point (it comes in last during entrance motion, settling after rooms load).
+- Message bubbles are differentiated by ownership (left/right, warm tint on own), not by color-alone or icon-alone; the Chat pattern reads as Balencia, not iMessage-clone.
+- The achievement card is *centered* in the chat flow (a horizontal break from left/right alignment), making it visually distinct from messages.
+- Empty states are never silent or degenerate (Day-1 Room List shows "Accountability is stronger with others" + an encouraging icon, not a blank screen; new Room Interior shows the welcome prompt, not a degenerate chat).
+
+No "generic AI" tells: no generic copy, no "Message..." hint text that dominates the input, no symmetric card walls, no templated toast messages ("Success!" is never used — "Joined!" or "Connected" appears with a glyph). The screen reads as **private-first, peer-driven, warm, and ownable**.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+
+| Element | Color | Contrast | Notes |
+|---|---|---|---|
+| Room name (discover card, row, header) | white 100% | ≥12:1 | Primary text |
+| Message text (others) | white 90% | ≥9:1 | Body text, readable |
+| Message text (own) | white 100% | ≥12:1 | User's own words, emphasis |
+| Member count, timestamp, caption | white 40–50% | ≥4.5:1 at `--text-caption` | Tertiary text |
+| Eyebrow ("DISCOVER") | white 40% | ≥4.5:1 | Decorative label, paired with position |
+| Sender name (in chat) | white 60% | ≥4.5:1 | Secondary text |
+| Unread badge count | white 100% on orange | ≥3:1 (WCAG 1.4.11) | High contrast for visibility |
+| Achievement border | green (`--color-forest-green`) on brown | ≥3:1 (WCAG 1.4.11) | Load-bearing accent, visible status |
+| Error message ("not sent") | error-red on brown | ≥3:1 (WCAG 1.4.11) | Load-bearing error, glyph + word |
+| "Reconnecting" banner | amber/white 60% on brown | ≥4.5:1 | Informational, calm status |
+
+Status never colour-alone: unread rooms show a **visible count badge** (orange circle with white number); connection status shows **text + colour** (amber "Reconnecting…", green "Connected"); error messages show **error-red text + icon** (red exclamation circle). Every interactive element (discover cards, room rows, message bubbles, FAB, send button) carries the single `--focus-ring` token (`CK-T03`, 2px orange, 2px offset) uniform app-wide — replacing any ad-hoc focus styling in the Interaction States table. Targets ≥44×44pt (room rows are 80pt tall, FAB 48pt, message bubbles have large hit boxes, the send button is 40pt circle). Reduced-motion: Discover cards, achievement glow, unread badge bounce, and staggered room entrances are disabled; all elements appear at final state instantly; message bubbles (own and others) appear at final opacity; typing indicator is disabled.
+
+Accessibility labels (screen reader):
+- **Discover card**: "Fitness lovers, 234 members, tap to preview"
+- **Room row (unread)**: "Morning crew, 5 members, 3 unread messages"
+- **Own message**: "You said: I already did my reading 45 minutes this morning. 9:45 am"
+- **Other's message**: "Sarah says: Great workout this morning. Feeling strong. 9:15 am"
+- **Achievement card**: "Sarah hit her fitness goal, plus 150 XP"
+- **FAB**: "Create room"
+- **Unread badge**: Announced as part of room row label; not a separate focusable element
+
+Focus order: Back button → Screen/Room header → Discover eyebrow → Discover cards (left-to-right) → "YOUR ROOMS" eyebrow (Room List) / Room header member count + settings (Room Interior) → Room rows (Room List) / Date separators and messages in order (Room Interior) → Message input + Send button → FAB (Room List) / Tab bar.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Room Interior (stack push from room row), Room Preview Sheet (from discover card), Create Room Modal (from FAB), Member List Sheet (from room header), Room Settings Sheet (from room header), User Profile Bottom Sheet (from member list or sender avatar/name tap — shows avatar, level, top domains, "message" and "invite" CTAs per _shared-patterns.md with overflow menu for report/block; "message" creates/opens a private room with that user), Report/Block [64] (via overflow menu "report" in user profile sheet, message long-press → "report", or member options → "report")

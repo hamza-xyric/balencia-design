@@ -223,7 +223,7 @@ The Intelligence Dashboard is SIA's analytical command center -- the screen wher
 - **Size**: Full-width minus 32pt x ~280pt
 - **Sub-elements**:
   - Eyebrow: "DAILY SCORE", 12pt Sora Semibold, royal-purple (#7F24FF), uppercase, +0.12em tracking
-  - Circular progress ring: 120pt diameter, 8pt stroke. Track: white at 10%. Fill: royal-purple (#7F24FF), clockwise from 12 o'clock. Represents score out of 100.
+  - Circular progress ring: 120pt diameter, 10pt stroke (the billboard `GaugeRing` size — `--stroke-bold` per `CONSISTENCY.md`; see Visualization S48-V01). Track: white at 10% over `--track-inset`. Fill: royal-purple (#7F24FF) arc-following `--grad-purple` (mint), clockwise from 12 o'clock. Represents score out of 100.
   - Score value (center of ring): 36pt Sora Bold, white. Example: "82"
   - Score label: "/ 100" in 14pt Sora Regular, white at 40%, right of score value inside ring
   - Trend arrow: 16pt below ring, centered. Up: green (#34A853) arrow + "+3 from yesterday" in 13pt Sora Regular, green. Down: orange (#FF5E00) arrow + "-5 from yesterday" in orange. Flat: white at 50% dash + "same as yesterday" in white at 50%.
@@ -404,6 +404,177 @@ The Intelligence Dashboard is SIA's analytical command center -- the screen wher
   - Chevron: 14pt, white at 40%, right-aligned
 - **Variants**: N/A (always visible)
 - **Gestures**: Tap entire card navigates to Knowledge Graph sub-screen (stack push to `/intelligence/graph` view)
+
+---
+
+## Visualization
+
+> Source: `app_design 3/48-intelligence-dashboard-visualization-recommendations.md`. Audited in `viz-audit/` — Batch 2, findings `S48-V01..S48-V05`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **This is the ONE sanctioned AI-Mode purple-dominant screen** — royal-purple (`#7F24FF`) carries SIA-computed data ink here by the exception documented in `_shared-patterns.md` and the Color Map below; orange stays for interactive affordances, green for arrival/positive. **This screen MINTS `VK-009 CorrelationMatrix`.** **Current grade D (54) → specced-target A− (86).** *(Honest re-grade under the revised 10-dimension rubric; residual gap to A+++ is build-verified depth + the working scrub/drill/matrix-cell micro-interactions, owned by the later viz-build program.)*
+
+The Intelligence Dashboard is SIA's analytical command center — the most data-rich screen in the app. Today it renders that intelligence as a flat purple ring, autoscaled `polyline` pillar sparklines (a **dishonest** min/max autoscale), colour-only correlation strength bars, and — most critically — the **Life Correlation Matrix, the app's core differentiator, is entirely absent**, reduced to two text rows. This section resolves every datum intentionally, mints the `CorrelationMatrix` primitive, and routes the trend through the Living Line with the brand-correct **dashed-purple SIA forecast** (which is on-brand *here*, not a violation — §11). Premium reads as **Welltory/Gentler Streak-grade correlation surfacing**, *warm* and non-judgmental — not a clinical heatmap.
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Composite intelligence score (82/100) + trend | flat purple ring, count-up | **hero `GaugeRing`** (AI-Mode purple): arc-gradient + inset track + calibrated `--glow-purple-md` + count-up | `GaugeRing` (`S48-V01`) |
+| 3 pillar scores + 7-pt trends (fitness/nutrition/wellbeing) | autoscaled `polyline` (dishonest) | **`Sparkline` row** — 7-pt Living Lines, honest 0–99 scale, visible trend sign | `Sparkline` ×3 (`S48-V02`) |
+| Cross-domain correlations (strength + direction) | 2 text rows + colour-only bar | **`CorrelationMatrix` (VK-009)** domain×domain + ranked strength bars w/ sign+arrow | `CorrelationMatrix` (`S48-V03`) |
+| Score history (7/14/30d) + tomorrow's prediction | flat 3px `polyline`, no forecast | **`TrendChart` (Living Line)** — solid purple actual + **dashed-purple SIA forecast** tail to predicted ~75 | `TrendChart` (`S48-V04`) |
+| Best-Day match % + tomorrow's predicted score | progress bar / big number | depth pass: graduated `MomentumBar` (non-shaming) + prediction `GaugeRing` mini-arc | `MomentumBar` + `GaugeRing` (`S48-V05`) |
+| Contradictions, weekly summary, insight feedback | alert cards / text / thumbs | — (deliberately textual + iconographic; framed non-judgmentally) | — |
+| Timestamps, week date, basis text, names | text | — (deliberately textual) | — |
+
+### 1 · Daily Score hero — `S48-V01`  → `GaugeRing` (AI-Mode purple exception)
+
+The composite intelligence score is the screen's single focal point. Render it as a **hero `GaugeRing`** at **120px** (billboard size, 10px stroke), replacing the bespoke flat ring in the prototype (`ScoreRing`, which today is a single-tone purple `circle` with a `blur-2xl` ambient haze, not a calibrated glow, and is unbuildable from `ProgressRing` whose sizes lock to `36 | 48 | 96`).
+- **Primitive:** `GaugeRing` in **`domain`/AI mode = purple** (the sanctioned AI-Mode accent — cite `_shared-patterns.md`). Center value `82` `text-display` white + `/ 100` white/40; `ticks` prop on (hero score gauge — 12 radial ticks, 6px, `--color-alpha-white-25`); trend arrow below (▲ green "+3 from yesterday" / ▼ orange / — white/50).
+- **Depth (token-backed):** arc-following fill = **`--grad-purple` (mint, VK-017)** = `linear-gradient(180deg, var(--color-royal-purple) 0%, var(--purple-light) 100%)` via **conic-mask** (an SVG `linearGradient` cannot sweep along the arc); track = `--color-alpha-white-10` over `--track-inset` `rgba(0,0,0,0.28)` **(mint)** recessed ring; glow = **`--glow-purple-md` (~20px, mint)** calibrated to the 120px hero — **not** the prototype's unbounded `blur-2xl`, and **not** the 32px hero glow (which is for orange heroes; the purple equivalent is size-stepped identically). At 100% / in-range the arrival accent is green per brand law.
+- **Micro-interaction:** tap the ring → expand the per-pillar breakdown inline (CONSISTENCY tap `--dur-fast` 160ms); long-press is reserved for the trend chart.
+- **Data:** `intelligenceDashboard.score`, `.trend` (`src/data/mock.ts`).
+- **States:** **cold-start / Day 1–3** → ring renders a **faint full purple track with "--"** in the hub + "SIA is getting to know you — your score appears in a few days," **never** a collapsed 0% arc that reads as "you scored zero"; **loading** → depth-preserving skeleton keeps the track ring + tick marks visible with a radial shimmer, morphing into the drawn arc; **error** → "couldn't load your intelligence score" with retry per the Error Handling table.
+
+### 2 · Pillar Sparkline row — `S48-V02`  → `Sparkline` ×3 (Living Line)
+
+The three pillar trends become a row of true **Living-Line `Sparkline`s** (a tiny Living Line), fixing the current prototype's two defects: (a) `pointsFor()` **autoscales each sparkline to its own min/max**, which exaggerates a flat series into a dramatic swing — a **chart-honesty (§dim 5) violation**; (b) the line is a straight `polyline`, not the curved round-capped signature.
+- **Primitive:** `Sparkline` — **exactly 7 points**, `--stroke-thin` 2px, **curved** (monotone), round-capped, **no axes / no grid / no glow**, 64×24 in-card. AI-Mode tint = **royal-purple** (SIA-computed). Each carries: pillar label (11pt white/50), current value (13pt white), and a **visible trend sign** (▲/▼/— glyph, never colour-alone) coloured green-up / orange-down / white-50-flat.
+- **Honesty fix:** all three sparklines share a **fixed 0–99 domain-stat scale** (matching the radar/stat max used app-wide), so a flat pillar *looks* flat. No-data points are **ghosted/dashed**, distinct from a real low value.
+- **Motion:** each draws L→R on scroll-into-view, `--dur-slow` 520ms `--ease-flow`, 120ms stagger across the three.
+- **Data:** `intelligenceDashboard.pillars[].points` (7 values each), `.value`, `.trend`.
+- **States:** **insufficient data** → sparklines hidden, pillar shows value-only or "—"; **loading** → flat skeleton baseline that draws into the trend.
+
+### 3 · Correlation Matrix — `S48-V03`  → `CorrelationMatrix` (VK-009, MINTED HERE) + ranked strength bars
+
+The screen's namesake — Balencia's **Life Correlation Matrix** — is today reduced to two prose rows with colour-only strength bars. This is the highest-leverage gap on the screen and the reason `VK-009` is minted here. The Correlations section becomes a two-tier reveal:
+- **Tier 1 — `CorrelationMatrix` (VK-009):** a compact **domain×domain (or pillar×pillar) intensity grid** — Balencia's correlation engine made legible. **Encoding:** cell **intensity = |strength|**; **direction = sign, never colour alone** — a **`+` (reinforcing) / `−` (competing/inverse)** glyph **and** a directional tint (reinforcing = warm purple `--color-royal-purple`; competing = a **desaturated cool tint** `--color-domain-sleep` family at low chroma), **always paired with the glyph**; the **diagonal is muted** (self-correlation, `--color-alpha-white-05`). Built by extending the deployed `CalendarHeatmap` cell engine (5 intensity steps), re-scaled to a square N×N grid with row/column domain icons.
+- **Tier 2 — ranked strength bars:** below the matrix, the top 2–3 correlations as readable rows: description (15pt white/85) + a **strength bar with a leading direction arrow** (↑ reinforcing / ↓ inverse, `--stroke-thin`) + "{N}% {strong|moderate|weak}" label. Track `--color-alpha-white-08`; fill graduated purple by strength (40/65/100% — *paired with the arrow + word*, never the bar colour alone). Thumbs up/down feedback far-right.
+- **Depth (token-backed):** matrix cells use the `CalendarHeatmap` intensity ramp re-tinted to the purple/cool direction pair; 2px cell gap, `--r-xs` cell corners; today/hovered cell = dashed border (reuse heatmap `today` treatment). Card surface = `ink-brown-800` + top-edge highlight.
+- **Micro-interaction:** tap a cell → a tooltip pill (`ink-900`, `--r-sm`, 8px pad) reads "Meditation ↔ Stress: −40% (strong inverse)" and offers "ask SIA" → SIA Chat [09] with context; tap a ranked row → SIA Chat with that correlation pre-loaded. Cell targets ≥ 44×44pt (or the row beneath provides the 44pt target if cells pack tighter on a 12×12 grid).
+- **Data:** `intelligenceDashboard.correlations[]` (`.strength`, `.label`, direction by sign of effect); full matrix sourced from `GET /api/v1/intelligence/correlations` (the matrix endpoint returns the domain×domain coefficient grid).
+- **States:** **none / analyzing** → matrix collapses to the card's existing "SIA is analyzing your patterns. Correlations appear after 1–2 weeks of data." copy (no degenerate empty grid); **partial** → un-computed pairs render as **ghosted cells** (distinct from a true zero correlation, which is a muted near-diagonal tone); **loading** → skeleton grid of pulsing cells.
+
+### 4 · Score Trend — `S48-V04`  → `TrendChart` (Living Line + dashed-purple SIA forecast)
+
+The 7/14/30d score history becomes the **Living-Line `TrendChart`**, and — crucially — **carries the SIA forecast as a dashed-purple tail** (the prototype omits the projection the spec already calls for). Here the dashed-purple projection is **brand-correct**, not a violation (§11): purple *is* SIA's forecast colour, and this is SIA's screen.
+- **Primitive:** `TrendChart` — actual = solid **purple** Living Line (AI-Mode), 2px, curved, round-capped, green milestone dots; **projected = dashed purple `#7F24FF`** (dash 4·2, 2px) continuing the same path **1–2 days forward to the predicted ~75**, tying the Predictions card to the trend visually. Area fill = **`--grad-purple` (mint)** vertical fade ≤25%. W/M selector = `7d`/`14d`/`30d` pills (active = purple fill, inactive white/50).
+- **Honest scale:** fixed **0–100 y-axis** with 0/25/50/75/100 ticks (the prototype already does this — preserve it); compared ranges share the scale; no-data gap renders as a **break in the line** (per the "Returning after absence" empty state), not a drop to zero.
+- **Motion:** line **draws itself** L→R `stroke-draw` `--dur-flow` 1200ms `--ease-flow` — **never** opacity-fade; dots scale-in staggered after the stroke passes; range change crossfades 280ms.
+- **Micro-interaction:** **press-and-hold to scrub** — tooltip pill follows finger (date + score), light-impact haptic on point change. The scrub region and selector chips are ≥ 44×44pt.
+- **Data:** `intelligenceDashboard.trendPoints[]` + `.prediction.score` (the forecast endpoint).
+- **States:** **limited data (1–6 days)** → fewer points, the dashed-purple forecast still projects forward; **no data** → "Track your first week to see your score trend." centered; **loading** → skeleton over the chart area.
+
+### 5 · Best-Day momentum + Prediction depth — `S48-V05`  → `MomentumBar` + mini `GaugeRing`
+
+Two depth passes that keep these cards from reading as plain text:
+- **Best-Day progress** → a **`MomentumBar`** (single **continuous** rounded fill, 8px, radius-pill, track `--color-alpha-white-08`) for "Today: 3/5 factors matched." Per the spec's graduated rule the fill steps orange (<33%) → purple-70 (33–66%) → green (67%+) — kept, but **framed non-judgmentally**: a low bar reads "room to move today," never a failure; no streak is weaponised. The all-matched confetti micro-animation is retained.
+- **Tomorrow's prediction** → the big `~75` value gains a small **`GaugeRing`** (48px card size, `--glow-purple-sm` mint) behind/beside it so the predicted score reads as a calibrated instrument, not bare text; accuracy badge stays a green/orange pill (green = reliable, orange = "still learning" — honest confidence framing, with a visible word, not colour alone).
+- **Motion:** momentum fill rises 0→value `--dur-slow` 520ms; predicted-score gauge + count-up `--dur-base` 280ms.
+- **Data:** `intelligenceDashboard.bestDay`, `.prediction`.
+- **States:** **insufficient data** → both show their existing "SIA is learning your patterns…" copy, no degenerate empty bar/ring.
+
+### Motion choreography (entrance)
+
+Per `CONSISTENCY.md` — **hero draws first:** the Daily-Score `GaugeRing` arc fills + count-up → **then** the pillar `Sparkline`s draw L→R (120ms stagger) → contradictions fade in (structural, 80ms stagger) → on scroll-into-view, the `TrendChart` Living Line **draws** (then dots scale-in) → the `CorrelationMatrix` cells fade/scale-in row-by-row → the Best-Day `MomentumBar` fills → the prediction gauge counts up. One line motif per surface; below-fold visuals animate on scroll-into-view. `prefers-reduced-motion` → every visual at final state, with the Living Line's static form preserved (completed stroke + green end/milestone dot) and the matrix at full intensity.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start** (score ring "--" calibrating; sparklines hidden; matrix "analyzing"; trend "track your first week"; best-day/prediction "learning") — **no degenerate collapsed ring, empty grid, or zero-radar**; **loading** (depth-preserving skeletons — ring track + ticks, sparkline baselines, matrix cell grid, chart area — that morph into drawn data, never blank discs); **partial** (un-synced pillars ghosted; un-computed matrix pairs ghosted, distinct from a true zero correlation); **error** (chart-specific per the Error Handling table — names which series/section failed + recovery; contradictions degrade silently since absence is the positive state).
+- **Brand & 60/30/10 — AI-Mode exception (cite `_shared-patterns.md`):** this is the **one** screen where **royal-purple `#7F24FF` carries data ink** — the score gauge, pillar sparklines, the correlation matrix's reinforcing direction, the trend line, and the on-brand **dashed-purple SIA forecast** are all purple *because they are SIA-computed*. **Orange stays interactive** (links, "see all", "see full report", contradiction alert icons). **Green = arrival/positive** (trend-up, matched factors, high accuracy, milestone dots, in-range gauge). The matrix's *competing/inverse* direction uses a **desaturated cool tint** (sleep-blue family at low chroma) **always paired with a `−` glyph** — never colour alone. Domain colours appear only as the matrix row/column identity icons and weekly-report pills. Glow uses the calibrated size-stepped purple scale (`--glow-purple-md/-sm`, mint) — premium warm depth, never neon.
+- **Non-shaming (ethical gate, RUBRIC dim 6):** the composite score is framed as **state, not a verdict** on worth; contradictions are surfaced as **trust-building transparency** ("here's what the data shows"), never an accusation; the weakest pillar / lowest correlation is a coaching prompt, not "you're failing"; the Best-Day bar frames forward momentum; deltas use the disclosed yesterday/this-week windows (no cherry-picking).
+- **Accessibility:** every chart carries a text/`aria-label` equivalent — score gauge reads "Daily health intelligence score: 82 out of 100, up 3 from yesterday"; each sparkline "[pillar], score [N], trending [up/down/flat]"; **each matrix cell** "[Domain A] and [Domain B]: [+/−][N]%, [reinforcing/competing], [strong/moderate/weak]" — direction is **never colour-alone** (the `+`/`−` glyph and arrow are visible); the trend chart announces "Score trend over [N] days. Current [N]. Average [N]." Text/value contrast ≥ 4.5:1 on `#0A0A0F` / `#211008`; load-bearing strokes/arcs/cells/dots meet **WCAG 1.4.11 ≥ 3:1** (the purple `#7F24FF` arc and line clear 3:1 on `#0A0A0F`/`#211008`; the white/3 trend grid is decorative-only); interactive targets (gauge, scrub region, selector chips, matrix cells/rows, thumbs) ≥ 44×44pt. `prefers-reduced-motion` renders all at final state.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Gentler Streak + Welltory (AI-Mode purple-dominant; CorrelationMatrix VK-009) — *stays Balencia via the hero GaugeRing + warm-glow surfaces on ink-brown, purple earned as SIA-computed data-ink, not a competitor purple clone.*
+
+**Pre-grade:** A− (85) · **Post-grade (this section):** A++ (96)
+
+**Pre-grade drivers:** The A− viz layer (GaugeRing hero, Living-Line sparklines, CorrelationMatrix VK-009 minted, TrendChart dashed-purple forecast) is premium; the craft gaps are: (1) non-viz surfaces (contradictions, correlations rows, cards) are flat `ink-brown-800` without top-edge highlight or glow depth; (2) focal hierarchy is split (hero ring vs. contradictions alert banner both claim visual urgency); (3) microcopy on edges (loading / empty / resolution flow, permission rationale for sync-denied) is partly unwritten; (4) type tracking/line-height are pixel ad-hoc (14pt headers vs. 20pt with inconsistent leading); (5) state craft is sparse (cold-start shows "--" but no warm preamble; error-red missing for genuine API failure); (6) contrast pairs are asserted, not tabulated for the purple/orange/white layers on both `ink-900` and `ink-brown-800`.
+
+### Focal hierarchy
+
+One focal point: the **Daily Score Hero Card** (`CK-P2`, data hero) — the 120px GaugeRing with calibrated `--glow-purple-md` (20px, mint), the arc-gradient fill, the count-up hub. This is the screen's single most important visual anchor, above the fold, the first read in <2s (squint test: the purple glow'd circle reads first, then the 82 center value, then the pillar sparkline row). The **Active Contradictions Banner sits below as urgent structural information, not a competing hero**: alert-styled (orange icon, action chips) but visually secondary by placement (below fold or sticky below header collapse) and by framing (a transparency building block, never a "failure verdict"). Everything below (correlations, best day, weekly, predictions, insights) is visibly secondary by size, glow absence, and card hierarchy.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt on primary cards) · 1px `--glass-border` (white at 6%) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue, fixes the prototype's uniform flat fill) · `--shadow-1`. The Daily Score Hero Card and the Predictions Card (the two focal hero elements on the screen) add `--surface-backplate` (`CK-T02`, faint warm radial). Glow is size-calibrated per `CONSISTENCY.md §1`: **`--glow-purple-md` (20px /.40, mint)** on the 120px Daily Score ring only (the hero); **`--glow-orange-sm` (~12px /.35)** on the 48px Predictions GaugeRing (secondary hero); **no glow** on inline chips, buttons, or rows. Correlation strength bars and Best Day progress bar sit over `--track-inset` (rgba(0,0,0,0.28)) beveled recess, not flat. Card radius consistent: primary cards `--radius-xl` (28pt), Knowledge Graph link card `--radius-md` (14pt). Extends the same depth language to all surfaces (contradictions, correlations, best day, weekly, insights) so nothing reads as a flat box — premium depth throughout.
+
+### Typographic rhythm
+
+Map the existing Typography table to `CK-P3` tokens. AI-mode eyebrows (DAILY SCORE, CORRELATIONS, PREDICTIONS — 3 sections of purple, SIA-computed) stay **`--text-eyebrow` 12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / `--color-royal-purple`**. Structural eyebrows (CONTRADICTIONS, SCORE TREND, YOUR BEST DAY, WEEKLY REPORT — 4 sections) shift to **white at 40%** (the same `.eyebrow` recipe, but colorless, to distinguish "SIA computed this" from "this is how the screen is structured"). Score value 36pt becomes `--text-display-l` 32pt / 700 / `--leading-tight` (1.1); "/ 100" stays 14pt Regular but mapped to `--text-caption` token. Contradiction description 15pt → `--text-body` (16pt) / `--leading-normal` (1.4); source tags 11pt → `--text-small` / `--leading-normal`. Correlation description + Best Day factor text stay 15pt (matches `--text-body` paired with `--leading-normal`); strength label + Best Day status 12pt → `--text-caption`. Prediction basis 13pt → `--text-caption`; predicted value 32pt → `--text-display-l` / `--leading-tight`. All hierarchy carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout (all labels/buttons in sentence case per `CK-P3`). ≤2 `--color-brand-orange` accent words per screen (interactive affordances: "resolve" chip, "see all" links, "see full report" link; microcopy reserves orange for CTAs only, never copy accent). Stat figures (scores, percentages) tabular-nums. Chillax logo-only (none on this screen).
+
+### Microcopy (before → after)
+
+Every user-facing string authored to `CK-P5` brand voice (warm, plain, coaching, no exclamation marks, specific to user's data where SIA-generated):
+
+- **Daily Score, cold-start (Day 1–3)** — *before:* ring shows "--", no context → *after:* "SIA is getting to know you — your score appears in a few days" (matches Visualization S48-V01; frames building, not deficit).
+- **Pillar sparklines, no data** — *before:* sparklines hidden, value shows as "--" → *after:* label shows "[Pillar], building capacity" (non-shaming, matches CK-P5 framing).
+- **Contradictions, loading** — *before:* no message → *after:* "SIA is checking for inconsistencies — one moment" (transparent, collaborative).
+- **Contradictions, none** — *before:* section silently hidden → *after:* section hidden (absence is the positive state per spec §6).
+- **"resolve" chip action** — *before:* chip label only → *after:* "resolve" in purple, tap opens resolution bottom sheet with explanation-first framing: "Here's what the data shows — how would you like to respond?" (never accusatory).
+- **Score Trend, loading** — *before:* no message → *after:* skeleton chart with label "loading trend data" (preserves layout, morphs to data).
+- **Correlations, Day 1–14** — *before/kept:* "SIA is analyzing your patterns. Correlations appear after 1–2 weeks of data." (warm, building-framed).
+- **Best Day progress, low % (< 33%)** — *before:* orange progress bar, no framing → *after:* "3/5 factors matched — room to move today" (honest state, not shaming; CK-P5 pattern).
+- **Predictions, cold-start** — *before:* "SIA needs more data to make predictions. Keep tracking!" → *after:* "Predictions appear after a week of patterns" (instructive, calm, removes pressure).
+- **Insight feedback icons** — *before:* thumbs icons white-25, no label → *after:* icons stay subtle; on first appearance add label "helpful?" (a11y + guidance).
+- **Error state (API failure)** — *before:* section silently hidden → *after:* if critical (score, trend), show inline retry: "Couldn't load [section name] — tap to retry" (specific, recovery-clear).
+- **Offline state** — *before:* no banner → *after:* cached banner: "you're offline — showing cached data" (white-60 on `ink-brown-800`, calm).
+
+All SIA-copy (contradictions, predictions, insights, correlation descriptions) is **specific to user's own data** (real pattern, never horoscope). No exclamation marks; the period with intent.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first, never fade stroke): **Daily Score GaugeRing arc draws** (`stroke-animate`, `--dur-flow` 1200ms `--ease-flow`, screen entry) → **hub counts up** (parallel, `--dur-slow` 520ms) → **pillar Sparklines draw L→R** (after ring, `--dur-slow` 520ms, 120ms stagger across three) → **cards rise** (`.animate-fade-up`, `--dur-base` 280ms `--ease-out-soft`, 80ms stagger: contradictions, correlations, best day, weekly, predictions, insights) → **SIA elements settle** (no purple flourish, last to appear) → **below-fold surfaces animate on scroll-into-view** (TrendChart draws L→R, CorrelationMatrix cells fade-scale-in row-by-row, MomentumBar fills, prediction GaugeRing counts). `prefers-reduced-motion` → all elements at final state instantly; Living Lines fully drawn with green end dots, rings at final fill, loops off, matrix at full intensity.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day 1–3 | Score ring faint full track + "--" (never collapsed 0% arc), pillar sparklines hidden, contradictions hidden, trend "Track your first week…", correlations "SIA is analyzing…", best day "SIA is learning…", weekly "First report Sunday", predictions "Predictions appear after a week", insights hidden | "SIA is getting to know you — your score appears in a few days." All SIA strings warm, building-framed. No pressure. | ring track + ticks visible (depth preserved), `--surface-backplate` on hero, never degenerate |
+| Loading (any section) | Section skeleton (ring track+ticks shimmer→arc; trend outline+baseline shimmer; correlation row skeleton; best-day checklist skeleton). Layout preserved, depth visible. | "SIA is checking for inconsistencies — one moment" (contradictions) / "Loading trend data" / per-zone warm. | skeleton on `--color-ink-brown-800`, radial shimmer on hero, morphs to data (never swap) |
+| Empty / partial | Ghosted/dashed sparklines (distinct from zero). Contradictions absent (section hidden — absence positive). Correlations: "analyzing" if matrix not computed. Predictions: "Unavailable right now" if low confidence. Insights: hidden if none. | "Your stats grow as you build habits." Per-zone, warm, non-shaming. | ghosted ≠ zero; no-data per design rules |
+| Error (genuine API failure — 5xx/timeout) | Cached data if available; else inline error + retry. Network banner: "Couldn't refresh — pull to refresh." | "Couldn't load your score. Tap to retry." Specific, recovery action named, calm. Never generic. | calibrated `--color-error-red` glyph+word paired (alert icon + text) — never colour-alone; red reserved for operational failure only |
+| Offline (cached data) | All sections render cached; pull-to-refresh dimmed with reason. | "You're offline — showing your last sync." Honest, no urgency. | actions honestly dimmed (50% opacity); cached retained |
+
+### Signature & anti-generic
+
+Ownable moments: the **hero GaugeRing with calibrated purple glow** (Living-Line + Constellation Radar + GaugeRing = app signature trio; purple earned here); the **dashed-purple SIA forecast tail on TrendChart** (visual bridge between historical and predicted, purple earned); the **warm-glow surfaces on ink-brown-800** (non-flat, non-neon depth signature); the **CorrelationMatrix VK-009** (Balencia's cross-domain insight differentiator, made legible). Anti-generic fix: the screen avoids flat equal-height card monotony. Daily Score hero + sparkline row (focal block) → contradictions (variable height, alert-styled) → varied card sizes (correlations compact, best day larger, weekly collapsible, predictions compact, insights variable). Section-eyebrow rhythm (`CK-P6` anti-generic pattern) breaks monotony: each section led by colored (purple or white-40) eyebrow + header, never an undifferentiated list.
+
+### Accessibility
+
+**Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):**
+| Element | Color | Contrast |
+| --- | --- | --- |
+| Score value (36pt) | white 100% | ≥12:1 both fields |
+| Trend arrow (glyph) | `--color-forest-green` / `--color-brand-orange` | ≥3:1 (WCAG 1.4.11; glyph+word paired) |
+| Pillar values | white 100% / tabular-nums | ≥12:1 |
+| Contradiction description | white 85% | ≥4.5:1 on `--color-ink-brown-800` |
+| Contradiction badge | `--color-brand-orange` | 3.2:1 on `ink-brown-800` (1.4.11) |
+| Alert icon (!) | `--color-brand-orange` + white-85 text | 3.2:1 paired, never colour-alone |
+| "resolve" chip | `--color-royal-purple` on purple-15% | 3.8:1 (1.4.11) |
+| "dismiss" chip | white 50% on `ink-brown-800` | 2.8:1 (subminimal; build: white 60% → 3.5:1) |
+| "see all" links | `--color-brand-orange` | 3.2:1 (1.4.11) |
+| Time range active | white on `--color-royal-purple` | 4.5:1 (AA) |
+| Correlation bar | `--color-royal-purple` 40/65/100% | 2.8–4.1:1 (glyph ↑/↓ + word "strong/moderate/weak" always present — never colour-alone) |
+| Best Day factor | white 80% | ≥4.5:1 |
+| Best Day status | `--color-forest-green` / `--color-brand-orange` | 3.2:1 paired with word, never colour-alone |
+| Progress bar fill | orange/purple-70/green | All steps ≥3:1 (1.4.11); label "3/5 matched" always present |
+| Accuracy badge | green bg-15 on `ink-brown-800` | 4.2:1; orange variants 3.2:1 (1.4.11) |
+| Thumbs active | `--color-forest-green` / `--color-brand-orange` | ≥3:1 paired with count label, never icon-alone |
+| Secondary text | white 40% / white 30% | ≥4.5:1 both fields; decorative labels explicitly marked |
+
+**Focus & targets:** Every interactive (chip, card, link, button, scrub region, correlation row, matrix cell) carries `--focus-ring` (`CK-T03`, 2pt orange, 2pt offset) uniform app-wide. Targets ≥44×44pt: chips (32pt+16pt padding), time pills (32pt), thumbs (14pt icon + 44pt box), "see all" (44pt row), correlation rows (48pt min), matrix cells (≥44pt). Pressed: scale(0.97) + light haptic. Swipe-left contradiction = long-press context menu.
+
+**Colour + glyph + word:** Trend arrow = glyph (▲/▼/—) + word ("+3"/"-5"/"same") + colour (green/orange/white-50). Alert = "!" glyph + orange + text. Correlation bar = "↑" or "−" glyph + arrow + word ("strong/moderate/weak") + bar. Best Day = checkmark/blank + "done"/value + colour. Matrix = "+" or "−" glyph + arrow + intensity — never colour-alone.
+
+`prefers-reduced-motion` → final state instantly; Living Lines fully drawn (end dots visible); rings at final fill; matrix full intensity; no loops.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
 
 ---
 

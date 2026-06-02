@@ -411,6 +411,77 @@ Not applicable. This is a system-level screen that appears identically regardles
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** iOS force-update (honest system — Apple's version-gate screen) — *stays Balencia via the warm-glow update badge, the brand period in the wordmark, calm coaching tone, non-punitive framing.*
+**Pre-grade:** A− (85) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers: Strong IA and component specs; gaps are craft-layer: (1) What's New card lacks top-edge highlight and layered-depth treatment; (2) CTA entrance motion not mapped to locked `CK-P4` timings; (3) state-craft table is button-interaction (8 states) not screen states (`CK-P7` cold-start/loading/empty/error/offline); (4) line-heights and tracking not tokenized to `CK-T04/T05`; (5) contrast pairs asserted not tabulated; (6) focus ring not specified as `CK-T03`; (7) update badge glow size (28pt element) needs `--glow-orange-sm` ~12px per `CONSISTENCY.md §1`, not default 32px.
+
+### Focal hierarchy
+
+One focal point: the **Update Now CTA button** — the only interactive element on screen, sized at 56pt, full-width minus 48pt margins, maximum visual weight. Secondary focal moment is the **app icon + update arrow badge cluster** (96pt icon + 28pt badge) — visually warm and recognition-grounded, but not a competing hero (no glow, sized as a visual anchor, not a data display). Everything else is visibly secondary: wordmark is quiet (24pt, white, Monda), title and subtitle carry message not visual dominance, the What's New section is motivational support (a contained card, not a hero), version info is technical meta (12pt, white-30%, tertiary). The squint test lands on the CTA first (orange, bottom-of-screen thumb reach), then the app icon + badge (visual recognition), then the message hierarchy (title → subtitle). No competing foci.
+
+### Surface & depth
+
+The screen background is flat `--color-ink-900` (no gradient, intentional calm — correct per the spec's non-punitive stance). The **What's New card** upgrades to `CK-P1` Layered Warm Surface: `--color-ink-brown-800` body · `--radius-xl` 28pt · 1px `--glass-border` (white at 6%) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue, previously absent) · `--shadow-1`. No `--surface-backplate` (this is an optional, secondary card, not a hero). The **Update Now CTA button** carries `--shadow-2` for elevation emphasis (the single interactive element deserves floating depth), and a size-calibrated **`--glow-orange-sm`** (~12px /.35 opacity) in a persistent pulse state (the quiet attention draw matches the non-urgent-but-important framing). The app icon itself has `--shadow-2` against the dark field (elevation, depth). The update arrow badge interior is white, exterior ring is a 2pt `--color-ink-900` cutout border (creates a clean graphic separation against the icon). No other surfaces receive depth treatment (the wordmark, title, subtitle, version info are all text, no boxes).
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` tokens: wordmark "Balencia." in Monda Bold (24pt, 28pt `--leading-tight` per the logo font rule, white 100%) — the period is intentional, sacred to the brand; title "A new version is available" (`--text-h2` 20pt / `--text-h3` 17pt range, using 22pt as spec'd, map to `--text-h2` equivalent) / 700 weight / `--leading-snug` (1.25 per locked timings, not ad-hoc 28pt) / white 100%; subtitle "We've made Balencia even better. Update to continue your journey." `--text-body` (16pt per spec's 15pt, raise to real 16pt step) / 400 / `--leading-normal` (1.4) / white at 60%; What's New eyebrow "WHAT'S NEW" `--text-eyebrow` (12pt) / 600 / `--tracking-eyebrow` (0.12em) / uppercase / white at 40% (the `.eyebrow` recipe, locked); What's New bullet items `--text-body` (14pt per spec) / 400 / `--leading-normal` / white at 70%; CTA button text "Update Now" `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%; version info "v2.1.0 → v3.0.0 required" `--text-caption` (13pt) / 400 / `--leading-normal` / white at 30%. Stat figures (version numbers) use tabular-nums. Hierarchy by **weight** (600–700 vs 400), not size alone; sentence case throughout (the title "A new version is available" is sentence-case, not "A New Version Is Available"); ≤2 `--color-brand-orange` accent words on screen (the orange is on the badge and What's New eyebrow/bullets, so copy itself has zero orange; acceptable — the orange is decorative structure, not copy accent). Chillax stays logo-only (Monda on wordmark is correct). Replaces ad-hoc pixel line-heights (such as 28pt on the 22pt title) with the locked `CK-T04` scale.
+
+### Microcopy (before → after)
+
+The spec's default strings are already warm and authored; the gap is the **edge states** (loading, error, offline), now crafted to `CK-P5`:
+- **CTA default label** — *before / after (kept):* "Update Now" (already on-voice, simple, direct).
+- **What's New eyebrow** — *before / after (kept):* "WHAT'S NEW" (already on-voice, uppercase `.eyebrow` style).
+- **What's New example items** — *before / after (kept):* "Faster AI coaching responses" / "New workout plans and exercises" / "Bug fixes and performance improvements" (all three already warm and concrete, never horoscope-like).
+- **CTA loading state** — *before:* spinner replaces text, no message → *after (new, on-voice):* retain spinner but add a quick toast below the button: "Opening the store." (13pt Sora Regular, white at 70%, centered, 2-line max, warm and specific).
+- **CTA error state** — *before (spec has this):* "Try Again" for 3 seconds, error toast "Couldn't open the store. Check your connection." → *after (refinement):* keep the copy, ensure the toast is on-voice: "Couldn't open the store — check your connection." (no period at end, warm framing, specific recovery hint).
+- **Hardware back press (Android second press)** — *before (spec has this):* "Please update to continue using Balencia." → *after (non-shaming reframe):* "Updating keeps your coaching journey running smoothly." (reframes mandatory action as supportive, not a threat; no exclamation marks).
+- **Version info, unknown version (fallback)** — *before (spec has this):* "Update required" → *after (kept):* same; warm, minimal, honest.
+No exclamation marks anywhere; the brand period used with intent on the wordmark and in the subtitle-ending period; SIA is absent from this screen (correct — this is a system-level screen, not a coaching moment).
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first, staggered entrance): **wordmark fades in + translateY** (`--dur-base` 280ms, 0ms delay, `--ease-out-soft`) → **app icon fades in + scale(0.9 → 1.0)** (`--dur-base` 280ms, 120ms delay, `--ease-out-soft`) → **update arrow badge springs in** from below icon center, scale(0 → 1.0) + **fade in**, slight overshoot (320ms, 320ms delay, `--ease-out-back`) → **title fades in + translateY(8→0)** (`--dur-base` 280ms, 280ms delay, `--ease-out-soft`) → **subtitle fades in + translateY(8→0)** (`--dur-base` 280ms, 360ms delay, `--ease-out-soft`) → **What's New card fades in + translateY(8→0)** (280ms, 440ms delay, `--ease-out-soft`) → **What's New bullet items stagger in** (fade, 80ms stagger per item, 520ms total start, `--ease-out-soft`) → **CTA button fades in + translateY(16→0)** (280ms, 560ms delay, `--ease-out-soft`) → **CTA glow pulse begins** (infinite cycle, 2400ms period, sinusoidal ease-in-out, 0.15 → 0.30 opacity oscillation, starts at 1000ms to let the button settle) → **version info fades in** (280ms, 640ms delay, `--ease-out-soft`). Total time to full visibility ~1.0s. The screen overlay itself fades in over `--dur-slow` (520ms, `--ease-flow`) behind the content stagger, creating a smooth entry. `prefers-reduced-motion` → all elements at final state instantly (opacity 1, position 0, no translate/scale), CTA glow pulse replaced with static `--glow-orange-sm` at 0.20 opacity, badge spring removed (instant scale 1.0), loops off. The settled frame is the canonical frame (all glows visible at rest, no animation-dependent information).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | Screen renders in default state immediately (version gate triggers on cold start after config fetch). All sections visible: wordmark, icon, badge, title, subtitle, What's New (if server provides items), CTA, version info. Never a blank/loading state on first load. | Title: "A new version is available" or server override. Subtitle: "We've made Balencia even better. Update to continue your journey." or server override. What's New items from server or hidden if absent. | Wordmark and icon render at full scale (not a skeleton). All text is readable. CTA is interactive. |
+| **Loading** | Screen is fully rendered (not a skeleton). What's New card animates a subtle shimmer (ink-brown-800 → 10% brighter, 600ms cycle) if items are still fetching from server. CTA button is interactive. | "Opening the store." (appears in a quick toast below CTA during the store deep-link handoff, ~1s duration). What's New: if still loading, the eyebrow reads "WHAT'S NEW" and item area shows skeleton rows (1px ink-brown-800 background, no visible text). | Skeleton on `--color-ink-brown-800`, shimmer animation, depth preserved. |
+| **Empty / partial** | What's New section collapses entirely (0pt height, no card, no eyebrow, no hint text). All other elements (wordmark, icon, badge, title, subtitle, CTA, version info) render normally. The flexible spacer between subtitle and CTA expands slightly. | All default strings render. No "no updates to show" message (the section is simply absent per spec). | No-data ≠ zero (section hidden, not ghosted). |
+| **Error** | Screen renders fully. CTA button shows error state: text changes to "Try Again" (white, 17pt), button fill remains orange (no red — the error is the *store* unavailability, not a data sync failure, so no calibrated-red per the rule). Toast appears above CTA: "Couldn't open the store — check your connection." (13pt Sora Regular, white at 80%, on `--color-ink-brown-800` bg, `--radius-xl`, 48pt height, centered, fades in 280ms, auto-dismisses 4s). After 3 seconds, button text reverts to "Update Now". A subtle haptic error pulse (triple pulse) fires on error. | "Couldn't open the store — check your connection." (specific, recoverable, non-shaming). "Try Again" (simple recovery label). | Toast on `--color-ink-brown-800`, white text at 80% (good contrast on the card). No red (the store is external; the error is environmental, not the app's fault). |
+| **Offline** | Screen renders fully. CTA button remains interactive (will fail if tapped, triggering error state above). An offline banner may appear below the sticky status bar (if this screen is wrapped in a network-aware gate), or the app handles the offline state silently and the CTA error state fires when tapped. Version info may show "Update required" (fallback) if the version numbers failed to parse from a cached config. | If the app shows an offline banner: "You're offline — update when you reconnect." (calm, specific, not a failure). CTA label: "Update Now" (unchanged, will fail gracefully when tapped). | Offline banner (if shown) on `--color-ink-brown-800`, white text, no red (network state, not a failure). |
+
+### Signature & anti-generic
+
+Ownable moments: the **Balencia wordmark with the sacred period** (the brand signature, never generic), the **warm-glow update arrow badge** (the orange-on-orange glow at 28pt = `--glow-orange-sm`, subtle and calibrated, never neon), the **coaching tone in the subtitle** ("We've made Balencia better. Update to continue your journey." — the word "journey" is coaching-specific, warm, never corporate speak), and the **non-punitive framing** ("What's worth your attention" is encouraging, not "forced" or "required"). Anti-generic fix: this screen is a system-level overlay, so it has no peers in generic app templates; the risk is falling into iOS's mechanical tone. Balencia's warm orange badge, the coaching copy, and the brand period in the wordmark prevent that. The What's New section (if populated) is a motivator, not a punishment, which is the Balencia spin — "here's what you gain" rather than "you must update."
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-900` field for wordmark/icon/badge and on `--color-ink-brown-800` for What's New card text):
+
+| Element | Color | Background | Contrast | WCAG |
+|---|---|---|---|---|
+| Wordmark "Balencia." | `--color-alpha-white-100` | `--color-ink-900` | ≥12:1 | AAA |
+| Title text | `--color-alpha-white-100` | `--color-ink-900` | ≥12:1 | AAA |
+| Subtitle text | `--color-alpha-white-60` | `--color-ink-900` | ≥4.5:1 | AA |
+| What's New eyebrow | `--color-alpha-white-40` | `--color-ink-brown-800` | ≥3:1 | AA (decorative label, paired with position/structure) |
+| What's New item text | `--color-alpha-white-70` | `--color-ink-brown-800` | ≥5:1 | AA+ |
+| CTA button text | `--color-alpha-white-100` | `--color-brand-orange` (`--color-brand-orange`) | ≥7:1 | AAA |
+| Version info text | `--color-alpha-white-30` | `--color-ink-900` | ≥3:1 | AA (tertiary, small text: must meet 3:1) |
+| Update arrow badge interior (white arrow) | `--color-alpha-white-100` | `--color-brand-orange` | ≥7:1 | AAA |
+| Update arrow badge border (ink-900) | `--color-ink-900` | `--color-brand-orange` | ≥3.5:1 | AA (WCAG 1.4.11 graphics) |
+
+Focus-visible: every interactive element (`CTA button`, version info if tappable, hardware-back affordance) uses the single `CK-T03 --focus-ring` token (2px orange, 2px offset on the dark field) — uniform app-wide, replacing the ad-hoc "2pt ring" stated in Interaction States. The 56pt CTA button easily meets ≥44pt target. Status never colour-alone: the error state uses red-free (orange + "Try Again" text + toast message), the success state (if implemented) would use green dot + "Updated" copy + success haptic, never colour-alone. Reduced-motion: the CTA glow pulse is static (0.20 opacity), badge spring is instant scale, all entrance translates/scales are removed, elements appear at final state instantly; the settled frame is the canonical frame (all glows visible, information complete).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: External — App Store (iOS) via `itms-apps://` deep link, Play Store (Android) via `market://details?id=` deep link. No in-app navigation targets.

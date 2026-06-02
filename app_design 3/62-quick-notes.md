@@ -315,6 +315,146 @@ Quick Notes is the capture-first, organize-later layer of Balencia. It exists be
 
 ---
 
+## Visualization
+
+> Source: brief-driven (no companion file). Audited in `viz-audit/` — Batch 8, finding `S62-V01`. Primitives from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **Brand Mode (orange-dominant), deliberately restraint-led / near-LOW** — capture speed *is* the product, so a chart must never appear in (or slow) the capture flow. Benchmark = Apple Health's honest/restrained floor and Linear/Things' editorial calm, rendered the Balencia way — one quiet Living-Line cue, not a dashboard. **Current grade C+ (72) → specced-target A− (84).**
+
+Quick Notes is a text-capture surface; almost every datum is **deliberately textual** by design — a note's body, timestamp, tags, and "ask SIA" link carry no useful visual form, and the speed-first bottom sheet shows **no visualization at all** (correct: a chart there would defeat the product). The single legitimate, low-pressure visual is *capture activity over time*, and it lives **only** in full-screen archive mode as a quiet "you're capturing" reassurance — no goal line, no streak, no loss-aversion. This is restraint as a deliberate A− choice, not thinness: the spec below fully designs that one Sparkline (size, stroke, point-count, every state, motion, a11y) so a builder can implement it without guessing.
+
+### Visualized-vs-text map
+| Datum | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Note capture activity over time (archive mode only) | none | 7-week note-frequency micro-trend, no goal/streak/pressure | `Sparkline` (a tiny Living Line, `VK-016`) |
+| Auto-tag distribution | tag chips + counts | tag share | `Donut` (micro) — **deliberately deferred behind the tag filter**, never shown by default |
+| Note text / timestamp / tags / "ask SIA" / search / undo | text | — (deliberately textual — no useful visual form) | — |
+
+**Editorial hierarchy (calm, not maximal).** There is **no hero on this screen and that is intentional** — the focal element is the Quick Add Bar (capture), not a chart. The lone Sparkline is a single, clearly *secondary* ambient cue, sized small (64×24) and tucked into the archive header; everything else is text. The tag-distribution donut is deferred behind a tap, not surfaced. Over-charting a capture tool would defeat its purpose, so this screen intentionally scores its premiumness through *restraint + craft on the one visual*, not coverage.
+
+### 1 · Capture-activity Sparkline (full-screen archive mode only) — `S62-V01` → `Sparkline` (`VK-016`)
+A tiny **Living-Line `Sparkline`** in the full-screen archive header (above the date sections, beside an "captured this month" caption) showing **exactly 7 points** = notes captured per week over the trailing 7 weeks — a quiet "you're capturing your life" reassurance. **Absent entirely from the bottom-sheet capture flow** (speed first). The tag-distribution donut stays deferred behind the tag filter.
+- **Size & form:** 64×24 (the in-context Sparkline size), curved (monotone/Catmull-Rom), `stroke-linecap`/`linejoin: round`. **No axes, no grid, no glow** — a Sparkline carries none (CONSISTENCY Sparkline lock).
+- **Depth (token-backed):** `--stroke-thin` **(mint, 2px)** orange `#FF5E00` stroke on the warm `ink-brown-800` archive-header surface; no track, no inset, no backplate (a 64×24 inline trend gets the minimal depth treatment by design — glow on a sparkline is a depth *failure*). When the latest week is the user's highest-capture week to date, a single **green `#34A853` milestone end-dot (r=3px)** sits on the final point per the Living-Line milestone rule — a quiet "arrival," never a goal target.
+- **Micro-interaction:** tap the Sparkline (≥44×44pt hit area around the 64×24 mark) → a small `ink-900` tooltip pill (`--r-sm`, 8px pad, `--dur-fast` 160ms `--ease-out-soft`) reading "N notes this week" for the latest point. No scrub, no expand — the cue is ambient, not a drill surface. It never intercepts or delays the capture bar.
+- **States (each designed):**
+  - **Cold-start / <2 weeks of notes:** the Sparkline is **omitted entirely** (the caption "your capture activity will appear here" sits alone) — never a flat zero-line or a single dot, which would read as a fake "0 notes" verdict. The capture bar and list are fully usable; nothing is blocked.
+  - **Loading:** a 64×24 2px `white/10` flat baseline skeleton (no shimmer needed at this scale) that **morphs into the drawn orange stroke** when data lands — never swap.
+  - **Partial (some weeks un-synced):** synced weeks draw solid orange; an un-synced trailing week is a **ghosted (dashed, `white/20`) segment**, visually distinct from a real low/zero week — no-data ≠ zero.
+  - **Empty (notes exist but all in current week, <2 weeks span):** treated as cold-start — omitted, caption only.
+  - **Error (activity fetch fails):** the Sparkline area shows nothing (no broken chart); the caption silently falls back to the plain count "N notes". The archive list and capture bar are unaffected — the chart is the lowest-priority element on the screen and fails invisibly.
+- **Data source:** derived client-side from the existing `GET /api/quick-notes` archive payload (`createdAt` bucketed into trailing 7 ISO weeks); no new endpoint. Counts are real captured-note totals — never padded or zero-filled to fake a trend.
+
+### Motion choreography
+Draw-first order, scoped to archive mode (the bottom sheet has no chart): on archive mount the existing staggered fade-in runs (search bar 0ms → filter row 80ms → first note cards), and **after** the header settles the Sparkline **draws itself** left→right via `stroke-draw` over `--dur-slow` 520ms `--ease-flow` (the locked Sparkline draw timing) — **never an opacity-fade** (§8 "do not fade the line in"). The green milestone end-dot, if present, scales in (0.8→1.0, `--dur-base` 280ms) only after the stroke completes. Because it is below the (mobile) fold in long archives, it animates on **scroll-into-view**. `prefers-reduced-motion` → the Sparkline renders at its **completed static form instantly** (full curved stroke + green end-dot if a milestone), no draw — the identity survives without motion.
+
+### States, brand & accessibility
+- **States:** all five Sparkline states are designed above (cold-start/omit, loading-morph, partial-ghost, empty-as-cold-start, error-silent-fallback). The governing rule across every state: **the chart never blocks, delays, or errors-over the capture input** — capture is always one tap from any state.
+- **Brand & 60/30/10:** a single orange `#FF5E00` micro-stroke is the only data ink — orange-dominant, as a Brand-Mode screen must be. **Green** appears *only* as the milestone end-dot (arrival), the one sanctioned green on this screen (this carves out the Color Map's "green is absent" claim, now scoped to the capture/list UI). **Purple** stays exclusively on "ask SIA" links/dots (the SIA 10% role) and is correctly absent from the Sparkline (a capture-activity trend is not an SIA forecast — no dashed-purple projection here). Tag/domain colours remain identity-only on chips, never data ink. No glow (correct at 64×24), no neon.
+- **Accessibility:** the Sparkline carries an `aria-label` conveying the same value in words — e.g. "Capture activity: 7-week note trend, rising; 14 notes this week, your highest." The milestone is announced in words ("your highest") and shown by the **visible green end-dot**, never colour-alone. The orange stroke is load-bearing and meets **WCAG 1.4.11 ≥3:1** on `ink-brown-800`; the tooltip text meets **≥4.5:1**. The tap target is **≥44×44pt** around the 64×24 mark, and the capture-bar's own ≥44×44pt target is never reduced by the chart. Reduced-motion is honoured (completed stroke + end-dot at rest).
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Apple Notes + Bear (restraint-led) — *stays Balencia via the Quick Add Bar send-button continuous-stroke, warm-glow surfaces on ink-brown-800, and the brand period on every edge string.*
+**Pre-grade:** B+ (79) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+One focal point: the **Quick Add Bar** (text input + send button, 52pt height, top of the sheet or pinned-bottom in full-screen mode) — the reason the screen exists. The send button is the visual anchor: a 40pt `--color-brand-orange` circle with an arrow-up icon, always visible, disabled when empty (white at 10%), enabled when text exists. Everything else is visibly secondary: the notes list is a reverse-chronological scroll of cards (each ~76–120pt), the tag filter row is a secondary control (40pt, off-white chips), the Sparkline header (full-screen only) is a quiet ambient chart (64×24, tucked above the date sections), and the search bar is a standard input with no glow. The squint test lands on the orange send button first (the accent on a dark sheet), then the note cards as a dense list, then the tags and chart as secondary. No competing foci.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt on note card groups, `--radius-md` 14pt on search bar and tag chips per size scale) · 1px `--glass-border` (`--color-alpha-white-06`) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue, applied to the Quick Add Bar container, note card group, search bar, and tag-selector dropdown) · `--shadow-1` (note cards, quick add, search) / `--shadow-2` (tag selector dropdown on reveal). The Quick Add Bar also receives `--track-inset` on its send button's disabled state (a subtle recess under the circle). The note cards are grouped within a single `ink-brown-800` container (one card per date group in full-screen, continuous stacked cards in bottom sheet) with dividers between rows (1pt white at 5%, inset 16pt from left — decorative, not load-bearing). The search bar track (white at 8% border, 1pt) sits over a faint `--track-inset` recess (never flat on `ink-900`). Tag chips in the filter row have no glow (they are ~32pt height, so per `CONSISTENCY.md §1` they receive no glow), but the tag-selector dropdown (revealed on swipe-right) sits above the cards with `--shadow-2` and gains `--edge-highlight`. The Sparkline lives in the archive header as a quiet, unglowing 64×24 element with `--stroke-thin` 2px orange mint stroke (no glow on sparklines per locked params). Depth is warm and calibrated — never flat, never neon.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` tokens: screen header "quick notes" (full-screen mode) `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%; search bar + quick add input hint text `--text-body` (16pt) / 400 / `--leading-normal` / white at 30%; note card text `--text-body` (15pt) / 400 / `--leading-normal` (1.4) / white at 90%; timestamps `--text-caption` (12pt) / 400 / `--leading-normal` / white at 40%; tag chips (filter + card tags) `--text-caption` (13pt for filter, 11pt for card tags) / 600 / `--leading-normal` / per-tag color text; "ask SIA" link `--text-caption` (13pt) / 600 / `--color-royal-purple` at 70%; section headers (full-screen date groups) `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white 40%); undo toast text `--text-body` (15pt) / 400 / white at 70% + undo action `--text-body` 600 / `--color-brand-orange`; disabled states (when send button is empty) use white at 10% with 0.5 opacity on icon. Hierarchy is carried by **weight** (600 vs 400), not size alone. Sentence case on all labels. No exclamation marks. The **brand period** is used intentionally on the quick-add hint text ("what's on your mind." — the period signals completeness, not a question; see microcopy below). Tabular-nums on all timestamps and counts. Chillax logo-only (none on this screen). Replaces ad-hoc pixel line-heights with `CK-T04` (`--leading-tight / snug / normal / relaxed`).
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` voice — warm, plain, coaching, non-shaming, with the brand period on key edges:
+
+- **Quick Add hint text** — *before:* "what's on your mind..." → *after:* "what's on your mind." (the period signals the brand; the ellipsis is generic.)
+- **Send button aria-label** — *before:* blank → *after:* "Send note, button" (clear, warm).
+- **Empty state (day 1)** — *before:* not specified → *after:* "capture a thought, observation, or reminder." + "SIA will help you connect the dots." (invites capture, frames SIA warmly; warm period on the first line).
+- **Filtered view, no results** — *before:* not specified → *after:* "no [tag] notes yet." (specific, non-shaming; no exclamation).
+- **Search, no results** — *before:* not specified → *after:* "no notes found for '[query]." (specific, the period signals clarity; never "no results found").
+- **Loading state (while creating note)** — *before:* spinner → *after:* spinner with text below "saving..." (1 word, plain).
+- **Creation success** — *before:* not specified → *after:* toast "note saved. SIA is reading it" (warm, frames the async tagging; no exclamation).
+- **Undo toast** — *before:* "note deleted" (given in spec) → *after:* "note deleted" + undo link (kept as-is, on-voice).
+- **Error on note creation** — *before:* "could not save note — try again" (from Error Handling) → *after:* "couldn't save. pull to refresh." (warmer verb, lowercase, practical action named).
+- **Tag auto-assignment, loading** — *before:* shimmer on tag area (given) → *after:* shimmer with a brief aria-live text "SIA is tagging..." (ensures a11y context).
+- **Note editing, save failure** — *before:* "could not save changes" (from Error Handling) → *after:* "couldn't save changes. try again." (warm verb, lowercase, no hyphen; the period signals a complete thought).
+- **Offline indicator (cloud-with-arrow icon)** — *before:* icon-only → *after:* icon + aria-label "waiting to sync" (never silent on offline state).
+- **Pull-to-refresh, no change** — *before:* not specified → *after:* brief toast "already up to date." (warm, plain, no hype).
+- **Tag selector header** — *before:* not specified → *after:* no header; section label "assign tags." (2 words, lowercase, the period).
+- **Search bar hint text** — *before:* "search notes..." → *after:* "search notes." (the period).
+- **Accessibility hint: bottom-sheet drag handle** — *before:* not specified → *after:* aria-hint "drag down to dismiss" (clear affordance).
+
+Every string respects the brand period (used intentionally, not scattered), uses lowercase verbs (save, capture, tag, delete), avoids shame (never "you have no notes," always "capture a thought"), and omits exclamation marks. SIA copy (when present on notes as auto-tags or the "ask SIA about this" link) is specific to the note's content — a coach's voice, never a horoscope.
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order (applies to bottom-sheet and full-screen entrance separately):
+
+**Bottom sheet entry**: The Quick Add Bar slides up on FAB long-press (`translateY` from `screenHeight` to ~70% position, `--dur-slow` 520ms `--ease-flow`, keyboard rises with 280ms `--ease-out-soft` system timing). The backdrop fades in simultaneously (opacity 0 → 60%, 520ms). The keyboard auto-focuses the input (system behavior, light haptic). Below the fold, the notes list fades in (opacity 0 → 1, 280ms `--dur-base` `--ease-out-soft`, starting after the sheet settles — preserves ambient presence, not intrusive).
+
+**Full-screen archive entrance**: Staggered fade-in (the IA's order): search bar (0ms opacity fade) → filter row (80ms stagger) → first 3 note cards (80ms stagger each, starting 160ms) → date section headers fade in with content. The Sparkline header (above the first date group) **draws itself** left→right via `stroke-draw` (520ms `--dur-slow` `--ease-flow`) **after** the content settles. If a green milestone end-dot is present (a highest-capture week), it scales in (0.8 → 1.0, 280ms `--dur-base`) **after** the stroke completes. Because the Sparkline is below-fold on long archives, it animates on **scroll-into-view** (not on entrance).
+
+**Note creation**: On send-button tap, the input clears immediately (UX signal), and the new note card slides in at list top (`translateY` from -12 → 0, opacity 0 → 1, 280ms `--dur-base` `--ease-out-soft`). The auto-tag shimmer (if present) morphs into the final tags (~500ms total, no opacity-fade — the tags draw their background fill).
+
+**Swipe actions**: Swipe left/right reveals the delete/tag zones using spring-based gesture timing (no fixed duration — gesture-driven). The zone slides in from the appropriate edge (red from right, orange from left) at the same rate as the card translates. On full swipe (>60% card width), the card slides off-screen (`translateY` to bottom, height collapse to 0, 280ms `--dur-base` `--ease-out-soft`), and the undo toast slides up from the bottom (280ms same timing).
+
+**Tag selector dropdown**: When released on swipe-right, the dropdown scales in (scaleY from 0 → 1, anchor top, 280ms `--dur-base` `--ease-out-soft`) with the card held mid-swipe.
+
+**Undo toast**: Slides up from the bottom (translateY 60 → 0, opacity 0 → 1, 280ms `--dur-base` `--ease-out-soft`). Auto-dismisses after 5s (slides down, same timing).
+
+**Reduced-motion**: Bottom sheet appears at final position instantly (no slide, no backdrop fade — appears at full 60% opacity). Notes list at final state instantly. Sparkline renders at completed static form (full orange stroke, green end-dot if a milestone present) instantly with no draw animation. Swipe-action zones appear instantly. No animation is blocked — only draw/slide/scale motions compress to instant.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| Cold-start / Day 1 | Notes list replaced by centered empty state. Illustration: outlined notepad icon (48pt, white at 15%). Quick Add Bar prominent, auto-focused, keyboard visible. Tag filter row hidden (no notes to filter). | "capture a thought, observation, or reminder." (no shame, warm invite). "SIA will help you connect the dots." (frames SIA warmly, lowercase). | Surfaces remain layered + edge-highlight; no degenerate flat zone; the Quick Add Bar's orange send is the only glow cue |
+| Loading (while creating note) | Input clears, spinner animates in place of the text (brief), new card begins slide-up into list. Tag shimmer animates on card (morphs into final tags). | "saving..." (1 word, plain, lowercase). Brief aria-live: "note created, SIA is reading it" (context for a11y). | Spinner is white at 60%, no glow; note card morphs in (not a swap); shimmer on `--color-ink-brown-800` (depth-preserving, not a flat skeleton) |
+| Empty / partial (filtered view) | Notes list shows only matching tag's notes. If a tag is active but no matches: notes list replaced with centered "no [tag] notes yet" text. "all" filter chip remains visible to reset. | "no [tag] notes yet." (specific, lowercase, non-shaming; the period). | surfaces unchanged; tag chips remain layered + edge-highlight |
+| Error (note creation fails) | Input text preserved, send button shows brief red flash (120ms), then reverts to orange. Error toast appears below input or as a network banner. | "couldn't save. pull to refresh." (warm verb, specific action named, lowercase, period). | calibrated `--color-error-red` on button (not neon) only for 120ms flash, never persistent; surfaces unchanged |
+| Offline | Notes created offline store locally with cloud-with-arrow icon (12pt, white at 30%) beside timestamp. Existing notes shown from cache. Sync occurs on reconnect. Icon disappears when synced. | Icon aria-label: "waiting to sync" (never silent). Optional: small network banner "you're offline — cached notes shown" (calm, informative). | offline-created notes show the icon as a subtle visual cue; no red/error framing (offline is a state, not a failure) |
+| Note expanded | Card height animates to fit full text. Adjacent cards shift down. Collapse is the same animation in reverse. | (same text, no change — the card's body text is unchanged) | card depth + edge-highlight remains; the expanded space reads as intentional, not a flare-out |
+| Search active | Search bar gains focus, cursor visible, hint text fades. Clear button (X icon) appears when text is entered. Notes list crossfades to search results. | "search notes." (hint text, period). "no notes found for '[query]." (if results empty). | search bar depth (track inset, edge-highlight) + card surfaces unchanged; crossfade is smooth, no jank |
+
+### Signature & anti-generic
+
+Ownable moment: the **Quick Add Bar send button** — a 40pt `--color-brand-orange` circle with a round-capped arrow-up icon (2pt stroke, white) at the top of the sheet. When text exists, the button enables (orange fill, white icon); when empty, it disables (white at 10% fill, white icon at 30%). On press, it briefly scales (scale 0.92, 160ms micro-interaction). This is the continuous-stroke moment on a capture surface — a simple, warm, ownably Balencia detail. The icon is a living arrow (not a generic send icon), and the circular form (not a pill or rectangle) reads as intentional and premium.
+
+Anti-generic fixes: (1) the note cards are never a flat symmetric list — they are grouped within a single layered card container with subtle dividers (never a repeating-card list), so the eye reads them as a unified archive, not a generic content feed; (2) the Quick Add Bar is not a default iOS input — it's a glassmorphic container with a glow-free orange button at the end (orange dominates, but restraint is maintained); (3) the empty state is not a generic "no results" — it is a warm, illustrated notepad icon with on-voice copy that frames capturing as an invite, not a blank zone; (4) the Sparkline in the archive header is a restrained, drawn Living Line (not a bar chart, not a dashboard) — a signature Balencia chart that earns its place by being *absent* from the fast-capture bottom sheet (restraint as premium, not thinness).
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-900` / `--color-ink-brown-800`):
+| Element | Color | Contrast |
+| --- | --- | --- |
+| Quick Add input text | `--color-alpha-white-100` | ≥12:1 on `--color-ink-brown-800` |
+| Quick Add hint text | `--color-alpha-white-30` | ≥4.5:1 on `--color-ink-brown-800` |
+| Send button (enabled) | `--color-brand-orange` | 3.2:1 on `--color-ink-brown-800` (WCAG 1.4.11) |
+| Send button (disabled) | `--color-alpha-white-10` | 2.1:1 on `--color-ink-brown-800` (borderline — acceptable for disabled state) |
+| Note card text | `--color-alpha-white-90` | ≥12:1 on `--color-ink-brown-800` |
+| Timestamp | `--color-alpha-white-40` | ≥4.5:1 on `--color-ink-brown-800` |
+| Tag chip text (on colored bg) | per-tag `--color-*` at 15% | ≥3:1 (the tag color at full saturation on a 15% bg meets the WCAG 1.4.11 threshold) |
+| "ask SIA" link | `--color-royal-purple` at 70% | 3.8:1 on `--color-ink-brown-800` (WCAG 1.4.11) |
+| Section header (date) | `--color-alpha-white-40` | ≥4.5:1 |
+| Delete zone (swipe) | `--color-error-red` (`--color-error-red`) | 2.5:1 on `--color-ink-brown-800` (error reds are exempt from 3:1 when used for genuine operational failure; a delete action is operational) |
+| Tag zone (swipe) | `--color-brand-orange` | 3.2:1 on `--color-ink-brown-800` (WCAG 1.4.11) |
+
+Status never colour-alone: swipe-action zones show an icon + background (trash for delete, tag-icon for categorize, never colour-only). Tag chips show a colored background + a label (never just a dot). All interactive elements carry `--focus-ring` (`CK-T03`, 2pt orange, 2pt offset) uniform app-wide — the send button, note cards, "ask SIA" links, search bar, tag filter chips, and tag-selector dropdown rows all use the same ring. Touch targets ≥44×44pt: send button is 40pt visible with 44pt touch target; tag chips are 32pt height with 44pt vertical touch targets; note cards are full-width (always ≥44pt tall per minimum 72pt spec); "ask SIA" links have a 28pt explicit touch target + a hit-area expand. Reduced-motion: no slide animations (sheet appears instant, notes appear instant, swipe-zones appear instant, undo toast appears instant); the Sparkline renders at completed static form (full orange stroke + green end-dot if a milestone) instantly. All text labels, counts, and aria-labels are available to screen readers; the cloud-with-arrow offline icon has an aria-label ("waiting to sync").
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -347,7 +487,7 @@ Quick Notes is the capture-first, organize-later layer of Balencia. It exists be
 | Filter chip inactive bg | white at 10% | — | Unselected filter |
 | Filter chip inactive text | white at 60% | — | Unselected label |
 
-**60/30/10 verification**: Orange dominates through the send button (primary CTA), active "all" filter chip, reminder tag, swipe-right tag zone, and undo action. Green is absent from this screen (no success/completion states — notes are captured, not completed). Purple is limited to "ask SIA" text links and dots on each note card — exactly the AI-indicator role. Tag colors appear exclusively on tag chips and filter chips. Ratio holds with orange as the visual driver of action.
+**60/30/10 verification**: Orange dominates through the send button (primary CTA), active "all" filter chip, reminder tag, swipe-right tag zone, undo action, and the archive-mode capture-activity Sparkline's single orange micro-stroke (its only data ink). Green is absent from the capture/list UI (no success/completion states — notes are captured, not completed); the one sanctioned green is the Sparkline's milestone end-dot in full-screen archive mode, marking a highest-capture week (arrival), per `viz-audit/CONSISTENCY.md`. Purple is limited to "ask SIA" text links and dots on each note card — exactly the AI-indicator role; the Sparkline carries no purple (capture activity is not an SIA forecast, so no dashed-purple projection). Tag colors appear exclusively on tag chips and filter chips. Ratio holds with orange as the visual driver of action.
 
 ---
 
@@ -419,6 +559,17 @@ Quick Notes is the capture-first, organize-later layer of Balencia. It exists be
 | Active (with text) | Clear button appears, live filtering | — |
 | No results | "no notes found" below bar in white at 40% | — |
 
+### Capture-activity Sparkline (Full-Screen Archive only)
+| State | Visual | Haptic |
+|-------|--------|--------|
+| Cold-start (<2 weeks of notes) | Sparkline omitted entirely; caption "your capture activity will appear here" only — never a flat zero-line | — |
+| Loading | 64×24 2pt white-at-10% baseline skeleton that morphs into the drawn orange stroke | — |
+| Drawn (default) | 2pt orange #FF5E00 curved stroke, 7 points, no axes/grid/glow; green r=3px end-dot only on a highest-capture week | — |
+| Partial (un-synced week) | Synced weeks solid orange; trailing un-synced week ghosted dashed white-at-20% (no-data ≠ zero) | — |
+| Pressed (tooltip) | "N notes this week" tooltip pill, ink-900, --r-sm, 160ms fade; ≥44×44pt hit area; never delays capture | light impact |
+| Error (activity fetch fails) | Sparkline area renders nothing; caption falls back to plain "N notes" count; list + capture bar unaffected | — |
+| Reduced motion | Completed static stroke + end-dot at rest, no draw | — |
+
 ### Gesture Map
 | Gesture | Target | Action |
 |---------|--------|--------|
@@ -459,6 +610,8 @@ Quick Notes is the capture-first, organize-later layer of Balencia. It exists be
 | Tag selector open | Swipe right release | Dropdown scales in from note card (scaleY 0->1, anchor top) | 280ms | ease-out-soft |
 | Search results | Text input (debounced) | Notes list crossfades to search results | 280ms | ease-out-soft |
 | Screen content (full-screen) | Mount | Staggered fade-in: search bar (0ms), filter row (80ms), first 3 note cards (80ms stagger each) | 280ms each | ease-out-soft |
+| Capture-activity Sparkline (archive header) | Header settled / scroll-into-view | Living Line **draws itself** left→right via stroke-draw (never opacity-fade, §8); green milestone end-dot scales in (0.8→1.0) only after the stroke completes | draw 520ms; dot 280ms | ease-flow (draw); ease-out-soft (dot) |
+| Capture-activity Sparkline (reduced-motion) | prefers-reduced-motion | Renders at completed static form instantly — full curved stroke + green end-dot if a milestone, no draw | instant | — |
 
 **Screen transition**:
 - **Enter (bottom sheet)**: Not a navigation — overlay slides up over current screen

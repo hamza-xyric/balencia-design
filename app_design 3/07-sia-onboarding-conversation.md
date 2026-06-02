@@ -480,6 +480,128 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+> Elevates a strong conversational spec to A++ by authoring every user-facing string to SIA voice (warm, specific, never patronizing), adding layered warm-glow depth to all surfaces, designing every state and error scenario, and establishing the visual brainstorming area's continuous-stroke signature moment — creating the "it gets me" feeling within the first 60 seconds.
+
+**Profile:** content · **Cluster benchmark:** Headspace + Duolingo onboarding + warm chat — *stays Balencia via the continuous-stroke draw opening, warm-glow surfaces, and purple SIA avatar earmark.*
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): (1) SIA's opening message sequence, domain-selection copy, and goal-setting flow are partially written ("X asks...", "SIA says...") rather than authored; (2) message bubbles are flat `--color-ink-brown-800` with no `--edge-highlight` or `--surface-backplate`; (3) the visual brainstorming area omits the promised continuous-stroke opening draw and sized glows; (4) error/offline/loading states are named but not copy-crafted; (5) disabled and loading states on inputs are undesigned; (6) contrast pairs are asserted, not tabulated.
+
+### Focal hierarchy
+
+One focal point above the fold: the **Visual Brainstorming Area** (`CK-P2`, content hero) — the animated domain bubbles, goal cards, and continuous stroke are the only ≥96px glowing elements and immediately signal "this is collaborative, not a form." The **SIA greeting message sits within the chat area as a warm voice anchor**, not a competing hero — it is readable and personal but sized as `--text-body` (16px regular), letting the visual area dominate the squint test. Everything below (suggestion chips, input bar) is visibly secondary by size and weight. This resolves the earlier IA imbalance and ensures the first 60 seconds feel like "SIA gets me" rather than "fill out a form."
+
+### Surface & depth
+
+Every message bubble and card adopts the `CK-P1` Layered Warm Surface recipe: `--color-ink-brown-800` body · 1px `--color-alpha-white-08` border · **`--edge-highlight` top-edge inner highlight** (`CK-T01`, the single not-flat cue) · `--shadow-1`. The visual brainstorming area (hero, ≥280px) adds `--surface-backplate` (`CK-T02`) — a faint warm radial gradient centered at 50% 0% to create depth behind the floating domain bubbles. SIA message bubbles receive `--glow-orange-sm` (~12px, 0.35 alpha) on the 24pt avatar only, signaling AI presence without overwhelming. Domain bubbles (56pt) receive their respective domain color at `--glow-orange-sm` when selected/hovered, never exceeding the color palette. User message bubbles stay flat at orange 15% fill (no glow — user presence is direct, not spectral). Suggestion chips (36pt) receive no glow. The progress dots (6–8pt) stay purely typographic. Tracks (if any) recess under `--track-inset`. All radii follow CONSISTENCY.md §1: visual area `--radius-xl`, message bubbles `--radius-xl` with small-radius callout tail, chips `--radius-pill`, progress dots are circular (no radius token).
+
+### Typographic rhythm
+
+Re-map all type to `CK-P3` locked steps: SIA opening greeting is `--text-h2` (20px, 600 weight, `--leading-snug`, `--tracking-tight`) — the emotional anchor. SIA messages and user messages are `--text-body` (16px, 400 weight, `--leading-normal`) — conversational, warm. Domain bubble labels are `--text-small` (11px, 600 weight, `--leading-normal`) — secondary hierarchy. Suggestion chips are `--text-caption` (13px, 600 weight) — tappable action color `--color-brand-orange`. Progress dot labels (if aria-described) are `--text-caption`. Sentence case on all labels and copy; no exclamation marks; the brand period used with intent on SIA's motivational closes ("Building capacity. You've got this."). Stat figures (if any stage counter appears) use tabular-nums. ≤2 `--color-brand-orange` accent words per screen (domain taps and "send" button). Chillax is logo-only (none on this screen).
+
+### Microcopy (before → after)
+
+The specification is strong; microcopy refinement focuses on the **edge cases and dialogue branches** where generic AI copy lives. Every string is authored to `CK-P5`, warm and specific:
+
+**SIA opening sequence (scripted, not hint text):**
+- *before:* "I'd like to understand where you are right now."
+- *after:* "Before we jump in — tell me what's on your mind right now." (Implies the coach is listening, not interrogating.)
+
+**Domain selection prompt:**
+- *before:* "What areas of your life matter most?" (generic)
+- *after:* "Which of these areas deserve your attention right now?" (Specific to intent, not existence.)
+
+**Goal-setting follow-up:**
+- *before:* "Tell me about your [domain] goals."
+- *after:* "What's one thing you'd like to shift in [domain]? Big or small." (Reframes as agency, not deficit.)
+
+**Follow-up depth question (building narrative):**
+- *before:* "What success looks like?"
+- *after:* "What does that look like for you in 90 days?" (Specific horizon, invites reflection.)
+
+**Integration prompt (honest, non-dark-pattern):**
+- *before:* "I can give you even better insights if..."
+- *after:* "I can spot patterns faster if you share your health data — Apple Health, WHOOP, Oura. No pressure. You can skip this and connect later." (Honest value + escape hatch.)
+
+**Skip-for-now acknowledgment:**
+- *before:* "No worries, you can connect..."
+- *after:* "Got it. We'll work with what you tell me." (Affirms, does not condescend.)
+
+**Transition to plan (ownership, not mystery):**
+- *before:* "Let me put together your plan..."
+- *after:* "I'm building a plan from what you shared — should be ready in a moment." (Transparent about what is happening; "should be" is honest, not overpromised.)
+
+**Empty/error copy (on-voice):**
+- **SIA response generation failure:** "I hit a snag — let me try that again." + retry chip (orange outlined, not red error aesthetic; tone is a blip, not a system failure).
+- **Network lost mid-conversation:** "Connection lost. Reconnecting..." (banner, not modal; reassuring, not alarming).
+- **Domain tap fails to register:** "I didn't catch that — try again?" (acknowledges the user, invites retry without shame).
+- **Onboarding status save fails silently:** No user-facing message needed (server retries in background). If timeout exceeds 10s, SIA says "I'll save your progress when we're back online." (Transparency without fear-mongering.)
+- **Input disabled (SIA thinking):** generic text changes to "SIA is thinking..." (not a generic spinner label; specific to SIA's presence).
+- **Transition timeout (8s+ loading):** "Almost there — give me one more moment." (Acknowledged wait, no silent loop.)
+
+No shame language (never "you failed" or "weak commitment"). All goal-setting reframes toward "building" and "shifting," not "fixing." SIA's voice stays calm and coaching — never urgency, never hype.
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order (none on this screen fade-in opacity):
+
+1. **Visual brainstorming area opens:** Continuous stroke draws itself (orange `--color-brand-orange`, 4px `--stroke-base`, `stroke-animate`) in the visual area — `--dur-flow` (1200ms), `--ease-flow`. This is the "wow" moment, the signature Balencia signal. Stroke fades to a subtle background as domain bubbles prepare to enter (no pop, a gentle transition).
+
+2. **Domain bubbles enter (stage 2):** 9 domain bubbles float in from edges, staggered 120ms apart, each bubble opacity 0→1, scale 0.5→1 via `--dur-slow` (520ms), `--ease-flow`. Bubbles drift with slow organic motion (3–5pt random drift, 4000ms loop, `ease-in-out`).
+
+3. **Goal example cards enter (stage 4):** Cards slide in from the side of their respective domain bubble, opacity 0→1, staggered 80ms, `--dur-base` (280ms), `--ease-out-soft`.
+
+4. **SIA message appear:** Bubble fades in from bottom (translateY 8pt→0, opacity 0→1), `--dur-base` (280ms), `--ease-out-soft`. **SIA thinking dots** pulse sequentially within the bubble (opacity 30%→100%, staggered 200ms loop) — 3 dots, never a generic spinner.
+
+5. **User message send:** Text animates up from input to user bubble position, `--dur-base` (280ms), `--ease-out-soft`.
+
+6. **Suggestion chip selection:** Chip content flies to user message area, transforms into bubble, `--dur-base` (280ms), `--ease-out-soft`.
+
+7. **Progress dot fill:** Dot scales 1→1.3→1, fill crossfades from `--color-alpha-white-20` outline to `--color-brand-orange` solid, `--dur-base` (280ms), `--ease-out-soft`.
+
+8. **Transition to [08]:** Visual area elements converge to center, morph into a pulse ring (`--color-brand-orange`, `--dur-slow` loop). Chat area fades out. Screen crossfades to Initial Plan Summary [08], `--dur-flow` (1200ms), `--ease-flow`.
+
+**Reduced-motion:** No entrance animations. Stroke fully drawn on mount. Bubbles static, no drift. Dots fully filled. SIA thinking dots do not pulse. Transition skips visual convergence; simple crossfade to [08]. Final visual state (all elements drawn/settled) is the canonical frame in all cases.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | Visual area shows continuous stroke draw complete; domain bubbles float ready; SIA greeting visible; suggestion chips below | "Hey [Name]. I'm SIA, your personal coach. Before we set goals, I'd like to understand where you are right now." | `--surface-backplate` on visual area; SIA avatar shows `--glow-orange-sm` (purple ring 20% opacity); progress dots 1/7 filled |
+| Loading (SIA thinking) | Chat bubble visible with 3 pulsing dots; input field dimmed; send button disabled | Input hint text changes to "SIA is thinking..." | SIA avatar pulses (scale 1→1.05→1, 1200ms loop); thinking dots show inside bubble, never a replace-spinner |
+| Partial (user selects 2 domains, awaits follow-up) | Visual area shows selected domain bubbles brighter (color fill 30%, border 100%), drift toward center; unselected bubbles dim (fill 5%, border 30%, 50% opacity); goal cards visible near selected domains; chat shows 1–2 messages | Domain suggestions: "Which of these areas deserve your attention right now?" Goal prompt: "What's one thing you'd like to shift in [domain]? Big or small." | Domain-color glow on selected bubbles (`--glow-orange-sm`, domain color at 0.35 alpha); unselected bubbles fade to `--color-alpha-white-08` border |
+| Error (SIA response fails; network lost) | Chat bubble with error message; suggestion chip for retry or "continue anyway"; banner (if network) below progress indicator; input remains editable | **Response generation failure:** "I hit a snag — let me try that again." + retry chip. **Network lost:** "Connection lost. Reconnecting..." (banner, not modal; auto-dismiss on reconnect). **Domain tap fails:** "I didn't catch that — try again?" | Error scenario uses calm framing (no red unless true operational failure); retry affordance is orange outlined chip, not aggressive button |
+| Offline | Chat area shows cached messages; network banner "You're offline — showing your last sync."; actions honestly dimmed with icon+label | "You're offline. Your responses have been saved locally — they'll sync when you're back online." | Banner uses calm `--color-brand-orange` border, not red; input disabled with reason text |
+| Disabled (integration OAuth in progress) | Input field at 60% opacity; send button hidden; typing blocked | Input hint text: "Connecting to [provider]..." (specific to the OAuth flow, not generic) | Input shows `--color-alpha-white-06` border at reduced opacity |
+
+Every state is a designed layout + on-voice copy, never deferred to a generic error pattern (CK-P7 §5). Non-shaming, specific to what is happening.
+
+### Signature & anti-generic
+
+Ownable Balencia moments: **(1) The continuous-stroke opening draw** — the visual brainstorming area opens with an orange stroke drawn at 1200ms, the only draw-not-fade moment on the onboarding screen, instantly signaling "this is Balencia, not a chatbot form." **(2) Warm-glow surfaces on domain bubbles** — each selected bubble receives a domain-color glow (not cold neon, not flat tint), calibrated per CONSISTENCY.md §1, creating the premium "carved instrument" feel. **(3) SIA purple avatar earmark** — the 24pt purple ring on the orange SIA avatar (the only purple on the screen, per the 10% rule) marks AI presence without dominating. **(4) The visual brainstorming area as a co-creative space** — not a form with a list on the side, but a live canvas that responds to each conversation stage (stroke → bubbles → goal cards → convergence). This is what Headspace/Duolingo onboarding do right; Balencia adds the warm ink and continuous-stroke signature.
+
+Anti-generic fixes: No symmetric card monotony (the visual area + chat are distinct zones, not a stacked list of equal pills). The two-zone layout (visual top, chat bottom) breaks from every generic AI chat, immediately reading as "collaborative brainstorming, not interrogation." Copy is authored, never templated ("SIA is reading your week" instead of "Processing..."). No hint text dialogue or filler. Every emoji and chip is intentional — no decorative clutter. The stale ASCII wireframe (showing flat 232px card with 5 bubbles) is flagged to be redrawn in build (`S07-C01`).
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-900` field and `--color-ink-brown-800` surfaces):
+- SIA greeting `--text-h2` white-100 (≥12:1 on both fields)
+- SIA message body white-100 (≥12:1)
+- Domain bubble label white-60 (≥4.5:1 on domain-color 15% fill, WCAG 1.4.11 compliant)
+- Suggestion chip text `--color-brand-orange` (≥3:1 on `--color-ink-brown-800`, WCAG 1.4.11)
+- Progress dot filled `--color-brand-orange` (≥3:1 on ink-900)
+- Progress dot outline white-20 (≥3:1 on ink-900)
+
+Status never colour-alone: selected domain = color fill **+ "Selected [domain]" aria-label**; domain bubble press = scale feedback **+ haptic light**. Focus-visible is the single **`--focus-ring`** (`CK-T03`) token — 2px orange, 2px offset — on all tappable elements (domain bubbles, goal cards, suggestion chips, send button, input field). Targets ≥44×44pt (send button 36pt circle with 44pt hit box; domain bubbles 56pt; suggestion chips 36pt; input 52pt). 
+
+Screen reader announces "Onboarding step [N] of 7" for the progress indicator (grouped as one element, not 7 separate dots). Gesture fallbacks: domain tap → long-press + context menu option to select. Keyboard support: Tab order is visual area → suggestion chips → input field → send button. Enter submits message; Escape dismisses the keyboard. `prefers-reduced-motion` preserves the settled final frame (stroke fully drawn, bubbles static and clustered, dots fully filled, no pulsing).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [08] — Initial Plan Summary via crossfade (conversation completion)

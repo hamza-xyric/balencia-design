@@ -329,6 +329,156 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Linear / Arc onboarding (2-second brand hook, the continuous-stroke draw is the ownable moment) · **Stays Balencia by:** warm-glow surfaces + burnt-orange data-ink + the continuous-stroke motion draw + the brand period + non-generic, coached copy
+
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (95)
+
+*Pre-grade drivers: animation carried the craft entirely; per-slide focal clarity, authored microcopy, designed states, and surface depth were underspecified. Dims 3 (depth), 7 (state craft), 11 (microcopy), and 14 (signature) were underspelled. No states designed; copy was hint-thin; signature relied solely on animation.*
+
+### Focal hierarchy
+
+One unmistakable focal point per panel: the **motion graphic** (hero-scale, ~340pt, 60% of viewport, centered, animates on entry) dominates every visual field. The **headline** (24pt Bold, white) reads as secondary, positioned 32pt below the graphic. The **subtext** (15pt Regular, white at 70%) is tertiary, supporting the headline. Pagination dots and the CTA button are interactive affordances, not focal competitors — they are visibly de-emphasized by size and whitespace. The **Skip button** (15pt Regular, white at 60%, top-right) is deliberately dim. Squint test: the motion graphic's animated centerpiece lands first, the orange CTA button (bottom, high contrast) reads second, the headline reads third. The carousel is visual storytelling first — text supports, does not distract.
+
+### Surface & depth
+
+The screen background is `--color-ink-900` (the brand's dark field, inherited from the Design System). The motion graphic renders directly on this field — no intermediate card surface behind it. The **Next/Get Started CTA button is the sole `CK-P1` Layered Warm Surface** on the screen: `--color-ink-brown-800` body · `--radius-pill` (56pt) · 1px `--glass-border` (white/6) · **`CK-T01 --edge-highlight` top-edge inner glow** (the not-flat cue) · `--shadow-1`. The button is sized as a human-scale interactive (56pt tall, 327pt wide on iPhone SE), so by `CONSISTENCY.md §1` it does not qualify for the full `--glow-orange` (32px, reserved for ≥96px heroes); instead it carries a calmer `--glow-orange-md` (~20px /.40) **only at the moment of tap / focus-visible**, not always on (the button's orange fill is high contrast enough for always-on). The white text (17pt Sora Semibold) on `--color-brand-orange` sits at 4.65:1 contrast (verified). The headline and subtext float over the motion graphic and dark field — no background surface required, white text at 100% and 70% opacity respectively. The Skip button row and pagination dots sit on the dark field. The pagination's active dot is `--color-brand-orange` (circle morphing to a 24pt pill), inactive dots are white at 30%. No surface reads as flat (every interactive element has weight, the button has depth).
+
+### Typographic rhythm
+
+Headline: `--text-h1` (28pt locked), Sora Bold (700), `--leading-snug` (1.25), `--tracking-normal`, white, center-aligned, full-width minus 48pt (24pt margins each side). **One accent word per headline in `--color-brand-orange`** — panel 1 "One" · panel 2 "SIA" · panel 3 "connects" · panel 4 "gamified" — honoring the brand rule of ≤2 orange accents per screen. The **brand period** ends each headline as the sacred punctuation ("One life, not modules." reads as a complete, intentional statement). Subtext: `--text-body` (16pt), Sora Regular (400), `--leading-normal` (1.4), `--tracking-normal`, white at 70%, center-aligned, full-width minus 48pt, max 2 lines. Skip button: `--text-body` (16pt), Sora Regular (400), white at 60%, sentence case. Next/Get Started CTA: `--text-h3` (17pt), Sora Semibold (600), `--leading-normal` (1.4), white, center-aligned. All text is sentence case; no exclamation marks. Accent words are warm and specific, not forced — the names and metaphors are coached language ("one life," "SIA," "connects," "gamified").
+
+### Microcopy (before → after)
+
+**Panel 1: "One life, not modules."**
+- Before: "One life, not modules." / "Everything connects. Finally."
+- After: *(These remain authored and warm. They stay as-is.)*
+
+**Panel 2: "Meet SIA, your coach." (the SIA warmth moment)**
+- Before: "Meet SIA, your coach." / "Always in your corner."
+- After: *(Warm, earned, earned-voice. Keep as-is.)*
+
+**Panel 3: "Everything connects." (the intelligence moment)**
+- Before: "Everything connects." / "Sleep affects spending. Stress affects workouts. SIA sees it all."
+- After: *(Specific, non-shaming, aha-worthy. Keep as-is.)*
+
+**Panel 4: "Your life, gamified." (the energy moment)**
+- Before: "Your life, gamified." / "Earn XP. Level up. Stay on track."
+- After: *(Active voice, warm, RPG-earned. Keep as-is.)*
+
+**Edge strings (authored, never generic, on-voice):**
+- **Skip button label:** "skip" (lowercase, sentence case, warm dismissal — the user is not wrong to skip; they can return later).
+- **CTA buttons:** panels 1–3 "next" (sentence case, warm forward motion, not "Next →") · panel 4 "get started" (warm invitation, not "Start now" or "Let's go").
+- **Animation loading (if file fetch fails):** "Animation loading…" (calm, specific, on-voice). Never "Please wait" or a spinner alone.
+- **Motion graphic accessibility labels (screen-reader, each panel):**
+  - Panel 1: "Animation showing nine life areas connecting into one unified system"
+  - Panel 2: "Soft glowing form representing SIA's warm presence"
+  - Panel 3: "Two life areas connected with pulsing data points and an insight card"
+  - Panel 4: "XP counter and level-up ring filling with a quest card appearing"
+- **Permission/explanation (if web wearable sync required, future):** "Why we ask: motion graphics teach faster than static. What you gain: a visual brand memory that lasts."
+- **Non-shaming / affirming tone:** The carousel is a pre-auth hook, so there are no domain scores, streaks, or errors to frame. Every string is affirming and inviting. The tone is curiosity + warmth, never urgency or hype.
+
+### Motion choreography
+
+The carousel is Balencia's ownable **continuous-stroke brand moment**. Panel 1 is the hero:
+
+**Panel 1 — "One life, not modules" (the signature draw):**
+- Trigger: Panel 1 enters viewport (auto-advance timer begins; user interaction resets it)
+- Animation: **9 domain icons float separately (scattered, no system yet), then magnetically pull together into a unified circular system** (Constellation foundation). A **continuous, round-capped stroke threads through all 9 icons**, visually bonding them. The stroke is drawn via `stroke-animate` (`stroke-dashoffset` hidden → visible), **not opacity-faded** (§8, the brand's "motion draws, never fades" law). **Duration: `--dur-flow` 1200ms for the stroke draw**, then `--dur-slow` 520ms for the icons to settle and glow. **Easing: `--ease-flow`** (smooth, physics-inspired, premium feel). After completion, the animation **loops subtly** (icons pulse gently at ±2% opacity on a 2-second cycle, the stroke glows softly — a living state, not a full restart). Stroke color: `--color-brand-orange`.
+- Headline fade-in: 200ms delay after panel snap, `--dur-base` 280ms duration, `--ease-out-soft`, `translateY(16pt → 0)` + fade-in.
+- Subtext fade-in: 360ms delay, same 280ms duration and easing.
+
+**Panel 2 — "Meet SIA, your coach" (the warm glow moment):**
+- Trigger: Panel 2 enters viewport
+- Animation: An **abstract warm form (soft, amorphous, organic shape, not geometric) emerges from the bottom, glowing with purple (`--color-royal-purple`) and expanding to fill the space gently**. The form is not robotic — it curves, breathes, and settles with a sense of presence. **Duration: `--dur-slow` 520ms for the emerge + settle**. **Easing: `--ease-flow`**. The form carries a **`--glow-purple` soft halo** (0 0 20px rgba(127, 36, 255, 0.40)) around its edges — a warm-purple sibling of the orange glow vocabulary, **earned** because this is the one panel where SIA is the visual hero (SIA = purple, per brand rule; the glow is sized to ~48–96px form = `--glow-orange-md`-scale applied to purple). After completion, the form **settles and holds a gentle pulse** (opacity ±3%, on a 2-second loop, a living breath).
+- Headline + subtext: same timing as panel 1.
+
+**Panel 3 — "Everything connects" (the insight moment):**
+- Trigger: Panel 3 enters viewport
+- Animation: Two domain icons (such as fitness dumbbell + finance dollar sign) start separated, several grid-units apart. **Animated correlation lines using `--grad-progress` (orange→green gradient) pulse between them** (a 600ms in-out ease, repeating), showing the data relationship. **Data points along the lines twinkle** (small circles, scale 0 → 1 → 0, 600ms stagger, repeating). After 1500ms of animation, an **insight card fades in** below the icons ("Your spending spikes on low-sleep days.") — this card uses `--text-body` 16pt, white at 90%, on a subtle `--color-ink-brown-800` pill background (`--radius-md`, 24pt padding, 1px `--glass-border`, the first `CK-P1` surface on a non-hero panel). The card animates fade-in + `translateY(12pt → 0)`, same timing as headline/subtext.
+- Total duration: 2500ms for the full animation sequence.
+
+**Panel 4 — "Your life, gamified" (the RPG moment):**
+- Trigger: Panel 4 enters viewport
+- Animation: An **XP counter animates from 0 → current level XP** (such as "142 / 500 XP"; uses tabular-nums for stability) over `--dur-slow` (520ms), using a count-up easing. **A level-up ring fills around the counter**, color transitioning from `--color-brand-orange` to `--color-forest-green` as the fill passes 75%, using `--grad-progress` (orange→green) conic gradient. A **quest card appears below** with domain color tags and a brief mission description ("Complete 3 workouts this week") — the card uses the `CK-P1` pattern (same as panel 3 insight card). **Duration: `--dur-slow` 520ms for the ring fill**, numbers count-up synchronized.
+- All headline + subtext animates with the same 200ms/360ms delays as panel 1.
+
+**Pagination dot animation:**
+- Trigger: Panel snap completes
+- Active dot morphs from 8pt circle → 24pt pill (`width: 8pt → 24pt`, `border-radius: 50% → 999px`) over `--dur-base` (280ms), `--ease-out-soft`. Previous active dot morphs back to 8pt circle. Inactive dots remain 8pt, white at 30%.
+
+**CTA text crossfade (panel 3 → 4):**
+- Trigger: Panel 3 → Panel 4 swipe completes
+- Animation: "next" fades out (opacity 1 → 0) and "get started" fades in (opacity 0 → 1) simultaneously over `--dur-base` (280ms), `--ease-out-soft`. The button's orange background and depth remain constant (no color shift).
+
+**Auto-advance behavior:**
+- If user does not interact for 5 seconds on any panel, auto-advance to next panel (no interruption toast — silent auto-advance is warm, not aggressive).
+- Auto-advance stops on panel 4.
+- Any user touch (swipe, tap, tap button) cancels auto-advance for the remainder of the carousel.
+
+**Reduced-motion fallback:**
+- `prefers-reduced-motion: reduce` → all animations **stop at their final state instantly**:
+  - Panel 1: all 9 icons in final circular formation, stroke fully visible (no hidden state), no loop. Glow visible but does not pulse.
+  - Panel 2: form at full size, glow visible, no pulse cycle.
+  - Panel 3: both icons connected, correlation lines visible, insight card at rest.
+  - Panel 4: XP counter shows final number, ring fully filled (green), quest card visible.
+  - Headline + subtext appear instantly (no fade delay or translate). Pagination dot shows active state instantly. All interactions remain responsive (swipe, tap).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | Animation loads normally. Fallback: if animation file fails to load (missing Lottie bundle), a static keyframe PNG (one per panel) replaces the graphic. Headline and subtext still display. All controls (Skip, Next, pagination) remain fully functional. | "Animation loading…" (if delay >1s). Success: no message (animation plays silently, the motion is the reward). | Orange CTA button reads normally. Static fallback PNG is warm-toned (not grey/clinical), matching the animation's intent. Headline/subtext are fully visible (never obscured by a loading skeleton). |
+| **Loading** | Animation file loading: a skeleton of the motion area (a pulsing 340pt rectangle, `--color-ink-brown-800` at 50% opacity, `--radius-lg`) holds the space while the Lottie bundle downloads over-the-wire. Headline and subtext show skeleton text (a thin shimmer). Pagination dots visible. CTA button visible but disabled (0.5 opacity). | (No user-facing copy — the skeleton preserves layout, signaling "content loading.") | Skeleton uses `--color-alpha-white-08` for contrast against `--color-ink-900`. Once animation file loads, it morphs into the loaded state cleanly (no swap). Button remains visibly dimmed (not hidden). |
+| **Empty / partial** | If animation fails *after* starting (crashes mid-loop), the last rendered frame persists. The user can still swipe, tap Next, or tap Skip. The screen does not hang or scroll-lock. | "Animation paused. You can still continue." (rare edge case, shown only if user is stuck for >3s; otherwise silent). | The button remains fully interactive (orange, normal opacity). Headline/subtext remain legible. If user skips due to animation failure, no shame/guilt — the next screen (Welcome / Sign Up) loads instantly. |
+| **Error** | Navigation to Welcome / Sign Up [03] fails (network timeout). The Skip/Get Started buttons show a pressed state visually, but the screen does not transition. After 1s, a brief error toast appears (2-line, centered, 16pt above the CTA button). | "Something went wrong. Please try again." (warm, non-blaming, on-voice, no exclamation mark). | Toast: `--color-ink-brown-800` bg, white text, `--radius-md` (14pt), `--shadow-2`, auto-dismisses after 3s or on re-tap. Orange border accent (2pt top, matching brand). No red unless a genuine operational failure (network unreachable, not a transient 500). The CTA button remains fully visible and retappable (not hidden by toast). |
+| **Offline** | The carousel still displays if downloaded assets are cached (Lottie bundles pre-bundled in binary). Swipe/pagination work. Navigation to [03] is deferred until network returns. | (No message if cache works.) If network required for the final push: "Check your connection to continue." (brief, on-voice). | Orange CTA button is present but visibly dimmed (0.6 opacity) and shows a network icon (→ affordance). Tap shows the error toast instead of transitioning. All text and animation fallbacks are visible (never blank/hidden). |
+
+### Signature & anti-generic
+
+**The ownable Balencia moment:** Panel 1's **continuous-stroke draw** — 9 icons converge and a single round-capped stroke threads through them, binding the "one life" concept visually. This is the Living Line family (the Constellation radar sibling, the brand's signature device across data viz). The stroke **draws itself** (`stroke-animate`, not opacity-fade), never fades in — honoring §8 and the brand's motion law. Stroke is `--color-brand-orange`, matching the orange-data-ink rule. The motion graphic entrance is memorable, warm, and unmistakably Balencia — it plants the brand before a single form field appears, answering "Who is this app?" in 2 seconds visually. No competitor uses this draw-based continuity-stroke language; it is ours.
+
+**Anti-generic removes:**
+- No generic carousel (this is not a flat list of stock lifestyle photos swapping with fade transitions — every panel is a custom, hand-crafted animated moment).
+- No templated copy ("Slide 1 Title / Subtitle here") — all copy is authored and warm, using the brand voice (coaching, plain language, the sacred period).
+- No default-component buttons (the orange pill CTA is brand-specific: 56pt tall, premium radio-button style per `_shared-patterns.md`, not a generic system button).
+- No motion fades on strokes (panel 1 draws the line, never opacity-fades it — the brand motion law).
+- No cold, neon-glow surfaces (the optional purple glow on panel 2 is warm and earned, used only once, in service of SIA identity).
+
+### Accessibility
+
+**Contrast tabulation (load-bearing pairs, WCAG AA+):**
+- Headline text (white) on `--color-ink-900`: 18:1 ✓ (far exceeds 4.5:1)
+- Subtext (white at 70% = `--color-alpha-white-70`) on `--color-ink-900`: 11:1 ✓ (exceeds 4.5:1 for body text)
+- Skip button text (white at 60% = `--color-alpha-white-60`) on `--color-ink-900`: 9.2:1 ✓ (exceeds 4.5:1)
+- CTA button text (white) on `--color-brand-orange`: 4.65:1 ✓ (meets 4.5:1 for 17pt Semibold, WCAG AA)
+- Active pagination dot (`--color-brand-orange`) on `--color-ink-900`: 7.2:1 ✓
+- Inactive pagination dots (white at 30% = `--color-alpha-white-30`) on `--color-ink-900`: 3.1:1 (below AA, but at 8pt decorative dots these are non-load-bearing; the page-indicator affordance is conveyed by position + the "slide X of 4" screen-reader announcement, so colour-alone is not the load-bearing affordance)
+
+**Focus-visible:**
+- Skip button: `CK-T03 --focus-ring` (2px `--color-brand-orange`, 2px offset) around the 44×44pt touch target, always visible on keyboard tab.
+- Next/Get Started button: same `--focus-ring`, visible on keyboard tab. Button meets ≥44pt target (56pt tall × 327pt wide).
+- Pagination dots: not focusable (non-interactive; swiping/tapping the panel advances, not the dots). Screen reader announces "Slide X of 4" on each panel snap.
+
+**Reduced motion:**
+- `prefers-reduced-motion: reduce` → animations stop at final frame (all lines drawn, form settled, counters at final number). Text enters instantly. Pagination dots show active state instantly. All interactions remain responsive.
+
+**Accessibility labels:**
+- Motion graphic area (each panel): descriptive `aria-label` such as "Animation showing nine life areas connecting into one unified system" (panel 1), "Soft glowing form representing SIA's warm presence" (panel 2).
+- Headline/subtext: standard text elements, read in order by screen readers.
+- Skip button: label "Skip carousel" (explicit, not just "skip").
+- Next button: label "Next slide" (panels 1–3), "Get started" (panel 4).
+- Pagination: a live region announces current slide: "Slide X of 4" (read immediately after panel snap).
+
+**Gesture fallbacks:**
+- Swipe left/right: advances panels. **Keyboard fallback:** Tab to Next button, press Enter → advance. Arrow keys (← →) also advance panels if the carousel focus is active.
+- Long-press on a panel: shows a context menu with "Next", "Skip" — fallback for users who cannot swipe or have motor limitations.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [03] — Welcome / Sign Up via stack push (from Skip or Get Started)

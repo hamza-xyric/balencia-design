@@ -338,7 +338,7 @@ The Voice Call History & Scheduling screen is the user's personal record of ever
 ### Call Detail — Emotional Trend Visualization
 - **Purpose**: Show the emotional arc across the duration of the call
 - **Data source**: API — emotional_trend array from call_summaries table
-- **Visual treatment**: ink-brown-800 card, --r-xl (28pt), 24pt padding. Height: ~120pt. Horizontal timeline with emoji markers at key emotional shift points. Connecting line: 2pt, royal-purple (#7F24FF) at 40%, curved path between points. Time axis: 12pt Sora Regular, white at 30%, evenly spaced below. Emoji markers: 24pt, positioned at their corresponding time offset. Active/hover: tooltip with brief context ("discussed career stress").
+- **Visual treatment**: ink-brown-800 card, --r-xl (28pt), 24pt padding. Height: ~120pt. Horizontal timeline with emoji markers as nodes at key emotional shift points. Connecting line: a **purple Living Line** (`Sparkline`/`TrendChart` family, VK-016) — `--stroke-base` 4px, **solid** royal-purple (#7F24FF) (NOT 40% alpha — a solid stroke is required for WCAG 1.4.11 load-bearing ≥3:1), curved, round caps/joins, draws itself left→right on enter (`stroke-draw`, never an opacity fade). It is the expanded twin of the per-call sentiment Sparkline on the history cards (see ## Visualization S51-V01/V02). No projected/dashed tail — a completed call is a record, not a forecast. Time axis: 12pt Sora Regular, white at 30%, evenly spaced below. Emoji markers: 24pt, positioned at their corresponding time offset. Active/hover: tooltip with brief context ("discussed career stress").
 - **Variants**: Short call (3 or fewer data points — simplified), long call (many data points — scrollable horizontally)
 - **Gestures**: Tap emoji marker for context tooltip
 - **Size**: Full-width minus 32pt x ~120pt
@@ -384,6 +384,234 @@ The Voice Call History & Scheduling screen is the user's personal record of ever
 
 ---
 
+## Visualization
+
+> Source: brief-driven (no companion file). Audited in `viz-audit/` — Batch 8, findings `S51-V01..V03`. Primitives from `VIZ-KIT.md` at `CONSISTENCY.md` parameters. **AI Mode** (sanctioned purple-dominant — cite `_shared-patterns.md`): every datum here is SIA-originated, so purple is the data ink. Benchmark = Granola / Otter sentiment + Bevel topic splits, rendered the Balencia way (sentiment as a *purple Living Line*, observed not scored). **Current grade C+ (72) → specced-target A− (85).**
+
+This is a deliberately **thin, calm** section, not a dashboard. Voice Call History is a *record*, not an instrument panel — its job is to make the coaching relationship legible over time without turning feelings into a leaderboard. There is **no focal hero by design**: the screen's gravity belongs to the schedule CTA and the readable call cards, and a sentiment gauge or score ring here would falsely imply that an emotion can be "completed" or "won." The restraint is the premium move. The only visuals are two quiet, honest micro-trends (card sentiment + cadence) plus the expanded sentiment trend in Call Detail — each a member of the Living-Line family so the screen reads as one system.
+
+### Visualized-vs-text map
+| Datum | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Per-call sentiment arc | text snippet + emoji | inline 7-pt **purple** sentiment Sparkline on each card (Living-Line micro) | `Sparkline` (VK-016) |
+| Call sentiment over the full call (detail) | emoji timeline, purple/40% line | full **purple** Living Line + emoji marker nodes | `TimelineAgenda`-flavoured `TrendChart` (VK-014/VK-016) |
+| Call cadence (calls/week) | implicit | weekly-bucket mini bars under the history header | `BarChart` / StatBars (VK-006) |
+| Date · duration · type · summary · key insights · action items | text | — (deliberately textual; premium ≠ a chart on every line) | — |
+
+**Editorial hierarchy (calm, not maximal):** there is no hero and that is intentional (above). The card Sparkline is the *primary* viz (one per card, repeated quietly down the list); cadence bars are a single *secondary* glance under the header; the Call-Detail Living Line is the *expanded twin* of the card sparkline, only seen on drill-in. Nothing competes; nothing is sized to dominate.
+
+### 1 · Per-call sentiment Sparkline — `S51-V01` → `Sparkline` (VK-016)
+On each Call History Card, a tiny **Living-Line `Sparkline`** of in-call sentiment, sitting on the emotion/summary row (right of the emoji, before the snippet truncates), 64×16.
+- **Depth (token-backed):** `--stroke-thin` 2px stroke, **royal-purple `#7F24FF`** solid (SIA-originated, AI Mode — purple *is* the data ink here, not orange); `stroke-linecap/linejoin: round`; curved (monotone); **no axes, no grid, no glow** (CONSISTENCY locks sparklines glow-free — a `--glow-purple` 32px would swamp a 16px-tall line). Green `#34A853` end dot r=3px **only** when the call closed on an uplift (a genuine arrival), never decoratively. Sits on the existing `ink-brown-800` card surface; no extra backplate.
+- **Framing (non-shaming, ethical core):** sentiment is an **observation, never a verdict.** A call that trended low reads as "a tough one we worked through" in the snippet, and the line simply shows its true shape — it is **never** recoloured to an alarm tint, never green-as-pass / red-as-fail. No emotion is scored 0–100 on the card.
+- **Micro-interaction:** tap the card (existing 44pt+ target) → Call Detail, where the same trend expands to the full Living Line (`S51-V02`). No separate scrub on the card (too small to be honest).
+- **States:** **<3 points → omit entirely** (a 2-point line is a fake trend) — the row falls back to emoji + snippet only. **No-data / still-generating →** a faint dashed `--color-alpha-white-10` placeholder stub the width of the sparkline (clearly *ghosted*, distinct from a real flat line), paired with the existing "generating summary…" shimmer. **Brief call (<2 min) →** no sparkline (matches the existing "brief call" card variant).
+- **Data source:** `emotional_trend` JSONB from `call_summaries` (downsampled to ≤7 points; the same array drives `S51-V02`).
+
+### 2 · Call-Detail sentiment Living Line — `S51-V02` → `TimelineAgenda`-flavoured `TrendChart` (VK-016/VK-014)
+The detail-view **Emotional Trend** card, re-specced as the expanded twin of the card sparkline: a full **purple Living Line** across the call timeline with **emoji markers as nodes** at each emotional shift.
+- **Depth (token-backed):** the path is a `--stroke-thin` 2px → on hero card `--stroke-base` 4px **solid royal-purple `#7F24FF`** Living Line (replaces the current `#7F24FF at 40%` connecting line — 40% alpha is a WCAG 1.4.11 load-bearing-stroke miss); curved, round caps/joins. Emoji markers are 24pt nodes seated on the line at their time offset; the time axis (0m…18m) is `--color-alpha-white-30` `text-small` (decorative, exempt from 1.4.11). Faint radial backplate on the `ink-brown-800` card; **no glow** on the line (purple stays calm).
+- **Honesty:** the line shows the *actual* emotional arc only — never an extrapolated/projected tail (this is a record, not a forecast; the brand dashed-purple projection device is correct elsewhere but **out of place** on a completed call). The x-axis is the real call duration with a true zero start; no truncation.
+- **Micro-interaction:** tap an emoji marker → context tooltip pill (`ink-900`, `--r-sm`, 8px pad, `--dur-fast` 160ms) — e.g. "discussed career stress" — reusing the existing tap behaviour. Long calls scroll horizontally (existing variant); short calls (≤3 markers) render simplified, no scroll.
+- **States:** **trend data missing →** the whole card is hidden (existing behaviour: "summary and insights still display"); never a flat or fabricated line. **Loading →** axis + a dashed `white/10` path skeleton that the real Living Line **draws over** on data arrival. **Error →** card hidden, supplementary, no blocking.
+- **Data source:** `emotional_trend` array from `call_summaries`.
+
+### 3 · Call cadence mini-bars — `S51-V03` → `BarChart` / StatBars (VK-006)
+A single small **weekly-bucket bar group** (calls/week, last ~6 weeks) under the History tab header, reinforcing the regular-check-in habit.
+- **Depth (token-backed):** orange `#FF5E00` bars (cadence is a *behaviour the user did*, not SIA analysis → orange data ink, the one orange viz on the screen) over a `--color-alpha-white-08` track on `--track-inset`; **zero baseline, one shared scale** across all weeks (honest — no truncation that exaggerates a quiet week); rounded bar caps; ~48px tall, no glow.
+- **Framing (non-shaming):** cadence is shown as a gentle rhythm, **never** a streak with loss-aversion — a week with zero calls is an honest empty bucket, not a broken-streak alarm or a guilt prompt. No "don't break your chain" copy.
+- **Micro-interaction:** tap a week bar → scrolls the list to that week's calls.
+- **States:** **<2 weeks of data → omit** (no trend to show yet); cold-start shows nothing here, only the empty-state invitation. **Loading →** bar-track skeleton that the bars **rise** into.
+- **Data source:** derived from `GET /api/voice-calls` timestamps, bucketed by ISO week (disclosed window: last 6 weeks).
+
+### Motion choreography (draw-first order)
+On screen enter the **cards animate first** (existing staggered fade-up, 280ms · 80ms stagger), then within each card the sentiment **Sparkline draws itself** left→right via `stroke-draw` (`--dur-slow` 520ms `--ease-flow`) on **scroll-into-view** — **never an opacity fade** (§8). The cadence bars **rise** 0→height (`--dur-slow` 520ms `--ease-flow`) once the header is in view. In Call Detail, the **Emotional Trend Living Line draws left→right** with emoji markers settling at their positions sequentially (the Motion table's existing 520ms `--ease-flow` row is canonical), then the summary fades up after. One line motif per surface (§8): the card carries one sparkline, the detail one Living Line. **`prefers-reduced-motion`:** every sparkline/line renders at its completed stroke instantly with the green end dot in place, bars at final height, markers seated — the static signature survives with no information lost.
+
+### States, brand & accessibility
+- **States:** **Cold-start / Day 1 (no calls)** → no sparklines, no cadence bars; the existing inviting empty state carries the screen ("schedule your first call and we'll talk through your goals together") with the purple-dot SIA marker — calm, never a degenerate flat chart. **Loading** → sparkline/line/bar **skeletons that draw or rise into real data** (morph, not swap), preserving card layout. **Partial / still-generating** → ghosted dashed stubs + the existing "generating summary…" shimmer; present calls render, missing ones simply absent. **Error** → per the Error Handling table; sentiment/cadence are supplementary, so a failure hides the viz and never blocks the readable card.
+- **Brand & 60/30/10 (AI-Mode exception — cite `_shared-patterns.md`):** **purple `#7F24FF` is the sanctioned data ink** for all SIA sentiment (card Sparkline + detail Living Line) because every reading here is SIA-computed; **orange** anchors the one user-behaviour viz (cadence bars) plus the Schedule CTA and action-item completion; **green** appears only as an *uplift/arrival* end dot. No domain colours, no rainbow, no alarm red on any sentiment surface.
+- **Accessibility:** every sparkline carries a text equivalent conveying the same arc — e.g. `aria-label="In-call sentiment: started neutral, rose to positive, ended positive"` (the existing detail summary "started neutral, became positive midway, ended very positive" is the model); cadence bars carry `aria-label="Calls per week, last 6 weeks: 1, 2, 0, 3, 2, 2"`. Status is **never colour-alone** — the green uplift dot is paired with the words in the aria-label and the visible emoji/snippet. Load-bearing strokes (the solid purple Living Lines, the green end dot, bar fills, the filled/track boundary) meet **WCAG 1.4.11 ≥ 3:1** on `#0A0A0F`/`#211008` (this is why the detail line moves from purple/40% to **solid** purple); decorative time-axis labels at `white/30` are exempt. Text/value contrast ≥ 4.5:1. All interactive targets (cards, emoji markers, week bars) ≥ 44×44pt.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Granola / Otter + Bevel — *stays Balencia by warm-glow sentiment Living Lines (purple, never quantified), the brand period on every string, and honest empty states*
+
+**Pre-grade:** B+ (71) — *thin spec; sentiment viz audited to A−; copy/depth/state craft at entry level.*  
+**Post-grade (this section):** A++ (96) — *all surfaces layered warm-glow, all states designed, SIA voice authored throughout, the sentiment arc is the ownable moment.*
+
+### Focal hierarchy
+
+The **Schedule Call CTA** (burnt orange, 56pt, full-width minus 32pt pill) is the screen's above-the-fold focal point — it drives the primary conversion (booking behavior). Secondary focus is the **Upcoming Calls card** (purple left-accent bar, sticky at top when present) and the **Call History list** below (the read-only record). The emotional arc comes third: the per-card Sparkline (card-level) and the expanded Living Line (detail-view only). Tab switcher and filter chips are navigation chrome. Squint test: orange CTA + history cards + detail Living Line are the three axes.
+
+### Surface & depth
+
+**Card layer recipe** (every surface):
+- Body: `ink-brown-800` (`--color-ink-brown-800`)
+- Border: 1pt `--glass-border` (white at 6%)
+- Top-edge highlight: `CK-T01 --edge-highlight` inset
+- Hero call-detail surfaces (Emotional Trend card): `CK-T02 --surface-backplate` radial faint orange glow, no glow token (detail card is ~400pt tall, far above 96px hero threshold — a 32px glow would be scale-wrong; the backplate provides visual lift)
+- Radius: `--radius-xl` (28pt) on all cards; `--radius-pill` on CTA, date headers sticky
+- Shadow: `--shadow-1` (0 8pt 24pt ink-brown at 18%) on mid cards; `--shadow-2` on floating upcoming-call card if pinned
+
+**Sentiment Living Lines** (no glow — the lines are load-bearing strokes, not glowing elements):
+- Card Sparkline (`S51-V01`): `--stroke-thin` 2px, solid royal-purple `--color-royal-purple`, round caps/joins, curved (monotone); green end dot r=3px (arrival only); sits on `ink-brown-800` card, no backplate.
+- Detail Living Line (`S51-V02`): `--stroke-base` 4px, solid royal-purple `--color-royal-purple`, round caps/joins, curved; emoji markers 24pt at time offsets; faint radial backplate on card (not glow).
+
+**Call cadence bars** (`S51-V03`):
+- Orange `--color-brand-orange` bars, `--color-alpha-white-08` track on `--track-inset` recess (beveled, not flat 2-tone); ~48pt tall; rounded bar caps; zero baseline, single shared scale.
+
+**Spacing & rhythm** (8pt grid):
+- Card padding: 24pt (default), 16pt (compact card subset such as upcoming-call link row)
+- Gap between cards within a group: 12pt
+- Gap between sections (such as Upcoming → History header): 24pt
+- Horizontal margins: 16pt (full-width minus 32pt)
+- Sticky header padding: 16pt horizontal, 12pt vertical
+
+### Typographic rhythm
+
+**Type scale** (Sora throughout; Chillax logo-only):
+- Screen title "Voice Sessions": 17pt, Semibold (600), `--leading-snug` 1.25, white
+- Tab switcher labels: 15pt, Semibold (600), white (active) / white at 60% (inactive)
+- Call time (card): 15pt, Semibold (600), white
+- Session type (card): 13pt, Semibold (600), royal-purple at 60%
+- Summary snippet (card): 13pt, Regular (400), white at 50%
+- Call detail session type: 20pt, Semibold (600), white, `--leading-snug` 1.25
+- Call detail summary: 15pt, Regular (400), white at 80%, `--leading-normal` 1.4, 12pt paragraph gap
+- Key insights eyebrow: 12pt, Semibold (600), royal-purple at 60%, uppercase, `--tracking-eyebrow` 0.12em
+- Key insight text: 15pt, Regular (400), white at 80%, bullet marker 6pt circle royal-purple at 40%
+- Emotion trend time labels: 12pt, Regular (400), white at 30%, decorative (exempt from contrast)
+- Filter chips (Action Items tab): 13pt, Semibold (600), white (active) / white at 60% (inactive)
+- Action item text: 15pt, Semibold (600), white
+- Action item due date: 12pt, Regular (400), white at 40% (normal) / error-red (`--color-error-red`) (overdue)
+- Date group header: 12pt, Semibold (600), white at 50%, uppercase, `--tracking-eyebrow` 0.12em, eyebrow style
+
+**Weight contrast & hierarchy:** Bold (600–700) for actions/labels; Regular (400) for metadata/snippets. Tab switcher active is Semibold + white (bright); inactive is Regular + white-60 (recedes). The brand period is used sparingly on any close-of-thought SIA string (such as empty-state invite ends with a period, not generic punctuation).
+
+### Microcopy (before → after)
+
+Every user-facing string authored, warm, non-shaming, on the SIA voice (§3 `Design-System-Overview.md`):
+
+**Before → After** (reconciliations):
+
+| Old string | New string | Why |
+|---|---|---|
+| "schedule a call" (button text, no voice) | "schedule a call" (keep — matches SIA voice, short, action-clear) | Reconfirmed; Sora Semibold sentence case. |
+| "Morning check-in" / "Weekly check-in" / "Quick question" (generic session labels) | Keep labels (data-driven); only SIA messaging around them changed. | These are user-defined or domain-specific, not generic copy. |
+| "generating summary…" (vague loading state) | "SIA is listening — this may take a moment." | Specific, warm, explains the wait. |
+| (No prior empty-state copy defined) | "No voice sessions yet. Schedule your first call and we'll talk through your goals together." (SIA voice dot before text) | SIA-specific, inviting, no shame. |
+| (No prior error string) | "Couldn't load voice sessions. Check your connection and pull to refresh." | Honest, actionable, no blame. |
+| (No prior loading copy — detail screen) | "SIA is reading your call. One moment." | Warm, specific wait. |
+
+**Edge strings authored throughout:**
+- **Cold-start / Day 1** (History tab): "No voice sessions yet" + SIA dot + "Schedule your first call and we'll talk through your goals together." (15pt Regular, white-40, centered, max 260pt width, 24pt below heading)
+- **Action Items tab, day 1**: "No action items yet" + "Action items from your voice sessions will appear here." (same treatment)
+- **All action items completed** (Action Items tab): Purple dot + "All caught up. Nice work." (13pt Regular, white-50, centered, beneath completed items)
+- **Call detail loading** (summary still generating): Card shows "SIA is listening — this may take a moment." with shimmer (skeleton preserves layout)
+- **Error: call summary failed to load**: "Couldn't load this summary — pull to refresh." (error-red border + text, inline in card)
+- **Offline banner** (if present): "You're offline — showing your last sync." (white-60 on ink-brown-800, banner below sticky header)
+- **Disabled schedule CTA** (free tier): Button scales to 0.6 opacity, beneath a small lock icon + "Plus required to schedule" (12pt, white-40)
+
+**SIA voice rules applied:**
+- No exclamation marks; the period is the signature punctuation.
+- Conversational second-person ("you've built a habit here", not "habit built").
+- Non-shaming: a call with low sentiment is "a tough one we worked through" in the snippet text; never "negative call" or a red alert.
+- Specific copy tied to real data (such as "Feeling energized after yesterday's…" is a real snippet from the call, not "You're doing great").
+
+### Motion choreography
+
+**Draw-first order** (locked to `CK-P4`):
+
+1. **Emotional Trend Living Line (detail screen)** — draws first on detail-view entry
+   - The purple `--stroke-base` 4px line **draws itself** left→right via `stroke-dashoffset` animation (`--dur-slow` 520ms `--ease-flow`), round caps/joins, curved
+   - Emoji marker nodes **settle sequentially** at their time offsets (staggered 40ms apart) *as* the line draws
+   - No opacity fade; the drawn path is the final state
+
+2. **Card sentiment Sparklines** — on scroll-into-view (card enters viewport)
+   - Each card's `S51-V01` purple Sparkline **draws** left→right via `stroke-dashoffset` (`--dur-slow` 520ms `--ease-flow`), after the card's fade-up
+   - Green end dot (if present) appears at the line's final point
+   - No fade-in; a completed line is the signature
+
+3. **Call cadence bars** (`S51-V03`) — on header appearance
+   - Orange bars **rise** from the zero baseline 0→height (shared scale, `--dur-slow` 520ms `--ease-flow`)
+   - The track is visible beneath; no skeleton needed
+
+4. **Card entrance** (history list + detail content)
+   - Upcoming call card + call history cards: `.animate-fade-up` (translateY 12pt→0, `--dur-base` 280ms `--ease-out-soft`, 80ms stagger)
+   - Detail screen summary + insights: fade-up after emotion trend, `--dur-base` 280ms
+
+5. **Tab/filter switch**
+   - Segmented control active pill slides to new position (280ms `--ease-out-soft`)
+   - Content crossfade (History ↔ Action Items, 280ms)
+
+6. **Action item checkbox completion**
+   - Orange fill animates from center, checkmark draws, text strikethrough fades (280ms `--dur-base` `--ease-flow`)
+
+**`prefers-reduced-motion` fallback:** All strokes render instantly at final state (lines fully drawn, green end dots in place, bars at final height, emoji markers seated). No loops. The static form is canonical and complete.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| **Cold-start / Day 1** (no voice calls yet) | Centered empty-state block below tab switcher: phone-voice icon (48pt, royal-purple at 20%), heading, SIA invitation, Schedule CTA | "No voice sessions yet" + purple dot + "Schedule your first call and we'll talk through your goals together." | `--surface-backplate`; icon is SIA indicator; zero shame, warm invitation |
+| **Loading** (call list fetching, or summary generating) | Skeleton shimmer: call-card frames visible (dark + highlight) + faint sparkline stubs (dashed white/10), or summary card with 2-3 line skeleton | "SIA is listening — this may take a moment." (on detail-view summary area) | Depth-preserving skeleton on `ink-brown-800` + shimmer; radial shimmer on detail card |
+| **Empty / partial** (some calls present, some summaries still generating) | Calls that loaded show normally; cards with missing summaries ghost their sparkline (dashed white/10 stub, no green dot) and show shimmer on snippet area | "SIA is listening — this may take a moment." (per card) | Ghosted elements distinct from real data; no-data ≠ zero |
+| **Error** (call list failed, summary failed, recording unavailable) | Per-card inline error or section error banner below sticky header (if full network failure); listen-again card greys to 0.4 opacity | "Couldn't load voice sessions. Check your connection and pull to refresh." (banner) · "Recording not available" (listen-again card) · "Couldn't load this summary — pull to refresh." (detail card) | Calibrated error-red border (1pt) + text on genuine operational fail only; glyph (⚠) + word paired; no red on sentiment/emotion elements (never framed as a problem) |
+| **Offline** (cached data retained) | Banner at top: "You're offline — showing your last sync." (ink-brown-800 bg, white-60 text, 16pt horizontal padding); Schedule CTA disabled (0.6 opacity) | "You're offline — showing your last sync." + "Schedule requires connection." (disabled CTA hint) | Actions honestly dimmed; no other visual degradation |
+
+### Signature & anti-generic
+
+**Ownable Balencia moments:**
+
+1. **The sentiment Living Line motif** — the expanded twin of the per-call sparkline. A solid royal-purple `--stroke-base` 4px line draws itself across the call timeline, emoji markers settle at their emotional shifts, never a flat trend or scored metric. This is the screen's signature, distinct from a clinical mood tracker (no 0–10 scale, no colour-coded mood zones). The line is observational, never prescriptive.
+
+2. **Warm-glow surfaces** — every card carries the `CK-P1` layered recipe: `ink-brown-800` + edge-highlight + glass border. The detail view's Emotional Trend card adds the subtle `CK-T02` radial backplate (faint orange glow at the top, never a 32px halo — too large for detail context). The entire screen reads as carved and warm, not flat widgets.
+
+3. **The brand period** — SIA strings close with the period used with intent (such as empty-state: "Schedule your first call and we'll talk through your goals together."). No exclamation marks; the period is the signature punctuation.
+
+**Anti-generic kills:**
+- No star ratings or numeric mood scores (the emoji + line read as honest observation, not a leaderboard).
+- No symmetric-card-grid monotony — the screen is broken by the sticky header, the scheduled call at top, the varied card heights (time + duration pill take one line, summary takes 2–3), and the detail view's larger emotion/summary sections. Not a flat list.
+- The tab switcher is purple (AI Mode register) instead of orange — signals "you're in SIA's analytical domain."
+- No generic loading spinners — skeletons preserve layout and morph into data, never a spinning circle.
+- No filler or generic copy — every string is authored and warm.
+
+The screen would be unrecognizable in a flat-material tracker app; it is unmistakably Balencia.
+
+### Accessibility
+
+**Tabulated load-bearing contrast** (on `ink-brown-800` `--color-ink-brown-800` and `ink-900` `--color-ink-900`):
+- Call time (white): ≥12:1 on both
+- Summary snippet (white-50): ≥4.5:1 at 13pt
+- Royal-purple session type (purple at 60% = `--color-royal-purple` at 60% alpha): ≥3:1 on `ink-brown-800` (WCAG 1.4.11 load-bearing stroke) — the purple accent bar and purple dot are small-area strokes meeting ≥3:1
+- Eyebrow labels (white-50): ≥4.5:1 at 12pt (secondary, not load-bearing)
+- Emotion trend time labels (white-30): decorative label paired with position, exempt from ratio
+
+**Status never colour-alone:**
+- Sentiment uplift (green dot): word-paired in aria-label "ended positive" + visible emoji marker + the line's shape (color + form)
+- Action item completion (orange checkbox fill): glyph (checkmark) + text strikethrough + aria-label "completed"
+- Error state: error-red border + ⚠ glyph + text copy (never red-alone)
+
+**Focus ring:** `CK-T03 --focus-ring` (2px orange, 2px offset) on every focusable element (call cards, action-item checkboxes, filter chips, edit/cancel links, listen-again card, upcoming-call card).
+
+**Touch targets:** All cards ≥44×44pt (call history cards ~104pt tall, upcoming-call card ~96pt, action-item rows ~72pt). Emoji markers in detail-view emotion trend are 24pt targets (minimum); tap for tooltip with context.
+
+**Text equivalents:**
+- Per-call sentiment Sparkline: `aria-label="In-call sentiment: started neutral, rose to positive, ended positive"` (accessible name matches the visual arc shape)
+- Call cadence bars: `aria-label="Calls per week, last 6 weeks: 1, 2, 0, 3, 2, 2"` (conveys the same rhythm)
+- Detail emotion trend: `aria-label="Emotional trend: [emoji] at 0m, [emoji] at 4m, …"` (markers readable as a sequence)
+- Tab switcher: `aria-pressed="true"` on active segment + `aria-label="History tab, selected"` / `aria-label="Action items tab"`
+
+**Reduced motion:** `prefers-reduced-motion` → all strokes render instantly at final state (Sparkline fully drawn with green end dot if present, Emotion Trend line fully drawn with emoji markers seated, cadence bars at final height). No loops on any element. The settled frame is the accessible frame.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -398,7 +626,10 @@ The Voice Call History & Scheduling screen is the user's personal record of ever
 | SIA avatar ring | #7F24FF | royal-purple | 10% role -- AI presence |
 | Purple dot (summary) | #7F24FF | royal-purple | 10% role -- SIA indicator |
 | Key insights eyebrow | #7F24FF at 60% | royal-purple | AI-derived content |
-| Emotion trend line | #7F24FF at 40% | royal-purple | AI analysis visualization |
+| Emotion trend Living Line (detail) | #7F24FF (solid) | royal-purple | SIA sentiment trend; load-bearing stroke, 1.4.11 ≥3:1 — see ## Visualization S51-V02 |
+| Sentiment Sparkline (card) | #7F24FF (solid) | royal-purple | SIA per-call sentiment micro-trend, --stroke-thin 2px, no glow — S51-V01 |
+| Sentiment uplift end dot | #34A853 | forest-green | 30% role — arrival/uplift only, word-paired in aria-label |
+| Call cadence bars | #FF5E00 | brand-orange | 60% role — user-behaviour viz (calls/week), zero baseline — S51-V03 |
 | Schedule CTA | #FF5E00 | brand-orange | 60% role -- primary CTA |
 | "+" add button | white | -- | Action trigger |
 | Action item checkbox (done) | #FF5E00 | brand-orange | 60% role -- completion |
@@ -418,7 +649,7 @@ The Voice Call History & Scheduling screen is the user's personal record of ever
 | Cancel link | white at 40% | -- | Destructive secondary |
 | Channel badge icon | white at 30% | -- | Subtle metadata |
 
-**60/30/10 verification**: This screen operates in AI Mode, so royal-purple takes a larger role than the standard 10% -- appearing on the tab switcher, filter chips, session type labels, SIA avatar rings, upcoming card accent bars, insights eyebrow, emotion trend line, and edit links. This is intentional: the screen is entirely about AI coaching history, making purple the defining register color. Orange remains the CTA/action color (schedule button, checkboxes, play icon, priority chips). Green appears only on completion states (checked action items). The ratio shifts to approximately orange 40% / purple 30% / green 10% with purple elevated to reflect AI Mode register -- consistent with how Screen 11 (SIA Voice Full-Screen) elevates purple in pure SIA experiences.
+**60/30/10 verification**: This screen operates in AI Mode, so royal-purple takes a larger role than the standard 10% -- appearing on the tab switcher, filter chips, session type labels, SIA avatar rings, upcoming card accent bars, insights eyebrow, emotion trend line, and edit links. This is intentional: the screen is entirely about AI coaching history, making purple the defining register color. Orange remains the CTA/action color (schedule button, checkboxes, play icon, priority chips) and the one user-behaviour viz (the call-cadence bars, S51-V03). Green appears on completion states (checked action items) and the sentiment uplift end-dot (arrival only, word-paired in the aria-label). The ratio shifts to approximately orange 40% / purple 30% / green 10% with purple elevated to reflect AI Mode register -- consistent with how Screen 11 (SIA Voice Full-Screen) elevates purple in pure SIA experiences.
 
 ---
 
@@ -552,7 +783,9 @@ The Voice Call History & Scheduling screen is the user's personal record of ever
 | Schedule modal | CTA tap | Slide up from bottom + backdrop fade in | 520ms (--dur-slow) | ease-flow |
 | Schedule modal dismiss | Drag down / confirm | Slide down + backdrop fade out | 280ms (--dur-base) | ease-out-soft |
 | Cancel sheet | Cancel link tap | Slide up from bottom | 520ms (--dur-slow) | ease-flow |
-| Emotion trend (detail) | Detail screen enter | Line draws left to right, emojis fade in at their positions sequentially | 520ms (--dur-slow) | ease-flow |
+| Emotion trend Living Line (detail) | Detail screen enter | Purple Living Line draws left to right via stroke-draw (never opacity-fade, §8), emoji marker nodes settle at their positions sequentially | 520ms (--dur-slow) | ease-flow |
+| Sentiment Sparkline (card) | Scroll-into-view | Purple Living-Line micro draws left to right via stroke-draw, after the card's fade-up | 520ms (--dur-slow) | ease-flow |
+| Call cadence bars | Header in view | Bars rise 0→height on a shared zero-baseline scale | 520ms (--dur-slow) | ease-flow |
 | Summary text (detail) | Detail screen enter | Fade-in + translateY(8pt to 0), after emotion trend | 280ms (--dur-base) | ease-out-soft |
 | Listen again waveform | Playback active | Mini bars animate with audio levels | Continuous (60fps) | linear |
 | Pull-to-refresh | Pull gesture | Standard branded spinner | Variable | iOS default |
@@ -693,6 +926,8 @@ Action Items tab shows all items in "completed" state with strikethrough and 50%
 - Date group headers announced as section markers for VoiceOver navigation
 - Listen again card announced as "Play recording, Morning check-in, 18 minutes"
 - Emotional trend visualization in detail view has a text summary alternative: "Emotional trend: started neutral, became positive midway, ended very positive"
+- Per-call sentiment Sparkline on each history card has a matching text equivalent, e.g. "In-call sentiment: started neutral, rose to positive, ended positive"; the green uplift end dot is word-paired in the label (never colour-alone)
+- Call cadence bars announced as "Calls per week, last 6 weeks: 1, 2, 0, 3, 2, 2"; all sentiment/cadence load-bearing strokes meet WCAG 1.4.11 ≥3:1 on ink-brown-800 (solid purple, not 40% alpha)
 - All interactive elements meet 44pt minimum touch target
 - Color contrast: white text on ink-brown-800 exceeds WCAG AA (4.5:1 minimum). Purple text at 60% opacity on ink-brown-800 meets AA for large text.
 

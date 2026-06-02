@@ -269,6 +269,195 @@ SIA Chat is the core product of Balencia — the unified AI coach conversation. 
 
 ---
 
+## Visualization
+
+> Source: no companion file (inline-viz screen); Audited in `viz-audit/` — Batch (Insights/Correlation E · inline-micro variant), findings `S09-V01..S09-V05`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Benchmark = **Reflectly / Stoic editorial restraint + Welltory correlation surfacing**, rendered **the Balencia way** (micro Living Line + warm glow), never an in-bubble dashboard. **Current grade C (68) → specced-target A− (86).** *(Honest re-grade under the revised 10-dimension rubric; the residual gap to A+++ is build-verified micro-depth + curved-path Living Line + the connection-card direction/strength a11y fix, owned by the later viz-build program.)*
+
+**Register reconciliation (load-bearing).** The chat *chrome* is **Product Mode → orange-dominant** (suggestion chips, "view [feature]" links, send button, active tab, the Chart Card title/axis ink all stay orange). The **inline visualizations inside SIA bubbles are SIA-authored**, so the *inline-viz layer specifically* runs the **sanctioned AI register**: per `_shared-patterns.md` (`royal-purple #7F24FF` = "SIA/AI indicators only — avatar accent, coaching note borders, **projected data**"), the **dashed-purple projection** on the Chart Card and the **purple strength encoding on the Connection-Spotted card** are correct and on-brand here — *not* a 60/30/10 violation. This is a contained exception scoped to charts SIA itself computes; it does **not** repaint the chat or recolour user-effort data ink (actual/past series stay orange). The "connection spotted" eyebrow stays orange (it is product chrome / a navigational label), while the correlation *data ink* it introduces is purple (SIA-computed) — cite `_shared-patterns.md` line 49.
+
+**EDITORIAL RESTRAINT is the governing law on this screen.** SIA Chat is iMessage-quality conversation first; charts are *guests* inside message bubbles. Locked constraints: **one viz per message bubble, maximum**; every viz is **micro-scale and legible at 390px inside a ≤ (screen − 64pt) card**; **no hero gauge, no KPI strip, no full dashboard** ever appears in the chat flow (depth lives on the destination feature screen the card deep-links to). The job here is not to maximise charts — it is to make the *few* SIA chooses to embed read as crafted, honest, accessible Balencia micro-instruments and then get out of the way. Mints **no** new primitive; it composes the inline micro-forms of `Sparkline` (`VK-001`/`VK-016`), `TrendChart` (`VK-006`/`VK-016`), `GaugeRing` (`VK-002`), `Donut` (`VK-007`) and the `CorrelationMatrix` strength-row encoding (`VK-009`).
+
+### Visualized-vs-text map
+
+| Datum (rich-card type) | Today (prototype) | Specced visual | Primitive |
+|---|---|---|---|
+| Chart Card — past trend + SIA projection (e.g. "sleep vs exercise") | hardcoded **segmented** `<polyline>` (orange solid + purple dashed + 2 green dots), 3 flat grid lines, `aria-hidden` | **micro `TrendChart`** — one continuous **curved** Living Line (orange actual) → **dashed-purple SIA projection** tail, green milestone dots, ≤25% area fade, drawn | `TrendChart` (`VK-006` / `VK-016`) |
+| Goal Progress Card — mission % complete (e.g. 40%) | 48px ring stroked in the **domain colour** (data-ink defect), flat 2-tone, `aria-hidden`, no count-up | **inline `GaugeRing` (48px)** — arc-gradient **orange** fill (domain colour = identity ring/tag only), `--glow-orange-md`, inset track, center %, count-up | `GaugeRing` (`VK-002`) |
+| Connection-Spotted Card — cross-domain correlation strength + direction | single bare **purple bar @72%**, no value/word/sign shown, colour-alone direction | **CorrelationMatrix-lite strength row** — purple strength bar **+ visible value + `+`/`−` glyph + word** (reinforcing/competing), per-pair rows | `CorrelationMatrix` strength-row encoding (`VK-009`) |
+| Conversational-log confirmation — a logged value over recent days (opt., high-motivation) | not shown | **inline `Sparkline`** (7-pt micro Living Line, no axes/glow) beside the "✓ logged to [domain]" badge | `Sparkline` (`VK-001`) |
+| Meal-Plan Card part-of-whole — macro split (cal share) | 4 flat macro pills only | **micro `Donut` (24px, no hub/glow)** beside the pills showing the protein/carb/fat *share* — only when the split is the point | `Donut` (`VK-007`) |
+| Financial-summary rows (income / expenses / net) | 3 text rows | — (deliberately textual — 3 one-off scalars; the trend lives on Finance [30], reached via "view finances") | — |
+| Workout-preview (name / exercises / duration) · meal name · message text · domain tags · timestamps · day separators | text + chips | — (deliberately textual — names, dates, identity labels carry no useful visual form; over-charting them is penalised) | — |
+
+**Editorial hierarchy (calm, not maximal):** the *conversation* is the screen's focus; within any single bubble the embedded viz is the local focal point but is **micro** and **singular** (one per bubble). Across a scroll, charts are sparse punctuation — most SIA turns are pure text. Five possible inline forms, **never more than one per message**, most messages none — the opposite of a wall of charts.
+
+### 1 · Chart Card — micro `TrendChart` (Living Line) — `S09-V01` → `TrendChart` (`VK-006` / `VK-016`)
+
+Replace the hardcoded `<polyline>` in the Chart Card with a true **micro Living Line**: one **continuous, curved (monotone/Catmull-Rom), round-capped, round-joined** stroke that **draws itself** L→R, running orange `#FF5E00` (effort/past) → green `#34A853` (arrival) via `--grad-progress` **(mint)**, **green `#34A853` milestone dots (r=3px)** on the line, a `--grad-orange` **(mint)** area fade ≤25% top, and a **dashed-purple `#7F24FF` SIA-projection tail** (dash 4·2, §11 — the brand-sanctioned forecast colour, SIA-authored, *correct here*) continuing the same path. Card height stays ~112–120pt; `--stroke-base`→`--stroke-thin` scaled for the micro surface; **no glow** at this inline scale (a 32px glow would swamp a 120pt card — depth comes from the curve + area fade, not a halo).
+- **Honesty fix (current defect):** the prototype's segmented polyline + flat decorative grid is replaced by a curved data path; **no-data ≠ zero** — an un-synced segment renders **ghosted/dashed**, distinct from a real low value; the projection is **hidden** until SIA has enough data (never a fabricated forecast). Title (orange-on-white chrome) + caption stay text.
+- **Micro-interaction:** tap the card → deep-link (stack push) to the relevant feature screen (e.g. Intelligence [48] / the domain) where the full-size chart + scrub live — the chat keeps the micro view honest and light.
+- **Motion:** draws itself `stroke-draw` `--dur-flow` 1200ms `--ease-flow`, staggered 120ms after the bubble text appears (per the screen's existing card-appear choreography); projection draws **after** the actual line; **never opacity-fades** (§8). `prefers-reduced-motion` → completed curved stroke at rest + green end/milestone dots + static dashed-purple tail.
+- **A11y fix (current defect):** the chart is **no longer `aria-hidden`** — it carries an `aria-label` conveying the same value ("Sleep-vs-exercise trend, rising over 6 weeks, SIA projects continued improvement"); the rich card's existing `role="button"` label is extended, not replaced.
+- **Data:** SIA-supplied series (actual points + `projection`); prototype mock today, real `chartCard.series` in build.
+
+### 2 · Goal-Progress Card — inline `GaugeRing` (48px) — `S09-V02` → `GaugeRing` (`VK-002`)
+
+Upgrade the 48px mission ring to a proper inline **`GaugeRing`**: **arc-following `--grad-orange` (mint) orange fill** (conic-mask — *not* a flat SVG `linearGradient`; ⚠️ angular-gradient trap), `--color-alpha-white-10` track over a `--track-inset` `rgba(0,0,0,0.28)` **(mint)** beveled recess, `--glow-orange-md` (~20px, **mint** — never the 32px hero glow on a 48px ring), 4px stroke, center % (`text-h2`-scaled), count-up 0→% `--dur-slow` 520ms `--ease-flow`; green `#34A853` fill at 100%/complete.
+- **Brand fix (current defect — critical-adjacent):** the prototype strokes the ring in `domainToneClasses[domain].text` — **domain-colour-as-data-ink** on a bounded score. Corrected: the **progress arc is orange** (data ink, 60/30/10); the **domain colour stays identity-only** — on the surrounding domain tag chip and an optional thin domain accent ring behind the gauge, never on the progress fill. (The screen's Color Map row "Progress ring fill: [domain color]" must be revised to "orange fill; domain colour = identity ring/tag only.")
+- **Micro-interaction:** tap the card → Goal Detail [14] (stack push).
+- **States:** 0% → a **ghosted empty arc** (faint full track), not a degenerate collapsed disc; loading → skeleton arc with radial shimmer that **morphs** into the drawn fill; error → ghosted arc + the card's existing "retry" affordance.
+- **A11y fix:** ring carries `aria-label` "[mission name], [N] percent complete"; **not** `aria-hidden`; the percent number beside the ring is the always-visible text equivalent (never colour/arc-alone).
+- **Data:** `mission.progress` / `mission.name` / `mission.nextAction` (`mock.ts`).
+
+### 3 · Connection-Spotted Card — correlation strength row — `S09-V03` → `CorrelationMatrix` strength-row encoding (`VK-009`)
+
+This is the screen's signature insight surface. Replace the single bare 72%-width purple bar with the **`CorrelationMatrix` Tier-2 ranked-row encoding** (the legible, mobile-first half of `VK-009`), at **inline micro-scale** (no N×N grid in a bubble — the grid lives on Intelligence [48] / Reports, reached via "tell me more"). Each surfaced correlation renders as a **plain-language row**: description + a **strength bar** (`--color-royal-purple` fill over `--color-alpha-white-08` on `--track-inset`, width ∝ |strength|) + the **visible strength value** (e.g. "72%") + a **leading `+`/`−` glyph and direction word** ("reinforcing" / "competing"). One to three rows max; the orange "connection spotted" eyebrow stays as product chrome.
+- **Purple is sanctioned here (register):** the correlation is SIA-computed, so reinforcing ink = `--color-royal-purple` per `_shared-patterns.md` (the AI-register strength colour) — this is the Intelligence-[48] purple register applied in-bubble, **not** the orange Product-Mode `CorrelationMatrix` used on Reports [78]. Competing/inverse direction uses a **desaturated cool tint** (sleep-blue family, low chroma), never purple-as-decoration. Domain tag chips on the row use `--color-domain-*` for **identity only**.
+- **A11y fix (current defect — colour-alone violation):** the prototype conveys strength by **bar width alone** and direction by **colour alone**, with no value/word/sign and no `aria-label`. Corrected: **triple-encoded direction** — (1) a visible **`+`/`−` glyph**, (2) the **direction word**, (3) the directional tint — any one alone is grayscale/colour-blind safe; the **strength value is always shown numerically** beside the bar; the row carries an `aria-label` "[Domain A] and [Domain B]: +72%, reinforcing, strong" and is the ≥44×44pt tap target deep-linking to "tell me more".
+- **Honesty:** strength bars share one 0–100% scale (no per-row re-normalisation); a near-zero correlation reads as a muted short bar, an un-computed pair is **omitted** (never a phantom full bar).
+- **Motion:** strength bar rises 0→target `--dur-slow` 520ms `--ease-flow` after the bubble lands; tap → tooltip/deep-link `--dur-fast` 160ms. Reduced-motion → bar at final width, static.
+- **Data:** SIA correlation output (`connectionCard.pairs[]` in build; mock today).
+
+### 4 · Conversational-log micro-`Sparkline` (optional, high-motivation) — `S09-V04` → `Sparkline` (`VK-001`)
+
+On a conversational-log confirmation ("✓ logged to [domain]"), **high-motivation tier only**, a tiny **`Sparkline`** (a 7-point micro Living Line, `--stroke-thin` 2px orange, curved, 48×16, **no axes / no grid / no glow**, green `#34A853` end dot when the latest log is a new high) may sit beside the green logged-badge to show the recent trajectory of *that* metric. Low/medium motivation → omitted (restraint; a gentler confirmation per the Motivation Adaptation block). It never appears on the same bubble as another viz (one-per-bubble rule).
+- **Motion:** draws on appear `--dur-slow` 520ms `--ease-flow`; reduced-motion → completed stroke + end dot.
+- **A11y:** `aria-label` "recent [metric] trend, latest is a new high"; the logged value text is the always-present equivalent.
+- **Data:** the logged domain's trailing 7 points (`mock.ts`).
+
+### 5 · Meal-Plan micro-`Donut` (part-of-whole, optional) — `S09-V05` → `Donut` (`VK-007`)
+
+When a Meal-Plan Card's *point* is the **macro split** (not just absolute grams), a **24px micro `Donut`** (`VK-007` micro variant — **no hub, no glow** at this scale) may sit beside the macro pills, slices = protein / carb / fat by **calorie share**: **largest slice = `--color-brand-orange`**, remainder = warm neutral tints (`--color-alpha-white-40/-20`), 2px gap, rounded caps, slices summing to a **true logged-calorie whole** (never padded). If the card is just confirming a logged meal (no comparison intent), the donut is **omitted** — the four pills are the honest, restrained form. Never rainbow (one-hue-per-macro = a 60/30/10 violation + competitor clone); never purple (not SIA-originated).
+- **A11y:** `aria-label` "Protein 30%, carbs 45%, fat 25% of 520 calories"; the macro pills are the visible in-situ legend (never colour-alone); load-bearing slice boundaries ≥ 3:1.
+- **Motion:** arcs sweep clockwise from 12 o'clock, largest→smallest, `stroke-draw` `--dur-flow`; reduced-motion → full arcs at rest.
+- **Data:** `meal.protein/carbs/fat/calories` (`mock.ts`).
+
+### Motion choreography (entrance — bubble-first, then its one guest viz)
+
+Per `CONSISTENCY.md` and the screen's existing Motion table: the **message bubble appears first** (fade + translateY, 280ms `--ease-out-soft`) → **then** its single embedded viz animates **120ms later** (the existing card-appear stagger): a Chart-Card **Living Line draws itself** L→R (1200ms `stroke-draw`, projection drawing last) · a Goal-Card `GaugeRing` fills 0→% (520ms `--ease-flow`) + center count-up · a Connection-Card strength bar rises 0→target (520ms) · a `Sparkline` draws (520ms) · a `Donut` sweeps largest→smallest. **One line motif per bubble** (§8); inline charts only animate when the bubble enters view (the inverted FlatList means below-viewport bubbles animate on scroll-into-view). Proactive SIA messages keep their existing slide-up-bounce (520ms `--ease-flow`); the embedded viz draws after the bounce settles. `prefers-reduced-motion` → every inline chart at final state instantly (curved stroke + end/milestone dots, filled arc, final bar width, full donut), and per the screen's a11y block the proactive bounce / chip fly / auto-scroll are already skipped.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — the proactive greeting card may embed at most one micro viz; if SIA lacks data, the card stays **text + chips** (no degenerate empty ring/flat-line ever renders in a bubble); **loading** — each card uses the screen's existing skeleton-shimmer shell, but the shimmer **morphs into drawn data** (arc/line/bar visible mid-draw, never a blank disc) and the Living Line / gauge arrive drawn, not swapped; **partial** — an un-synced trend segment is **ghosted/dashed** (≠ a real low value), a 0% gauge is a **ghosted arc** (≠ collapsed disc), an un-computed correlation pair is **omitted**; **error** — the card's existing "couldn't load this content" + orange "retry" applies per-card (the chart-specific failure is honest about *which* card failed, the conversation around it stays intact); **offline** — the existing "SIA needs a connection" banner; cards already rendered keep their final drawn state.
+- **60/30/10 + register:** chat **chrome is orange-dominant** (chips, links, send, tab, eyebrow, Chart-Card title, gauge **progress fill**); **green** = arrival/milestone only (milestone dots, gauge at 100%, "✓ logged" badge, sparkline new-high end dot); **purple is the sanctioned SIA register on SIA-authored inline charts only** — the **dashed-purple projection** (§11) and the **Connection-Card correlation strength ink** (`_shared-patterns.md` line 49) — it never repaints chrome or user-effort data ink. **Domain colours = identity only** (tag chips, an optional domain ring behind the gauge, correlation-row domain icons) — **never the gauge progress fill** (the current domain-stroke ring is the one live brand defect this section corrects). Glow uses the size-stepped scale — **none** on any inline viz (micro scale; warm depth = curve + area-fade + inset track, not a halo).
+- **Non-shaming (ethical gate):** a correlation is framed as a coaching connection ("X follows Y"), **never** a verdict; a low mission % reads as "room to move," never failure; the SIA projection is an *invitation*, never a loss-aversion countdown; conversational-log confirmations celebrate the log, and the optional sparkline frames momentum, never a broken streak.
+- **Accessibility:** **every inline chart carries a text/`aria-label` equivalent** conveying the same value (fixing the current `aria-hidden` MiniLineChart + MiniProgressRing); **never colour-alone** — gauge band/status via visible %+glyph, correlation direction via visible `+/−` glyph + word (fixing the current colour-only purple bar), milestone dots paired with their value in the label; label/value contrast ≥ **4.5:1** on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — the Living-Line stroke, gauge arc + filled/unfilled boundary, milestone/end dots, strength-bar fill, and donut slice boundaries all meet ≥ **3:1** vs the `ink-brown-800` card (the Chart Card's white/10 grid lines are decorative and should be dropped, not relied on); interactive card / correlation-row targets ≥ **44×44pt** (per finding B04-F07); `prefers-reduced-motion` renders all at final state with the Living-Line static form preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Granola / Arc + Bevel (AI presence; AI-Mode purple sanctioned) — *stays Balencia via warm-glow chat surfaces on ink-brown, draw-not-fade micro-visualizations, and the continuous-orange message rhythm, never a flat message list or cold chat UI.*
+
+**Pre-grade:** A− (87) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): The chat's IA and motion are strong, and the inline visualizations are well-scoped; the gaps are (1) chat bubbles and cards are flat ink-brown-800 surfaces without the top-edge highlight and layered depth throughout the screen; (2) the five inline-viz types (`TrendChart`, `GaugeRing`, `CorrelationMatrix`, `Sparkline`, `Donut`) carry no explicit entrance choreography or reduced-motion frames in the Components section; (3) edge microcopy for loading/empty/error states is partly unauthored; (4) the Type table mixes ad-hoc sizes with the locked scale; (5) a contradiction exists between the Visualization section's purple "SIA register" (`_shared-patterns.md` line 49) rule and the Color Map's incomplete token references; (6) contrast pairs are asserted, not tabulated.
+
+### Focal hierarchy
+
+One focal point: the **latest SIA message or rich inline card** — whichever the user just read, sized and colored to be the visual anchor above the fold. When the chat opens (Day 1), the **proactive greeting card** is the focal element (24pt padding, warm-glow backplate, 2-line SIA message). On an established chat, focus lands on the most recent message in the visible area. The input bar anchors the bottom (always present, unambiguous "what to do"). Suggestion chips below the focal message are visibly secondary (36pt height, orange border, no glow). Day separators and older messages fade in importance as the eye trails down. The screen's rhythm is conversational, not card-grid — no focal competitor emerges. Squint test: you see a message bubble (left, warm-tinted), user response (right, orange tint), and the clear input affordance at the bottom.
+
+### Surface & depth
+
+Every chat surface adopts the **`CK-P1` Layered Warm Surface** — `--color-ink-brown-800` body · `--radius-xl` (28pt) · 1px `--glass-border` (`--color-alpha-white-06`) · **`CK-T01` `--edge-highlight` top-edge highlight** (the not-flat cue, previously absent on all chat cards) · `--shadow-1`. This applies to: SIA message bubbles, user message bubbles, rich inline cards (chart cards, goal-progress cards, connection-spotted cards, meal-plan cards, financial-summary cards, workout-preview cards), and the chat input bar body. The top bar (when scrolled) gains a `backdrop-blur(16px)` overlay (ink-900 at 80%) — a depth cue that lifts the bar as content scrolls beneath it.
+
+**Glow is calibrated by element size per `CONSISTENCY.md §1`:** no glow on any inline-viz (inline scale <36px); the rich inline cards themselves (48–96pt range) carry no glow either (cards are supported by their layered surface + edge-highlight, not a halo). User message bubbles are right-aligned, `--color-brand-orange` at 15% background, no glow. SIA message bubbles carry no glow in Product Mode (glow is SIA-only in SIA-authored viz inside bubbles, not on the chat chrome). The one exception: if a "connection spotted" eyebrow appears inline, it stays orange (product chrome label), and the correlation **strength bars inside that card** use the **sanctioned purple register** per `_shared-patterns.md` line 49 (SIA-authored data ink, not chrome).
+
+Tracks recess over `--track-inset` (`rgba(0,0,0,0.28)`) on all inline gauge rings and progress bars. The input field uses `--color-ink-brown-800` body with a 1pt `--color-alpha-white-10` border (no glow). The SIA Thinking Indicator bubble preserves the same bubble depth as a text message. The Day Separator is flat text (no card, no background).
+
+### Typographic rhythm
+
+Re-map the Typography table to `CK-P3` locked tokens: SIA message text, user message text `--text-body` (16px, raised from the current 15px) · `--leading-normal` (1.4) · 400 weight. Top bar "SIA" title `--text-h3` (17pt) · `--leading-snug` (1.25) · 600 weight. Suggestion chips `--text-caption` (13pt) · `--leading-normal` · 600 weight. Rich card title `--text-h3` (17pt) / body `--text-body` (16px) · `--leading-normal`. Day separator `--text-small` (11pt) · `--leading-normal` · `--color-alpha-white-30`. "Connection spotted" eyebrow `.eyebrow` recipe (`--text-eyebrow` 12pt / 600 weight / `--tracking-eyebrow` +0.12em / uppercase / `--color-brand-orange`). Input hint text `--text-body` (16px) · `--leading-normal` · `--color-alpha-white-30`. Stat figures in inline-viz (ring percentages, sparkline counts) use tabular-nums. No exclamation marks anywhere. The brand period used with intent on the "SIA" title wordmark once per screen, not scattered.
+
+### Microcopy (before → after)
+
+Every string authored to `CK-P5` voice (warm, plain, coaching, non-shaming):
+
+- **SIA greeting (Day 1, cold-start)** — *before:* "Hi [Name]" → *after:* "Good morning, [Name]. What's on your mind today." (warm, curious, opens the conversation)
+- **Suggestion chip fallback** — *before:* "something else" → *after:* "ask something else" (clear, action-oriented)
+- **Input hint text** — *before (current):* "message SIA" (already on-voice, kept as-is)
+- **Chart loading** — *before:* "Loading..." → *after:* "SIA is reading your week — one moment." (calm, specific, warm)
+- **Rich card error state** — *before (unspecified):* "Couldn't load" → *after:* "Couldn't load this insight. Pull to refresh." (honest, recovery affordance)
+- **Empty/Day-1 activity feed** — *before (implied blank):* → *after:* "No insights yet. SIA will surface connections as your data arrives." (anticipatory, not empty-sad)
+- **Conversational logging confirmation** — *before:* "logged" → *after:* "✓ logged to [domain]" (warm, confirming, domain-tagged)
+- **Connection-spotted eyebrow** — *before:* "CONNECTION SPOTTED" → *after:* "Connection spotted" (sentence case, orange, not all-caps)
+- **Chat search hint** — *before (from Components):* "search conversations..." → *after:* "Find a message" (concise, warm)
+- **"View [feature]" CTA on rich cards** — *before (unspecified):* → *after:* "view this" or "tell me more" (warm, actionable, orange)
+- **Proactive message framing (non-shaming)** — if SIA surfaces a low metric or a skip ("You haven't exercised in 3 days"), the message frames it as a constructive observation ("Exercise paused — let's ease back in"), never a verdict.
+- **Permission rationale** — "We'll record only what you say. You control the transcript." (why we ask · what you gain)
+
+No filler; no "Success!"; no generic SIA horoscopes; SIA strings stay specific to the user's own data and recent activity.
+
+### Motion choreography
+
+Locked to `CK-P4` order (hero draws first, then support rises, then numbers count):
+
+1. **Message bubble entrance** (`--dur-base` 280ms `--ease-out-soft`): SIA or user bubble fades in + translateY(12→0) simultaneously.
+2. **Rich inline card entrance** (staggered 120ms after the bubble text lands, `--dur-base` 280ms `--ease-out-soft`): card fades in + translateY(12→0).
+3. **Inline-viz draw choreography** (inside the card, `--dur-slow` 520ms `--ease-flow`):
+   - **`TrendChart` (Living Line)**: polygon draws itself (curved, orange solid → green milestone dots arrive as the line progresses) → dashed-purple projection tail draws last. No opacity-fade; the curved stroke is the draw (§8).
+   - **`GaugeRing` (48px)**: arc fills 0→current% over the track background, gradient flowing via `--grad-orange`, center count-up number animates 0→% simultaneously. `--glow-orange-md` (~20px) reaches full opacity with the arc fill.
+   - **`CorrelationMatrix` strength row**: strength bar rises 0→target width, direction word and glyph appear when the bar settles, value number fades in alongside.
+   - **`Sparkline` (if present)**: 7-pt curve draws L→R, green end dot appears at the final point.
+   - **`Donut` (24px, if present)**: slices sweep clockwise largest→smallest, rounded caps close.
+4. **Suggestion chips** (below the card, 80ms stagger, `--dur-base` 280ms): each chip fades in + slides left-to-right (translateX −12→0).
+5. **Input bar** (already on-screen, no entrance animation on mount; crossfades on send/mic button swap — 160ms `--dur-fast`).
+
+**Proactive message entry** (SIA-initiated greeting on open): bubble slides up from bottom with a 40ms bounce settle (the brand's "energize without urgency" motif), then the viz inside draws.
+
+**Reduced-motion:** `prefers-reduced-motion` → all messages appear instantly at final state; Living Lines rendered fully drawn + green end dots present; gauge rings at final fill + number at final value; strength bars at final width; sparklines completed; donuts fully swept; chips visible in place (no slide), no proactive bounce, no suggestion-chip fly. Loops off (the SIA Thinking Indicator's pulsing dots become static).
+
+**Below-fold visuals** (scroll into view): inline-viz animate on scroll-into-view, same draw choreography (one per bubble, never simultaneous). Day separators fade in on scroll.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | proactive greeting card (no rich viz on Day 1), 1-2 suggestion chips, no message history visible above | "Good morning, [Name]. What's on your mind today." + mood chips (optional); no filler in SIA voice | greeting card uses `CK-T02` `--surface-backplate`; never a blank screen or skeleton |
+| **Loading (SIA response)** | SIA Thinking Indicator (bubble with 3 pulsing dots) appears below user message; dots animate 40%→100% opacity, staggered 200ms | "SIA is thinking..." (if >2 seconds); "SIA is thinking deeper..." (if >5 seconds) | dots are `--color-alpha-white-40`, sequential pulse, loop on `prefers-reduced-motion` off |
+| **Empty / partial** | if a rich-card data fetch fails partway, the card shows "Couldn't load this insight. Pull to refresh." + the non-failed portion (such as the message text) remains visible; no degenerate empty chart/ring renders in the bubble | per-card error message, warm + recovery affordance | no-data ≠ zero (a trend with un-synced segment renders ghosted/dashed, not a flat line) |
+| **Error (message send fails)** | user bubble shows a red (`--color-error-red`) left border (2pt), error icon (⚠, 12pt) left of text, "not sent" label (11pt, `--color-alpha-white-50`) below the bubble; bubble remains in chat | "Not sent — try again"; if network down, "You're offline. Will retry when you're back." | calibrated-red only for genuine operational failure; glyph + word paired (never colour-alone) |
+| **Offline** | banner below top bar (36pt, `--color-ink-brown-800`, centered): "SIA needs a connection to chat." (14pt, `--color-alpha-white-50`); input field disabled (0.5 opacity + "offline" reason hint); existing chat history cached and visible | "You're offline. Messages sent when you're back." | actions honestly dimmed; no urgency tone |
+
+### Signature & anti-generic
+
+**Ownable moment:** The **continuous-orange message rhythm** — the alternation of left-aligned (SIA, warm `--color-ink-brown-800`) and right-aligned (user, warm orange tint) bubbles creates a natural conversational cadence. This rhythm, paired with the **draw-not-fade inline-visualizations inside SIA bubbles** (Living Lines curve, gauges fill, strength bars rise), is unmistakably Balencia — not a generic chat UI or a flat messenger clone. The **warm-glow-on-ink surfaces** (the `CK-T01` + `--shadow-1` recipe on every card) and the **purple earned in SIA-authored data ink only** (not chrome) reinforce that this is a coached conversation, not a transaction. Anti-generic fixes: (1) suggestion chips are genuine suggested responses (not a generic "options" row), contextually adapted to the conversation and the user's motivation tier; (2) the inline-viz are purposeful and sparse (one per message maximum, most messages text-only), never a "max out the dashboard" approach; (3) the scroll behavior (inverted FlatList, newest at bottom, pull-down loads older) mirrors iMessage, establishing familiarity while the inline chart depth signals premium intelligence; (4) the SIA avatar only re-appears on the first bubble in a consecutive group, reducing visual clutter and keeping focus on the message.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+- SIA message `--color-alpha-white-100` (≥12:1 on `--color-ink-brown-800`, ≥17:1 on `--color-ink-900`)
+- User message `--color-alpha-white-100` (≥3:1 on `--color-brand-orange` 15% bg + white text)
+- "Connection spotted" eyebrow `--color-brand-orange` (≥3:1 on `--color-ink-brown-800`, WCAG 1.4.11)
+- Correlation strength value `--color-brand-orange` on `--color-royal-purple` bar (≥3:1 fill vs track, load-bearing)
+- Suggestion chip `--color-brand-orange` text + border (≥3:1 on `--color-ink-brown-800`, load-bearing)
+- Top bar "SIA" title `--color-alpha-white-100` (≥12:1)
+- Day separator `--color-alpha-white-30` (≥4.5:1, decorative label paired with position — not load-bearing)
+
+**Status never colour-alone:** Direction on correlation rows = visible `+`/`−` glyph + direction word ("reinforcing" / "competing") + colour tint (never colour encoding alone). Strength value always shown numerically. Gauge ring % always shown as text + visible number, not arc-alone.
+
+**Interactive elements:**
+- All tappable cards, chips, mic button, send button ≥44×44pt (the spec defines 44pt touch targets for search icon + voice icon in the top bar; the rich card and mic button carry the same standard).
+- Mic button: 36pt circle, lives inside the 52pt input bar with a 44pt hit box (4pt inset ring offset).
+- Send button: 36pt circle, same layout.
+- Rich card: full-width card ≥44pt tall.
+- Suggestion chip: 36pt height ≥44pt wide per chip.
+- Focus-visible standardized to `CK-T03` `--focus-ring` (2pt `--color-brand-orange`, 2pt offset) across every interactive element (voice icon, search icon, mic button, send button, cards, chips, links).
+
+**Inline-viz a11y:**
+- Every `TrendChart` carries `aria-label` describing the trend and projection direction: "Sleep-versus-exercise trend, rising over 6 weeks. SIA projects continued improvement."
+- Every `GaugeRing` carries `aria-label` and the % text is always visible (never arc-alone): "[mission name], 68% complete."
+- `CorrelationMatrix` strength rows carry `aria-label`: "[domain A] and [domain B], 72% reinforcing correlation, strong."
+- `Sparkline` carries `aria-label`: "Recent [metric] trend, latest is a new high."
+- `Donut` carries `aria-label` with macro shares: "Protein 30%, carbs 45%, fat 25% of 520 calories."
+
+**Reduced-motion** (`prefers-reduced-motion`): Living Lines render fully drawn (curved stroke, no opacity-fade), end/milestone dots present; gauge rings at final fill, number at final value; strength bars at final width; sparklines completed with end dot; donuts fully swept; proactive message at final position (no bounce), suggestion chips instant (no slide), SIA Thinking dots static (no pulse), loops off.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -288,7 +477,7 @@ SIA Chat is the core product of Balencia — the unified AI coach conversation. 
 | Chart line (past) | #FF5E00 | brand-orange | User data |
 | Chart line (projected) | #7F24FF (dashed) | brand-purple | AI projection |
 | Chart milestone dots | #34A853 | brand-green | Milestones |
-| Progress ring fill | [domain color] | per domain | Goal progress |
+| Goal-progress GaugeRing fill | #FF5E00 | brand-orange | Progress arc = orange data ink (60/30/10); domain colour = identity only (tag chip / optional thin accent ring behind the gauge), never the progress fill — see Visualization S09-V02 |
 | "connection spotted" | #FF5E00 | brand-orange | Eyebrow |
 | "view [feature]" link | #FF5E00 | brand-orange | Navigation |
 | Suggestion chip border | rgba(255,94,0,0.3) | brand-orange at 30% | From [07] |
@@ -305,7 +494,7 @@ SIA Chat is the core product of Balencia — the unified AI coach conversation. 
 | Tab bar active | #FF5E00 | brand-orange | SIA tab |
 | Tab bar inactive | rgba(255,255,255,0.6) | white at 60% | Other tabs |
 
-**60/30/10 verification**: Orange on send button, suggestion chips, "connection spotted" labels, "view" links, chart lines (past data), SIA avatar, active tab indicator. Green on chart milestone dots and success states. Purple on chart projected lines and SIA avatar glow (exactly 2 uses). Domain colors on inline tags and progress rings (identification only). Ratio holds across a typical conversation view.
+**60/30/10 verification**: Orange dominates data ink — send button, suggestion chips, "connection spotted" eyebrow, "view" links, Chart-Card title, Chart-Card actual (past) Living Line, the Goal-Progress GaugeRing **progress fill**, SIA avatar, active tab indicator. Green = arrival/milestone only — chart milestone dots, gauge at 100%/complete, "✓ logged" badge, sparkline new-high end dot. Purple is the sanctioned SIA register on SIA-authored inline charts only — the dashed-purple projection tail (§11) and the Connection-Card correlation strength ink (cite `_shared-patterns.md` line 49) — and never repaints chrome or user-effort data ink. Domain colours = **identity only** (inline tags, an optional thin accent ring behind the gauge, correlation-row domain icons) — **never** the gauge progress fill. Ratio holds across a typical conversation view.
 
 ---
 

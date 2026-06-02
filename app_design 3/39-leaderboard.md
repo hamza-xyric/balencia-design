@@ -250,6 +250,151 @@ This screen is the social motivation layer — a leaderboard ranking users by li
 
 ---
 
+## Visualization
+
+> Source: embedded-section only (no companion file — Batch 5). Audited in `viz-audit/` — Batch 5 (Social/Leaderboard D), findings `S39-V01..S39-V05`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **This screen MINTS `VK-012` PodiumRank** — the top-3 podium + ranked-row primitive; its full spec is folded into `VIZ-KIT.md`. Benchmark = **Strava segments + Duolingo leagues**, rendered the Balencia way (warm-glow podium, Living-Line climb) — **explicitly non-toxic** (this screen's ethical crux): the comparison surface must motivate *your climb*, never shame a low rank. **Current grade D (52) → specced-target A− (86).** *(Honest re-grade under the revised 10-dimension rubric; the residual gap to A+++ is build-verified podium depth + the working rank-history TrendChart scrub, owned by the later viz-build program.)*
+
+This is a **Social/Leaderboard D template** screen. Today it renders as a flat ranked **text list**: the top 3 are ordinary rows whose only podium signal is the *rank-number colour* (gold/silver/bronze text — a colour-alone + WCAG 1.4.11 miss, with no visible medal/glyph and the built `aria-label` only "Open limited profile for {name}, rank {N}"); XP is bare text (no bar); the own-rank card's "↑3 this week" is **hardcoded green**, not read from `leaderboardOwnRank.rankChange`; and there is **no hero, no rank-progression trend, and no honest delta window** anywhere (the period filter merely adds a flat XP offset). This section upgrades *how the standings read* — a warm top-3 **podium hero**, XP **StatBars** with honest per-period deltas on every row, and a **Living-Line "your climb" TrendChart** — while keeping the user's own row **always anchored and never shamed**. Mints `VK-012` PodiumRank; otherwise retires kit backlog (`BarChart`/`StatBars`, `TrendChart`/`VK-016`, `KPIStatTile`).
+
+> **Component reality (spec-vs-build diff — each gap is a finding):** the route `/features/leaderboard` renders `LeaderboardRow.tsx` (rank# + avatar + name + `Lv.` pill + bare XP + `DomainTag`) inside a flat `Card`. **No podium structure exists** — `rankClass()` only tints the rank number `text-podium-gold/silver/bronze` (the podium tokens *do* exist in `globals.css`: `--color-podium-gold/silver/bronze`), so podium status is **colour-alone** (`S39-V01`). **No XP bar** — XP is `tabular-nums` text, so relative standing isn't visually encoded (`S39-V02`). **No rank-change delta on rows**, and the own card's delta is a **hardcoded** `<ArrowUp/> 3 this week` literal that ignores the real `leaderboardOwnRank.rankChange` field (`S39-V01`/`S39-V03`). **No rank-history series exists** in `mock.ts` — the "your climb" trend has no data backing yet (`S39-V03`). `LineChart.tsx`/`BarChart.tsx` exist but are **unused** (wire-up). These are the resolution gaps this section closes.
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Top-3 standings (gold/silver/bronze) | flat rows; rank-number colour only (colour-alone) | **PodiumRank hero** — 3 raised plinths (2-1-3 stage order), avatar + crown/medal **glyph** + name + level + XP, podium-colour as *identity* | `PodiumRank` (`VK-012`) — **hero** |
+| Ranked rows #4+ (rank · avatar · name · level · XP) | rank# + bare XP text + level pill | **ranked rows** — rank# + avatar + name + **XP `StatBar`** (relative-to-leader fill) + level badge + honest delta | `PodiumRank` rows → `BarChart`/`StatBars` (`VK-006`) |
+| Per-row rank movement vs last period (▲/▼/—) | absent on rows; own card hardcoded | **honest delta chip** per row + own card — ▲ green / ▼ muted / — neutral, **disclosed window** ("vs {period}") | `KPIStatTile` delta (`VK-008`) |
+| User's own rank + XP + streak + Δ (anchor) | own card; hardcoded green ▲ | **anchored own row/card** — same PodiumRank row treatment, always pinned & visible, leads with *your* climb | `PodiumRank` own-row (`VK-012`) |
+| Rank progression over weeks ("your climb") + SIA projection | not shown anywhere | **Living-Line `TrendChart`** — solid orange actual climb → dashed-purple SIA forecast; **inverted y so up = better** | `TrendChart` (`VK-006` / `VK-016`) |
+| Competition mini-leaderboard (competitions tab) | top-3 mini-rows, colour-only | compact PodiumRank mini-variant (medal glyph + score `StatBar`) + own "You — #8 of 42" anchor | `PodiumRank` compact (`VK-012`) |
+| Streak (21-day) · top-domain tag · name · level | text / chip / pill | — (deliberately textual / iconographic — flame + `DomainTag` identity) | — |
+
+**Editorial hierarchy (calm, not maximal):** the **PodiumRank hero is the one viz focal point**; the ranked rows + their XP StatBars are a clearly-secondary dense list; the "your climb" TrendChart is a deliberately *secondary* below-fold panel (revealed in the high-motivation tier / own-card expand), so the screen never becomes a wall of competing charts. One hero, one supporting trend, one row-bar system.
+
+### 1 · Podium hero + honest delta — `S39-V01` → `PodiumRank` (`VK-012`)
+
+**This screen mints `VK-012` PodiumRank** (full spec folded into `VIZ-KIT.md`). The top-3 are promoted from colour-only rows to a **warm 3-plinth podium**: classic **2 · 1 · 3 stage order** (1st centre-tallest, 2nd left, 3rd right), each plinth carrying its member's avatar (with a podium-coloured ring), a **visible rank glyph** (crown for #1, medal/laurel for #2–#3 — *never colour alone*), name, `Lv.` badge, and XP. Plinth fill = `--color-podium-gold/silver/bronze` as **identity** (the contained, brand-sanctioned exception — podium colour appears only on the plinth/ring/glyph, **never** on data ink); the #1 plinth carries a size-calibrated warm `--glow-orange-md` (~20px, **(mint)**) so the leader reads as the focal point without a casino glow.
+- **Honest delta:** each podium member (and every ranked row) shows a **rank-movement chip vs the selected period** — ▲ `--color-forest-green` (climbed), ▼ `--color-alpha-white-40` (slipped — a **neutral muted** arrow, *never* red and never a "you're losing" alarm), — `--color-alpha-white-40` (held), each with a **visible glyph + the number** and a **disclosed window** ("vs this week / this month") — no cherry-picked flattering range, reading `leaderboardOwnRank.rankChange` (and a new per-entry `rankDelta`) rather than the hardcoded literal.
+- **Depth (token-backed):** plinths on `ink-brown-800` + top-edge highlight + a faint radial backplate; `--track-inset` `rgba(0,0,0,0.28)` **(mint)** recess under each plinth top; only the #1 plinth carries `--glow-orange-md` (#2/#3 carry none — glow encodes the single leader); avatar rings 2pt in the member's podium colour.
+- **Micro-interaction:** tap a podium member → Limited User Profile sheet (existing); the own member's plinth → RPG Character [19].
+- **Non-shaming (ethical core):** the podium frames *aspiration*, not a verdict — there is **no "you're #12, you're behind" treatment**; lower ranks are never greyed-as-failure; the celebration is reserved for *climbing*, and the user's own position is always reachable (`S39-V04`).
+- **Data:** `leaderboard[0..2]` + `leaderboardOwnRank` (add `rankDelta` / wire `rankChange`) in `mock.ts`.
+- **States:** **Day-1 / community-of-one** → the podium renders the user on the **#1 plinth at 0 XP, Lv. 1**, the #2/#3 plinths **ghosted** with "invite friends to fill the podium" (honest — accurate *and* non-degenerate, never an empty stage); **loading** → 3 plinth skeletons that *rise* into place (not blank boxes); **partial** (only 1–2 ranked users) → real plinths + ghosted remainder.
+
+### 2 · Ranked rows + XP StatBars — `S39-V02` → `PodiumRank` rows / `BarChart` `StatBars` (`VK-006`)
+
+Rows #4+ keep the existing anatomy (rank# · avatar · name · `Lv.` badge · `DomainTag`) but **resolve XP from bare text into a horizontal XP `StatBar`**: a single rounded bar, `--color-brand-orange` fill over a `--color-alpha-white-08` track on a `--track-inset` recess, **width ∝ XP relative to the #1 leader's XP** on a **shared scale across all rows** (honest — one zero baseline, same max, so bar length is directly comparable down the list). The numeric "{xp} XP" stays beside the bar (value-plus-bar, never bar-alone). The **podium-colour rank tint on #1–#3 is retained but paired with a visible medal glyph** (fixing the colour-alone miss).
+- **Depth (token-backed):** bars rise `--dur-slow` 520ms `--ease-flow` on scroll-into-view; rounded caps; no glow (glow is reserved for the #1 plinth — row bars stay flat-premium); rows divided by `--color-alpha-white-05`.
+- **Honesty / non-shaming:** the StatBar shows *relative XP*, framed as "distance to close," **not** a deficit bar; a short bar reads as "room to climb," never "you're failing." Shared scale forbids the dishonest per-row re-normalisation that would exaggerate gaps.
+- **Micro-interaction:** tap a row → Limited User Profile sheet (existing, with report/block).
+- **Data:** `leaderboard[].xp` (+ leader XP for the shared max) in `mock.ts`.
+- **States:** **friends-empty** → the existing "no friends on the leaderboard…" empty copy (rows absent, **not** zero-width bars); **loading** → per-row bar skeletons; **blocked-user removed** → row slides out (existing 280ms), the shared scale re-normalises honestly.
+
+### 3 · "Your climb" rank progression (Living Line) — `S39-V03` → `TrendChart` (`VK-016`)
+
+The signature, applied to *personal progress, not comparison*: a full **Living Line** of the user's own rank (or rank-percentile) over the trailing weeks — **one continuous, curved, round-capped stroke that draws itself**, running orange `#FF5E00` (effort) → green `#34A853` (arrival) via `--grad-progress` **(mint)**, **green milestone dots** on personal-best weeks, a `--grad-orange` area fade (≤25% top), and a **dashed-purple `#7F24FF` SIA projection** tail (§11 — the brand-sanctioned forecast colour, *not* a 60/30/10 violation) continuing the same path ("on this pace, you reach ~#9 next week"). Curved monotone, `--stroke-thin` 2px actual / 2px dashed projection. **Y-axis inverted so visually-up = a better (lower-numbered) rank** — the line *rises* as the user climbs (honest: axis direction disclosed, label "higher = better rank").
+- **Why the line, not a comparison bar:** "every chart is the line" (§8) reframes the whole screen from *them-vs-you* to *you-vs-past-you* — the Living Line is the device Strava/Duolingo structurally don't have, and it is the screen's non-toxic centre of gravity.
+- **Placement:** a secondary panel surfaced on **own-card expand** and in the **high-motivation tier** (per the existing Motivation Adaptation block — "weekly XP trend sparkline" upgrades to this), so it never competes with the podium hero.
+- **Motion:** draws itself `stroke-draw` `--dur-flow` 1200ms `--ease-flow` — **never opacity-fades**; projection draws after the actual climb; scroll-into-view (below fold).
+- **Micro-interaction:** long-press to scrub a crosshair across weeks (rank + XP at that week); W/M/Y selector pill (active = orange-on-`--glow-orange-bg`, inactive `white/50`).
+- **Non-shaming:** a *downward* climb week is shown plainly (no red, no alarm) and SIA reframes it as "consistency dipped — one habit closes the gap," never "you dropped."
+- **Data:** new `leaderboardOwnRank.climb` (≥4 weekly rank points + `projection`) in `mock.ts`.
+- **States:** **cold-start (<2 weeks)** → "calibrating — building your climb" with a faint flat baseline, **never** a single dot; projection hidden until SIA has enough data; **reduced-motion** → completed stroke at rest + green end/milestone dot + static dashed-purple tail.
+
+### 4 · Own-anchor row + competition mini-podium — `S39-V04` → `PodiumRank` own-row / compact
+
+The own-rank card adopts the **PodiumRank row treatment** (XP StatBar + honest delta chip) and keeps its **always-anchored** behaviour: it stays pinned/visible whether or not the user is in the on-screen list (existing sticky logic), and in the **low-motivation tier** it **de-emphasises rank and leads with the climb** ("you completed 5 more habits than last week") per the Motivation Adaptation block — the rank number shrinks, the personal-progress line leads. The **competitions tab** renders a **compact PodiumRank mini-variant** per competition (medal glyph + score StatBar on the top-3, plus the anchored "You — #8 of 42" own row), replacing the colour-only mini-rows.
+- **Non-shaming (ethical core, RUBRIC dim 6):** the own row is **never** rendered as a loss-aversion demotion alarm — no "you'll drop out of the league" countdown, no red, no manufactured urgency; the anchor guarantees the user is always *seen*, framed by *their* trajectory, not the gap to #1.
+- **States:** **own-card load fail** → "rank unavailable" (`white/40`) per the Error Handling table (skeleton, not a fake #1); competition **ending-soon** → the existing orange badge pulse (a neutral time cue, not a shaming alarm).
+
+### Motion choreography (entrance — draw-first order)
+
+Per `CONSISTENCY.md`: **hero draws first** — the **PodiumRank plinths rise** (0→height, `--dur-slow` 520ms `--ease-flow`, centre #1 first → #2 → #3) with the leader's `--glow-orange-md` blooming in + the rank glyphs settling — **then** the own-anchor row's delta chip slides in + counts (280ms `--ease-out-soft`) → **then** the ranked rows' **XP StatBars rise** L-anchored (520ms, 80ms stagger, on scroll-into-view) → **then**, when revealed, the "your climb" **Living Line draws itself** L→R (1200ms `stroke-draw`, *never* fade) with its dashed-purple projection drawing last. One line motif per surface (the climb trend is the only full Living Line; podium/rows use plinths/bars/numbers). Below-fold visuals animate on **scroll-into-view**. `prefers-reduced-motion` → every viz at final state instantly; the Living Line's static form (completed stroke + green end/milestone dots + static dashed-purple tail), the podium plinths at full height, and the StatBars at final width are all preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1 (community-of-one)** — podium shows the user on the #1 plinth at 0 XP / Lv. 1 with #2/#3 **ghosted** + "invite friends to fill the podium" (honest, never an empty stage or a fabricated rival), climb trend "calibrating," friends tab uses the existing invite empty-state; **loading** — depth-preserving skeletons that *rise/draw* into data (plinths rise, bars fill, line draws — never blank boxes), per the Error Handling table; **empty** (friends-only, no friends) — the existing invite copy, distinct from loading; **partial** (1–2 ranked users) — real plinths/rows + ghosted remainder, shared StatBar scale honest; **error** — chart-specific honesty per the Error Handling table ("couldn't load rankings" + retry; own card "rank unavailable"; offline cached-rankings banner), never a degenerate empty podium.
+- **60/30/10 & non-shaming:** **orange dominates** data ink (XP StatBars, own-card border, the climb Living-Line effort segment, segmented/filter accents, the #1 plinth glow, flame); **green** = arrival/positive only (▲ rank-up delta, milestone dots, the climb line's arrival segment); **purple stays SIA-only** — the **single sanctioned purple is the dashed-purple SIA projection** on the climb trend (§11 forecast, correct *not* a violation) — **no other purple** (the leaderboard is user-driven social, not SIA-driven, per the screen's own 60/30/10 note); **podium gold/silver/bronze are confined to plinth/ring/glyph identity** (the contained exception), **never** on data ink; **error-red `#F44336` is confined to the destructive Block affordance**, never to a low rank or a ▼ delta (a slip is muted, not red). Glow uses the size-stepped scale (#1 plinth = `--glow-orange-md` ~20px, bars/sparklines = none) — warm depth, not neon. **The ethical crux:** no toxic comparison — no "you're behind #11" framing, no demotion alarm, no loss-aversion countdown; the user's own row is always anchored and framed by *their* climb.
+- **Accessibility:** every podium plinth, row StatBar, delta chip, and the climb line carries a text/`aria-label` equivalent conveying the same value — podium announces position **in words + a visible glyph** ("First place, gold, Sarah, level 23, 4,120 XP, up 1 this week"), fixing the current colour-only podium + the thin built `aria-label`; rank movement is shown by a **visible ▲/▼/— glyph + the number**, never colour alone; XP StatBar always shows the numeric XP beside the bar (never bar/colour-alone); label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — plinth edges, the leader glow boundary, StatBar fills, the Living-Line stroke, milestone dots, and the filled/unfilled boundary all meet ≥3:1 vs background (white/5 dividers/grid are decorative-only); interactive targets ≥ 44×44pt (rows, plinths, the scrub crosshair); `prefers-reduced-motion` renders all at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Strava segments + Duolingo leagues (non-toxic) — *stays Balencia via the PodiumRank hero + XP StatBars composition + the Living-Line "your climb" focus, never them-vs-you comparison.*
+**Pre-grade:** A− (84) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): (1) non-chart surfaces are flat without top-edge highlights or glow on focal elements; (2) the screen structure lacks a clear visual hierarchy between the podium hero and the ranked rows (two competing foci, unclear which reads first); (3) segmented control + filter toggle are unspecified interaction + unstyled type; (4) microcopy on the own-rank card's rank-change delta is hardcoded and doesn't read `rankChange`; (5) the rank-shaming risk (low rank, red deltas, "you're behind #1" framing) is present in the IA but not resolved in voice/copy; (6) contrast on the podium-colour rank numbers (gold/silver/bronze) is not tabulated, and the colour-alone miss is flagged; (7) state-craft (cold-start / friends-empty / loading / error / offline) is named but not authored.
+
+### Focal hierarchy
+
+One focal point: the **PodiumRank hero** (the top-3 podium with plinths, medal glyphs, the #1 plinth's `--glow-orange-md` bloom, and the leader's name/level/XP) — the first thing read, visually dominant, sized as a hero (≥96px per CONSISTENCY.md §1, the focal element carries glow). The own-rank card sits **directly below** the segmented time filter as a secondary anchor (always visible, always readable, but visibly quieter than the podium — no glow, body-weight text, 120pt height vs the podium's 160pt). The segmented control + filter toggle are tertiary navigation (not a focal layer). The ranked rows #4+ are a dense, deliberately secondary list (white body text, StatBars without glow, compact 72pt rows). The "your climb" Living-Line trend is deliberately **hidden at cold-start** and surfaced only on the high-motivation tier or via own-card expand — so it never competes with the podium hero. The squint test lands on the podium plinths (visually raised, glow-centered on #1) first, the own-rank card second, then the ranked rows as a scrollable list.
+
+### Surface & depth
+
+Every surface adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` 28pt (the podium card is a single large card containing all three plinths) · 1px `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`, previously absent) · `--shadow-1`. The own-rank card uses the same treatment + an **orange left border accent** (3pt, `--color-brand-orange` at 40%) to signal "this is you" (distinct from the podium). The leaderboard rows live inside a single large ink-brown-800 card with rounded corners, internal dividers (`--color-alpha-white-05` 1pt), and depth. The segmented control + filter toggle sit at the screen background (`ink-900`) with no surface container (intentionally minimal, navigation-only). Glow is **size-calibrated and strictly gatekept** per CONSISTENCY.md §1: **only the #1 plinth carries `--glow-orange-md` (~20px /.40)** (the leader is the glowing focal point, no other element carries glow — the #2/#3 plinths carry none, the own-rank card carries none, ranked rows carry none); this honesty prevents glow-overload and ensures the podium reads as the single hero. Podium tracks rest on `--track-inset` beveled recess (the contained exception — no-glow rule for rank bars). XP StatBars on rows use `--color-alpha-white-08` track over `--track-inset` with orange fill, no glow (they are ~8px inline elements). All interactive elements use the standardized `--focus-ring` (`CK-T03`, 2px orange, 2px offset).
+
+### Typographic rhythm
+
+Map the screen's existing typography to `CK-P3` tokens: screen title "Leaderboard" `--text-h2` 20pt / 600 / `--leading-snug` / white 100%; segmented control labels `--text-caption` 13pt / 600 / `--leading-normal` / white 100% active, white 60% inactive; own-rank card rank number `--text-display-l` 32pt / 700 / `--leading-tight` / white 100% (or podium-colour for top 3); own-rank card name `--text-h2` 16pt / 600 / `--leading-snug` / white 100%; own-rank card XP/streak `--text-body` 14pt / 400 / `--leading-normal` / white 70%; rank change indicator `--text-caption` 13pt / 600 / `--leading-normal` / green 100% (up) or white 40% (down/same — neutral muted, never red, never orange-as-alarm); ranked-row name `--text-h3` 15pt / 600 / `--leading-snug` / white 100%; ranked-row rank/XP/level `--text-caption` 13pt / 400 / `--leading-normal` / white 50%; filter toggle "global" / "friends" `--text-body` 14pt / 600 / `--leading-normal` / white 100% active, white 50% inactive. All stat figures use `tabular-nums`. Hierarchy is carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout. ≤2 `--color-brand-orange` accent words per screen (the "Leaderboard" title does not count as accent; the two accents are: the own-rank card's orange left border glyph and the rank-change "↑" glyph if climbed). Chillax stays logo-only (none on this screen).
+
+### Microcopy (before → after)
+
+Every edge string is authored to `CK-P5` brand voice — warm, plain, coaching, non-shaming. Specific reframes on this screen (the ethical crux):
+
+- **Own rank display (hardcoded delta)** — *before:* `↑3 this week` hardcoded literal → *after (reading `rankChange`):* ▲ green (climbed) / ▼ muted white/40 (slipped, **never red, never orange-alarm** — frames dip as a correction opportunity, not a shame) / — white/40 (held). Always shows the **glyph + number + a disclosed window** ("vs this week"). Resolves the non-shaming breach.
+- **Ranked row rank-change delta (new)** — *before:* absent on rows → *after (per row, on-voice):* each row shows its own ▲/▼/— indicator (same colour scheme as own card) with a number and the disclosed period, so users see *others' climb too*, framing the list as "who's climbing," not "who's ahead."
+- **Podium framing (low-motivation tier, future)** — *before:* "you're #12, you're behind #1" implied → *after:* "your climb this week: +2 spots" (focus on *your* trajectory, not the gap). This is the non-toxic anchor.
+- **Friends-empty state** — *before:* silent or generic "no friends" → *after (on-voice):* "no friends on the leaderboard — invite them from your community rooms to climb together" (warm invite, never a shame for being alone).
+- **Day-1 / community-of-one podium** — *before:* empty podium or a degenerate single plinth → *after (honest, non-degenerate):* the user appears on the #1 plinth at 0 XP / Lv.1 (technically accurate and aspiring), the #2/#3 plinths are **ghosted** with "invite friends to fill the podium" (never an empty stage, never a fake rival). Frames the beginning as an invitation, not a failure.
+- **Slipped delta** — *before:* red/orange "▼" alarm (dark-pattern shame) → *after (reframed):* muted white/40 "▼" with a number, no colour-alarm. Copy if triggered: "consistency dipped — one habit closes the gap" (SIA voice, constructive). The arrow is a neutral fact, never a verdict.
+- **Pull-to-refresh failure** — *before:* no message → *after:* "couldn't refresh rankings — pull again" (clear recovery action, honest).
+- **Own-card tap affordance** — *before:* unlabeled → *after:* "tap to view your character" (simple, clear).
+
+No exclamation marks; the brand period with intent; no "crush the leaderboard," no "you're losing," no loss-aversion weaponisation.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first, hero-first): **podium plinths rise** (0→height, staggered: center #1 → #2 left → #3 right, `--dur-slow` 520ms `--ease-flow`) with the #1 plinth's `--glow-orange-md` blooming in and the rank medal glyphs settling → **own-rank card fades in + translateY** (`--dur-base` 280ms `--ease-out-soft`, 80ms stagger after podium) → **filter toggle + segmented control fade in** (280ms, minimal delay) → **ranked rows #4+ StatBars rise** L-anchored `0→value` (520ms `--dur-slow`, 80ms stagger between rows, on scroll-into-view) → **the "your climb" Living-Line draws itself** L→R (1200ms `stroke-draw` `--dur-flow`, starting on own-card expand or high-motivation, never on cold-start — never competes with podium hero). Card entrances and staggered fades use `.animate-fade-up` throughout. `prefers-reduced-motion` → every element at final state instantly (podium plinths at full height, own-rank card visible, StatBars at final width, the Living Line fully drawn + green end dots + dashed-purple projection tail visible). **No opacity-fade on the Living-Line stroke** (§8 draw-not-fade rule).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 (community-of-one) | Podium shows user at #1 plinth (0 XP, Lv.1), #2/#3 plinths **ghosted** (not empty, visually distinct); global tab shows a few seed users or the user alone; friends tab empty + invite link | Podium: "rankings grow as your community grows"; Friends: "no friends yet — invite them from your communities"; Own-rank card: "your climb starts here" (never "you're #1, you're winning") | podium plinths at full depth, the #1 plinth with `--glow-orange-md` + the user's avatar ring, ghosted #2/#3 (dashed outlines, 50% opacity), no "fake rivals" |
+| Loading | Podium skeletons (3 plinth outlines + avatar + medal shimmer); own-rank card skeleton (rank + name shimmer); ranked-row skeletons (rank# + avatar + bar skeleton per row). Layout **preserved**, depth visible. | "SIA is calculating the rankings — one moment." | skeleton on `--color-ink-brown-800`, radial shimmer, morphs into plinths/bars (never blank boxes) |
+| Empty / partial (friends tab, no friends) | Podium + global tab render normally. Friends tab shows only the invite-link copy + a CTA card ("Find communities"). Ranked rows section absent. | "no friends on the leaderboard — invite them from your community rooms to climb together" + "Find communities" link | no-data ≠ zero (missing data is ghosted or hidden sections, not a fake 0 rank) |
+| Error | Podium shows skeleton shimmer 3s then inline error: "couldn't load rankings" + retry button. Own-rank card shows "rank unavailable" (white/40) if it specifically fails. Ranked rows show skeleton shimmer then inline error per section. Offline banner (if applicable) names the failure. | "couldn't load rankings — pull to refresh" / "rank unavailable" / per-section honesty | calibrated `--color-error-red` only on a genuine network failure (never on low rank, never on a slip); `role="alert"` + glyph + word paired (never colour-alone) |
+| Offline | Cached podium/own-rank/rows displayed. All pull-to-refresh + sort/filter actions dimmed. Offline banner at top of sheet: "you're offline — showing cached rankings." | "you're offline — showing cached rankings" | actions honestly dimmed (50% opacity, no haptic); cached data retained, never cleared |
+
+### Signature & anti-generic
+
+Ownable moments: (1) the **PodiumRank podium hero** (the 2-1-3 stage, medal glyphs + crown, the warm glow on the leader — a surface no generic leaderboard has); (2) the **XP StatBars composition** (every row shows relative XP visually, not just a text number — the honest alternative to a flat ranked list); (3) the **Living-Line "your climb" trend** (orange actual climb → dashed-purple SIA projection, inverted y-axis so up = better — the brand signature applied to *personal progress, not comparison* — the device that reframes the whole screen from "them vs you" to "you vs past-you"); (4) the **non-shaming delta system** (rank movement is green-up / muted-neutral-down, never red, never an alarm — ethical ownership). Anti-generic fix: the screen **never reads as a flat ranked list** because the podium hero breaks the monotony at the top, the own-rank card anchors the user visually (always pinned, always highlighted), and the "your climb" trend de-emphasises comparison for high-motivation users. The UI avoids the #1 toxic pattern: there is **no red "you're losing" alarm, no countdown to demotion, no manufactured urgency, no hardcoded fake rivals on Day-1** — all anti-patterns ruled out by design. The screen stays warm and non-coercive.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+| Element | Color | Contrast | Notes |
+| --- | --- | --- | --- |
+| Podium plinth rank number (#1 gold) | `--color-podium-gold` | 2.1:1 | WCAG 1.4.11 miss — flagged for the viz-build program to adjust podium gold saturation or add a subtle dark outline |
+| Podium plinth rank number (#2 silver) | `--color-podium-silver` | 3.8:1 | Meets WCAG 1.4.11 ≥3:1 |
+| Podium plinth rank number (#3 bronze) | `--color-mission-bronze` | 3.2:1 | Meets WCAG 1.4.11 ≥3:1 |
+| Own-rank card rank number | white/100 | ≥12:1 | Exceeds requirement |
+| Own-rank card name | white/100 | ≥12:1 | Exceeds requirement |
+| Rank-change ▲ (green) | green/100 | 3.5:1 | Meets 1.4.11; always glyph + number |
+| Rank-change ▼ (muted) | white/40 | 4.8:1 | Meets 1.4.11; neutral (not red/alarm); always glyph + number |
+| XP StatBar fill | orange/100 | 3.2:1 on white/8 | Meets 1.4.11; numeric label always beside bar |
+| Ranked-row text | white/50 | ≥4.5:1 | Meets 4.5:1 |
+| Segmented control active | orange/100 | 3.2:1 | Meets 1.4.11 |
+
+Screen reader labels: podium plinth announces "First place, gold, [name], level [N], [XP] XP, up [N] from [period]"; own-rank card announces "Your rank: [number], [name], level [N], [XP] XP, [streak] day streak, [movement] from [period]"; each ranked row announces "Rank [N], [name], level [N], [XP] XP, top domain [domain], up/down [N] from [period]." All interactive elements use `--focus-ring` (`CK-T03`, 2px orange, 2px offset). Targets ≥44×44pt. Reduced-motion: all elements at final state instantly, signature static forms preserved (podium at full height, StatBars at full width, Living Line fully drawn with end dots + projection tail). Delta glyphs paired with **visible numeric values** and disclosed period labels — status never by colour alone.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -266,8 +411,8 @@ This screen is the social motivation layer — a leaderboard ranking users by li
 | Own row left border | #FF5E00 | orange (primary) | Row highlight in list |
 | Level badge border | #FF5E00 (own) / white 20% (others) | — | Own card uses orange |
 | Avatar placeholder bg | #FF5E00 | orange (primary) | Own avatar bg |
-| Rank change ↑ | #34A853 | green (secondary) | Positive movement |
-| Rank change ↓ | #FF5E00 | orange (primary) | Negative (not red — stays brand) |
+| Rank change ▲ (climbed) | #34A853 | green (secondary) | Positive movement / arrival only; glyph + number always shown |
+| Rank change ▼ (slipped) | white at 40% | --color-alpha-white-40 | Neutral muted per PodiumRank VK-012 — never red, never orange-as-alarm; glyph + number always shown (non-shaming) |
 | XP text | white at 70% (own) / white at 50% (others) | — | Tabular nums |
 | Streak flame | #FF5E00 | orange (primary) | Streak emphasis |
 | Domain tags (all 9) | Various at 15% bg | domain colors | Top domain badge |
@@ -275,7 +420,7 @@ This screen is the social motivation layer — a leaderboard ranking users by li
 | Secondary text | white at 60% | — | Streak text |
 | Tertiary text | white at 50% | — | XP, metadata |
 
-**60/30/10 verification**: Orange on segmented control, own rank card border, level badge, avatar placeholder, filter underline, flames, negative rank change. Green on positive rank movement only. No purple anywhere (leaderboard is user-driven social, not SIA-driven). Gold/silver/bronze are podium accents — they are a contained exception to the palette for leaderboard convention, appearing only on the rank number of the top 3. Domain colors on tag chips only. Ratio holds.
+**60/30/10 verification**: Orange dominates data ink — segmented control, own rank card border, level badge, avatar placeholder, filter underline, flames, XP StatBars, the #1 plinth --glow-orange-md, the climb Living-Line effort segment. Green = arrival only (▲ rank-up delta, milestone dots, the climb line's arrival segment). A slipped ▼ delta is neutral muted white/40 — never orange, never red (non-shaming). The single sanctioned purple is the dashed-purple SIA climb projection on the "your climb" TrendChart (§11 forecast — correct, not a violation); no other purple (leaderboard is user-driven social, not SIA-driven). Gold/silver/bronze are a contained, brand-sanctioned exception confined to plinth fill / avatar ring / rank glyph as identity only (always glyph-paired — crown #1, medal/laurel #2-#3 — never colour-alone), never on data ink. Error-red #F44336 is confined to the destructive Block affordance only. Domain colors on tag chips only. Ratio holds.
 
 ---
 
@@ -372,7 +517,7 @@ This screen is the social motivation layer — a leaderboard ranking users by li
 | Screen title ("Leaderboard") | Sora | Semibold (600) | 17pt | 22pt | white |
 | Segmented control labels | Sora | Semibold (600) | 13pt | 18pt | white (active) / white at 60% (inactive) |
 | Own rank number | Sora | Bold (700) | 24pt | 32pt | white (or gold/silver/bronze for top 3) |
-| Own rank change text | Sora | Semibold (600) | 13pt | 18pt | green #34A853 (up) / orange #FF5E00 (down) / white at 40% (same) |
+| Own rank change text | Sora | Semibold (600) | 13pt | 18pt | green #34A853 (up) / white at 40% (down — neutral muted, never red/orange) / white at 40% (same) |
 | Own user name | Sora | Semibold (600) | 16pt | 22pt | white |
 | Own level badge | Sora | Semibold (600) | 13pt | 18pt | orange on ink-900 |
 | Own XP text | Sora | Regular (400) | 14pt | 20pt | white at 70% |

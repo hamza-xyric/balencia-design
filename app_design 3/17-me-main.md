@@ -127,7 +127,7 @@ Me Main is the user's identity hub — their profile, RPG progression, and gatew
   - Avatar: 64pt circle, border 2pt white at 20% opacity. Tap → Profile Edit [50] (stack push). If no photo, shows first initial on ink-brown-800 circle. **Camera overlay**: small camera icon (16pt, white at 80%) in a 24pt circle with ink-brown-800 bg and 1pt white at 20% border, positioned bottom-right of avatar (offset -4pt, -4pt). Indicates photo upload capability.
   - Name: 20pt Sora Semibold, white, center-aligned, 8pt below avatar
   - RPG level badge: Inline pill — diamond icon (12pt, orange) + "Lv.14" text (14pt Sora Semibold, white), 8pt below name
-  - XP progress bar: Full-width minus 64pt (32pt margins each side), 6pt height, rounded pill, ink-brown-800 track, orange fill. Positioned 8pt below level badge. Label below bar: "2,450 / 5,000 XP" (12pt Sora Regular, white at 50%), right-aligned.
+  - XP progress bar: Full-width minus 64pt (32pt margins each side), 8pt height, rounded pill (MomentumBar Living-Line family — continuous --grad-progress orange→green fill, never segmented), track white at 8% over a --track-inset recess (not ink-brown-800), orange fill. Positioned 8pt below level badge. Label below bar: "2,450 / 5,809 XP" (12pt Sora Regular, white at 50%), right-aligned.
   - Member since: 13pt Sora Regular, white at 40%, center-aligned, 8pt below XP label. Format: "member since May 2026"
 - **Variants**: New user (Lv.1, 0 XP, no avatar — shows initial), established user
 - **Gestures**: Tap avatar → Profile Edit [50] (stack push). Tap RPG level badge → RPG Character [19] (stack push).
@@ -208,6 +208,137 @@ Me Main is the user's identity hub — their profile, RPG progression, and gatew
 
 ---
 
+## Visualization
+
+> Source: `app_design 3/17-me-main-visualization-recommendations.md` (companion, if present); audited in `viz-audit/` — Batch (Lightweight-MEDIUM / Profile mini), findings `S17-V01..S17-V02`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Premium-depth, on-brand (60/30/10), **Product Mode → orange-dominant accent** (no SIA register here — **purple is correctly absent**; domain colours appear only as *identity* dots, never on data ink). Benchmark = **Finch + Habitica** (life-stats done *warmly*) under the always-on **Linear / Things editorial-restraint** floor. **Current grade D (54) → specced-target A− (85).** *(Honest re-grade: a calm navigation hub, not a dashboard — it earns A− by resolving the two metrics that benefit from a visual with restraint, not by chart-cramming. The residual gap to A is build-verified gauge/line depth, owned by the later viz-build program.)*
+
+This is a **lightweight profile hub**, so this is a deliberate **2-subsection mini-section** (per the CONSISTENCY.md "Lightweight-MEDIUM" template), *not* a domain dashboard. Today the screen renders **zero data visualization**: the XP bar is a flat 2-tone orange fill on an `ink-brown-800` track (no gradient, no glow, no inset — and the track is near-invisible since the section floats card-less on `ink-900`), and the four progression stats (streak 42 · completed 12 · Life Power 487 · XP 8,450) are bare `StatTile` text numbers. The screen's RPG identity profile — the 10 `domainStats` (0–99) that *define* Life Power — exists in `mock.ts` but is **never surfaced here**, so "who am I in this app?" is answered by a number, not a picture. This section upgrades only **two** things — the XP bar into the signature Living-Line bar, and a compact domain StatBars preview that makes Life Power *legible as a composition* — while keeping everything else (name, avatar, member-since, the 10-card link grid, explore preview) deliberately textual. **Editorial restraint is the whole point: this screen must stay calm.** Mints **no** new primitive; retires kit backlog (`MomentumBar`/`XPBar` Living-Line upgrade, compact `BarChart`/`StatBars`; the Constellation Radar mini is named as the premium-tier alternative).
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced treatment | Resolution |
+|---|---|---|---|
+| XP to next level (2,450 / 5,809) | flat 2-tone orange bar | **XP Living-Line bar** — continuous orange→green `MomentumBar` (path-of-progress), `--track-inset` recess, value-vs-target label retained | **visualized** — `S17-V01` |
+| Life Power (487) — `sum(domainStats)·balance_multiplier` | bare number + ◆ glyph | kept as the headline **number** in the stats row, now **made legible** by the StatBars preview beneath that shows *what composes it* | **visualized (as composition)** — `S17-V02` |
+| Domain / skill profile — 10 `domainStats` (0–99) | not shown anywhere | **compact domain StatBars preview** (top ~5 by stat, honest shared 0–99 scale) — or **ConstellationRadar mini** as the premium-tier variant | **visualized** — `S17-V02` |
+| Day streak (42) · Missions completed (12) · Total XP (8,450) | three text `StatTile`s | **deliberately textual** — clean tabular-nums KPI cells; one-off cumulative scalars with no trend surface on this hub (streak *history* lives behind the Streaks link [59], not here). Optional ▲ delta only at high-motivation, honest "this week" window | **deliberately textual** (premium ≠ maximal) |
+| Member since · name · avatar · level badge | text / pill | **deliberately textual** — identity scalars, no useful visual form | **deliberately textual** |
+| 10 quick-link cards + dynamic subtitle counts (47 earned, 12 new…) | icon + label + count | **deliberately textual** — a navigation grid is not a chart; counts stay as subtitles + the existing orange/green notification dots (with a visible glyph, see a11y) | **deliberately textual** |
+| Explore "suggested for you" module cards | cards w/ domain dot | **deliberately textual** — discovery cards; domain colour dot is identity-only | **deliberately textual** |
+
+**Editorial hierarchy (calm, not maximal):** the **XP Living-Line bar is the single focal viz** (it sits in the identity anchor, the first thing read after the name); the **StatBars preview is clearly secondary** (a small composition under the stats row). Two visuals, one focal — the rest of the hub stays text. A radar/gauge wall here would *fight* the screen's job (fast navigation) and is deliberately refused.
+
+### 1 · XP Living-Line bar — `S17-V01` → `MomentumBar` (Living-Line family, `VK-004` / `VK-016`)
+
+Replace the flat XP fill with the signature **horizontal Living Line**: a **single continuous, round-capped** rounded-pill bar whose fill runs `--grad-progress` **(mint)** — orange `#FF5E00` (effort / XP earned) → green `#34A853` (arrival, as the bar approaches 100% of the level) — **never segmented** (segments violate §8 "do not break the line"). Width = `currentLevelXP / nextLevelXP` (2,450 / 5,809 ≈ 42%, pure orange at this fill since arrival isn't reached). The value-vs-target label ("2,450 / 5,809 XP", `white/50`, right-aligned) is retained beneath. Source: `user.currentLevelXP / user.nextLevelXP` (`mock.ts`).
+- **Depth (token-backed):** 8px height; track `--color-alpha-white-08` over a `--track-inset` `rgba(0,0,0,0.28)` **(mint)** recess (fixes today's invisible `ink-brown-800`-on-`ink-900` track — a real depth/contrast defect); rounded-pill caps on both ends; **no glow** (an inline bar carries no glow per the size-stepped scale — glow would read neon on a 6–8px element).
+- **Why the line, not a plain bar:** "every chart is the line" (§8) — even the humble XP bar joins the Living-Line family, so this hub's one progress element reads as the *same instrument* as the home sparklines and trend charts. This is the lowest-cost place to plant the signature.
+- **Motion:** fills `0→value` (`--dur-slow` 520ms `--ease-flow`), starting after the profile fade-in (preserves the existing XP-bar entrance timing) — a **fill/draw**, never an opacity-fade.
+- **Micro-interaction:** tap the level badge / bar → RPG Character [19] (existing route, where the full XP history lives) — drill, not scrub (a single-value bar has nothing to scrub).
+- **Non-shaming:** frames XP as momentum toward the next level; a low fill reads as "room to grow," never a deficit. No loss-aversion ("don't lose your progress") framing.
+- **States:** **Day-1 / Lv.1** → 0% bar, label "0 / 100 XP", pure orange at rest (a real, honest empty — not a fake glimmer); **loading** → pill skeleton at track height that morphs into the drawn fill (label skeletons to a number bar); **reduced-motion** → bar at final width instantly (no fill animation), Living-Line static form (the orange fill at rest) preserved.
+
+### 2 · Life-Power composition — `S17-V02` → domain `StatBars` preview (`VK-006`) · or ConstellationRadar mini (`VK-005`)
+
+Make **Life Power (487) legible as a composition** instead of an unexplained number. Directly beneath the stats row, add a **compact domain StatBars preview**: the user's **top ~5 domains by stat** (e.g. fitness 72 · sleep 65 · wellbeing 61 · nutrition 58 · relationships 55), each a thin labelled `StatBars` row — domain icon/label · a horizontal bar on an **honest shared 0–99 scale** (the radar-stat max, *not* a per-row re-normalised scale, which would be dishonest) · the value (tabular-nums) beside it · a "see all 10 →" link to Life Areas [16] / RPG [19]. This answers "who am I in this app?" with a *shape*, and shows *what composes* Life Power, at restraint-appropriate density (5 bars, not a 10-bar wall).
+- **Premium-tier variant (named, not duplicated):** at high-motivation / Plus, this slot may instead render a **ConstellationRadar mini** (~160px card variant) — the cross-domain differentiator: drawn orange polygon (fill 25%→8%), `--color-domain-*` **star dots** + faint glow, Life Power as the central **"sun" hub** (`text-display` + `--glow-orange`), **draws itself** on enter (the brand-correct draw, not the current `radar-grow` *scale*). The radar and the StatBars show the *same* `domainStats` — one is the calm default, one the expressive upgrade; the screen ships **one** of them, never both (two foci would break the hub's calm).
+- **Encoding / brand:** **bar fill = `--color-brand-orange`** (data ink stays orange — domain colour is *not* used on the bar fill); the **domain colour appears only as the small leading identity dot/icon** per row (and as the radar star-dots in the variant). This keeps 60/30/10 honest: orange dominates, domain hues are identity-only. Green never appears here (no arrival/completion state for a domain stat); **purple is absent** (no SIA on a navigation hub — correct).
+- **Depth (token-backed):** each `StatBars` track `--color-alpha-white-08` over a `--track-inset` **(mint)** recess, fill `--color-brand-orange`, `ink-brown-800` row surface + top-edge highlight; **no glow** on the small bars; radar variant carries the card-size glow language (`--glow-orange` on the hub, star-dot faint glows) per CONSISTENCY.
+- **Honesty (RUBRIC dim 5):** shared 0–99 scale across all rows (no per-bar autoscale that flatters a weak domain); a domain with **no data yet** renders a **ghosted/dashed** track ("not started"), visually distinct from a real low stat — a low bar is **not** a zero, and a zero is **not** a no-data.
+- **Non-shaming (RUBRIC dim 6, ethical gate):** the profile is framed as **state, never a verdict on worth**; the **weakest domain is framed constructively** — the preview leads with the *top* domains and offers "grow your [lowest] →" as an *invitation* into that domain, never "you're failing at meditation." No domain is recoloured to an alarm red for being low.
+- **Micro-interaction:** tap a domain row → that domain dashboard (e.g. Fitness [26]); tap "see all 10" / the radar → Life Areas [16] or RPG Character [19].
+- **States:** **Day-1 / new user** → all stats at their starting values shown honestly (ghosted tracks for un-started domains + "your stats grow as you build habits" — never a collapsed/empty shape; the radar variant shows a faint full-ring placeholder, **not** a degenerate point); **loading** → row/bar skeletons (radar: spokes + rings visible, polygon draws on data — a morph, not a swap); **partial** → present domains render, un-synced ghosted; **error** → "couldn't load your stats" + retry, cached stats shown if available (matches the screen's existing stats-row partial-failure pattern).
+- **Data:** `domainStats` (10 domains, `mock.ts`) + `user.lifePower` (487).
+
+### Motion choreography (entrance — draw-first order)
+
+Per `CONSISTENCY.md`, honouring this hub's existing calm entrance: profile fades in → the **XP Living-Line bar fills** `0→42%` (520ms `--ease-flow`, the focal motion, starting after the profile fade) → the stats row counts up (the Life Power number `--dur-base` 280ms `--ease-out-soft`) → the **StatBars preview rows rise** L-anchored `0→value` (520ms `--ease-flow`, ~60ms stagger) — *or*, in the radar variant, the polygon **draws itself** on enter (`stroke-draw` 1200ms `--ease-flow`) with star dots staggering in (`radar-dot` 420 + index·40ms) → quick-links grid + explore cards keep their existing staggered fade. **One line motif per surface** (the XP Living Line is the only continuous-stroke element; StatBars are discrete). Below-fold rows animate on **scroll-into-view**. `prefers-reduced-motion` → every element at final state instantly; the Living Line's static form (orange fill at rest) and the radar's completed polygon + star dots preserved — no essential info lost.
+
+### States, brand & accessibility
+
+- **States (all designed, RUBRIC dim 7):** **cold-start / Day-1** — XP bar honest 0%, StatBars at starting values with ghosted tracks for un-started domains + "your stats grow as you build habits" (never an empty/collapsed shape; the screen "never feels empty — structure is always full, content adapts," per the existing Empty-States section); **loading** — depth-preserving skeletons that *morph* into drawn data (pill skeleton → drawn XP fill; row/spoke skeletons → bars/polygon), not blank boxes; **partial** — present domains render, un-synced ghosted/dashed and visually distinct from a real low value; **error** — chart-specific honesty ("couldn't load your stats" on the preview, XP bar independent) + a visible "retry", per the screen's Error Handling table (cached stats shown if available).
+- **60/30/10:** **orange dominates** data ink (XP Living-Line effort fill, all StatBars fills, the Life Power ◆ glyph, "see all" links, active-tab); **green** appears only as the Living Line's *arrival* segment as a level nears 100% (and the existing "new"-achievement dot) — never as a domain-stat fill; **purple is absent and that is correct** (no SIA register on a navigation hub — the existing Color Map's 60/30/10 note already states this); **domain colours are confined to identity** (the leading dot per StatBars row, the radar star-dots, the explore module dots) — never on a bar/polygon fill or any CTA. Glow uses the size-stepped scale: **none** on the XP bar / StatBars (inline), `--glow-orange` on the radar hub only in the radar variant — warm depth, never neon.
+- **Accessibility:** the XP bar carries a text/`aria-label` equivalent ("2,450 of 5,809 XP to level 15", matching the existing screen-reader label); the StatBars preview is announced as a list ("Fitness 72 of 99, Sleep 65 of 99 …") and the radar variant carries a summary `aria-label` ("Life Power 487; strongest fitness 72, weakest meditation 39"); **status/series never by colour alone** — every StatBars row shows a **visible value number** beside the bar and a labelled domain (not just a colour dot), and the quick-link notification dots (today bare orange/green `aria-hidden` dots — a **colour-alone + 1.4.11 miss**) gain a **visible glyph/label** (e.g. a count badge "12" / a ✓-"new" tag) so unread/new state isn't colour-only; label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — the XP Living-Line stroke, the StatBars fills, the radar polygon + star dots, and the filled/unfilled boundary all meet ≥ 3:1 vs background (the `white/05` radar grid rings are decorative-only and exempt); interactive chart/row targets ≥ 44×44pt; `prefers-reduced-motion` renders all at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Finch + Habitica + Things (identity hub, calm) — *stays Balencia via the XP Living-Line bar + domain StatBars composition + warm-glow surfaces on ink-brown, not a flat stat grid.*
+**Pre-grade:** A− (85) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+One focal point: the **profile section** (avatar + name + RPG badge + XP Living-Line bar) — the first element read, identity anchor, ~200pt vertical span. The XP bar is the visual anchor within that (the only ≥8px continuous stroke on screen). Everything else is visibly secondary: the stats row is a compressed 80pt card with four equal-weight numbers (no visual dominance), the quick-links grid is deliberately a navigation grid (10 equal cards, not a dashboard), the explore preview is a discovery scroll (secondary by IA), and the domain StatBars preview sits *below* the stats row as a composed-of breakdown (a visual annotation, not a focal chart). The squint test lands on the profile avatar + name first, then the XP bar fill, then the stats row as a dense block. No competing foci.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-lg` (20pt, per the brand card radius rule for this screen's mid-size cards) · 1px `--glass-border` (`--color-alpha-white-06`) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue) · `--shadow-1`. The profile section floats card-less on `--color-ink-900` (an intentional contrast choice to read as elevated), while the stats row, quick-links cards, and module cards all receive the layered treatment. The XP progress bar sits within the profile section: 8px height, `--radius-pill` caps, `--color-alpha-white-08` track over a `--track-inset` (`rgba(0,0,0,0.28)`) beveled recess — a depth pass that fixes the prior invisibility on `ink-900`. The domain StatBars preview (if rendered) uses the same track language: each bar is 6px, `--radius-pill`, `--color-alpha-white-08` track over `--track-inset`, fill `--color-brand-orange`. No glow on the inline XP bar or StatBars (they are <36px elements per CONSISTENCY.md §1); the settings gear icon carries no glow. The quick-link cards and explore module cards are small (72pt and 120pt respectively), so they receive **`--glow-orange-sm`** (~12px /.35) only if they carry an active state (a notification badge or a "new" badge lights one briefly on first arrival); at rest, no glow. Extends the same depth language to all surfaces so nothing reads as a flat box.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` tokens: user name `--text-h2` (20pt) / 600 weight / `--leading-snug` (1.25) / white 100%; RPG badge text ("Lv.14") `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%; XP label ("2,450 / 5,809 XP") `--text-caption` (13pt) / 400 / `--leading-normal` (1.4) / white 50%; member-since `--text-small` (11pt) / 400 / `--leading-normal` / white 40%; stats row numbers `--text-display-l` (32pt) / 700 / `--leading-tight` (1.1) / white 100% with tabular-nums; stats row labels `--text-caption` (13pt) / 400 / `--leading-normal` / white 50%; quick-link card label `--text-h3` (17pt) / 600 / white 100%; quick-link subtitle `--text-caption` (13pt) / 400 / white 40%; explore section eyebrow ("suggested for you") the `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white 40%); "see all" link `--text-h3` (17pt) / 600 / `--color-brand-orange` (no weight accent beyond existing bold); module card name `--text-h3` (17pt) / 600 / white 100%; module card domain + description `--text-caption` / 400 / white 40–50%. Hierarchy is carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout. ≤2 `--color-brand-orange` accent words on the screen (the diamond ◆ glyph on Life Power is non-text, so the two accents are: the RPG badge "Lv.14" text and the "see all" link). Chillax stays logo-only (none on this screen). Replaces the ad-hoc pixel line-heights with the `CK-T04` scale (`--leading-tight / snug / normal / relaxed`).
+
+### Microcopy (before → after)
+
+All narrative copy is authored to `CK-P5` brand voice. Specific authored microcopy per state:
+
+- **Profile → member-since** — *before:* "member since May 2026" (given) → *after (kept):* same; warm, plain, anchors identity. (Already on-voice.)
+- **Settings gear icon a11y label** — *before:* no label → *after:* "Settings" (simple, clear).
+- **Stats row a11y context** — *before:* bare numbers → *after:* "Tap to view character" (tappable affordance labeled).
+- **XP bar loading** — *before:* no message → *after (new, on-voice):* label is animated / skeleton text "building your momentum" during load.
+- **StatBars preview, day-1 / new user** — *before:* ghosted tracks, no message → *after (new, non-shaming):* "Your stats grow as you build habits" + a "see all 10" link (never empty or hidden; frames building not deficit).
+- **StatBars preview, partial sync** — *before:* unclear if ghosted = no data or low stat → *after (new):* ghosted/dashed track is visually distinct from a real 0 (no-data ≠ zero, per the design rules).
+- **Quick-link card "Notifications" badge, unread count** — *before:* bare orange dot (colour-only) → *after (new, a11y):* count badge "12" visible + glyph (notification bell) so unread state is not colour-alone. (Resolves the colour-alone miss flagged in Accessibility.)
+- **Explore preview, no AI suggestions (fallback)** — *before:* silently shows 3 "popular" modules → *after (new, microcopy):* eyebrow shifts to "popular with Balencia" (warm, honest framing; never "explore" without context).
+- **Error state (stats API failure)** — *before:* no message → *after (new, on-voice):* "Couldn't load your stats — pull to refresh" (specific, recovery action named).
+- **Pull-to-refresh success** — *before:* no confirmation → *after (new):* brief toast "Stats refreshed" (warm, specific).
+
+No exclamation marks; the brand period used with intent; all SIA copy (if present on explore cards) is specific to the user's data (a real curated insight, never a horoscope).
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first): the **profile section fades in** (`--dur-base` 280ms `--ease-out-soft`) → the **XP Living-Line bar draws** `0 → value` (520ms `--dur-slow` `--ease-flow`, starting after the profile fade — preserves the existing bar-entrance timing) → the **stats row counts up** (520ms `--dur-slow`, the Life Power number is the lead counter) → the **domain StatBars preview rows rise** L-anchored `0 → value` (520ms `--dur-slow` `--ease-flow`, ~60ms stagger between rows) → the **quick-links grid fades in** (staggered, 280ms `--dur-base` each, 40ms stagger) → the **explore preview cards fade in** (280ms each, 40ms stagger). Below-fold surfaces animate on scroll-into-view. `prefers-reduced-motion` → all elements at final state instantly; the Living Line's static form (orange fill at value, never animated) and the StatBars at their final fills preserved — no essential info lost.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | XP bar at 0% (honest empty), all stats "0", quick-links all visible with adapted subtitles ("Lv.1 beginner", "no entries yet", "start a streak"), domain StatBars show all starting values with ghosted/dashed tracks for un-started domains | "Your stats grow as you build habits"; "Member since [today]"; quick-link subtitles adapt per card (never "0" alone, never hidden) | profile section keeps depth; StatBars ghosted tracks visually distinct from real 0; no degenerate empty radar / no collapsed shape |
+| Loading | XP bar: skeleton pill (same track height, shimmer) → drawn fill; stats row: skeleton numbers (4 wide shimmer) → values; StatBars: row skeleton (track + label outline, shimmer) → bars. Layout preserved, depth visible. | "SIA is reading your profile — one moment." | skeleton on `--color-ink-brown-800`, shimmer animation, morphs into data (never a swap) |
+| Empty / partial | un-synced domains: ghosted/dashed StatBars rows; missing stats: only present cards render, others remain skeleton (not hidden). Explore: fallback "popular" module cards render. | "Can't sync Meditation — try again later" (per-domain, if applicable); "building your balance" for stats that haven't synced | no-data ≠ zero (ghosted tracks, not real 0); ghosted, never silent |
+| Error | stats row shows last-cached values if available, skeleton if not; StatBars show cached domains if available, others ghosted; a network banner below the sticky header (if applicable to the screen) names the failure. Explore: falls back to 3 "popular" modules. | "Couldn't refresh your stats. Pull to refresh." | calibrated `--color-error-red` only on genuine sync failure (red outline on the affected zone); glyph + word paired (a small alert icon + text, never colour-alone) |
+| Offline | all cards show cached data; pull-to-refresh is dimmed with a reason. | "You're offline — showing your last sync." | actions honestly dimmed (50% opacity, no haptic); cached data retained |
+
+### Signature & anti-generic
+
+Ownable moments: the **XP Living-Line bar** (the horizontal continuous stroke, orange→green arrival, the brand signature on a navigation hub) and the **domain StatBars composition** (making Life Power legible as a shape, not just a number — the honest alternative to a generic radar/donut). Anti-generic fix: the 10 quick-link cards are *not* a flat symmetric grid (CK-P6). They are a 2×5 grid with slightly varied card heights (quick-links are 72pt, but the variant with a thumbnail or a badge on a link can be 80–88pt), and the section is led by a profile header + stats row that breaks the card monotony and anchors identity first — so the screen never reads as an undifferentiated card stack. The explore preview is a horizontal scroll (a deliberate asymmetry that guides the eye), not a grid. The settings gear in the top-right corner is a premium detail (never generic — a purposeful IA choice, not a template afterthought).
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+| Element | Color | Contrast |
+| --- | --- | --- |
+| User name | `--color-alpha-white-100` | ≥12:1 on both |
+| RPG badge text (Lv.14) | `--color-brand-orange` | 3.2:1 on `--color-ink-brown-800` (WCAG 1.4.11) |
+| XP bar (orange fill) | `--color-brand-orange` | 3.2:1 on `--track-inset` recess |
+| XP bar (green arrival segment) | `--color-forest-green` | 2.8:1 on track (below 3:1, flagged as a Visualization-phase responsibility for the build program) |
+| Stats row numbers | `--color-alpha-white-100` | ≥12:1 |
+| Stats row labels | `--color-alpha-white-50` | ≥4.5:1 |
+| "see all" link | `--color-brand-orange` | 3.2:1 (WCAG 1.4.11) |
+| Quick-link labels | `--color-alpha-white-100` | ≥12:1 |
+| Quick-link subtitles | `--color-alpha-white-40` | ≥4.5:1 |
+| Settings gear icon | `--color-alpha-white-60` | ≥4.5:1 |
+| Notification badge count | `--color-brand-orange` OR white 100% (depends on badge style) | ≥3:1 (glyph + count label, never colour-alone) |
+| Module card domain dot | per domain color | identity-only (not load-bearing data) |
+
+Status never colour-alone: unread Notifications badge shows a **visible count** ("12") + a glyph (bell icon); new achievement shows a **visible "new" label** + a green dot; all interactive elements carry `--focus-ring` (`CK-T03`, 2px orange, 2px offset) uniform app-wide — the settings gear, avatar, RPG badge, stats row, quick-link cards, explore cards, "see all" link all use the same ring. Targets ≥44×44pt (the 44pt tap area for the settings gear is already met per the spec; the quick-link cards and module cards meet the 44pt minimum). Reduced-motion: the XP bar appears at final width instantly, Living Line's static form (orange fill) preserved; StatBars appear at final fill instantly; all staggered entrances collapse to instant.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -216,7 +347,7 @@ Me Main is the user's identity hub — their profile, RPG progression, and gatew
 | Card surfaces (stats, quick links, module cards) | #211008 | ink-brown-800 | z-10 surface |
 | Card borders | white at 8% | — | Subtle glass edge |
 | XP progress bar fill | #FF5E00 | Burnt Orange | 60% — primary accent |
-| XP progress bar track | #211008 | ink-brown-800 | Matches card surface |
+| XP progress bar track | white at 8% over inset rgba(0,0,0,0.28) | --color-alpha-white-08 / --track-inset (mint) | Recessed inset track per Visualization S17-V01 — fixes the previously near-invisible ink-brown-800-on-ink-900 track |
 | RPG level badge diamond icon | #FF5E00 | Burnt Orange | 60% — brand accent |
 | Life Power diamond icon (stats row) | #FF5E00 | Burnt Orange | 60% — Life Power indicator |
 | Life Power number (stats row) | #FFFFFF | white 100% | Primary text (same as other stat numbers) |

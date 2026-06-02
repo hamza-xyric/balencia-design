@@ -581,6 +581,165 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+**Profile:** content  ·  **Cluster benchmark:** iOS system sheets + Linear dialogs — *stays Balencia via the warm-glow bottom sheet, SIA avatar warmth (not generic "rate us"), and non-coercive happy-path-first tone with honest feedback capture for negative cases.*
+
+**Pre-grade:** B+ (78)  ·  **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): the spec is strong on IA and motion, but (1) the bottom sheet surfaces are flat `ink-900` cards with no depth language (no top-edge highlight, no layered glow); (2) SIA avatar is decorative in appearance but the emotional voice around it is thin in places; (3) microcopy edges (empty feedback text, loading states, error recovery) are partly templated or unwritten; (4) the feedback form's disabled-state reason and the "don't ask again" confirmation message are not authored; (5) focus ring language is ad-hoc ("2pt orange ring, offset 2pt") and not unified to the app's `--focus-ring` token; (6) contrast pairs on the feedback text area are asserted but not tabulated.
+
+### Focal hierarchy
+
+One focal point: the **5-star rating row** — the primary interaction, 268pt wide × 44pt, glowing with the user's emotional weight. The **SIA avatar and question sit visibly above as a warm preamble**, emotionally anchoring the ask but not competing for focus (avatar 48pt, non-glowing; question text 22pt, setting tone but not a hero). The satisfaction question ("Enjoying Balencia?") reads as conversational, not transactional, so the squint test lands on the stars, not the text. On the positive or negative path (after stars are tapped), the new heading ("Thank you!" / "We hear you.") replaces the question but the stars remain visible at selected state and fade out, keeping the focal transition smooth. The CTA button (`--r-pill`, orange, 52pt) sits directly below as the secondary focal point — everything else (dismissal links, subtitle, feedback area) is visibly secondary by size, weight, and color.
+
+### Surface & depth
+
+The **bottom sheet container** (`ink-900` background) adopts the `CK-P1` Layered Warm Surface language, extending it to a modal context:
+- Body: `--color-ink-900` (not layered like card-stack surfaces, but the modal floats above the backdrop at `--shadow-3`, so the depth is created by elevation, not surface layering).
+- The **sheet interior surfaces** (if the design evolves to show a focus-visible ring container or a feedback-area card) use `--color-ink-brown-800` + `CK-T01 --edge-highlight` + 1px `--glass-border` (white-6) to distinguish them from the sheet's main fill. **For this spec as written** (flat feedback text area on ink-900), the text area receives a 1pt `--glass-border` and an inset focus border (`--color-brand-orange` at 60%, 1.5pt), but no top-edge highlight (it would be too busy on such a tight input).
+- **SIA avatar** carries a 1.5pt border in `--color-royal-purple` at 60% (the "AI indicator" role), a subtle warm accent that makes the ask feel like it comes from the user's coach, not a faceless system.
+- **Glow**: the 5-star row has **no glow** (stars are ~44pt inline elements, below the 36px glow threshold per `CONSISTENCY.md §1`). The orange CTA button (`52pt` pill, 40pt visible fill area) carries **`--glow-orange-sm`** (~12px /.35), so it reads as a premium affordance without overwhelming the modal's calm tone.
+- **Drag handle**: 36×4pt pill, white at 20%, centered, no glow — a pure affordance.
+- **All cards, text areas, and buttons** use the single, uniform `--shadow-` standard: the sheet itself is `--shadow-3` (high elevation, distinct from the backdrop); elements within the sheet do not carry additional shadows (avoiding shadow-stacking).
+
+### Typographic rhythm
+
+Map all type to `CK-P3` locked scale:
+- **Question / heading** ("Enjoying Balencia?" / "Thank you!" / "We hear you."): `--text-h1` (28pt) / 700 weight / `--leading-tight` (1.1) / white 100%.
+- **Subtitle** ("We'd love to hear how you feel" / "Your support means everything..."): `--text-body` (16pt, raised from the spec's 15pt to the real token) / 400 weight / `--leading-normal` (1.4) / white 60%.
+- **"Rate on App Store" / "Submit feedback" / "not now" / "maybe later" / "skip" CTAs and links**:
+  - CTA text: `--text-h3` (17pt) / 600 weight / white 100% (on orange button).
+  - Dismissal links: `--text-body` (16pt) / 400 weight / white 40% (low-priority exit) → white 50% on pressed.
+  - "don't ask again" / confirmation: `--text-caption` (13pt) / 400 weight / white 30% (lowest priority) → white 50% on confirmation state.
+- **Feedback hint text & input**: `--text-body` (16pt) / 400 weight / white 90% (input), white 25% (hint text) / `--leading-normal`.
+- **Character counter**: `--text-caption` (13pt) / 400 weight / white 30% (normal) → `--color-brand-orange` (≥180 chars) → `--color-error-red` (= 200 chars).
+
+Hierarchy is carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout. ≤2 orange accent words per screen. Chillax stays logo-only (none on this overlay). Use `--leading-normal` (1.4) instead of pixel line-heights.
+
+### Microcopy (before → after)
+
+Every string authored to `CK-P5` brand voice — warm, plain, coaching. No exclamation marks. The brand period used with intent.
+
+- **Question** ("Enjoying Balencia?") → kept (warm, personal, conversational).
+- **Subtitle** ("We'd love to hear how you feel") → kept (warm, specific).
+- **Positive heading** ("Thank you!" with exclamation) → "Thank you" (period, calibrated warmth, brand period rule).
+- **Positive subtitle** ("Your support means everything. A quick review helps others find Balencia too.") → kept (warm, specific, mutual value).
+- **Negative heading** ("We hear you.") → kept (warm, empathetic).
+- **Negative subtitle** ("Tell us what we can improve — your feedback shapes Balencia.") → kept (warm, non-defensive, non-shaming).
+- **Feedback hint text** ("What could be better?") → kept (warm, conversational, open-ended).
+- **Character counter** ("[count] / 200") → "[count] / 200 characters" (explicit unit, honesty).
+- **Dismissal links** ("not now", "maybe later", "skip") → kept (low-pressure, direct).
+- **Suppression confirmation** (new) → "Got it — we won't ask again." (warm, specific acknowledgment; replaces generic confirm; fades after 400ms).
+- **Feedback CTA loading** (new) → inline spinner (no text swap).
+- **Feedback success** (new) → heading morphs to "Thanks for sharing." (warm, specific, 280ms crossfade).
+- **Feedback error** (new) → "We couldn't reach the server. Your feedback will send when you're back online." (specific, constructive, no blame).
+- **Feedback disabled reason** (new) → "(Enter at least 10 characters to submit)" — small text beneath CTA, warm, non-shaming.
+- **Offline state** (new) → "You're offline — we'll save it when you reconnect." (honest, constructive).
+
+No exclamation marks; brand period intentional; non-shaming framing; all copy specific to context, never a horoscope.
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order:
+
+1. Sheet entrance: slides up from bottom (`translateY(100%→0)`, 520ms `--dur-flow` `--ease-flow`) + backdrop fade (0→60%, 280ms simultaneous).
+2. Drag handle: fades in (80ms delay, 160ms `--dur-fast` `--ease-out-soft`).
+3. SIA avatar: scale-fade (0.8→1.0, opacity 0→1), 80ms delay, 280ms `--dur-base`.
+4. Question & subtitle: fade-in + translateY(8→0), staggered 40ms apart, 120ms after avatar, 280ms each.
+5. Star row: staggered per-star fade-in, 40ms stagger L→R, 200ms after subtitle, 280ms each.
+6. Dismissal links: fade-in (160ms `--dur-fast`), 240ms delay after stars.
+7. Path transition: after 400ms (preserving star-selection visibility), question/stars cross-fade out (160ms), new content fades in + translateY(8→0) (280ms).
+8. Feedback area: fade-in + translateY(12→0), 80ms after heading, 280ms.
+9. CTA & counter: staggered fade-in + translateY(12→0), 80ms stagger, 280ms each.
+10. Sheet dismiss: slides down + backdrop fades (280ms).
+
+`prefers-reduced-motion`: all entrances instant; no loops; settled frame (all visible, all text readable, stars at selected state) is canonical.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Initial (unselected) | SIA avatar (neutral) + question + subtitle + 5 stars (white-20 fill) + links | "Enjoying Balencia?" + "We'd love to hear how you feel." | Avatar purple-border; `ink-900` sheet, `--shadow-3` |
+| Star preview (drag) | Stars fill orange at 60%, scale 1.05 temporarily, preview mode | (no text) | orange glow preview (temporary) |
+| 4–5 stars selected | Avatar → happy/celebratory; after 400ms: transition to positive path | "Thank you" + "Your support means everything. A quick review helps others find Balencia too." | orange fill + bounce scale; avatar morph + pulse |
+| 1–3 stars selected | Avatar → listening/empathetic; after 400ms: transition to negative path | "We hear you" + "Tell us what we can improve — your feedback shapes Balencia." | orange fill + bounce; avatar morph |
+| Positive path CTA loading | spinner (white, 20pt, centered) replaces text, button height preserved | (heading/subtitle unchanged) | spinner rotates (repeat `--dur-base`) |
+| Positive path CTA success | CTA → forest-green, checkmark appears (80ms delay), heading → "Thanks for sharing." (280ms crossfade) | "Thanks for sharing." | `--glow-green` flash (600ms) |
+| Feedback empty (<10 chars) | CTA at 40% opacity (disabled), text area white-8 border | "(Enter at least 10 characters to submit)" beneath CTA | CTA disabled, no haptic |
+| Feedback 10–179 chars | text area white-8 border (or orange if focused), counter white-30 | counter: "[count] / 200 characters" | input accepted, counter neutral |
+| Feedback 180–199 chars | counter shifts orange, brief pulse (1.0→1.05→1.0, 160ms) | counter in orange: "[count] / 200" (warning) | counter highlights, input accepted |
+| Feedback = 200 chars | input stops accepting, counter shifts error-red, light haptic | counter in red: "[count] / 200" (limit) | input halts (no error border) |
+| Feedback CTA loading | spinner (white, 20pt), text area + counter visible | (optional "Submitting..." or silent) | spinner rotates (repeat) |
+| Feedback submitted success | CTA → forest-green + checkmark (80ms delay), heading → "Thanks for sharing." (280ms), sheet auto-dismisses 1200ms later | "Thanks for sharing." | `--glow-green` flash (600ms) |
+| Feedback submission error | CTA border flashes error-red (400ms), text → "Couldn't send" (red), reverts after 2s. Toast: "We couldn't reach the server. Your feedback will send when you're back online." | Error message (warm, specific, actionable) | error-red border on CTA only; toast error-red accent |
+| "Don't ask again" (1st tap) | text crossfades to confirmation: "Are you sure? Tap again to confirm." (white-50, 200ms), internal 5s timer | confirmation message (warm, honest) | text color shift; ready for 2nd tap |
+| "Don't ask again" (2nd tap, within 5s) | text → "Got it — we won't ask again." (white-40, 200ms), sheet dismisses 800ms later | confirmation (warm, acknowledges permanent choice) | silent dismissal is the signal |
+| "Don't ask again" (timeout, no 2nd tap) | text reverts to "don't ask again" (crossfade 200ms) | original label | silent revert |
+| Sheet dismiss (any path) | sheet slides down (`translateY(0→100%)`), backdrop fades, underlying screen returns full brightness | (no new text) | shadow-3 fades with sheet |
+| Offline / network unavailable | sheet functions; CTA disabled (40% opacity) + reason beneath | "You're offline — we'll save it when you reconnect." | CTA disabled (40% opacity, no haptic); text area editable (draft offline) |
+
+### Signature & anti-generic
+
+**Ownable moment**: the **SIA avatar with expression morphing** (neutral → happy on 4–5 stars; neutral → listening on 1–3 stars) is the signature — this transforms the generic "rate us" modal into a moment where the user feels heard by their coach, not pestered by a bot. This is the one thing a generic app-store prompt cannot do: the ask becomes personal.
+
+**Anti-generic fixes**:
+- The 5-star row is large (44pt stars, 268pt total width, centered), making the interaction feel effortless.
+- The happy-path-first branching (positive → App Store; negative → in-app feedback form) *saves* users from negative reviews by framing feedback as a constructive outlet.
+- The "don't ask again" confirmation requires two taps within 5 seconds, preventing accidental permanent suppression.
+- Feedback form tone is warm, empathetic ("We hear you"), positioning feedback as shape-bearing ("your feedback shapes Balencia").
+- Microcopy edges authored with warmth: "Got it — we won't ask again" on suppression, error messages constructive ("we'll save it for you"), disabled reason warm ("Enter at least 10 characters"), no generic "Success!" toasts.
+
+### Accessibility
+
+Tabulated load-bearing contrast (on `--color-ink-900`):
+
+| Element | Color | Contrast | Notes |
+| --- | --- | --- | --- |
+| Question text | white 100% | ≥12:1 | primary, heading |
+| Subtitle | white 60% | ≥4.5:1 | secondary, descriptive |
+| Star (unselected fill) | white 20% | affordance (not load-bearing text) | each star labeled "Rate [N] out of 5 stars" |
+| Star (selected fill) | `--color-brand-orange` | 3.2:1 (WCAG 1.4.11) | data-ink; status = fill + "N stars selected" |
+| CTA text | white 100% on orange | ≥4.5:1 | primary action, button |
+| Dismissal link | white 40% | ≥4.5:1 | secondary, link role, 44pt target |
+| "Don't ask again" | white 30% | ≥3:1 | lowest-priority, link role, 44pt target |
+| Confirmation text | white 50% | ≥4.5:1 | temporary alert state |
+| Feedback hint text | white 25% | ≥3:1 (hint, not load-bearing) | input affordance |
+| Feedback input text | white 90% | ≥12:1 | user content |
+| Character counter (normal) | white 30% | ≥3:1 | meta info |
+| Character counter (warning, 180–199) | `--color-brand-orange` | 3.2:1 | status change |
+| Character counter (limit, 200) | `--color-error-red` | 3.2:1 | operational failure |
+| Text area focus border | `--color-brand-orange` at 60%, 1.5pt visible | 3.2:1 | focus + visible border (not color-alone) |
+
+**Focus ring**: single uniform `--focus-ring` (`CK-T03`, 2px orange, 2px offset) on all focusable elements: star row (grouped + individual states announced), CTA buttons, dismissal links, feedback text area. Text area internal focus (orange border) + outer focus ring ensure keyboard-user clarity.
+
+**Star rating**:
+- Each star: `accessibilityRole="button"`, `accessibilityLabel="Rate [N] out of 5 stars"`.
+- Row grouped: `accessibilityRole="adjustable"` (VoiceOver swipe up/down to increment/decrement).
+- Selected state announced: "[N] stars, selected."
+
+**Feedback text area**:
+- `accessibilityRole="textbox"`, `accessibilityLabel="Feedback, what could be better"`.
+- `accessibilityHint="Enter at least 10 characters, up to 200. Your feedback is private and helps us improve."` (warm, informative).
+- Counter announced VoiceOver when ≥180: "180 characters, approaching limit."
+
+**CTA disabled state**:
+- When feedback < 10 characters: `accessibilityState={disabled: true}`.
+- VoiceOver: "Submit feedback, dimmed, enter at least 10 characters to submit." (reason included).
+
+**"Don't ask again" confirmation**:
+- First tap: label updates to "Are you sure? Tap again within 5 seconds to confirm permanent opt-out." (immediately announced).
+
+**SIA avatar**: `accessibilityElementsHidden={true}` (decorative; emotion conveyed via microcopy).
+
+**Reduced-motion**: animations skip to final state instantly; settled frame (all text visible, stars at selected state, avatar at final expression) canonical — no essential info lost.
+
+**Dynamic type**: text scales to 1.3x system size without breaking layout; 22pt heading → 28pt (question area expands); star row 44pt touch target preserved; sheet height expands gracefully.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: App Store review prompt (native OS, via StoreKit / Google Play In-App Review API). No in-app screen navigation — the sheet overlays and dismisses without changing the navigation stack.

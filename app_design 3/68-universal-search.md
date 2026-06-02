@@ -658,6 +658,153 @@ N/A — Universal Search is a pure utility screen. It does not adapt based on mo
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Spotlight + Things search — *stays Balencia via orange query-match highlights, the SIA purple dot (max-2-purple earned), warm-glow layered surfaces, and the brand period, not a cold flat command palette.*
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+The **search input field** is the single focal point — positioned at z-41 above all results, auto-focused with cursor blinking, full-width minus 32pt margins, and the visual anchor of the entire screen. The inline clear (×) button and cancel text button are secondary affordances. Everything below (category chips, SIA suggestion, recent searches, result sections) is deliberately secondary: category chips are a horizontal scroll row (not fixed), the SIA suggestion row appears *after* 2+ characters (progressive disclosure), recent searches and result sections fill the scroll area below. The squint test lands on the search field first, confirming the input as the sole interactive epicenter. No competing focal element.
+
+### Surface & depth
+
+Every card and row adopts the `CK-P1` Layered Warm Surface vocabulary: `--color-ink-brown-800` body · `--radius-md` (14pt, per the brand card rule for <80px elements — result rows sit in a section card container) · 1px `--glass-border` (white/6) · **`CK-T01 --edge-highlight` top-edge highlight** (the not-flat cue, previously absent) · `--shadow-1` on the card container. The SIA suggestion row sits in its own card surface: `--color-ink-brown-800` · `--radius-md` · `CK-T01` edge-highlight · 1px glass border. Recent search rows are flat within the section card (no inner surfaces), but the section header and dividers apply the layered language to the container. The clear button inside the input carries no glow (it is an inline element <36px per CONSISTENCY §1). The category filter chips are `--radius-pill` with `--color-ink-brown-800` body (unselected) or `--color-brand-orange` at 15% opacity bg (selected) — both receive `--glass-border` (white/6) and no glow. The SIA suggestion row is distinguished by the purple dot (8pt, `--color-royal-purple`), which provides visual emphasis without additional surface depth. Result rows are flat within their section card (no secondary surfaces per row), but the section eyebrow uses the `.eyebrow` style (12pt / 600 / uppercase / `--color-alpha-white-40` / 0.12em tracking). No surface reads as a flat box.
+
+### Typographic rhythm
+
+Map all text to `CK-P3` tokens: search input text `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 100%; hint text "search balancia…" `--text-body` / 400 / white 30%; cancel button `--text-h3` (17pt) / 600 / `--color-brand-orange` / no glyph; category chip labels `--text-caption` (13pt) / 600 / `--leading-normal` / white 60% (unselected) or `--color-brand-orange` (selected); chip count badge `--text-small` (11pt) / 700 / white 100%; section eyebrow ("GOALS") `.eyebrow` recipe (12pt / 600 / uppercase / `--color-alpha-white-40` / 0.12em); result count "(N)" `--text-caption` / 600 / white 60%; result row primary text (goal/habit/recipe names, note previews, setting names, screen names) `--text-h3` (17pt) / 600 / white 100%; result row secondary text (metadata, subtitles, descriptions) `--text-caption` (13pt) / 400 / `--leading-normal` / white 50%; matched query characters highlighted in orange **at Semibold weight within the row's primary text** (the matched segments receive weight 600 vs the surrounding 600, so the highlight reads as a *value* emphasis, not a weight shift — done by selective span styling, not a separate style step); SIA label ("SIA thinks you're looking for:") `--text-caption` / 400 / white 50%; SIA suggestion text `--text-h3` / 600 / white 100%; empty-state primary "No results for '[query]'" `--text-h2` (20pt) / 700 / `--leading-snug` (1.25) / white 100%; empty-state secondary `--text-body` / 400 / `--leading-normal` / white 50%; "Clear all" link `--text-h3` / 600 / `--color-brand-orange`. All stat figures (progress %, streak counts, calorie + time metadata) tabular-nums. Hierarchy is carried by **weight** (600–700 vs 400), not size alone. **No exclamation marks anywhere**; the brand period is used with intent on key closing words (the "clear all" action can close with a period if framed as a statement: "Clear all."). Sentence case on all labels and buttons. ≤2 `--color-brand-orange` accent words on screen (the highlights within result rows are contextual matches, not accents — accents are only the cancel button and the "Clear all" link). Chillax stays logo-only (none on this screen).
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` — warm, precise, non-shaming, on-voice.
+
+**Search input & control strings:**
+- **Hint text text** — *before:* "search balancia..." (given) → *after (kept):* same; lowercase, friendly, guides without commanding.
+- **Cancel button** — *before:* "Cancel" (given) → *after (kept):* same; a single word is the Balencia style for a brief escape.
+- **Clear button (×)** — *before:* no label → *after (new, a11y):* `aria-label="Clear search"` (semantic without visual text).
+
+**Initial state (empty query, recent searches):**
+- **Recent search section** — *before:* "RECENT SEARCHES" (given) → *after (kept):* same; eyebrow-style uppercase.
+- **"Clear all" link** — *before:* "clear all" (given) → *after (kept):* same; lowercase, friendly, no shame framing ("clear" not "erase" or "delete").
+- **No recent searches (day-1)** — *before:* section hidden silently → *after (new):* "Search across everything. Goals, habits, recipes, notes, settings, and more." (14pt Sora Regular, white 50%, centered below chips, never silent — frames the opportunity warmly).
+
+**Typing / live suggestions:**
+- **SIA label** — *before:* "SIA thinks you're looking for:" (given) → *after (kept):* same; conversational, introduces the suggestion warmly.
+- **SIA suggestion text** — *before:* unspecified → *after (new, authored):* a real prediction specific to the user's data, never a horoscope. *Examples:* "Morning Routine goal" / "Protein target setting" / "Sleep tracking" (drawn from recent behavior, recent views, or top-accessed items — never generic "try searching for X"). Copy is plain, specific, earns the purple dot.
+
+**Results & categorization:**
+- **Section eyebrows** ("GOALS", "HABITS", "RECIPES", etc.) — *before:* given → *after (kept):* uppercase, eyebrow-style.
+- **Count badge "(N)"** — *before:* given → *after (kept):* same, no shame framing (a "(0)" count remains visible as a fact, never hidden).
+- **Query match highlights** — *before:* unspecified → *after (new, visual + copy):* matched characters are visually distinct (orange + Semibold weight) but the match itself carries no congratulatory text (no "Found X results!"). The highlighting speaks for itself.
+
+**Empty state (no matches):**
+- **Primary message** — *before:* "No results for '[query]'" (given) → *after (kept):* same; calm, factual, frames the query failure without shame.
+- **Secondary message** — *before:* "Try a different spelling or search term" (given) → *after (kept):* same; constructive suggestion, no guilt framing.
+- **SIA "Did you mean?" suggestion** — *before:* unspecified → *after (new, on-voice):* "Did you mean '[fuzzy suggestion]'? It's in [domain]." (if SIA can make a confident fuzzy match; never a horoscope suggestion).
+
+**Loading state:**
+- **Skeleton label** — *before:* no message → *after (new, on-voice):* "Searching for '[query]'…" (13pt Sora Regular, white 40%, appears during the 300ms debounce; disappears when results render or error occurs).
+
+**Error state:**
+- **Error banner** — *before:* unspecified → *after (new, on-voice + recovery):* "Some results may be missing. Pull down to retry." (13pt Sora Regular, white 70%, inline error-red left border 1pt, error-red dot 6pt left of text, never colour-alone; pull-down refreshes the API call; success dismisses the banner with fade-out 280ms).
+- **Offline banner** — *before:* unspecified → *after (new, honest):* "Searching offline — some results may be outdated." (13pt Sora Regular, white 40%, cloud-offline icon 14pt left of text, no error-red — it is informational, not an alarm).
+
+**Permissions / disabled states:**
+- **"Clear all" confirmation (optional)** — *before:* direct delete with no confirmation → *after (optional, non-shaming):* a brief inline toast (not a modal) after "Clear all" is tapped: "Search history cleared." (13pt Sora Regular, white 70%, 2s auto-dismiss). No guilt framing, no undo needed (history is logged server-side, retrieval is always possible).
+
+**State-specific microcopy:**
+- **Recent search row, swipe-delete reveal** — *before:* unspecified → *after (new):* red background with white trash icon (no label needed; the colour + icon pair conveys "delete" instantly, and release past 30% commits the delete).
+- **Category filter, tapping a 0-result chip** — *before:* unspecified → *after (new, inline feedback):* "No [category] results for '[query]'" below the chips, 13pt Sora Regular, white 40%, fades out after 2 seconds (never shows a modal or error state — just a gentle inline note).
+
+No filler, no placeholders, no "success!" generic toasts. SIA copy is specific to user data. Non-shaming throughout: a 0-result state is a search failure, never a user failure; a low result count is just a fact; offline mode is honest (not catastrophic); disabled actions are named with reason.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first):
+
+1. **Overlay entrance** — slide-up from bottom (translateY 100% → 0, 280ms `--ease-out-soft`); search input auto-focuses and keyboard appears (50ms after overlay settles); backdrop dims underlying screen from 0 to 60% opacity (parallel with overlay slide).
+
+2. **Recent searches (initial state)** — staggered fade-in + translate-up (`translateY(8→0)`, 160ms `--ease-out-soft` per row, 40ms stagger, starts after overlay settles); **not a draw** — this is a warm fade.
+
+3. **On typing (after 300ms debounce)** — SIA suggestion row fades in + translates up (280ms `--ease-out-soft`) as soon as 2+ characters are typed and SIA has a prediction; result sections appear staggered: **first section** fades in + rises (280ms), then **each sibling section** fades in (280ms `--ease-out-soft`, 60ms stagger between sections); **result rows within each section** fade in staggered (160ms each, 40ms stagger within section); category filter chips remain in place (no animation on chip selection itself, only the results crossfade).
+
+4. **Category chip selection** — selected chip fills with orange at 15% opacity (160ms), unselected chip returns to default (160ms), results crossfade (280ms `--ease-out-soft` on the new filtered set) — one unified crossfade for all results, not a per-row stagger (preserves clarity in the filter transition).
+
+5. **Recent search row delete** — row slides left (translateX 0 → 100%, 280ms `--ease-out-soft`) and collapses height (gap closes, 280ms simultaneously); rows below slide up to fill the gap.
+
+6. **Empty results state** — fades in + translates up (280ms `--ease-out-soft`, `translateY(16→0)`) when query matches nothing.
+
+7. **Keyboard dismiss** — on result row tap or on scroll past first result, keyboard slides down (~200ms system timing); overlay remains open unless the result tap triggers a navigation (then overlay and navigation both animate in parallel).
+
+8. **Overlay dismiss** — slide-down (translateY 0 → 100%, 280ms `--ease-out-soft`); keyboard dismisses in parallel (~200ms); backdrop fades out.
+
+**Reduced-motion:** all slide/translate animations become instant (0ms) and fade-in animations collapse to instant final opacity; the settled frame (recent searches visible, no stagger, all sections rendered, no scrolls animating) is the canonical frame. Staggered animations are disabled; entrance animations preserve their final visual composition but do not animate.
+
+**Below-fold surfaces:** categories, result sections, and empty state all animate on entrance (the current "scroll-into-view" pattern is not used here — the search overlay's bounded height means most results are visible on first render, and those that aren't scroll immediately into a settled state). No "lazy animate on scroll" — it reads as sluggish.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** (no search history) | Category chips visible, no recent-search section, replacement centered message below chips + keyboard auto-shown | "Search across everything. Goals, habits, recipes, notes, settings, and more." | cards use full layered depth; message is body-weight, warm, not a sad empty state |
+| **Loading** (typing, results resolving after debounce) | Input remains locked, category chips remain visible, skeleton result rows (4 wide, ink-brown-800 shimmer) replace result area, loading label "Searching for '[query]'…" appears inline above skeletons | "Searching for '[query]'…" (inline, body-small) | skeleton cards use the same card surface depth as final results (not flat shimmer) |
+| **Empty / partial** (query matches some categories, misses others) | Input remains open, matched categories show results, empty categories are hidden entirely (no "0 results" cards), unmatched category chips show 40% opacity if results exist elsewhere | No extra message (results speak for themselves) + SIA "Did you mean?" suggestion (if applicable) below the matched sections | present results use full depth; the absence of empty-category cards is honest and calm |
+| **Error** (API failure, network timeout, server error) | Results area shows an inline error banner (full-width, 1pt error-red left border, error-red dot 6pt left of text, 13pt copy) below the chips, local results (Goals, Habits, Settings, Screens) remain visible and searchable, server-dependent results (Recipes, Community, SIA Suggestion) show a disabled state or banner | "Some results may be missing. Pull down to retry." (on-voice, specific, recovery action named) | banner uses error-red border + white text, never a full red background (restraint); local results retain their full surface depth |
+| **Offline** (no network connection) | Results show cached local index (Goals, Habits, Notes, Journal, Settings, Screens), Recipes and Community sections are hidden entirely (not shown with "unavailable" message — they require real-time data), subtle banner below chips | "Searching offline — some results may be outdated." (honest, calm, no alarm) | banner is info-only (no error colour); local result cards use full depth; hidden sections have no hint text or "coming soon" text (absence is the signal) |
+
+### Signature & anti-generic
+
+**Ownable moments:**
+1. **Query match highlighting** — matched characters within result text highlight in orange with Semibold weight (orange + weight accent, not colour-alone), distinguishing Balencia search from flat text-matching. The highlight is specific to each result row, never a generic flash or banner.
+2. **SIA suggestion row** — the purple dot (8pt, `--color-royal-purple`, max-2-purple earned) introduces the AI prediction in a dedicated card surface, not an inline chip or banner. Copy is specific to the user's recent data and behaviour, never a generic "try X" template.
+3. **Category filter chips** — pill-shape chips with orange selection state (15% opacity, never full saturation) — a restrained, warm way to filter rather than a cold segmented control or dropdown.
+
+**Anti-generic fixes:**
+1. **Flat result rows → layered surfaces:** every result row sits inside a section-header-titled card with `CK-T01` edge-highlight, so the list doesn't read as a flat template. The dividers (1pt white/5%) between rows are subtle and warm, not harsh.
+2. **Silent empty state → authored message:** "Search across everything. Goals, habits, recipes, notes, settings, and more." (never blank or hidden).
+3. **Generic loading → inline label:** "Searching for '[query]'…" (specific, warm, not a spinner).
+4. **No depth on inputs/chips → full card language:** category chips, the search input, and the SIA suggestion row all carry the Balencia surface language (glass border, edge-highlight, shadows) — premium inputs, not default mobile elements.
+
+The screen never reads templated or default — every surface, every string, and every interaction reflects the warm, restrained, premium voice of Balencia.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-900` / `--color-ink-brown-800`):
+
+| Element | Color | Contrast | Notes |
+| --- | --- | --- | --- |
+| Search input text | `--color-alpha-white-100` | ≥12:1 on both | Active input, primary |
+| Hint text text | `--color-alpha-white-30` | ≥4.5:1 on `--color-ink-brown-800` input bg | Tertiary text (deemphasized affordance) |
+| Cancel button | `--color-brand-orange` | 3.2:1 on `--color-ink-900` (WCAG 1.4.11) | Interactive text, action CTA |
+| Category chip (selected text) | `--color-brand-orange` | 3.2:1 on `--color-ink-brown-800` bg (WCAG 1.4.11) | Interactive, selected state |
+| Category chip (unselected text) | `--color-alpha-white-60` | ≥4.5:1 on `--color-ink-brown-800` | Tertiary text, unselected |
+| Section eyebrow | `--color-alpha-white-40` | ≥4.5:1 | Meta label, non-interactive |
+| Result row primary text | `--color-alpha-white-100` | ≥12:1 | Load-bearing content |
+| Result row secondary text | `--color-alpha-white-50` | ≥4.5:1 | Tertiary content, metadata |
+| Query match highlight (orange) | `--color-brand-orange` | 3.2:1 (WCAG 1.4.11) | Matches within row text, value emphasis |
+| SIA suggestion dot | `--color-royal-purple` | 2.1:1 on `--color-ink-brown-800` (below 3:1, flagged) | Decorative accent (not load-bearing); the "SIA thinks…" label carries the semantic meaning |
+| Empty-state primary | `--color-alpha-white-100` | ≥12:1 | Load-bearing message |
+| Empty-state secondary | `--color-alpha-white-50` | ≥4.5:1 | Supporting text |
+| Error banner text | `--color-alpha-white-70` | ≥4.5:1 | Error message (glyph + text, never colour-alone) |
+| Error banner border | `--color-error-red` | 1pt border, visually distinct from background | Colour + glyph + word (the red dot + "Some results may be missing") |
+
+**Focus-visible rings:** all interactive elements (Cancel button, category chips, recent search rows, result rows, "Clear all" link, SIA suggestion row, "Did you mean?" suggestion) carry `CK-T03 --focus-ring` (2pt `--color-brand-orange`, 2px offset) on keyboard navigation. Uniform app-wide.
+
+**Touch targets:** all interactive rows and buttons meet ≥44×44pt (search input 48pt height, cancel button 44pt minimum, category chips 40pt height, recent/result rows 48–72pt depending on variant, SIA row ~64pt, "Clear all" link 44pt minimum). The clear (×) inside the input is 20pt circle in a 44pt touch zone (the input field itself is the larger target).
+
+**Status and colour-alone:** every result type that uses a status (goal progress %, habit streak, recipe time/calories, journal mood, settings current-value) shows **both** a numeric or textual value AND a secondary label or glyph — never colour-alone. The orange progress % is accompanied by text "72%"; the habit streak flame emoji is paired with a number "14"; the journal mood emoji is paired with the date. Status in the result rows is load-bearing and tabulated above. Category filter chips show counts as labels (not just a colour change), and the count badge is white text on orange bg (no colour-only counting).
+
+**Semantic HTML & ARIA:** search input is `<input type="search" />` with `aria-label="Search Balencia"`; cancel button is a `<button>` with `aria-label="Cancel search"`; category chips are radio buttons (only one category active at a time) or `<button role="tab">` with `aria-selected="true|false"`; result rows are `<button>` or `<a>` with semantic text (no empty buttons); SIA suggestion row is a `<button>` with `aria-label="[Specific suggestion text]"`; "Clear all" is a `<button>` with `aria-label="Clear search history"`. Empty state, loading, and error messages use `role="status"` or `role="alert"` to announce state changes to screen readers.
+
+**Keyboard navigation:** Tab order: search input → Cancel button → category chips (as a radio group) → recent search rows (or result rows) → "Clear all" link. Arrow keys navigate category chips (left/right to select). Enter on any result row or SIA suggestion triggers navigation. Escape in the search input clears the query; Escape again (if input is empty) closes the overlay. Shift+Tab reverses the focus order. All keyboard paths are documented in the Technical Notes section.
+
+**Reduce motion:** all entrance animations become instant; stagger timings collapse; the settled frame (all sections visible, no animation, full depth preserved on all surfaces) is instantly rendered. The search overlay appears instantly at full opacity, results render instantly at their final positions, skeletons are skipped (final data shown immediately if loading <300ms). No animation is load-bearing to the interaction — it enhances, never gates.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Goal Detail [14] via result tap (stack push), Habits [38] via result tap (stack push), Recipe Detail [56] via result tap (stack push), Quick Notes [62] via result tap (stack push or navigate to full-screen mode), Journal [37] via result tap (stack push), Settings [21] via result tap (stack push with section pre-focused), Community Room Detail [40] via result tap (stack push), SIA Chat [09] via screen/feature result (tab switch), any feature screen [01-73] via Screens/Features result (navigation method varies: tab switch for tab roots, stack push for nested screens)

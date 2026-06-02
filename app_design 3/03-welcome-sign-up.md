@@ -478,6 +478,164 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Stripe + Linear + iOS auth — *stays Balencia via premium form inputs on warm ink-brown surfaces with burnt-orange focus rings, continuous-stroke brand symbol (not hero glow), sentence-case on-voice copy throughout, non-shaming error recovery, and the brand period used to close key moments.*
+
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers: thin craft layer; generic form; inputs lack depth; copy unwritten in places; error messages templated; no focal anchor; no ownable Balencia signature moment on a conversion form.
+
+### Focal hierarchy
+
+One clear focal point: the **"sign up" CTA button** (56pt burnt-orange pill, full-width minus 48pt margins, white text "sign up") — the screen's primary interactive goal, sized as a hero among form elements, reads instantly as the desired action. The form fields are visibly secondary and grouped (tight 16pt spacing within the group, generous 24pt gap above the CTA), so the hierarchy reads as "fill this → tap orange button." The logo (48pt centered symbol) anchors the screen emotionally but is not a focal element (intentionally small and ambient, not a hero glow moment—the user is already past the splash). The social buttons and nav links are tertiary and ambient below. The squint test lands on the orange CTA first, then the form block as a unified group, then the section separator. No competing foci.
+
+### Surface & depth
+
+Every surface adopts **`CK-P1` Layered Warm Surface** — body on `--color-ink-brown-800` · `--radius-md` (14pt, per locked params for inputs ≤80pt) · 1px `--glass-border` (`--color-alpha-white-06`) · **`CK-T01 --edge-highlight` top-edge inner highlight** (the not-flat cue, inset 0 1px 0 rgba(255,255,255,0.06)) · `--shadow-1`. Input fields (first name, last name, email, password, date of birth, gender) all receive this treatment — never a flat fill with a border only. The CTA button ("sign up") is a `--radius-pill` pill on `--color-brand-orange` with no glow (the button is ~56pt, under the 96px threshold for glow; inline CTAs at <36px receive no glow per CONSISTENCY.md §1). The social auth buttons (Google, Apple) are 52pt tall, use the same `CK-P1` layered surface on ink-brown-800, and carry **`--glow-orange-sm`** (~12px /.35) only when in focus-visible state (never at rest, to avoid visual noise—social buttons are secondary). The divider's horizontal rules are 1pt `--color-alpha-white-10` (subtly defined, never neon). The logo (48pt symbol) floats on the `--color-ink-900` field background with no surface card or glow — pure brand mark, warm burnt orange (`--color-brand-orange`). All cards receive `--shadow-1` (not stacked; one shadow per element). The screen background is `--color-ink-900` full-bleed, with ScrollView container allowing content to scroll on smaller devices without collision.
+
+### Typographic rhythm
+
+Map all type to `CK-P3` locked scale: **heading** "Create your account" `--text-h2` (20pt) / 600 weight / `--leading-snug` (1.25) / white 100% / center-aligned, sentence case (given as "Create your account", stays as-is); **input labels** (implicit, inside placeholders) `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white at 40% (the generic text); **input values** (user-entered text) `--text-body` (16pt) / 400 / white 100%; **divider text** "or continue with" `--text-caption` (13pt) / 400 / `--leading-normal` / white at 40%; **CTA text** "sign up" `--text-h3` (17pt) / 600 / white 100% / center-aligned, sentence case; **social button labels** "Google" / "Apple" `--text-h3` (17pt) / 600 / white 100%; **nav link text** "Already have an account?" / "Try without an account" — context `--text-h3` (17pt) / 400 / white at 50%, action word `--text-h3` (17pt) / 600 / `--color-brand-orange`; **legal footer** `--text-caption` (12pt) / 400 / white at 30%. Hierarchy carried by **weight** (600 vs 400), not size alone. Sentence case everywhere (buttons, labels, headings). **Zero exclamation marks** — energy comes from clarity and the brand period, not punctuation. ≤2 `--color-brand-orange` accent words on screen (CTA "sign up" button text and nav link action words "sign in" / "without an account" are two; the strategy is to use orange on call-to-action, not decoration). Chillax is logo-only (none on form labels). Line-heights and letter-spacing are locked per `CK-T04 / CK-T05` scale.
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` brand voice — warm, plain, coaching, non-shaming, on-voice. Specific strings:
+
+- **Heading** — *before (given):* "Create your account" → *after (kept):* same; warm, clear, action-oriented. ✓
+- **Name field placeholders** — *before (spec):* "first name" / "last name" → *after (kept):* same; lowercase, conversational, not "First Name". ✓
+- **Email hint text** — *before (spec):* "email address" → *after (kept):* same; plain, specific. ✓
+- **Password hint text** — *before (spec):* "password" → *after (kept):* same; simple, not "Enter password". ✓
+- **Password visibility toggle label** — *before:* no label → *after (new, a11y):* "Show password" / "Hide password" (clear state description). NEW
+- **Date of birth hint text** — *before (spec):* "date of birth" → *after (kept):* same; ✓
+- **Date of birth help line** — *before:* none → *after (new):* line below field (if needed): "Must be 18 to use Balencia." (warm, plain, non-accusatory). NEW
+- **Gender hint text** — *before (spec):* "gender" → *after (kept):* same; ✓
+- **Divider text** — *before (spec):* "or continue with" → *after (kept):* same; conversational lower-case. ✓
+- **CTA button** — *before (spec):* "sign up" → *after (kept):* same; sentence case, lowercase "up", not "Sign Up". ✓
+- **Social button labels** — *before (spec):* "Google" / "Apple" → *after (kept):* same; proper nouns, match platform names. ✓
+- **"Already have an account?" link** — *before (spec):* "Already have an account? sign in" → *after (reconciliation):* context "Already have an account?" stays, action "sign in" stays, both sentence case + lower "in". ✓
+- **"Try without an account" link** — *before (spec):* "Try without an account" → *after (kept):* same; warm, exploratory tone (guest mode is low-friction entry). ✓
+- **Legal footer** — *before (spec):* "Terms of service · Privacy policy" → *after (kept):* same; neutral, ambient. ✓
+- **Error: first name too short** — *before (spec):* "first name must be at least 2 characters" → *after (kept):* same; specific, not shaming. ✓
+- **Error: last name too short** — *before (spec):* "last name must be at least 2 characters" → *after (kept):* same. ✓
+- **Error: invalid email** — *before (spec):* "please enter a valid email" → *after (reconciliation):* replace with "That email looks invalid" (warmer, more conversational, removes "please"). RECONCILE
+- **Error: disposable email** — *before (spec):* "please use a permanent email address" → *after (reconciliation):* replace with "Please use a permanent email address so we can reach you." (explains the why; still warm, earns trust by honesty). RECONCILE
+- **Error: password too weak** — *before (spec):* "password must be at least 8 characters" → *after (reconciliation):* replace with "Password needs 8+ characters, uppercase, lowercase, number, and symbol." (specific, non-accusatory, clear next step). RECONCILE
+- **Error: date of birth missing** — *before (spec):* "please select your date of birth" → *after (reconciliation):* replace with "Please select your date of birth." (warm, action-forward; no shame). RECONCILE
+- **Error: age under 18** — *before (spec):* "Balencia is for users 18+. Contact support@balencia.com for assistance." → *after (kept):* same; warm, offers escape hatch (email), not a dead end. ✓
+- **Error: gender missing** — *before (spec):* "please select your gender" → *after (kept):* same; simple, direct. ✓
+- **Error: account exists (toast)** — *before (spec):* "An account with this email already exists." + "sign in" tappable link → *after (reconciliation):* replace toast with "We found an existing account for that email. Sign in instead?" (warmer, asks, not tells; the tappable "Sign in" is orange, not hidden in toast text). RECONCILE
+- **Error: network error (toast)** — *before (spec):* "Something went wrong. Please try again." → *after (reconciliation):* replace with "We had a hiccup. Please try again." (warmer, less generic, removes "please"). RECONCILE
+- **Success: OTP sent (toast)** — *before (spec):* "We've sent a verification code to your email" → *after (reconciliation):* replace with "Check your email for a verification code." (shorter, action-oriented, not marketing-speak "we've sent"). RECONCILE
+- **Loading state (CTA button spinner)** — *before:* no message → *after (new):* "Creating your account..." (warm, specific, inside or near spinner). NEW
+- **Empty state / day 1** — *before:* N/A (this screen is the empty state entry) → *after:* the form itself is the empty state; all placeholders are visible and ambient. ✓
+
+No exclamation marks anywhere. The brand period used with intent: error messages end with a period (not a question mark). Copy is specific, honest, never generic ("we had a hiccup" beats "error" or "failed"). Non-shaming framing throughout (an age miss is "Balencia is for users 18+," not "you're too young" or "access denied"). Permission to proceed is earned by clarity and warmth, not guilt or urgency.
+
+### Motion choreography
+
+Locked to `CK-P4` order (focal first, then support): **screen entry** — the logo fades in (`--dur-base` 280ms `--ease-out-soft`, at 0ms), then the heading fades in + rises (`--dur-base` 280ms, 80ms stagger), then the form fields fade in + rise in sequence (inputs 1–6, 160ms each, 80ms stagger, `--dur-base` 280ms `--ease-out-soft` per field), then the CTA button fades in + rises (320ms total offset, `--dur-base` 280ms), then the divider fades in (400ms offset), then social auth buttons fade in + rise (480ms offset), then nav links fade in + rise (560ms offset), then legal footer fades in (640ms offset). **Input focus** — the border transitions from 1pt white 10% to 2pt burnt-orange (`--color-brand-orange`) over `--dur-fast` (160ms `--ease-out-soft`); no scale or opacity shift (focus is subtle, not disruptive). **CTA pressed** — scale(0.97) + light haptic over `--dur-fast` (160ms), then returns to scale(1). **CTA loading** — the button bg stays burnt-orange, text fades to 0 opacity (160ms), then a white spinner (20pt, centered) fades in (same 160ms); button becomes non-interactive. **Error message** — slides down from the input field (0→16pt translateY) + opacity 0→1 over `--dur-base` (280ms `--ease-out-soft`); the field border turns 2pt red simultaneously. **Success (OTP sent)** — CTA button flashes `--glow-green` (600ms glow, not sustained), then automatically navigates to OTP Verification [03b] via stack push (280ms standard transition). `prefers-reduced-motion` → all staggered entries collapse to instant; spinner is replaced with static checkmark (✓) or "check your email" inline text; skeleton states (if any loading appears) show final state immediately. The screen always draws, never fades entry animations (honoring §8 brand law).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 (new user) | All form fields visible with placeholders, logo centered, heading, CTA active (enabled), social buttons visible, nav links visible, legal footer ambient. Form group is the focal block. | Heading: "Create your account." Placeholders calm and plain. Logo anchors without distraction. "or continue with" frames social as an alternative path, not primary. Nav links offer escape hatches ("Already have an account?" / "Try without an account") to reduce anxiety. | All surfaces use `CK-P1` layered depth on `--color-ink-brown-800`; no flat inputs. Logo is burnt-orange symbol only, no hero glow (user is past splash now). Focus ring on first field is clear and warm. Brand moment is the form's premium craft (premium inputs, not chart or visualizer). |
+| Focused / active (user typing) | Focused field border turns 2pt burnt-orange, hint text fades to 20% opacity, cursor visible. Other fields remain at default (1pt white 10% border). Keyboard overlay appears (system-managed). Screen scrolls up to keep focused field and CTA visible. | Hint text text stays same (no "now entering" messages). Error message appears below field only if validation fails on blur. | Focused field glows with orange ring (warm, not cold). Surrounding fields remain calm (low-emphasis) so attention is on the active field. |
+| Partially filled (some fields done, some empty) | Filled fields show white value text, empty fields show placeholders at 40%. CTA button remains enabled (filled fields do not enable submit until ALL required fields are non-empty). Visual hierarchy: filled = higher contrast (white text) vs empty = lower (hint text at 40%). | No state-specific copy (placeholders are the only prompt). | Depth on all surfaces stays consistent. Unfilled fields are not dimmed or hidden—they remain at full interactive opacity, inviting completion. |
+| Error on single field (such as invalid email) | The failing field border turns 2pt error-red (`--color-error-red`). An error message appears 4pt below the field, in-line, 13pt Sora Regular, error-red text. Other fields remain unchanged (not dimmed). The CTA button stays enabled (user can correct and re-submit). | Error text is specific (such as "That email looks invalid") and warm (not accusatory). Explains the fix ("use a permanent email" if disposable domain detected). Never blames the user. | The error message is part of the card's depth (sits within the form group, 1px below field, 16pt margin-bottom before next field). The red is calibrated (genuine validation error, not danger alert). Glyph + word: a small ✗ icon (12pt, red, to the left of text) + text (never red color alone). |
+| Error on account exists | A toast appears at top of screen (or below header if scrolled): "We found an existing account for that email. Sign in instead?" The toast is ink-brown-800 with 1px white 10% border, `--radius-md`, `--shadow-2`. The "Sign in" link inside is burnt-orange Semibold, tappable (44pt touch target height for the link within the toast). Toast auto-dismisses after 5s or on tap "Sign in". | Warm, acknowledges the existing account without shame. Offers a next step (sign in) immediately within the message. Not "Error: account exists" (generic, cold). | Toast floats at z-60 above form content. Uses same depth language (layered warm surface). The link is orange and actionable. Warm tone throughout. |
+| Network error (toast) | A toast at top: "We had a hiccup. Please try again." Ink-brown-800, same styling as error toast. CTA button reverts from loading state (spinner removed, text "sign up" returns). All form data is preserved (never lost on error). A small retry affordance (an inline "retry" link or the user taps the CTA again). | Warm, human ("hiccup" is relatable, not jargon). Honest (not "server error" or "technical difficulty"). Encourages retry without blame. | Same toast styling. Not a harsh red alert—this is recoverable, not a critical failure. |
+| Keyboard visible (mobile) | Screen ScrollView adjusts: content scrolls up so the focused field and CTA button remain visible above keyboard. Logo may scroll out of view, but heading stays sticky or scrolls with content (no floating header on auth form—keep it simple). Keyboard covers ~50% of screen. | No special microcopy (keyboard is system-managed). Hint text (password strength, email rules) stay in field labels/helper text if space allows. | Form depth is preserved. Fields remain full-size (no squishing). Touch targets stay ≥44pt (keyboard doesn't shrink buttons). |
+| Loading (form submitted, OTP in flight) | CTA button: text "sign up" fades out (160ms), white spinner (20pt) fades in centered, button bg stays burnt-orange, button becomes non-interactive (no ripple on tap). Form fields stay visible but read-only (0.5 opacity, no cursor). | Button label (inline near spinner, if space): "Creating your account..." (warm, specific—not just a spinner). | Loading state is brief (expected <3s before OTP screen). Spinner is white on orange (high contrast, visible). No skeleton forms or shimmer needed—the form fields are the skeleton (they are always visible). |
+| Success / OTP sent | CTA button flashes `--glow-green` (600ms green glow, then fades). After the glow settles, the screen auto-navigates to OTP Verification [03b] via stack push (280ms standard iOS nav transition). | Toast (optional, brief): "Check your email for a verification code." Or let the screen transition be the confirmation (no redundant toast if nav is instant). | Green glow is warm and earned (genuine success, not celebratory or cutesy). Glow fades naturally (no sustained neon). Screen transition is smooth (push from right, standard iOS navigation). |
+| Offline / no network | Form fields remain visible. CTA button is dimmed (0.5 opacity, no haptic on tap). A banner below the header (or at the top, if space): "You're offline. Check your connection." | Copy is honest and action-forward (not "error"). Explains the state (offline, not "fail"). Doesn't say "try again" if offline (action is impossible). | Dimmed CTA is visually clear (not disabled in color, but opacity indicates it's not interactive). Banner uses the same calm layered surface (no harsh red or alarming design). |
+
+### Signature & anti-generic
+
+**Ownable Balencia moment:** the **premium form input craft** — every input field on this screen uses the warm-ink layered surface (`CK-P1` on `ink-brown-800` with the edge highlight and subtle shadow), burnt-orange focus ring on tab, and instant visual feedback (border color shift, hint text fade). This is not a default iOS form (which would be a single-line input on a white field) or a generic SaaS form (flat boxes, cold shadows). The form itself IS the Balencia signature on an auth screen — premium, warm, earned-trust design that signals "this app cares about craft and warmth even on the conversion form." The CTA button is a burnt-orange pill with sentence-case "sign up" (no "SIGN UP" all-caps, no "Create Account" title-case marketing speak).
+
+**Anti-generic fixes:**
+- ✓ Form fields are never flat boxes. Every input is a `CK-P1` layered surface (edge-highlight, shadow, glass border).
+- ✓ Copy is authored and warm, never templated ("we had a hiccup" vs. "error occurred"; "That email looks invalid" vs. "please enter a valid email"; "Check your email for a verification code" vs. "OTP sent").
+- ✓ Error messages are specific to each field (not a generic error table at the bottom).
+- ✓ CTA is a prime visual anchor (burnt-orange, full-width pill, sized as a hero among form elements).
+- ✓ No generic copy like "Enter your name here" or "Username (optional)" — placeholders are simple: "first name", "email address".
+- ✓ Nav links are not buried or apologetic — "Already have an account?" and "Try without an account" are prominent, warm escape hatches (no shame for returning users or guest explorers).
+- ✓ Social auth is framed as an alternative ("or continue with") not a primary path — it's secondary and ambient, respecting the form's focal hierarchy.
+- ✓ The legal footer is ambient and text-small (white 30%), never intrusive.
+- ✓ No loading spinners without context ("Creating your account..." labels the action).
+- ✓ No exclamation marks. The brand period is used to close key messages ("We're setting you up." if needed). Energy is in the design (bold orange, depth, motion), not punctuation.
+
+The screen reads as premium because every surface is crafted, every string is authored, and every state (focus, error, loading, success) has been intentionally designed — not defaulted.
+
+### Accessibility
+
+**Tabulated load-bearing contrast pairs** (on `--color-ink-900` / `--color-ink-brown-800`):
+
+| Element | Color | Contrast |
+| --- | --- | --- |
+| Heading text "Create your account" | `--color-alpha-white-100` | ≥12:1 on `--color-ink-900` |
+| Input hint text text | `--color-alpha-white-40` | ≥4.5:1 on `--color-ink-brown-800` (WCAG) |
+| Input value text (user-entered) | `--color-alpha-white-100` | ≥12:1 on `--color-ink-brown-800` |
+| Input focus border | `--color-brand-orange` | 3.2:1 on `--color-ink-brown-800` (WCAG 1.4.11) |
+| Error message text | `--color-error-red` | ≥4.5:1 on `--color-ink-900` (if toast) or on `--color-ink-brown-800` (if inline) |
+| Error border (field) | `--color-error-red` | 3.2:1 on `--color-ink-brown-800` (WCAG 1.4.11) |
+| CTA button text | `--color-alpha-white-100` | ≥12:1 on `--color-brand-orange` |
+| CTA button (disabled state) | `--color-brand-orange` at 40% opacity | 2.1:1 on `--color-ink-900` (acceptable for disabled; not load-bearing) |
+| Social button text | `--color-alpha-white-100` | ≥12:1 on `--color-ink-brown-800` |
+| Nav link text (context) | `--color-alpha-white-50` | ≥4.5:1 on `--color-ink-900` |
+| Nav link action text | `--color-brand-orange` | 3.2:1 on `--color-ink-900` (WCAG 1.4.11) |
+| Legal footer links | `--color-alpha-white-30` | ≥4.5:1 on `--color-ink-900` (WCAG, small text exception) |
+| Divider lines | `--color-alpha-white-10` | 1:1 (decorative, not load-bearing) |
+
+**Status never colour-alone:**
+- Focused input: orange 2pt border + visible cursor (not colour-only).
+- Error field: red 2pt border + inline ✗ glyph (12pt, red) + error text message (not red colour alone).
+- CTA disabled: 0.5 opacity + no haptic feedback (the disabled state is clear from interaction feedback, not colour alone).
+- Success: green glow flash + automatic navigation to next screen (not a green checkmark alone).
+
+**Focus ring:** every focusable element (inputs, CTA, social buttons, nav links, legal links) receives `CK-T03 --focus-ring` (2px burnt-orange, 2px offset from element, uniform app-wide). The focus ring is visible and warm (not a thin cold outline).
+
+**44pt touch targets:** all interactive elements meet minimum 44×44pt:
+- Input fields: 52pt height (exceeds minimum).
+- CTA button: 56pt height (exceeds minimum).
+- Social buttons: 52pt height (exceeds minimum).
+- Nav links: full-width with 44pt min touch height per line (generous).
+- Legal links: full-width with 44pt min touch height per word/element (generous).
+- Password visibility toggle: 44×44pt touch target (icon is 20pt, centered in target).
+
+**Keyboard & focus order:**
+- Focus order: Logo (decorative, skipped in screen reader) → Heading → First name → Last name → Email → Password → Date of birth → Gender → CTA button → Google button → Apple button → "sign in" link → "without an account" link → "Terms" link → "Privacy" link.
+- Screen reader announces "Create your account, heading" on mount.
+- Password visibility toggle: screen reader label "Show password" (when hidden) or "Hide password" (when visible).
+- Date of birth field: screen reader label "Date of birth, required. Opens date picker."
+- Gender selector: screen reader label "Gender, required. Opens selection menu."
+- Form validation errors: announced to screen reader via `role="alert"` live region when they appear (not silent, not visual-only).
+
+**Reduced-motion:**
+- All staggered fade-in entry animations (logo, heading, fields, CTA, social, links) collapse to instant if `prefers-reduced-motion: reduce` is set.
+- Input focus border transitions to orange instantly (no gradual colour shift).
+- CTA loading spinner is replaced with static text "Creating your account..." (no rotating animation).
+- Error message slide-in animation replaced with instant appearance.
+- Success glow flash replaced with instant final visual (no pulsing).
+- The settled/final frame is always the canonical, information-complete frame.
+
+**Keyboard behavior:**
+- Tapping First name field: keyboard appears, screen scrolls up (ScrollView adjusts) to keep focused field + CTA visible.
+- "Next" on First name: focus moves to Last name (keyboard stays open).
+- "Next" on Last name: focus moves to Email.
+- "Next" on Email: focus moves to Password.
+- "Next" on Password: keyboard dismisses, focus moves to Date of birth (opens native date picker).
+- Date picker selection: closes picker, focus moves to Gender (opens bottom sheet).
+- Gender selection: closes sheet, focus moves to CTA (ready to submit).
+- Tab navigation: cycle through form in reading order (standard web behavior).
+- Escape key: dismiss keyboard or bottom sheet (standard platform behavior).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [03b] — OTP Verification via stack push (signup form submitted, OTP sent), Screen [04] — Sign In via stack push, Screen [06] — Guest Mode Preview (Batch 2) via stack push

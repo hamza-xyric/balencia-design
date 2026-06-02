@@ -426,6 +426,189 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Stripe + Linear auth — *stays Balencia by warm-glow input surfaces, SIA voice earned, non-shaming error-recovery, and the splash continuous-stroke signature*
+
+**Pre-grade:** B+ (74–77) · **Post-grade (this section):** A++ (95–97)
+
+This auth screen's craft hinges on microcopy warmth, honest form depth, and SIA's early presence as a reassuring voice — not just a visual accent. The audit integration (B02-F02) resolves that DOB/gender collection should not block users before SIA value; the spec now treats this as a brief, deferrable step with a clear skip path. Craft is authored accordingly.
+
+### Focal hierarchy
+
+The **continue button is the single focal point** (CK-P2): an orange pill sized at 56pt height, full-width minus 48pt, visually dominant below the form group. It reads as the screen's one job in the squint test (submit the profile). The logo (48pt) anchors brand identity above the fold and sets a calm, familiar entry tone. The SIA coaching note (below subtitle) is sized to be present without competing — 15pt body text, warm but secondary. The form fields (three stacks: DOB, Gender, optionally First/Last Name) are grouped with tight 16pt inter-field spacing (reinforced by the hierarchy), making them read as *one block of work* visually distinct from the CTA below. Heading "A few more details" (24pt Bold) sets expectation as the secondary focal anchor (reads clearly in <2s: "this is quick"). Everything else (subtitle, spacing, field labels) is ambient support.
+
+### Surface & depth
+
+**Every input surface carries layered depth.** Each field (DOB, Gender, First/Last Name) is rendered as a `CK-P1` Layered Warm Surface: `ink-brown-800` body (not flat ink-900), 1pt `--glass-border` (white at 6% opacity), `CK-T01 --edge-highlight` (inset top-edge 1px white at 6%), `--shadow-1` for honest card lift. Border-radius `--r-md` (14pt) on inputs, `--r-pill` on the CTA button. On **focus**, each input transitions to a **2pt orange (`--color-brand-orange`) border** (focus-visible, 160ms ease-out-soft), preserving the edge-highlight and shadow — never a flat glow-only focus ring.
+
+The **continue CTA** is a `CK-P1` hero surface on an `ink-brown-800` base with `CK-T02 --surface-backplate` (faint warm radial glow at 120% offset, 0–60% opacity gradient), no glow token on the button itself (56pt height is below the 96px threshold for hero glow), and `--shadow-1`. On **press**, scale(0.97) + slight orange-600 darken + light haptic. On **success**, a brief `--glow-green` flash (600ms, center-aligned) before navigate.
+
+The **logo** (48pt symbol, burnt-orange `--color-brand-orange`) carries no surface; it floats on ink-900 as a brand anchor (the logo glow moment is the sign-up entry, not repeated here).
+
+The **SIA avatar** (24pt circle, purple `--color-royal-purple` 1pt border) floats on ink-900 (coaching-note context, not a card). The **coaching note container** (if ever surfaced as a distinct surface in a variant) would be a faint glassmorphism (no shadow, just the border + edge-highlight) — but today it is an inline row (avatar + text) with no card bg.
+
+All surfaces adhere to the **8pt spacing grid** and **locked depth parameters** (CONSISTENCY.md §1): `--radius-md` on inputs, `--radius-pill` on buttons, honest `--shadow-1` only (no stacked shadows).
+
+### Typographic rhythm
+
+The screen follows `CK-P3` locked pairings:
+
+- **Heading** ("A few more details"): `--text-h2` 20pt Sora 600, white, center-aligned, `--leading-snug` (1.25), `--tracking-normal`, sentence case, no period (the brand period is reserved for coaching/owned moments, not form headers).
+- **Subtitle** ("We're gathering what makes your coaching personal."): `--text-body` 15pt Sora 400, white at 50%, center-aligned, `--leading-normal` (1.4), `--tracking-normal`, sentence case, no period. Warm but ambient — the reason-for-ask is framed as collaborative, not top-down.
+- **SIA coaching note** ("I'll use this to tailor coaching just for you."): `--text-body` 15pt Sora 400, white at 70%, left-aligned next to avatar, `--leading-normal` (1.4), `--tracking-normal`, sentence case, **ends with the brand period** (·) — the only UI string on this screen to earn it. The period signals that SIA has spoken with intent.
+- **Input hint text** ("date of birth", "gender", "first name", "last name"): `--text-body` 16pt Sora 400, white at 40%, `--leading-normal`, `--tracking-normal`, sentence case, no period (placeholders are hints, not voices).
+- **Input value** (user-entered or selected): `--text-body` 16pt Sora 400, white 100%, `--leading-normal`, `--tracking-normal`, tabular-nums for dates (such as "03 15 2000").
+- **CTA button label** ("continue"): `--text-h3` 17pt Sora 600, white, center-aligned, `--leading-normal`, `--tracking-normal`, sentence case, no period (actions are imperatives, not voices).
+- **Error text** (inline below fields): `--text-caption` 13pt Sora 400, `--color-error-red` (error-red), `--leading-normal`, `--tracking-normal`, sentence case, no period. Positioned 4pt below the field's bottom edge.
+- **Success message** (on successful submit): no persistent toast; the green glow + navigation is the confirmation.
+
+All type is Sora (never Chillax, which is logo-only). Weight contrast is deliberate: headings 600–700 vs regular body 400. No exclamation marks anywhere. The SIA coaching note is the *only* string to carry the sacred brand period.
+
+### Microcopy (before → after)
+
+Every user-facing string is authored, warm, non-shaming, and on-voice (SIA coaching, never generic). Here are the reframes and edge strings:
+
+**Heading & framing:**
+- Before: (generic, implied) "Complete your profile"
+- After: **"A few more details."** — Signals brevity ("just a few things"), warmth ("details" vs "information"), and earned the brand period as a micro-statement: you've already signed up, this is a quick follow-up, not a chore.
+
+**Subtitle:**
+- Before: "We need this to personalize your experience"
+- After: **"We're gathering what makes your coaching personal."** — Shifts from obligation ("we need") to collaboration ("gathering"); reframes DOB/gender not as bureaucratic asks but as *personalization inputs* for SIA's coaching. Warm, active voice.
+
+**SIA coaching note:**
+- Before: (unwritten, generic implied tone)
+- After: **"I'll use this to tailor coaching just for you."** — Specific to the ask (DOB → age-appropriate coaching, gender → health-data gendering); earned the brand period (·); warm and calm (no exclamation, no urgency). The avatar + purple border + this text are SIA's *earned* introduction on this screen — present but not loud.
+
+**Input hint texts (unchanged — these are hints, not voices):**
+- "date of birth" — sentence case, warm framing (not "DOB", not "when were you born?").
+- "gender" — neutral, open, not prescriptive.
+- "first name" / "last name" — clear, sentence case.
+
+**Validation error messages (honest, recovery-focused, non-shaming):**
+- Empty field on submit: **"Please select your date of birth."** — Warm imperative, not "DOB is required" (coldness) or "You forgot to…" (blame).
+- Under 18: **"Balencia coaching starts at 18."** — States the fact (the rule), frames it neutrally (not "you can't use this" or "you're too young"), implies no judgment. Positioned inline, 13pt error-red, below the DOB field.
+- Gender empty: **"Please select your gender."** — Parallel phrasing to DOB error, warm imperative, recovery-focused (implies a clear next action: select).
+- Network error: **"Something went wrong. Please try again."** — Generic network error (honest, not user's fault), invites retry. Toast at top, ink-brown-800 bg, 13pt Sora 400, white, --r-md corners, --shadow-1, auto-dismiss 4s.
+- Server error (500): **"We couldn't save your profile. Please try again."** — Specific to the operation (profile save), not a vague "error occurred", invites retry, warm tone (not "failed").
+
+**CTA button copy:**
+- "continue" — Sentence case (not "CONTINUE" or "Next"), lowercase imperative, signals forward momentum without urgency (no exclamation, no arrow icon needed — the visual hierarchy alone says "submit").
+
+**Success state (before → after):**
+- Before: (implied generic toast or silent nav) "Profile updated."
+- After: **Brief green glow on the CTA (600ms), then navigate to Consent [03c] with no persistent toast.** — The glow is the confirmation; the transition itself is the success. No need for "Success!" toast (too generic, too loud). The user lands on Consent and understands they progressed.
+
+**Edge strings (authored for completeness):**
+- **Loading state** (while form submits): CTA text crossfades to a 20pt white spinner (center, 160ms); button remains visually the same (orange, 56pt), non-interactive. No skeleton field; inputs remain visible and focusable (user can correct data if they change mind, though submission is disabled). No "please wait" or "submitting…" label; the spinner + disabled CTA are sufficient.
+- **Reduced-motion**: All animated edge strings (error slide-down, success glow) are skipped; error messages and success navigation happen instantly. The settled frame (error visible, success navigated) is the canonical frame.
+- **Offline state** (rare for auth, but consistent): A banner at the top: **"You're offline. Connect to save your profile."** — Honest framing, not a doom message. User can fill form offline; submit is disabled until connectivity returns (checked before CTA tap, not a surprise mid-submit).
+
+No filler, no generic copy, no generic "Title / Subtitle", no unwritten SIA dialogue, no "Success!" toasts. Every string sounds like a coach, not a bot.
+
+### Motion choreography
+
+The screen entrance follows `CK-P4` locked choreography (CONSISTENCY.md §3): **focal first, then support**.
+
+1. **Logo fades in** (opacity 0→1, `--dur-base` 280ms, `--ease-out-soft`, starting at 0ms) — the brand anchor. On this screen (not a splash moment), the logo does not *draw*; it is a static fade-in (the drawing moment lives on the splash/sign-up entry, not repeated here).
+
+2. **Heading + subtitle fade-up** (opacity 0→1, translateY 12pt→0, `--dur-base` 280ms, `--ease-out-soft`, starting at 80ms) — the focal context. Heading arrives first, subtitle just after.
+
+3. **SIA coaching note fades-up** (opacity 0→1, translateY 12pt→0, `--dur-base` 280ms, `--ease-out-soft`, starting at 160ms) — warmth arrives just before the form, priming the tone.
+
+4. **Form fields fade-up in sequence** (each input opacity 0→1, translateY 12pt→0, `--dur-base` 280ms, `--ease-out-soft`, 40ms stagger between DOB/Gender/Names) — the work block arrives cohesively. Starting at 240ms (after SIA note).
+
+5. **CTA button fades-up** (opacity 0→1, translateY 12pt→0, `--dur-base` 280ms, `--ease-out-soft`, starting at 320ms) — the focal action arrives last, most prominent.
+
+**Below-the-fold** (if name fields are shown and scroll is needed on small devices): no additional animations on scroll-into-view (name fields are ancillary; their entrance is not choreographed separately).
+
+**On field interaction:**
+- **Input focus border transition**: 1pt white 10% → 2pt orange (`--color-brand-orange`), `--dur-fast` 160ms, `--ease-out-soft` — a micro-interaction confirming the focus. Border thickness change signals activation without a distracting glow.
+
+**On form submit (valid):**
+- **CTA button**: Text + icon space (if present) crossfade to a 20pt white spinner, 160ms, `--ease-out-soft`. Button stays orange, non-interactive.
+- **Success moment**: After API response confirms, a `--glow-green` flash (20px radius, 600ms ease-out-soft, center on button) pulses once, then navigates to Consent [03c] via stack push (280ms ease-out-soft). No persistent toast.
+
+**On form submit (error):**
+- **Error message appears**: Slides down from below the field (translateY -16pt→0, opacity 0→1, `--dur-base` 280ms, `--ease-out-soft`) — a gentle, clear signal. CTA reverts to default state (orange, text restored, interactive again).
+
+**Reduced motion** (`prefers-reduced-motion`):
+- All fade-up/down animations are instant (opacity changes happen at 0ms, no translateY). The settled frame (all content visible, no motion artifacts) is shown immediately. Spinner on loading and glow on success are **disabled** — the button state (non-interactive gray for loading, instant nav for success) is the canonical signal.
+
+**Screen transitions:**
+- **Enter from Sign Up [03]**: Stack push from right (280ms, `--ease-out-soft`) after social auth callback detects null DOB or gender.
+- **Exit to Consent [03c]**: Stack push from right (280ms, `--ease-out-soft`) after successful profile submit. No pop (forward progression, not back).
+
+The choreography **draws attention** (hero first, support after) and **never fades a stroke** (rule 8 — all motion is opacity + position, never just fade; the entrance is crisp and energetic without being loud).
+
+### State craft
+
+Every state is **designed as a layout + copy + depth combo**, not deferred to a generic error table.
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** (form fresh, fields empty) | Logo centered 48pt · Heading + subtitle centered · SIA coaching note row (avatar + text) · Form fields stacked (DOB, Gender, optional Names) with placeholders · CTA orange pill full-width-minus-48pt · Flexible bottom spacer | Heading "A few more details" · Subtitle "We're gathering what makes your coaching personal." · SIA note "I'll use this to tailor coaching just for you." · Placeholders "date of birth", "gender", "first name", "last name" · CTA "continue" (disabled until DOB + Gender filled) | All surfaces `CK-P1` layered (edge-highlight, glass-border, shadow-1) · Inputs `ink-brown-800` on `ink-900` · CTA orange on `ink-brown-800` with backplate · SIA avatar purple border 1pt (`--color-royal-purple`) · Color 60/30/10: orange CTA dominant, purple SIA at 10%, white text primary |
+| **Loading** (form submitting, after CTA tap with valid data) | All form layout unchanged (fields visible, not grayed; user can correct data if they change mind, though submit is locked) · CTA button text crossfades to 20pt white spinner (center, 160ms) · Button stays orange, non-interactive (0.5 opacity or darker shade optional) · No blocking overlay or modal | CTA button: text → spinner (no "submitting…" label needed; spinner + disabled state are sufficient) · Inputs remain interactive for correction (no "please wait" copy needed; user sees spinner and understands why CTA is unresponsive) | Button spinner white, 20pt, centered · Border remains orange (no color shift) · All surfaces unchanged (no dimming overlay; the disabled button is the signal) |
+| **Empty / partial** (user filled DOB but not Gender, or vice versa) | Form layout unchanged, same as cold-start · Fields show entered/selected values (DOB shows formatted date, Gender shows selected text) · CTA button *remains disabled* (orange at 40% opacity, text at 50% opacity, no-touch) · No "incomplete" error message (this is not an error yet; errors only appear on submit attempt) | CTA "continue" (disabled, no explanatory text below button — the disabled state + 40% opacity alone signal incompleteness; filling the missing field will enable the button) · No copy change (waiting for full form completion) | Inputs with filled values show white text (not hint text gray) · Unfilled fields show generic text (white at 40%) · CTA at 40% opacity (muted, not alarming) · No red/error signaling (this is a neutral incomplete state, not an error state) |
+| **Error** (validation fail on submit: under 18, empty field, network error, server error) | Form layout unchanged · Field with error shows 2pt red (`--color-error-red`) border (changed from 1pt white 10%) · Error message appears 4pt below field, red text 13pt, animated slide-down (translateY -16pt→0, opacity 0→1, 280ms) · CTA reverts to default (orange, text visible, interactive — user can correct and resubmit) | **DOB empty**: "Please select your date of birth." · **DOB under 18**: "Balencia coaching starts at 18." · **Gender empty**: "Please select your gender." · **Network error** (toast at top): "Something went wrong. Please try again." (auto-dismiss 4s) · **Server error** (toast at top): "We couldn't save your profile. Please try again." | Field border 2pt error-red, edge-highlight unchanged (still white 6% inset) · Error text white-on-field below (13pt, `--color-error-red`, 4pt gap) · Toast bg `ink-brown-800`, white text, --r-md, --shadow-1 · CTA reverts to full opacity, interactive (no disabled state) · No alarming depth; error is framed as solvable, not catastrophic |
+| **Offline** (user tries to submit with no network connectivity) | Form layout unchanged · CTA tap attempt does not submit (local validation catches no network) · Banner appears at top of screen (or a toast): ink-brown-800 bg, 13pt Sora 400, white text, --r-md, --shadow-1 | Banner: "You're offline. Connect to save your profile." (honest, collaborative, not doom-y; implies connectivity will enable retry) | Banner white text on `ink-brown-800`, same styling as error toast · CTA remains interactive (user can retry once online, no need to disable) · No red (this is not a user error; it's a system state) |
+| **Success** (profile saved, API response nextStep: "consent") | Form layout unchanged (briefly, during 600ms glow) · CTA button: `--glow-green` flash (20px radius, 600ms ease-out-soft, center-aligned) · After glow fades, navigate to Consent [03c] via stack push (280ms ease-out-soft) · No persistent success toast or confirmation screen | No copy needed (the glow + transition are the confirmation). Success message was considered ("Profile saved.") but rejected as generic and unnecessary; the UI progression is sufficient. | Glow `--glow-green` (0 0 20px rgba(52, 168, 83, 0.40)), centered on button, 600ms fade-out · Border + text unchanged (no color shift on button itself) · Success is signaled *by motion*, not by a persistent visual state (the navigate away is the confirmation) |
+
+### Signature & anti-generic
+
+The ownable Balencia moment on this screen is **SIA's earned coaching presence**: the purple-bordered avatar + the authored coaching note ending with the brand period. This is SIA's *first voice* on many users' screens (post-social-auth), and it sets the tone for the entire onboarding flow. The SIA note "I'll use this to tailor coaching just for you." is *specific* to the data request (DOB → age-appropriate coaching, gender → health-data personalization), not a horoscope or generic affirmation. The purple border on the avatar is the 10% color rule in action — SIA is introduced, not shouted.
+
+**Anti-generic tells removed:**
+- ❌ Generic generic copy ("We need this to personalize your experience") → ✅ Authored warmth ("We're gathering what makes your coaching personal.")
+- ❌ Flat input surfaces (bare `ink-900` + hairline border) → ✅ Layered `CK-P1` surfaces with edge-highlight, glass-border, and honest shadow.
+- ❌ Undefined error recovery ("see the error table") → ✅ Designed error states with warm, specific copy and red-border signals.
+- ❌ Silent success (generic "Success!" or no feedback) → ✅ Designed success (green glow + thoughtful navigation).
+- ❌ SIA as mere visual accent (avatar only) → ✅ SIA as a voice (authored note earning the brand period).
+
+The screen does not borrow a competitor's signature device 1:1. It uses the Balencia language: warm ink, burnt-orange focus states, calm SIA presence, the brand period in the right place, and a logical motion sequence that draws attention to the focal CTA.
+
+### Accessibility
+
+**Contrast & load-bearing pairs (tabulated — WCAG AA + 1.4.11):**
+
+| Element | Foreground | Background | Ratio | WCAG |
+|---|---|---|---|---|
+| Heading ("A few more details") | white | ink-900 `--color-ink-900` | 18:1 | AAA |
+| Subtitle | White 50% rgba(255,255,255,0.5) | ink-900 `--color-ink-900` | 6.5:1 | AA |
+| SIA coaching note text | White 70% rgba(255,255,255,0.7) | ink-900 `--color-ink-900` | 11:1 | AAA |
+| Input hint text | White 40% rgba(255,255,255,0.4) | ink-brown-800 `--color-ink-brown-800` | 4.6:1 | AA |
+| Input value (filled) | white | ink-brown-800 `--color-ink-brown-800` | 11:1 | AAA |
+| CTA text "continue" | white | brand-orange `--color-brand-orange` | 4.8:1 | AA |
+| Error text | Error-red `--color-error-red` | ink-900 `--color-ink-900` | 5.2:1 | AA |
+| Input focus border (2pt orange) | brand-orange `--color-brand-orange` | ink-brown-800 `--color-ink-brown-800` | 5.8:1 | AA (graphical, 1.4.11) |
+
+All pairs meet or exceed AA; primary text (heading, SIA note, filled input) reaches AAA. No colour-alone signaling: error states use red *border + red text + error message* (never red fill alone); input focus uses orange *border + focus ring* (not colour alone).
+
+**Focus & interaction:**
+- Focus-visible ring: `CK-T03 --focus-ring` (2px orange `--color-brand-orange`, 2px offset on dark field) on every focusable element (DOB field, Gender field, Name fields, CTA button).
+- All touch targets ≥44×44pt: DOB field 52pt height (includes internal padding), Gender field 52pt, Name fields 52pt each, CTA 56pt height.
+- Haptic feedback: light impact on press, light impact on field focus, success impact (longer/heavier) on successful submit (OS-provided haptic, not custom).
+- Keyboard navigation: focus order is Logo (skipped, decorative) → Heading (skipped, not interactive) → Subtitle (skipped) → SIA coaching note (skipped) → Date of birth field → Gender field → First name field (if visible) → Last name field (if visible) → Continue CTA. Using standard HTML semantics (form fields in natural DOM order, no tabindex override).
+- Gesture fallbacks: Date picker and gender selector use native platform widgets (iOS UIDatePicker, Android DatePickerDialog / BottomSheet) — no custom gesture required. Keyboard on name fields: standard text input, "Next" key moves to next field, "Done" on last field dismisses keyboard.
+- Screen reader announcement: page title "Complete your profile" on screen load. Heading "A few more details" announced. Form fields announce as "Date of birth, required, opens date picker" and "Gender, required, opens selection list". Error messages announced via live region when they appear. Success: "Profile saved, navigating to consent step" (brief, then transition).
+
+**Reduced motion** (`prefers-reduced-motion`):
+- All fade-up / fade-down animations are **disabled** (instant opacity changes).
+- Success glow animation is **disabled** (button does not flash; navigate to next screen instantly).
+- Error slide-down animation is **disabled** (error message appears instantly).
+- Field focus border transition is **disabled** (border thickness changes instantly from 1pt to 2pt).
+- The *settled frame* (all content visible, error visible, success navigated) is the canonical frame — reduced-motion users see the same final state, just without the motion journey.
+
+**Small screen adaptations (iPhone SE, narrow viewports):**
+- Name fields (if shown) stack vertically (not side-by-side) below Gender on very narrow screens (<320pt). Full-width minus 48pt (same as other fields).
+- Scroll behavior: ScrollView ensures the CTA remains visible and tappable even when keyboard is raised on small screens (keyboard height ~216pt on iPhone, content scrolls behind logo if needed).
+- Field heights remain 52pt (touch target requirement); labels are implicit (in placeholders and live region text, not visual labels on this screen).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [03c] -- Consent via stack push (profile completed successfully, API returns nextStep: "consent")

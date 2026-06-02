@@ -256,13 +256,13 @@ The Nutrition & Diet Dashboard is the user's hub for daily nutrition management.
     - Current value: 15pt Sora Semibold, white, right-aligned on same line as label
     - Bar track: full card content width, 8pt height, white at 8% opacity, r-pill
     - Bar fill: r-pill. Width = (current / target) × 100%.
-      - Calories bar: Burnt Orange (#FF5E00) fill
-      - Protein/Carbs/Fat bars: white at 40% fill
+      - Calories bar: Burnt Orange (#FF5E00) fill — the single primary metric / data ink
+      - Protein/Carbs/Fat bars: white at 40% fill (neutral secondary; nutrition-lime is identity-only and is never used as a bar fill)
     - Target text: "X / Yg" (or "X / Y" for calories) in 12pt Sora Regular, white at 40%, left-aligned below bar, 2pt below
   - Bars animate on mount: width from 0% to current%, 280ms, ease-out-soft
 - **Variants**:
   - Normal: bars partially filled
-  - Target exceeded: bar fill extends to 100%, fill color changes to #F59E0B (amber) for mild excess, #EF4444 (red) for significant excess (>120% of target)
+  - Target exceeded: bar fill caps at 100%, fill color changes to a calm caution amber #F59E0B (for any excess, mild or significant) plus a visible "over" label — never alarm-red #EF4444, since over-target is a benign level, not a danger/alert state
   - Day 1: all bars at 0%, targets shown
   - Loading: skeleton shimmer on bars
 - **Gestures**: tap card → no action (informational; tapping individual bars is too small a target). Long-press → option to adjust targets (future feature, no-op for now).
@@ -334,6 +334,168 @@ The Nutrition & Diet Dashboard is the user's hub for daily nutrition management.
 
 ---
 
+## Visualization
+
+> Source: `app_design 3/28-nutrition-diet-dashboard-visualization-recommendations.md`. Audited in `viz-audit/` — Batch 4 (Domain dashboards), findings `S28-V01..V06`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **This screen mints `VK-007` Donut / Pie** (returned in the kit). Premium-depth, on-brand (60/30/10); no new data — every visual derives from data the screen already shows (macros, meals, water, food log). **Current grade D (54) → specced-target A− (86).** *(Honest re-grade under the revised 10-dimension rubric; benchmark = MyFitnessPal premium / Cronometer + Bevel. Residual gap to A+++ is build-verified depth + working scrub/drill micro-interactions, owned by the later viz-build program.)*
+
+The Nutrition dashboard's job is unchanged; this section upgrades *how its data reads* — from four flat white bars + a row of dot-glasses + text rows into a crafted, calm macro instrument. The defining move is the **Macro Donut hero** (the honest part-of-whole no flat bar can show: how today's calories actually split across protein / carbs / fat), plus a KPI strip, vs-target MacroBars with depth, the wellbeing water ring, and a 7-day intake CalendarHeatmap. This is **Cronometer's density done warmly** — not a clone: the donut runs the brand's orange-dominant slice law and warm-glow depth, not Cronometer's clinical multi-colour wheel.
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive / resolution |
+|---|---|---|---|
+| Calories 1600 / 2200 + protein/carbs/fat totals | 4 flat bars (3 are white/40) | **KPI strip** (calories remaining + macro headline) **and** the macro **donut** | `KPIStatTile` ×3 (`S28-V01`) + `Donut` (`S28-V02`) |
+| Macro split protein 77g / carbs 130g / fat 53g | implied across bars | **Macro Donut** — honest part-of-whole of today's logged macros (by calorie share), orange = primary slice | `Donut` (`VK-007`, `S28-V02`) |
+| Each macro current vs target (P 77/120, C 130/180, F 53/70, Cal 1600/2200) | flat bars, white fill | **MacroBar group with depth** — orange calories + domain-lime macro fills, in-range/over signs | `MacroBar` ×4 (`S28-V03`) |
+| Water 5 / 8 glasses | dot row + count | **Water intake ring** (two-shades-of-blue wellbeing exception) | `GaugeRing` (water/wellbeing mode) (`S28-V04`) |
+| 7-day calorie / target-adherence history | not shown | **Intake CalendarHeatmap** — consistency of hitting target | `CalendarHeatmap` (`S28-V05`) |
+| 4 meals (cal · P · C · F · time) | text rows | **Meal timeline** — per-meal calorie weight + macro mini-split + logged sign | `MealCard` row, depth + per-meal micro-donut (`S28-V06`) |
+| SIA note / goal % / food-log names | text / one bar | — (deliberately textual / existing `MacroBar`) | — |
+
+### 1 · KPI strip — `S28-V01`
+
+A **three-tile `KPIStatTile` row directly under the SIA Coaching Note**, above the meal card — the headline numbers the user wants in <2s, with **honest, disclosed-window** deltas (never cherry-picked):
+- **Tile 1 — Calories remaining:** `600` (`text-h2`) / label `CAL LEFT` / no delta (a today-scalar). Turns `--color-forest-green` when within target band, `#F59E0B` if over (a **visible** colour *plus* the "over" word — never colour alone).
+- **Tile 2 — Protein:** `77g` / label `PROTEIN` / delta `▲ vs 7-day avg` from a fixed 7-day window (`--color-forest-green` ▲ / `--color-alpha-white-40` ▼).
+- **Tile 3 — Adherence:** `5/7 days on target` / label `ON TARGET` / no delta.
+- **Depth (token-backed):** tiles sit on `ink-brown-800` with a top-edge highlight; the active number carries no glow (KPI tiles are inline-scale, `--glow-*` reserved for ≥48px gauges per the size rule). Label uppercase `--color-alpha-white-40`, +0.12em.
+- **Motion:** numbers **count up** (`--dur-base` 280ms, `--ease-out-soft`).
+- **Data:** `nutritionDashboard.macros` (calories left = target − current; protein current; adherence derived). **No new data** beyond a 7-day adherence array (`S28-V05` shares it).
+- **States:** Day-1 → tiles read `2200 CAL LEFT`, `0g PROTEIN`, `0/7 ON TARGET` (real zeros, framed as "fresh start," never a red verdict). Loading → number skeletons that count up on resolve.
+- (`KPIStatTile`; VK-008.)
+
+### 2 · Macro Donut (hero) — `S28-V02`  ·  mints `VK-007`
+
+The screen's **focal visualization**, placed at the **top of the Daily Macros card** (the card becomes "donut left, MacroBars right" on ≥390px, donut-above-bars stacked below). This is the honest part-of-whole that four parallel bars structurally cannot show: **how today's logged calories actually split** across the three macros — the exact view Cronometer/MyFitnessPal lead with, rendered the Balencia way.
+- **Composition:** a `Donut` (`VK-007`) ~140px, slices = **protein / carbs / fat by calorie contribution** (P 77g×4 = 308 cal · C 130g×4 = 520 cal · F 53g×9 = 477 cal → **24% / 40% / 37%** of 1305 logged cal (the donut renders exact arc shares; the rounded figures total ~101% from rounding, never a padded or arbitrary total) — an **honest whole** whose slices are the true logged-calorie shares). **Largest/primary slice = orange `--color-brand-orange`**; the other two = neutral warm tints (`--color-alpha-white-40`, `--color-alpha-white-20`) — domain-lime is reserved for chrome/identity, never split across slices (would read as four domains). Center hub = `1305 cal` logged (`text-h2`) over `of 2200` (`white/40`).
+  > *Component reality:* **no Donut/Pie component exists** in the prototype — this card mints **`VK-007`** (returned in this batch's kit block: SVG arc, 2px gaps, rounded slice caps, honest-whole assertion, brand slice law, a11y legend, states, draw-on-enter motion). Until built, the spec references it by name.
+- **Depth (token-backed):** slice strokes use the flat brand/neutral fills with a faint `--glow-orange-sm` **(mint)** on the orange primary slice only (≥48px, calibrated — **not** the full 32px `--glow-orange`, which would swamp a 140px donut at this stroke); 2px inter-slice gap reveals the `ink-brown-800` surface for carved separation; faint radial backplate behind the ring; rounded slice caps (round-join, §8).
+- **Motion:** the donut **draws itself** — each arc sweeps in clockwise from 12 o'clock via `stroke-dashoffset` (`stroke-draw`, `--dur-flow` 1200ms `--ease-flow`), primary (orange) slice first, then carbs, then fat (largest→smallest); hub counts up 520ms. **Never opacity-fades** (§8). Draws **first** in the card, before the MacroBars rise (see Motion choreography).
+- **Honesty (RUBRIC dim 5):** slices sum to a **true whole** (the 1305 logged calories, *not* the 2200 target — labelling "of 2200" in the hub keeps the gap honest without a fake slice); a macro at 0g is **absent**, not a zero-width wedge; the donut shows *composition*, the MacroBars show *vs-target* — two honest questions, not a redundant pair.
+- **Micro-interaction:** tap a slice → that macro's MacroBar pulses + a tooltip shows grams + % + calories; tap the hub → expand to a fiber/sugar/sodium breakdown (high-motivation tier). 44×44 tap targets via invisible slice hit-wedges.
+- **Data:** `nutritionDashboard.macros` (current grams per macro; calorie factors 4/4/9 are constants, not new data).
+- **States:** **Day-1 / nothing logged** → a **ghosted full-ring outline** with hub "Log a meal to see your split" — **never** a collapsed/empty disc or a misleading 100%-of-one-macro ring; **partial** (1 macro logged) → the logged slice + ghosted remainder arc (no-data ≠ 0); **loading** → ring skeleton that draws into the real arcs; **over-target** → hub number turns caution-amber `#F59E0B` (never alarm-red) with the word "over" (visible sign, not colour-alone) — a calm cue, never an alert.
+- **Non-shaming:** framed as "your plate today," not a verdict; an unbalanced split reads as information, never "you failed your macros."
+
+### 3 · Daily Macros → MacroBar group with depth — `S28-V03`
+
+Keep the four `MacroBar`s (they answer *vs-target*, the donut answers *composition*) but upgrade them from flat fills to the locked `MacroBar` spec with a **visible status sign**:
+- **Calories** = orange `--color-brand-orange` fill (the primary metric, 60%) — the single data-ink hue. **Protein / Carbs / Fat** = warm neutral `--color-alpha-white-40` fills (the deployed `MacroBar` `muted` tone), reading as legible secondary metrics on the `ink-brown-800` surface — **not** domain-lime, which stays identity-only (header accent + RPG badge) and is never used as data ink (domain colours = identity, per CONSISTENCY §2; the lone data exception is a domain's own consistency heatmap, not these bars). Track `--color-alpha-white-08`, 8px, radius-pill.
+- **Status sign (never colour alone):** an in-range bar shows a `--color-forest-green` ✓ glyph at the value; an over-target bar (>100%) caps the fill at 100% and switches to a calm caution amber `#F59E0B` (used for *both* mild and significant excess — **no alarm-red**, since over-eating a macro is a benign level, not a danger state) **plus a visible "over" label** — satisfying 1.4.11 and colour-blind users, and keeping the non-shaming frame (information, never an alert/verdict).
+- **Honest scale:** all four share a 0→target baseline; the over-target case is shown by colour+label+capped fill, never by a bar overflowing its track.
+- **Motion:** bars rise 0→% (`--dur-slow` 520ms `--ease-flow`) **after** the donut draws.
+- **Data:** `nutritionDashboard.macros` (unchanged). **States:** Day-1 → all bars at 0% with targets visible + "Log your first meal to see progress"; loading → skeleton bars that rise on resolve.
+- (`MacroBar`; ready — deployed component, depth/sign upgrade only.)
+
+### 4 · Water intake ring — `S28-V04`
+
+Replace the 8-dot glass row with the **`GaugeRing` in water/wellbeing mode** (the sanctioned **two-shades-of-blue** exception, §11) — a real progress ring, not a flat dot count: `5 / 8` in the hub, ring filled to 62.5% in `--color-domain-wellbeing` over a lighter wellbeing track, arriving `--color-forest-green` at 8/8 with a glow pulse + "+25 XP". The existing `WaterIntakeRing` (200px) is the home for this; it adopts the `GaugeRing` depth language (inset track, size-calibrated glow at ≥96px) but keeps its wellbeing-blue identity and inline [+]/long-press decrement interaction.
+- **Depth:** `--track-inset` **(mint)** recessed track; `--glow-green` only on the 8/8 arrival pulse (already in `globals.css`); the wellbeing-blue ring carries `--glow-orange-md`-scale glow recoloured to wellbeing at the 200px hero size.
+- **a11y:** the count is a **text equivalent** ("5 of 8 glasses"); arrival uses the green glow **plus** the "+25 XP" / "Target reached" copy — never colour alone. [+] is 44×44 (carries B10-F12); long-press decrement has an undo affordance.
+- **States:** Day-1 → empty ring `0 / 8` (ghosted, not a red "fail"); per the existing Water Intake Card spec.
+- **Non-shaming:** an unfilled ring reads as "room to hydrate," never a deficit verdict.
+- (`GaugeRing` water mode / `WaterIntakeRing`; VK-002.)
+
+### 5 · Intake consistency CalendarHeatmap — `S28-V05`
+
+A **new 7-day (1-week) `CalendarHeatmap`** inside (or just below) the Daily Macros card: intensity = **how close that day landed to its calorie/macro target** (5 steps: missed → under → on-target → over). This is the consistency signal MyFitnessPal premium surfaces — "are you *consistently* on plan," not just today. Reuses the deployed `CalendarHeatmap` (5 intensity steps `--color-alpha-white-05` → full `--color-brand-orange`; today = dashed border; tap = `scale-110`).
+- **Honesty:** a **no-log day is a distinct ghosted cell** (`bg-alpha-white-03`, the component's `future`/empty tone), **not** a "0 = you ate nothing" worst-intensity cell — no-data ≠ a real zero.
+- **Non-shaming:** framed as a streak of *attention*, not a punishment grid; a missed day is neutral-ghosted, never red.
+- **Data:** a 7-element adherence array (shared with `S28-V01` tile 3) — the only added fixture field; derivable from food-log history the app already stores.
+- **States:** Day-1 → all cells ghosted with "Your week fills in as you log."; loading → cells shimmer in.
+- (`CalendarHeatmap`; ready — reuse.)
+
+### 6 · Meal timeline depth + per-meal micro-split — `S28-V06`
+
+The four meal rows stay, but each gains a **calorie-weight bar** and an optional **micro-donut** so the meal list reads as a timeline, not flat text:
+- A thin (4px) `--color-brand-orange` **calorie-weight bar** under each meal's macro badges, width = that meal's share of the day's calories (breakfast 350/1600 ≈ 22%, etc.) — an at-a-glance "how big was this meal."
+- A 24px **micro-`Donut`** (same `VK-007` primitive, no hub, no glow) at the row's right edge showing that meal's P/C/F split — reinforcing the hero donut's language at meal scale.
+- **Logged sign:** the existing green ✓ stays (a **visible** sign, not colour alone) for logged meals.
+- **Motion:** the per-row bars rise after the card's hero donut; micro-donuts draw on scroll-into-view.
+- **Data:** `nutritionDashboard.meals` (cal/P/C/F already present). **States:** unlogged meal → ghosted bar + outline micro-donut (planned, not consumed).
+- (`MealCard` + `Donut` micro variant; VK-007.)
+
+### Motion choreography (entrance)
+
+Per `CONSISTENCY.md`: **hero draws first** — the **Macro Donut** arcs sweep in (largest→smallest, orange primary first) + hub counts up → **then** the KPI numbers count up and the **MacroBars rise** → **then** the water ring fills → below-fold (heatmap, meal micro-donuts) draw on **scroll-into-view**. One part-of-whole motif leads each surface; the donut and meal micro-donuts read as one family. `prefers-reduced-motion` → every visual at final state instantly (donut at full arcs, bars at width, ring at fill), with the signature static forms preserved (no essential info lost).
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** (donut = ghosted ring + "log a meal" hub; KPI tiles at honest zeros framed as a fresh start; MacroBars at 0% with targets; water ring empty; heatmap all-ghosted) — **never** a degenerate collapsed donut or a "0 = failure" read; **loading** (depth-preserving skeletons that *draw/rise/count* into data — ring outline, bar tracks, tile placeholders visible, not blank boxes); **partial** (one macro/meal logged → logged slice + ghosted remainder, distinct from zero); **error** (per the Error Handling table — chart-specific: which card failed, with retry / pull-to-refresh).
+- **60/30/10:** orange dominates — donut primary slice, calories MacroBar, calorie-weight bars, KPI accent; **green** = in-range/arrival/water-complete/logged ✓ only; **purple stays SIA-only** (the single SIA-note dot; **no projection series on this screen, so no purple in any chart**); **domain-lime** appears only as identity (header accent, RPG badge, the macro-bar fills, quick-action icons) — never split across donut slices or used as a generic palette. The **two-shades-of-blue water exception** is the only non-orange-family chart, and is sanctioned (§11). Glow uses the calibrated size-stepped scale (`--glow-orange-sm` on the donut primary slice; `--glow-green` only on water arrival) — premium warm depth, not neon.
+- **Accessibility:** every chart has a text/`aria-label` equivalent (donut: "Protein 24%, carbs 40%, fat 37% of 1305 logged calories"; ring: "5 of 8 glasses"; each bar: "Protein, 77 of 120g, 64%"); status is **never colour-alone** — in-range/over/logged all carry a **visible glyph or word** (✓ / "over" / "logged"); load-bearing donut arcs, the orange/neutral slice boundaries, ring arc, and bar fills meet **WCAG 1.4.11 ≥3:1** on `#0A0A0F`/`#211008` (the white/5 heatmap empty-step and white/10 separators are decorative-only); macro progress is conveyed **numerically** for colour-blind users (carries the existing a11y note); interactive targets (donut slice hit-wedges, water [+], heatmap cells, meal rows) ≥ **44×44pt** (carries B10-F12); `prefers-reduced-motion` renders all at final state.
+
+Conform to viz-audit/CONSISTENCY.md.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** MyFitnessPal premium / Cronometer + Bevel (macro rings, dense logs clean) — *stays Balencia via the Macro Donut (orange-dominant, warm-glow, honest part-of-whole) and warm-glow surfaces on ink-brown, not a flat metric grid.*
+**Pre-grade:** A− (86) · **Post-grade (this section):** A++ (95)
+
+Pre-grade drivers (the gap to A++): the viz hero is strong (Donut, KPI tiles, MacroBars, water ring, heatmap), but (1) non-chart surfaces are flat or lack the layered depth signature (top-edge highlight, size-calibrated glow); (2) the SIA Coaching Note Card and Today's Meals Card read as secondary to the hero, with no focal clarity; (3) edge microcopy (empty / loading / error / water logic) is partly unauthored or contradictory; (4) type line-heights are ad-hoc pixels, tracking unspecified; (5) water ring depth (inset track, glow) is unspecified; (6) meal-row micro-donuts, calendar heatmap, and loading states are undesigned; (7) the FAB scroll-hide behavior, water [+] button ergonomics, and the full interaction matrix are incomplete; (8) contrast pairs are asserted, not tabulated.
+
+### Focal hierarchy
+
+One focal point: the **Macro Donut** (`CK-P2`, data hero) — the only ≥96px element above the fold with warm glow. The **SIA Coaching Note Card sits above the Donut as an emotional anchor, not a competing focal**: on-voice coaching (warm language, purple dot for SIA identity), but visibly quieter than the donut (smaller, no glow, body type). The **KPI strip** (three `KPIStatTile`s) sits directly under the SIA card as headline numbers — supporting the donut's story, not rivaling it. Everything else (Today's Meals, MacroBars, water ring, heatmap, meal timeline, goals, food log, quick actions) is visibly secondary by size, glow, and weight. The squint test lands on the donut's primary orange slice first, then the SIA warmth, then the KPI "calories remaining" headline.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt) · 1px `--glass-border` (white/6) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue — previously absent on all Nutrition cards) · `--shadow-1`. The two hero surfaces (Macro Donut card, SIA Coaching Note Card) add `--surface-backplate` (`CK-T02`). Glow is size-calibrated per `CONSISTENCY.md §1`: `--glow-orange` (32px) on the ≥96px Donut only; `--glow-orange-md` (~20px) on the water ring (≥96px at 200px); `--glow-orange-sm` (~12px) on the 36pt KPI tiles (inline scale, no glow, by the size rule); **no glow** on the 48pt macro bars or inline elements. Water ring track recess over `--track-inset`. Donut slice strokes carry a faint `--glow-orange-sm` on the orange primary slice only. Meal micro-donuts (24px) carry no glow (inline scale per the size rule). KPI tiles sit on ink-brown-800 with the edge highlight — the only inline-scale elements that read as crafted, not flat. Extends the same depth language to the Today's Meals Card, Daily Macros Card, Water Intake Card, Quick Actions Bar, Active Goals Section, Recent Food Log, and all section eyebrow containers — so no surface reads as a flat box.
+
+### Typographic rhythm
+
+Re-map the Typography table to `CK-P3` tokens: domain title "Nutrition & diet" `--text-h2` (20pt) / weight 600 / `--leading-snug` (1.25); SIA coaching note, meal names, goal names `--text-body` (16pt raised from the current ad-hoc 15pt) / weight 400 / `--leading-normal` (1.4); meal type labels and section eyebrows the `.eyebrow` recipe (`--text-eyebrow` 12pt / weight 600 / `--tracking-eyebrow` 0.12em / uppercase / `--color-alpha-white-40`); macro labels and all meta ("Calories", "Protein", "Water", "Active goals") `--text-body` or `--text-caption` (13pt) / weight 400 / `--leading-normal`; KPI headline numbers `--text-h2` / weight 700 / tabular-nums; macro bar current values and percentages `--text-body` / weight 600 / tabular-nums; "see all" links `--text-body` / weight 600 / `--color-brand-orange`. Sentence case throughout; ≤2 `--color-brand-orange` accent words on the entire screen; Chillax stays logo-only (none on this screen). Replaces the ad-hoc pixel line-heights and missing tracking with the locked `--leading-*` and `--tracking-*` scales (`CK-T04`, `CK-T05`).
+
+### Microcopy (before → after)
+
+The narrative copy (SIA coaching, meal names, goal framing) is already on-voice; the gap is the **edge** strings, now authored to `CK-P5` and the Component specs reconciled:
+- **Macro Donut, nothing logged** — *before:* none specified → *after (from Viz §2 states):* "Log a meal to see your split" in the hub (ghosted ring + message, never a collapsed disc).
+- **Macro Donut, partial (1 macro)** — *before:* none specified → *after:* ghosted remainder arc (no-data ≠ zero) with logged slice visible.
+- **Macro Donut, over-target** — *before:* none specified → *after:* hub turns `--color-stalled-amber` (calm caution amber, never alarm-red) + visible "over" label (colour + word, never colour-alone; matches the MacroBar spec).
+- **KPI tiles, Day-1** — *before:* none specified → *after:* tiles read `2200 CAL LEFT`, `0g PROTEIN`, `0/7 ON TARGET` (honest zeros framed as fresh start, never a verdict).
+- **Today's Meals, no plan** — *before:* "Tell SIA what you like to eat" (existing) → *kept (on-voice)*.
+- **Water, all filled** — *before:* +25 XP micro-toast (existing); all glasses pulse green → *kept (on-voice)*.
+- **Water, nothing logged** — *before:* all empty, count shows "0 / 8 glasses" (existing) → *kept; never hidden or shamed*.
+- **Calendar Heatmap, Day-1** — *before:* none specified → *after:* all cells ghosted with "Your week fills in as you log" (never a red fail-grid; framed as attention-tracking, not punishment).
+- **Calendar Heatmap, no-log day** — *before:* none specified → *after:* distinct ghosted cell (no-data ≠ zero) — **not** a worst-intensity cell, never red.
+- **Recent food log, empty** — *before:* "No food logged today" (existing) → *kept (on-voice)*.
+- **Food log loading** — *before:* none specified → *after:* skeleton shimmer preserving section layout (rows visible, not blank boxes).
+- **Meal-row checkmark (logged)** — *before:* "Logged" visual only (existing green ✓) → *kept (visible sign, not colour-alone)*.
+- **Quick actions (3 cards)** — *before:* icon + label (existing) → *kept (on-voice)*; **kept note:** "Shopping list", "Recipes", "Trends" — warm, direct, no exclamation marks.
+- **FAB "Log food"** — *before:* "Log food" button (existing) → *kept (on-voice)*.
+- **Error recovery (meal plan fails)** — *before:* "Could not load meal plan" + "retry" link (existing) → *kept (on-voice, specific, not "Error!")*; **+5 pts** on effort to mirror the viz-audit error spec.
+- **SIA Coaching Note (no data)** — *before:* generic text (existing) → *after:* "Could not load SIA note" (specific, not "Error!"; on-voice per `CK-P5`).
+No exclamation marks; the brand period used with intent; SIA strings stay specific to the user's own data (the coaching note is a real coaching observation, never generic / horoscope).
+
+### Motion choreography
+
+Locked to `CK-P4` order (already draw-first in the viz spec; reconciled here): **Macro Donut polygon arcs draw** (`stroke-animate`, `--dur-flow` 1200ms `--ease-flow`) — orange primary slice first, then carbs, then fat (largest→smallest); hub counts up (`--dur-slow` 520ms) → **then** KPI numbers count up (`--dur-base` 280ms `--ease-out-soft`) and MacroBars rise (0→%, `--dur-slow` 520ms `--ease-flow`) → **then** water ring fills (0→%, `--dur-slow` 520ms `--ease-flow`) → **then** meal-row calorie-weight bars rise and micro-donuts draw on scroll-into-view → **then** calendar heatmap cells fade in on scroll (below-fold). Card entrances use `.animate-fade-up` (`--dur-base` 280ms `--ease-out-soft`, 80ms stagger). Water [+] button adds a glass with a scale-in animation on the newly filled icon (0.8→1.0, `--dur-fast` 160ms `--ease-out-soft`). FAB scroll-hide: fades out + translateY(+20pt) on scroll down (`--dur-fast` 160ms `--ease-out-soft`); fades back in on scroll up/stop (same duration, same easing). `prefers-reduced-motion` → all visuals at final state instantly (donut at full arcs, bars at width, ring at fill, heatmap at full grid), loops off. No opacity-fade on any stroke (§8).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | Donut = ghosted ring (faint full polygon outline), hub reads "Log a meal to see your split"; KPI tiles at honest zeros ("2200 CAL LEFT", "0g PROTEIN", "0/7 ON TARGET"); MacroBars at 0% with targets visible + "Log your first meal to see progress"; water ring empty ("0 / 8 glasses") + "Start hydrating"; calendar heatmap all-ghosted + "Your week fills in as you log"; Today's Meals = SIA-generated starter plan; recent log empty "No food logged today" | Donut hub: "Log a meal to see your split" (never "0 cal logged"); KPI: "Fresh start"; water: "Start hydrating"; heatmap: "Your week fills in as you log"; overall tone: inviting, no verdict | hub shows no Life-Power equivalent (no misleading aggregated number); `--surface-backplate`; donut never collapses to a point or a single-macro wedge; never a red fail-grid on the heatmap |
+| Loading | depth-preserving skeletons (Donut outline + hub skeleton, KPI tile skeletons, macro bar track visible, water ring outline, heatmap cell grid visible) that morph/rise/count into data | "SIA is reading your nutrition — one moment." | skeleton on `--color-ink-brown-800`, radial shimmer on Donut, count-up placeholders on KPI |
+| Empty / partial | Donut: one macro logged → logged slice + ghosted remainder arc (distinct from zero); missing meals → "No plan yet" affordance in Today's Meals card; unsynced water data → count shows "? / 8 glasses" with "sync pending" note; partial heatmap → logged days visible, future/unlogged days ghosted | Donut: "You've logged protein so far" (acknowledges the logged slice). Water: "Syncing — try again shortly." Heatmap: "Your week fills in as you log." | no-data ≠ zero (ghosted, not a real 0); grey/muted tone for in-progress states |
+| Error | per-section skeletons (Donut outline stays visible, bars/ring/heatmap frames visible) + a network banner below the sticky header if full sync fails; individual section fails show "Could not load [section]" with retry affordance | "Couldn't refresh — pull again." / "Could not load meal plan. Tap to retry." / "Could not load SIA note." (specific, not "Error!") | calibrated `--color-error-red` only on a genuine network/sync failure, glyph+word paired (not colour-alone) |
+| Offline | cached data retained (yesterday's meals, previous log entries, last-synced water count, heatmap history); all sync-dependent [+] actions honestly dimmed; a cached banner below sticky header | "You're offline — showing your last sync. Log food now, sync when online." | actions dimmed (0.5 opacity) with a visible reason (not colour-alone) |
+
+### Signature & anti-generic
+
+Ownable moments: the **Macro Donut hero** (the honest part-of-whole no flat bar can show — Cronometer / MyFitnessPal lead with this, rendered here the Balencia way: orange-dominant slices, warm-glow depth, rounded caps, drawn-on-entry), the **warm-glow-on-ink surface signature** (every card has the edge-highlight + size-calibrated glow, lifting all surfaces from flat boxes), the **nutrition-lime branding** (header accent line, RPG badge, quick-action icons — distinctly Balencia, never a generic health app grey), and the **meal-timeline micro-donuts** (each meal's P/C/F split visualized at row scale, reinforcing the hero donut language — the signature visual motif no competitor carries). Anti-generic fixes: the **KPI strip is positioned above the Donut as a supporting headline**, so the screen never reads as a flat grid of bars (Cronometer's clinical density); the **meal rows have calorie-weight bars + micro-donuts**, so the meal list reads as a timeline, not flat text; the **calendar heatmap breaks the grid monotony** by appearing on scroll, below the fold; section eyebrows and the FAB scroll-behavior add **rhythm and intentional blank space**, so the dense nutrition data stays calm and hierarchical, not overwhelming. The stale ASCII wireframe (still showing flat white bars, no Donut, no micro-donuts, no heatmap) is flagged to be redrawn from this section in the build — carried as a future remediation note.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`): domain title `--color-alpha-white-100` (≥12:1), SIA coaching note white-90 (≥9:1), macro labels white-100 (≥4.5:1), macro values white-100 (≥4.5:1), section eyebrows white-40 (decorative label, paired with position — not load-bearing), "see all" links `--color-brand-orange` (≥3:1 on both fields — WCAG 1.4.11). Donut: text equivalents in `aria-label` ("Protein 24%, carbs 40%, fat 37% of 1305 logged calories"); slice boundaries (orange/neutral boundaries) meet ≥3:1 (WCAG 1.4.11). MacroBars: status never colour-alone — in-range bars show a `--color-forest-green` ✓ glyph; over-target bars show `--color-stalled-amber` **plus a visible "over" label** (colour + word, not colour-alone). Water ring: count is a **text equivalent** ("5 of 8 glasses"); arrival uses green glow **plus** the "+25 XP" copy (never colour-alone). Heatmap: intensity conveyed numerically (day + adherence score) in screen reader; no-log days are **distinct from worst-intensity** (never red). All interactive elements (meal rows, [+] water button, heatmap cells, FAB, goal rows, "see all" links, quick action cards) standardized to **`--focus-ring` (`CK-T03`)** — 2px orange, 2px offset — replacing the ad-hoc "2pt orange ring" repeated in the Interaction tables. Targets ≥44×44pt: water [+] button (32pt visual, 44pt hit box); heatmap cells (28pt visual, 44pt hit boxes with overlap allowed); meal rows (responsive height, 44pt min hit-box height). Reduced-motion preserves the Donut's static final state (arcs fully drawn, no loops).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -344,9 +506,8 @@ The Nutrition & Diet Dashboard is the user's hub for daily nutrition management.
 | Section eyebrow text | rgba(255,255,255,0.4) | white at 40% | meal type labels and all section labels |
 | RPG badge text + bg | #84CC16 at 100% / 15% | nutrition-lime | domain color on badge |
 | Calories bar fill | #FF5E00 | burnt-orange | 60% — primary metric |
-| Protein/Carbs/Fat bars | #FFFFFF at 40% | white-40 | secondary metrics |
-| Bar excess (mild) | #F59E0B | amber | over target warning |
-| Bar excess (significant) | #EF4444 | red | over target alert |
+| Protein/Carbs/Fat bars | #FFFFFF at 40% | white-40 | secondary metrics (neutral data ink; lime is identity-only) |
+| Bar excess (over target) | #F59E0B | amber | calm caution + visible "over" word; never alarm-red, never colour-alone |
 | Goal progress fills | #FF5E00 | burnt-orange | 60% — progress |
 | "see all" links | #FF5E00 | burnt-orange | 60% — interactive text |
 | SIA purple dot | #7F24FF | royal-purple | 10% — AI indicator |

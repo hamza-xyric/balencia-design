@@ -210,14 +210,14 @@ This screen is the user's stress command center — a unified view that surfaces
   - Eyebrow above card: "CURRENT STRESS LEVEL" — 12pt Sora Semibold, teal (#14B8A6), uppercase, +0.12em tracking
   - Semicircle gauge: 180pt wide x 100pt tall (half-circle arc). Centered horizontally within card.
     - Track: 8pt stroke, white at 8%
-    - Arc fill: graduated from green (#34A853) at 0 degrees through teal (#14B8A6) at 90 degrees to orange (#FF5E00) at 135 degrees to red (#EF4444) at 180 degrees. Fill sweeps clockwise from left to the position corresponding to the score.
-    - Needle: 2pt line, white, from arc center to current position on the arc
+    - Arc fill: ALWAYS brand-orange (#FF5E00) via arc-following --grad-orange (conic-mask behind a circular mask — an SVG linearGradient cannot sweep along an arc). The filled angle = (score/10)·240° and is driven by the real composite score (no hardcoded fill). The arc is NEVER recoloured to alarm-red as the score rises (VK-015 + S52-V01); severity is read from the number + glyph + the always-visible severity word.
+    - No needle: the open 240° ArcGauge reads its value from the filled arc end + the dominant center number (the prior fixed needle is removed).
     - Score value: centered below arc center, 32pt Sora Bold, white. Shows composite score (e.g., "4.2")
     - Severity label: 14pt Sora Regular, white at 60%, 4pt below score. Maps to: "low" (1-3), "moderate" (4-6), "high" (7-8), "critical" (9-10)
   - Sub-score row: 16pt below gauge, horizontally spaced across card width. Three columns, each:
     - Label: 11pt Sora Regular, white at 40%, centered. "biometric" / "sentiment" / "behavioral"
     - Score: 15pt Sora Semibold, white, centered, 4pt below label. (e.g., "3.8", "4.5", "4.1")
-    - Color indicator: 6pt circle below score, color-coded per severity (green <4, teal 4-6, orange 7-8, red 9-10)
+    - Source read (replaces colour-only dot): a small --color-domain-* identity tick + a VISIBLE source glyph (pulse / chat / steps for biometric / sentiment / behavioral) + the value — so the contributing signal is legible without colour (S52-V02). No severity-coloured dot (colour-alone is removed).
   - Timestamp: 12pt Sora Regular, white at 30%, center-aligned, 12pt below sub-scores. "last updated: 2 hrs ago"
 - **Variants**:
   - Populated (default): full gauge with all sub-scores
@@ -236,7 +236,7 @@ This screen is the user's stress command center — a unified view that surfaces
   - Prompt: "How stressed are you?" — 17pt Sora Semibold, white, left-aligned, 16pt below eyebrow
   - Stress slider: Full card width minus 48pt (24pt padding each side), 12pt below prompt
     - Track: 4pt height, --r-pill
-    - Track fill (left of thumb): graduated from green (#34A853) at left to orange (#FF5E00) at center to red (#EF4444) at right
+    - Track fill (left of thumb): a single continuous brand-orange (#FF5E00) fill — stress is a LEVEL, never alarm-coded; the reading is carried by the value + the severity word, never a green→orange→red gradient (S52-V01/V07)
     - Unfilled track (right of thumb): white at 10%
     - Thumb: 28pt circle, white fill, --shadow-1. Active: scale(1.2), --shadow-2
     - End labels: "1" (left, 13pt Sora Regular, white at 40%) and "10" (right, 13pt Sora Regular, white at 40%)
@@ -284,16 +284,7 @@ This screen is the user's stress command center — a unified view that surfaces
   - Two-column layout inside card:
     - Left column (50% width): Donut chart
       - Outer diameter: 120pt, inner diameter: 64pt (donut hole)
-      - Segments: each trigger gets a distinct color from a stress-specific palette:
-        - Work: #EF4444 (red)
-        - Relationships: #EC4899 (pink)
-        - Finances: #10B981 (emerald)
-        - Health: #14B8A6 (teal)
-        - Family: #F59E0B (amber)
-        - Uncertainty: #6366F1 (indigo)
-        - Time pressure: #FF5E00 (orange)
-        - Conflict: #A855F7 (purple)
-        - Other: white at 30%
+      - Segments (honest, 60/30/10-safe — never rainbow, never purple, per S52-V03 + CONSISTENCY Donut): the **largest trigger slice = brand-orange #FF5E00** (primary data ink); the remaining slices = **warm neutral tints** in descending share (white at 40% / 28% / 20% / 12% / 8%). Slice meaning is read from the legend label + percentage, never from a per-trigger hue; a 0-count trigger is omitted (never a zero-width wedge). 2px slice gap reveals ink-brown-800 for carved separation.
       - Center text: total log count, 16pt Sora Semibold, white. "28 logs" below in 11pt Regular, white at 40%.
       - Segment hover/tap: selected segment scales out 4pt, label appears above chart
     - Right column (50% width): Legend
@@ -345,7 +336,7 @@ This screen is the user's stress command center — a unified view that surfaces
   - Eyebrow above card: "MENTAL RECOVERY" — standard teal eyebrow treatment
   - Recovery gauge: Centered, 96pt diameter circular gauge
     - Track: 6pt stroke, white at 8%
-    - Arc fill: teal (#14B8A6), clockwise from 12 o'clock, to percentage of 100. Color shifts: teal (>60%), orange (#FF5E00) at 30-60%, red (#EF4444) below 30%
+    - Arc fill: brand-orange (#FF5E00) via arc-following --grad-orange (conic-mask), clockwise from 12 o'clock to percentage of 100; green (#34A853) at in-range. NEVER recoloured to alarm-red at low recovery — a low score shows a constructive 'build it back' lever, not a red ring (S52-V05).
     - Center score: 28pt Sora Bold, white. (e.g., "72")
     - Center label: 12pt Sora Regular, white at 40%, 4pt below score. "of 100"
   - Trend indicator: Right of gauge, vertically centered
@@ -394,7 +385,7 @@ This screen is the user's stress command center — a unified view that surfaces
   - Eyebrow above card: "BIOMETRIC STRESS" — standard teal eyebrow treatment
   - Row layout:
     - Left: "WHOOP HRV stress" — 15pt Sora Semibold, white
-    - Right: color indicator dot (8pt circle). Green (#34A853) = low physiological stress (HRV high), amber (#F59E0B) = moderate, red (#EF4444) = high physiological stress (HRV low)
+    - Right: a physiological-stress read — a small **glyph + severity word** ("calm" / "moderate" / "elevated") + the HRV value, **never colour-alone and never an alarm-red dot** (a high physiological-stress reading is a state, not a danger verdict — S52-V02/V07); a neutral domain-identity tick may accompany the word.
   - Detail row: 8pt below header row
     - "HRV: 68ms" — 16pt Sora Semibold, white
     - Trend: "↑ from 55ms" — 13pt Sora Regular, green (#34A853) if improving, orange if declining
@@ -417,6 +408,167 @@ This screen is the user's stress command center — a unified view that surfaces
 
 ---
 
+## Visualization
+
+> Source: no companion file (spec-first authored here); Audited in `viz-audit/` — Batch (Tracker B / Recovery cluster), findings `S52-V01..S52-V07`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **This screen reuses `VK-015 ArcGauge`** (minted on Energy [63]) as the stress hero and the `VK-009` signed-bar encoding for the correlation/component reads. Premium-depth, on-brand (60/30/10), **Wellbeing Mode → wellbeing-teal stays *identity* only; orange dominates data ink**; no new data — every visual derives from data the screen already shows. **Current grade D (52) → specced-target A− (85).** *(Honest re-grade under the revised 10-dimension rubric; capped at the B band today by two open Criticals — see below — that this section resolves. The residual gap to A+++ is build-verified depth + working scrub/drill micro-interactions, owned by the later viz-build program.)*
+
+Template = **Tracker B** (cluster benchmark **Welltory + Oura** — readiness/recovery gauges, HRV-derived stress as a *state*, consistency clouds — rendered **the Balencia way**: ArcGauge + Living Line + warm glow, *not* a Welltory/Oura clone). The prototype today (`/features/stress`) renders **three live defects this section is written to retire**:
+- **`S52-V07a` · Critical (dishonest + shaming hero):** the stress gauge is a decorative half-circle whose fill is **hardcoded** (`--ring-target: 112 / 164`, a fixed needle — it does **not** map to the `4.2` score), runs green→teal→**alarm-red** at the high foot, and is `aria-hidden` (no text equivalent). A bounded *level* that turns **red** as it rises frames stress as a verdict/failure (non-shaming violation) **and** `VK-015` forbids an alarm-red ArcGauge. Resolved by `S52-V01`.
+- **`S52-V07b` · Critical (rainbow donut + colour-alone + not-a-donut):** the Trigger Analysis "donut" is two nested `border` circles (teal + orange rings — **not** real arcs; it shows no composition at all), and the spec calls for an **8-colour rainbow** palette (red/pink/emerald/teal/amber/indigo/orange/purple) — a 60/30/10 violation, a competitor clone, and a colour-alone legend. Resolved by `S52-V03`.
+- **`S52-V07c` · High (equalizer trend, distorted, colour-alone):** the trend is a straight-segment `polyline` with `preserveAspectRatio="none"` (distorts the shape) under `aria-hidden`, with the SIA projection a meaningless 2-point stub. Resolved by `S52-V04`.
+
+This section upgrades *how the stress data reads* — one calm **ArcGauge** hero (never red), an honest **Donut** trigger split, the **Living-Line** trend with the brand-sanctioned dashed-purple SIA forecast, a recovery **GaugeRing**, and signed component/biometric reads — **without** displacing the Quick Log card, which stays the screen's primary *action*. Mints no new primitive.
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Composite stress score (4.2 / 10) + severity | decorative half-circle, **fill hardcoded**, alarm-red high zone, `aria-hidden` | **open 240° ArcGauge** (charge/dial metaphor) + center value + ticks + glow, **always orange — never red** | **`ArcGauge` (VK-015, reuse 63)** |
+| 3 sub-scores (bio 3.8 · sentiment 4.5 · behav 4.1) | bare numbers + colour-only 6px dots (green/teal) | **3 mini signed reads** under the gauge — value + `--color-domain-*` identity tick + a visible source glyph (never colour-alone) | mini reads (`VK-009` encoding) |
+| Trigger frequency (Work 35% · Health 20% · …) | 2 nested `border` rings (no composition) + **rainbow** legend + colour-alone | **honest `Donut`** — largest slice orange, rest warm neutral tints, 2px gaps, hub = "28 logs", visible labelled legend | **`Donut / Pie` (VK-007, reuse 28)** |
+| Stress score over 7/14/30d + SIA projection | distorted `polyline` (equalizer) + 2-pt dashed stub, `aria-hidden` | **Living Line** (curved, draws itself) + **dashed-purple `#7F24FF` SIA projection** + green-band "calm zone" | `TrendChart` (Living Line) (`VK-016`) |
+| Mental recovery score (72 / 100) + trend | teal full ring, recolours orange/red at low %, colour-only arrow | **recovery `GaugeRing`** (96px, arc-gradient, glow, inset) — green in-range, **never alarm-red**, ▲/glyph trend | `GaugeRing` (`VK-002`) |
+| 4 recovery components (emotion 68 · sleep 78 · activity 71 · social 74) | 2×2 text grid | **mini `MacroBar` reads** vs 100, orange fill, depth track — secondary, not promoted to rings | `MacroBar` |
+| WHOOP HRV biometric stress (68ms, ↑) | one number + colour-only dot | **signed read** — value + ↑/↓ glyph + a visible "low/mod/high" word band (never colour-alone) | signed read (`VK-009` encoding) |
+| avg / "−12% vs last wk" / "prev 65 (+7)" | text + coloured delta | **honest KPI deltas** (disclosed "vs last week" window; ▼-improving is *good* for stress, framed positively) | `KPIStatTile` accents |
+| Severity word / triggers / note / timestamps / relief-tool labels / level | text | — (deliberately textual — identity labels, one-off scalars, no useful visual form) | — |
+
+**Editorial hierarchy (calm, not maximal):** the Quick Log card stays the screen's *action* focus; the **stress ArcGauge is the one viz hero**; the trigger Donut + Living-Line trend + recovery GaugeRing are clearly secondary; the component/biometric reads are ambient. Restraint: the relief-tool cards, severity word, and note stay clean text — they have no useful visual form. No high-motivation weekly heatmap is forced into the base section (it lives in the existing high-motivation tier).
+
+### 1 · ArcGauge — stress hero (never red) — `S52-V01`  *(reuse `VK-015`)*
+
+Replace the decorative half-circle with the **ArcGauge** (`VK-015`, the same primitive minted on Energy [63]): an **open arc sweeping 240°** (gap centered at the bottom foot — it must never close into a ring), `0` at the left foot → `10` at the right foot, the composite score (`4.2`) as the dominant center number. Stress is a *level*, so an open dial reads more honestly than a needle gauge implying a completable scale — and crucially the **fill is driven by the real score**, not a hardcoded needle position (`S52-V07a` fix).
+- **Geometry (locked, CONSISTENCY ArcGauge):** hero **160px** outer, **8px arc** (`--stroke-bold`); filled portion = `(score/10)·240°`; round caps on both filled and unfilled ends; 12 radial ticks (6px, `--color-alpha-white-25`) behind the arc for instrument precision.
+- **Depth (token-backed):** arc fill = arc-following `--grad-orange` **(mint)** via a **`conic-gradient` behind a circular mask** — ⚠️ an SVG `linearGradient` cannot sweep along an arc (angular-gradient trap); the spec says conic. Track = `--color-alpha-white-10` over `--track-inset` `rgba(0,0,0,0.28)` **(mint)** inset (carved recess). Glow = `--glow-orange-md` (~20px, **mint** — **not** the full 32px `--glow-orange`, which blooms past a 160px gauge). Center value `text-display` white + faint `--glow-orange-sm` (mint).
+- **Non-shaming colour (replaces the spec's green→teal→orange→red sweep — `S52-V07a`):** the arc is **always orange** (brand data ink); a high reading is **never** recoloured to alarm-red. `VK-015`: "a low value is never recoloured to an alarm red" — here it's the inverse, a *high* value, and the same law holds: severity is carried by **the number + a glyph + the always-visible severity word** ("low / moderate / high"), never by an alarm colour. A high-stress reading gets a constructive **lever** (a "try a 5-min reset →" affordance to Breathing [53]), not a red dial that shames.
+- **Sub-scores → mini signed reads (`S52-V02` companion):** the 3 sub-scores (biometric / sentiment / behavioral) sit below as labelled mini reads — value (`text-h2` white) + a small `--color-domain-*` *identity* tick + **a visible source glyph** (pulse / chat / steps) so the source is legible without colour; the prior **colour-only 6px severity dots** (green/teal) are removed (colour-alone + a second semantic colour doing data work).
+- **Micro-interaction:** a fresh log re-sweeps the arc to the new score + count-ups the center number; tap the gauge → inline expand to the score breakdown (sub-score sources), tap a sub-score → source tooltip.
+- **Data:** `stressManagement.score / severity / subScores / updated` (`mock.ts`).
+- **States:** Day-1 / no-check-in → arc at rest on a **ghosted** 0-foot (faint full track, **not** a filled 0 reading "stress is zero"), center "—" + "log your first check-in below"; loading → track + ticks visible, shimmer sweep that **morphs** into the fill (never a blank disc); error → ghosted arc + inline retry.
+
+### 2 · Sub-score mini reads — `S52-V02`
+
+The biometric / sentiment / behavioral sub-scores become three labelled reads under the hero (described in `S52-V01`): each = a domain-identity tick + value + a **visible source glyph + word** (so the contributing signal is named, not colour-coded). They are deliberately *not* promoted to three more gauges — that would create competing foci and fight the hero. **Non-shaming:** a "no biometric data" sub-score reads a ghosted "—" with "connect WHOOP" — distinct from a real low score (no-data ≠ a real value).
+
+### 3 · Donut — honest trigger split — `S52-V03`  *(reuse `VK-007`)*
+
+Replace the two nested `border` rings (which encode *no composition*) with a real **`Donut`** (`VK-007`, the same primitive minted on Nutrition [28]): SVG `path` arcs summing to a **true whole** (the 28 logged triggers), **2px gaps** revealing the `ink-brown-800` surface, hub = "28" + "logs" sub-label, consistent inner-radius.
+- **Brand slice colours (60/30/10-safe — replaces the 8-colour rainbow, `S52-V07b`):** the **largest / primary slice (Work 35%) = `--color-brand-orange`**; remaining slices = warm neutral tints (`--color-alpha-white-40`, `--color-alpha-white-20`, `--color-alpha-white-12`) in descending order; **never rainbow** (one-hue-per-trigger is a competitor clone + a 60/30/10 violation), **never purple** (no slice is SIA-originated). A 0-count trigger is **omitted**, never a zero-width wedge.
+- **Honesty (RUBRIC dim 5):** slices sum to the real log count; a "remaining/other" group is a true aggregate slice, never a phantom padding wedge.
+- **A11y:** `aria-label` enumerates every slice ("Work 35%, Health 20%, Family 15%, Time 12%, Other 18% of 28 logs"); a **visible labelled legend** (name + % beside each row) — never colour-alone (the legend dots are reinforced by the always-present name + %). Slice hit-wedges ≥44×44pt; load-bearing arcs/boundaries ≥3:1.
+- **Depth:** `--glow-orange-sm` **(mint)** on the primary orange slice only (the donut is ~120px, card-scale — not the 32px hero glow); faint radial backplate behind the ring.
+- **Sparse fallback:** <5 logs → the spec's horizontal-bar fallback, but bars adopt the same orange-primary / neutral-tint law (no rainbow); empty → "log stress a few times to see your trigger patterns" with a ghosted ring outline + hub prompt (never a collapsed disc).
+- **Motion:** arcs **draw themselves** clockwise from 12 o'clock (`stroke-draw`, `--dur-flow` 1200ms), **largest → smallest** (primary orange slice first); hub counts up 520ms; never opacity-fades.
+- **Data:** `stressManagement.triggers` (label + value + count).
+
+### 4 · TrendChart — stress Living Line + SIA projection — `S52-V04`  *(`VK-016`)*
+
+Replace the distorted `polyline` (`preserveAspectRatio="none"` + a 2-point dashed stub, `aria-hidden` — `S52-V07c`) with the **`TrendChart` Living Line**: composite stress over 7/14/30d as one continuous **curved, round-capped** stroke that **draws itself**, with the **SIA "projected stress" curve as a dashed-purple `#7F24FF` tail** (§11 — the brand-sanctioned forecast colour, exactly what the screen already gestures at) extending ~3 days ahead.
+- **Locked params (CONSISTENCY TrendChart):** actual = solid orange Living Line 2px curved; projected = dashed purple `#7F24FF` 2px; area = `--grad-orange` **(mint)** vertical fade ≤25%; **zero-baselined y (0–10), shared y-scale across 7/14/30d** (honest window-switching — no truncated axis); **no `preserveAspectRatio="none"`** (the prototype's shape-distortion bug — render to a true aspect). Time-range chips: active = teal *identity* selection (existing pattern) — but the **line itself is orange**, not teal.
+- **Calm-zone band (replaces the spec's green "safe zone"):** a faint forest-green `#34A853` ~3% band from y=0→3 marks the low-stress region as a *calm anchor* (non-shaming — it's an aspirational floor, not a "danger above" zone); the line crossing it is descriptive, never alarmist. **The line never turns red.**
+- **Honest delta (`S52-V05` companion):** "avg 4.8 · ↓12% vs last week" is a disclosed fixed window; for stress a **▼ down delta is improvement** → render it **forest-green** with a clear "lower is calmer" framing (the one place a green ▼ is correct), never the muted/negative treatment that would misread a good outcome.
+- **Motion:** line **draws itself** (`stroke-draw`, `--dur-flow` 1200ms) on enter / range change — **not** a fade; projection draws after the actual line; horizontal scrub reveals the value at the finger; scroll-into-view (below fold).
+- **States:** sparse (<3 points) → dots only, no connecting line, "log more to see trends" (no fabricated curve); empty → axes only + "your trend will appear after a few check-ins"; loading → skeleton axis + flat line that draws into shape.
+- **Data:** aggregated `stress_logs` `final_stress_score` by day + `projection`.
+
+### 5 · Recovery GaugeRing + component bars — `S52-V05`  *(`VK-002`)*
+
+Mental recovery (`72/100`) becomes a proper **`GaugeRing`** (`VK-002`): 96px, **arc-following `--grad-orange` (mint)** stroke (conic-mask, not flat), `--track-inset` **(mint)** beveled track under the `--color-alpha-white-10` track, center value (`text-h2`, count-up 520ms) + "of 100", `--glow-orange` (32px, hero-size) — recovery *is* a completable bounded score, so a full ring is correct here (vs the ArcGauge open dial for the unbounded *level*).
+- **Non-shaming colour (corrects the spec's teal→orange→red recolour at low %):** the ring is **orange data-ink**, **green at ≥ in-range**; it is **never recoloured to alarm-red** at low recovery — a low recovery shows a constructive "build it back" lever, not a red ring. Trend = ▲/▼/→ **glyph + word** ("improving"), never colour-only arrow.
+- **Components → mini `MacroBar` reads:** emotion 68 · sleep 78 · activity 71 · social 74 keep the 2×2 grid but each value gains a thin `MacroBar` vs 100 (`--color-alpha-white-08` track over `--track-inset`, orange fill, width = value/100) — secondary depth, **not** promoted to four rings.
+- **States:** Day-1 → ghosted ring + "recovery score builds over time" (not a filled 0); loading → arc skeleton that morphs into fill.
+- **Data:** `mental_recovery_scores` (`recovery_score`, `components`, `trend`, `previous_score`).
+
+### 6 · Biometric signed read — `S52-V06`
+
+The WHOOP HRV biometric card keeps its compact form but drops the **colour-only status dot**: HRV value (`68ms`) + ▲/▼ glyph + the **visible word band** ("Low / Moderate / High physiological stress") carries status — never colour-alone. The accent stays orange/green per direction; **never an alarm-red dot**. Not-connected → the existing compact "Connect WHOOP" prompt (no fabricated reading). This is the one place a *high* HRV (= calm) is good news — framed positively.
+
+### Motion choreography (entrance — draw-first order)
+
+Per `CONSISTENCY.md`: **the ArcGauge hero draws first** — arc fills `0→score` (`ring-animate`, 520ms `--ease-flow`) + ticks + center count-up — **then** the Quick Log + sub-score reads settle → **then** the trigger **Donut arcs draw themselves** clockwise (largest orange slice first, 1200ms `stroke-draw`) → **then** the stress **Living Line draws itself** L→R (1200ms `stroke-draw`, *never* fade) with its dashed-purple projection drawing last → **then** the recovery `GaugeRing` fills + component bars rise (520ms) → biometric read last. One line motif per surface (the trend is the only full Living Line; recovery/components use the ring + bars). Below-fold visuals animate on **scroll-into-view**. `prefers-reduced-motion` → every chart at final state instantly; the Living Line's static form (completed stroke + green end dot + static dashed-purple tail), the Donut's full arcs, and the gauges' filled arcs preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — ArcGauge ghosted 0-foot ("—" / "log your first check-in"), sub-score reads ghosted, Donut hidden until 5+ logs (ghosted ring prompt at threshold), TrendChart "your trend will appear after a few check-ins" (axes drawn, no fabricated curve), recovery ring ghosted ("builds over time"), biometric "Connect WHOOP"; **loading** — depth-preserving skeletons that *morph* into drawn data (arc track + ticks, donut ring outline, trend axis + flat line, recovery arc — never blank discs); **partial / sparse** — distinct from loading and from zero (ghosted, not filled-zero — a missing biometric sub-score ≠ a real low score); **error** — chart-specific honesty per the Error Handling table (which series failed + a visible "retry").
+- **60/30/10 (corrected):** **orange dominates data ink** — ArcGauge arc, the primary Donut slice, the Living-Line effort segment, the recovery `GaugeRing` fill, component `MacroBar` fills, the Log CTA + FAB. **Green** = arrival / in-range / calm-improvement only (recovery in-range band, the Living-Line arrival, the calm-zone band, the ▼-is-good stress delta, log-success flash). **Purple stays SIA-only** — the coaching-note border/avatar/"ask SIA" link, the "SIA pick" badge, **and the brand-sanctioned dashed-purple projection** on the TrendChart (§11 — correct, the only chart-purple). **Wellbeing-teal is now identity only** (header line, eyebrows, RPG badge, sub-score/relief-tool *identity* ticks, trend-range chip selection) — it no longer carries primary data ink (retires the prototype's teal-as-data-ink throughout). **Alarm-red retires from every data surface** (gauge, donut, trend, recovery, biometric) — severity is carried by number + glyph + word, never an alarm colour (the core non-shaming correction for a stress screen). Glow uses the calibrated size-stepped scale — warm depth, not neon.
+- **Non-shaming (the ethical core of a stress screen):** stress is framed as **state + a lever**, never a verdict — the ArcGauge never turns red, a high reading routes to a constructive relief tool; recovery is "build it back," never "you're failing"; triggers are self-awareness, not blame; the trend's calm-zone is an aspirational floor, not a danger threshold; no streak/loss-aversion pressure; the ▼-improving delta is celebrated, not punished.
+- **Accessibility:** every gauge / donut / line / read carries a text/`aria-label` equivalent conveying the same value (the spec's VoiceOver summaries already give each chart one: ArcGauge → "Current stress level 4.2 of 10, moderate"; Donut → enumerated slices + total; TrendChart → "average 4.8, down 12% from last week"; recovery → "72 of 100, improving") — **replacing every current `aria-hidden="true"` on the live charts**; status uses a **visible** glyph/sign/word (✓ / ~ / severity word, +/− / ▲▼→), never colour alone (fixes the prototype's colour-only sub-score + trigger + biometric dots); label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — gauge arcs, donut slice boundaries, the Living-Line stroke, milestone dots, recovery arc, and the filled/unfilled boundary all meet ≥3:1 vs background (white/3 grid is decorative-only); interactive chart targets ≥ 44×44pt (carries B14-F12); `prefers-reduced-motion` renders all visuals at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Oura + WHOOP (calm; never alarm-red on a level) — *stays Balencia via the ArcGauge hero (always orange, never red), the warm-glow surfaces on ink-brown, the honest Donut trigger split, and the Living-Line trend with dashed-purple SIA forecast.*
+
+**Pre-grade:** A− (85) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): The Visualization section is spec'd to high craft (the ArcGauge hero, honest Donut, Living Line, signed reads), but (1) non-chart card surfaces lack the `--edge-highlight` top-edge highlight and layered depth on all surfaces; (2) the SIA coaching note and relief tool cards are flat `ink-brown-800` without depth refinement; (3) microcopy on empty / loading / error states is partly unauthored or uses generic phrasing (such as "could not load," "see error pattern"); (4) type line-heights and tracking are ad-hoc, not mapped to `CK-P3` tokens; (5) the stress slider component and trigger chips lack premium input styling; (6) the chart-surface depth rules (glow sizes, track inset, radius) are specified per component but not verified consistently; (7) motion choreography is listed but not sequenced in draw-first order; (8) contrast pairs are asserted, not tabulated.
+
+### Focal hierarchy
+
+One focal point: the **Current Stress Level ArcGauge** (`CK-P2`, data hero) — the 160px ≥96px open-dial gauge with orange arc fill, centered number, and severity word. It sits above the fold and reads first on the squint test. The **SIA Coaching Note sits below as a warm voice layer, not a competing focal element**: it is body-type (15pt), 3pt left border (purple at 40%), no glow — visibly secondary. The **Quick Log card is the interaction focus** (the primary CTA zone where the user logs stress), but visually secondary to the gauge hero by size and hierarchy. Everything else (Trigger Analysis, Stress Trend, Mental Recovery, Relief Tools, Biometric) is clearly secondary by order, sizing, and weight. No competing foci.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt) · 1px `--glass-border` (white/6) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue) · `--shadow-1`. The Current Stress Level Card (hero, ≥96px) adds `--surface-backplate` (`CK-T02`) — a faint radial backplate behind the card face. Glows are size-calibrated per `CONSISTENCY.md §1`: `--glow-orange` (32px / .45) on the ≥160px stress ArcGauge hero only; `--glow-orange-md` (~20px / .40) on the ~96px recovery GaugeRing; **no glow** on the Quick Log, SIA Coaching Note, or relief tool cards (<96px). All gauge tracks (stress arc track, recovery ring track, slider track) recess over `--track-inset` (`rgba(0,0,0,0.28)`) for carved beveled depth. Donut ring carries `--glow-orange-sm` (~12px / .35) on the primary orange slice only (the ~120px ring is card-scale, smaller than the hero). All interactive elements (slider thumb, trigger chips, CTAs, card bodies) read as crafted, not default-component. Extends the same depth language to every surface so nothing reads as a flat box.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` tokens: header title `--text-h2` (20pt) / 600 / `--leading-snug` (1.25); stress gauge score (32pt) → `--text-display-l` (32pt) / 700 / `--leading-tight` (1.1); severity label (14pt) → `--text-h3` (17pt) / 400 / `--leading-snug`; sub-score values `--text-h3` / 600 / `--leading-snug`; sub-score labels / eyebrow labels the `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white-40%); quick log prompt `--text-h2` (20pt) / 600 / `--leading-snug`; slider value label `--text-display-l` (32pt) / 700 / `--leading-tight` (snap-to-integer reads larger); trigger chip text `--text-caption` (13pt) / 600 / `--leading-normal` (1.4); SIA coaching message `--text-body` (16pt, raised from 15pt per exemplar pattern) / 400 / `--leading-normal`; donut center label / legend `--text-caption` / 400 / `--leading-normal`; trend summary "avg 4.8" `--text-h3` (17pt) / 600 / `--leading-snug`; trend comparison "↓12% vs last wk" `--text-body` / 400 / green (`--color-forest-green`) if improving; recovery gauge score `--text-display-l` (32pt) / 700 / `--leading-tight`; component labels `--text-caption` / 400; component values `--text-h3` / 600. Hierarchy carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout. ≤2 `--color-brand-orange` accent words per screen. Chillax stays logo-only (none on this screen). Replaces ad-hoc pixel line-heights with the `CK-T04` scale (`--leading-tight / snug / normal / relaxed`).
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` brand voice — warm, plain, coaching, no exclamation marks:
+
+- **Stress gauge, Day 1** — *before:* "log your first check-in below" → *after (kept, warm):* same (already on-voice).
+- **Quick Log, prompt** — *before:* "How stressed are you?" → *after (kept):* same; direct, coaching tone.
+- **Quick Log, helper (Day 1)** — *before:* "your stress data stays private" → *after (kept):* same, 12pt Regular, white-30%, reinforces trust.
+- **Trigger chips, "Other" expansion** — *before:* hint text "describe..." → *after (on-voice):* "what else is on your mind." (warm, inviting).
+- **Quick Log note field** — *before:* "add a note" link → *after (kept):* same; optional, casual.
+- **"Log stress" CTA, success** — *before:* not specified → *after (new, on-voice):* green glow (600ms) + silent success (the gauge updates with new arc sweep, which is the primary feedback).
+- **SIA Coaching Note, Day 1** — *before:* "Log a few stress check-ins and I'll start spotting patterns for you. No rush — even one a day helps." → *after (kept):* same; specific, non-shaming, warm SIA voice.
+- **SIA Coaching Note, low-motivation** — *before:* not specified → *after (new):* "One check-in is enough today." (shorter, gentler, encouraging).
+- **Trigger Analysis, empty** — *before:* "log stress a few times to see your trigger patterns" → *after (kept):* same, warm, invites action.
+- **Stress Trend, empty** — *before:* "no data yet" → *after (kept):* same; honest, minimal.
+- **Stress Trend, summary comparison** — *before:* "↑8% vs last wk" (worsening in orange) → *after (reconciled):* green ▼ "↓12% vs last wk" if improving (lower is calmer — a ▼ down is good for stress); orange ↑ if worsening. Framed positively: "lower is calmer."
+- **Mental Recovery, Day 1** — *before:* "recovery score builds over time" → *after (kept):* same, non-shaming, aspirational.
+- **Mental Recovery, low score** — *before:* not specified → *after (new, non-shaming):* "building your recovery" (constructive lever, never "you're failing").
+- **Biometric Integration, status** — *before:* bare word → *after (reconciled):* word + glyph (✓ / ~ / ⚠ for calm / moderate / elevated) — never colour-alone.
+- **Loading states** — *before:* "SIA is preparing your actions." (generic) → *after (new):* "SIA is reading your week — one moment." (specific, warm, coaching).
+- **Error states** — *before:* "could not load trends" (generic) → *after (new):* "[Component] couldn't sync — pull to refresh." (specific, recovery action named, warm).
+- **Offline state** — *before:* "offline — showing cached data" → *after (kept):* same; honest, clear.
+
+No exclamation marks. The brand period used with intent. SIA strings stay specific to the user's own data, never a horoscope. Non-shaming framing: stress is a state + a constructive lever, not a verdict; low recovery is "building it back," not a failure; the trend's calm-zone is an aspirational floor, not a danger threshold.
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order: (1) **stress ArcGauge hero draws** (`--dur-slow` 520ms / `--ease-flow`, ticks + count-up settle); (2) **Quick Log + SIA Note rise** (280ms / `--ease-out-soft`, 80ms stagger); (3) **Trigger Donut arcs draw** clockwise from 12 o'clock (largest orange slice first, 1200ms / `--ease-flow`, on scroll-into-view); (4) **Stress TrendChart Living Line draws** L→R (1200ms / `--ease-flow`, dashed-purple projection draws after); (5) **recovery GaugeRing fills + component bars rise** (520ms / `--ease-flow`, 60ms stagger); (6) **Relief Tool cards scale in** (280ms, 80ms stagger); (7) **Biometric read settles** (280ms). Below-fold on scroll-into-view. `prefers-reduced-motion` → all visuals at final state instantly; ArcGauge arc fully drawn, Living Line's static form (orange stroke + green end dot, purple tail), Donut arcs fully drawn, rings at final fill, bars at final height. No opacity-fade on any stroke.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | ArcGauge ghosted 0-foot (full arc visible, faint; hub "—"), Quick Log fully visible (onboarding action), SIA Coaching Note intro message, Trigger Analysis hidden until 5+ logs, Stress Trend "your trend will appear after a few check-ins", Recovery gauge ghosted ("builds over time"), Relief Tools fully visible, Biometric "Connect WHOOP…" or hidden | "Log your first check-in below." (gauge); "How are you feeling right now?" (Quick Log); "Your stress data stays private." (helper). | ArcGauge hero keeps full depth + backplate. Ghosted tracks, not filled 0. Sections hidden, not skeleton-faded. |
+| Loading | Depth-preserving skeletons: gauge ring outline + ticks (shimmer), Quick Log frame (shimmer), Donut ring outline (shimmer), TrendChart axes (shimmer), Recovery ring + component bar outlines (shimmer). Layout preserved. | "SIA is reading your week — one moment." | Skeleton on `--color-ink-brown-800`, radial shimmer, morphs to data (never a swap). |
+| Empty / partial | Un-synced = donut omits 0-count triggers. Missing biometric sub-score = "—" white-20%, distinct from real low. Trigger Analysis hidden until 5+ logs. Biometric: if not connected, shows "Connect WHOOP…" (always visible, never silent). | "Can't sync [component] — try again later." (per-zone). | No-data ≠ zero (ghosted, not real 0); never silent. |
+| Error | Per-component error state: chart area "[Component] couldn't sync" + "retry" link. Network banner if widespread. Cached data retained. | "Couldn't load your stress trend — pull to refresh." (specific, recovery action named). | Calibrated `--color-error-red` only on genuine failure; glyph + word paired, never colour-alone. |
+| Offline | Cached data + banner "offline — showing your last sync." (48pt, ink-brown-800, white-50%). Quick Log functional, logs queue locally. | "You're offline — showing your last sync." | Actions honestly dimmed (50% opacity). Cached data retained. |
+
+### Signature & anti-generic
+
+Ownable moments: the **ArcGauge hero** (open-dial, always orange, never red — stress-as-level, never verdict), the **warm-glow-on-ink-brown surfaces** (depth signature), the **Living-Line trend with dashed-purple SIA projection** (brand-sanctioned forecast), the **continuous-stroke draw-first motion** (all charts draw, never fade), and the **honest Donut** (orange-primary + neutral-tint, no rainbow). Anti-generic fixes: the card stack (Gauge → Quick Log → SIA Note → Analysis → Trend → Recovery → Relief → Biometric) is broken from equal-card monotony by the hero gauge (≥96px, glowing, sized as hero) + varied card sizes + section-eyebrow rhythm (`CK-P6`). The stress slider is premium input (custom gradient fill, sculpted thumb, floating label), and trigger chips are multi-select with state (selected = teal identity, not data-ink). One unmistakable ownable moment: the stress ArcGauge never turns red (non-shaming core).
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-900` / `--color-ink-brown-800`): stress gauge score white 100% ≥12:1; severity label white 60% ≥4.5:1; sub-score value white 100% ≥12:1 + glyph (pulse/chat/steps) ≥3:1; Quick Log prompt white 100% ≥12:1; slider thumb white 100% ≥12:1; slider track fill orange ≥3:1 (WCAG 1.4.11); trigger chip text (selected) teal ≥3.5:1 on teal-15% bg; SIA message white 90% ≥9:1; Donut slice boundary ≥3:1 (WCAG 1.4.11); legend label + % white 70%–100% ≥4.5:1 (never colour-alone); Trend line orange ≥3:1; Projected line purple ≥3:1 (dashed distinction + colour); recovery gauge arc ≥3:1; recovery score white 100% ≥12:1; component bar orange ≥3:1; biometric status (word + glyph, never colour-alone); CTA white 100% on orange ≥4.5:1. Status never colour-alone: sub-score reads carry visible glyph + word + value; biometric reads carry glyph + word band; completion = check + strikethrough. Every interactive element carries `--focus-ring` (`CK-T03`, 2pt orange, 2pt offset). Targets ≥44×44pt. Reduced-motion preserves all static forms.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -427,14 +579,12 @@ This screen is the user's stress command center — a unified view that surfaces
 | Header title dot | #14B8A6 | wellbeing-teal | — |
 | RPG skill badge text + bg | #14B8A6 at 100% / 15% | wellbeing-teal | Domain color on badge |
 | Section eyebrow text | #14B8A6 | wellbeing-teal | Domain eyebrow labels |
-| Gauge arc (low zone) | #34A853 | forest-green | Safe stress range |
-| Gauge arc (moderate zone) | #14B8A6 | wellbeing-teal | Mid-range |
-| Gauge arc (high zone) | #FF5E00 | brand-orange | Elevated stress |
-| Gauge arc (critical zone) | #EF4444 | error-red | Critical stress |
+| Stress ArcGauge fill | #FF5E00 (always) | brand-orange via --grad-orange (conic-mask) | Stress is a LEVEL — the arc is ALWAYS orange and is NEVER recoloured to alarm-red; severity carried by number + glyph + severity word (low/moderate/high), per VK-015 + S52-V01 |
+| Stress ArcGauge track | #FFFFFF at 10% over --track-inset | alpha-white-10 / --track-inset (mint) | Carved recessed track; round caps both ends |
 | Trigger chip selected bg | #14B8A6 at 15% | wellbeing-teal | Selected trigger state |
 | Trigger chip selected border | #14B8A6 at 30% | wellbeing-teal | Selected trigger border |
 | Trigger chip selected text | #14B8A6 | wellbeing-teal | Selected trigger label |
-| Recovery gauge arc | #14B8A6 | wellbeing-teal | Recovery fill |
+| Recovery GaugeRing fill | #FF5E00 / #34A853 at in-range | brand-orange via --grad-orange (conic-mask); forest-green at in-range | Orange data-ink; green only at in-range; NEVER recoloured to alarm-red at low recovery (S52-V05) |
 | Relief tool card bottom border | #14B8A6 at 30% | wellbeing-teal | Tool card accent |
 | SIA coaching note left border | #7F24FF at 40% | royal-purple | 10% rule — AI indicator |
 | SIA avatar circle | #7F24FF gradient | royal-purple | 10% rule — AI avatar |
@@ -449,15 +599,16 @@ This screen is the user's stress command center — a unified view that surfaces
 | Recovery improving arrow | #34A853 | forest-green | Positive change |
 | WHOOP good indicator | #34A853 | forest-green | Low physiological stress |
 | WHOOP moderate indicator | #F59E0B | amber | Moderate physiological stress |
-| WHOOP high indicator | #EF4444 | error-red | High physiological stress |
-| Donut segments | Various (see Trigger Analysis) | — | Each trigger has distinct color |
+| WHOOP physiological-stress read | glyph + severity word (no alarm colour) | — | "calm / moderate / elevated" + HRV value, never a red dot (S52-V02) |
+| Donut primary slice (largest, e.g. Work) | #FF5E00 | brand-orange | Largest slice is orange data-ink (S52-V03) |
+| Donut remaining slices | #FFFFFF at 40% / 20% / 12% | alpha-white tints (descending) | Warm neutral tints — NEVER rainbow, NEVER purple; 0-count slice omitted, never a zero-width wedge |
 | Primary text | #FFFFFF | white | Scores, headings |
 | Secondary text | white at 70% | — | Legend labels, body |
 | Tertiary text | white at 50% | — | Status labels, descriptions |
 | Quaternary text | white at 40% | — | Eyebrows, sub-labels, timestamps |
 | Disabled text | white at 30% | — | Timestamps, placeholder hints |
 
-**60/30/10 verification**: Orange on CTA buttons, FAB, trend line, stress gauge high zone, and slider fill — the primary action color. Green on positive trends, recovery improvements, low-stress indicators, and safe-zone band. Purple limited to SIA coaching note border, SIA avatar, "ask SIA" link, projected trend line, and "SIA pick" badge — five small elements, within the 10% rule. Domain teal (#14B8A6) on header accent, eyebrow labels, RPG badge, trigger chip selection states, recovery gauge, and relief tool accents — identification only, never on CTAs. Ratio holds.
+**60/30/10 verification**: Orange DOMINATES data ink — the whole stress ArcGauge arc, the recovery GaugeRing fill, the primary Donut slice, the Living-Line effort segment, the slider fill, the Log CTA + FAB. Green only for arrival / in-range / calm-improvement — recovery in-range band, the Living-Line arrival, the trend calm-zone band, the ▼-is-calmer stress delta, and the log-success flash. Purple stays SIA-only — the coaching-note border/avatar/"ask SIA" link, the "SIA pick" badge, and the brand-sanctioned dashed-purple projection on the trend (§11 — correct, the only chart-purple). Domain teal (#14B8A6) is IDENTITY ONLY (header accent, eyebrows, RPG badge, trigger chip selection, sub-score/relief-tool identity ticks, trend-range chip selection) and carries NO primary data ink. Alarm-red is removed from every data surface — severity is carried by number + glyph + word, never an alarm colour. Ratio holds.
 
 ---
 

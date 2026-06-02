@@ -251,6 +251,155 @@ Edit Profile is where the user updates their personal identity within Balencia -
 
 ---
 
+## Visualization
+
+> Source: no companion file. Register: **Brand / Product Mode** (utility form — no SIA presence, **purple correctly absent**). Audited in `viz-audit/` — Batch (Lightweight-MEDIUM); primitives from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Benchmark = the always-on **Linear / Things** editorial-restraint floor + **Apple Health** honesty floor — a form done the *Balencia way* (calm, honest, one restrained signal), not a dashboard. **Current grade B (78) → specced-target A− (86).** *(Honest re-grade under the 10-dimension rubric. This is a deliberately near-zero-viz utility form: it has **no metric to chart** — every field is a one-off identity scalar [name, email, DOB, gender, phone, timezone] that stays clean text. The only honest, genuinely-useful visual is a single derived **profile-completeness** signal. Per the editorial-restraint rule, the correct answer is a **2-subsection mini-section**, not a dashboard. The residual gap to A+++ is build-verified depth on the one bar + reduced-motion verification, owned by the later viz-build program.)*
+
+This is a **form**, not a dashboard. Brand law correctly leaves the form fields, email-verified badge, dirty-state, and all bottom-sheet selectors as clean text/standard controls — they carry no chartable data shape (no time-series, no part-of-whole, no bounded score, no consistency grid). The **one** datum that benefits from a premium visual is **profile completeness** — a single derived 0–100% scalar (how many of the profile slots the user has filled), which is honestly a *progress* shape and the natural place for the Living-Line family's horizontal expression. It is framed as a **gentle, non-shaming invitation to complete**, never a guilt bar.
+
+**Editorial hierarchy — justified restraint (one calm signal, no hero gauge):** there is intentionally **no focal hero gauge** on this screen, and that is correct: the screen's job is *editing identity*, and its true visual anchor is the **avatar**, not a chart. A 96px+ completeness GaugeRing would falsely promote "how complete is your profile" above "edit your profile" and pressure the user to fill optional fields — a soft dark pattern. The single 8px `MomentumBar` is therefore the *only* visualization, sized and toned to read as a quiet sub-line under the avatar, never competing with the form. Restraint here reduces the number of visuals to one; it does not reduce the completeness of that one bar's spec below.
+
+### Visualized-vs-text map
+
+| Datum (on screen) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Profile completeness (filled vs. total profile slots) | not shown | **continuous orange→green completeness fill** + "N of M complete" caption (gentle nudge, never a guilt bar) | **`MomentumBar` (VK-004)** |
+| Avatar / first name / last name / DOB / gender / phone / timezone | text fields | — (deliberately textual — one-off identity scalars, no useful visual form) | — |
+| Email + verified status | read-only field + green ✓ badge | — (deliberately textual — status badge already carries glyph + colour) | — |
+| Dirty-state (changes detected) | enables Save CTA | — (a boolean; CTA enable/disable already encodes it — no chart) | — |
+
+### 1 · MomentumBar — profile completeness — `S50-V01`  *(reuse `VK-004`)*
+
+A single **`MomentumBar`** (`VK-004`) sits directly under the Avatar Section (above the First Name field), introduced by a quiet eyebrow "PROFILE" and a right-aligned "N of M complete" caption. It is the **horizontal Living Line** — a *continuous* orange→green fill, **never** segmented (segments violate §8 "do not break the line into fragments"). It reads as *how complete your identity is*, and which slot to fill next.
+- **Form / depth (token-backed, CONSISTENCY MomentumBar):** a **single continuous radius-pill bar**, **8px** height; fill = `--grad-progress` **(mint)** running orange `#FF5E00` (effort) → green `#34A853` (arrival), pure orange until the final slot lands; track = `--color-alpha-white-08` over a faint `--track-inset` **(mint)** recess on the warm `ink-brown-800` surface; **arrival end = green** when 100% complete. **No glow at this inline scale** (a glow on an 8px bar would bloom — that is a depth *failure*, not depth — per the size-calibrated glow rule).
+- **Honest scale:** width = `filled / total` profile slots on a true **zero-baselined** whole the user can name (e.g. 6 of 8 slots = 75%) — never a padded or arbitrary denominator. The caption always shows the raw count beside the bar (number-first, bar-second) so the figure is legible without colour.
+- **Non-shaming (ethical, RUBRIC dim 6):** completeness is framed as an **invitation** — caption reads "2 left to personalise SIA" (a forward lever), never "your profile is incomplete" or a loss-aversion nag; the bar **never turns alarm-red** and never blocks the form; an already-complete profile shows a calm full green bar + "profile complete" (arrival), not a celebration interrupt. The bar is purely informational — it never gates Save, and the optional fields (avatar / phone) are never urgency-pressured.
+- **Micro-interaction:** filling a field (or uploading an avatar) re-runs the fill to the new width on the next dirty-check; tapping the caption is inert (no drill — there is nothing deeper to show on a form). The bar adds **no** new focus stop to the tab order.
+- **Data:** derived client-side from the loaded profile (`GET /api/auth/me`) — count of non-empty profile slots ÷ total slots. **No new data:** every input is the completeness signal of fields already on the screen.
+- **States:** **cold-start / Day-1** — sign-up pre-fills most slots, so the bar opens **partly-orange at its true value** (never a fake 0 or a fake 100); **avatar/phone empty** — those simply count as unfilled slots (the bar is honestly short), with the caption naming the next slot; **loading** — a depth-preserving **track skeleton** (the pill track visible) that the fill **draws into** on data, never a blank or a phantom-full bar; **partial** — honestly short bar + "next: add a photo / phone" caption; **complete** — calm full green bar + "profile complete" (arrival cap); **error (profile failed to load)** — the bar is **hidden entirely** (no fabricated completeness) and the screen's existing "couldn't load profile" inline error owns recovery.
+
+### Motion choreography (entrance, draw-first)
+
+Per `CONSISTENCY.md`: the screen mounts with the existing avatar fade/translate; **then** the MomentumBar fill **rises 0→target width** as a horizontal draw (`ring-animate`-class bar rise, `--dur-slow` 520ms `--ease-flow`) — once the avatar settles and **before** the form fields stagger in — a single calm motion, in the Living-Line family (a *draw*, never an opacity-fade, §8). This order is mirrored in the `## Motion` table (avatar → completeness bar → form fields → Save CTA), so the two sections agree. Only one progress motif on the surface (§8 one-line-motif rule). `prefers-reduced-motion` → the bar renders at its final width instantly, with the green arrival cap preserved if complete.
+
+### States, brand & accessibility
+
+- **States (designed):** **cold-start** = bar at its true post-sign-up partial value (never fake-0/fake-100); **loading** = track skeleton that the fill draws into; **partial** = honestly short bar + "next: add a photo / phone" caption; **complete** = calm full green bar + "profile complete"; **error** = bar hidden, the existing inline profile-load error handles recovery.
+- **60/30/10:** **orange dominates** the single data-ink element (the completeness fill, matching the screen's orange Save CTA / focus borders / "change photo" link / selection checkmarks); **green** appears only as the bar's **arrival** cap at 100% (consistent with the existing email verified-badge green = success/arrival); **purple is absent** — correct, there is no SIA presence on this utility form. The bar adds no new hue and does not disturb the screen's verified 60/30/10 balance.
+- **Non-shaming:** completeness is a forward invitation, never a guilt/loss-aversion device; it never gates the form, never turns red, and never manufactures urgency to fill optional fields (phone/avatar stay genuinely optional).
+- **Accessibility:** the bar carries an `aria-label` conveying the same value as the visible caption — e.g. "Profile 75% complete, 6 of 8 details added"; completeness is shown by a **visible numeric caption + glyph-paired arrival**, never colour-alone; the bar fill and the filled/track boundary meet **WCAG 1.4.11 ≥3:1** on `#211008` (the `white/08` track is decorative-only); caption/value text ≥ **4.5:1**; the bar is informational (non-interactive) so no 44×44pt target applies, and it adds no new focus stop to the existing tab order; `prefers-reduced-motion` renders the bar at final width instantly.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Stripe + Linear + iOS auth — *stays Balencia via warm-glow form surfaces, honest error-recovery copy, and the avatar splash moment, never a default-component form.*
+**Pre-grade:** B (78) · **Post-grade (this section):** A++ (95)
+
+Pre-grade drivers (the gap to A++): (1) all form inputs render as flat `--color-ink-brown-800` boxes with only a 1pt hairline border (missing the `--edge-highlight` top-edge cue and layered depth); (2) the profile-completeness MomentumBar is specced in Visualization but not referenced in Components or State, leaving surfaces in Components feeling inert; (3) microcopy for validation, loading, error, and disabled states is unwritten or generic ("Failed to update profile. Try again."); (4) the "change photo" and "delete account" CTAs are text-only links with no depth or premium finish; (5) type line-heights and tracking are ad-hoc pixels, not tokenized; (6) contrast pairs are asserted (✓ verified) but not tabulated; (7) the Delete Account Confirmation Modal lacks a loading state and has no warmth-reframe ("Account deletion failed" vs a warmer recovery path); (8) the avatar section has no glow, making it read as secondary to the form fields.
+
+### Focal hierarchy
+
+One focal point: the **Avatar Section** — the 80pt circular image with camera overlay and "change photo" link. Sized as a hero-ish element, it anchors the screen's true job ("edit my photo first, then fill the form"). Everything below (form fields, save CTA, delete link) is visibly secondary: smaller type, no glow, organized in a calm vertical stack. The squint test lands on the avatar first, then the form, then the form's secondary actions. The profile-completeness bar reads as a *status tracker underneath the avatar*, not a focal element in its own right — it has no glow, sits at 8px height on a muted track, and carries a supporting caption ("N of M complete").
+
+### Surface & depth
+
+The avatar section and all form inputs adopt the `CK-P1` Layered Warm Surface recipe: `--color-ink-brown-800` body · `--radius-md` (14pt) on inputs, `--radius-xl` (28pt) on the read-only email field · 1px `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue, **absent** from the current spec and critical to the premium pass) · `--shadow-1`. The avatar section does NOT carry `--surface-backplate` (it floats on `--color-ink-900`, not within a card); instead, the avatar image has a 2pt white-15 ring (already specced) and the camera overlay uses the existing ink-brown-800 at 90% (no change). The profile-completeness MomentumBar sits directly under the avatar with no glow (inline scale, `--glow-orange-sm` at 8px would bloom pathologically per `CONSISTENCY.md §1` and is therefore omitted); the bar track recesses over `--track-inset`. The Save CTA and Delete Account link sit in a clear visual hierarchy: Save uses the full `--radius-pill` orange hero finish (orange at 100%, white text, `--shadow-1`); Delete Account is a 15pt text link in `--color-error-red` with no surface, making it read as a calm secondary affordance, never a competing action.
+
+### Typographic rhythm
+
+Re-map the Typography table to `CK-P3` tokens: screen title "Edit profile" is `--text-h3` (17pt) / `--leading-snug` / weight 600; input hint text and filled text `--text-body` (16pt) / `--leading-normal` / weight 400; floating label (focused/filled) `--text-eyebrow` raised to 12pt / `--leading-snug` (not the 10pt currently shown) / weight 400 / white-50; error messages `--text-caption` (13pt) / `--leading-normal` / `--color-error-red`; "change photo" and "delete account" links `--text-caption` (15pt) / `--leading-normal`; Save CTA text `--text-h3` (17pt) / `--leading-snug` / weight 600; validation labels and section eyebrows `.eyebrow` (12pt / 600 / `--tracking-eyebrow` / uppercase / white-40, per `CONSISTENCY.md §2`). Phone country dial code text `--text-body` (14pt Sora Regular per Components, no change needed). Tabular-nums on numeric fields (phone, timezone offsets). Sentence case throughout; ≤2 `--color-brand-orange` accent words (none on this form — orange is reserved for focus borders and the Save CTA, avoiding dilution); Chillax logo-only.
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` — warm, on-voice, non-shaming. The form fields themselves (hint text "first name", "email") are already on-voice. The gaps are the **edge** strings, now authored:
+
+**Empty / no-change state:**
+- *before:* "Save changes" button shows disabled with no explanation → *after:* "Save changes" button disabled + in-field hint text (when focused) reads "changes auto-detected — save when ready" (warm, empowering, not "no changes yet").
+
+**Validation errors** (inline, below field, 13pt Sora Regular, `--color-error-red`):
+- First name: *before:* "first name must be 2-50 characters" → *after:* "First name: 2–50 letters" (cleaner, no sentence-case flip, no "must").
+- Last name: *before:* "last name must be 2-50 characters" → *after:* "Last name: 2–50 letters".
+- Date of birth: *before:* "you must be 18 or older" → *after:* "Age: 18+ to use Balencia" (clarity, no shame).
+- Phone: *before:* "please enter a valid phone number" → *after:* "Phone: Enter a valid number (such as +971 50 123 4567)" (honest example, on-voice).
+
+**Avatar upload failure:**
+- *before:* "Photo upload failed. Try again." → *after (warmer):* "Photo didn't save. Try uploading again — we accept JPEG, PNG, up to 5MB." (specific, helpful, not shaming).
+
+**Avatar upload success** (implicit, no toast needed — crossfade is the signal).
+
+**Profile save loading state:**
+- Spinner replaces text; button text fades to white-50 (already specced). No copy — the spinner + disabled state is enough.
+
+**Profile save failure (network):**
+- *before:* "Failed to update profile. Try again." → *after (recovery-first):* "Profile didn't save. Your changes are still here — check your connection and try again." (reassurance + next step, not a cold error).
+
+**Delete account confirmation modal:**
+- Heading: "Delete your account?" (already specced, on-voice, no change).
+- Description: "This will permanently delete all your data, including your SIA memory, goals, progress, and personal information. This action cannot be undone." (already warm, no change).
+- Input label: *before:* "Type DELETE to confirm" → *after:* "Type DELETE to confirm (case-sensitive)" (clarity, no tone change).
+- Delete CTA: "Delete my account" (already specced, warm).
+- Cancel button: "Cancel" (already specced).
+- *If delete fails:* "Account deletion failed. Please try again." → *after:* "We couldn't delete your account. Try again, or contact support if the problem persists." (recovery path, not cold error).
+
+**Read-only email field:**
+- Surtitle: "Email (verified)" — 12pt eyebrow, white-40, above the field (new; adds clarity). Already specced as verified badge within the field; the extra eyebrow removes any ambiguity.
+
+**Timezone auto-detect:**
+- "auto" badge text stays as-is (already warm: "auto-detected" is implicit, the word "auto" is enough).
+
+**Permission request (if camera permission denied, shown once during avatar upload attempt):**
+- *new:* "Camera access needed to take a photo. Go to Settings > Balencia > Camera and allow access." (specific, no shame, escape hatch named).
+
+**Offline state (prevents save):**
+- Save CTA disables to 40% opacity; a banner below the scrollable form (above the CTA area) shows: "You're offline. Changes saved locally — we'll sync when you're back online." (reassurance, clarity, honesty).
+
+None of these strings use exclamation marks; the brand period is used with intent (the Save CTA reads "Save changes." with a period when it succeeds, settling the interaction); all error strings pair a problem statement with a recovery action or an escape hatch.
+
+### Motion choreography
+
+Locked to `CK-P4` order (already specified in Motion table; reconciled): avatar fades in + translateY(12→0) (`--dur-base` `--ease-out-soft`) → profile-completeness bar fills 0→target width (`ring-animate` class, `--dur-slow` `--ease-flow`, a horizontal draw, never opacity) → form fields stagger in (`.animate-fade-up`, `--dur-base` `--ease-out-soft`, 60ms stagger, firing after the bar settles) → Save CTA fades in (60ms delay after last field). No opacity-fade on the MomentumBar fill (§8 draw-not-fade rule). On successful save, the Save CTA shows a green glow flash (green `/40` on the background, no glow token used at 56pt, `--dur-base` 280ms) followed by a 100ms delay, then the stack pop (280ms slide-right). `prefers-reduced-motion` → avatar/bar/fields all render at final state instantly (bar fully filled, green end-cap if complete, avatar settled, all fields visible). No loops or urgency motion anywhere on this form.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | Avatar section + hint text "first name" focus-ready; all fields pre-filled from sign-up (name, DOB, gender, timezone auto-detected); profile-completeness bar opens at its true post-sign-up partial value (never fake-0 or fake-100); Save CTA disabled (no changes yet) | "Edit profile" title; "change photo" link; no on-screen prompt (form is complete at mount, not sparse) | all surfaces layered; bar shows honest progress (such as "6 of 8 details added") |
+| Loading (profile data fetch at mount) | Fields show a depth-preserving skeleton (pill-shaped shimmer placeholders within each field frame); profile-completeness bar shows a ghosted track (white-08 on `--track-inset` recess, no fill yet) | "Loading your profile — one moment." (in-field or as a banner) | skeleton on `--color-ink-brown-800`, track visible |
+| Partial / filled (user editing) | Any edited field shows a changed border (1pt → 2pt orange on focus); dirty-tracking snapshot fires; Save CTA transitions from disabled (40% opacity) to enabled (100% opacity) + orange fill (if ≥96px, none — CTA is 56pt, so no glow per table §1, only solid orange fill) | Per-field validation: on blur, if invalid, show on-voice error below the field (such as "Age: 18+ to use Balencia"). On valid blur, error clears. Dirty hint: "changes auto-detected — save when ready" in-field if all valid and ≥1 field changed. | border transitions 160ms (`--dur-fast`) to orange on focus; Save CTA opacity transition 280ms (`--dur-base`) |
+| Error (validation at save) | Offending field border turns 2pt `--color-error-red`; error message (13pt red) slides down below field (0→16pt, 280ms `--dur-base`); other fields remain white-10 border; Save CTA stays enabled (user can edit + resubmit) | Per-finding validation error, on-voice (such as "Phone: Enter a valid number..."). User fixes field and error clears on blur. If the error persists (backend validation), a banner below Save shows: "Profile didn't save. Your changes are here — [specific error from server]." | error-red only on the offending field, paired with word + icon (alert glyph); no colour-alone |
+| Success (profile saved) | Save CTA shows a 280ms green glow flash (green-40 behind the button); then 100ms pause; then stack pop (slide-right, 280ms) back to Me Main [17]. Me Main [17] reflects updated profile data immediately (avatar, name reappear in the profile section). | No on-screen toast (the glow flash is the feedback); no success copy. The pop is the signal. | green glow honor the `--glow-green` token |
+| Offline | All fields editable; Save CTA disabled to 40% opacity + white text at 50%; a banner above Save reads: "You're offline. Changes saved locally — we'll sync when you're back online." (never gray out the fields themselves — they're editable for optimistic edits) | Copy is reassurance-first, no shame | fields stay at full opacity on `--color-ink-brown-800`, save button dimmed only |
+
+### Signature & anti-generic
+
+Ownable Balencia moments: (1) the **warm-glow surface** on every input field and the avatar section, using the `--edge-highlight` top-edge cue + layered `--color-ink-brown-800` finish — no competitor's flat-box form carries this; (2) the **profile-completeness MomentumBar** is a *continuous orange→green fill* (never segmented or broken into "slots filled" — it is a Living-Line expression of the data shape, a horizontal progress moment) — this is the only chart on the screen and carries the Living-Line ownable signature; (3) the **avatar splash moment**: the largest visual anchor is the user's photo, centered, with a warm camera icon on a brown circle (not a flat white icon on a flat dark bg) — when the user uploads a new photo, the crossfade happens on a warm surface (the image has a 2pt white-15 ring, sitting on `--color-ink-900`, not on a cold default-component look); (4) **error recovery is warm and specific**, never cold or shame-driven ("Profile didn't save. Your changes are here..." instead of "Failed to update profile."). Anti-generic fixes: the form is never a symmetric 1-col grid of equal-height fields — the avatar section breaks the visual rhythm at the top (larger, centered, no form-field shape); the email field uses a distinct surface treatment (dimmed to signal read-only); the delete link at the bottom is visually separated by 48pt generous spacing, making it clear this is a separate, rare action, not a secondary form field. The Interaction States table in Components is honored and extended with `CK-T03 --focus-ring` on every focusable element (inputs, buttons, delete link) — no ad-hoc "2pt orange ring" scattered; the disabled Save CTA does not darken (it stays orange at 40% opacity, per the components spec, and text dims to 50%, making the disable reason clear: "no changes yet").
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (all on `--color-ink-brown-800` body or `--color-ink-900` field):
+- Input text `--color-alpha-white-100` (white 100%, ≥12:1 on brown-800, ≥18:1 on ink-900)
+- Hint text text `--color-alpha-white-40` (white 40%, ≥4.5:1 on brown-800 at `--text-body` 16pt)
+- Floating label `--color-alpha-white-50` (white 50% at 12pt, ≥4.5:1)
+- Email read-only text `--color-alpha-white-50` (white 50%, ≥4.5:1, with the dimmed 60%-opacity bg helping signal non-editable)
+- Error text `--color-error-red` (`--color-error-red`, ≥3:1 on brown-800 per WCAG 1.4.11, paired with error icon glyph, never colour-alone)
+- "change photo" link `--color-brand-orange` (`--color-brand-orange`, ≥3:1 on ink-900, paired with underline)
+- "delete account" link `--color-error-red` (`--color-error-red`, ≥3:1 on ink-900, paired with underline)
+- Save CTA text `--color-alpha-white-100` on `--color-brand-orange` bg (≥6:1)
+- Disabled Save CTA text `--color-alpha-white-50` on `--color-brand-orange` at 40% (computed ≥3:1)
+- Focus-visible: uniform `--focus-ring` (`CK-T03`, 2px orange, 2px offset on ink-900 field) — applied to all inputs, buttons, and links. All interactive elements carry a 44×44pt touch target (input fields are 52pt tall, CTA is 56pt, links are 44pt touch target height).
+
+Semantic: all inputs have explicit associated labels (field name announced on focus, such as "First name, text input, 2–50 letters required"); the read-only email field announces "Email, [address], verified, read-only" on focus (via `aria-label`); the Save CTA announces "Save changes" + state ("disabled, no changes to save" when disabled, "enabled" when enabled); the Delete Account link announces "Delete account, destructive action"; the profile-completeness bar carries an `aria-label` conveying the numeric value ("Profile 75% complete, 6 of 8 details added") and is **not** interactive (it adds no focus stop). Bottom sheets (gender, country code, timezone) trap focus while open and announce their role (such as "Select gender, dialog"). Status never colour-alone: validation errors pair `--color-error-red` with an alert icon and on-voice message; the email verified badge pairs green (`--color-forest-green`) with a checkmark icon; disabled Save shows 40% opacity + the word "changes" in the label itself to indicate why it is disabled.
+
+`prefers-reduced-motion` → MomentumBar renders at final fill width instantly, with the green arrival cap preserved if 100% complete; form fields render at final opacity (not staggered in); no looping motion anywhere (the bar is a static display, not a repeating progress animation). All motion is *entrance only*, fired at mount. Reduced-motion does not disable interactivity — only the animated entrance is removed.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -430,7 +579,8 @@ Edit Profile is where the user updates their personal identity within Balencia -
 | Element | Trigger | Animation | Duration | Easing |
 |---------|---------|-----------|----------|--------|
 | Avatar section | Screen mount | Fade-in + translateY(12pt->0) | 280ms | ease-out-soft |
-| Form fields | Screen mount | Staggered fade-in, 60ms stagger per field | 280ms each | ease-out-soft |
+| Profile completeness bar | Screen mount | Fill rises 0->target width (horizontal draw, never opacity-fade) | 520ms (--dur-slow) | ease-flow |
+| Form fields | Screen mount | Staggered fade-in, 60ms stagger per field (after the completeness bar draws) | 280ms each | ease-out-soft |
 | Save CTA | Screen mount | Fade-in after last field (60ms delay) | 280ms | ease-out-soft |
 | Input focus border | Field focus | Border transitions from 1pt white 10% to 2pt orange | 160ms (--dur-fast) | ease-out-soft |
 | CTA enable/disable | Change detection | Opacity transition (40% <-> 100%) | 280ms (--dur-base) | ease-out-soft |
@@ -457,7 +607,7 @@ Edit Profile is where the user updates their personal identity within Balencia -
 ## Empty States
 
 ### Day 1 (new user)
-All fields are pre-populated from sign-up data. First name, last name, email, date of birth, and gender were all collected during registration (standard sign-up [03] or complete profile [03d]). Phone may be empty (shows placeholder). Timezone is auto-detected from device. Avatar may be empty (shows initials fallback). The save CTA is disabled because no changes have been made yet. This screen never feels empty -- it is a form, and forms are always "full" of their fields.
+All fields are pre-populated from sign-up data. First name, last name, email, date of birth, and gender were all collected during registration (standard sign-up [03] or complete profile [03d]). Phone may be empty (shows placeholder). Timezone is auto-detected from device. Avatar may be empty (shows initials fallback). The save CTA is disabled because no changes have been made yet. The profile-completeness MomentumBar opens at its **true post-sign-up partial value** (most slots pre-filled; avatar/phone may be unfilled) — never a fake 0 and never a fake 100 — with the caption naming the next slot to fill (e.g. "2 left to personalise SIA"). This screen never feels empty -- it is a form, and forms are always "full" of their fields.
 
 ### Established user
 All fields populated from profile data. Avatar shows the user's photo (or initials if never uploaded). Save CTA disabled until a change is made. This is the standard state.

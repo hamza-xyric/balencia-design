@@ -399,6 +399,145 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Stripe + Linear + iOS auth — *stays Balencia via the splash continuous-stroke confirmation moment + warm-glow layered surfaces + calm, non-shaming error recovery copy.*
+
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+**Pre-grade drivers:** Thin default-state layout + generic instructional copy + no warm-surface depth + zero motion choreography + undesigned error/confirmation states → surface-level competence, not brand-grade craft.
+
+### Focal hierarchy
+
+One focal point: the **email input field** (52pt height, full-width minus 48pt margins) — the screen's single task, positioned above the fold after the heading. The heading "Reset your password" and instructional text anchor the purpose immediately. The CTA button ("send reset link", 56pt pill) reads as secondary to the input (a natural consequence of filling it). On the confirmation state, the green check circle (56pt, `--color-forest-green`) becomes the focal point — a new color in the flow signals completion. The back button and logo sit in a reduced header zone (no sticky behavior needed — content fits one viewport). Squint test: input + heading anchor the eye, then the CTA pill below.
+
+### Surface & depth
+
+All surfaces apply `CK-P1` layered warmth. The screen background is `--color-ink-900`. The email input field follows the `_shared-patterns.md` premium input recipe (inherited from Sign Up [03]): `--color-ink-brown-800` body · `--radius-md` (14pt) · 1px `--color-alpha-white-06` border · **`CK-T01 --edge-highlight`** inset top-edge (`0 1px 0 rgba(255,255,255,0.06)`) — the critical not-flat cue · `--shadow-1` on focus. The CTA button ("send reset link") is a pill (`--radius-pill`) on `--color-brand-orange` bg with white text, no glow (it is inline CTA size, <36px); on press, `scale(0.97)` + slightly darker orange. The confirmation-state green check circle is **56pt, the hero size**, receiving **`--glow-green-sm`** (~12px /.35) in a warm green tone (a size-calibrated glow that feels warm, not neon) behind the circle to lift it from the field. The success icon itself is simple: `--color-forest-green` (`--color-forest-green`) fill + white checkmark (24pt, 2pt stroke) centered. No glow on the heading, instructional text, or the "back to sign in" CTA in confirmation state (they are text elements or inline buttons). All spacing is tokenized (32pt logo gap = `--spacing-8`, 12pt heading-to-instruction gap = `--spacing-3`).
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` locked scale:
+- Heading ("Reset your password" / "Check your email"): `--text-h1` (28pt) / weight 700 / `--leading-snug` (1.25) / white 100% / center-aligned
+- Instructional text ("Enter your email..." / "We sent a reset link to..."): `--text-body` (16pt) / weight 400 / `--leading-normal` (1.4) / `--color-alpha-white-60` / center-aligned
+- Email input hint text: `--text-body` (16pt) / weight 400 / `--color-alpha-white-40` / "email address"
+- CTA button text: `--text-h3` (17pt) / weight 600 / white 100%
+- Resend link context ("Didn't receive it?"): `--text-caption` (13pt) / weight 400 / `--color-alpha-white-50`
+- Resend action ("send again"): `--text-caption` (13pt) / weight 600 / `--color-brand-orange` (active) or `--color-forest-green` (success "sent") or `--color-alpha-white-30` (disabled cooldown)
+- Error text: `--text-caption` (13pt) / weight 400 / `--color-error-red`
+
+Hierarchy is carried by weight (600–700 headings vs 400 body), not size alone. Sentence case on all labels. ≤2 orange accent words per screen (the "send reset link" button text and the "send again" link). No exclamation marks. The brand period is used with intent: the instructional text closes with a period (calm, coaching tone, not urgency). Chillax stays logo-only.
+
+### Microcopy (before → after)
+
+All narrative copy is authored to `CK-P5` brand voice — warm, plain, coaching, non-shaming.
+
+**Default state:**
+- Heading — *before:* "Reset your password" (given) → *after (kept):* same; clear purpose.
+- Instructional text — *before:* "Enter your email and we'll send you a reset link" (given) → *after (kept):* same; warm, direct, sets expectation.
+- Input hint text — *before:* "email address" (given) → *after (kept):* same; lowercase, plain.
+- CTA button — *before:* "send reset link" (given) → *after (kept):* same; imperative, action-oriented.
+
+**Confirmation state:**
+- Heading — *before:* "Check your email" (given) → *after (kept):* same; calm confirmation.
+- Instructional text — *before:* "We sent a reset link to j***@email.com" (given) → *after (kept):* same; shows masked email (first letter + mask middle + domain), warm, specific to user.
+- CTA button — *before:* "back to sign in" (given) → *after (kept):* same; direct next step.
+- Resend link context — *before:* "Didn't receive it?" (given) → *after (kept):* same; warm, not accusatory.
+- Resend action — *before:* "send again" (given) → *after (kept):* same; direct action.
+- Resend success (temporary) — *before:* no message → *after (new, on-voice):* "sent" in `--color-forest-green` for 3 seconds, then revert. Simple confirmation, warm tone.
+- Resend disabled (cooldown) — *before:* no message → *after (new, honest):* "send again" at `--color-alpha-white-30` for 60 seconds; no text label needed (the visual dimming + tap-disabled affordance is clear).
+
+**Error states (edge strings):**
+- Email not found — *before:* "No account found with this email address." (given, bare) → *after (kept, on-voice):* same; specific, non-shaming. A missing account is a state, not a failure on the user's part.
+- Invalid email format — *before:* "Please enter a valid email address." (given) → *after (kept):* same; instructional, warm.
+- Network error (toast) — *before:* no message → *after (new, specific):* "Something went wrong. Please try again." (on-voice, recovery named). Toast: ink-brown-800 bg, white text, `--radius-lg`, auto-dismiss 4s, centered top position (z-60).
+- Rate limited (toast) — *before:* no message → *after (new, honest):* "Too many requests. Please wait a few minutes." (specific, non-shaming). Cooldown enforced on button (disabled for 60s after 2nd send).
+- Back button a11y label — *before:* no label → *after (new):* "Go back to sign in" (clear, specific).
+
+### Motion choreography
+
+Per `CONSISTENCY.md §3` (locked timings), the screen follows the auth entrance pattern established by Sign In [04]:
+
+**Default state entrance:**
+1. **Back button + logo + heading + instructional text** — staggered fade-in (each element fades in `0→100%` over `--dur-base` 280ms `--ease-out-soft`, staggered 40–80ms apart), starting on screen mount. No motion on these text elements — they establish context.
+2. **Email input** — rises from below (`translateY(16→0)` + fade-in) over `--dur-base` 280ms `--ease-out-soft`, 80ms after heading (the focal element moves into place).
+3. **CTA button** — rises from below (`translateY(16→0)` + fade-in) over `--dur-base` 280ms `--ease-out-soft`, 80ms after input (consequence follows input).
+
+**Default → Confirmation transition (on successful API response):**
+- **Form content** (heading, input, CTA) fades out (`opacity 1→0`) over `--dur-base` 280ms `--ease-out-soft`.
+- **Confirmation content** (check circle, new heading, new CTA, resend link) fades in with stagger:
+  - Check circle **scales** (`scale 0.5→1.0` + fade-in) over `--dur-slow` 520ms `--ease-flow` (the draw moment — the signature), starting with 160ms delay after form fadeout (overlaps slightly for fluidity).
+  - New heading + instructional text fade in over `--dur-base` 280ms `--ease-out-soft`, starting after circle scale completes.
+  - Back-to-sign-in CTA fades in, 40ms stagger.
+  - Resend link appears last (fades in, 80ms stagger).
+
+**Reduced-motion fallback:**
+- All elements appear at final state instantly; no stagger, no scale. The check circle at full size (no mid-scale state) with the glow applied. Form elements hidden, confirmation visible. Signature motion (the scale/draw) is sacrificed for accessibility — the settled frame (full circle, complete composition) is the canonical frame.
+
+**No looping or urgency motion** on the form or confirmation (non-coercive, calm recovery flow). The resend link animation is simple (no spinner loop — a 3s "sent" fade applies, then reverts to "send again"). No motion on the cooldown state.
+
+### State craft
+
+Every state is designed, never deferred to a generic error table per `CONSISTENCY.md §5`:
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | Default form state: heading centered, logo above, input below, CTA below input. Content centered, generous gaps (32pt sections). | "Reset your password" + "Enter your email and we'll send you a reset link" — calm, clear, no urgency. | All surfaces use `CK-P1` layering + `--edge-highlight`. `--color-ink-brown-800` input with inset depth. Logo 48pt, orange. |
+| **Loading** | Input field becomes a skeleton (same height/width, pulse animation 1.5s). CTA button text replaced with a 14pt spinner (white, 2pt stroke, rotating 1 rev/2s). | No label change — button reads as "loading" by the spinner. | Skeleton preserves input depth (borders, shadow visible, body at 40% opacity to show loading state). |
+| **Empty / partial** | Same as cold-start; input retains user's email if they re-attempt. | Instructional text unchanged. No "no data" message (input itself is the CTA state). | No change from default. |
+| **Error (email not found)** | Input gets 2pt `--color-error-red` border (replaces the `--color-alpha-white-06` border). Error text appears directly below input (4pt gap): "No account found with this email address." — 13pt, red, left-aligned. CTA remains enabled (user can correct and retry). | "No account found with this email address." — specific, non-shaming. User's email is the problem, not the user. | Input surface keeps `CK-P1` depth but with red border swap. Error text sits on plain `--color-ink-900` background (no card). |
+| **Error (invalid format)** | Input gets 2pt `--color-error-red` border. Error text: "Please enter a valid email address." — same styling as above. | "Please enter a valid email address." — instructional, warm. | Same as email-not-found error. |
+| **Error (network)** | Form stays visible (input + CTA unchanged). Toast appears at top (z-60, centered): ink-brown-800 bg, 24pt top margin from status bar, `--radius-lg`. | "Something went wrong. Please try again." — specific, recovery action implied (tapping the CTA again retries). | Toast: `--shadow-2`, 4–6pt padding, white text at 100%, auto-dismiss 4s. |
+| **Error (rate limited)** | Form stays visible. Toast at top (same positioning + styling as network error). CTA becomes disabled (white at 40%, `pointer-events: none`) for 60 seconds; a 60s countdown timer appears below CTA (12pt, white at 50%): "Try again in [60..0]s". | "Too many requests. Please wait a few minutes." — honest, non-shaming. Cooldown is framed as system protection, not user failure. | Disabled CTA at 40% opacity (no glow change, just opacity). Countdown timer in white-50, centered below CTA. |
+| **Success / Confirmation** | Replaces default form entirely. Logo remains (smaller position, 24pt top margin below back button). Check circle (56pt) centered, 32pt below logo. "Check your email" heading (28pt) below circle, 24pt gap. Instructional text (16pt) below heading, 12pt gap, shows masked email: "We sent a reset link to j***@email.com". CTA "back to sign in" below text, 32pt gap. Resend link below CTA, 16pt gap. | Heading: "Check your email" — warm, confirms next step. Instructional: "We sent a reset link to j***@email.com" — specific to user. CTA: "back to sign in" — direct exit. Resend context: "Didn't receive it?" — non-accusatory. Resend action: "send again" — direct. | Check circle on `--color-forest-green` (success signal, a new color in the flow). Circle receives **`--glow-green-sm`** (~12px, warm green glow at /.35 opacity) behind it to lift from `--color-ink-900` field — warm depth, not neon. Checkmark white (24pt, 2pt stroke, centered). All text white, no new surfaces (confirmation state floats on `--color-ink-900` like the default form). |
+| **Offline** | If the form is submitted while offline, the default form persists (input + CTA unchanged). Offline banner appears at bottom: "You're offline. Reset link will send when you're back online." — 13pt, white at 50%, centered. | "You're offline. Reset link will send when you're back online." — honest, specific, recovery automatic (no action needed). | Banner: ink-brown-800 bg, 24pt padding, `--radius-lg`, `--shadow-1`. Does not obstruct CTA (positioned 16pt above screen bottom or tab bar if visible). |
+
+### Signature & anti-generic
+
+**Ownable Balencia moment:** the **check-circle scale-in on confirmation** (CK-P4 motion choreography) — the signature draw/scale moment that announces success. The circle scales from 0.5 to full size over 520ms with `--ease-flow` (the brand's flowing, natural easing, not a snappy pop), accompanied by the warm `--glow-green-sm` glow that lifts it off the field. This is the brand's approach to success confirmation: *calm, warm, spatial* — not a spinning checkmark or a confetti burst. The moment reads unmistakably Balencia because it honors the same motion law as the Living Line and Constellation Radar (§8, "motion draws, never fades").
+
+**Removed generic tells:**
+- No flat input on `--color-ink-900` (the prior state); every surface now has the `--edge-highlight` cue that reads premium.
+- No generic copy (the spec contains "email address" as the generic text, authored and specific to the field, not "enter your email" or "email@example.com").
+- No generic error styling (errors are specific: "No account found" vs "Invalid input"; each carries its own recovery path — either correct the email or retry after cooldown).
+- No undesigned confirmation state (the prior audit found that clicking send did nothing; now the confirmation is a fully crafted moment with motion, depth, and warm copy).
+- Instruction copy avoids enthusiasm/urgency language ("we'll send you a reset link" is plain, coaching tone — not "get a reset link now" or "unlock your account").
+
+The screen feels unmistakably Balencia because it is calm, warm, non-shaming, and uses the brand's motion signature at the moment of highest emotional weight (success confirmation). It matches the benchmark (Stripe's clarity + iOS's restraint + Linear's copy precision) while staying rooted in the Balencia language: the orange logo, the warm ink-brown surfaces, the forest-green success moment, and the continuous-scale draw choreography.
+
+### Accessibility
+
+**Contrast pairs (load-bearing):**
+- White text (100%) on `--color-ink-brown-800` input: ≥4.5:1 ✓
+- White text (100%) on `--color-ink-900` (heading, instructional on default state): ≥4.5:1 ✓
+- White text (50%) on `--color-ink-900` (instructional secondary): ≥3:1 ✓
+- `--color-error-red` (`--color-error-red`) on `--color-ink-900`: ≥3:1 (error border + error text) ✓
+- White checkmark (2pt stroke) on `--color-forest-green` circle: ≥3:1 ✓
+- `--color-brand-orange` ("send reset link" button text, white at 100% on `--color-brand-orange` bg): ≥4.5:1 ✓
+- `--color-forest-green` ("sent" success text on `--color-ink-900`): ≥3:1 ✓
+
+**Focus ring:** every interactive element (input, CTA, resend link) receives `CK-T03 --focus-ring` on focus-visible state: 2px `--color-brand-orange` ring, 2px offset from element border, on the `--color-ink-900` field. Uniform app-wide, visible on dark backgrounds.
+
+**Touch targets:** input field 52pt height ≥44pt ✓, CTA button 56pt height ≥44pt ✓, back button 44x44pt ✓, resend link row 44pt touch target ✓.
+
+**Colour + glyph + word:** success state uses the green color *plus* a white checkmark glyph *plus* the "Check your email" heading (status never colour-alone). Error state uses the red border *plus* red text *plus* the error message string (status never colour-alone).
+
+**Screen reader:** aria-labels:
+- Back button: "Go back to sign in"
+- Email input: "Email address for password reset"
+- CTA button (default state): "Send reset link"
+- CTA button (confirmation state): "Back to sign in"
+- Check circle (confirmation state): "Success. Password reset link sent."
+- Resend link: "Didn't receive it? Send again." (the entire row is tappable, but the link text is clear)
+
+Screen reader announces the confirmation state as: "Check your email. We sent a reset link to [masked email address]." (heading + instructional text read in sequence, no additional aria markup needed beyond semantic HTML).
+
+**Reduced-motion:** `prefers-reduced-motion: reduce` → all animated elements appear at final state instantly; no stagger, no scale, no spinner. The check circle appears at full 56pt size with the glow already applied (the settled frame is the canonical frame). Form-to-confirmation transition is instant (form hidden, confirmation shown). No animation loop on the spinner or resend cooldown (if a countdown appears, it updates text only, no animation).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [04] — Sign In via stack pop (back button or "back to sign in" CTA)

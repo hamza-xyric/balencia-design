@@ -207,7 +207,7 @@ This screen is the user's energy observatory -- a place to log how they feel thr
 - **Data source**: API -- most recent entry from `energy_logs` for today
 - **Visual treatment**: ink-brown-800 glassmorphism card, 20pt radius, 24pt padding. Center-aligned content.
 - **Content**:
-  - Energy number: 48pt Sora Bold, white. The number is the dominant visual element. Color-coded glow behind: low (1-3) subtle red at 8% bg, medium (4-6) amber at 8% bg, high (7-10) wellbeing-teal at 8% bg.
+  - **ArcGauge hero** (Visualization S63-V01, mints `VK-015`): an open 240deg arc dial (160px outer, 8px arc), 0 at the left foot -> 10 at the right foot; the current value is the dominant center number (`text-display`, white, faint `--glow-orange-sm`). Arc fill = arc-following `--grad-orange` (conic-mask), always orange - a low reading is NEVER recoloured red/amber. Status is carried by number + glyph (moon/rest for 1-3, spark for 8-10) + label, never an alarm colour. Glow = `--glow-orange-md` (~20px). The plain 48pt bare number is superseded by the gauge center value.
   - Context tag: 13pt Sora Semibold, wellbeing-teal (#14B8A6), centered below number, 8pt gap. Example: "afternoon"
   - Context note (if present): 14pt Sora Regular, white at 50%, centered, 4pt below tag. Example: "feeling good after lunch walk"
   - Timestamp: 12pt Sora Regular, white at 30%, centered, 4pt below note. "logged 20 min ago"
@@ -225,7 +225,7 @@ This screen is the user's energy observatory -- a place to log how they feel thr
     - Full-width inside card minus 32pt padding
     - Height: 44pt touch target area (track is 8pt tall)
     - Track: white at 8% fill, --r-pill
-    - Fill (left of thumb): graduated color -- red at low end, amber at mid, wellbeing-teal at high end
+    - Fill (left of thumb): a single continuous orange (#FF5E00) fill — the energy value is carried by the in-thumb number + 1/10 endpoints, never a red/amber/teal level recolour (non-shaming — a low reading is never alarm-coded). Per Visualization S63-V07.
     - Thumb: 28pt circle, white fill, --shadow-2. Current value displayed inside thumb: 14pt Sora Bold, ink-900.
     - Endpoints: "1" left, "10" right -- 13pt Sora Semibold, white at 40%
     - Snap: discrete 1-10 integers only (no decimals)
@@ -265,10 +265,10 @@ This screen is the user's energy observatory -- a place to log how they feel thr
   - Sparkline chart area: Full card width minus 48pt (padding), 64pt height
     - X-axis: time of day (6am to current time), 11pt Sora Regular, white at 30%. Tick marks at 6am, 9am, 12pm, 3pm, 6pm, 9pm (only if within range).
     - Y-axis: implied (1-10 scale), no visible axis labels (minimalist)
-    - Line: 2pt solid, wellbeing-teal (#14B8A6)
-    - Dot markers: 8pt circles at each log entry, wellbeing-teal fill. The most recent entry dot is 10pt with a subtle teal glow (rgba(20, 184, 166, 0.3), 8pt spread).
-    - Fill area below line: wellbeing-teal at 5% opacity
-    - No data gaps: line interpolates between log points with smooth curves
+    - Line: a curved (monotone), round-capped `Sparkline` (a tiny Living Line) at `--stroke-thin` 2px, **orange #FF5E00** (data ink) - exactly 7 points (today's logs resampled to 7). Visualization S63-V04.
+    - Dot markers: the 'now' dot carries `--glow-orange-sm`; a **green #34A853** end dot when the latest log is the day's high (milestone/arrival).
+    - Fill area below line: `--grad-orange` fade at <=25% opacity
+    - No axes/grid; the line interpolates between log points with smooth curves
   - Below chart (8pt gap):
     - Left: "avg: 6.2" -- 13pt Sora Semibold, white at 60%
     - Right: "5 logs today" -- 13pt Sora Regular, white at 40%
@@ -292,10 +292,11 @@ This screen is the user's energy observatory -- a place to log how they feel thr
     - X-axis: time-of-day labels -- "6am", "9am", "12pm", "3pm", "6pm", "9pm" -- 11pt Sora Regular, white at 30%
     - Y-axis: scale 1-10 -- 11pt Sora Regular, white at 30%, 3 grid lines at 3, 5, 8
     - Grid lines: 1pt, white at 3%, horizontal only
-    - Data line: 2pt solid, wellbeing-teal (#14B8A6), smooth bezier curves
-    - Fill area: wellbeing-teal at 8% below line
-    - Peak markers: small teal dots (6pt) at local maxima
-    - AI-projected trend (if 14d/30d): 2pt dashed, purple (#7F24FF) at 40% -- projected optimal energy curve based on ideal behavior
+    - Data line: a data-driven `TrendChart` Living Line - 2px solid, curved, round-capped, running **orange #FF5E00 (effort) -> green #34A853 (arrival)** via `--grad-progress`. Visualization S63-V03 (replaces the prior hardcoded decorative SVG path, which represented no real data - a section 11 violation).
+    - Fill area: `--grad-orange` vertical fade, <=25% top
+    - Milestone markers: **green #34A853** dot at the day's peak (r=3px)
+    - AI-projected 'ideal energy' curve (if 14d/30d): 2px dashed, royal-purple #7F24FF - the brand-sanctioned SIA forecast (section 11)
+    - Scale: zero-baselined y (1-10), shared across 7/14/30d (honest window-switching); sparse (<7 pts) -> dots only, no fabricated curve
   - Below chart (8pt gap):
     - Left: "avg: 6.4" -- 13pt Sora Semibold, white
     - Right: "best: 9am-11am" -- 13pt Sora Regular, wellbeing-teal
@@ -313,12 +314,9 @@ This screen is the user's energy observatory -- a place to log how they feel thr
     - Each row: 48pt height, 16pt vertical padding
     - Left: Time label -- "morning" in 13pt Sora Regular, white at 50%
     - Center: Time range -- "9:00 - 11:00" in 16pt Sora Semibold, white
-    - Right: Energy intensity indicator -- 4 small circles (8pt each, 4pt gap):
-      - Filled: wellbeing-teal
-      - Empty: white at 10%
-      - 4 filled = peak, 3 filled = high, 2 filled = moderate, 1 filled = low
+    - Right: Energy intensity indicator -- a small continuous `MomentumBar`-style fill (orange `--grad-progress`, radius-pill, in the Living-Line family) sized to the intensity level. Visualization S63-V06.
     - Separator between rows: 1pt white at 5%
-  - Low energy row (if detected): Same format but with amber (#F59E0B) indicator circles. Label: "low energy". Example: "2:00 - 3:00 pm"
+  - Low energy row (if detected): same continuous-fill format with a distinct **rest/moon glyph** + label (never an alarm colour). Label: "low energy". Example: "2:00 - 3:00 pm"
   - SIA recommendation (12pt below last row): 14pt Sora Regular, white at 60%, italic style. Example: "Schedule deep work in your peak hours, routine tasks in the dip."
 - **Variants**: Detected peaks (default), Insufficient data ("keep logging -- SIA needs ~2 weeks of data to detect your peak hours"), Single peak (one row only)
 - **Gestures**: Tap card navigates to SIA Chat [09] with scheduling context
@@ -352,12 +350,12 @@ This screen is the user's energy observatory -- a place to log how they feel thr
     - Center: Horizontal impact bar:
       - Width: proportional to correlation strength (normalized to strongest factor = full width)
       - Height: 8pt, --r-pill
-      - Positive impact: wellbeing-teal (#14B8A6) fill
-      - Negative impact: amber (#F59E0B) fill (for stress or poor sleep)
-      - Track: white at 5%
-    - Right: Impact score -- 13pt Sora Semibold. Positive: wellbeing-teal "+1.8". Negative: amber (#F59E0B) "-1.4".
+      - Reinforcing impact: **orange #FF5E00** fill, with a leading `+` + up-arrow glyph (direction by sign, never colour-alone)
+      - Draining impact: a **desaturated cool tint** (sleep-blue family, low chroma), with a leading `-` + down-arrow glyph
+      - Track: `--color-alpha-white-08`; normalized to strongest |impact| = full width, one shared zero-anchored scale
+    - Right: Impact score -- 13pt Sora Semibold, same orange (`+1.8`) / cool tint (`-1.4`) with the sign glyph. Visualization S63-V05.
   - Rows sorted by absolute impact (strongest first)
-  - Domain icon (optional): 16pt, domain color, left of factor label. Sleep uses wellbeing-teal, meals uses nutrition-lime (#84CC16), workouts uses fitness-red (#EF4444), stress uses white at 50%.
+  - Domain icon (optional): 16pt, domain color, left of factor label. Sleep uses sleep-indigo (#818CF8), meals uses nutrition-lime (#84CC16), workouts uses fitness-red (#EF4444), stress uses white at 50%.
   - Tap hint: Right chevron (12pt, white at 20%) on each row for drill-down
 - **Variants**: Full correlations (4+ factors), Partial (2-3 factors detected), Insufficient data ("SIA needs more cross-domain data to find correlations. Try logging meals and sleep too.")
 - **Gestures**: Tap row navigates to the relevant domain dashboard (sleep -> Wellbeing, meals -> Nutrition [28], workouts -> Fitness [26]) via stack push
@@ -377,6 +375,161 @@ This screen is the user's energy observatory -- a place to log how they feel thr
 
 ---
 
+## Visualization
+
+> Source: `app_design 3/63-energy-tracking-visualization-recommendations.md`. Audited in `viz-audit/` — Batch 3, findings `S63-V01..V07`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **This screen mints `VK-015 ArcGauge`** (the energy hero) and **reuses `VK-011 ScatterPlot`** (the time-of-day cloud minted on Sleep [58]). Premium-depth, on-brand (60/30/10); no new data — every visual derives from data the screen already shows. **Current grade D (54) → specced-target A− (87).** *(Honest re-grade under the revised 10-dimension rubric; the residual gap to A+++ is build-verified depth + working scrub/drill micro-interactions, owned by the later viz-build program.)*
+
+Template = Domain-Dashboard / Tracker (cluster benchmark **Oura + WHOOP + Gentler Streak**, register **Wellbeing Mode** → wellbeing-teal *identity*). This section upgrades *how the energy data reads* — from a number + segmented polylines + a decorative non-data path to a crafted, calm observatory — by adding **one** focal hero (the ArcGauge), the time-of-day ScatterPlot differentiator, the Living-Line trend/sparkline, and an honest correlation pass. **Brand correction baked in (`S63-V07`):** data ink moves **wellbeing-teal → orange** (orange dominates data ink at 60/30/10; teal stays *identity* only).
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Current energy (7 / 10) + context | 48pt bare number in flat card | **open 240° arc dial** (charge metaphor) + center value + ticks + glow | **`ArcGauge` (VK-015, minted here)** |
+| Energy × time-of-day (every log) | not shown | **time-of-day star-dot cloud** (x=hour, y=energy; cluster tightness = rhythm) | **`ScatterPlot` (VK-011, reuse 58)** |
+| Multi-day avg by time-of-day | hardcoded **decorative** SVG path (no real data) | **Living Line** (orange→green) + **dashed-purple SIA projected** ideal curve | `TrendChart` (Living Line) |
+| Today's energy arc | segmented `polyline` (equalizer) | **curved 7-pt Living Line** + green end dot on day-high | `Sparkline` |
+| What affects energy (sleep/meals/workout/stress) | teal/amber bars (2 domain colours) | **signed strength bars** (orange + `+↑` / cool + `−↓`), never colour-alone | correlation bars (VK-009 encoding) |
+| Peak-hour intensity (4 dots/row) | discrete circle dots | **continuous mini orange fills** (Living-Line family) | `MomentumBar` mini |
+| Chronotype / context tags / note / timestamps | text | — (deliberately textual — identity labels, no useful visual form) | — |
+
+### 1 · ArcGauge — energy hero — `S63-V01`  *(mints `VK-015`)*
+
+Replace the Current Energy Display card with the **ArcGauge** (`VK-015`): an **open arc sweeping 240°** (gap centered at the bottom foot — it must never close into a ring), 0 at the left foot → 10 at the right foot, current value as the dominant center number. Energy is a *charge level*, so an open dial reads more honestly than a full ring (which implies a completable 100%).
+- **Geometry:** hero **160px** outer, **8px arc** (`--stroke-bold`); filled portion = `(value/10)·240°`.
+- **Depth (token-backed):** arc fill = arc-following `--grad-orange` **(mint)** via a **`conic-gradient` behind a circular mask** — ⚠️ an SVG `linearGradient` cannot sweep along an arc (angular-gradient trap); the spec says conic. Track = `--color-alpha-white-10` over `--track-inset` **(mint)** inset (carved recess). Glow = `--glow-orange-md` (~20px, **mint** — **not** the full 32px `--glow-orange`, which blooms past a 160px gauge). 12 radial ticks (6px, `--color-alpha-white-25`) behind the arc for instrument precision. Center value `text-display` white + faint `--glow-orange-sm` (mint).
+- **Non-shaming colour (replaces the spec's red/amber/teal glow):** the arc is **always orange** (brand data ink); a low reading is **not** recoloured red. Low (1–3) shows a **moon/rest glyph** + constructive micro-copy; high (8–10) a **spark glyph**. Status is carried by **number + glyph + label**, never an alarm colour. *(This is the `S63-V07` brand+non-shaming correction applied to the hero.)*
+- **Micro-interaction:** logging re-sweeps the arc to the new value + count-ups the center number; tap the gauge → scroll to Quick Log.
+- **Data:** `energyTracking.current.value/context/note` (`mock.ts`).
+- **States:** no-log-today → arc at rest on a **ghosted** 0-foot (faint full track, **not** a filled 0 reading "energy is zero"), center "—" + "no energy logged today"; loading → track + ticks visible, shimmer sweep morphs into the fill.
+
+### 2 · ScatterPlot — energy × time-of-day cloud — `S63-V02`  *(reuse `VK-011`)*
+
+Below the multi-day trend, the **`ScatterPlot` / ConsistencyCloud** (`VK-011`, the **same primitive minted on Sleep [58]**): **x = hour (6am→11pm), y = energy (1–10)**, one **orange star dot per log** across the window. A **tight vertical cluster** at an hour = a reliable rhythm; **wide scatter** = volatile energy — the chronotype made visible. SIA's peak window = a faint `--color-brand-orange` ~8% vertical band behind the cluster (teal "best: 9–11am" *identity* label beside it).
+- **Encoding:** dots `--color-brand-orange`, r=3px; the "now" dot carries `--glow-orange-sm`. No mean line here (that's `S63-V03`) — this is deliberately the *spread*.
+- **Honesty:** x/y zero-anchored at true range (6am, energy 1); sparse (<7 logs) → dots **without** the peak band + "more logs sharpen your pattern" (no inferred cluster from thin data — no-data ≠ a fabricated peak).
+- **Motion:** dots stagger-in (`radar-dot` 420+index·40ms) after the trend draws; tap a dot → tooltip (energy + time + tag); tap the band → SIA scheduling.
+- **States:** loading → axis ticks + shimmer dots; empty → axes only + "log to see your daily rhythm."
+
+### 3 · TrendChart — multi-day Living Line + SIA projection — `S63-V03`
+
+Replace the **hardcoded decorative SVG path** (`M0 112 C38 90 …` — represents *no real data*, a §11 violation) with the **`TrendChart` Living Line**: average energy by time-of-day across 7/14/30d as one continuous **curved, round-capped** stroke running **orange (effort) → green (arrival)**, with the **SIA "ideal energy" curve as a dashed-purple `#7F24FF` projection** — the brand-sanctioned forecast colour (§11), exactly what the screen already gestures at.
+- **Locked params (CONSISTENCY TrendChart):** actual = solid orange Living Line 2px curved; projected = dashed purple `#7F24FF` 2px; area = `--grad-orange` **(mint)** vertical fade ≤25%; **zero-baselined y (1–10), shared scale across 7/14/30d** (honest window-switching); green milestone dot at the day's peak. Segmented control active = orange (interactive), inactive white/50.
+- **Motion:** line **draws itself** (`stroke-draw`, `--dur-flow` 1200ms) on enter / segment change — **not** a fade; horizontal scrub reveals the value at the finger.
+- **States:** sparse (<7 points) → dots only, no connecting line, "more data needed for trends" (no fabricated curve); loading → skeleton axis + flat line that draws into shape.
+- **Data:** aggregated `energy_logs` by time-of-day bucket.
+
+### 4 · Sparkline — today's energy arc — `S63-V04`
+
+The Today's Energy Timeline `polyline` (straight segments — the equalizer anti-pattern) becomes a **`Sparkline`** (a tiny Living Line): **exactly 7 points** (today's logs resampled to 7), `--stroke-thin` 2px **curved** orange, no axes/grid, **green end dot** when the latest log is the day's high; the "now" dot keeps `--glow-orange-sm`. Avg + log-count caption stays.
+- **States:** single log → one dot, no line; no logs → flat **ghosted** dashed line at y=5 (no-data ≠ a real 5) + "log your first energy reading."
+- **Data:** `energyTracking.timeline`.
+
+### 5 · Correlation strength bars — honest + signed — `S63-V05`
+
+The Correlations card keeps the horizontal-bar form but adopts kit honesty + the `VK-009` encoding law:
+- **Direction by sign, not colour:** reinforcing (sleep +1.8, meals +1.2, workout +0.9) = **orange** bars, leading **`+`** + up-arrow glyph; draining (stress −1.4) = a **desaturated cool tint**, leading **`−`** + down-arrow glyph — **always paired with a sign/arrow, never colour-alone** (replaces the current teal/amber pair, two domain colours doing semantic work).
+- **Honest scale:** normalize to strongest |impact| = full width, **one shared scale**, zero-anchored; rows sorted by |impact|.
+- **Non-shaming:** a draining factor is a *lever* ("manage stress → reclaim ~1.4 points"), never a failure; the row drills to Stress [52] / Sleep / Nutrition [28] / Fitness [26].
+- **Data:** `energyTracking.correlations` (`positive` + `impact` + `width`).
+
+### 6 · Peak Hours intensity — Living-Line mini fills — `S63-V06`
+
+Peak-hour intensity (currently 4 discrete circles) becomes small **continuous** `MomentumBar`-style fills (orange `--grad-progress`, radius-pill) — "intensity" as a filled level, in the Living-Line family. Low-energy windows keep a distinct **rest glyph** (not an alarm colour). Removes the last dotted-equalizer on the screen.
+
+### Motion choreography (entrance, draw-first)
+
+Per `CONSISTENCY.md`: **ArcGauge hero draws first** (arc fills `0→value` `ring-animate` 520ms + center counts up) → **then** the trend **Living Line draws itself** (`stroke-draw` 1200ms) → **then** the ScatterPlot dots stagger in (`radar-dot` 420+index·40ms) → **then** the today sparkline draws + correlation bars rise (`--dur-slow` 520ms) → peak mini-fills last. One line motif per surface; below-fold visuals animate on scroll-into-view. `prefers-reduced-motion` → all at final state, with the Living Line's static form (completed stroke + green end dot) and the arc at rest preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — ArcGauge ghosted 0-foot ("—"/"no energy logged"), ScatterPlot + TrendChart show "more logs needed" (dots only, no fabricated curve/band), sparkline ghosted dashed at y=5, Peak Hours/Chronotype/Correlations show their detection-threshold prompts; **loading** — depth-preserving skeletons that morph into drawn data (arc track + ticks, trend axis + flat line, scatter axis), never blank discs; **partial / sparse** — distinct from loading and from zero (ghosted, not filled-zero); **error** — chart-specific per the Error Handling table (which series failed + a retry affordance).
+- **60/30/10 (corrected — `S63-V07`):** **orange dominates data ink** — ArcGauge arc, both Living Lines, ScatterPlot dots, positive correlation bars, peak fills, Log CTA + active segment. **Green** = arrival/milestone only (Living-Line arrival, green end/milestone dots, log-success flash). **Purple** stays SIA-only — coaching-note dot, insight border/dot, **and the brand-sanctioned dashed-purple projection** on the TrendChart (§11 — correct, the only chart-purple). **Wellbeing-teal is now identity only** (header line, eyebrows, RPG badge, "best window" label, chronotype icon) — it no longer carries primary data ink. **Amber retires** from data semantics (replaced by signed direction + rest glyph). Glow uses the calibrated size-stepped scale — warm depth, not neon.
+- **Non-shaming:** a low energy reading is framed as **state + a lever** (walk / water / rest), never a verdict (the arc never turns alarm-red); correlations frame draining factors as reclaimable; no streak/loss-aversion pressure.
+- **Accessibility:** the spec's VoiceOver summaries already give each chart a text equivalent (ArcGauge → "Current energy 7 of 10"; ScatterPlot → "5 logs, average 6.2, peak 9:30am"; TrendChart → "average 6.4, best 9–11am"); status uses a **visible** glyph/sign (✦/moon, +/−↑↓), never colour alone; load-bearing strokes/arcs/dots and the filled/track boundary meet **WCAG 1.4.11 ≥3:1** on `#0A0A0F`/`#211008` (white/3 grid is decorative-only); interactive targets ≥44×44 (carries B16-F12); `prefers-reduced-motion` renders all visuals at final state.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Oura + WHOOP (ArcGauge; orange, not alarm-red) — *stays Balencia via the warm-glow ArcGauge hero, the Living-Line sparkline + TrendChart, and orange data-ink dominance (no alarm colours, non-shaming).*
+
+**Pre-grade:** B+ (76) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): the Visualization section is solid (A−), but (1) non-chart surfaces (cards, buttons) are flat `--color-ink-brown-800` with no top-edge highlight or layered depth; (2) the focal point wavers between the ArcGauge hero and the Quick Log card (both claim visual primacy, breaking focal hierarchy); (3) microcopy is partly generic/templated (empty-state "needs N days", "log one to begin"; loading "SIA is preparing"; permission rationale on post-meal context chip unstated); (4) type leading/tracking are ad-hoc pixel values, no token pairing; (5) the Quick Log button is CTA-orange but context chips are teal (domain colour on a primary action), violating the 60/30/10 rule; (6) state-craft matrix is absent (cold-start, loading, empty, error are textual, not designed); (7) contrast pairs are asserted but not tabulated.
+
+### Focal hierarchy
+
+One focal point: the **Current Energy Display ArcGauge** (`CK-P2`, data hero) — the 160px open-arc dial minted in Visualization S63-V01, sitting visibly above the fold. The **SIA Coaching Note Card sits above it as a warm preamble, not a competing hero**: emotionally distinct (the lone purple dot) but visually quieter than the gauge (no glow, body type, three-line cap). The **Quick Log Card below the gauge is the primary action zone**, sized as a tall card (240pt), but reads secondary to the gauge by spatial hierarchy (the gauge is read first in <2s on squint test, then the Quick Log as "here's how to change that"). Everything below (Today's Energy Timeline, Trend Chart, Peak Hours, Chronotype, Correlations, SIA Insight) is visibly secondary by size, glow, and density.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt for hero/primary cards; `--radius-lg` 20pt for secondary cards) · 1pt `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`) · `--shadow-1`. The Current Energy Display Card (hero, ≥96px ArcGauge) adds `--surface-backplate` (`CK-T02`). The ArcGauge carries `--glow-orange-md` (~20px) — sized for the 160px gauge per CONSISTENCY.md §1. Slider thumb carries `--shadow-2`. Energy Slider track recesses over `--track-inset` (beveled recess, not flat). Context chips inactive: ink-900 bg, 1pt white/10 border, `--radius-pill`; active: teal 15% bg, teal text/border (domain-colour-as-identity, correct use). Log CTA is Burnt Orange, `--radius-pill`, always orange for actions. All interactive elements carry `--focus-ring` (`CK-T03`). No glow on <36px elements.
+
+### Typographic rhythm
+
+Map to `CK-P3` tokens: Current energy number `--text-display` (40pt) / 700 / `--leading-tight` / white 100% + faint `--glow-orange-sm`; context tag `--text-h3` (17pt) / 600 / `--leading-snug` / wellbeing-teal; context note `--text-body` (16pt) / 400 / `--leading-normal` / white 50%; timestamp `--text-caption` (13pt) / 400 / white 30%; slider endpoints `--text-caption` / white 40%; slider thumb `--text-h3` / 700; Quick Log eyebrow the `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / wellbeing-teal); section labels `--text-eyebrow`; chart axis labels `--text-caption`; Peak Hours/Correlations/Chronotype all follow the scale with weight contrast carrying hierarchy. Stat figures use tabular-nums. Hierarchy by weight (600–700 vs 400), not size alone. Sentence case throughout; no exclamation marks. ≤2 `--color-brand-orange` accent words (CTA "log energy" + active segment). Chillax logo-only.
+
+### Microcopy (before → after)
+
+- **Quick Log button** — *before:* "log energy" → *after:* kept (concise, action-oriented).
+- **Context note hint text** — *before:* "optional note..." → *after:* "how are you feeling. (optional)" (warm; no ellipsis).
+- **Current energy, no log today** — *before:* no message → *after:* "--" + "no energy logged today" (13pt white 40%) + SIA note "log your first reading and SIA will start spotting your patterns" (warm invitation).
+- **Peak Hours, insufficient data** — *before:* unstated → *after:* "Keep logging — SIA needs ~2 weeks of data to detect your peak hours" (frames discovery, not deficit; non-shaming).
+- **Chronotype, not detected** — *before:* unstated → *after:* "SIA is still learning your chronotype. Keep logging" (warm; never "insufficient").
+- **Correlations, insufficient data** — *before:* unstated → *after:* "SIA needs more cross-domain data to find correlations. Try logging meals and sleep too" (specific, constructive, non-shaming).
+- **SIA Coaching Note, loading** — *before:* "SIA is preparing insights..." → *after:* "SIA is reading your week — one moment" (warmer, specific).
+- **Timeline, no logs** — *before:* unstated → *after:* dashed ghosted line at y=5 + "log your first energy reading" (no-data ≠ zero).
+- **Trend Chart, sparse** — *before:* unstated → *after:* dots only, no fabricated curve, "more data needed for trends" (honest).
+- **Day-1 SIA note** — *before:* unstated → *after:* "Welcome to energy tracking. Log how you feel a few times today and SIA will start spotting your patterns" (warm, zero-pressure).
+
+No exclamation marks; brand period with intent; every SIA string specific to user data, never a horoscope.
+
+### Motion choreography
+
+Locked to `CK-P4` order: **ArcGauge draws first** (arc fills `0 → value` `ring-animate` 520ms `--ease-flow` + counts up) → **TrendChart Living Line draws** (`stroke-draw` 1200ms, not fade) → **ScatterPlot dots stagger in** (40ms) → **Sparkline draws** (520ms) + dots → **Correlation bars rise** (60ms stagger) → **Peak Hours rows fade** (40ms stagger) → **Chronotype settles** (no purple flourish) → **SIA Insight fades** (280ms, last). Below-fold on scroll-into-view. `prefers-reduced-motion` → final state instantly; strokes fully drawn + end dots; no loops.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | ArcGauge "--" + ghosted 0-foot arc (faint full track visible), SIA invites first log, Quick Log is visual anchor, Timeline dashed ghosted at y=5, Trend/Peak/Chronotype/Correlations show "more data needed" skeletons (no fabricated curves) | "no energy logged today"; SIA: "Log how you feel a few times today and SIA will start spotting your patterns"; Peak Hours: "keep logging"; Chronotype: "SIA is still learning"; Correlations: "try logging meals and sleep too" | arc track + ticks visible, ghosted not filled; all viz show structure (axes, grids, labels) but no data |
+| Loading | ArcGauge: track + ticks + shimmer sweep; Number: skeleton; Quick Log: skeleton fields; Timeline: axis + skeleton line; Trend: axis + skeleton area; Peak: label + skeleton bar; Correlations: label + skeleton bar | "SIA is reading your week — one moment" | skeletons on `ink-brown-800`, radial/linear shimmer, morph into data (never swap) |
+| Empty / partial | un-synced renders ghosted/dashed (no-data ≠ zero); such as no meals → dashed meal row; no peak → skeleton | per-zone, on-voice (such as "try logging meals to see how they affect your energy") | ghosted/dashed visually distinct from real low; never silent |
+| Error | "Couldn't sync your energy logs — pull to refresh" banner; sections show cached or skeleton; API failure specific | specific failure named; "pull to refresh" recovery action | `--color-error-red` only on genuine failure (text + icon, never colour-alone); glyph + word |
+| Offline | cached data retained + "You're offline — showing your last sync" banner; pull-to-refresh dimmed ("offline") | "you're offline — pull to refresh when online" | actions dimmed 50% opacity, no haptic; cached data shown |
+
+### Signature & anti-generic
+
+Ownable moments: the **ArcGauge hero** (open 240° arc, orange, brand charge-level metaphor — the alternative to competitors' circular gauges) and the **Living-Line family** (sparkline + TrendChart, continuous stroke, draws itself not fades, same signature as Home's momentum bar) and the **warm-glow-on-ink surfaces** (`--edge-highlight`, `--surface-backplate`, size-calibrated glow, not cold/flat/neon). Anti-generic fix: the card stack is broken from flat monotony by the oversized ArcGauge hero (~160px, dominant) + the tall Quick Log card (240pt, focal action block) + section eyebrows + varied card heights (100–140pt range), so the screen never reads as an undifferentiated stack. The context-tag chips are a premium interaction detail (selectable, warmly teal, single-select) — a craft level generic trackers skip. The staggered dot-entry on ScatterPlot and the scrub interaction on TrendChart (horizontal drag for exact values) are micro-interactions that reward engagement.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+
+| Element | Color | Contrast |
+|---------|-------|----------|
+| Current energy number (white 100%) | `--color-alpha-white-100` | ≥12:1 |
+| Context tag (teal) | wellbeing-teal (`--color-domain-wellbeing`) | 3.5:1 |
+| SIA message / timestamps (white 50/30) | white opacity | ≥4.5:1 |
+| Slider endpoints (white 40) | white/40 | 3.8:1 |
+| Log button (white on orange) | orange + white | ≥4.5:1 |
+| ArcGauge arc (orange) | `--color-brand-orange` | 3.2:1 |
+| Sparkline (orange) | `--color-brand-orange` | 3.2:1 |
+| TrendChart (orange→green) | gradient | ≥3:1 both ends |
+| Correlation bars (orange/cool) | orange / desaturated cool | ≥3:1 |
+| Chronotype icon (teal) | wellbeing-teal | 3.5:1 |
+| Section eyebrows (white 40) | white/40 | ≥4.5:1 |
+
+Status never colour-alone: ArcGauge pairs number + glyph (moon/spark) + label; Correlations pairs value + direction glyph (+↑/−↓) + word + domain label; Peak Hours low-energy pairs moon glyph + label, never alarm colour; SliderTrack always orange (never red at 1), status by number + glyph. All interactive elements carry `--focus-ring` (`CK-T03`, 2pt orange, 2pt offset). Slider thumb ≥44×44pt. Context chips 36pt height, ≥44pt wide. Log button 48pt height x full width. Chart tap zones ≥44pt. Reduced-motion: ArcGauge at final fill instantly, number at final value; sparklines fully drawn with green end dots; TrendChart complete; no loops. VoiceOver: ArcGauge reads "Current energy 7 of 10, feeling good, logged 20 minutes ago"; ScatterPlot: "5 logs today, average 6.2, peak 9:30am"; TrendChart: "average 6.4 over 7 days, best hours 9am–11am."
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -385,26 +538,22 @@ This screen is the user's energy observatory -- a place to log how they feel thr
 | Card surfaces | #211008 | ink-brown-800 | Glassmorphism |
 | Header accent line | #14B8A6 at 80% | wellbeing-teal (domain) | Domain identification |
 | RPG Skill Badge | #14B8A6 at 15% bg, #14B8A6 text | wellbeing-teal (domain) | Level badge |
-| Energy slider fill (high) | #14B8A6 | wellbeing-teal (domain) | Graduated slider fill |
-| Energy slider fill (mid) | #F59E0B | amber | Graduated slider fill |
-| Energy slider fill (low) | #EF4444 | fitness-red | Graduated slider fill |
+| Energy slider fill | #FF5E00 | brand-orange | Single orange graduated fill; value carried by the in-thumb number + 1/10 endpoints, never a red/amber/teal level recolour (non-shaming - a low reading is never alarm-coded) |
 | Slider thumb | #FFFFFF | white | With shadow |
 | Context tag chip (active) | #14B8A6 at 15% bg, #14B8A6 text | wellbeing-teal (domain) | Selection indicator |
 | Context tag chip (inactive) | ink-900 bg, white at 60% text | -- | Neutral state |
 | Log CTA button | #FF5E00 | orange (primary) | CTA -- always orange |
-| Sparkline / trend line | #14B8A6 | wellbeing-teal (domain) | Data visualization |
-| Sparkline fill area | #14B8A6 at 5-8% | wellbeing-teal (domain) | Subtle area fill |
-| Peak dot markers | #14B8A6 | wellbeing-teal (domain) | Chart markers |
-| AI projected line | #7F24FF at 40% | purple (accent) | 10% rule -- projected trend |
-| Peak hours filled circles | #14B8A6 | wellbeing-teal (domain) | Energy intensity |
-| Low hours indicator | #F59E0B | amber | Low energy warning |
-| Correlation positive bars | #14B8A6 | wellbeing-teal (domain) | Positive impact |
-| Correlation negative bars | #F59E0B | amber | Negative impact |
-| Correlation positive score | #14B8A6 | wellbeing-teal (domain) | "+1.8" |
-| Correlation negative score | #F59E0B | amber | "-1.4" |
-| Current energy glow (high) | #14B8A6 at 8% | wellbeing-teal (domain) | Emotional anchor |
-| Current energy glow (mid) | #F59E0B at 8% | amber | Emotional anchor |
-| Current energy glow (low) | #EF4444 at 8% | fitness-red | Emotional anchor |
+| Sparkline / trend line | #FF5E00 -> #34A853 | brand-orange -> forest-green (`--grad-progress`) | Living Line data ink (effort -> arrival); see Visualization S63-V03/V04 |
+| Sparkline / trend fill area | #FF5E00 at <=25% | brand-orange (`--grad-orange` fade) | Area fill under the Living Line |
+| Peak / milestone dot markers | #34A853 | forest-green | Green milestone/end dot (day-high / arrival) |
+| AI projected line | #7F24FF | royal-purple (SIA) | Brand-sanctioned dashed-purple projection (SIA forecast, section 11) - the only chart-purple |
+| Peak hours intensity fill | #FF5E00 -> #34A853 | brand-orange (`--grad-progress`) | Continuous MomentumBar-style fill (Living-Line family) - Visualization S63-V06 |
+| Low-energy window indicator | (no colour) | -- | Carried by a rest/moon glyph + label, never an alarm colour |
+| Correlation reinforcing bars / score | #FF5E00 | brand-orange | Reinforcing factor, always paired with a leading `+` + up-arrow glyph (never colour-alone) - Visualization S63-V05 |
+| Correlation draining bars / score | desaturated cool tint (sleep-blue family, low chroma) | -- | Draining factor, always paired with a leading `-` + down-arrow glyph; amber retired from data semantics |
+| ArcGauge hero arc fill | #FF5E00 -> #FF8A3D | brand-orange (`--grad-orange`, conic-mask) | Always orange - a low reading is NEVER recoloured red/amber (Visualization S63-V01/V07) |
+| ArcGauge hero glow | `--glow-orange-md` (~20px, mint) | brand-orange | Size-calibrated warm glow on the 160px hero (not the 32px `--glow-orange`) |
+| ArcGauge status cue | (no colour) | -- | Carried by number + glyph (moon/spark) + label, never an alarm colour |
 | Chronotype icon | #14B8A6 | wellbeing-teal (domain) | Identity element |
 | Segmented active | #FF5E00 | orange (primary) | Interactive control |
 | SIA purple dot (coaching) | #7F24FF | purple (accent) | 10% rule -- element 1 |
@@ -417,7 +566,7 @@ This screen is the user's energy observatory -- a place to log how they feel thr
 | Tertiary text | white at 50% | -- | Descriptions, context notes |
 | Quaternary text | white at 40% | -- | Timestamps, axis labels |
 
-**60/30/10 verification**: Orange on Log CTA button and segmented control active state only -- the two primary interactive elements. Green absent from this screen (no completion states; success feedback is transient via animation). Purple limited to SIA coaching note dot, SIA insight card left border, and SIA insight dot (3 small indicators -- within 10% budget). Domain teal on all identification and data visualization elements (accent line, slider fill, sparkline, peak circles, correlation bars, eyebrows, chronotype icon). Ratio holds with orange as the clear interactive driver and teal as the information layer.
+**60/30/10 verification (corrected - Visualization S63-V07)**: **Orange #FF5E00 dominates data ink** - the ArcGauge arc, both Living Lines (today sparkline + multi-day trend), ScatterPlot dots, reinforcing correlation bars, peak-hour intensity fills, plus the Log CTA and active segment. **Green #34A853** for arrival/milestone only - Living-Line arrival, green end/milestone dots, log-success flash. **Purple #7F24FF** stays SIA-only - coaching-note dot, insight border/dot, and the brand-sanctioned dashed-purple projection on the trend (section 11, the only chart-purple). **Wellbeing-teal is identity only** - header accent line, eyebrows, RPG Skill Badge, 'best window' label, chronotype icon - it no longer carries data ink. **Amber retires** from data semantics (replaced by signed direction + rest glyph). Ratio holds with orange as the clear data-ink driver and teal as the domain-identity layer.
 
 ---
 
@@ -461,7 +610,7 @@ This screen is the user's energy observatory -- a place to log how they feel thr
 ### Sparkline Dot Marker
 | State | Visual | Haptic |
 |-------|--------|--------|
-| Default | 8pt teal circle (most recent: 10pt with glow) | -- |
+| Default | 8pt orange circle (most recent: 10pt with `--glow-orange-sm`; green end dot when the latest log is the day's high) | -- |
 | Pressed | Scale(1.4), tooltip appears above with rating + time + tag | light impact |
 | Focus-visible | 2pt orange ring, offset 2pt | -- |
 
@@ -536,7 +685,7 @@ This screen is the user's energy observatory -- a place to log how they feel thr
 | Energy slider thumb | Drag | Thumb follows finger, value label tracks above, track fill recolors in real-time | Continuous | -- |
 | Energy slider snap | Release at integer | Thumb snaps to nearest integer position | 160ms | ease-out-soft |
 | Context chip select | Tap | Previous chip: bg fades out (160ms). New chip: bg fades in + border color transition | 160ms | ease-out-soft |
-| Log success | CTA tap | Button text crossfades to "logged" with checkmark, green glow flash, current energy display updates with count-up to new value, new dot appears on timeline sparkline (scale 0 to 1 + teal glow pulse) | 600ms button, 280ms display update | ease-out-soft (button), ease-flow (display) |
+| Log success | CTA tap | Button text crossfades to "logged" with checkmark, green glow flash, ArcGauge re-sweeps + center counts up to the new value, new dot appears on the timeline Sparkline (scale 0 to 1 + orange glow pulse, green if it is the day's high) | 600ms button, 520ms gauge re-sweep / 280ms dot | ease-out-soft (button), ease-flow (gauge) |
 | Sparkline draw | Enter viewport | Line draws left-to-right (stroke-dashoffset), dots scale in as line reaches them | 520ms | ease-flow |
 | Trend chart draw | Segment change or enter viewport | Line morphs from old data to new data (or draws from left on first entry) | 520ms | ease-flow |
 | Peak hours rows | Enter viewport | Staggered fade-in, 80ms stagger per row | 280ms each | ease-out-soft |
@@ -575,7 +724,7 @@ This screen is the user's energy observatory -- a place to log how they feel thr
 
 - **Low motivation**: SIA coaching note is shorter and gentler: "Just one quick check-in today. How's your energy?" Quick Log card is extra prominent (slight scale bump, teal border brightens). Hides: Energy Trend chart, Correlations card, SIA Insight card. Shows: Current Energy, Quick Log, Today's Timeline, Peak Hours (if detected), Chronotype badge. Goal: fit entire visible screen in one viewport without scrolling past the Quick Log. FAB-style floating "log energy" button appears if user scrolls past Quick Log.
 - **Medium motivation**: Full screen as described. All 8 sections visible. Default experience with standard SIA insights.
-- **High motivation**: Additional analytics section appears below Correlations: "Energy Analytics" with detailed breakdown -- average energy by day of week (mini bar chart), energy variance over time, longest streak of high-energy days, personal energy records ("your highest average week was May 5-11: 7.8"). SIA Insight card is more detailed with specific recommendations and data points. Trend chart shows confidence band (teal at 3% fill around the line). Chronotype card shows expanded detail with sleep-energy correlation graph.
+- **High motivation**: Additional analytics section appears below Correlations: "Energy Analytics" with detailed breakdown -- average energy by day of week (mini bar chart), energy variance over time, longest streak of high-energy days, personal energy records ("your highest average week was May 5-11: 7.8"). SIA Insight card is more detailed with specific recommendations and data points. Trend chart shows a confidence band (orange at 3% fill around the Living Line). Chronotype card shows expanded detail with sleep-energy correlation graph.
 
 ---
 
@@ -612,8 +761,8 @@ This screen is the user's energy observatory -- a place to log how they feel thr
 | Chronotype name | Sora | Bold 700 | 20pt | 28pt | #FFFFFF |
 | Chronotype description | Sora | Regular 400 | 14pt | 20pt | #FFFFFF at 50% |
 | Correlation factor label | Sora | Regular 400 | 15pt | 20pt | #FFFFFF |
-| Correlation impact score (positive) | Sora | Semibold 600 | 13pt | 18pt | #14B8A6 |
-| Correlation impact score (negative) | Sora | Semibold 600 | 13pt | 18pt | #F59E0B |
+| Correlation impact score (reinforcing) | Sora | Semibold 600 | 13pt | 18pt | #FF5E00 (+ sign + up-arrow glyph; never colour-alone) |
+| Correlation impact score (draining) | Sora | Semibold 600 | 13pt | 18pt | desaturated cool tint (− sign + down-arrow glyph; never colour-alone) |
 | SIA insight text | Sora | Regular 400 | 15pt | 22pt | #FFFFFF at 80% |
 | "ask SIA more" chip | Sora | Semibold 600 | 13pt | 18pt | #FFFFFF at 70% |
 | Segmented control text | Sora | Semibold 600 | 13pt | 18pt | #FFFFFF or #FFFFFF at 50% |

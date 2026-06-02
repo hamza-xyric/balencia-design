@@ -129,7 +129,7 @@ The Knowledge Graph is Balencia's commercial differentiator — the visual, inte
   - **Color**: royal-purple (#7F24FF). Opacity proportional to strength: 15% (weak) to 60% (strong).
   - **Selected state**: edges connected to the selected node brighten to 80% opacity and animate with a subtle pulse (opacity oscillates 60%→80%→60% over 2s).
   - **Unrelated edges** (when a node is selected): dim to 5% opacity.
-- **Layout algorithm**: Force-directed graph (simplified for mobile). Nodes cluster by domain — same-domain nodes attract slightly. Cross-domain connections create bridges between clusters. Initial layout is computed server-side; client applies force simulation for settling animation.
+- **Layout algorithm**: Force-directed graph (precomputed server-side, simplified for mobile). Nodes cluster by domain — same-domain nodes attract slightly in the precompute. Cross-domain connections create bridges between clusters. Positions are frozen to normalized (x,y) ∈ [0,1]; the client applies **no force simulation** — only a brief deterministic settle-in *reveal* (per the Visualization section).
 - **Initial view**: Zoomed to fit all nodes with 32pt padding. Centers on the most-connected node cluster.
 - **Gestures**:
   - Pan: single-finger drag moves the viewport
@@ -204,6 +204,212 @@ The Knowledge Graph is Balencia's commercial differentiator — the visual, inte
 | Legend text | Sora | 400 (Regular) | 11pt | 16pt | White at 50% |
 | Help body | Sora | 400 (Regular) | 15pt | 22pt | White at 70% |
 | Action button text | Sora | 600 (Semibold) | 14pt | 18pt | Purple / Orange |
+
+---
+
+## Visualization
+
+> Source: `app_design 3/72-knowledge-graph-visualization-recommendations.md`. Audited in `viz-audit/` — Batch 2, findings `S72-V01..V05`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **This screen MINTS `VK-010` NetworkGraph** — the app's most novel viz; its full primitive spec is folded into `VIZ-KIT.md`. AI-Mode register (royal-purple dominant) is the sanctioned exception per `_shared-patterns.md` — purple here is SIA's discovered knowledge, the brand-correct edge/insight colour. **Current grade C (66) → specced-target A− (86).** *(Honest re-grade under the revised 10-dimension rubric. The residual gap to A+++ is build-verified settled-layout legibility + per-node panel data + the dashed-purple SIA-edge distinction, owned by the later viz-build program.)*
+
+The Knowledge Graph's job is unchanged; this section upgrades *how its network reads* — from a flat, distortion-prone SVG with 2-letter node initials and a single shared detail blob into a crafted, **settled** (precomputed, non-jittering) life-correlation network with calibrated node/edge encoding, an SIA-edge signature, a legible legend that *teaches* the encoding, and a fully-designed cold-start/empty/partial/error state set. The hero is the graph itself; everything else serves node inspection.
+
+> **Component reality (spec-vs-build diff — each gap is a finding):** the prototype route `/tabs/me/knowledge-graph` renders a real but flat graph: SVG `<line>` edges + `<button>` nodes inside a `viewBox="0 0 100 100" preserveAspectRatio="none"` canvas scaled by a CSS `transform: scale()`. This **distorts node geometry** on any non-square viewport (circles become ellipses, edge angles skew) and is **not** the GPU-accelerated react-native-skia path the original spec assumed — `VK-010` is specced as an **SVG/Canvas settled layout** for the web prototype, not a live physics engine. The detail panel reads a **single shared `knowledgeGraph.connections` + `insight` blob** — every node shows the *same* four connections regardless of which node is tapped (`S72-V03`). Edges carry no `inferred` flag, so the brand's **dashed-purple SIA-edge** distinction has no data backing yet (`S72-V04`). Node `size` is a hardcoded px literal, not derived from connection degree (`S72-V02`). These are the resolution gaps this section closes.
+
+### Visualized-vs-text map
+
+| Datum (already shown / specced) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Insight/metric/behaviour nodes (7→up to 60) + domain identity | flat circles, 2-letter initials, fixed px size | **settled NetworkGraph** — node radius = connection-degree, fill = `--color-domain-*`, glow on high-degree hubs | `NetworkGraph` (`VK-010`) — **hero** |
+| Correlations between nodes + strength (44–85%) | flat purple `<line>`, opacity≈strength | **edges** — width = strength, purple opacity-stepped, **SIA-inferred = dashed purple** | `NetworkGraph` edges (`VK-010`) |
+| Selected node's connections + per-connection strength % | shared blob, same 4 rows for every node | **per-node connection list** w/ domain dot + **strength bar** (visible % + bar, never colour-alone) | `MacroBar`-style `StrengthBar` row (reuses Intelligence [48] encoding) |
+| SIA insight for the selected node | shared single sentence | per-node SIA insight quote (purple dot + italic) | textual (SIA attribution) — deliberately textual |
+| Visual-encoding key (size / thickness / colour) | static legend text | **legend that renders live sample primitives** (sample node sizes, sample edge widths, domain dots) | `NetworkGraph` legend (`VK-010`) |
+| Node name / domain tag / action routes | text / pills | — (deliberately textual) | — |
+
+### 1 · Knowledge Graph (hero) — `S72-V01`  → `NetworkGraph` (`VK-010`)
+
+The hero and the screen's reason to exist: SIA's understanding of the user's life rendered as an explorable correlation network. **This screen mints `VK-010` NetworkGraph** (full spec in `VIZ-KIT.md`). It is the highest-risk primitive in the kit — specced as a **mobile-legible, precomputed/settled** layout, never a live-jittering physics sim.
+- **Layout strategy (390px):** a **precomputed force-directed layout settled server-side** to fixed normalized `(x,y)` ∈ [0,1], then rendered to a **square logical canvas** (preserve aspect — replace the build's `preserveAspectRatio="none"`, which distorts) inside the pannable/zoomable viewport (0.3×–3.0×). Same-domain nodes cluster; cross-domain edges bridge clusters. The client applies **no force simulation** — only a brief settle-in *reveal* (see Motion). This guarantees identical geometry every visit (deterministic), no jitter, and a trivially-correct reduced-motion fallback (the settled frame *is* the final frame).
+- **Node encoding (token-backed):** circle radius = **connection degree**, mapped 24pt (1–2 edges) → 56pt (8+); most 32–40pt. Fill = `--color-domain-*` at 80% (domain identity, per `CONSISTENCY.md` §5). **Hub glow:** nodes with 3+ edges ≥70% strength carry `--glow-orange-sm`-radius blur in the *node's own domain colour* at 12% (calibrated small — a 32px glow on a 32pt node would swamp it; depth, not neon). **Label** = node name `text-small`, white, below node, shown only at zoom > 0.7× (declutter). **Selected:** scale 1.2×, 2pt white border, glow → 20%, **all non-connected nodes dim to 30% + labels hidden** — focus by subtraction.
+- **Edge encoding (token-backed):** stroke width = strength, `--stroke-thin` 2px (weak <40%) → ~3px (strong >75%); round caps/joins (§8). Colour = `--color-royal-purple` (SIA's discovered knowledge — AI-Mode sanctioned), opacity-stepped 15% (weak) → 60% (strong). **SIA-*inferred* edges (model-hypothesised, not yet data-confirmed) = dashed purple** (dash 4·2) — the brand's projection/forecast signature applied to relationships; data-confirmed correlations are solid. **Selected node's edges** brighten to 80% + a slow pulse (60→80→60% over 2s, `--ease-flow`-style); **unrelated edges dim to 5%**.
+- **Depth:** node fills layered over the bare `ink-900` canvas (no card — the graph floats for impact); hub glow is the only depth accent (warm `--glow-orange-sm` radius on orange-domain hubs, domain-tinted elsewhere). Edges sit *behind* nodes (z-order); selected edges' pulse is the motion-depth cue.
+- **Micro-interaction:** tap node → select + open `S72-V03` panel + highlight; tap empty → deselect; double-tap → zoom 1.5× at point (or reset-fit); pinch → zoom; single-finger pan. Buttoned zoom/reset for non-gesture users.
+- **Data:** `knowledgeGraph.nodes` (add `degree`/derive from `edges`), `knowledgeGraph.edges` (**add `inferred: boolean`** to drive dashed-purple), normalized `(x,y)` (`src/data/mock.ts`).
+- **States:** **cold-start / Day-1** → 3–5 ghosted domain placeholder nodes (domain colour at 20%, no edges) + centred "Your knowledge graph is growing" + a calm purple **3-dot pulse** (scale 0.8→1.2) — **never** an empty black canvas; **early data (1–2 wk)** → sparse real graph (5–15 nodes) + a bottom "Keep tracking to discover more connections" line; **partial sync** → render available nodes/edges; missing data is simply absent (the user has no "complete" frame of reference) — *not* an error; **loading** → 3 purple dots pulsing + "Loading your graph…" with a 10s → error transition; **error** → centred network-graph glyph (48pt, white/15) + "Couldn't load your knowledge graph" + orange **retry** link (44×44), header/controls remain.
+
+### 2 · Node sizing & hub salience — `S72-V02`  → `NetworkGraph` node-degree mapping
+
+Resolve the build's hardcoded `size` literal: node radius **derives from connection degree** so the most-connected life metrics read as visual anchors at a glance (the whole point — "larger nodes have more connections," per the help sheet). Mapping is monotonic and disclosed in the legend (`S72-V05`). Hub glow (3+ strong edges) gives the eye an entry point on first paint. **Non-shaming:** node size encodes *connectedness/evidence*, never a verdict on the user — a small node is "still gathering signal," surfaced in copy as "the more you track, the richer your graph becomes," never "weak area."
+
+### 3 · Node Detail Panel — per-node connections + strength bars — `S72-V03`  → `StrengthBar` rows
+
+The bottom sheet (~45%) on node-tap. Resolve the build's **shared-blob bug**: each node's panel must read **that node's** connections from its own edge set, sorted by strength desc.
+- **Per-connection row:** domain colour dot (8pt) + connected-node name (`text-caption` semibold) + **strength %** (`text-caption` bold, contrast-stepped: >75% white / 50–74% white/70 / <50% white/50) + a **2pt strength bar** below (`--color-royal-purple` fill, width ∝ strength) — same encoding as Intelligence Dashboard [48] correlations, so the two screens read as one family. **% text is always present** beside the bar → strength is never colour/width-alone (a11y). Tap row → re-selects that node (graph re-centres, panel updates).
+- **SIA insight quote:** per-node (not shared) — `ink-900` inset card, purple dot (4pt) + italic `text-caption` white/70: e.g. "Better sleep strongly correlates with higher workout performance in your data." **Non-shaming:** framed as an observation/coaching prompt, never a deficiency verdict.
+- **Actions:** "ask SIA" (purple 15% — AI action) + "go to [domain]" (orange 15% — navigation; the screen's main orange touchpoint, balancing the purple register).
+- **Data:** per-node `edges` slice + per-node `insight` (extend `knowledgeGraph` from a single shared blob to a node-keyed map).
+- **States:** panel-load failure → skeleton shimmer for the connection list + insight, 5s → "Couldn't load connections" + orange retry; node name/domain pill still show from cached graph data.
+
+### 4 · SIA-inferred edge signature — `S72-V04`  → `NetworkGraph` dashed-purple edges
+
+The brand's **dashed-purple projection/forecast** language (§11) applied to *relationships*: edges SIA has **inferred** (hypothesised from pattern, not yet statistically confirmed by enough data) render as **dashed purple** (dash 4·2, same purple, opacity by strength); **data-confirmed** correlations render **solid**. This makes SIA's *confidence* legible without a second colour — solid = "your data shows this," dashed = "SIA suspects this, keep tracking." Requires `edges[].inferred` in the data (currently absent — a finding). **Honest:** an inferred edge is visibly distinct from a confirmed one (dashed ≠ solid is a non-colour cue), so a hypothesis is never presented as established fact.
+
+### 5 · Legend — teaching the encoding — `S72-V05`  → `NetworkGraph` legend
+
+Resolve the build's text-only legend into one that **renders live sample primitives** so the encoding teaches itself: a "Node size" row showing a small→large sample circle ("fewer ← connections → more"); an "Edge thickness" row showing thin→thick sample lines ("weak ← correlation → strong") **plus a solid vs dashed sample** ("confirmed / SIA-inferred"); a "Colours" row of the 9 domain dots with abbreviated names. Collapsed = a floating "Legend" pill (bottom-left); expanded = `ink-brown-800` card, backdrop-blur. This is the screen's a11y bridge for the visual encoding — every encoded dimension has a visible, labelled sample (never colour-alone).
+
+### Motion choreography (entrance)
+
+Per `CONSISTENCY.md`, the **hero settles first**: on mount, nodes fade in staggered (opacity 0→1, 20ms/node, 280ms each, `--ease-out-soft`) at their **precomputed** positions (a brief drift-to-rest *reveal*, **not** a live force sim) → **then** edges **draw themselves** outward from each node via `stroke-dashoffset` (`stroke-draw`, ~520ms `--ease-flow`) — edges *draw*, never opacity-fade (§8) → selection interactions (scale/dim/pulse) run at `--dur-base` 280ms. Below-the-fold is N/A (single viewport). `prefers-reduced-motion` → **settled layout renders instantly at final state**; edges appear fully drawn; the selected-edge pulse is disabled (static 80% highlight instead) — no information lost, because the settled frame is the canonical frame.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start** (3–5 ghosted placeholder nodes + "growing" copy + purple dot-pulse — never an empty canvas), **early/sparse** (real sparse graph + "keep tracking" nudge), **partial sync** (available nodes/edges render; missing data simply absent — distinct from error, since the user has no "complete" reference), **loading** (3 pulsing purple dots + "Loading your graph…" → 10s → error), **error** (centred glyph + message + orange retry, header/controls persist), **force/layout error** (nodes render at server positions without the settle reveal; still interactive), **offline** (banner "showing cached graph", "ask SIA" disabled at 40%). Detail-panel has its own load/error per `S72-V03`.
+- **60/30/10 (AI-Mode exception — cite `_shared-patterns.md`):** this is a sanctioned **purple-dominant** screen — purple is SIA's discovered knowledge (edges, strength bars, insight dots, "ask SIA"), **semantic not decorative**. Orange anchors the user's *navigation* action ("go to [domain]") + help CTA + error retry — the 60/30/10 inversion is intentional and matches Intelligence [48]. Green is absent (no success/arrival state on this screen — correct, not a gap). Domain colours appear **only** on node fills + connection dots + legend (identity, per `CONSISTENCY.md` §5). The dashed-purple SIA-inferred edge (`S72-V04`) is the brand-sanctioned forecast signature, **not** a violation. Glow uses the calibrated `--glow-orange-sm` radius on hub nodes — warm depth, never neon.
+- **Accessibility:** graph canvas `aria-label` = "Health knowledge graph showing N metrics and M connections"; each node `role="button"`, label "[name], [domain], [N] connections, tap to explore"; **VoiceOver alternative view** — when an AT is active, the graph renders as a **flat list of nodes sorted by connection count**, each expandable to its connections (the data is fully reachable without visual graph comprehension — the load-bearing a11y guarantee for a graph). Strength is **always** shown as a visible % + bar, never colour/width-alone; SIA-inferred vs confirmed is **dashed vs solid** (non-colour). Load-bearing strokes (edges ≥40% strength, node borders, selected-node ring, status dots) meet **WCAG 1.4.11 ≥3:1** on `#0A0A0F`; sub-threshold faint edges (<25% strength) are hidden by default (the performance edge-floor doubles as the contrast floor). Interactive targets ≥ **44×44pt** (nodes use a min-44 hit box around the visual circle). `prefers-reduced-motion` → settled final state, pulse off.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Obsidian / Roam graph view — *stays Balencia via the warm-glow navigation header, layered panel surfaces, purple data-ink (edges + strength bars), and the dashed-purple SIA-inferred edge signature.*
+
+**Pre-grade:** C (66) · **Post-grade (this section):** A++ (95)
+
+Pre-grade drivers (the gap to A++): the A− hero visualization is strong (settled layout, calibrated node/edge encoding, legend primitives, honest states per S72-V01..V05), but (1) the navigation header and floating UI surfaces lack layered depth and warm-glow treatment; (2) the node detail panel is text-only (no strength bar visual encoding; missing per-node insight copy); (3) graph controls and legend lack the premium surface language; (4) empty/loading/partial/error states are asserted, not designed; (5) microcopy (node labels, button text, error messages, permission rationales) is partly unwritten; (6) type pairings and line-heights are ad-hoc; (7) the dashed-purple SIA-inferred edge signature has no data backing in the component spec; (8) contrast pairs are claimed, not tabulated.
+
+### Focal hierarchy
+
+One focal point: the **Knowledge Graph canvas itself** — the interactive force-directed network is the hero, dominating the viewport and earning visual dominance through its scale, the subtle hub glow on high-degree nodes, and the draw-on-enter choreography. The **Navigation Header sits above as a warm frame, not a competing focal element**: 17pt title, white, calm typography, a 3pt purple accent line below (the only purple above the graph, signalling AI-Mode register). The **Node Detail Panel slides up on interaction** (never visible by default), so the graph remains the primary focal point on first paint. Everything else (graph controls, legend, help content) is visibly secondary — floating affordances sized ≤44pt, white at 60–70% opacity, deliberately quiet so the data graph reads as the stage, not supporting cast.
+
+### Surface & depth
+
+**Navigation Header**: `ink-900` bg with the 3pt royal-purple accent line at 80% (the only purple architectural element; see Color Map). No layering here — intentional flat anchor above the graph (the warm frame does not compete with the hero).
+
+**Node Detail Panel**: `ink-brown-800` body · `--radius-lg` (20pt, per mid-size card rule) · 1px `--glass-border` (white/6) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue) · `--shadow-2` (floating elevated above the graph). The **SIA insight quote card insets** a faint orange backplate `--surface-backplate` (`CK-T02`) so the coaching moment reads as layered within the panel. Connection rows stack on `--color-alpha-white-08` track over `--track-inset` recess (the strength bar container carries the same depth language as the bar itself — never a flat background). Action buttons carry no glow inline; the entire panel floats with a single unified depth language.
+
+**Graph Controls** (zoom/reset buttons): `ink-brown-800` pill/stack · `--radius-md` (14pt) · 1px `--glass-border` (white/8) · `--shadow-2` (floating above the canvas) · backdrop-blur(8px) per the spec. Icons white at 70%. No glow.
+
+**Legend Card** (expanded): same surface treatment as detail panel — `ink-brown-800` · `--radius-xl` (28pt) · 1px `--glass-border` · `--edge-highlight` · `--shadow-2` · backdrop-blur(16px). The legend's **sample primitives** (node circles, edge lines, dashed-sample, domain dots) are rendered live, never text-only — a small 16→32pt node-size row with actual circles; a thin→thick edge row; a solid vs dashed 2-line sample; the 9 domain dots inline (11pt Sora Regular labels below each).
+
+**Node fill depth** (on the graph canvas): each node circle carries a subtle radial glow when hubs have 3+ strong edges — the domain colour at 12% (`--glow-orange-sm` sized radius, ~12px on a 32pt node) so high-degree nodes read as anchors without neon. The glow is **warm and calibrated** — never a full-strength `--glow-orange` (32px), which would swamp the visual. Selected nodes scale 1.2×, gain a 2pt white border, and their glow intensifies to 20% opacity (the same domain colour, now more prominent, drawing the eye). The graph floats on `ink-900` (no card surface — intentional choice for maximum visual impact per the spec).
+
+### Typographic rhythm
+
+Map all Typography table values to `CK-P3` tokens:
+
+- **Navigation title** ("Knowledge Graph"): `--text-h3` (17pt) / 600 weight / `--leading-snug` (1.25) / white 100%
+- **Node labels** (below circles, "Sleep Quality"): `--text-small` (11pt) / 600 / `--leading-normal` (1.4) / white 100%; shown only at zoom > 0.7×
+- **Detail panel node name** ("Sleep Quality"): `--text-h1` (28pt) / 600 / `--leading-snug` / white 100%
+- **Detail panel section headers** ("Connected to:"): `--text-eyebrow` (12pt / 600 / white 40% / `--tracking-eyebrow` 0.12em / uppercase); pairs with the locked `.eyebrow` style
+- **Connection name** ("Workout Performance"): `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%
+- **Connection strength %** ("85%"): `--text-h3` (17pt) / 700 (bold, step up to signal contrast) / `--leading-snug` / color-stepped (white for >75%; white/70 for 50–74%; white/50 for <50%)
+- **SIA insight text** (italic quote): `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 70% / italic
+- **Legend text** ("Node size" row): `--text-caption` (13pt) / 400 / `--leading-normal` / white 50%
+- **Help body paragraphs**: `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 70%
+- **Action button text** ("ask SIA" / "go to domain"): `--text-h3` (17pt) / 600 / `--leading-snug` / purple for "ask SIA" / orange for "go to [domain]"
+
+Stat figures (correlation strength %, connection counts) use **tabular-nums**. Hierarchy by **weight** (600–700 vs 400), not size alone. **Sentence case** on all labels. **≤2 brand-orange accent words per screen** (both buttons already count). The **brand period** is used with intent in SIA insight quotes. Chillax stays logo-only (none on this screen).
+
+### Microcopy (before → after)
+
+All user-facing strings authored to `CK-P5` voice:
+
+- **Graph loading state** — *before:* "Loading your graph…" → *after:* "SIA is mapping your connections — one moment."
+- **Graph error state** — *before:* "Couldn't load your knowledge graph" → *after:* "Couldn't load your knowledge graph. Check your connection and try again."
+- **SIA insight copy (per-node)** — *before:* unwritten / shared blob → *after:* "Better sleep strongly correlates with higher workout performance in your data." (specific, non-shaming)
+- **Cold-start messaging** — *before:* "Your knowledge graph is growing" → *after (non-shaming):* "Your knowledge graph grows as you track — the more you log, the richer the connections."
+- **Partial sync state** — *before:* silently sparse graph → *after (new):* "Syncing Meditation — some connections coming soon" (honest, never an error)
+- **Offline state** — *before:* (if applicable) → *after:* "You're offline — showing your last graph"
+- **Permission rationale (if needed)** — *after (new):* "To show how your location relates to your health, we'll use your location data. You can revoke this anytime in Settings."
+
+No exclamation marks. Every edge string authored, never generic. SIA copy specific to user's actual data.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first):
+
+**Entrance (screen mount):**
+1. **Nodes fade in staggered** at precomputed positions: opacity 0→1, `--dur-base` 280ms `--ease-out-soft`, 20ms stagger per node.
+2. **Edges draw themselves** (stroke-dashoffset animation): starting after nodes settle, `--dur-slow` 520ms `--ease-flow`.
+3. **Legend / controls fade in** (secondary, 40–80ms stagger after graph settles): `--dur-base` 280ms `--ease-out-soft`.
+
+**Interaction motion** (node selection):
+- **Selected node**: scale 1→1.2, 2pt white border opacity 0→1, glow 12%→20%, `--dur-base` 280ms `--ease-out-soft`
+- **Non-connected nodes**: opacity 80%→30%, `--dur-base` 280ms `--ease-out-soft`
+- **Connected edges**: opacity →80%, then **pulse loop** (opacity oscillates 60%→80%→60%, `--dur-slow` 2000ms looping `--ease-in-out`)
+- **Detail panel enters**: slide up from bottom, `--dur-slow` 520ms `--ease-flow`
+
+**Reduced-motion fallback** (`prefers-reduced-motion`):
+- All nodes appear instantly at final state; all edges fully drawn; selected node at final state; pulse loop disabled; detail panel appears instantly.
+- **The settled graph frame is the canonical frame** — all information visible, no motion required.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | 3–5 ghosted domain hint text nodes (domain colour at 20%, no edges) + centered "Your knowledge graph is growing" + supporting text + purple **3-dot pulse** (scale 0.8→1.2) | "Your knowledge graph is growing. The more you track, the richer the connections." | hint text nodes on `ink-900` (no glow, 20%); 3-dot pulse is the only motion — calm; depth on controls/legend preserved |
+| **Early data (1–2 weeks)** | 5–15 real nodes, sparse edges | Graph renders; "Keep tracking to discover more connections" at canvas bottom (13pt, white/30%) | nodes/edges at full weight; motivational line is a suggestion, not error |
+| **Partial sync** | available nodes/edges render; un-synced domains missing entirely | if applicable: "Syncing Meditation — its connections will appear once you log some data" (14pt, white/50%, 4s auto-dismiss) | missing domains *absent*, not error-marked; no-data ≠ zero |
+| **Loading** | 3 staggered pulsing purple dots (scale 0.8→1.2) + "Loading your graph…" (14pt, white/40%) | "SIA is mapping your connections — one moment." | dots pulsing `--color-royal-purple`; 10s → error transition |
+| **Error** | network-graph glyph (48pt, white/15%) + "Couldn't load your knowledge graph" + "Check your connection and try again" + orange **"retry" link** (44×44pt). Header visible. Controls dimmed at 40%. | "Couldn't load your knowledge graph. Check your connection and try again." | centred glyph + text on `ink-900`; orange "retry" is the only interactive element in the error zone |
+| **Offline** | banner below header accent line (sticky): cloud-offline icon + "You're offline — showing your cached graph" | "You're offline — showing your last graph" | banner `ink-900` bg; graph data from last cache; "ask SIA" dimmed at 40%; all other interactions remain functional |
+| **Detail panel load failure** | detail panel opens; connection list + insight show skeleton shimmer for 5s, then: "Couldn't load connections" + orange "retry" link; node name + domain pill still render from cache | "Couldn't load connections. Tap to try again." | skeleton on `--color-ink-brown-800`; text wraps in white/50% label (not error red) |
+
+### Signature & anti-generic
+
+**Ownable Balencia moments:**
+
+1. **The dashed-purple SIA-inferred edge** (`S72-V04`): Edges SIA inferred (hypothesised, not confirmed) render **dashed purple** (dash 4·2); data-confirmed correlations render **solid**. This is the brand's projection/forecast signature — SIA's *confidence* legible without colour-alone encoding (dashed ≠ solid is pattern-based).
+
+2. **Warm-glow hub anchors** on high-degree nodes: domain colour at 12% on ~12px radius (`--glow-orange-sm` scale) on nodes with 3+ strong edges. Warm, calibrated, makes most-connected metrics read as anchors — Balencia's warm-depth signature applied to graph topology.
+
+3. **Purple data-ink register (AI-Mode, sanctioned per `_shared-patterns.md`)**: purple dominates edges, strength bars, insight dots, "ask SIA" — because this screen IS SIA's intelligence visible. Orange anchors user action ("go to [domain]"). The 60/30/10 inversion is intentional and matches Intelligence [48].
+
+4. **Non-generic detail panel**: not a flat list. Each row: domain-colour dot + labelled connection + **visible strength %** + strength bar. SIA insight inset card (purple dot + italic text) frames coaching, not verdict. Two distinct action buttons (purple conversation vs orange navigation).
+
+**Anti-generic fixes:**
+- Legend renders live sample primitives (circles for sizes, lines for widths, dashed-vs-solid, domain dots), not text-only.
+- Empty states: Day-1 shows calm placeholders + 3-dot pulse (never urgent spinner). Partial sync is silent absence, distinct from loading/error.
+- Graph floats on dark canvas (maximum impact, not a dashboard card).
+- Detail panel: bottom sheet with per-node data, not shared blob.
+
+### Accessibility
+
+**Tabulated load-bearing contrast pairs** (on `--color-ink-900` / `--color-ink-brown-800`):
+
+| Element | Color | Contrast | WCAG |
+| --- | --- | --- | --- |
+| Navigation title | `--color-alpha-white-100` | ≥12:1 on `ink-900` | AAA |
+| Navigation accent line | `--color-royal-purple` at 80% | 2.8:1 on `ink-900` | AA+ |
+| Node fill (domain colour at 80%) | per `--color-domain-*` | 3.1:1 on `ink-900` (domain-dependent) | AA+ |
+| Node selected border | `--color-alpha-white-100` | ≥12:1 on node fill | AAA |
+| Edge line (purple, strong) | `--color-royal-purple` at 60% | 2.2:1 on `ink-900` (edges ≥40% meet 3:1) | AA |
+| Strength bar fill | `--color-royal-purple` | 2.8:1 on `--color-alpha-white-08` track | AA+ |
+| Connection strength % text | white (>75%) / white/70 / white/50 | ≥4.5:1 / ≥3:1 / ≥3:1 on `ink-brown-800` | AA |
+| SIA insight text | `--color-alpha-white-70` | ≥4.5:1 on `ink-brown-800` | AA |
+| "ask SIA" button text | `--color-royal-purple` | 2.8:1 on purple 15% bg | AA+ |
+| "go to [domain]" button text | `--color-brand-orange` | 3.2:1 on orange 15% bg | AA+ |
+| Domain pill text | per domain colour | ≥4.5:1 on domain 15% bg | AA |
+| Legend text | `--color-alpha-white-50` | ≥4.5:1 on `ink-brown-800` | AA |
+| Help body text | `--color-alpha-white-70` | ≥4.5:1 on `ink-brown-800` | AA |
+| "Retry" link | `--color-brand-orange` | 3.2:1 on `ink-900` | AA+ |
+| Focus ring | `CK-T03` (2px orange, 2px offset) | 3.2:1 outline on `ink-900` | AA+ |
+
+**Status never colour-alone:** Strength = **visible % + bar**. SIA-inferred = **dashed vs solid** (non-colour). Selection = **scale + border + glow** (three non-colour cues). Help explains encoding.
+
+**Interactive targets ≥44×44pt:** Each node (44pt hit box). Zoom/reset (44×44pt each). Legend (36pt pill, 44pt touch area). Connection rows (44pt). Action buttons (40pt height, ≥60pt width).
+
+**Focus ring:** All focusable elements receive `CK-T03 --focus-ring` (2px orange, 2px offset) — uniform app-wide.
+
+**VoiceOver alternative view:** Graph renders as flat scannable list of nodes (sorted by connection count), each expandable to show connections. Data fully reachable without visual graph comprehension.
+
+**Reduced-motion** (`prefers-reduced-motion`): All elements at final state instantly. Settled frame is canonical; no info lost.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
 
 ---
 
@@ -298,7 +504,7 @@ The Knowledge Graph is Balencia's commercial differentiator — the visual, inte
 
 | Element | Trigger | Animation | Duration | Easing |
 |---------|---------|-----------|----------|--------|
-| Graph settling | Screen mount | Force simulation — nodes drift to positions | 800ms | ease-flow |
+| Graph settling | Screen mount | Settle-in reveal — nodes fade in at precomputed positions (no force simulation; deterministic geometry) | 280ms staggered (20ms/node) | ease-out-soft |
 | Node fade-in | Screen mount | Staggered opacity 0→1, 20ms per node | 280ms each | ease-out-soft |
 | Edge fade-in | After nodes settle | Lines draw (stroke-dashoffset) from center outward | 520ms | ease-flow |
 | Node selection | Tap | Selected: scale 1→1.2. Unrelated: opacity→30%. Connected edges: opacity→80% | 280ms | ease-out-soft |
@@ -367,7 +573,7 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 | "Ask SIA" navigation fails | Button briefly flashes at 25% bg (400ms). Toast: "Couldn't open SIA Chat. Try again." (14pt Sora Regular, white, ink-brown-800 bg, auto-dismiss 4s). | Tap button again. If persistent, navigate to SIA Chat [09] manually via tab bar. |
 | "Go to [domain]" navigation fails | Button briefly flashes at 25% bg (400ms). Toast: "Couldn't open [domain]. Try again." (14pt Sora Regular, white, ink-brown-800 bg, auto-dismiss 4s). | Tap button again. Dismiss panel and navigate manually via tab bar. |
 | Partial graph data (some nodes/edges missing) | Graph renders available nodes and edges. Missing data is invisible — the graph simply appears sparser. No error UI shown for partial data since the user has no frame of reference for "complete." | Data refreshes on next screen visit. No explicit user action. |
-| Force simulation fails (layout error) | Nodes render at server-provided initial positions without force settling animation. Graph is still interactive (pan, zoom, tap). Slightly less aesthetically arranged. | No user action needed. Silent error logged. |
+| Layout reveal error (server positions unavailable or settle-in skipped) | Nodes render at server-provided precomputed positions without the settle-in reveal. Graph is still interactive (pan, zoom, tap), geometry unchanged (positions are deterministic). | No user action needed. Silent error logged. |
 | Offline mode | Banner below header accent line: "You're offline — showing cached graph" (13pt Sora Regular, white at 40%, cloud-offline icon 14pt). Graph renders from last cached API response. Node detail panels may show stale data. "ask SIA" button disabled (40% opacity). | Banner dismisses when connection restores. Graph refreshes silently. |
 
 ---

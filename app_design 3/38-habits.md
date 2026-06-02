@@ -249,6 +249,164 @@ This screen is the user's daily habit dashboard — a satisfying checklist of re
 
 ---
 
+## Visualization
+
+> Source: no companion file (`38-habits-visualization-recommendations.md` not present — this section is authored directly). Audited in `viz-audit/` — Batch (Tracker B), findings `S38-V01..S38-V05`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Premium-depth, on-brand (60/30/10), **Product Mode → orange-dominant accent** (no SIA on the live screen → **purple absent**, correct; domain tag colours stay *identity* on chips only — never on data ink). Benchmark = **Gentler Streak + Finch + Duolingo** (streak graphs + consistency, with **non-shaming** framing as the thesis) rendered **the Balencia way** (continuous orange→green Living-Line fill + warm glow), not a Duolingo/Finch clone. **Current grade C (66) → specced-target A− (86).** *(Honest re-grade under the revised 10-dimension rubric; the residual gap to A+++ is build-verified depth + the working Week/Month micro-interactions, owned by the later viz-build program.)*
+
+This is a **deliberately calm MEDIUM Tracker** — the *content* hero is the satisfying habit checklist, not a chart. The viz job here is narrow and high-leverage: make today's completion read as a crafted **MomentumBar** (the spec's flat `bg-brand-orange` div), keep the deployed **CalendarHeatmap** as the long-run consistency body, give the per-habit streaks a single ambient **Sparkline** in the high-motivation tier, and bake **Gentler-Streak non-shaming** into every state (a broken streak never turns red, never weaponises loss-aversion). It mints **no new primitive** and retires kit backlog (`MomentumBar`, `CalendarHeatmap`, `Sparkline`, `KPIStatTile`). **Editorial restraint:** habit names, streak counts, domain tags, XP figure, and the month label stay clean text — they are one-off scalars/identity labels with no useful visual form. We do **not** promote per-habit streaks to rings (that would scatter eight competing foci across a checklist) — the one focal viz is the completion MomentumBar.
+
+**Diff vs. prototype reality (`/features/habits`):** today the completion bar is a flat 2-tone orange `<div>` (no depth, no green-arrival, no honest empty state); the **Week / Month segments render the same Today checklist** — the spec's "7-day completion bars" and "month overview" are **claimed but unbuilt** (`S38-V02` carries the build); the ASCII wireframe's **7-day dot row is not rendered**; the `CalendarHeatmap` is the only real viz (deployed, `tone="brand"`). These gaps are the findings below, not assumptions.
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Daily completion (5 of 8 · 62%) | flat orange `<div>` bar, no depth, no arrival | **continuous `MomentumBar`** — orange→green path-of-progress fill, green arrival at 100%, honest empty | `MomentumBar` (`VK-004`) |
+| Week view — daily completion per day (7 bars) | segment toggles but renders the *same* checklist (unbuilt) | **weekly `BarChart`** — this-week orange, zero baseline, shared scale (no last-week shaming) | `BarChart` (`VK-006`) |
+| 28-day habit consistency | `CalendarHeatmap` (deployed) — keep | **`CalendarHeatmap`** depth + honest open-day vs no-data + non-shaming legend | `CalendarHeatmap` |
+| 7-day completion-rate trend (wireframe dot row / high-motiv. "weekly trend") | dot row not rendered; sparkline only promised in high-motivation copy | **7-point `Sparkline`** (tiny Living Line, green end dot on a high) above the heatmap | `Sparkline` (`VK-001`) |
+| Per-habit streak (🔥 21 days) | flame icon + count text | — (deliberately textual — a one-off scalar; flame is identity, **not** promoted to a ring per habit) | — |
+| XP earned today (+75) · habits-left nudge | green text | — (deliberately textual — a single scalar; an honest count-up, no gauge) | — |
+| Habit name / domain tag / time-of-day / month label | text + identity chips | — (deliberately textual / iconographic) | — |
+
+**Editorial hierarchy (calm, not maximal):** the checklist is the *content* focus; the **completion `MomentumBar` is the one viz hero** (above the fold, answers "how's today?" in <2s); the heatmap is the ambient consistency body; the Week `BarChart` and the optional Sparkline are clearly secondary. Two-to-three visuals, one focal — never a wall of equal charts.
+
+### 1 · Completion MomentumBar — daily-progress hero — `S38-V01` → `MomentumBar` (`VK-004`)
+
+Replace the flat `bg-brand-orange` completion `<div>` (line ~38, page.tsx) with the **`MomentumBar`** (`VK-004`): a **single continuous** rounded-pill bar (radius-pill, **not** segments — segments violate §8 "do not break the line into fragments"), filled `(completed/total)` of the track, running the **`--grad-progress` orange→green** path-of-progress so the bar visibly *arrives* in green as the day completes. This re-bases the screen's anchor on the Living-Line family (one motif with the Sparkline + heatmap).
+- **Geometry / depth (token-backed):** height 8px; fill = `--grad-progress` **(mint)** orange (effort) → green (arrival); track = `--color-alpha-white-08` over a `--track-inset` `rgba(0,0,0,0.28)` **(mint)** recess (carved depth vs the current flat track); rounded pill caps; **no glow** (a MomentumBar is flat-premium — depth lives in the gradient + inset, not a neon bloom). The "5 of 8 today" count (`text-body` Semibold white) + "62%" (white/70, tabular-nums) stay as the bar's caption.
+- **Non-shaming (Gentler-Streak thesis):** the bar **frames momentum, never a deficit** — an incomplete day reads as "room to move," never a red shortfall; at 100% the arrival-green fill + "all done" is the only celebration (no streak-loss countdown, no loss-aversion pressure). *(This is the `VK-004` non-shaming clause made literal.)*
+- **Motion / micro-interaction:** on a check, the fill width animates to the new % (`--dur-base` 280ms `--ease-out-soft`); the **last** check crossfades the effort-orange into the arrival-green end (the spec's orange→green completion transition, now *inside* the gradient rather than a colour swap).
+- **Data:** computed from `habitSections` completion (`completedCount / total`, page.tsx).
+- **States:** **Day-1 / 0 of 0** → ghosted empty track + "0 of 0 today" (no fabricated fill, no guilt); **0 of N** → track at rest, "0 of 8 — pick one to start" (non-shaming first-step copy, not an empty-bar verdict); **loading** → track skeleton with a left-to-right shimmer that morphs into the drawn fill (never a blank bar).
+
+### 2 · Week view — daily completion bars — `S38-V02` → `BarChart` (`VK-006`)
+
+The **Week** segment (currently a no-op that re-renders the Today checklist) renders a **`BarChart`** of **per-day completion** across the 7 days — one bar per day, height = that day's completion rate, **`--color-brand-orange`** fill, **zero baseline**, **one shared y-scale** (0–100%) across all seven days (honest — no truncated/dual axis). **Month** swaps to the full `CalendarHeatmap` at month scale. This is the build the spec's segmented control already promises but does not render.
+- **Depth:** bars rise `--dur-slow` 520ms `--ease-flow`, staggered; rounded top caps; `ink-brown-800` backplate + top-edge highlight; **no glow** (glow is reserved for nothing on this calm screen — bars are flat-premium).
+- **Honesty + non-shaming (Gentler-Streak):** a **0%-completion day is a true zero-height baseline tick**, visually distinct from a **ghosted/dashed no-data day** (a day before the habit existed) — the two must not collapse. **No last-week comparison overlay** here (a "you did worse than last week" pair would weaponise loss-aversion — deliberately omitted; the BarChart's §11 this-orange/last-green compare mode is *not* invoked on this screen).
+- **Micro-interaction:** tap a day → tooltip "Wed May 18 · 6 of 8 (75%)"; the Today/Week/Month segmented control active = orange (interactive), inactive `white/60`.
+- **States:** sparse week (habit created mid-week) → earlier days **ghosted/dashed** with "started Wed" (no fabricated zeros reading as failures); loading → axes drawn + bars rise from skeleton.
+- **Data:** new `habitWeek.days` (7 × completion-rate) added to `mock.ts`.
+
+### 3 · Consistency heatmap — `S38-V03` → `CalendarHeatmap` (deployed — keep)
+
+Keep the deployed **`CalendarHeatmap`** (`tone="brand"`, 28pt cells, 4-week grid) — it is already the right primitive and the screen's consistency body. Apply the kit honesty + non-shaming pass over the spec's existing fills:
+- **Encoding (conform):** 5 intensity steps (`--color-alpha-white-05` → full `--color-brand-orange` at 100%-completion-of-day, the one place orange-on-data encodes *this screen's own* consistency); today = dashed border (solid when today is complete); tap = `scale-110` → "6 of 8 completed" tooltip.
+- **Honest empty vs no-data (RUBRIC dim 5):** a **completed-zero day** (logged, nothing done) = `--color-alpha-white-05` "open day"; a **future / pre-habit day** = the spec's `white/3%` ghost — visually distinct, so an open day never reads as missing data and vice-versa.
+- **Non-shaming (Gentler-Streak thesis baked in):** empty cells are **"open days," never a guilt grid**; no red absence, no broken-streak loss-aversion countdown anywhere on the grid; the month label + "your consistency story starts today" empty copy frame consistency as a *story*, not a scorecard.
+- **Depth:** cells over a faint `ink-brown-800` backplate + top-edge highlight; 4pt cell gap (deployed); no glow.
+- **States:** Day-1 → all cells `white/5%` "open" + "your consistency story starts today" (today dashed), **not** a wall of red-absence; loading → cells shimmer/stagger in place (30ms, top-left→bottom-right, per the spec's loading note).
+- **Data:** `habitHeatmap` (`mock.ts`, deployed).
+
+### 4 · Weekly-trend Sparkline — high-motivation, ambient — `S38-V04` → `Sparkline` (`VK-001`)
+
+For the **high-motivation tier** (where the spec already calls for a "weekly completion trend chart (sparkline)"), add a single **`Sparkline`** (a tiny Living Line) **above the heatmap**: **exactly 7 points** (the last 7 days' completion rate), `--stroke-thin` 2px **curved** orange, **no axes / no grid / no glow**, with a **green end dot** when today is the week's high. It reuses the exact spine of the home-screen sparklines so trend + heatmap read as one family. **Omitted in low/medium motivation** (restraint — a calm screen does not need a second trend surface over the heatmap).
+- **Non-shaming:** a downward trajectory is shown plainly (no red, no "you're slipping" copy) — the sparkline reports, it does not judge.
+- **Motion:** draws-on-scroll-into-view (`--dur-slow` 520ms `--ease-flow`), after the heatmap settles.
+- **States:** <7 days of data → dots only, no connecting line, "more days sharpen your trend" (no fabricated curve); reduced-motion → completed stroke at rest + green end dot.
+- **Data:** new `habitWeek.trend` (7-pt completion-rate series) in `mock.ts`.
+
+### 5 · XP summary — honest count-up, deliberately textual — `S38-V05` → `KPIStatTile` (restraint note)
+
+The XP figure (**+75 XP earned today**, green) stays **deliberately textual** — a single scalar with no useful chart form. It is *not* promoted to a gauge or tile-with-delta (an XP-vs-yesterday delta here would invite the exact loss-aversion comparison the screen's non-shaming thesis forbids). The only upgrade is an **honest count-up** (`--dur-base` 280ms `--ease-out-soft`) as habits are checked, and the green stays reserved for *arrival/reward* (60/30/10 — green = reward only). The "keep going — N habits left" nudge stays warm and constructive, never a deficit framing. *(Logged as a `KPIStatTile`-adjacent decision so the restraint is explicit, not an oversight.)*
+
+### Motion choreography (entrance — draw-first order)
+
+Per `CONSISTENCY.md`: the **completion `MomentumBar` settles first** (fill animates to today's %, `--dur-base` 280ms `--ease-out-soft`) → **then** the segmented control + checklist sections fade-up (the existing 80/160/240/320ms stagger) → **then**, below the fold on scroll-into-view, the optional **Sparkline draws itself** L→R (`stroke-draw`, `--dur-slow` 520ms — *never* a fade) → **then** the **`CalendarHeatmap` cells stagger in** (20ms/cell, top-left→bottom-right) → the XP figure counts up last on a check. In **Week** view the `BarChart` bars rise (`--dur-slow` 520ms, staggered) on segment change. One line motif per surface (the Sparkline is the only Living Line; the MomentumBar is its horizontal sibling, bars/heatmap are not lines). `prefers-reduced-motion` → every visual at final state instantly; the MomentumBar at its filled width, the Sparkline's static form (completed stroke + green end dot) and the heatmap fills preserved (the spec already skips the check-draw / XP-float / heatmap-stagger under reduced-motion).
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — MomentumBar ghosted-empty ("0 of 0" / "pick one to start", no fabricated fill), heatmap all-`white/5%` "open days" + "your consistency story starts today", Sparkline hidden (no data), Week `BarChart` empty with axes drawn + "log your first day"; **loading** — depth-preserving skeletons that *morph* into drawn data (MomentumBar track shimmer→fill, heatmap cells stagger, bar axes→rise — never blank boxes), per the spec's Loading-States note; **partial / sparse** — pre-habit days ghosted/dashed, distinct from a real completed-zero day (no-data ≠ zero); **error** — chart-specific honesty per the Error Handling table ("could not load habits" / heatmap "no data" + retry), reached state from cache where possible.
+- **60/30/10:** **orange dominates** data ink (MomentumBar effort fill, Week bars, heatmap consistency-of-*this-screen*, checkbox fills, segmented active, streak flame *identity*, FAB); **green** = arrival/reward only (MomentumBar 100% arrival, "all done" completion bar, XP figure, Sparkline green end/milestone dot, ▲ if ever used); **purple is absent — correct** (habits are user-driven Product Mode; SIA appears only in empty-state suggestion copy, which carries no chart); **domain tag colours** are confined to the per-row chips as **identity only** — never on data ink (the heatmap, bars, and MomentumBar are all orange→green, not domain-tinted). Glow is **absent across the screen** by design — a calm Tracker earns depth from the gradient + inset track, not bloom (no neon).
+- **Non-shaming (the screen's reason to exist — Gentler-Streak benchmark):** completion is framed as **momentum + a constructive lever** ("pick one — that's enough"), never a verdict; a **broken streak never turns red, never triggers a loss-aversion countdown**, and past consistency on the heatmap **stays earned** (a lapse re-marks only the current cell — reached days are permanent); empty heatmap cells are "open days," not a guilt grid; the XP nudge is warm, never a deficit. A shaming/loss-aversion treatment would be a **Critical** here — the design explicitly forecloses it.
+- **Accessibility:** every visual carries a text/`aria-label` equivalent conveying the same value — the spec's existing "5 of 8 habits complete today, 62 percent" (MomentumBar), per-cell "Monday May 18, 6 of 8 habits completed" (heatmap), and a new "weekly completion trend, today highest" (Sparkline) / "Wednesday 75 percent" (Week bars); status is **never colour-alone** — completion/arrival carries the count + "%" + (at 100%) a **visible ✓ "all done"** glyph, the heatmap today-cell carries a **dashed/solid border** (not colour), the Sparkline a **visible green end dot** + label; label/value contrast ≥ **4.5:1** on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — the MomentumBar fill + filled/track boundary, heatmap cell fills (≥20% step), bar fills, and the Sparkline stroke + end dot all meet **≥3:1** vs background (the `white/3%` future-cell and `white/5%` open-day steps are the *honest no-data/open floor*, perceptually distinguished by the dashed-today and tooltip, not load-bearing colour); interactive chart targets (heatmap cells, bar days, segments) ≥ **44×44pt**; `prefers-reduced-motion` renders all at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Duolingo + Finch + Gentler Streak — *stays Balencia via the continuous-stroke MomentumBar + warm-glow surfaces on ink-brown, non-shaming framing, never a guilt grid.*
+**Pre-grade:** A− (85) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): the viz spec is strong (MomentumBar, BarChart, CalendarHeatmap, Sparkline all specified to depth), but (1) the surfaces (habit cards, section headers, the heatmap card itself) lack layered depth and top-edge highlights; (2) edge microcopy (empty states, loading, error, non-shaming framing on broken streaks and zero days) is partly unwritten; (3) type pairings are ad-hoc, tracking unspecified; (4) motion choreography is named but timings not locked; (5) the checkbox fill animation and the XP popup motion need reduced-motion fallback clarity; (6) contrast pairs on `ink-brown-800` are asserted, not tabulated.
+
+### Focal hierarchy
+
+One focal point: the **completion MomentumBar** (`CK-P2`, the viz hero above the fold) — the only ≥8px continuous stroke and the only glowing element on this screen. It sits at the top of the scrollable content, answers "how's today?" in <2s with the progress count ("5 of 8 today") and the orange→green fill arriving at 100%. The **segmented control (Today / Week / Month) is visibly secondary** by size and position (40pt pill, no glow, follows the bar). Habit rows, the calendar heatmap, and the XP summary are ordered by visual weight (section cards are mid-priority, the heatmap is the consistency body, the XP nudge is ambient). The squint test lands on the MomentumBar's count + fill first, then the segmented control, then the checklist below. No competing foci.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt on section group cards) · 1px `--glass-border` (`--color-alpha-white-06`) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue) · `--shadow-1`. The MomentumBar container sits on the ink-900 field with a `--track-inset` (`rgba(0,0,0,0.28)`) beveled recess — a depth pass that reads carved, not flat. The calendar heatmap card receives the same treatment: `ink-brown-800` body, `--radius-xl`, `--edge-highlight`, `--shadow-1`, cells over a faint backplate + grid visible. The XP summary card is `CK-P1`: `ink-brown-800`, `--radius-xl`, `--edge-highlight`, `--shadow-1`. Habit rows are contained in a grouped `ink-brown-800` card per time-of-day section (the card wraps the rows, not individual row surfaces) — the card has `--radius-xl` outer, `--edge-highlight`, `--shadow-1`; rows within have no surface (flat on the card). Section headers ("MORNING", "AFTERNOON", "EVENING") sit plain on the ink-900 field (no card surface), but are positioned with the 24pt gap above them (the standard `CONSISTENCY.md` section rhythm). Glow is size-calibrated per the locked table: **no glow** on the habit rows, section chips, or inline elements (all <36px); **no glow** on the MomentumBar itself (an inline 8px bar, though the hero principle would allow a faint glow if needed — kept minimal per the calm Tracker design thesis). Extends the same depth language to all surfaces so nothing reads as a flat box.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` tokens: screen header "Habits" `--text-h2` (20pt) / 600 weight / `--leading-snug` (1.25) / white 100%; completion rate label ("5 of 8 today") `--text-body` (16pt) / 600 / `--leading-normal` (1.4) / white 100%; completion percentage ("62%") `--text-caption` (13pt) / 400 / `--leading-normal` / white 50%; segmented control labels ("today" / "week" / "month") `--text-eyebrow` (12pt) / 600 / sentence case / white 100% (active) / white 60% (inactive); section headers ("MORNING") the `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white 40%); habit name `--text-body` (16pt) / 400 / `--leading-normal` / white 100% (unchecked) / white 50% (checked); streak count `--text-caption` (13pt) / 600 / `--leading-normal` / white 60%; domain tag chip label `--text-small` (11pt) / 600 / `--leading-normal` / domain-color text; month label ("May 2026") `--text-caption` (13pt) / 400 / `--leading-normal` / white 40%; XP summary text `--text-h3` (17pt) / 600 / `--leading-snug` / green 100% ("+75 XP earned today"); encouragement text `--text-caption` (13pt) / 400 / `--leading-normal` / white 50%; FAB label "add habit" `--text-body` (14pt) / 600 / white 100%. Hierarchy by weight (600–700 vs 400), not size alone. Sentence case throughout except eyebrows (uppercase per brand law). ≤2 `--color-brand-orange` accent words (streak Semibold, FAB label). Chillax logo-only. Replaces ad-hoc pixel line-heights with `CK-T04` scale.
+
+### Microcopy (before → after)
+
+- **Completion, full day** — *before:* "all done" → *after:* "all done. solid day" (warm earned celebration, no exclamation)
+- **Completion, zero** — *before:* "0 of 8" → *after:* "0 of 8 — pick one to start" (invitation, never deficit)
+- **Broken streak** — *before:* unspecified → *after:* heatmap never red; "your streak paused — pick it back up today" (non-shaming, Gentler-Streak thesis)
+- **Heatmap, day-1** — *before:* silent empty → *after:* "your consistency story starts today" (building frame, not deficit)
+- **Heatmap, loading** — *before:* unclear → *after:* "building your consistency" (warm, action-forward)
+- **Week view, sparse** — *before:* missing-data ambiguity → *after:* pre-habit days ghosted/dashed; "habit started Wednesday" (no-data ≠ zero, honest)
+- **XP summary, partial** — *before:* "keep going — 3 habits left" (given) → *after:* kept (warm, constructive)
+- **FAB label** — *before:* "add habit" (given) → *after:* kept
+- **Error** — *before:* no message → *after:* "couldn't load habits — pull to refresh" (specific, recovery named)
+- **Offline** — *before:* no message → *after:* "you're offline — showing your last sync" (honest, cached retained)
+
+No exclamation marks; brand period with intent; SIA copy specific to user's curated habits, never a horoscope.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first): **MomentumBar fill animates** `0 → current%` (`--dur-slow` 520ms `--ease-flow`, hero, first) → **section headers fade** (`.animate-fade-up`, `--dur-base` 280ms `--ease-out-soft`, 80ms stagger) → **habit rows fade** (280ms each, staggered 80ms within each section) → **segmented control animates** on change (active indicator slides, `--dur-base` 280ms) → on scroll, **Sparkline draws** L→R (stroke-draw, `--dur-slow` 520ms, never fade) → **heatmap cells stagger** (opacity `0 → 1`, 160ms each, top-left→bottom-right, 30ms stagger) → **XP counts up** (when checked, `--dur-slow` 520ms) → **checkbox checkmark draws** (stroke-dashoffset, 160ms). Week view: **BarChart bars rise** (height `0 → value`, `--dur-slow`, staggered 40ms). `prefers-reduced-motion` → final state instantly; MomentumBar at filled width, Sparkline static form (stroke + green dot), BarChart at final height, heatmap at final fills, checkmark drawn, XP at final count — no loops, all signature static forms preserved.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | MomentumBar "0 of 0 today" (honest, no fabrication), empty sections or 1-2 starter habits, heatmap all `white/5%` "open days", no Sparkline, no XP summary | "0 of 0 today"; heatmap "your consistency story starts today"; empty: "SIA has some ideas" (starter card optional) | honest bar, never guilty; `--edge-highlight` + backplate if card shown |
+| Loading | MomentumBar skeleton + shimmer → drawn fill; habit rows skeleton; heatmap grid skeleton; no Sparkline | "SIA is reading your habits — one moment" | `ink-brown-800` skeleton, radial shimmer, morph not swap |
+| Empty / partial | present rows, missing ghosted/dashed; heatmap shows present + future `white/3%` ghosted + pre-habit dashed | "habit created Wednesday — building from here" (if applicable); "no habits yet — create one" (if zero) | no-data ≠ zero (ghosted/dashed); never silent |
+| Error | "could not load habits" + "retry" link orange; heatmap cached or "no data"; bar shows last-known if cached | "couldn't load habits — pull to refresh" | `--color-error-red` on retry link only (glyph + word); background calm |
+| Offline | cached data, sections render cached; pull dimmed; queued completions show "pending" clock (12pt, white 30%) | "you're offline — showing your last sync"; "syncing..." on reconnect | dimmed 50% opacity, no haptic; cached visibly present |
+
+### Signature & anti-generic
+
+Ownable moments: the **MomentumBar continuous-stroke orange→green fill** (horizontal Living-Line, brand signature on a Tracker — calm alternative to Duolingo spinners or Finch vertical bars). The **non-shaming Gentler-Streak framing throughout** (open cells not "missed," streaks never red, no countdown on break, 0% reads "room to move," not verdict). The **warm-glow-on-ink surface signature** (no flat boxes). Anti-generic: the checklist (habit rows in grouped cards per time-of-day) is not a flat equal-weight list. MomentumBar hero, segmented control, time-of-day grouping break monotony — editorial hierarchy prevents undifferentiated card stack. Calendar heatmap (secondary visual body) is distinct from checklist (content focus) by position and purpose.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+
+| Element | Color | Contrast |
+| --- | --- | --- |
+| Screen header "Habits" | `--color-alpha-white-100` | ≥12:1 |
+| Completion rate ("5 of 8") | `--color-alpha-white-100` | ≥12:1 |
+| Completion % ("62%") | `--color-alpha-white-50` | ≥4.5:1 |
+| Segmented control (active) | `--color-alpha-white-100` | ≥12:1 |
+| Habit name (unchecked) | `--color-alpha-white-100` | ≥12:1 |
+| Habit name (checked) | `--color-alpha-white-50` | ≥4.5:1 |
+| Streak count | `--color-alpha-white-60` | ≥4.5:1 |
+| Domain tag chip | `--color-domain-*` | ≥3:1 (WCAG 1.4.11) at 15% bg |
+| Section header | `--color-alpha-white-40` | ≥4.5:1 |
+| Heatmap month label | `--color-alpha-white-40` | ≥4.5:1 |
+| MomentumBar fill (orange) | `--color-brand-orange` | ≥3:1 on track (WCAG 1.4.11) |
+| MomentumBar fill (green) | `--color-forest-green` | ≥3:1 on track (WCAG 1.4.11) |
+| XP summary ("+75 XP") | `--color-forest-green` | ≥12:1 |
+| XP encouragement | `--color-alpha-white-50` | ≥4.5:1 |
+| FAB label | `--color-alpha-white-100` | ≥12:1 on orange |
+
+Status never colour-alone: completion = orange fill **+ visible checkmark**; heatmap today = dashed border **+ tap tooltip** (not colour); "all done" = green + visible ✓; flame icon decorative (SR hidden), count conveys info. `--focus-ring` (`CK-T03`, 2px orange, 2px offset) app-wide (back, control segments, checkboxes, FAB, cells). Targets ≥44×44pt (checkboxes 24pt + 44pt hit, segments ≥44pt wide, cells 28pt + optional expanded tap, FAB 48pt). Reduced-motion: MomentumBar final width instant, Sparkline static (stroke + dot), BarChart final height, heatmap final fills, checkmark drawn, XP final count — no loops, signature static preserved.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -317,7 +475,7 @@ This screen is the user's daily habit dashboard — a satisfying checklist of re
 | Focus-visible | 2pt orange ring, offset 4pt | — |
 
 ### Loading States
-Habit cards follow the skeleton loading pattern from `_shared-patterns.md` — card outlines at ink-brown-800 with animated shimmer (1.2s loop). Cards load independently — resolved cards render immediately while remaining cards continue shimmer. Streak calendar loads skeleton row first, then populates day cells (staggered 30ms per cell, left to right). Habit ring in header shows empty ring outline during load, fills on data resolve (400ms ease-out-soft).
+Habit cards follow the skeleton loading pattern from `_shared-patterns.md` — card outlines at ink-brown-800 with animated shimmer (1.2s loop). Cards load independently — resolved cards render immediately while remaining cards continue shimmer. Streak calendar loads skeleton row first, then populates day cells (staggered 30ms per cell, left to right). The completion MomentumBar (S38-V01) shows a track skeleton with a left-to-right shimmer that morphs into the drawn orange→green fill on data resolve (280ms ease-out-soft) — never a blank bar, and never a ring (this screen's daily-progress anchor is a horizontal bar, not a gauge).
 
 ### Gesture Map
 | Gesture | Target | Action |

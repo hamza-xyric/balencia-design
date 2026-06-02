@@ -547,6 +547,81 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Stripe + iOS opt-in — *stays Balencia via the warm-glow surfaces on ink-brown, the brand period on subtle copy, the continuous-stroke brand symbol as a visual anchor across phase transitions, and guilt-free skip navigation.*
+
+**Pre-grade:** B+ (79) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): the IA and components are clean, but (1) surfaces are flat `ink-brown-800` boxes with no top-edge highlight or layered depth; (2) the value preview checkmarks read generic (cold green); (3) every microcopy string (empty state, loading, error, disabled states) is unwritten or hint text; (4) the two phases feel disconnected (no focal anchor across the transition); (5) no ownable Balencia moment — no continuous stroke, no warm glow, no brand period.
+
+### Focal hierarchy
+
+**Phase 1:** The phone input group (country picker + phone number field) is the focal point — the active task, sized appropriately, with the "send code" CTA directly below as the primary action. The heading "Get SIA on WhatsApp" frames the value, not obligation; the subtitle explains the benefit. The skip link is persistently accessible (top-right, non-intrusive) and the value preview list reinforces the case without competing. The squint test lands on the input field first, then the CTA, then the SIA brand symbol (centered, 48pt, warm orange).
+
+**Phase 2:** The SMS code boxes replace the phone input as the focal element — six equally-weighted boxes in a tight row, all ≥8px, the active task. The heading "Enter the code" and masked phone subtitle ground the step. The resend link and verify CTA anchor the recovery path. The back button (left) is always accessible without friction.
+
+Across both phases: the **Balencia symbol is the focal anchor** (unchanged between phases) — a warm brand constant that makes the transition read as *within one task*, not a cut-scene.
+
+### Surface & depth
+
+Every surface adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-md` (14pt, per brand rule for small cards <80px) · 1px `--color-alpha-white-06` border · **`--edge-highlight` top-edge highlight** (`CK-T01`) · `--shadow-1`. The country picker, phone input, and SMS code boxes all receive this treatment. The CTA button sits on `--color-brand-orange` with `--shadow-1`, `--radius-pill` caps. When loading, a subtle `--glow-orange-sm` (~12px) radiates from the button. On success, a green `--glow-green` flash (600ms, `--ease-out-soft`) radiates before navigation.
+
+All card/surface borders use `--color-alpha-white-06` (white at 6%), the canonical glass border per CONSISTENCY.md.
+
+### Typographic rhythm
+
+Map all typography to `CK-P3` tokens: heading `--text-h2` (20pt) / 700 / `--leading-snug` (1.25) / sentence case · subtitle `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / `--color-alpha-white-50` · SMS code digit `--text-display-l` (32pt) / 700 / `--leading-tight` (1.1) / tabular-nums · CTA `--text-h3` (17pt) / 600 / sentence case · resend link / skip link `--text-caption` (13pt) / 600 (available) or 400 (countdown) · error message `--text-small` (11pt) / 400 / `--color-error-red`. Sentence case everywhere. ≤2 `--color-brand-orange` accent words. No exclamation marks. The brand period is used with intent.
+
+### Microcopy (before → after)
+
+Phase 1 heading & subtitle, skip link, country picker label, phone hint text — all already on-voice in the spec, kept as-is. New authored microcopy for empty/loading/error states:
+
+- **Loading (SMS send):** "Sending your code — one moment."
+- **Loading (SMS verify):** "Verifying your code — one moment."
+- **Resend success:** "Code sent. Check your messages."
+- **CTA disabled state (Phase 1):** implicit (button opacity 40%, no text change)
+- **CTA disabled state (Phase 2):** implicit (button opacity 40%)
+
+All error messages are already spec'd and on-voice (specific, warm, recovery-clear). No shaming framing. No exclamation marks.
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order: Phase 1 entrance (logo 0ms → heading 80ms → subtitle 160ms → input 240ms → CTA 320ms → value preview 400ms, all `--dur-base` 280ms `--ease-out-soft`, 40–80ms stagger) → Phase 1→2 transition (Phase 1 fade out 160ms, Phase 2 fade in 280ms staggered) → CTA loading (spinner crossfade 160ms, `--glow-orange-sm` radiates 400ms) → SMS digit entry (scale/opacity 160ms per digit, auto-advance) → error shake (400ms) → success glow (green flash 520ms, then navigate).
+
+Reduced-motion: all animations instant, final state preserved, no essential info lost.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | Phase 1 with empty phone input | Subtitle frames value prop; no additional copy needed. Input hint text is sufficient. | All surfaces have layered depth |
+| **Loading (SMS send)** | Phase 1 preserved; CTA spinner; optional overlay "Sending your code — one moment." | "Sending your code — one moment." | CTA has `--glow-orange-sm` glow; surfaces retain depth |
+| **Loading (SMS verify)** | Phase 2 preserved; SMS boxes show skeleton shimmer; CTA spinner | "Verifying your code — one moment." | SMS skeletons preserve layout + depth; morph into interactive state |
+| **Empty / partial (incomplete code)** | Phase 2; 1-5 digits entered; focused box orange border; CTA disabled (opacity 40%) | CTA text "verify" unchanged; opacity signals incompleteness. No error. | Focused box has orange border; all boxes show `--edge-highlight` |
+| **Error (invalid phone)** | Phase 1; phone input border `--color-error-red` 2pt; error text "Please enter a valid phone number." below field | "Please enter a valid phone number." — 11pt, `--color-error-red`, left-aligned 4pt below field | Phone border and error text both red; input retains value |
+| **Error (SMS send fail)** | Phase 1; toast at top: "Couldn't send code. Please try again." | "Couldn't send code. Please try again." — toast, auto-dismiss 4s | Toast has `ink-brown-800` bg, `--shadow-2`, `--radius-md` |
+| **Error (invalid SMS code)** | Phase 2; all 6 boxes `--color-error-red` 2pt; error text below: "Invalid code. Please try again." | "Invalid code. Please try again." — 13pt, `--color-error-red`, centered 8pt below boxes | Boxes shake (3 oscillations, 400ms), clear, reset to default border |
+| **Error (expired code)** | Phase 2; all 6 boxes `--color-error-red` 2pt (no shake); error text: "Code expired. Please request a new one." | "Code expired. Please request a new one." — 13pt, `--color-error-red` | Resend link immediately shows orange (countdown bypassed) |
+| **Error (too many attempts)** | Phase 2; boxes + CTA disabled (opacity 40%); toast: "Too many attempts. Please try again in 5 minutes." | "Too many attempts. Please try again in 5 minutes." — toast | Toast + disabled opacity signal unavailability |
+| **Error (network)** | Layout matches failing phase; toast: "Something went wrong. Please try again." | "Something went wrong. Please try again." — 13pt, white, centered | Toast has `ink-brown-800` bg, `--shadow-2` |
+
+### Signature & anti-generic
+
+The **Balencia symbol (centered, 48pt, burnt orange, unchanged across phases)** is the visual anchor that makes the two-phase flow read as one coherent task. Warm `--color-ink-brown-800` surfaces with `--edge-highlight` (not flat boxes) and calibrated, warm glows (not neon) complete the signature.
+
+Anti-generic: (1) two-phase flow is a content crossfade within a single screen, not a navigation jump; (2) value preview list uses warm green checkmarks, not generic text bullets; (3) error messages are specific ("Invalid code. Please try again."), not generic ("Error."); (4) resend link shows real 60-second countdown with visible state feedback; (5) skip link is always accessible and guilt-free ("skip", not "skip for now").
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs: Heading `--color-alpha-white-100` ≥12:1 · Subtitle `--color-alpha-white-50` ≥4.5:1 · CTA text `--color-alpha-white-100` ≥12:1 on orange · CTA button `--color-brand-orange` 3.2:1 (WCAG 1.4.11) · Skip link `--color-alpha-white-60` ≥4.5:1 · Phone text `--color-alpha-white-100` ≥12:1 on `ink-brown-800` · Phone hint text `--color-alpha-white-40` ≥4.5:1 · SMS digit `--color-alpha-white-100` ≥12:1 · Resend (countdown) `--color-alpha-white-30` ≥3:1 · Resend (available) `--color-brand-orange` 3.2:1 · Resend (success) `--color-forest-green` ≥3:1 · Error message `--color-error-red` ≥3:1 · Value checkmark `--color-forest-green` ≥3:1 (icon-only, not colour-alone).
+
+Focus ring: `CK-T03` uniform app-wide on all focusable elements. Targets ≥44×44pt. Focus order: Phase 1 (Skip → Country → Phone → CTA → previews); Phase 2 (Back → Skip → SMS 1-6 → Resend → CTA). Status never colour-alone (borders + text paired). Reduced-motion: instant animations, settled frame preserved, signature intact. Screen reader: headings announced on mount, phase transitions announced via live region, all inputs have accessible labels.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [07] — SIA Onboarding Conversation via stack push (phone verified or skipped)

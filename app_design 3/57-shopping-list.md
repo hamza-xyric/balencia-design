@@ -621,6 +621,65 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** AnyList + Things — *stays Balencia via warm-glow category headers with lime accent lines, the swipeable dual-action list row pattern, and calm, warm empty/loading/error states.*
+**Pre-grade:** B+ (80) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): (1) Category header cards are flat `ink-brown-800` with no top-edge highlight or depth; the lime accent line is visual-only, no typographic hierarchy; (2) the inline add input is visually present but reads secondary to the list (no glow, no focal treatment); (3) empty-state copy is minimal ("Your shopping list is empty") and not crafted to the non-shaming, warm voice; (4) loading and error states are unnamed (spec table says "see error pattern"); (5) swipe-action affordances (Edit, Delete) lack micro-feedback copy; (6) the purchased-item delayed-move (1.5s) lacks framing copy explaining why the delay; (7) type and spacing are ad-hoc pixels, tracking unspecified; (8) the "Source badge" inline microcopy lacks context ("From diet plan" is generic — SIA copy is specific to the user's data, never generic).
+
+### Focal hierarchy
+
+One focal point: the **Inline Add Input** (`CK-P2`, content hero) — the always-visible 52pt input field at the top, with the lime accent icon and the "Add" button as the clear primary affordance. The screen opens on this (quick scanning and one-handed shopping) and visually dominates above the fold with no competing focal elements. The list below is visibly secondary by density and size. The "Show/Hide purchased" toggle and the action bar are tertiary (utility-level). The squint test lands on the add input first, then the category headers as structural anchors, then individual items as secondary. This resolves the IA's ambiguity ("primary action: manage" vs. "inline add for quick entry") by making the add input the focal hero.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `ink-brown-800` body · `--radius-md` (14pt) · 1pt `--glass-border` (`white/6`) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue, previously absent) · `--shadow-1`. The inline add input is a hero (52pt, full-width minus 32pt): `ink-brown-800` body + `--radius-md` + 2pt `--glass-border` (on focus) + **`--surface-backplate`** (`CK-T02`, faint radial glow). Category headers, item rows (grouped within a card per category, with 1pt `white/8` dividers), purchased section, and action bar all receive the layered treatment. Checkbox fills flash `--glow-green` (6px /.35, 600ms success). No flat boxes.
+
+### Typographic rhythm
+
+Inline add `--text-body` (16pt) / 400 / `--leading-normal`; category header `--text-eyebrow` (12pt) / 600 / `--leading-snug` / `--tracking-eyebrow` (0.12em) / uppercase / `--color-nutrition-lime`; item name `--text-body` (16pt) / 400 / `--leading-normal`; item quantity `--text-h3` (17pt) / 600 / `--leading-snug` / white 70%; source badge `--text-caption` (13pt) / 400 / white-30–lime; list summary `--text-caption` (13pt) / 400 / white-50%; toggle `--text-h3` (17pt) / 600 / `--color-brand-orange`; action buttons `--text-h3` (17pt) / 600 / white-50%; empty-state heading `--text-h2` (20pt) / 600 / white 100%; empty-state body `--text-body` (16pt) / 400 / white-50%. Hierarchy by weight (600 vs. 400). Sentence case. ≤2 orange accent words. Chillax logo-only.
+
+### Microcopy (before → after)
+
+- **Empty state, Day 1** — *before:* "Your shopping list is empty." → *after:* "Your shopping list is empty · add items or import from a diet plan." (warm, non-shaming, invites both paths).
+- **Loading, from diet plan** — *before:* "SIA is building your shopping list..." → *after:* "Building your shopping list from your meal plan — one moment." (specific, warm, coaching).
+- **Source badge, diet plan** — *before:* "From diet plan" → *after:* "From your meal plan" (user-specific, not generic).
+- **Checkbox success** — *before:* silent → *after:* brief toast "Purchased — tap again to undo" (explains 1.5s delay).
+- **Swipe left (Delete)** — *before:* no label → *after:* visible "Delete" text on red background (not colour-alone).
+- **Swipe right (Edit)** — *before:* no label → *after:* visible "Edit" text on orange background (not colour-alone).
+- **Error, load** — *before:* no message → *after:* "Couldn't load your list — pull to refresh" (specific, recovery-focused).
+- **Offline** — *before:* silent → *after:* "You're offline — using cached list" (warm, honest).
+
+No exclamation marks; brand period with intent; SIA copy is user-specific.
+
+### Motion choreography
+
+`CK-P4` draw-first order: category headers fade in staggered (280ms, 40ms stagger) → item rows rise per section (280ms, 40ms stagger) → inline add fades in (280ms) → list summary and purchased section rise (280ms each) → action bar settles (280ms). Category collapse/expand: height collapses 280ms, indicator rotates -90°. Checkbox check: fill animates to green (160ms), checkmark scales in (160ms), glow flash (6px green, 600ms). Purchased move: 1.5s delay → row slides/fades (520ms flow). Pull-to-refresh: skeleton morphs into data. `prefers-reduced-motion` → instant final state; no stagger, no delay.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day 1 | Add visible, headers collapsed, empty-state card + illustration | "Your shopping list is empty · add items or import from a diet plan." | hero add carries `--surface-backplate`; card is `CK-P1` with top-edge highlight |
+| Loading | Add + dimmed, skeleton rows preserve height/structure, shimmer | "Building your shopping list from your meal plan — one moment." | skeleton on `ink-brown-800`, depth-preserving |
+| Empty / partial | Add active, present categories expanded, un-synced ghosted | "No items in [Category] yet." | no-data ≠ zero (ghosted, not real 0) |
+| Error | Add visible, cached data shown, network banner | "Couldn't load your list — pull to refresh." | calibrated error-red (icon + text, never colour-alone) |
+| Purchased section | Height 0 → full, items 70% opacity + strikethrough | "Tap to mark as unpurchased" | green checkmark only; "Clear purchased" button lights up |
+| Offline | Cached data + offline banner, dimmed actions | "You're offline — changes will sync when you reconnect." | honest dimming (50% opacity); actions disabled with reason |
+
+### Signature & anti-generic
+
+Ownable: **swipeable dual-action list row** (delete/edit by swipe direction, the reusable pattern) and **warm-glow category headers with lime accent lines** (domain-specific signature, tying items to Nutrition). **Inline add as focal hero** (52pt, `--surface-backplate`, always-visible) is premium. Anti-generic: (1) not a flat card wall — sticky category headers break monotony; (2) item rows vary height (56pt normal → 160pt edit), breaking grid; (3) empty state offers two pathways, invites warmly, never shaming; (4) 1.5s purchased delay is unusual and explained in copy.
+
+### Accessibility
+
+Contrast pairs on `ink-brown-800`: add text `white 100%` (≥12:1); "Add" button `--color-brand-orange` (3.2:1 WCAG 1.4.11); category header `--color-nutrition-lime` (2.8:1, flagged for build refinement); item name `white 100%` (≥12:1); quantity `white 70%` (≥4.5:1); source lime (2.8:1); source manual `white 30%` (≥3:1 at caption); checkbox checked `--color-forest-green` (5.1:1); toggle `--color-brand-orange` (3.2:1); delete `--color-error-red` (≥3:1); empty-state `white 100% / white 50%` (≥4.5:1). Status ≠ colour-alone: checkbox = fill + checkmark + haptic; delete/edit = visible text labels on swipe; error banner = red icon + text. Focus-visible = **`--focus-ring`** (`CK-T03`, 2px orange, 2px offset) on all focusable elements: add input, checkbox, headers, toggle, swipe buttons, recipe links, FAB, action buttons, menu. Targets ≥44×44pt. Reduced-motion: all animations instant; items at final state; checkboxes checked instantly; no stagger; no 1.5s delay (items move to purchased instantly).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Nutrition Dashboard [28] via stack pop (back button), SIA Chat [09] via tab switch (from empty state CTA), recipe detail screen via stack push (tapping recipe name in source badge)

@@ -197,7 +197,7 @@ The Home Screen is the daily command center — the first thing a returning user
   - Pill 3: moon icon + "7.2" + "hrs" (last night's sleep)
 - **Variants**:
   - Connected (data flowing): values update periodically (every 5 min for HR, real-time for steps)
-  - No wearable: strip hidden entirely (does not show empty state — preserves clean layout)
+  - No wearable: shows a single "Connect a device to see your vitals" affordance card (per `## Premium Craft` + `S12-V02`) — never hidden silently
   - Partial data: only shows pills for available metrics (1-3 pills, centered)
 - **Gestures**: Tap any pill → navigates to relevant domain dashboard (Fitness [26] for HR/steps, Sleep [58] for sleep)
 - **Size**: full-width minus 32pt x 48pt (including 6pt vertical padding)
@@ -311,6 +311,121 @@ The Home Screen is the daily command center — the first thing a returning user
 
 ---
 
+## Visualization
+
+> Source: `app_design 3/12-home-screen-visualization-recommendations.md`. Audited in `viz-audit/` — Batch 1 pilot, findings `S12-V01..V04`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Premium-depth, on-brand (60/30/10); no new data — every visual derives from data the screen already shows. **Current grade D (52) → specced-target A− (87).** *(Honest re-grade under the revised 10-dimension rubric; the residual gap to A+++ is build-verified depth + working scrub/drill micro-interactions, owned by the later viz-build program.)*
+
+The Home screen's job is unchanged; this section upgrades *how its data reads* — from a text list to a crafted, calm dashboard — by adding **one** focal hero visualization, richer metric cards, the Living-Line momentum signature, and a depth pass on existing rings.
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Life Power (487) + 10 domain stats | not shown / buried | **Constellation Radar with Life-Power sun hub + ranked domains** | `ConstellationRadar` (via `LifeBalanceCard`) |
+| HR / steps / sleep | text pills | metric cards w/ status **sign** + 7-pt Living-Line trend | `MetricCard` + `Sparkline` |
+| Today's-actions completion + XP | implicit | continuous orange→green fill in section header | `MomentumBar` (Living Line) |
+| Mission progress (0.68, 0.42) | flat ring | arc-gradient + glow + inset ring | `GaugeRing` |
+| Avg domain stat + weekly delta | not shown | number + honest delta arrow | `KPIStatTile` (Life Balance footer) |
+| Date / greeting / names | text | — (deliberately textual) | — |
+
+### 1 · Life Balance Card (hero) — `S12-V01`
+
+A new card **directly after the SIA Greeting Card** (elevating the zone the Health Metrics Strip previously held). The cross-domain differentiator no health app can show — rendered as the **Constellation Radar** (`VK-005`), not a default radar.
+- **Composition:** `ConstellationRadar` (card variant **~160pt**) of the 12 `domainStats` with **Life Power (`487`) in the center "sun" hub** (`text-display` + `--glow-orange`); right column = top 3–4 domains by stat (`--color-domain-*` star dot + label + value `text-h2`); footer `KPIStatTile` = average stat + weekly delta (▲ `--color-forest-green` / ▼ `--color-alpha-white-40`) from `domainProgress[].weekDelta` over a fixed, disclosed window.
+  > *Component reality:* the existing `RadarChart` is hardcoded `280×280`, flat 15% orange, **no hub** — this card requires the depth upgrade (resized ~160pt card variant + center hub + draw-on-enter). Tracked under `VK-005`.
+- **Depth (token-backed):** polygon fill = radial orange gradient `fillOpacity 0.25 → 0.08`; stroke `--color-brand-orange` + `--glow-orange`; domain star dots keep `--color-domain-*` with a faint `--glow-orange-sm` **(mint)**; faint radial backplate behind the rings; 5 rings at 20/40/60/80/99 (99 = domain-stat max, intentional).
+- **Motion:** the polygon **draws itself** (`stroke-draw`, `--dur-flow`/`--ease-flow`) — **not** the current `radar-grow` scale (which violates the brand's "draw the line, never scale it in" rule); dots stagger in (`radar-dot` 420+index·40ms); hub counts up 520ms. Radar draws **first**, before metric cards (see Motion choreography below).
+- **Warmth:** one-line SIA read ("Balance is strongest in Fitness this week") so it reads as coaching, not a spreadsheet — and frames the weakest domain constructively (non-shaming, RUBRIC dim 6).
+- **Micro-interaction:** tap an axis → that domain (Life Areas [16]); tap the hub → expand the card in place to the full 12-domain breakdown; whole-card tap → Life Areas [16] / RPG [19].
+- **Data:** `domainStats`, `domainProgress`, `user.lifePower` (`src/data/mock.ts`).
+- **States:** **cold-start / Day-1** → a "calibrating — building your balance" hub state with a faint full polygon, **not** a degenerate point; **partial sync** → un-synced domains rendered as **ghosted/dashed spokes** (no-data ≠ a real 0); **loading** → skeleton keeps rings + spokes visible, radial shimmer, morphs into the drawn fill.
+- **Motivation-tier:** low-motivation collapses to the Life Power number + a single balance `Sparkline` (radar hidden) — consistent with the Motivation Adaptation section.
+
+### 2 · Health Metrics Strip → Metric Cards — `S12-V02`
+
+Replace the three flat text pills with `MetricCard`s: domain icon + **status sign** (`--color-forest-green` dot **plus a visible ✓ / "in range" glyph** — never colour alone) + big value (`text-h2`) + unit (white/40) + a **`Sparkline`** (a tiny Living Line: **exactly 7 points**, 2px orange, curved, no axes, green end dot on a milestone, 64×24). Add `trend: number[]` (7 values) to each entry in `healthMetrics` (`mock.ts`). Keeps existing tap-through routes.
+- **States:** no wearable connected → cards show a "Connect a device" affordance, **not** hidden silently; loading → flat skeleton line that draws into the trend.
+- (`HealthMetricsStrip` → `MetricCard`; VK-001, VK-003.)
+
+### 3 · Momentum Bar — `S12-V03`
+
+A **single continuous** orange→green fill bar (the horizontal Living Line — `--grad-progress` **(mint)**, radius-pill, 8px, **not** Bevel segments) in the **Today's Actions** section header: actions completed + XP earned, arriving green at completion (e.g. `3 of 6 · +90 XP · 52%`). Derives entirely from `todayActions` completion + `xp`. **Non-shaming:** frames forward momentum; a low bar reads as "room to move," never a failure state, and no countdown weaponises a streak. (`MomentumBar`; VK-004.)
+
+### 4 · GaugeRing depth pass — `S12-V04`
+
+The Pinned Mission Card rings adopt the `GaugeRing` upgrade — an **arc-following gradient stroke** (`--grad-orange` via conic-mask, *not* a flat SVG `linearGradient`), size-calibrated glow (`--glow-orange-sm` at 36px — **not** the full 32px `--glow-orange`, which would swamp a small ring), and a `--track-inset` beveled track — instead of the flat 2-tone `ProgressRing`. One change; lifts every ring on the screen (and app-wide). (VK-002.)
+
+### Motion choreography (entrance)
+
+Per `CONSISTENCY.md`: **hero draws first** (Constellation Radar polygon draws + hub counts up) → **then** metric cards fade/scroll in with their sparklines drawing → **then** the momentum bar fills. One line motif per surface; below-fold visuals animate on scroll-into-view. `prefers-reduced-motion` → all at final state, with the Living Line's static form (completed stroke + green end dot) preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start** (radar "calibrating", metric cards "connect a device"), **loading** (depth-preserving skeletons that morph into drawn data — rings/spokes/axes visible, not blank discs), **partial** (ghosted/dashed for un-synced data, distinct from zero), **error** (chart-specific, per the Error Handling table, naming which series failed + recovery).
+- **60/30/10:** orange dominates radar fill/stroke, gauges, momentum, sparklines; green = completion / in-range / arrival / milestone dots; **purple stays SIA-only** (the only purple on this screen is the SIA card + the one-line SIA read — no purple is added to these visuals; Home has no projection series); domain colours appear only on radar/ranked-domain dots. Glow uses the calibrated size-stepped scale — premium warm depth, not neon.
+- **Accessibility:** radar keeps its `aria-label` (reads Life Power + top domains); gauges render their % text equivalent; status uses a **visible** sign, never colour alone; load-bearing strokes/arcs/dots meet WCAG 1.4.11 ≥3:1 on `#0A0A0F`/`#211008`; `prefers-reduced-motion` renders all visuals at final state. Touch targets ≥ 44×44 (carries B03-F08).
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+> Layers premium craft **on top of** the A− `## Visualization` section above (which it does not replace) — elevating the non-chart surfaces, copy, type, motion, and states to the A++ bar and reconciling internal contradictions the viz pass left in the Components / Error tables. Graded under `design-audit/RUBRIC.md` (data profile).
+
+**Profile:** data · **Cluster benchmark:** Finch + Habitica (life-stats done *warmly*) — *stays Balencia via the Constellation Radar sun-hub + warm-glow surfaces on ink-brown, not a flat stat grid.*
+**Pre-grade:** A− (85) · **Post-grade (this section):** A++ (95)
+
+Pre-grade drivers (the gap to A++): the A− hero viz is strong, but (1) the non-chart surfaces are flat `--color-ink-brown-800` cards with no top-edge highlight or layered depth; (2) two elements claim the focal role (the SIA greeting card "most visually distinct" vs the Constellation Radar hero); (3) edge microcopy (loading / empty / permission / disabled) is partly unauthored; (4) type line-heights are ad-hoc pixels, tracking unspecified; (5) the Health Metrics "hidden silently" in Components/Error contradicts the viz section's "Connect a device" affordance; (6) contrast pairs are asserted, not tabulated.
+
+### Focal hierarchy
+
+One focal point: the **Life Balance Constellation Radar** (`CK-P2`, data hero) — the only ≥96px glowing element above the fold. The **SIA Greeting Card sits above it as a warm preamble, not a competing hero**: emotionally distinct (the lone purple accent) but visually *quieter* than the radar (no glow, body type, two-line cap). This resolves the IA's prior "SIA card = most visually distinct" against the viz hero — the squint test now lands on the radar's sun-hub Life Power number first, then the SIA voice, then Today's Actions. Everything below (metric cards, momentum, missions, schedule, activity) is visibly secondary by size, glow, and weight.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` · 1px `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue, previously absent on all Home cards) · `--shadow-1`. The two hero surfaces (Life Balance Card, SIA Greeting Card) add `--surface-backplate` (`CK-T02`). Glow is size-calibrated per `CONSISTENCY.md §1`: `--glow-orange` (32px) on the ≥96px radar hub only; `--glow-orange-sm` (~12px) on the 36px mission `GaugeRing`s; **no glow** on the 36px metric pills or chips. Mission ring tracks recess over `--track-inset`. Extends the same depth language the Color Map already cites for the GaugeRing pass to the SIA card, action cards, schedule card, insight card, and activity rows — so no surface reads as a flat box.
+
+### Typographic rhythm
+
+Re-map the Typography table to `CK-P3` tokens: greeting `--text-h2` / `--leading-snug` / weight 600; SIA message, insight, schedule, and action names `--text-body` (raised from 15 to the 16px `--text-body` step) / `--leading-normal`; captions and meta `--text-caption` / `--leading-normal`; eyebrows the `.eyebrow` recipe (`--text-eyebrow` / 600 / `--tracking-eyebrow` / uppercase / `--color-alpha-white-40`). Stat figures (Life Power, XP, metric values, ring percentages) tabular-nums. Hierarchy carried by **weight** (600–700 vs 400), not size alone; sentence case throughout; ≤2 `--color-brand-orange` accent words; Chillax stays logo-only (none on this screen). Replaces the ad-hoc pixel line-heights (such as 26 on the 20px greeting) with the `--leading-*` scale (`CK-T04`).
+
+### Microcopy (before → after)
+
+The narrative copy is already on-voice; the gap is the **edge** strings, now authored to `CK-P5`:
+- **Health-metrics, no device** — *before:* strip hidden, no message → *after:* "Connect a device to see your vitals" + a connect affordance (matches `S12-V02`; resolves the silent-fail contradiction).
+- **Today's Actions, loading** — *before:* "SIA is preparing your actions." → *after (warmer):* "SIA is reading your week — one moment."
+- **Pull-to-refresh failure (new)** — "Couldn't refresh — pull again," cached data retained.
+- **Mission framing (non-shaming):** a low ring reads "42% · on track for December," never a deficit; the momentum bar frames "room to move," never a failure.
+- **Kept (already on-voice):** cold-start hub "Building your balance"; all-done note "Solid day. You earned it."; pinned-empty "Pin your top missions from the Goals tab to track them here."
+No exclamation marks; the brand period used with intent; SIA strings stay specific to the user's own data (the connection-spotted insight is a real correlation, never a horoscope).
+
+### Motion choreography
+
+Locked to `CK-P4` order (already draw-first; reconciled with the Motion table): **radar polygon draws** (`stroke-animate`, `--dur-flow` `--ease-flow`) → star dots stagger (40ms) + hub counts up (`--dur-slow`) → metric-card sparklines draw L→R (`--dur-slow`) → momentum bar fills → mission `GaugeRing`s fill on scroll-into-view → the SIA card settles (no purple motion flourish). Card entrances use `.animate-fade-up` (`--dur-base` `--ease-out-soft`, 80ms stagger). `prefers-reduced-motion` → settled final frame: polygon fully drawn, sparklines at rest with green end dots, rings at final fill, loops off. No opacity-fade on any stroke (§8).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | radar "calibrating" (faint full polygon, ghosted spokes), 1–2 starter actions, a "create first mission" prompt card, genesis activity item | "Building your balance"; "Welcome to Balencia. Let's set up your first mission — what matters most right now?" | hub shows no Life-Power number; `--surface-backplate`; never a degenerate point |
+| Loading | depth-preserving skeletons (rings / spokes / axes + card frames visible) that morph into drawn data | "SIA is reading your week — one moment." | skeleton on `--color-ink-brown-800`, radial shimmer |
+| Empty / partial | un-synced domains = ghosted/dashed spokes; missing metrics = a "Connect a device" card (never hidden) | per-zone, on-voice | no-data ≠ zero (ghosted, not a real 0) |
+| Error | per-section skeletons + a network banner below the sticky header, naming the failed section | "Couldn't refresh — pull again." | calibrated `--color-error-red` only on a genuine sync failure, glyph+word paired |
+| Offline | cached data retained + a cached banner; pull-to-refresh dimmed with a reason | "You're offline — showing your last sync." | actions honestly dimmed |
+
+### Signature & anti-generic
+
+Ownable moments: the **Constellation Radar sun-hub** (Life Power as a glowing center), the **Living-Line** sparklines + momentum bar, and the **warm-glow-on-ink surface** signature — none of which a flat stat-list home screen carries. Anti-generic fixes: the vertical card stack (SIA → actions → missions → schedule → activity) is broken from equal-card monotony by the radar hero + varied card heights + the section-eyebrow rhythm (`CK-P6`), so it never reads as a templated grid. The stale ASCII wireframe (still showing flat text pills, omitting the radar / sparklines / momentum) is flagged to be redrawn from this section in the build — carried as `S12-C05`.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`): greeting `--color-alpha-white-100` (≥12:1), SIA message white-90 (≥9:1), date/meta white-50 (≥4.5:1 at `--text-caption`), `--color-brand-orange` accents (≥3:1 on both fields — WCAG 1.4.11), section eyebrow white-40 (decorative label, paired with position — not load-bearing). Status never colour-alone: in-range = green dot **+ "in range" glyph**; completion = check **+** strikethrough. Focus-visible is standardized to the single **`--focus-ring`** token (`CK-T03`) across every interactive element (level badge, all cards, mood chips, checkbox, schedule rows, links) — replacing the ad-hoc "2pt orange ring, offset 2pt" repeated in the Interaction tables; the 24pt checkbox keeps a 44pt hit box + a 4pt-offset ring. Targets ≥44×44pt (carries `B03-F08`). Reduced-motion preserves the Living Line's static form.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -324,9 +439,9 @@ The Home Screen is the daily command center — the first thing a returning user
 | Level badge text | #FF5E00 | orange | RPG level number |
 | Action card checkbox (completed) | #FF5E00 | orange | Primary action completion |
 | Swipe-right reveal bg | #34A853 | green | Completion gesture |
-| Progress ring fill (active) | #FF5E00 | orange | Progress indicator |
+| Progress ring fill (active) | #FF5E00 | orange | GaugeRing depth pass (S12-V04): arc-following --grad-orange gradient stroke + --glow-orange-sm at 36px (not the 32px --glow-orange), not flat 2-tone |
 | Progress ring fill (complete) | #34A853 | green | 100% completion |
-| Progress ring track | #FFFFFF at 10% | white/10 | Inactive ring track |
+| Progress ring track | #FFFFFF at 10% | white/10 | Inactive ring track over --track-inset rgba(0,0,0,0.28) beveled recess (GaugeRing depth pass, S12-V04) |
 | Insight card top border | #FF5E00 | orange | Attention draw |
 | "connection spotted" eyebrow | #FF5E00 | orange | Accent text |
 | XP badge text | #FF5E00 | orange | Reward indicator |
@@ -338,7 +453,7 @@ The Home Screen is the daily command center — the first thing a returning user
 | Mood chip labels | #FFFFFF at 60% | white/60 | Secondary interactive text |
 | Domain tag chips (10 domains) | [domain color] at 15% bg, [domain color] text | per domain | Identification only — see `_shared-patterns.md` domain color table |
 
-**60/30/10 verification**: Orange dominates interactive and progress elements (level badge, checkboxes, progress ring fills, schedule times, XP badges, insight eyebrow, "view all" link). Green appears on completion states (swipe-right reveal, 100% progress rings). Purple is limited to exactly 2 elements (SIA card left border, SIA avatar ring). Domain colors appear only on tag chips. Ratio holds.
+**60/30/10 verification**: Orange dominates interactive and progress elements (level badge, checkboxes, GaugeRing fills, Life Balance radar fill/stroke + calibrated orange glow, momentum bar, sparklines, schedule times, XP badges, insight eyebrow, "view all" link). Green appears on completion / arrival states (swipe-right reveal, 100% rings, sparkline milestone/end dots). Purple is limited to exactly 2 elements (SIA card left border, SIA avatar ring) — SIA-only; Home carries no projection series. Domain colors appear on tag chips and on the Life Balance Constellation Radar star dots (multi-domain identity / domain series — the sanctioned domain-mode use, not decorative palette). Glow uses the calibrated size-stepped --glow-* scale (warm depth, not neon). Ratio holds.
 
 ---
 
@@ -438,7 +553,10 @@ The Home Screen is the daily command center — the first thing a returning user
 | Sticky header blur | Scroll offset > 8pt | Backdrop-blur fades in (0→16px) | 160ms | ease-out-soft |
 | SIA greeting card | Screen mount | Fade-in + translateY(12→0) | 280ms | ease-out-soft |
 | Action cards | Screen mount | Staggered fade-in + translateY(12→0), 80ms stagger | 280ms each | ease-out-soft |
-| Progress rings | Scroll into view | Ring fill animates from 0→current% | 520ms | ease-flow |
+| Life Balance Constellation Radar | Screen mount (hero, first) | Polygon **draws itself** (stroke-dashoffset), star dots stagger in, hub counts up | 1200ms draw / 520ms hub | ease-flow |
+| Metric-card sparklines | After hero, on appear | 7-pt Living Line draws L→R (no fade) | 520ms | ease-flow |
+| Momentum bar | After cards | Continuous orange→green fill rises 0→value | 520ms | ease-flow |
+| Mission GaugeRings | Scroll into view | Arc fill animates 0→current% (gradient + glow) | 520ms | ease-flow |
 | Action card swipe | Finger drag | Card translates with finger, reveal bg proportional | real-time | — |
 | Action card snap-back | Release below threshold | Card returns to x:0 | 280ms | ease-out-soft |
 | Action card complete | Swipe past threshold / tap checkbox | Green flash + checkmark scale-in, then slide down + fade | 280ms + 520ms | ease-out-soft |
@@ -463,6 +581,7 @@ The Home Screen is the daily command center — the first thing a returning user
 SIA fills every zone so the screen never feels empty:
 - **Sticky header**: "Good morning, [Name]" + "Lv 1" badge (fresh start)
 - **SIA greeting card**: Warm, directive message — "Welcome to Balencia. Let's set up your first mission — what matters most to you right now?" Mood chips omitted (too early for mood tracking).
+- **Life Balance Card** (`S12-V01` cold-start): renders in **"calibrating"** state — a faint full Constellation polygon with the hub reading "Building your balance" instead of a Life Power number; **never** a collapsed point or empty radar. Domains with no data yet show ghosted spokes. Resolves to live values as the first days of data arrive.
 - **Today's actions**: 1-2 SIA-generated starter actions based on onboarding answers. Example: "Take 5 minutes to reflect on your top priority this week" (wellbeing tag). These are gentle, achievable, no external data needed.
 - **Goals progress**: Single prompt card (same dimensions as a progress ring card) — "Create your first mission" with a "+" icon instead of a ring. Tappable → Create Goal [15].
 - **Schedule preview**: Hidden entirely (no calendar connected yet). Section does not render.
@@ -546,7 +665,7 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 |----------|-------------|-----------------|
 | Network failure (full) | All data sections show skeleton shimmer states. Network error banner appears at top below sticky header. | Pull-to-refresh retries all data fetches. Auto-retry every 30s in background. |
 | SIA greeting API timeout | SIA Greeting Card shows skeleton shimmer (2-3 line placeholder). Other sections load independently. | Card retries silently. Falls back to generic time-based greeting after 3 retries. |
-| Health metrics sync failure | Health Metrics Strip hidden entirely (same as no-wearable state). No error indicator shown. | Data refreshes on next successful wearable sync. Pull-to-refresh retries. |
+| Health metrics sync failure | Health Metrics Strip retains its frame and shows a quiet "tap to retry sync" affordance (never hidden silently; per `## Premium Craft`). | Data refreshes on next successful wearable sync. Pull-to-refresh retries. |
 | Action list empty response | "Today's Actions" section shows: "SIA is preparing your actions." Temporary skeleton state. | Auto-refreshes. If persistent, shows Day 1 starter actions. |
 | Goal progress API failure | Progress ring cards show skeleton shimmer (gray ring + placeholder text). | Pull-to-refresh retries. Rings load independently from action cards. |
 | Calendar sync failure | Schedule Preview section hidden (same as no-calendar state). | Section reappears on next successful sync. |

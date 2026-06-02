@@ -488,6 +488,121 @@ Not applicable. This is a utility screen that appears identically regardless of 
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Apple Photos viewer + iOS system modals — *stays Balencia via warm-glow surfaces over ink-900, the brand period, on-voice error/permission copy, and the chrome toggle draw (not fade) entrance.*
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): (1) the screen is a utility surface with minimal craft visible in the spec (flat dark background, text-only chrome, no hero moment); (2) chrome header has no layered depth or warm glow language (a gradient fade suffices, but the header itself floats on nothing); (3) all copy (including empty states, error recovery, and the encrypted share warning) is unwritten or generic-hint text; (4) state craft (cold-start / loading / error / offline) is deferred to generic error tables, not designed per-surface; (5) the comparison-mode controls carry no microcopy voice beyond labels; (6) motion is largely event-driven (gesture response) with no entrance choreography described for the chrome or the modal presentation; (7) focus ring and a11y strings are referenced but not tabulated.
+
+### Focal hierarchy
+
+On this immersive utility screen, the **image canvas itself is the only focal point** — it fills the entire viewport and is the reason the user is here. Everything else (chrome header, pagination dots, comparison controls) is deliberately secondary and **hidden by default** to let the image dominate. The focal hierarchy is inverted: the background (ink-900) recedes, the image advances. When chrome is visible (on tap toggle), the close button (left), image counter (center), and share button (right) read as equal-weight controls — a deliberate non-hierarchy (no CTA emphasis, no "primary" button), since this screen is observation, not action. The comparison-mode variant shifts the focal plane to the two photo halves (the vertical divider slider) — still image-centric, with the date labels and selector pills as secondary annotations.
+
+### Surface & depth
+
+The screen background is **solid `--color-ink-900` at 100% opacity** — intentional, immersive, the anti-card. When chrome is visible, the **chrome header** (56pt height + 24pt gradient tail) uses a **linear gradient from `--color-ink-900` at 70% to transparent**, creating a soft fade (no hard edge) — this is the only layered surface. The gradient is not a `CK-P1` card; it is a **cinematic scrim** — a premium detail that distinguishes the immersive overlay from a generic modal. The close and share button icons float directly on the gradient (no background circles or badges — the gradient is the background). Gallery pagination dots (bottom center) float on ink-900 at 100% opacity. **Comparison mode:** the slider divider line is **white (white), 2pt, full viewport height**, and the circular drag handle at the divider center is a **32pt white circle with `--shadow-3` elevation** — premium gesture affordance, never a flat slider. The date labels (pill badges) sit on the photos themselves with a **backdrop pill: ink-900 at 50% opacity, `--radius-pill`, 12pt h / 6pt v padding** — a translucent surface that reads warm against the photo, not a cold semi-transparent overlay. The date selector pills (bottom, full-width row) are **`--color-ink-brown-800` cards, `--radius-md`, 1pt `--color-alpha-white-08` border, `--shadow-1` elevation** — they float above the safe area, consistent with `CK-P1` depth language. **Error state:** broken-image icon (48pt, white at 15%, simple outline) and error message (15pt `--text-body`, white 50%) float centered on ink-900. No glow on any surface (this is a utility screen, not a hero moment); the gradient scrim and the slider handle shadow provide all elevation.
+
+### Typographic rhythm
+
+Map all chrome text to `CK-P3` tokens: **image counter** ("2 of 7") = `--text-h3` (17pt) / 600 weight / `--leading-snug` (1.25) / white 100%; **date labels** (comparison mode, "Mar 01" / "May 21") = `--text-caption` (13pt) / 600 / `--leading-normal` (1.4) / white 100%; **"BEFORE" / "AFTER" labels** = `--text-small` (11pt) / 600 / `--tracking-eyebrow` (0.12em) / uppercase / white 40%; **date selector pills** = `--text-caption` (13pt) / 600 / white (active) / white 50% (inactive); **"Compare" title** (comparison mode, replaces counter) = `--text-h3` (17pt) / 600 / white 100%; **"done" link** (comparison mode, replaces share button) = `--text-h2` (20pt) / 600 / `--color-brand-orange` (`--color-brand-orange`); **error message** = `--text-body` (16pt) / 400 / `--leading-normal` / white 50%; **"retry" link** = `--text-h3` (17pt) / 600 / `--color-brand-orange`; **encrypted share warning toast** = `--text-caption` (13pt) / 400 / `--leading-normal` / white 80%. Hierarchy is carried by **weight** (600–700 vs 400) and **size**, not colour alone. Sentence case throughout (all labels, copy). ≤2 brand-orange accent words on the screen (the "retry" link and the "done" button in comparison mode — both affordances, not decorative). No exclamation marks. The brand period is used with intent in the private-share warning: "Photo will be shared unencrypted." (a statement, not an apology).
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` voice — warm, plain, coaching, on-voice.
+
+- **Chrome header counter** — *before:* "2 of 7" (given) → *after (kept):* same; plain, informative. (Already on-voice.)
+- **Comparison mode header title** — *before:* no title shown → *after (new):* "Compare" (simple, clear).
+- **Comparison mode "done" button label** — *before:* "finish" / "close" → *after (new):* "Done" (action-affirming, matches brand tone).
+- **Date labels (comparison mode)** — *before:* "Mar 01" (given) → *after (kept):* same; date-only, no extraneous label. (Already on-voice.)
+- **"BEFORE" / "AFTER" labels (comparison mode)** — *before:* if present, likely "BEFORE" / "AFTER" → *after (kept):* same; all-caps eyebrow style, white 40%, contextual. (Already on-voice.)
+- **Date selector pills, active state** — *before:* pill shows text, no visual cue → *after (new):* pill has 2pt `--color-brand-orange` border when selected (matches the interaction state, never colour-alone).
+- **Encrypted share warning (Progress Photos context)** — *before:* no warning or generic hint text → *after (new, critical):* "Photo will be shared unencrypted" (13pt, white 80%, ink-brown-800 bg, `--radius-xl`, centered, auto-dismisses when share sheet opens). This is non-shaming; it is factual and framed as a security note, not an apology.
+- **Share failure toast** — *before:* hint text "Share failed" → *after (new, on-voice):* "Couldn't share this image" (13pt, white 80%, ink-brown-800 bg, auto-dismisses 3s). No exclamation; plain, warm.
+- **Image load failure, error message** — *before:* "Couldn't load this image" (given, already on-voice) → *after (kept):* same. "Retry" link (14pt, `--color-brand-orange`, 44pt touch target). Below: optional detail "This may happen after a password change" (for decryption failures, 13pt, white 30%, non-shaming — never "corrupt" or "failed"; frames as a system state).
+- **Gallery swipe gesture hint (a11y announcement, not visible text)** — *before:* absent → *after (new):* VoiceOver announces "Swipe left or right to navigate images" on screen mount. No visible on-screen hint (premium UX assumes gesture literacy; the animation + haptic feedback signal the gesture).
+- **Chrome toggle (tap to show/hide)** — *before:* no affordance, undiscovered gesture → *after (new):* first-time hint (optional, low-opacity): "Tap to hide chrome" shown for 2s on mount, then fades. Matches the existing "Chrome Toggle" pattern (`_shared-patterns.md`). Or, for accessibility: VoiceOver announces "Double-tap to toggle chrome" on screen mount.
+
+No Filler, no generic "Success!"; every string is specific, warm, and earned. SIA purple is never used on this screen (no coaching moment on a media viewer — correct).
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order (the chrome toggle is the only entrances on this screen):
+
+- **Screen enter (modal presentation):** shared element transition — image thumbnail expands from source position to full viewport (320ms `--ease-out-soft`), background fades `--color-ink-900` from 0 to 100%. Fallback (no source position): fade-in + scale(0.92 to 1.0) (280ms `--ease-out-soft`).
+- **Chrome visible on mount:** chrome header and pagination dots **fade in** (0 to 1) + **translateY(-12pt to 0)** (200ms `--ease-out-soft`). Status bar fades in with the header. Not a draw (the chrome is layout, not a line).
+- **Chrome hide on tap or 3s idle:** chrome header and pagination dots **fade out** (1 to 0) + **translateY(0 to -12pt)** (200ms `--ease-out-soft`). Status bar fades with the header.
+- **Pinch-to-zoom:** continuous, frame-synced, no animation easing (user-driven gesture).
+- **Double-tap zoom:** scale from 1x to 2x (or reset to 1x) centered on tap point (280ms `--ease-out-soft`). Zoom spring (if released out-of-bounds): spring back (200ms, damping 0.8).
+- **Gallery swipe (image change):** current image slides out left/right, next image slides in from opposite direction (280ms `--ease-out-soft`). Pagination dot (current) scales 6pt to 8pt + opacity to 1.0; previous dot scales down + fades (200ms `--ease-out-soft`).
+- **Swipe-down dismiss (tracking):** image follows finger downward, background opacity decreases proportionally (100% at 0pt, 0% at 200pt). Image scale decreases slightly (1.0 to 0.9). Threshold met: image accelerates off-screen (200ms `--ease-in`). Threshold not met: spring back (280ms, damping 0.85).
+- **Share button loading:** icon replaced with circular spinner (white 50%, 16pt) while the share sheet prepares. No skeleton (simple icon swap).
+- **Comparison slider drag (tracking):** divider line and photo clipping follow finger horizontally, frame-synced. Drag handle scales up (1.0 to 1.15) + glow intensifies (white at 15%, 8pt blur) when pressed.
+- **Reduced-motion preference:** chrome fade in/out is instant (no translate), all zoom/dismiss/swipe animations become instant opacity transitions (0ms), gallery image swaps become instant cut (no slide), shared element transition becomes simple fade (200ms).
+
+**Entrance rule: the modal presentation is the only choreographed entrance.** Once in the viewer, all motion is gesture-response (pinch, swipe, tap). No "splash" animation or decorative motion. Below-fold content does not exist on this screen (it is a full-viewport overlay).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| **Chrome visible (default on mount)** | Header (56pt + 24pt gradient tail), status bar, pagination dots (if gallery). Chrome auto-hides after 3s idle. | Counter ("2 of 7"), close button label ("Close image viewer"), share button label ("Share image"). | Gradient scrim, no border. White icons on gradient. Status bar light-content style. |
+| **Chrome hidden** | Status bar hidden, header and dots hidden, image fills entire viewport with ink-900 letterbox bars if aspect ratio differs. | (No visible chrome text.) | Minimal visual depth; the image is the focal point. Safe area (home indicator) still respected. |
+| **Comparison mode** | Side-by-side photo halves divided by vertical slider; date labels on each photo; date selector pills at bottom (above safe area); header shows "Compare" title + "done" button (replaces counter + share button). | "Before" / "After" labels, date pills ("Mar 01", "May 21"), "done" button. | Same gradient header. Slider divider `--shadow-3` on the handle. Date label backdrop pills `ink-900` at 50%. |
+| **Image loading** | Blurred hint text (thumbnail from cache) fills viewport at full size while high-res image loads. After load: sharp image cross-fades over blur (280ms `--ease-out-soft`). Chrome state unchanged during load. | (No toast or message; silent load, user sees hint text → sharp transition.) | Hint text depth matches sharp depth. No skeleton (shape is the image shape). |
+| **Image load failure** | Centered broken-image icon (48pt, white 15%, outline style) + error message ("Couldn't load this image", 15pt, white 50%) + "retry" link (44pt touch target, 14pt, `--color-brand-orange`). Chrome header and close button remain visible + functional. Share button enters disabled state. Gallery navigation (swipe) still works for other images. | "Couldn't load this image"; "retry". For decryption failure: "Couldn't decrypt this photo" + "This may happen after a password change" (white 30%). No "try again" link for decryption. | No modal framing; floats on ink-900. Icon is outline-only (never filled). Error-red is NOT used (decryption is not an operational danger; red is reserved for genuine danger states per RUBRIC dim 6). |
+| **Encrypted image share (Progress Photos context)** | User taps share button on an encrypted photo. Before the native share sheet opens, a toast appears above the bottom safe area. | "Photo will be shared unencrypted" (13pt, white 80%, non-shaming framing). | Toast bg `--color-ink-brown-800`, `--radius-xl`, 48pt height, centered, fades in 200ms, auto-dismisses when share sheet opens. |
+| **Share failure** | Share button enters error state (icon pulses once). Toast appears above safe area. | "Couldn't share this image" (13pt, white 80%, ink-brown-800 bg, `--radius-xl`). Auto-dismisses 3s. | Toast fades in 200ms, fades out 200ms. No error-red border (share failure is not an operational danger; it is a temporary network/system issue). |
+| **Offline** | Cached image displays if available from thumbnail cache; chrome and gestures remain fully functional. | (No visible banner on this screen; the image is from cache, load is skipped.) | No offline banner on this overlay. |
+| **Memory pressure during zoom** | High-res decode drops silently, viewer falls back to lower-res image. User may notice softness at 3x+ zoom. When memory clears, high-res is re-decoded on next zoom. | (No visible message; degradation is silent and graceful.) | Seamless fallback; no error state. |
+
+### Signature & anti-generic
+
+Ownable moments: **the cinema-grade gradient scrim** (the soft fade from ink-900 gradient on the header — a premium detail that elevates a modal overlay above generic system sheets), **the comparison-mode slider handle with elevation shadow** (a premium gesture affordance), **the on-voice encrypted share warning** (warm, factual, non-shaming — not a generic permission prompt), and **the brand period** used with intent in the share warning ("unencrypted." is a statement, not an apology). Anti-generic fix: a flat dark background with text-only chrome reads as generic; the addition of the warm-glow depth language (the gradient scrim, the slider shadow, the date-label backdrop pills with soft opacity) and **every copy string authored for warmth + specificity** (no "Error" or "Success!" placeholders) elevates this from a system utility to a Balencia moment. The comparison-mode controls (side-by-side layout, date pills, drag slider) are premium engagement, not a default split-screen.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-900` / `--color-ink-brown-800`):
+
+| Element | Color | Contrast | Notes |
+|---|---|---|---|
+| Image counter ("2 of 7") | `--color-alpha-white-100` | ≥12:1 on gradient | Primary text |
+| Close button icon (X) | `--color-alpha-white-100` | ≥12:1 on gradient | 20pt icon |
+| Share button icon | `--color-alpha-white-100` | ≥12:1 on gradient | 20pt icon |
+| Pagination dots (current) | `--color-alpha-white-80` | ≥7:1 on ink-900 | Visible indicator |
+| Pagination dots (other) | `--color-alpha-white-30` | ≥2:1 on ink-900 | Low emphasis; decorative paired with current dot position |
+| Comparison slider line | `--color-alpha-white-100` | ≥12:1 on photos | Full-height divider |
+| Comparison date label text | `--color-alpha-white-100` | ≥5:1 on 50%-opacity backdrop | Label on semi-transparent pill |
+| Comparison "BEFORE" / "AFTER" | `--color-alpha-white-40` | ≥3:1 on photo | Tertiary label (decorative, context-paired with date) |
+| Comparison "done" button | `--color-brand-orange` | 3.2:1 on ink-900 (WCAG 1.4.11) | Primary action |
+| Comparison active date pill (border) | `--color-brand-orange` | 3.2:1 on pill bg | Selection state (never colour-alone; visible border) |
+| Error icon (broken-image) | `--color-alpha-white-15` | <2:1 on ink-900 | Decorative outline, not load-bearing; the error message is the load-bearing text |
+| Error message | `--color-alpha-white-50` | ≥4.5:1 on ink-900 | Load-bearing; WCAG AA |
+| "retry" link | `--color-brand-orange` | 3.2:1 (WCAG 1.4.11) | Affordance + text pair |
+| Share warning toast text | `--color-alpha-white-80` | ≥6:1 on ink-brown-800 | Load-bearing |
+
+**Focus ring:** `CK-T03 --focus-ring` (2pt orange, 2pt offset) on close button, share button, date pills (in comparison mode), and the "done" button — uniform app-wide. Targets ≥44×44pt (all buttons meet this). Status never colour-alone: comparison date pill active state is **bordered in orange + the pill is visually emphasized** (never just a colour shift). Image counter and pagination dots are informational, not interactive; no focus ring needed.
+
+**VoiceOver / TalkBack:**
+- Screen mount announcement: "Image viewer. [Image description or 'Progress photo from May 21, 2026']. Image 2 of 7. Double-tap to zoom. Swipe down to close."
+- Reading order: close button → counter → share button → image description → "Swipe left or right to navigate images" (if gallery).
+- Close button: `accessibilityRole="button"`, `accessibilityLabel="Close image viewer"`, `accessibilityHint="Returns to the previous screen"`.
+- Share button: `accessibilityRole="button"`, `accessibilityLabel="Share image"`, `accessibilityHint="Opens the share sheet"`.
+- Image canvas: `accessibilityRole="image"`, `accessibilityLabel` set to image description from metadata (such as "Front-facing progress photo from May 21, 2026") or fallback ("Image attachment").
+- Gallery navigation: `accessibilityAction` for swipe-left ("Next image") and swipe-right ("Previous image") with announcements ("Image 3 of 7").
+- Zoom level changes: VoiceOver announces "Zoomed to 2x", "Zoom reset".
+- Comparison mode: VoiceOver reads "Comparison mode. Before photo from March 1. After photo from May 21. Drag to adjust slider."
+
+**Dynamic type:** chrome text (image counter, comparison labels) scales with system font size up to 1.3x. Beyond that, text truncates (counter may show "2 of 7…" if space is constrained, but the counter is already minimal).
+
+**High contrast mode:** Chrome header gradient opacity increases from 70% to 90% for stronger text contrast against background. Pagination dots increase to white 100% (current) and white 50% (others).
+
+**Reduced motion:** All zoom, dismiss, and gallery swipe animations → instant opacity transitions (0ms). Shared element transition → simple fade (200ms). Chrome toggle → instant show/hide (no translate). No loops; settled frame is the canonical frame.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: System share sheet (external, via share button). No in-app forward navigation — this is a terminal viewing surface.

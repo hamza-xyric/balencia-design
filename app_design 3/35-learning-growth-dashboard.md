@@ -194,7 +194,7 @@ This screen is the user's command center for intellectual development — books,
 - **Content**:
   - Title: 17pt Sora Semibold, white
   - Author/source: 13pt Sora Regular, white at 50%, 4pt below title
-  - Progress bar: Full-width inside card, 8pt tall, --r-xs (6pt) corners. Track: white at 8%. Fill: cyan (#06B6D4). Percentage label right-aligned above bar: 13pt Sora Regular, white at 70%. 16pt gap above bar.
+  - Progress: rendered as the screen's hero `GaugeRing` (S35-V02) — 96px, arc-following `--grad-orange` (mint) via conic-mask, full `--glow-orange` (hero-only), `--track-inset` bevel under `--color-alpha-white-10`, center value `text-h2` white (count-up 520ms), green `#34A853` at 100% (arrival), `ticks`. A sub-100% value stays orange (effort), never an alarm red. (No flat cyan bar — cyan is identity only.)
   - Daily goal: "15 pages / day" — 13pt Sora Regular, white at 50%, 8pt below bar
   - Reading streak inline: Flame icon (16pt, orange #FF5E00) + "4-day reading streak" 13pt Sora Semibold, white at 70%, 8pt below daily goal
 - **Variants**: Book (shows author), Course (shows platform), Empty (no active item — shows "start your first book or course" + action chip)
@@ -224,7 +224,7 @@ This screen is the user's command center for intellectual development — books,
   - Eyebrow: "ACTIVE GOALS" — 12pt Sora Semibold, uppercase, white at 40%, +0.12em tracking, 16pt left margin
   - Horizontal ScrollView: 16pt left/right content insets, 12pt gap between items
   - Each Goal Ring Item (100pt wide x 120pt tall):
-    - Progress ring: 64pt diameter, 4pt stroke. Track: white at 8%. Fill arc: cyan (#06B6D4). Percentage centered: 16pt Sora Semibold, white.
+    - Progress ring: 64pt `GaugeRing` (S35-V05), 4pt stroke. Track: `--color-alpha-white-10` over `--track-inset` (mint) bevel. Fill arc: arc-following `--grad-orange` (mint) orange, green `#34A853` at 100% (arrival), `--glow-orange-md` (~20px, never the hero's 32px) — deliberately secondary to the hero. Percentage centered: 16pt Sora Semibold, white. (Cyan is identity only, never the arc.)
     - Goal name: 2 lines max, 13pt Sora Regular, white at 70%, center-aligned, 12pt below ring
   - Tap: Navigates to Goal Detail [14] (stack push)
 - **Variants**: Populated (1-5 goals), Empty ("No active learning goals. Ask SIA to help you set one." card with action chip, 80pt tall)
@@ -240,10 +240,10 @@ This screen is the user's command center for intellectual development — books,
   - 12pt gap
   - 7-day dot row (Mon–Sun), each dot:
     - Size: 32pt circle
-    - Completed: domain color fill (cyan #06B6D4 on this screen), white checkmark (12pt). On other domain dashboards, use that domain's color.
+    - Completed: learning-cyan #06B6D4 fill **+ white checkmark (12pt)** — this is the SANCTIONED domain-on-own-consistency identity exception (the consistency module pairs this 7-dot current-week strip with the tone="learning" `CalendarHeatmap`, S35-V06); status is always glyph-paired (✓), never colour-alone. On other domain dashboards, use that domain's colour the same way. This is consistency-identity, **not** the retired ring/bar data-ink cyan.
     - Missed: white at 8% fill
-    - Today (incomplete): white at 15% fill, 1pt dashed domain color border (cyan on this screen)
-    - Today (complete): domain color fill, subtle domain color glow (domain color at 20% opacity, 8pt blur)
+    - Today (incomplete): white at 15% fill, 1pt dashed learning-cyan border (consistency-identity)
+    - Today (complete): learning-cyan fill + ✓, subtle domain glow (learning-cyan at 20% opacity, 8pt blur) — consistency-identity only
     - Day label: 11pt Sora Regular, white at 30%, centered below each dot (M, T, W, T, F, S, S)
     - Dots fill width evenly (12pt gap between dot edges)
 - **Variants**: Active streak (flame orange), No streak ("start today" messaging)
@@ -257,7 +257,7 @@ This screen is the user's command center for intellectual development — books,
 - **Content**:
   - Eyebrow above card: "YOUR LIBRARY" — same eyebrow treatment, 8pt gap below
   - Each row (56pt):
-    - Left: Mini progress ring (32pt diameter, cyan fill)
+    - Left: Mini progress ring — 36px `GaugeRing` (S35-V06), arc-following `--grad-orange` (mint) orange, **no glow at inline scale**, green ✓ at 100%. (Orange data ink, never cyan.)
     - Center: Title (15pt Sora Semibold, white) + status below (13pt Regular, white at 40%: "in progress" / "completed" / "not started")
     - Right: Percentage (15pt Sora Regular, white at 50%). Completed items: green checkmark instead.
     - Padding: 16pt horizontal
@@ -307,6 +307,214 @@ This screen is the user's command center for intellectual development — books,
 
 ---
 
+## Visualization
+
+> Source: embedded section (Batch 4 — no companion file). Audited in `viz-audit/` — Batch 4; findings `S35-V01..S35-V06`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters (Domain-Dashboard **template A**, inherited from Fitness [26]). Premium-depth, on-brand (60/30/10), **Product Mode → orange-dominant**: learning-cyan `#06B6D4` is an *identity* accent (header line, title dot, streak intensity-of-this-domain, mastery-bar identity tint) — **never** the primary data-ink. Benchmark = **Duolingo + Coursera progress** (active-course progress, study-time trend, streak, skill mastery) rendered **the Balencia way** (Living Line + warm glow), not a Duolingo/Coursera clone. **Current grade D (54) → specced-target A− (86).** *(Honest re-grade under the revised 10-dimension rubric. The residual gap to A+++ is build-verified depth + working scrub/drill micro-interactions, owned by the later viz-build program.)*
+
+Today the prototype (`/domains/learning`) renders as a **text dashboard with domain-colour-as-data-ink**: the active-book bar, the three mission "active goals" rings, the library rings, the streak dots, and the suggestion checkboxes are all filled with learning-cyan `text-domain-learning` (a 60/30/10 + domain-as-primary-ink defect), the rings are flat 2-tone round-cap circles (no gradient / glow / inset), the streak is a bare 7-dot week row (the deployed `CalendarHeatmap` already ships a `learning` tone but is **not** used here), and there is **no hero, no study-time trend, no KPI strip, and no skill-mastery viz** — the brief's study-time `TrendChart`, reading %, and skill-mastery StatBars are absent from the prototype *and* the mock. This section resolves every datum without displacing the SIA note, the AI-learning-path card, or the FAB (which stay the screen's *content* spine). Mints **no** new primitive; it retires kit backlog (`GaugeRing`, `KPIStatTile`, `MacroBar`/StatBars, `TrendChart`, `Sparkline`, `CalendarHeatmap`, `MomentumBar`).
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Active book/course progress (62%) | flat cyan `ProgressBar` | **hero `GaugeRing`** (96px, arc-gradient orange, glow, inset, in-range green at 100%) — the screen's one viz hero, "% of current item" + pages-today momentum below | `GaugeRing` (`VK-002`) |
+| Pages-this-week (45) · daily-target adherence (pages today / 15) · day-streak (4 on item) | text line + flame | **KPI strip** — number + uppercase label + honest WoW delta arrow + a `MomentumBar` for today-vs-daily-goal | `KPIStatTile` ×2–3 (`VK-008`) + `MomentumBar` (`VK-004`) |
+| Study-time trend (last 6 wks min/wk) + SIA finish-by projection | **not shown** (only a textual "finish by June 3" sentence) | **Living-Line `TrendChart`** — solid orange actual → dashed-**purple** SIA forecast tail to the projected finish point; green milestone dots on PR weeks | `TrendChart` (`VK-006` / `VK-016`) |
+| Skill-mastery profile (3–5 learning skills, 0–99) | **not shown** | **skill-mastery `StatBars`** — labelled value-vs-cap bars, orange fill on inset track (depth pass) | `BarChart`/`StatBars` → `MacroBar` group (`VK-006`) |
+| Active learning missions (0.68 / 0.42 / 0.91) | 3 flat cyan rings in a h-scroll | depth-pass `GaugeRing`s (64px card size, arc-gradient orange, `--glow-orange-md`, inset) — secondary, **not** competing with the hero | `GaugeRing` ×N (`VK-002`) |
+| Study consistency / streak (12-day, best 34, 7 states) | bare 7-dot week row | **streak `CalendarHeatmap`** (intensity by session minutes; `learning` tone = cyan-of-this-domain) below a lightweight 7-dot current-week strip | `CalendarHeatmap` |
+| Library item progress (0.62 / 0.30 / 1.00) | 32px flat cyan mini-rings | depth-pass mini `GaugeRing` (36px, arc-gradient, no glow at inline scale) + green ✓ at 100% | `GaugeRing` (`VK-002`) |
+| Optional reading-pace micro-trend (high-motivation) | not shown | `Sparkline` (7-pt Living Line) under the active-item hero | `Sparkline` (`VK-001`) |
+| SIA note · AI path checkboxes · activity log rows · daily prompt · titles/authors/dates | text / checkable rows | — (deliberately textual / iconographic — checkboxes keep the cyan *checked* fill as domain identity on a control, not data) | — |
+
+**Editorial hierarchy (calm, not maximal):** the SIA note + AI-learning-path card stay the screen's *content* focus; the **active-item `GaugeRing` is the one viz hero**; the KPI strip + study-time `TrendChart` + skill-mastery `StatBars` are clearly secondary; the streak heatmap and library mini-rings are ambient. Six viz slots, one focal — not a wall of equal charts.
+
+### 1 · KPI strip + today-momentum — `S35-V01` → `KPIStatTile` ×2–3 + `MomentumBar`
+
+Replace the textual "45 pages this week / 15 pages-a-day target / 4-day streak" line with a `KPIStatTile` row inside (or just under) the Current Book/Course card: uppercase label (`white/40`, +0.12em) · number `text-h2` · **delta arrow** (▲ `--color-forest-green` / ▼ `--color-alpha-white-40`) over a **fixed, disclosed window** ("vs last week") — e.g. PAGES THIS WEEK 45 ▲, MINUTES 135, DAY STREAK 12. Beneath the active-item hero, a `MomentumBar` (single continuous rounded pill, `--grad-progress` **(mint)** orange→green, 8px, track `--color-alpha-white-08`) shows **today's pages vs the 15-page daily goal** — arrival end green when the goal is met.
+- **Depth (token-backed):** tile surface `ink-brown-800` + top-edge highlight; number count-up `--dur-base` 280ms `--ease-out-soft`; no glow (KPI tiles are flat-premium — depth lives in the gauge).
+- **Micro-interaction:** tap a tile → "see all" activity history; the `MomentumBar` is read-only (today's state).
+- **States:** Day-1 → all read `0` with a `—` delta (honest: no prior week to compare, **not** a fabricated ▲); loading → label + skeleton number bar.
+- **Non-shaming:** a ▼ delta is a neutral muted arrow, never red / "falling behind" language; the `MomentumBar` frames today's progress, **never** weaponises a broken reading streak (Gentler-Streak thesis baked into the benchmark).
+- **Data:** `learningDashboard.currentItem` + new `week.stats` / `week.lastWeek` blocks (pages / minutes) added to `mock.ts` so the delta is real, not invented.
+
+### 2 · Active-item hero gauge — `S35-V02` → `GaugeRing` (96px)
+
+Promote the **active book/course progress** (62%) from a flat cyan bar to the screen's **one viz hero**: a 96px `GaugeRing` with an **arc-following gradient stroke** (`--grad-orange` **(mint)** via conic-mask — *not* a flat SVG `linearGradient`), the full `--glow-orange` (32px, hero-only), a `--track-inset` `rgba(0,0,0,0.28)` **(mint)** beveled track under the `--color-alpha-white-10` track, center value (`text-h2`, count-up 520ms `--ease-flow`) + the item title/author label, and **`ticks`** (12 radial ticks, hero score gauge). Reaches **green `#34A853` at 100%** (a finished book is "arrival"); a sub-100% value stays orange (effort) — **never** an alarm red for "behind."
+- **Why a gauge, the Balencia way:** Duolingo/Coursera show a flat progress bar; we render the *same bounded score* as our own warm-glow `GaugeRing` so reading progress, mission progress, and every domain score across the app read as **one** instrument family — not a borrowed Coursera bar.
+- **Optional (high-motivation only):** a 7-point `Sparkline` (tiny Living Line, 2px orange, curved, 64×24, green end dot on a pace milestone, **no glow**) under the hero showing recent reading-pace trajectory.
+- **Depth:** the hero carries the 32px glow; mission gauges (V05) and library mini-rings (V06) step down to `--glow-orange-md` / none so they never swamp or compete with the hero.
+- **Micro-interaction:** tap the hero → open the active-item detail sheet (existing learning-detail modal) in place.
+- **States:** **empty / no active item** → a **ghosted dashed arc** at rest with center "—" + the existing "add your first book or course" affordance (no-data ≠ a real 0% — a degenerate empty ring is forbidden); **loading** → skeleton arc with radial shimmer that **morphs** into the drawn fill; **error** → ghosted arc + inline "retry"; **completed** → full green ring + ✓.
+- **Data:** `learningDashboard.currentItem.progress`.
+
+### 3 · Study-time trend (Living Line) — `S35-V03` → `TrendChart` (`VK-016`)
+
+The signature, and the slot the brief explicitly calls for. A full **Living Line** of the **last 6 weeks of study time** (minutes/week) — **one continuous, curved, round-capped stroke that draws itself** — running orange `#FF5E00` (effort) → green `#34A853` (arrival) via `--grad-progress` **(mint)**, **green milestone dots** on PR weeks, a `--grad-orange` area fade (≤25% top), and a **dashed-purple `#7F24FF` SIA projection** tail (§11 — the brand-sanctioned forecast colour, *not* a 60/30/10 violation) continuing the same path to the **projected finish point** that today is only a sentence ("finish by June 3"). Curved monotone, `--stroke-thin` 2px (actual) / 2px dashed (projection). W/M/Y selector pill (active = orange-on-`--glow-orange-bg`, inactive `white/50`).
+- **Why the line, not a bar streak:** "every chart is the line" (§8) — the Living Line is the device Duolingo/Coursera structurally don't have; it makes the trend unmistakably Balencia and turns SIA's "finish by June 3" prose into a *drawn* dashed-purple forecast the user can see.
+- **Motion:** draws itself `stroke-draw` `--dur-flow` 1200ms `--ease-flow` — **never opacity-fades**; the dashed-purple projection draws **after** the actual line; scroll-into-view (below fold).
+- **Micro-interaction:** long-press to scrub a crosshair across weeks; tap the projected finish dot → SIA Chat [09] with finish-pace context.
+- **States:** cold-start (<2 weeks) → "calibrating — building your study trend" with a faint flat baseline, **never** a single dot; projection hidden until SIA has enough data; reduced-motion → completed stroke at rest + green end/milestone dot + static dashed-purple tail.
+- **Data:** new `learningDashboard.studyTrend` (6 weekly minute points + `projection`) in `mock.ts`.
+
+### 4 · Skill-mastery StatBars — `S35-V04` → `BarChart`/`StatBars` (`MacroBar` group)
+
+The brief's skill-mastery slot: a labelled `StatBars` group (wraps the built-but-unused `components/charts/BarChart.tsx`, rendered as horizontal value-vs-cap bars via the `MacroBar` form) for 3–5 learning skills (e.g. *Critical thinking · Data fluency · Writing · Focus*), each on a 0–99 scale: **orange `--color-brand-orange` fill** over a `--color-alpha-white-08` track recessed on `--track-inset` **(mint)**, value label right-aligned, **zero baseline, one shared 0–99 scale** across all bars (honest — no per-bar rescaling). Learning-cyan appears only as a thin *identity* cap on the leading skill, never as the fill.
+- **Depth:** bars rise `--dur-slow` 520ms `--ease-flow`; rounded caps; `ink-brown-800` backplate with top-edge highlight; no glow (glow is the hero's).
+- **Honesty:** a not-yet-practiced skill is a true **zero-length** bar with a visible "0" label, distinct from a **ghosted/dashed** no-data bar (un-assessed) — the two must not collapse into one.
+- **Non-shaming:** the **weakest skill is framed constructively** — a "grow this next" SIA chip beneath the lowest bar, never "you're weak at X"; no skill is recoloured red.
+- **Micro-interaction:** tap a skill bar → that skill's contributing activity + an "ask SIA to build this" deep-link.
+- **States:** Day-1 / un-assessed → bars ghosted with "complete a few sessions to map your skills" (axes drawn, not a blank box); loading → skeleton bars.
+- **Data:** new `learningDashboard.skills` (label + value 0–99) in `mock.ts`.
+
+### 5 · Active-mission gauges (depth pass) — `S35-V05` → `GaugeRing` ×N (64px)
+
+The three "Active goals" mission rings (0.68 / 0.42 / 0.91) keep their **horizontal-scroll ring form** but drop the flat-cyan fill for the depth pass: 64px `GaugeRing`, **arc-following `--grad-orange` (mint) orange fill** (green at 100%), `--glow-orange-md` (~20px **(mint)**, never the hero's 32px), `--track-inset` beveled track, center % `text-h3` count-up. Deliberately **secondary** — sized and glowed below the hero so they never create a second focal point.
+- **Non-shaming:** mission progress framed as momentum; the lowest mission (0.42) reads as "room to move," never a deficit.
+- **Micro-interaction:** tap a ring → Goal Detail [14] (existing route).
+- **States:** no missions → "no active learning goals — ask SIA to set one" card (existing variant); loading → skeleton ring; progress unavailable → ghosted arc + "—" (per Error Handling table), distinct from a real 0%.
+- **Data:** `learningDashboard.activeMissions`.
+
+### 6 · Streak heatmap + library mini-rings — `S35-V06` → `CalendarHeatmap` + `GaugeRing` (36px)
+
+Replace the bare 7-dot streak row with the deployed `CalendarHeatmap` (`tone="learning"` — the one place learning-cyan is allowed on data, because it encodes *this domain's* consistency intensity): **5 intensity steps** (`--color-alpha-white-05` → full learning-cyan `#06B6D4`) keyed to daily study minutes, today = dashed border, tap = `scale-110`. A lightweight 7-dot current-week strip stays **above** it (dots = this-week status at a glance; heatmap = long-run consistency — complementary, not redundant). The Library card's 32px mini-rings adopt the depth pass: 36px `GaugeRing`, arc-gradient orange, **no glow at inline scale**, green ✓ at 100%.
+- **Non-shaming:** empty cells read as "open days," never a guilt grid; **no loss-aversion countdown** on the 12-day streak or the "best: 34" figure (Gentler-Streak thesis); a missed day is a calm low-intensity cell, not a red gap.
+- **States:** Day-1 → empty grid with "your streak starts today" (today cell dashed), not a wall of absence; loading → cells shimmer in place; streak-calc error → "—" with all cells at `--color-alpha-white-05` (per Error Handling table).
+- **Data:** new `learningDashboard.streakHistory` (date→study-minutes) in `mock.ts`; library mini-rings from `learningDashboard.library`.
+
+### Motion choreography (entrance — draw-first order)
+
+Per `CONSISTENCY.md`: **hero draws first** — the 96px active-item `GaugeRing` fills (`ring-animate`, 520ms `--ease-flow`) + ticks + center count-up, then its `MomentumBar` fills L→R → **then** the KPI strip counts up (280ms) → **then** the 64px mission gauges fill (staggered) → **then** the skill-mastery `StatBars` rise (520ms, staggered) → **then** the study-time **Living Line draws itself** L→R (1200ms `stroke-draw`, *never* fade) with its dashed-purple projection drawing **last** → **then** the streak heatmap cells stagger in and library mini-rings fill. One line motif per surface (the study-time trend is the only full Living Line; missions/KPI/skills use rings/numbers/bars). Below-fold visuals (trend, skills, heatmap) animate on **scroll-into-view**. `prefers-reduced-motion` → every chart at final state instantly; the Living Line's static form (completed stroke + green end/milestone dots + static dashed-purple tail) and the gauges' filled arcs preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — active-item hero is a ghosted dashed arc behind "add your first book or course" (never a 0% ring), KPI deltas read `—` (no prior week), study-time trend + skill bars in "calibrating" with axes drawn, streak heatmap "your streak starts today"; **loading** — depth-preserving skeletons that *morph* into drawn data (arcs / axes / cells visible, radial / L-to-R shimmer — never blank discs); **empty** — distinct from loading and error (ghosted outlines + a constructive prompt, never a collapsed disc); **partial** — un-assessed skills / un-synced days ghosted-dashed, distinct from a real zero; **error** — chart-specific honesty (which series failed: "unable to load insight" on the SIA-fed trend, mission gauges independent) + a visible "retry", per the Error Handling table.
+- **60/30/10:** **orange dominates** data ink (active-item gauge fill, mission gauges, KPI accents, skill-mastery bars, study-trend effort, library mini-rings, `MomentumBar`); **green** = in-range / arrival only (100% gauge, ▲ deltas, milestone dots, XP, library ✓); **purple stays SIA-only** — the **single sanctioned purple is the dashed-purple SIA projection** on the study-time trend (§11 forecast, correct *not* a violation) plus the existing SIA-note dot; **learning-cyan `#06B6D4`** is confined to **identity** (header accent line + title dot, streak-heatmap intensity-of-*this-domain*, a thin cap on the leading skill bar, and the checkbox *checked* control fill) — **never** on a gauge/bar data fill, a CTA, an eyebrow, or a generic series. This **fixes the current defect** where cyan is the primary fill on the active-item bar, all mission rings, library rings, and streak dots. Glow uses the size-stepped scale (96px = 32px hero glow, 64px = md ~20px, 36px / bars / sparklines = none) — warm depth, not neon.
+- **Non-shaming (ethical gate):** reading progress and skill mastery are framed as state, never a verdict on the learner; the **lowest skill is a "grow this next" coaching prompt**, not "you're failing"; the 12-day streak and "best: 34" carry **no loss-aversion countdown**; deltas use a fixed, disclosed "vs last week" window — no cherry-picked flattering range. Lapsed courses in the library read as a calm "paused / not started" status with a gentle resume affordance, never a shaming red flag.
+- **Accessibility:** every gauge / bar / line / heatmap carries a text / `aria-label` equivalent conveying the same value ("Thinking, Fast and Slow, 62 percent complete"; "Study time trending up, projected finish June 3"); mission and skill status uses a **visible glyph / value** (✓ / % / "0") **plus** the colour — never colour alone; label / value contrast ≥ 4.5:1 on `#0A0A0F` / `#211008`; **WCAG 1.4.11** — gauge arcs, bar fills, the Living-Line stroke, milestone dots, heatmap cells, and the filled / unfilled boundary all meet ≥3:1 vs background (white/5 grid / axis is decorative-only — and the current `aria-hidden` rings must gain real labels); interactive chart targets ≥ 44×44pt; `prefers-reduced-motion` renders all at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Duolingo + Notion (learning dashboards) — *stays Balencia via the Living-Line study-time trend (dashed-purple SIA forecast) + warm-glow depth on all surfaces + the brand period, not a Coursera clone.*
+**Pre-grade:** A− (86) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): the A− viz layer (KPI strip, hero GaugeRing, TrendChart, skill StatBars, streak heatmap, library mini-rings) is strong and depth-rich, but the non-viz surfaces rely on inherited `ink-brown-800` cards without the full `CK-P1` layered treatment (missing the `--edge-highlight` top-edge cue on multiple surfaces); the three SIA elements (coaching note, AI-learning-path card, daily study prompt) read as equal weight with no focal hierarchy ordering; edge microcopy (empty states, loading, permission) is partly unauthored and uses generic filler such as "no data" instead of warm guidance; the Current Book/Course card's "daily goal" and "reading streak" read as metadata rather than motivated coaching; the Library card uses bare "see all" with no warmth; a few type steps aren't mapped to the locked rhythm.
+
+### Focal hierarchy
+
+One focal point: the **Current Book/Course Card's hero `GaugeRing`** (`CK-P2`, data hero) — the 96px ring with the full `--glow-orange` (32px) sits at the heart of the active-learning state. The **SIA Coaching Note Card sits above it as a warm preamble, not a competing hero**: emotionally distinct (purple dot, on-voice copy), but visibly quieter than the ring (no glow, body type, 2-line cap). Below the hero ring, the KPI strip and momentum bar are visibly secondary (dense numbers, no glow). Everything below (goal rings, streak heatmap, library list, activity log) is ambient secondary by scale and glow size. The Daily Study Prompt sits in the footer as a reflective, low-friction affordance (not a CTA). The squint test lands on the Current Book progress ring first, then the SIA message, then the study-time TrendChart below. No competing foci.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt, per the brand card-radius rule) · 1pt `--glass-border` (white at 6%) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue, previously absent on all craft surfaces — the viz layer brought the depth token, this layer extends it to the content cards) · `--shadow-1`. Surfaces receiving this treatment:
+- SIA Coaching Note Card: body + `CK-T02 --surface-backplate` (hero warm radiance)
+- Current Book/Course Card: body + hero glow on the GaugeRing only (`--glow-orange` 32px per the hero ≥96px rule, `--stroke-thin` white/6 ring border)
+- AI Learning Path Card: body + `--edge-highlight`
+- Active Goals Section: each 64px `GaugeRing` (S35-V05) receives `--glow-orange-md` (~20px, secondary to hero) + `--track-inset` beveled recess
+- Streak Tracker Card: body + `--edge-highlight` + the 7-dot strip uses learning-cyan (`--color-domain-learning`) identity fill + white ✓ glyph (sanctioned domain-on-consistency exception)
+- Book/Course Library Card: body + `--edge-highlight` + each 36px mini-ring (S35-V06) receives no glow (inline scale, per CONSISTENCY.md §1) + `--track-inset` recess
+- Activity Log Card: body + `--edge-highlight`
+- Daily Study Prompt: dashed border (1pt white/10%) on `ink-900` (deliberately differentiated, not a solid card), 20pt radius, 24pt padding — reads as a reflection surface, not a CTA container
+
+Glow sizes per `CONSISTENCY.md §1`: `--glow-orange` (32px) on the ≥96px hero Current Book ring only; `--glow-orange-md` (~20px /.40) on the 64px Active Goals `GaugeRing`s; **none** on the 36px library mini-rings (inline scale forbids glow); none on KPI tiles or inline chips. The header accent line (3pt cyan, 80% opacity) remains the domain-identity accent. No surface reads as a flat box — depth is consistent.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` tokens:
+- Domain header large title "Learning & growth" — `--text-h1` (28pt) / 700 weight / `--leading-tight` (1.1) / white 100%
+- Domain header collapsed title (sticky) — `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%
+- SIA Coaching Note body — `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 90%
+- Current Book title — `--text-h2` (20pt) / 600 / `--leading-snug` / white 100%
+- Current Book author/source — `--text-caption` (13pt) / 400 / `--leading-normal` / white 50%
+- Current Book daily goal + reading streak — `--text-caption` (13pt) / 400 / `--leading-normal` / white 50%
+- Active Goals eyebrow ("ACTIVE GOALS") — `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` +0.12em / uppercase / white 40%)
+- Goal ring label — `--text-caption` (13pt) / 400 / white 70%
+- Streak count ("12-day streak") — `--text-h2` (20pt) / 600 / `--leading-snug` / white 100%
+- Streak best ("best: 34") — `--text-caption` (13pt) / 400 / white 40%
+- Library item title — `--text-h3` (17pt) / 600 / white 100%
+- Library item status — `--text-caption` (13pt) / 400 / white 40%
+- Activity log date + description — `--text-caption` (13pt) / 400 / white 40%; `--text-body` (16pt) / 400 / white 90%
+- XP earned — `--text-caption` (13pt) / 600 / `--color-forest-green` (`--color-forest-green`)
+- Daily Study Prompt text — `--text-body` (16pt) / 400 italic / `--leading-normal` / white 70%
+- "reflect" chip + FAB label — `--text-h3` (17pt) / 600 / white 100%
+
+Stat figures use `tabular-nums`. Hierarchy by weight (600–700 vs 400), not size. Sentence case. ≤2 orange accents (flame icon on streak + FAB "log session"). Chillax logo-only. Replaces ad-hoc pixels with `CK-T04` scale.
+
+### Microcopy (before → after)
+
+All narrative copy authored to `CK-P5` brand voice:
+- **Current Book, empty state** — *before:* "add your first book or course" → *after:* "Start your first book or course — SIA will guide your pace." (warm, coaching, invitation)
+- **Active Goals, empty state** — *before:* "no active learning goals" → *after:* "No active goals yet. SIA can help you set one that matters." (warm, agency)
+- **AI Learning Path, all done** — *before:* "ask SIA for more" → *after:* "All set for today. Ask SIA for tomorrow's suggestions." (forward-looking)
+- **AI Learning Path, loading** — *before:* "generating suggestions" → *after:* "SIA is reading your progress — one moment." (contextual)
+- **Streak Tracker, no streak** — *before:* "0-day streak" → *after:* "Start today — every session counts." (constructive, non-shaming)
+- **Library, empty state** — *before:* "your books and courses will appear here" → *after:* "Add your first book or course to start tracking." (action-oriented)
+- **Daily Prompt, failed generation** — *before:* error → *after:* "What did you learn today?" (warm, generic fallback)
+- **Domain header, pull-to-refresh failure** — *before:* generic error → *after:* "Couldn't refresh — try again." (specific, recovery action)
+
+Non-shaming throughout: reading progress = momentum, not "behind"; streaks = state (12-day · best: 34), not loss-aversion; weak skills framed as "grow this next," never "failing." No exclamation marks; brand period with intent.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first, per CONSISTENCY.md §3):
+
+1. Domain header + SIA Coaching Note fade in (`--dur-base` 280ms `--ease-out-soft`)
+2. Current Book hero ring draws (`ring-animate`, 520ms `--dur-slow` `--ease-flow`)
+3. KPI strip counts up (`--dur-base` 280ms, 40ms stagger)
+4. Momentum bar fills L→R (`--dur-slow` 520ms `--ease-flow`)
+5. Active Goals rings fill (staggered, 60ms between, `--dur-slow` 520ms)
+6. Skill-mastery StatBars rise L-anchored (520ms `--dur-slow`, ~60ms stagger) — below fold
+7. Study-time Living-Line draws (`stroke-animate`, 1200ms `--dur-flow`), then dashed-purple projection draws → below fold
+8. Streak heatmap cells stagger in (`scale(0→1)`, 160ms each, 40ms stagger)
+9. Library + Activity rows fade in (280ms each, 40ms stagger)
+10. Daily Study Prompt settles (fade-in, 280ms)
+
+Below-fold surfaces animate on scroll-into-view. One line motif per surface (TrendChart is the only full Living Line). `prefers-reduced-motion` → all elements at final state instantly; Living-Line's static form preserved (completed stroke + green end dot + dashed-purple projection + milestone dots); ring arcs drawn at final fill state.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | Current Book = "Start your first book or course" card; KPI strip hidden; Active Goals = "No active goals yet" card; Streak all dots white at 8% ("0-day"); Library + Activity hidden; Daily Prompt shows "What did you learn today?" | "Start your first book or course — SIA will guide your pace."; "Your learning journey begins here." | all cards have `--edge-highlight` depth; Current Book hint text shows ghosted dashed arc (not a 0%), never degenerate |
+| Loading | depth-preserving skeletons: Current Book ring + text (morphs); KPI tiles skeleton bars (count into numbers); Active Goals rings (morph); StatBars rows; TrendChart axis + spine visible with radial shimmer | "SIA is reading your progress — one moment."; "Generating suggestions..." | skeleton on `--color-ink-brown-800`, shimmer animation |
+| Empty / partial | un-synced goal rings = ghosted/dashed arcs (distinct from real low); missing library = "Add your first book or course"; un-assessed skills = ghosted/dashed StatBars rows with "0 · not started" | per-zone, on-voice | no-data ≠ zero (ghosted outlines visible) |
+| Error | per-section zone shows skeleton → error badge + "couldn't load [zone name]" + "retry" affordance | "Couldn't load your goals — pull to refresh." (specific, recovery action) | calibrated `--color-error-red` only on genuine failure |
+| Offline | cached data retained; pull-to-refresh disabled; banner "You're offline — last synced [time]." | "You're offline — showing your last sync." | actions honestly dimmed (50% opacity); cached data retained |
+
+### Signature & anti-generic
+
+Ownable moments: the **study-time Living-Line TrendChart with dashed-purple SIA projection** (continuous-stroke draw with sanctioned-purple forecast, pure Balencia signature); the **warm-glow depth on every surface** (`--edge-highlight`, `--track-inset` bevels, size-calibrated glows); the **non-shaming copy throughout** (reading as momentum, streaks as state, weak skills framed as growth). Anti-generic fixes: the vertical stack (SIA note → Current Book ring → KPI strip → goal rings → heatmap + library + activity) is broken from equal-card monotony by the hero ring (focal ≥96px GaugeRing) and section eyebrows (`CK-P6`), so no screen reads as a templated grid. The Daily Study Prompt in the footer (dashed-border reflection affordance, not a solid card) is deliberate asymmetry that slots quietly after activity log, never competing.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+
+| Element | Color | Contrast | Notes |
+| --- | --- | --- | --- |
+| SIA note body | white 90% | ≥9:1 on both | Primary narrative |
+| Current Book title | white 100% | ≥12:1 on both | Primary interactive |
+| Current Book ring value (%) | white 100% | ≥12:1 on both | Key data |
+| Daily goal + streak labels | white 50% | ≥4.5:1 | Metadata, glyphs paired (flame icon + text) |
+| Active Goals eyebrow | white 40% | decorative label | Not load-bearing; position + label = affordance |
+| Goal ring fill (orange) | `--color-brand-orange` | 3.2:1 vs track (WCAG 1.4.11) | Arc fill only |
+| Goal ring fill (100% green) | `--color-forest-green` | ≥3:1 | Arrival state |
+| Skill-mastery bar fill | `--color-brand-orange` | 3.2:1 vs track | Shared 0–99 scale |
+| Streak dots (completed) | learning-cyan + white ✓ | ≥3:1 (glyph paired) | Domain-identity exception; never colour-alone |
+| "see all" link | `--color-brand-orange` | 3.2:1 | Interactive affordance |
+| XP text | `--color-forest-green` | ≥3:1 | Success indicator, paired with label |
+| FAB | white 100% on orange | ≥4.5:1 | Primary CTA |
+
+Status never colour-alone: streak dots glyph-paired (✓), skill "grow this next" is label + text, XP is "+[##] XP" (label + number). Every gauge / bar / line / heatmap has text / `aria-label` equivalent. Focus-visible uses `CK-T03 --focus-ring` (2px orange, 2px offset) on all focusable elements. Targets ≥44×44pt. Reduced-motion: Living-Line's static form (completed stroke + green end dot + dashed-purple projection + milestone dots) is canonical — never opacity-fade; ring arcs drawn at final fill; staggered entrances collapse to instant.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -316,9 +524,9 @@ This screen is the user's command center for intellectual development — books,
 | Card borders | white at 8% | — | Subtle glass edge |
 | Header accent line | #06B6D4 at 80% | cyan (domain) | Domain identification only |
 | Header title dot | #06B6D4 | cyan (domain) | 8pt dot beside large title |
-| Progress bar fill | #06B6D4 | cyan (domain) | Book/course progress |
-| Goal ring arc fill | #06B6D4 | cyan (domain) | Active goals |
-| Streak completed dots | #06B6D4 | cyan (domain) | 7-day consistency |
+| Active-item hero gauge fill | #FF5E00 → green at 100% | brand-orange (--grad-orange) | Active book/course progress — the orange hero GaugeRing (S35-V02); green #34A853 at 100% (arrival). Never cyan. |
+| Mission / library ring arc fill | #FF5E00 → green at 100% | brand-orange (--grad-orange) | Active-mission gauges (S35-V05) + library mini-rings (S35-V06) — arc-following orange, green at 100%. Never cyan. |
+| Streak consistency (heatmap + current-week dots) | #06B6D4 | cyan (domain — sanctioned consistency identity) | The ONE sanctioned domain-colour-on-data use: tone="learning" CalendarHeatmap intensity + the complementary 7-dot current-week strip (S35-V06), glyph-paired (✓), never colour-alone. Not a generic data-ink licence. |
 | AI action checkboxes (checked) | #06B6D4 | cyan (domain) | Checked state fill |
 | SIA purple dot | #7F24FF | purple (accent) | Sole purple element — 10% rule |
 | FAB background | #FF5E00 | orange (primary) | CTA — always orange, never domain |
@@ -332,7 +540,7 @@ This screen is the user's command center for intellectual development — books,
 | Quaternary text | white at 40% | — | Eyebrows, best streak, day labels |
 | Prompt text | white at 70% italic | — | Daily study prompt |
 
-**60/30/10 verification**: Orange dominates actions (FAB, links, streak flame). Green appears on XP rewards and completion states. Purple is limited to the single 6pt SIA dot. Domain cyan appears on progress fills, goal rings, streak dots, and checkboxes — these are identification/progress elements, not actions. The ratio holds.
+**60/30/10 verification**: Orange dominates **all data ink** — the active-item hero gauge, the active-mission gauges, the library mini-rings, KPI accents, skill-mastery bars, the study-time trend's effort segment, and the `MomentumBar`. Green (#34A853) appears only on arrival / in-range — 100% gauges, ▲ deltas, milestone dots, XP rewards, library ✓. Purple stays SIA-only — the dashed-purple study-time projection (§11 forecast) and the single 6pt SIA-note dot. Learning-cyan #06B6D4 is **identity only**: the header accent line + title dot, the sanctioned tone="learning" consistency `CalendarHeatmap` + the complementary 7-dot current-week strip (a domain-on-own-consistency exception, glyph-paired), a thin identity cap on the leading skill bar, and the checkbox *checked* control-fill — **never** a progress/ring/bar data fill, a CTA, or an eyebrow. The ratio holds.
 
 ---
 
@@ -367,8 +575,8 @@ This screen is the user's command center for intellectual development — books,
 ### Goal Progress Ring
 | State | Visual | Haptic |
 |-------|--------|--------|
-| Default | Cyan arc on white 8% track | — |
-| Pressed | Ring scale(1.05), subtle cyan glow (cyan at 15%, 8pt blur) | light impact |
+| Default | Orange arc-following `--grad-orange` (green at 100%) on `--color-alpha-white-10` over `--track-inset` bevel | — |
+| Pressed | Ring scale(1.05), `--glow-orange-md` (~20px orange) | light impact |
 | Focus-visible | 2pt orange ring around ring, offset 2pt | — |
 
 ### Book/Course List Row
@@ -491,7 +699,7 @@ This screen is the user's command center for intellectual development — books,
 | Daily study prompt text | Sora | Regular (italic) | 15pt | 21pt | rgba(255,255,255,0.70) |
 | "reflect" chip label | Sora | Semibold | 13pt | 18pt | rgba(255,255,255,0.70) |
 | FAB label ("+ Log Session") | Sora | Semibold | 15pt | 20pt | #FFFFFF |
-| Progress bar percentage | Sora | Semibold | 12pt | 16pt | #06B6D4 |
+| Gauge center value / percentage | Sora | Semibold | text-h2 | — | #FFFFFF |
 | Insights body (high motivation) | Sora | Regular | 14pt | 20pt | rgba(255,255,255,0.60) |
 | Empty state heading | Sora | Semibold | 16pt | 22pt | #FFFFFF |
 | Empty state body | Sora | Regular | 15pt | 21pt | rgba(255,255,255,0.50) |

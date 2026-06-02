@@ -160,12 +160,176 @@ The career dashboard is where users track professional growth — active career 
 ### Deadline Row
 - **Purpose**: Time-sensitive career events and deadlines
 - **Data source**: Goals API (deadlines), Calendar sync (if connected), user-entered
-- **Visual treatment**: Inside a card container. Each row: calendar icon (20pt, indigo tint), event name (16pt Sora Semibold, white), date + days-away countdown (13pt Sora Regular, white at 50%). Countdown changes to orange when < 7 days, red when < 3 days. Rows separated by 1pt divider (white at 5%).
-- **Variants**: Far (>7 days — neutral countdown), approaching (3-7 days — orange countdown), urgent (< 3 days — red countdown, bold text), past (strikethrough, 50% opacity)
+- **Visual treatment**: Inside a card container. Each row: calendar icon (20pt, indigo tint), event name (16pt Sora Semibold, white), date + days-away countdown (13pt Sora Regular, white at 50%). Urgency is carried by a day-count + a proximity glyph + a word ("far" / "approaching" / "this week"), never colour-alone (see Visualization S32-V04): the day-count number tints orange when 3–7 days; the < 3-day urgent red is always paired with a "!" glyph + "soon" label. A past-due deadline is neutral + reschedulable ("passed — reschedule?"), never red shaming. Rows separated by 1pt divider (white at 5%).
+- **Variants**: Far (>7 days — neutral, "far" glyph+word), approaching (3-7 days — orange day-count tint + "approaching" glyph+word), urgent (< 3 days — red day-count paired with "!" glyph + "soon" word, bold text — never colour-alone), past-due (neutral muted "passed — reschedule?" + constructive lever, strikethrough + 50% opacity — never red shaming)
 - **Gestures**: Tap row → push to Goal Detail (screen 14) for the associated goal, or expand inline with more detail. Long-press → edit/reschedule.
 - **Size**: Full-width - 32pt × ~48pt per row
 
 ---
+
+## Visualization
+
+> Source: embedded section (no companion file — Batch 4 is embedded-only); Audited in `viz-audit/` — Batch 4 (Domain-Dashboard A), findings `S32-V01..S32-V06`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Premium-depth, on-brand (60/30/10), **Product Mode → orange-dominant accent**; career-indigo `#6366F1` stays an *identity* accent (header line, RPG badge, skill-bar identity tint, calendar glyph) — **never** on primary data ink. Benchmark = **Linear / Things restraint + goal/OKR apps** — calm, editorial, one focal viz; goal-progress and skill growth rendered **the Balencia way** (GaugeRing + Living Line + warm glow), not as an OKR-app clone. **Current grade D (52) → specced-target A− (86).** *(Honest re-grade under the 10-dimension rubric: this screen is action-oriented by design, so the bar is "resolve the few quantitative datums with restraint," not "chart everything." The residual gap to A+++ is build-verified depth + working scrub/drill micro-interactions, owned by the later viz-build program.)*
+
+This is an **action-oriented Domain-Dashboard** (the AI-action list is the screen's *content* focus — not a data wall). Today it renders as a near-pure text dashboard: the only visual is two **flat 36px `ProgressRing`s** (single-tone orange, no gradient/glow/inset track) on the mission cards; skills are bare number pills; deadlines are text countdowns; there is **no hero, no trend, no skill comparison viz, no consistency surface**. This section upgrades *how the quantitative data reads* — promoting mission progress to depth `GaugeRing`s, turning the skill pills into honest value-vs-target `StatBars`, adding an overall career-momentum **Living Line**, and converting the deadline countdowns to honest `KPIStatTile`s — **without** displacing the SIA note or the completable action list, which stay the primary content. Mints **no** new primitive; it composes from the frozen kit (`GaugeRing`, `StatBars`/`MacroBar`, `TrendChart`/`VK-016`, `KPIStatTile`, `Sparkline`, `CalendarHeatmap`).
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Mission progress (0.38 "3 of 8", 0.60 "12 of 20") | flat 36px single-tone `ProgressRing` | **depth `GaugeRing`** (48px card, arc-gradient stroke, size-stepped glow, inset track, center %) — one per mission card; **the lead mission's 96px gauge is the hero** | `GaugeRing` (`VK-002`) |
+| Skill levels (Lead 7 · Tech 5 · Comm 8 · Strategy 6, 1–10 scale) | bare number pills (indigo 15% bg) | **skill `StatBars`** — value-vs-target horizontal bars (level/10), career-indigo identity tint, value + target labelled | `MacroBar` / `StatBars` (`VK-006`) |
+| Overall career momentum / Life-Power-of-domain over time | not shown | **Living-Line `TrendChart`** — solid orange actual (skill-sum or career stat, last 6 weeks) → dashed-purple SIA projection | `TrendChart` (`VK-006` / `VK-016`) |
+| Deadline countdowns (Perf review 26d · Project 8d) | text "N days away" (colour-shift on urgency) | **deadline `KPIStatTile`s** — big day-count number + label + a **proximity/timeline sign** (non-shaming on a past-due) | `KPIStatTile` (`VK-008`) |
+| Action XP rewards (+15 / +20 / +10) · weekly XP toward level | XP text only | optional **`MomentumBar`** — today's career-XP-vs-daily-goal continuous orange→green fill (high-motivation tier) | `MomentumBar` (`VK-004`) |
+| Skill-growth trend (e.g. Comm 3→8 over 6 mo, high-motivation) | not shown | optional **`Sparkline`** (7-pt Living Line) under the selected skill bar | `Sparkline` (`VK-001`) |
+| Action-completion consistency (career habit cadence) | not shown | optional **`CalendarHeatmap`** of career-action consistency (career-indigo intensity = *this domain's* cadence) | `CalendarHeatmap` |
+| Action description / type tag / SIA note / level / deadline date | text | — (deliberately textual — scalars/labels with no useful visual form) | — |
+
+**Editorial hierarchy (calm, not maximal):** the SIA note + completable action list stay the screen's *content* focus; the **lead-mission 96px `GaugeRing` is the one viz hero**; mission card gauges + skill StatBars + the momentum Living Line are clearly secondary; the sparkline/heatmap are ambient (high-motivation only). One focal viz, a restrained supporting set — Linear/Things calm, not an OKR data wall.
+
+### 1 · Mission-progress gauges (hero + cards) — `S32-V01` → `GaugeRing`
+
+Promote the two mission `ProgressRing`s from flat single-tone to depth `GaugeRing`s. The **lead mission** ("Get promoted to senior", 0.38) renders as the screen's **one 96px hero gauge** at the top of "active missions": **arc-following gradient stroke** (`--grad-orange` **(mint)** via conic-mask — *not* a flat SVG `linearGradient`), the full `--glow-orange` (32px, hero-only), a `--track-inset` `rgba(0,0,0,0.28)` **(mint)** beveled track under the `--color-alpha-white-10` track, center value `text-h2` ("38%", count-up 520ms `--ease-flow`) + "3 of 8 actions" sub-label, and **`ticks`** (12 radial, hero score gauge). The second mission keeps an inline **48px `GaugeRing`** on its card (`--glow-orange-md` ~20px **(mint)**, 4px stroke — *never* the 32px hero glow, which would swamp 48px). **Green `#34A853`** fill at 100% / near-complete (>80%, matching the existing `near-complete` card variant); a stalled mission keeps its orange fill (never recoloured to alarm) and surfaces the SIA "Need help with this?" flag as a label, **not** a colour verdict.
+- **Why a gauge, the Balencia way:** mission/OKR progress *completes* (0→100%), so a full ring is honest (vs `ArcGauge`, reserved for non-completing levels); the warm-glow `GaugeRing` makes career progress read as the same instrument family as every other domain score — not a borrowed OKR-app ring.
+- **Depth:** all gauges share inset-track + arc-gradient; only the 96px hero carries the 32px glow; round caps; layered `ink-brown-800` surface + top-edge highlight.
+- **Micro-interaction:** tap a gauge → push to Goal Detail [14] (carries the existing card route); the hero's "3 of 8" sub-label is the disclosed window for its %.
+- **Non-shaming:** a low % reads as "room to move," framed by the next-action line — never "you're behind."
+- **States:** **Day-1 / no missions** → ghosted dashed full-ring outline + "Add a career mission" affordance (the existing Day-1 variant), **never** a filled 0% disc; **loading** → arc skeleton with radial shimmer that *morphs* into the drawn fill (not a blank disc); **near-complete** → green fill + green check glyph; **stalled** → orange fill + SIA help label.
+- **Data:** `careerDashboard.missions[].progress / completed / total` (`mock.ts`, already present).
+
+### 2 · Skill StatBars — `S32-V02` → `MacroBar` / `StatBars`
+
+Replace the bare number pills in "growth trajectory" with **value-vs-target `StatBars`** (one row per skill: Lead 7 · Tech 5 · Comm 8 · Strategy 6 on a 1–10 scale). Each bar: **`--color-alpha-white-08` track over a `--track-inset` **(mint)** recess, fill = `career-indigo #6366F1` (*identity* — the one sanctioned place domain colour is the data ink, because it encodes *this domain's* skills), width = level/10, with the skill name + a labelled `level / 10` value (visible number, never bar-length-alone)**. Bars stay horizontal and labelled so they read at 390px; the selected skill expands in place (carries the existing skill-pill expand gesture). The "Communication is your strongest area" line stays as the SIA assessment beneath.
+- **Why StatBars not a radar:** four named skills on a shared 1–10 scale are a *comparison*, and Linear/Things-restraint favours a clean labelled bar group over a 4-axis radar (a radar here would create a second focal point fighting the mission hero, and reads worse than bars at this count). Cross-domain *life* profiles use the ConstellationRadar elsewhere; per-skill levels use StatBars.
+- **Honest scale:** all four bars share the same 0–10 baseline and scale (no truncation); a 0-level skill is a true zero-width fill at the baseline, not a hidden row.
+- **Depth:** fill count-up width 0→level on scroll-into-view (`--dur-slow` 520ms `--ease-flow`); no glow (bars are flat-premium; depth lives in the hero gauge).
+- **Micro-interaction:** tap a skill bar → expand level history + SIA improvement recommendations (existing gesture); **high-motivation tier** reveals the `Sparkline` (`S32-V06`).
+- **Non-shaming:** the weakest skill (Tech 5) is framed by a constructive SIA lever, never "your weakest skill" as a verdict.
+- **States:** **new user / no skills** → ghosted bar tracks + the existing "Tell SIA about your skills" prompt (no fake zeroed bars implying assessed-zero); **single skill** → one bar + "more as you grow" nudge; **loading** → track skeletons shimmer in place.
+- **Data:** `careerDashboard.skills[].level` (`mock.ts`, already present).
+
+### 3 · Career-momentum Living Line — `S32-V03` → `TrendChart` (`VK-016`)
+
+The signature, added at the foot of "growth trajectory": a full **Living Line** of overall career momentum over the last 6 weeks (skill-sum, or the career Domain Stat) — **one continuous, curved, round-capped stroke that draws itself**, running orange `#FF5E00` (effort) → green `#34A853` (arrival) via `--grad-progress` **(mint)**, **green milestone dots** on level-up / skill-up weeks, a `--grad-orange` area fade (≤25% top), and a **dashed-purple `#7F24FF` SIA projection** tail (§11 — the brand-sanctioned forecast colour, *correct*, not a 60/30/10 violation) continuing the same path toward the next milestone. Curved monotone, `--stroke-thin` 2px (actual) / 2px dashed (projection).
+- **Why the line:** "every chart is the line" (§8) — a Living Line gives this restraint-benchmarked screen its one piece of motion-craft signature, and reuses the exact spine of the home/fitness trends so career reads as one family — not an OKR-app sparkline.
+- **Motion:** draws itself `stroke-draw` `--dur-flow` 1200ms `--ease-flow` — **never opacity-fades**; the projection draws after the actual line; scroll-into-view (below fold).
+- **Micro-interaction:** long-press to scrub a crosshair across weeks; W/M/Y selector pill (active = orange-on-`--glow-orange-bg`, inactive `white/50`).
+- **States:** **cold-start (<2 weeks)** → "calibrating — building your career trend" with a faint flat baseline, **never** a single dot; projection hidden until SIA has enough data; **reduced-motion** → completed stroke at rest + green end/milestone dots + static dashed-purple tail.
+- **Data:** new `careerDashboard.momentumTrend` (6 weekly points + `projection`) to add in `mock.ts`.
+
+### 4 · Deadline countdown KPIStatTiles — `S32-V04` → `KPIStatTile`
+
+Convert the "upcoming" deadline rows to honest **`KPIStatTile`s**: uppercase event label (`white/40`, +0.12em) · big **day-count** number `text-h2` (26, 8) · a **proximity sign** — a calendar/clock glyph **plus** a word ("far" / "approaching" / "this week") so urgency is never colour-alone. Approaching (3–7 d) tints the number `--color-brand-orange`; urgent (<3 d) keeps the spec's red **paired with a "!" glyph + "soon" label**. Count-up `--dur-base` 280ms `--ease-out-soft`.
+- **Honest window:** the day-count is the literal, disclosed distance to the date (the date stays visible beneath) — no cherry-picked or relative-flattering framing.
+- **Non-shaming on missed deadlines (brief-mandated):** a **past-due** deadline is **not** weaponised — it renders as a neutral muted tile with a "passed — reschedule?" affordance and a constructive SIA lever, **never** red shaming, a guilt countdown, or loss-aversion language (the deadline-row `past` variant: strikethrough + 50% opacity, plus a reschedule action — not a penalty).
+- **Micro-interaction:** tap a tile → Goal Detail [14] for the linked goal (existing gesture); long-press → edit/reschedule.
+- **States:** **no deadlines** → section hidden (existing behaviour — no empty tile); **loading** → label + skeleton number bar; **past-due** → muted "passed" tile + reschedule.
+- **Data:** `careerDashboard.deadlines[].countdown / date / urgency` (`mock.ts`, already present).
+
+### 5 · Career-XP momentum (optional) — `S32-V05` → `MomentumBar`
+
+**High-motivation tier only:** a single continuous `MomentumBar` (radius-pill, 8px, `--color-alpha-white-08` track) above "suggested actions" showing today's earned career-XP vs the daily goal — a **continuous** orange→green `--grad-progress` **(mint)** fill (*not* segments — segments violate §8), arrival end green. Sums the action XP (+15/+20/+10) as actions are completed, so the bar advances live with the existing checkbox-complete + XP-float interaction.
+- **Non-shaming:** frames momentum, never weaponises a partial day; a low fill reads as "the day's still open," not a deficit.
+- **States:** Day-1 → empty track + "complete an action to start your day's momentum"; reduced-motion → fill at final width instantly.
+- **Data:** derived from `careerDashboard.actions[].xp` + a new `dailyXpGoal` in `mock.ts`.
+
+### 6 · Skill micro-trend + action consistency (optional) — `S32-V06` → `Sparkline` + `CalendarHeatmap`
+
+**High-motivation tier only.** A 7-point **`Sparkline`** (tiny Living Line, `--stroke-thin` 2px orange, curved, 64×24, green end dot on a milestone, **no glow, no axes**) under the *selected* skill bar, showing that skill's recent trajectory (e.g. Comm 3→8). And — where the screen wants a consistency surface — a **`CalendarHeatmap`** (deployed component, reuse as-is) of career-action consistency: **5 intensity steps** (`--color-alpha-white-05` → full career-indigo `#6366F1` *as domain identity* — the one place domain colour is allowed on data because it encodes *this domain's* cadence), today = dashed border, tap = `scale-110`.
+- **Non-shaming:** empty heatmap cells read as "open days," never a guilt grid; no loss-aversion countdown on a broken cadence (Gentler-Streak thesis under the always-on baseline).
+- **States:** sparkline cold-start (<7 points) → faint flat baseline, never a single dot; heatmap Day-1 → empty grid + "your career cadence starts today" (today cell dashed), not a wall of indigo-absence; loading → cells/stroke shimmer in place.
+- **Data:** new `careerDashboard.skills[].history` + `careerDashboard.actionHistory` (date→count) in `mock.ts`.
+
+### Motion choreography (entrance — draw-first order)
+
+Per `CONSISTENCY.md`: **hero draws first** — the 96px lead-mission `GaugeRing` fills (`ring-animate`, 520ms `--ease-flow`) + ticks + center count-up — **then** the 48px mission gauge fills → **then** the skill `StatBars` rise (width 0→level, 520ms, staggered) → **then** the deadline `KPIStatTile`s count up (280ms) → **then** the career-momentum **Living Line draws itself** L→R (1200ms `stroke-draw`, *never* fade) with its dashed-purple projection drawing last → **then** (high-motivation) the optional `MomentumBar` fills + `Sparkline` draws + heatmap cells stagger in. One line motif per surface (the momentum trend is the only full Living Line; missions/skills/KPI use gauges/bars/numbers). Below-fold visuals (momentum line, heatmap) animate on **scroll-into-view**. `prefers-reduced-motion` → every chart at final state instantly; the Living Line's static form (completed stroke + green end/milestone dots + static dashed-purple tail) and the gauges' filled arcs preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — mission gauges ghosted-dashed behind the "Add a career mission" affordance (never a filled 0% disc), skill bars ghosted-track behind the "Tell SIA about your skills" prompt, momentum line "calibrating" with a flat baseline (no single dot), deadline tiles absent (section hidden), heatmap "your career cadence starts today"; **loading** — depth-preserving skeletons that *morph* into drawn data (arcs/bar-tracks/axes/cells visible, radial / L-to-R / count-up shimmer — never blank discs); **partial** — un-assessed skills ghosted (distinct from a real level-0), un-synced trend points ghosted ≠ a true zero; **error** — chart-specific honesty (which series failed — "Could not load skills" on the bars, missions/deadlines independent) + a visible "retry", per the Error Handling table (action-checkbox sync keeps its red-ring-flash + revert + toast).
+- **60/30/10:** **orange dominates** data ink (mission gauge fills, Living-Line effort, next-action links, XP text, momentum bar, approaching-deadline number); **green** = arrival/in-range only (≥80% mission gauge, completed mission check, milestone dots, momentum arrival end, ▲ deltas, XP-earned); **purple stays SIA-only** — the **single sanctioned purple is the dashed-purple SIA projection** on the momentum line (§11 forecast, correct *not* a violation) plus the existing SIA-note dot/bar; **career-indigo `#6366F1`** is confined to **identity** (header accent line, RPG level badge, skill-StatBar fill as *this-domain's* data, calendar glyph, heatmap intensity-of-*this-domain*) — **never** on a CTA, eyebrow, or generic series; **red `#f44336`** only on the <3-day urgent deadline, paired with a "!" glyph + "soon" label (never an alarm-recolour of a low score). Glow uses the size-stepped scale (96px = 32px hero glow, 48px = md ~20px, bars/sparklines = none) — warm depth on `ink-brown-800`, not neon.
+- **Non-shaming (ethical gate):** mission progress, skill levels, and deadlines are framed as *state + next lever*, never a verdict on worth; the weakest skill and a stalled mission get a constructive SIA prompt, not "you're failing"; a **missed/past-due deadline is neutral + reschedulable, never weaponised** (brief-mandated); no loss-aversion countdown on a broken action cadence; KPI/delta windows are honest and disclosed.
+- **Accessibility:** every gauge/bar/line/tile/heatmap carries a text/`aria-label` equivalent conveying the same value ("Get promoted to senior, 38 percent, 3 of 8 actions"; "Communication, level 8 of 10"; "Performance review, 26 days away"); urgency + skill status use a **visible glyph + word** (calendar/clock + "this week"/"soon"; check at completion) **plus** colour — never colour alone; label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — gauge arcs, StatBar fills, the Living-Line stroke, milestone dots, KPI signs, and the filled/unfilled boundary all meet ≥3:1 vs background (white/5 grid/axis is decorative-only); interactive chart targets ≥ 44×44pt (the existing 44pt mission-card / skill-pill / deadline-row hit areas carry through); `prefers-reduced-motion` renders all at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+> Layers premium craft **on top of** the A− `## Visualization` section above (which it does not replace) — elevating the non-chart surfaces, copy, type, motion, and states to the A++ bar and reconciling the optional-elements Day-1 degenerate states the viz pass left undefined. Graded under `design-audit/RUBRIC.md` (data profile).
+
+**Profile:** data · **Cluster benchmark:** Notion + Things (career) — *stays Balencia via orange-dominant mission gauges, the career-momentum Living Line as the signature draw-first viz, warm-glow surfaces on ink-brown, and the sacred non-shaming deadline framing that never weaponises missed dates.*
+**Pre-grade:** A− (86) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+One focal point: the **lead-mission 96px `GaugeRing` hero at the top of "active goals"** (`CK-P2`, data hero) — the only ≥96px glowing element above the fold. The **SIA coaching note sits above it as a warm preamble, not a competing hero**: emotionally distinct (purple left bar, SIA voice) but visually *quieter* — no glow, body type, no accent surface — so it reads as the voice setting the tone for the dashboard. This resolves the visual ambiguity: the squint test now lands on the mission gauge's center percentage first (large number, orange, glowing), then the SIA coaching context, then the secondary 48px mission gauge, then the action list. Everything below (skill bars, momentum line, deadline tiles, heatmap) is clearly secondary by size and depth cue.
+
+### Surface & depth
+
+Every card surface adopts `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28px on primary cards; `--radius-md` 14px on skill detail cards if expanded) · 1px `--glass-border` white-06 · **`--edge-highlight` top-edge inner highlight** (`CK-T01`, the not-flat cue, newly minted) · `--shadow-1` for card elevation. Hero surfaces (lead-mission card, SIA note) add `CK-T02 --surface-backplate` (radial warm orange gradient, 5% opacity, 60% stops at center). 
+
+**Glow calibration per `CONSISTENCY.md §1`:** `--glow-orange` (32px, 0.45 opacity) only on the ≥96px lead-mission hub; `--glow-orange-md` (~20px, 0.40 opacity) on secondary 48px mission gauge; **no glow** on skill bars, sparklines, heatmap cells, or inline elements. All ring/gauge tracks recess over `--track-inset` rgba(0,0,0,0.28). Domain-indigo (`--color-domain-career` `--color-domain-career`) appears as the skill StatBar fill (the one sanctioned place domain colour is data-ink — encoding *this domain's* owned metric), calendar glyph tint, and heatmap intensity scale (never on a CTA, eyebrow, or generic text).
+
+### Typographic rhythm
+
+Re-map the Typography table to `CK-P3` tokens: domain header title `--text-h2` / weight 700 / `--leading-snug` (1.25); SIA coaching message `--text-body` (16px, raised from 15px) / weight 400 / `--leading-normal` (1.4); section eyebrows the `.eyebrow` recipe (`--text-eyebrow` 12px / weight 600 / `--tracking-eyebrow` +0.12em / uppercase / white-40); goal names and deadline event names `--text-h3` (17px) / weight 600 / `--leading-snug`; action descriptions `--text-body` / weight 400 / `--leading-normal`; skill pill names `--text-caption` (13px) / weight 600 / `--leading-normal`; stat values (percentages, day-counts, skill levels) tabular-nums at `--text-h2` / weight 700. Hierarchy by **weight** (600–700 vs 400), never size alone. Sentence case on all labels. ≤2 `--color-brand-orange` accent words (next-action text on goal cards, XP reward badge). Chillax logo-only. No exclamation marks; the brand period used with intent on SIA strings.
+
+### Microcopy (before → after)
+
+Narrative copy is on-voice; edge strings are now authored to `CK-P5`:
+- **Goal card next-action text** — *before:* "Next: update portfolio" (generic verb) → *after (warmer):* "Next: refresh your portfolio with 3 recent wins" (specific, actionable).
+- **Skill card empty state** — *before:* "Tell SIA about your skills to start tracking your growth" → *after:* "Tell SIA what you're building at work and we'll track your growth together."
+- **Stalled mission label** — *before:* unremarked low % → *after:* "Need help with this?" (paired with orange "?" glyph, SIA-suggested, on-voice, not shaming).
+- **Deadline approaching (3–7d)** — *before:* implicit colour tint → *after:* day-count number in `--color-brand-orange` + "approaching" word + calendar glyph (never colour-alone); such as "Performance review — 26 days away · approaching" (visible sign + word).
+- **Deadline urgent (<3d)** — day-count in calibrated `--color-error-red` + "!" glyph + "soon" label; such as "Project deadline — 2 days away · ! · soon" (red paired with glyph+word, not red alone).
+- **Deadline past-due (honest, non-shaming)** — *before:* unaddressed red shaming → *after:* neutral muted tile with strikethrough + 50% opacity + a "reschedule" affordance + SIA lever; such as "Training deadline · passed — reschedule?" (constructive, warm, never a guilt countdown).
+- **Action card loading** — "SIA is preparing your career actions — one moment."
+- **Skill bars cold-start (no skills assessed)** — "Tell SIA about your professional skills and we'll track your growth here" + affordance button "Get started".
+- **Momentum line cold-start (<2 weeks)** — "Calibrating — building your career trend" (no projection until SIA has ≥2 weeks of data).
+- **Heatmap Day-1** — "Your career cadence starts today" (never a wall of indigo-absence implying failure).
+- **All actions completed** — "All caught up. SIA will suggest new actions tomorrow. Great momentum this week."
+
+No SIA string is ever a horoscope; all are specific to the user's own data, calendar, and actions. Kept (already on-voice): "Your productivity peaks after morning workouts — schedule deep work for 10am?" (specific connection), goal framing as "room to move" not deficit.
+
+### Motion choreography
+
+Locked to `CK-P4` order, draw-first **hero-to-support cascade:** 
+- (1) **Lead-mission 96px `GaugeRing` draws first** — arc `stroke-animate` 520ms `--ease-flow`, center percentage counts up 520ms, 12 tick marks stagger in.
+- (2) **Secondary 48px mission gauge fills** — arc 520ms, 4px stroke (no ticks), staggered 80ms after hero.
+- (3) **Skill `StatBars` rise** — width 0→level/10, 520ms `--ease-flow`, staggered 80ms per skill.
+- (4) **Deadline `KPIStatTile` numbers count up** — 280ms `--ease-out-soft`, staggered 60ms per tile.
+- (5) **Career-momentum **Living Line** draws itself** — L→R stroke-draw 1200ms `--ease-flow`, then dashed-purple SIA projection draws 1200ms (after actual), green milestone dots appear on level-up weeks. **The signature moment: one continuous, curved, round-capped stroke that *draws itself*, never fades.**
+- (6) **Optional high-motivation elements enter last:** momentum bar fills (280ms), sparkline draws (520ms), heatmap cells stagger in (60ms per cell).
+
+Card entrances use `.animate-fade-up` (280ms `--ease-out-soft`, 80ms stagger between sections). Below-fold visuals (momentum line, heatmap) animate on **scroll-into-view**, not screen mount. `prefers-reduced-motion` → all visuals at final state instantly; Living Line fully drawn + green end/milestone dots + static dashed-purple tail; gauges at final fill; bars at final width; no loops, no opacity-fades on strokes.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | Hero mission gauge ghosted (dashed ring outline, "Add a career mission" affordance), secondary gauge absent, skill bars ghosted (track visible, no fill), momentum line "calibrating" flat baseline (no single dot), heatmap "your career cadence starts today", deadline section hidden | "Let's map out your career path. What are you working toward professionally?" (SIA coaching); "Add a career mission" CTA; "Tell SIA about your professional skills"; "Calibrating — building your career trend" | Hub shows no percentage; `--surface-backplate` glow; never a filled 0% disc or a degenerate point |
+| Loading | Depth-preserving skeletons (ring arcs + center hint text, skill bar tracks + left-align shimmer, axes on the momentum line) that morph into drawn data | "SIA is preparing your career actions — one moment." | Skeleton on `--color-ink-brown-800`, radial shimmer on arcs, L→R shimmer on lines |
+| Empty / partial | Un-assessed skills ghosted (track visible, no indigo fill, label "not yet assessed") distinct from a 0-level skill; un-synced weeks on heatmap ghosted (lighter indigo tint); action list empty: "All caught up. SIA will suggest new actions tomorrow." | Per-zone, on-voice, never shaming | No-data ≠ zero (ghosted, 20% opacity, not a real 0) |
+| Error | Per-card skeletons + network banner below header naming failed section; deadlines independent from goals/actions | "Could not load goals — pull to refresh." | Calibrated `--color-error-red` only on genuine operational failure, glyph+word paired |
+| Offline | Cached data retained + cached banner; actions honestly dimmed with reason | "You're offline — showing your last sync." | Dim 0.5 opacity + "offline" label |
+
+**Non-shaming on low progress:** a 28% mission reads "28% · on track for [deadline month]" (real closure date + runway, never "you're behind"). **Non-shaming on stalled:** the stalled mission label "Need help with this?" + orange "?" glyph (warm SIA offer, not a verdict). **Non-shaming on missed deadlines:** past-due renders as neutral muted tile with "passed — reschedule?" affordance + strikethrough + 50% opacity (never red, never a guilt countdown).
+
+### Signature & anti-generic
+
+Ownable moments: (1) the **career-momentum Living Line** — the same draw-first spine as the home/fitness trends, reused so career reads as one family; (2) the **warm-glow-on-ink-brown surface signature** — none of which a flat Notion database or Things treelist carries; (3) the **orange-dominant mission gauges** (data-ink) over domain-indigo identity cues; (4) the sacred **non-shaming deadline framing** (neutral on past-due, warm SIA lever on stalled). Anti-generic fixes: the vertical card stack (SIA → goals → actions → skills → momentum → deadlines → heatmap) is broken from equal-card monotony by the 96px hero gauge + varied card heights + the eyebrow-section rhythm (`CK-P6`), so it never reads as a templated grid of equal stat cards. The ASCII wireframe (still showing flat text pills and stalled-state red coloring) is flagged to be redrawn from this section in the build.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`): SIA coaching message white-100 (≥12:1), goal name white-100 (≥12:1), action description white-100 (≥12:1), deadline event white-100 (≥12:1), secondary text (next-action, skill labels, deadline dates) white-70 (≥7:1), meta (section eyebrows, timestamps) white-40 (≥4.5:1 at `--text-caption`), `--color-brand-orange` accents (≥3:1 on both fields — WCAG 1.4.11). **Status never colour-alone:** mission urgency (progress %/visual gauge) + text label ("38%", "on track"); deadline urgency (red day-count + "!" glyph + "soon" word; orange day-count + "approaching" word; neutral + "passed" label); stalled mission (orange "?" glyph + "Need help?" label). Focus-visible is standardized to `CK-T03 --focus-ring` (2px orange, 2px offset) on every interactive element (goal card, action checkbox, skill pill, deadline row, level badge) — replacing ad-hoc ring values in the Interaction tables. Targets ≥44×44pt. Reduced-motion preserves all chart final states with signature static forms (Living Line fully drawn, gauges filled, bars widened, lines without loops).
+
+Every gauge/bar/line/tile renders a text/`aria-label` equivalent: "Get promoted to senior, 38 percent, 3 of 8 actions" (gauge); "Communication, level 8 of 10" (skill bar); "Career momentum, 6-week trend, orange actual, purple projected" (Living Line); "Performance review, 26 days away, approaching" (KPI tile); "Your career action consistency this year, career-indigo intensity" (heatmap). Urgency and skill status conveyed via **glyph + word + colour** (not colour alone).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
 
 ## Color Map
 
@@ -175,7 +339,7 @@ The career dashboard is where users track professional growth — active career 
 | Progress ring fill | #FF5E00 | Burnt Orange | 60% — progress indicator |
 | XP reward text | #FF5E00 | Burnt Orange | 60% — reward indicator |
 | Completed checkbox fill | #FF5E00 | Burnt Orange | 60% — active/completed state |
-| Approaching deadline text (<7d) | #FF5E00 | Burnt Orange | 60% — urgency |
+| Approaching deadline number (3–7d) | #FF5E00 | Burnt Orange | 60% — proximity tint; urgency is carried by the day-count + proximity glyph + word ("approaching"), never colour-alone (see Visualization S32-V04) |
 | Near-complete goal ring | #34A853 | Forest Green | 30% — nearing success |
 | Completed goal checkmark | #34A853 | Forest Green | 30% — success |
 | XP earned animation | #34A853 | Forest Green | 30% — reward confirmation |
@@ -185,7 +349,7 @@ The career dashboard is where users track professional growth — active career 
 | Domain level badge XP icon | #6366F1 | Indigo | Domain color — identification |
 | Skill pill backgrounds | #6366F1 15% | Indigo at 15% | Domain color — identification |
 | Calendar icon tint | #6366F1 | Indigo | Domain color — identification |
-| Urgent deadline text (<3d) | #f44336 | Red | Warning/urgency |
+| Urgent deadline number (<3d) | #f44336 | Red | Calibrated red ONLY paired with a "!" glyph + "soon" word (never colour-alone); a past-due deadline is NEUTRAL muted "passed — reschedule?", never red shaming (see Visualization S32-V04) |
 | Background | #0A0A0F | ink-900 | Neutral base |
 | Card surfaces | #211008 | ink-brown-800 | Neutral elevated |
 | Primary text | #FFFFFF | White 100% | Headings, names |
@@ -327,7 +491,7 @@ The career dashboard is where users track professional growth — active career 
 | Skill pill level | Sora | Bold | 20pt | 26pt | white 100% |
 | SIA assessment text | Sora | Regular | 15pt | 20pt | white at 70% |
 | Deadline event name | Sora | Semibold | 16pt | 22pt | white 100% |
-| Deadline date + countdown | Sora | Regular | 13pt | 18pt | white at 50% / #FF5E00 (<7d) / #f44336 (<3d) |
+| Deadline date + countdown | Sora | Regular | 13pt | 18pt | white at 50%; proximity tint #FF5E00 (3–7d) / #f44336 (<3d, paired with "!" glyph + "soon" word — never colour-alone); urgency is conveyed by the day-count + proximity glyph + word, not text colour (see Visualization S32-V04) |
 
 ---
 

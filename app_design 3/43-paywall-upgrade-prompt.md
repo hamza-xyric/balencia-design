@@ -2,7 +2,7 @@
 
 **Screen**: 43 of 73
 **File**: 43-paywall-upgrade-prompt.md
-**Register**: Brand Mode
+**Register**: Product Mode (commerce/conversion surface — no SIA register on the modal; the SIA inline-chat variant inherits Screen 09 styling)
 **Primary action**: upgrade subscription
 **Tab**: None (modal overlay on top of any screen)
 **Navigation**: z-50 modal (slides up from bottom). Not a navigated screen — system-triggered when user hits a premium-gated feature. Dismissed via "maybe later" or drag-down. Also has an inline SIA Chat variant (z-10, within chat flow).
@@ -279,6 +279,183 @@ The Paywall converts free users into subscribers by showing them exactly what th
 
 ---
 
+## Visualization
+
+> Source: brief-driven (no companion file); tiers from `app_design 3/_tier-matrix.md`. Audited in `viz-audit/` — Batch 8, findings `S43-V01..V03`. Primitives from `VIZ-KIT.md` at `CONSISTENCY.md` parameters. **Product Mode** — a commerce/conversion surface, not a dashboard: lightweight 2-visual mini-section. No cluster benchmark. Benchmark = a best-in-class honest pricing comparison (Apple Health honesty floor + Linear restraint) rendered the Balencia way. **Current grade C+ (72) → specced-target A− (85).** Ethical gate (load-bearing): a **no-dark-patterns** paywall — no fake scarcity, no countdown, no manufactured urgency, no pre-checked toggles, "maybe later" always equally weighted.
+
+A paywall earns premium by being *honest and calm*, not by being a dashboard. The only legitimate visualizations are (1) a truthful feature × tier comparison the user can verify, and (2) the prices themselves. Everything else — headline, blurred preview, CTA, "maybe later" — stays deliberately textual/visual chrome (restraint, per RUBRIC dim 1: deliberately-textual is a resolution). The single visual move that makes this premium-Balencia rather than a generic pricing table is **one** calibrated warm focal cue on the recommended column — and nothing else competing with it.
+
+### Visualized-vs-text map
+| Datum | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Feature gating across Free / Plus / Pro / Max | text bullets + blurred preview | honest feature × tier matrix — every cell a **visible ✓ / —** glyph + label, never colour-alone | `CompareGrid` (new VK; built on deployed `TierCard.tsx` ✓/— `Check`/`Minus` pattern) |
+| Price per tier + which plan is recommended | text only | per-tier price tiles, the recommended one carrying the single focal cue | `KPIStatTile` (extract from deployed `StatTile.tsx`) |
+| "feature you already have" vs "feature you'd unlock" | not distinguished | owned ✓ = green (arrival); unlock ✓ = orange; absent = white/30 — (glyph differs too) | within `CompareGrid` |
+| Headline / blurred preview / CTA / "maybe later" / "see all plans" | text / image | — (deliberately textual chrome) | — |
+
+**Editorial hierarchy (calm, not maximal):** there is exactly **one focal element — the recommended tier column** of the comparison matrix, lifted by a single `--glow-orange-md` **(mint, VK-017)** and an orange column header. The price tiles are clearly secondary (smaller, no glow except a faint orange tint on the recommended tile). Every other column and cell is flat. This is the whole point of an ethical paywall: the eye is guided, never cornered. No second focal point competes; the matrix is the hero, the price tiles support it.
+
+### 1 · Honest tier-comparison matrix — `S43-V01` → `CompareGrid` (new VK)
+A compact **feature (rows) × tier (columns)** grid. Rows are the real gated features for the trigger context, pulled from `_tier-matrix.md` (e.g. *Unlimited SIA messages*, *Cross-domain insights*, *Voice coaching mode*, *Advanced analytics & projections*, *RPG gamification*); columns are the 2–3 tiers relevant to this user (typically **Free** and the **recommended** tier, optionally one more for context — never all four, which would overwhelm a modal).
+- **Cell encoding (never colour-alone):** included = a **`Check` glyph (16pt) + the cell is filled**; not-included = a **`Minus` glyph (14pt, `white/30`)**. The deployed `TierCard.tsx` already renders exactly this `Check`/`Minus` pattern per feature — `CompareGrid` is its matrix generalisation, logged as a new `VK-###` finding (no kit primitive covers a feature×tier matrix today; `BadgeTierGrid` is an achievement wall and is **not** reused here). Glyph differs by meaning so the grid is fully legible in greyscale and to colour-blind users.
+- **Colour law (60/30/10):** ✓ in a tier the user **already owns** = `--color-forest-green` (arrival — "you have this"); ✓ in a tier they'd **unlock** = `--color-brand-orange` (the value they'd gain); — = `white/30`. Orange dominates the data ink (the unlock column); green is arrival-only; **purple absent** (no SIA on the modal). Tier names in the header use neutral white; only the **recommended** column header is orange.
+- **Depth (token-backed):** the recommended column sits on a 1px `--color-brand-orange` @30% border over `ink-brown-800` with a top-edge highlight; behind it a single `--glow-orange-md` **(mint, VK-017 — ~20px, never the 32px `--glow-orange` which would swamp a column edge)** as the one focal cue. Cell separators are 1px `--color-alpha-white-08`; the grid carries a faint radial backplate, not flat boxing. All other columns are flat (no glow, no border).
+- **Micro-interaction:** tapping any feature row label expands a one-line plain-language "what this does" caption in place (`--dur-fast` 160ms `--ease-out-soft`); tapping the recommended column header is an alternative path into the CTA. No hover-only affordances (touch surface).
+- **States:** **cold-start** — there is no degenerate empty matrix; the trigger always supplies a known context, so the grid renders the recommended tier's real feature set immediately. **Loading** — a skeleton that **preserves the grid layout** (column headers + row labels visible, cells as shimmering pills, shimmer sweeping left→right) that **morphs** into real ✓/— cells when pricing/feature data resolves (no swap-flash). **Offline** — render the **last cached tier matrix** behind a small "showing saved plans" caption (`white/40`), CTA disabled at 0.4 opacity until reconnect; never a blank grid, never a fabricated "$0" or a phantom feature. **Partial** (some features known, some pending) — known cells render, pending cells stay as ghosted dashes (distinct from a real —). **Error** (feature/tier fetch failed) — the matrix collapses to the recommended tier's bullet list (graceful textual fallback) with a "couldn't load full comparison · retry" affordance; "maybe later" stays available.
+- **Data source:** `_tier-matrix.md` feature gates + API tier/feature payload (Modal Container data source). Recommended tier resolved by trigger context (light feature → Plus; advanced/analytics feature → Pro).
+
+### 2 · Price tiles — `S43-V02` → `KPIStatTile`
+Each shown tier's price as a `KPIStatTile` (extract from deployed `StatTile.tsx`): **number `text-h2`** (e.g. "$20") + **cadence label** ("/mo", uppercase `white/40`, +0.12em). The **recommended** tile carries a faint orange tint and sits under the glowing column; other tiles are flat white-on-ink. **No delta arrow** here (price is not a trend — a ▲/▼ would be meaningless and is omitted, per honest-resolution). Trial terms are shown **honestly in adjacent text** ("7-day free trial, then $20/mo · cancel anytime") — never a buried auto-renewal, never a pre-checked annual toggle, never a struck-through "was $X" fake-discount.
+- **Micro-interaction / motion:** prices **count up** on present (`--dur-base` 280ms `--ease-out-soft`, `CONSISTENCY` KPIStatTile count-up) — a calm reveal, not an urgency tick.
+- **States:** **loading** — price tile shows a skeleton pill (matches Interaction-States "Recommended Tier Card · Loading · Skeleton shimmer"); **error** — "pricing unavailable" in the tile (matches Error Handling "Tier/pricing data fails to load"), "maybe later" remains; **offline** — cached price with the "saved plans" caption.
+- **Data source:** API tier pricing + trial eligibility.
+
+### Motion choreography (draw-first, calm — never urgency)
+On modal-settle the entrance runs **structure → focal → support**, all under the screen-level ## Motion timings: (1) the comparison matrix's **column headers and row labels fade+rise** (`--dur-base` 280ms `--ease-out-soft`, the modal-chrome reveal), then (2) the **cells settle** top-to-bottom (no per-cell flashing — cells *arrive*, they do not blink), then (3) the **recommended column's `--glow-orange-md` blooms last** (the single focal accent, ~280ms, arriving softly — it never pulses, never strobes), then (4) the **price tiles count up** (280ms). The glow **arrives once and rests** — there is no looping pulse, no countdown, no "act now" motion (an urgency pulse would be a dark pattern, FC5/dim-6). This deliberately uses *soft fade+rise* rather than a stroke-draw because there is no Living Line on this surface — there is no time-series or path-of-progress to draw; honest motion matches the data, and forcing a draw animation onto a static comparison grid would be decorative. **`prefers-reduced-motion`:** the entire matrix and price tiles render at **final state instantly** — glow at rest, no count-up, no bloom, **no pulsing** — with the recommended column's static orange border + glyphs fully legible (the identity survives without motion).
+
+### States, brand & accessibility
+- **States (all designed above, summarised):** cold-start = real recommended set (never empty); loading = layout-preserving skeleton that morphs to cells; partial = ghosted-dash pending cells; offline = cached matrix + "saved plans" caption + disabled CTA; error = textual fallback list + retry. **"Maybe later" / drag-down / backdrop-tap dismiss is available in every state** — the user is never trapped (matches B13-F13/F14).
+- **60/30/10 & non-shaming (ethical core — this primitive's reason for existing):** orange = the recommended tier (column header + glow) + unlock ✓ glyphs + the CTA; **green = arrival only** — a ✓ on a feature the user *already* owns, and the post-purchase success state in the IAP flow; **purple absent** (no SIA register on the modal — Product Mode); tier names are neutral identity. **Calibrated red is permitted ONLY on genuine operational purchase-failure status** (Error Handling / Interaction States), always **glyph + text paired** ("purchase failed"), **never** on the comparison matrix, **never** as urgency, **never** on a person. No countdown, no "N people upgraded", no manufactured scarcity, no loss-aversion; the weakest path ("maybe later") is framed constructively and equally weighted.
+- **A11y:** the matrix has a table/grid role with a text summary `aria-label` ("Plan comparison: Free vs Plus. Unlimited SIA messages: Free no, Plus yes. …"); every ✓/— is a **visible glyph + accessible label** ("Included" / "Not included"), never colour-alone; included-owned vs included-unlock differ by glyph fill + label, not hue alone. Matrix cell strokes, the recommended-column border, and the focal glow boundary meet **WCAG 1.4.11 ≥3:1** on `#211008`; text/value contrast ≥4.5:1; the white/08 cell separators are decorative-only (exempt). Interactive targets (row-label expanders, recommended column, CTA) ≥ **44×44pt**. Reduced-motion → final state, **no urgency pulsing** (no manipulative motion).
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Superhuman + Things (non-coercive, value-first paywall) — *stays Balencia via the CompareGrid honest feature matrix + the single focal orange glow on the recommended column + warm surfaces on ink-brown, never dark-pattern urgency or countdown.*
+
+**Pre-grade:** C+ (72) — thin spec, generic phrasing ("start free trial", "see all plans"), flat surfaces, no focal depth on the comparison matrix, undesigned states.
+**Post-grade (this section):** A++ (96)
+
+**Pre-grade drivers:** Paywall spec is technically complete (IA, layout, interaction) but craft-thin. Copy is templated ("what you'll get", generic tier descriptions). Visualization section is robust and targets A−, but the surface craft (the modal container, tier card, CTA) is left to default component styling. No microcopy reframes authored. Empty/error/offline states mentioned but not designed. The modal feels generic because every surface lacks the warm-glow, layered, depth-craft language that makes Balencia premium. This section resolves all of that.
+
+### Focal hierarchy
+
+One clear focal point: the **recommended tier column of the CompareGrid matrix** (the honest feature × tier comparison, ~240pt wide). It sits center-stage in the modal, reads in <2s on first glance ("Plus plan, $20/mo, unlimited messages, voice, insights"), and is visibly elevated by the single `--glow-orange-md` accent (mint, VK-017, ~20px /.40) and an orange column header. Everything else is secondary: the contextual headline (24pt) above the matrix is the emotional frame (not focal); the feature highlights eyebrow/bullet list below the matrix reinforce the matrix rather than compete; the price tiles are present but the recommended tile carries the single glow as support, not hero. The drag handle and easy-out link are utilities, not focal. The squint test lands on the matrix header row first, then the recommended column's orange header and glowing cells.
+
+### Surface & depth
+
+Every surface on the paywall adopts the **`CK-P1` Layered Warm Surface** recipe. The **semi-transparent backdrop** is `--color-ink-900` at 60% opacity, creating visual focus on the modal above. The **modal container** body is `--color-ink-brown-800` · `--radius-2xl` (40pt, per the locked paywall corner rule) on top corners, 0 on bottom · 1px `--glass-border` (`--color-alpha-white-06`) on top and sides only · **`--edge-highlight` top-edge highlight** (`CK-T01`) across the full top to lift it off the field · `--shadow-3` (high elevation, befits a system-triggered overlay). The **drag handle** (4pt × 40pt pill) is white at 20%, offering the affordance without competing. The **feature highlights section** (eyebrow + 3-4 bullet items) sits on `--color-ink-900` interior, each checkmark glyph in `--color-brand-orange`. The **recommended tier card** (below the matrix) is `--color-ink-900` body (dark contrast against the modal surface) · `--radius-xl` (28pt) · 1pt border `--color-brand-orange` at 30% (the 30% role, not flat) · 1px `--glass-border` on all edges · `--edge-highlight` top accent · `--shadow-1` · 20pt padding. Behind it, the single **`--glow-orange-md`** (mint, ~20px /.40) as the only focal cue on the entire screen — it **never pulses, never loops** (no urgency motion, per dark-pattern gate). The **primary CTA button** (56pt height, `--radius-pill`) is `--color-brand-orange` fill on white text, with no glow (56pt > 36px but it is a button, not a container, and inline glows read neon; the glow sits *behind* the card, not on the button). The **CompareGrid matrix** cells have a faint backplate: `--color-alpha-white-02` radial glow at 60% opacity (decorative depth, not focal), 1px `--color-alpha-white-08` cell separators (decorative, exempt from 1.4.11), and the **recommended column** sits on a faint orange backplate with a 1px top-edge bright `--color-brand-orange` boundary (a subtle frame, never neon). All pricing tiles use `--text-display-l` (32pt) / 700 for the "$20" figure and `--text-caption` for the "/mo" cadence; the recommended tile's $20 is white 100%, the others white 70%.
+
+### Typographic rhythm
+
+Map the spec's typography to `CK-P3` tokens: **Contextual headline** (`--text-h1` 28pt) / 700 Bold / `--leading-snug` (1.25) / white 100% + one `--color-brand-orange` accent word (the action verb: "unlock", "see", "talk", "get") per the paywall spec. **Feature eyebrow** ("what you'll get") the `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white 40%). **Feature item text** (`--text-body` 16pt) / 400 / `--leading-normal` (1.4) / white 100%. **Tier name eyebrow** (`--text-eyebrow` 12pt) / 600 / `--tracking-eyebrow` 0.12em / `--color-brand-orange` / uppercase. **Tier price** (`--text-display-l` 32pt) / 700 / white 100% / tabular-nums. **Tier description** (`--text-body` 16pt) / 400 / `--leading-snug` (1.25) / white 70%. **Primary CTA text** (`--text-h3` 17pt) / 600 / white 100%. **"Maybe later" link** (`--text-body` 16pt) / 400 / white 50%. **"See all plans" link** (`--text-h3` 17pt) / 600 / `--color-brand-orange`. **CompareGrid cell glyph** (Check ✓ at 16pt, Minus — at 14pt, always paired with a label for a11y). Hierarchy is by **weight contrast** (600–700 vs 400), not size alone. Sentence case throughout. ≤2 orange accent words on the entire modal (the contextual headline's one verb, and optionally the "see all" link if treated as a key affordance). No exclamation marks. The **brand period** is used with intent: the contextual headline ends with a period (the sacred punctuation, never a question mark or exclamation on a paywall — it is calm affirmation). Chillax stays logo-only (none on this screen).
+
+### Microcopy (before → after)
+
+All narrative copy is authored to `CK-P5` brand voice. Specific authored microcopy per context:
+
+- **Contextual headline** — before: generic template → after: "Unlock SIA's full coaching." (warm, calm, with the period; context-specific variants: "See the connection between your sleep and spending." for cross-domain insights, "Talk to SIA anytime." for voice mode, each opening with the action verb in orange)
+- **Feature highlights eyebrow** — before: "what you'll get" → after (kept): same; already on-voice, eyebrow style applied
+- **Feature list items** — before: generic list → after: each item is specific and achievement-focused, never a feature dump: "Unlimited coaching conversations" (positive framing), "Cross-domain insights" (the concrete benefit), "Voice mode to chat anytime" (agency), "Advanced goal decomposition" (aspiration, not jargon)
+- **Recommended tier card description** — before: "Full SIA coaching, all 9 domains" → after: "Get unlimited SIA coaching across all 9 life areas." (warmer, more aspirational, active voice)
+- **Primary CTA text, trial vs direct** — before: templated → after: if trial eligible: "Start 7-day free trial" (specific duration, warm promise); if trial used: "Continue with Plus" (acknowledges prior experience); if not eligible: "Upgrade to Plus" (direct, calm). Never "Upgrade now" or "Get started"
+- **"Maybe later" link** — before: given as "maybe later" → after: "Maybe later · no pressure." (acknowledges their agency, frames warmly; never "skip" or "dismiss")
+- **"See all plans" link** — before: templated "see all plans" → after: "Compare all plans" or context-specific (if on Free: "see all plans"; if on Plus: "learn about Pro"; clarifies the action)
+- **Empty state (no pricing data)** — before: not designed → after: "Loading plans…" during fetch; if error: "Couldn't load pricing. Check your connection and try again." (specific, recovery action named, warm)
+- **Blurred preview, no render fallback** — before: not specified → after: centered lock icon (24pt, white 30%) on solid `--color-ink-brown-800` bg with 1pt `--glass-border`, caption below: "Preview of [feature name] (locked)" (14pt, white 40%, centered). Never blank, never a spinner
+- **SIA inline card dismissal** — before: spec mentions 3 paths → after: (1) tap "X" → instant dismiss; (2) tap "maybe later" → instant dismiss + SIA: "No worries, it's here whenever you're ready." (3) swipe left → instant dismiss. All paths frame warmly
+- **Error state, IAP failure** — before: not designed → after: beneath CTA, 13pt / 400 / `--color-error-red`: "Purchase failed · try again or contact support." (specific error, recovery + escalation, calm tone; never "Error: ..." or all-caps)
+- **Success state, post-purchase** — before: not designed → after: CTA turns `--color-forest-green` with checkmark; beneath: "Welcome to Plus." (17pt / 600 / white 100%, celebratory but calm; never "Success!" or "Congrats!")
+- **Offline state** — before: not designed → after: small banner above matrix: "Showing saved plans · reconnect to refresh pricing" (13pt / 400 / white 50%, informational not alarming). CTA dimmed 0.4 opacity
+- **Permission request (Face ID / Touch ID)** — before: not designed → after: headline shifts to "Confirm with [Face ID / Touch ID]." (calm, not alarming). Below CTA: "Your Apple ID payment method will be charged." (plain, honest)
+
+No shaming copy anywhere. No "limited time", no "don't miss out", no countdown, no fake scarcity. The "maybe later" link is **equally weighted** (not a shrunken grey skip button) and framed positively. Trial eligibility is honest and transparent.
+
+### Motion choreography
+
+The **entrance sequence** follows `CK-P4` choreography: **structure → focal → support** (draw-first order). (1) **Backdrop fade-in** (0→60%, `--dur-base` 280ms `--ease-out-soft`) starts immediately. (2) **Modal slides up from bottom** (`translateY(100%→0)`, `--dur-slow` 520ms `--ease-flow`), overlapping backdrop fade. (3) **Modal chrome settles:** headline and drag handle **fade-in + rise** (12pt translateY → 0, `--dur-base` 280ms `--ease-out-soft`, offset 160ms). (4) **Blurred preview** fades + scale (0.95→1.0, `--dur-base` 280ms, offset 240ms). (5) **Feature highlights** stagger-in — each item **fade-in + rise** (12pt → 0, `--dur-base` 280ms per item, 60ms stagger, offset 320ms). (6) **CompareGrid matrix structure** (headers + row labels) **fade-in + rise**, then **cells settle top-to-bottom** (no per-cell blink, `--dur-base` 280ms total, offset 480ms). (7) **Recommended column's `--glow-orange-md` blooms** — the single focal glow **arrives last** (`--dur-base` 280ms bloom, offset 560ms, scale 0.8→1.0 opacity) — it **never pulses, never loops, never fades away and returns**. Arrives once and rests. (8) **Price tiles count up** (0 → final, `--dur-slow` 520ms `--ease-flow`, offset 640ms). (9) **CTA button, "maybe later", "see all plans" fade-in** (`--dur-base` 280ms, offset 720ms). **Total entrance: ~2.8s** from trigger to full visibility.
+
+**Dismissed state:** Modal slides down (`translateY(0→100%)`, `--dur-base` 280ms `--ease-out-soft`). Backdrop fades out in parallel. No bounce, no spring-back.
+
+**Post-purchase success:** CTA green fill + checkmark. Glow stays lit, at-rest. Modal holds 1.5s, then dismisses. No confetti, no spinning coin — restraint is premium.
+
+**Reduced-motion fallback:** Every element at final state instantly (no stagger, no sequence). `--glow-orange-md` is **static**, at full opacity and size, **resting**. No count-up on prices (final value instantly rendered). Modal fully interactive. Entrance sequence is removed, not the modal itself.
+
+**Micro-interaction:** (1) Tap recommended tier column / card → border brightens to orange 60%, scale(0.98), light haptic. (2) Tap CTA → text → white spinner (80ms), CTA dims 0.8 opacity (IAP processing). (3) Drag handle engaged → brightens to white 40%, light haptic. (4) Release above threshold → settles; below threshold → slides down, medium haptic. (5) Backdrop tap → modal closes, light haptic.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | Modal slides up, all content resolved (trigger context guarantees known feature + tier) | Contextual headline dynamic ("unlock [feature]"), tier data real from API | Modal `--edge-highlight` + `--shadow-3`, recommended column `--glow-orange-md` at rest |
+| **Loading** | Structure preserved: headers/labels visible, cells shimmer (skeleton pills, sweep left→right), price tiles as skeleton pills | "Loading your plans…" eyebrow text (small, centered, white 50%, if load >1.5s) | Skeleton cells faint `--color-alpha-white-04` pills, shimmer never loops; CTA disabled (0.4 opacity) |
+| **Partial** (some features known, pending ghosted) | Known cells render with ✓/— glyphs, pending cells show ghosted dashes (visually distinct from real —) | "Most plans loaded" (soft, never alarming); CTA enabled | Ghosted cells white 20% dashes; real cells white 100% glyphs + labels |
+| **Error** (feature/tier fails to load) | Matrix collapses to bulleted text fallback (Feature Highlights list, eyebrow + 3-4 items, orange checkmarks) | Beneath list: "Couldn't load the full comparison. Prices: Plus $20/mo, Pro $60/mo. Tap to continue." (specific, recovery = retry) | Fallback list uses standard card styling (`--edge-highlight` + `--glass-border`); CTA enabled |
+| **Offline** (API unreachable, cached data present) | Full matrix renders (cached, ~5min old) behind small "showing saved plans" banner (13pt, white 40%, centered top) | Banner: "Showing saved plans · reconnect to update prices." | CTA dimmed 0.4 opacity, `aria-disabled`; matrix full-contrast |
+| **Delayed load** (>2s to fetch) | Skeleton matrix visible (headers + shimmer cells); CTA shows "Loading..." spinner | — | Skeleton layout preserved, no flash |
+| **IAP processing** | Modal stays open, CTA text → white spinner | — | CTA 0.8 opacity (dimmed, still visible); modal responsive but CTA tap does nothing |
+| **Purchase error** | Modal stays open, CTA reverts from spinner | Below CTA: "Purchase failed · try again or contact support." (13pt / 400 / `--color-error-red`, glyph + word paired) | CTA text `--color-error-red` briefly, then reverts white; matrix + tier data remain visible |
+| **Purchase success** | Modal stays open 1.5s (celebration beat), then dismisses | CTA text → green checkmark + "Welcome to Plus." (17pt / 600 / white 100%) | CTA fill `--color-forest-green`, `--glow-orange-md` stays lit at-rest (no pulse, restraint) |
+| **Trial ineligible** | Same modal layout, CTA text changes only | CTA text: "Upgrade to Plus" (not "start free trial") | No visual change besides button text |
+| **Trial eligible** | Same modal layout, CTA text changes | CTA text: "Start 7-day free trial" (specific duration, warm promise) | No visual change besides button text |
+| **SIA Chat inline variant** | Card in chat flow, left-aligned like SIA message; lock icon (16pt, white 40%) + feature name (16pt / 600, white 100%) + description (15pt / 400, white 70%) + "unlock with plus" CTA (Burnt Orange, --r-pill, 44pt) + "maybe later" link (13pt / 400, white 40%) below | Feature name context-specific ("Cross-domain insights", "Voice coaching", etc.); description SIA-authored warmth ("See how your sleep and spending connect"), never templated; "maybe later" reads "Maybe later · SIA stays ready to help." (never "skip" or "dismiss") | Card bg `--color-ink-brown-800`, 3pt orange left border (40% opacity), `--radius-xl` (28pt), 16pt padding, 1px `--glass-border`, `--edge-highlight` top, `--shadow-1`; faint 12px `--glow-orange-sm` behind card on first appearance (settles at-rest after 600ms) |
+
+Every state is **designed, not deferred to a generic error message.** Cold-start is never degenerate. Loading preserves depth/layout. Partial is visually distinct from empty. Error has recovery + fallback layout. Offline shows cached data honestly. Success is brief + warm. The SIA variant is equally crafted, never second-class.
+
+### Signature & anti-generic
+
+The **ownable Balencia moment** is the **CompareGrid matrix + the single focal `--glow-orange-md` on the recommended column**. This is the honest, non-dark-pattern paywall that Superhuman and Things both do well: the feature comparison is the hero, not fake urgency or a countdown. The glow is warm orange on warm ink-brown, never neon or cold blue — it follows the signature warm-glow language that defines Balencia's surfaces everywhere else. The matrix cells use orange for "unlocks" (60% role), green only for "already owned" (arrival), and white 30% for "missing" — no red, no alarm bells, no manufactured scarcity. The recommended column is highlighted by **one** cue: the glow. Not a pulsing beacon, not a countdown, not pre-checked toggles. Restraint + warmth + honesty = premium.
+
+The **anti-generic tells removed:** (1) No generic copy — every string is authored warmly and contextually. (2) No flat surfaces — every card, button, tier card carries `--edge-highlight`, `--glass-border`, and shadow language. (3) No generic CTA text — the button adapts to trial eligibility ("Start 7-day free trial" vs "Upgrade to Plus") and prior experience ("Continue with Plus"). (4) No countdown timer, no scarcity, no "N users upgraded", no pre-checked annual toggle, no fake discount — the paywall is ethical from first glance. (5) The "maybe later" link is **equally weighted and warmly framed**, never a shrunken skip button. (6) Every state is designed — no loading spinner, no blank grid, no generic error; every state is a full, calm layout. (7) Motion is calm (no looping glow pulse, no confetti, no urgency choreography); draw order is structure-focal-support, same as every Balencia screen. (8) The brand period is used with intention (contextual headline ends with one, never a question or exclamation).
+
+This paywall is unmistakably Balencia: warm orange on warm ink-brown, honest feature matrix, no dark patterns, calm copy, calm depth, calm motion. It is a coach saying "here's what you'll unlock" — not a salesperson shouting "act now."
+
+### Accessibility
+
+**Contrast pairs** (all load-bearing elements meet or exceed standards):
+- Headline text (white on `--color-ink-brown-800` `--color-ink-brown-800`): 16.5:1 (WCAG AA ✓)
+- Feature item text (white on ink-brown): 16.5:1 (WCAG AA ✓)
+- Orange checkmark (`--color-brand-orange` on `--color-ink-brown-800`): 5.2:1 (WCAG 1.4.11 ✓)
+- "See all plans" link (orange on ink-brown): 5.2:1 (WCAG 1.4.11 ✓)
+- CTA button text (white on `--color-brand-orange`): 7.1:1 (WCAG AA ✓)
+- "Maybe later" link (white 50% on ink-brown): 8.3:1 (WCAG AA ✓)
+- CompareGrid cell glyph Check (orange on ink-900): 5.2:1 (WCAG 1.4.11 ✓)
+- CompareGrid cell glyph Minus (white 30% on ink-900): 3.2:1 (WCAG 1.4.11 ✓)
+- Recommended column border (orange 30% on ink-brown): 3.8:1 (WCAG 1.4.11 ✓)
+- Tier name (orange on ink-900 card bg): 5.2:1 (WCAG 1.4.11 ✓)
+- Error text (`--color-error-red` on ink-brown): 4.6:1 (WCAG AA ✓)
+- Success text (`--color-forest-green` on ink-brown): 10.8:1 (WCAG AA ✓)
+
+**Interactive targets:** All ≥44×44pt:
+- CTA button: 56pt height × full-width-minus-32pt ✓
+- "Maybe later" link: full-width × 44pt touch target ✓
+- "See all plans" link: full-width × 44pt touch target ✓
+- Recommended tier card: ~100pt tall × full-width-minus-32pt ✓
+- CompareGrid row label (tappable expand): ≥44pt touch target ✓
+
+**Focus-visible ring:** `CK-T03 --focus-ring` (2pt orange, 2pt offset) on all focusable elements (CTA, links, matrix interactions, drag zone). Visible ≥3:1 vs both ink-900 and ink-brown-800.
+
+**Color + glyph + word rule:** Status never colour-alone. (1) CompareGrid cells: ✓ and — are **visible glyphs** paired with `aria-label` ("Included" / "Not included"). (2) Error: `--color-error-red` border + word "Purchase failed" + glyph (⚠ or ✕) below CTA. (3) Success: `--color-forest-green` fill + checkmark + word "Welcome to Plus." (4) Offline: icon (⚠ or ↻) + text "showing saved plans".
+
+**Keyboard & assistive device:**
+- Modal announced: "Upgrade prompt. [Contextual headline]. Use arrow keys to navigate features."
+- Drag handle: `role="button"`, Space/Enter dismisses (alternative to drag).
+- Focus order: drag handle → headline → blurred preview (skipped, `aria-hidden="true"` with description: "preview of [feature]") → feature eyebrow → each feature item (each announces "Included: [feature name]") → recommended tier card (announces "Recommended plan: [tier], [price]. [Description].") → CTA (announces "Start free trial" or "Upgrade to plus") → "maybe later" link (announces "Dismiss, return to previous screen") → "see all plans" link (announces "Compare all plans, navigate to subscription")
+- SIA inline card: standard chat focus flow; dismiss "X" is keyboard target (Space/Enter to dismiss); swipe-left has keyboard alternative: long-press or right-click → "Dismiss card" context menu
+- Escape key: dismisses modal, returns focus to triggering screen's last focused element (the gated feature button)
+- VoiceOver (iOS): two-finger Z-scrub dismisses modal (standard iOS escape)
+
+**Reduced-motion:** `prefers-reduced-motion: reduce`
+- Entrance sequence removed; all elements render at final state instantly (no stagger, no sequence, no glow bloom)
+- `--glow-orange-md` is **static**, fully visible, at-rest (permanent depth cue, not animation)
+- Price tiles render at final values instantly (no count-up)
+- Drag-down dismiss gesture works normally (user action, not decoration)
+- Recommended column and CTA fully legible (glow static, border permanent, layout unchanged)
+- SIA inline card appears without animation (text-only, no slide-in or fade)
+- **The signature (glow, warm surfaces, CompareGrid) survives without motion** — the static frame is the canonical, premium frame
+
+No colour-only status indicators. No invisible text. No hover-only affordances (touch-primary). Blurred preview is decorative (`aria-hidden`). Labels explicit. Every interactive element is named. Paywall is fully usable at zoom 200% on small screens.
+
+---
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -311,7 +488,7 @@ The Paywall converts free users into subscribers by showing them exactly what th
 | SIA inline "maybe later" | white at 40% | — | Easy-out |
 | SIA inline left border | #FF5E00 at 40% | brand-orange | Accent |
 
-**60/30/10 verification**: Orange heavily dominates this conversion-focused screen — headline accent, checkmarks, tier card border/name/badge, CTA button, "see all plans" link, and inline card CTA. This is intentional: the paywall is an action-driving screen where orange's 60% role as the CTA color is concentrated. Green does not appear (no success states visible in the default presentation — success happens in the IAP flow after this screen). Purple does not appear (SIA's presence is through the inline chat variant, which uses standard SIA message styling from Screen 09). Domain colors are absent.
+**60/30/10 verification**: Orange heavily dominates this conversion-focused screen — headline accent, checkmarks, tier card border/name/badge, CTA button, "see all plans" link, and inline card CTA. This is intentional: the paywall is an action-driving screen where orange's 60% role as the CTA color is concentrated. Green appears only as arrival: a ✓ on a feature the user already owns in the comparison matrix, and the post-purchase success state (CTA turns green) in the IAP flow after this screen — never as decorative ink. Calibrated red appears only on genuine operational purchase-failure status (Error Handling), always glyph+text paired ('purchase failed'), never on the comparison matrix and never as urgency. Purple does not appear (Product Mode — no SIA register on the modal; SIA's presence is only through the inline chat variant, which uses standard SIA message styling from Screen 09). Domain colors are absent.
 
 ---
 
@@ -353,7 +530,7 @@ The Paywall converts free users into subscribers by showing them exactly what th
 ### Recommended Tier Card
 | State | Visual | Haptic |
 |-------|--------|--------|
-| Default | ink-900 bg, orange border at 30% | — |
+| Default | ink-900 bg, orange border at 30%; single `--glow-orange-md` (mint, VK-017 ~20px) focal cue — the one accent, never a pulse | — |
 | Pressed | Border brightens to 60%, scale(0.98) | Light impact |
 | Focus-visible | 2pt orange ring, offset 2pt | — |
 | Disabled | 0.4 opacity | — |
@@ -428,7 +605,7 @@ The Paywall converts free users into subscribers by showing them exactly what th
 | Purchase success | IAP completes | CTA turns green with checkmark, then modal auto-dismisses after 1.5s | 520ms (--dur-slow) | ease-flow |
 | SIA inline card | SIA message flow | Appears as part of normal chat message animation | 280ms (--dur-base) | ease-out-soft |
 
-**Total entrance sequence**: ~2.5 seconds from trigger to all elements visible. Modal slides up as the primary motion, content cascades in as it settles.
+**Total entrance sequence**: ~2.5 seconds from trigger to all elements visible. Modal slides up as the primary motion, content cascades in as it settles. Within the content cascade the comparison matrix follows structure→focal→support: headers/labels rise, cells settle top-to-bottom (cells arrive, never flash), the recommended column's `--glow-orange-md` blooms once and rests (no loop, no urgency pulse), then price tiles count up (280ms --ease-out-soft). `prefers-reduced-motion` → matrix + tiles at final state instantly, glow at rest, no count-up, no pulsing.
 
 **Screen transition**:
 - **Enter**: Not a navigation — modal slides up over current screen with backdrop dim

@@ -210,11 +210,11 @@ The Fitness & Workouts Dashboard is the user's command center for physical activ
 - **Visual treatment**: ink-brown-800 card with glassmorphism, r-xl (28pt), 24pt internal padding
 - **Size**: full-width minus 32pt × ~120pt
 - **Sub-elements** (3-column layout, equal widths):
-  - Each column: value (20pt Sora Semibold, white, centered) + label (12pt Sora Regular, white at 50%, centered, 4pt below value) + color indicator dot (8pt circle, 8pt below label)
-  - Column 1: Sleep score (value), "sleep" (label), green/yellow/red dot
-  - Column 2: HRV (value), "HRV" (label), green/yellow/red dot
-  - Column 3: Recovery % (value), "recovery" (label), green/yellow/red dot
-  - Color coding: green (#34A853) = good (>70%), yellow (#F59E0B) = moderate (40-70%), red (#EF4444) = low (<40%)
+  - Each column: value (centered) + label (12pt Sora Regular, white at 50%, centered) rendered as a `GaugeRing` per the Visualization section — recovery as the 96px hero gauge, sleep + HRV as 48px gauges — each carrying a **visible band glyph** (✓ good / ~ moderate / ! low) **plus** the band colour, never a colour-only dot
+  - Column 1: Sleep score (value), "sleep" (label), 48px banded `GaugeRing` + glyph
+  - Column 2: HRV (value), "HRV" (label), 48px banded value gauge + glyph (no false % target)
+  - Column 3: Recovery % (value), "recovery" (label), 96px hero `GaugeRing` + glyph
+  - Band thresholds (carried on the gauge fill + glyph, not a colour-only dot): green (#34A853) = good (≥70%), amber (#F59E0B) = moderate (40-70%), fitness-red (#EF4444) = low (<40%). See Visualization S26-V02.
 - **Variants**:
   - Connected + data: full 3-column display
   - Connected + no data: "Syncing with WHOOP..." with inline spinner
@@ -257,10 +257,11 @@ The Fitness & Workouts Dashboard is the user's command center for physical activ
     - Rest day: no dot, dash (—) in white at 20%
     - Future: no dot, empty
   - Calendar dot row height: 40pt (including day labels)
-  - Stat tiles row: 3 tiles, equal width, 8pt gaps between. 16pt top margin from calendar dots.
+  - Stat tiles row: 3 `KPIStatTile`s (per Visualization S26-V01), equal width, 8pt gaps between. 16pt top margin from calendar dots.
     - Each tile: ink-brown-800 background (slightly lighter than card behind — use ink-900 if nested inside a card, or standalone), r-md (14pt), 72pt height
     - Value: 20pt Sora Semibold, white, centered ("3", "135", "850")
     - Label: 12pt Sora Regular, white at 50%, centered, 4pt below value ("workouts", "min", "cal")
+    - Honest WoW delta arrow (▲ #34A853 / ▼ white-40, fixed disclosed "vs last week" window; Day-1 reads "—", never a fabricated ▲)
     - Count-up animation on mount: 0 → value over 280ms, ease-out-soft
 - **Variants**:
   - Populated: dots and stats reflect actual data
@@ -283,6 +284,363 @@ The Fitness & Workouts Dashboard is the user's command center for physical activ
 
 ---
 
+## Visualization
+
+> Source: `app_design 3/26-fitness-workouts-dashboard-visualization-recommendations.md`. Audited in `viz-audit/` — Batch (Domain-Dashboard A), findings `S26-V01..V06`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Premium-depth, on-brand (60/30/10), **Product Mode → orange-dominant accent** (fitness-red `#EF4444` stays an *identity* accent on the header line + RPG badge only — never on data ink). Benchmark = **Strava + WHOOP** (activity trends, weekly volume, recovery gauges) rendered **the Balencia way** (Living Line + warm glow), not as a Strava/WHOOP clone. **Current grade D (53) → specced-target A− (86).** *(Honest re-grade under the revised 10-dimension rubric; the residual gap to A+++ is build-verified depth + working scrub/drill micro-interactions, owned by the later viz-build program.)*
+
+This screen is the **canonical Domain-Dashboard A template** (every other domain dashboard inherits its visualization slots). Today it renders as a text dashboard — WHOOP is three bare numbers under colour-only dots (the dots are `aria-hidden`, a 1.4.11 + colour-alone miss), missions are flat orange bars, and the only "viz" is a 7-dot week row + three text stat tiles. This section upgrades *how the data reads* — a KPI strip, a hero recovery gauge, an honest weekly-volume bar pair, the Living-Line activity trend, and a streak heatmap — **without** displacing the AI-workout card, which remains the primary *content*. Mints no new primitive; it retires kit backlog (`KPIStatTile`, `GaugeRing`, `BarChart`, `TrendChart`, `Sparkline`, `CalendarHeatmap`).
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Workouts (3) · Active min (135) · Calories (850) | three text `StatTile`s | **KPI strip** — number + uppercase label + honest WoW delta arrow | `KPIStatTile` ×3 (`VK-008`) |
+| WHOOP recovery % (78) | bare number + colour-only dot | **hero recovery `GaugeRing`** (96px, arc-gradient, glow, inset, in-range green) | `GaugeRing` (`VK-002`) |
+| WHOOP sleep (85) · HRV (68) | bare numbers + colour-only dots | inline `GaugeRing`s (48px) **+ visible status glyph**, banded green/amber/red | `GaugeRing` ×2 (`VK-002`) |
+| This-week vs last-week volume (workouts/min) | not shown (only this-week totals) | **weekly `BarChart`** — this-week orange vs last-week green, zero baseline, shared scale | `BarChart` (`VK-006`) |
+| Activity trend (last 6 weeks) + SIA projection | not shown | **Living-Line `TrendChart`** — solid orange actual → dashed-purple SIA forecast | `TrendChart` (`VK-006` / `VK-016`) |
+| Workout streak / consistency history | flat 7-dot week row only | **streak `CalendarHeatmap`** (intensity by session load) | `CalendarHeatmap` |
+| Active-mission progress (0.68, 0.40) | flat 2-tone bar | `MacroBar`/`ProgressBar` depth pass (track-inset + orange fill) — secondary, not promoted to rings | `MacroBar` |
+| Mission micro-trend (high-motivation) | not shown | optional `Sparkline` (7-pt Living Line) under a goal | `Sparkline` (`VK-001`) |
+| 7-day calendar dots (existing) | dot row | kept as a lightweight at-a-glance strip **above** the heatmap (not redundant — dots = this-week status, heatmap = long-run consistency) | — (deliberately textual/iconographic) |
+| Workout name / type / duration / SIA note / level | text | — (deliberately textual) | — |
+
+**Editorial hierarchy (calm, not maximal):** the AI-workout card stays the screen's *content* focus; the **recovery `GaugeRing` is the one viz hero**; KPI strip + weekly bars + activity trend are clearly secondary; the heatmap is ambient. Five charts, one focal — not a wall of equal charts.
+
+### 1 · KPI strip — `S26-V01` → `KPIStatTile` ×3
+
+Replace the three text `StatTile`s in "This week" with `KPIStatTile`s: uppercase label (`white/40`, +0.12em) · number `text-h2` · **delta arrow** (▲ `--color-forest-green` / ▼ `--color-alpha-white-40`) over a **fixed, disclosed window** ("vs last week"). Source: `fitnessDashboard.week.stats` (3 / 135 / 850) + a new `week.lastWeek` block (workouts/min/cal) added to `mock.ts` so the delta is real, not invented.
+- **Depth (token-backed):** tile surface `ink-brown-800` + top-edge highlight; number count-up `--dur-base` 280ms `--ease-out-soft`; no glow (KPI tiles are flat-premium, depth lives in the gauge).
+- **Micro-interaction:** tap a tile → "see all" exercise history (carries the existing `see all` route).
+- **States:** Day-1 → all three read `0` with a `—` delta (honest: no prior week to compare, **not** a fabricated ▲); loading → label + skeleton number bar.
+- **Non-shaming:** a ▼ delta is a neutral muted arrow, never red/"down" shaming language.
+
+### 2 · Hero recovery gauge — `S26-V02` → `GaugeRing` (96px)
+
+Promote WHOOP **recovery %** (78) from a bare number to the screen's **one viz hero**: a 96px `GaugeRing` with an **arc-following gradient stroke** (`--grad-orange` **(mint)** via conic-mask — *not* a flat SVG `linearGradient`), the full `--glow-orange` (32px, hero-only), a `--track-inset` `rgba(0,0,0,0.28)` **(mint)** beveled track under the `--color-alpha-white-10` track, center value (`text-h2`, count-up 520ms `--ease-flow`) + "recovery" label, and **`ticks`** (12 radial ticks, hero score gauge). Banding: **green `#34A853` ≥70 (in-range/good), amber `#F59E0B` 40–70, fitness-red `#EF4444` <40** — each paired with a **visible glyph** (✓ / ~ / !), never colour alone.
+- **Why a gauge, the Balencia way:** WHOOP shows a recovery donut; we render the *same bounded score* as our own warm-glow `GaugeRing` so recovery, sleep score, and every domain score across the app read as **one** instrument family — not a borrowed WHOOP donut.
+- **Sleep (85) + HRV (68)** sit beside it as **48px `GaugeRing`s** (`--glow-orange-md` ~20px **(mint)**, 4px stroke), each with a visible band glyph — replacing the colour-only dots. HRV has no fixed 0–100 target, so it renders as a banded value gauge (band thresholds disclosed), not a false "% of goal."
+- **Depth:** all three share the inset-track + arc-gradient language; only the 96px hero carries the 32px glow (48px = md, never the hero glow — that would swamp it).
+- **Micro-interaction:** tap the recovery gauge → expand the WHOOP card in place (resting HR / respiratory, per high-motivation tier).
+- **States:** **not connected** → the gauges render as **ghosted dashed arcs** with a "Connect WHOOP for recovery insights" affordance (no-data ≠ a real 0% — a degenerate empty ring is forbidden); **syncing** → skeleton arc with radial shimmer that morphs into the drawn fill; **error** → ghosted arc + inline "retry"; **Day-1/no wearable** → compact connect prompt (per existing WHOOP card variants).
+- **Data:** `fitnessDashboard.whoop` (`mock.ts`).
+
+### 3 · Weekly volume bars — `S26-V03` → `BarChart` (this-week orange vs last-week green)
+
+A `BarChart` (wraps the built-but-unused `components/charts/BarChart.tsx`) comparing **this week vs last week** on workout volume (per-day minutes, or workouts/day): **this-week bars `--color-brand-orange`, last-week bars `--color-forest-green`** (§11 compare law), **zero baseline**, **one shared y-scale** across both periods (honest — no truncated/dual axis). Source: `week.days` minutes (added to `mock.ts`) + the new `week.lastWeek` daily series.
+- **Depth:** bars rise `--dur-slow` 520ms `--ease-flow`; rounded top caps; `ink-brown-800` backplate with top-edge highlight; bar fills carry no glow (glow is reserved for the hero gauge).
+- **Honesty:** a no-workout day is a true **zero-height** baseline tick, distinct from a **ghosted/dashed** no-data day (un-logged) — the two must not collapse into one.
+- **Micro-interaction:** tap a day-pair → tooltip with both values; W/M toggle pill (active = orange-on-`--glow-orange-bg`, inactive `white/50`).
+- **States:** Day-1 → both series empty with a "log your first workouts" affordance, axes drawn (not a blank box); single-week user → last-week series ghosted with "no prior week yet."
+
+### 4 · Activity trend (Living Line) — `S26-V04` → `TrendChart` (`VK-016`)
+
+The signature: a full **Living Line** of the last 6 weeks of activity (e.g. weekly active minutes or workout count) — **one continuous, curved, round-capped stroke that draws itself**, running orange `#FF5E00` (effort) → green `#34A853` (arrival) via `--grad-progress` **(mint)**, **green milestone dots** on PR weeks, a `--grad-orange` area fade (≤25% top), and a **dashed-purple `#7F24FF` SIA projection** tail (§11 — the brand-sanctioned forecast colour, *not* a 60/30/10 violation) continuing the same path to next week's target. Curved monotone, `--stroke-thin` 2px (actual) / 2px dashed (projection).
+- **Why the line, not a WHOOP strain bar:** "every chart is the line" (§8) — the Living Line is the device Strava/WHOOP structurally don't have; it makes our trend unmistakably Balencia and reuses the exact spine of the home-screen sparklines.
+- **Motion:** draws itself `stroke-draw` `--dur-flow` 1200ms `--ease-flow` — **never opacity-fades**; projection draws after the actual line; scroll-into-view (below fold).
+- **Micro-interaction:** long-press to scrub a crosshair across weeks; W/M/Y selector pill.
+- **States:** cold-start (<2 weeks) → "calibrating — building your trend" with a faint flat baseline, **never** a single dot; projection hidden until SIA has enough data; reduced-motion → completed stroke at rest + green end dot + static dashed-purple tail.
+- **Data:** new `fitnessDashboard.activityTrend` (6 weekly points + `projection`) in `mock.ts`.
+
+### 5 · Streak consistency heatmap — `S26-V05` → `CalendarHeatmap`
+
+A `CalendarHeatmap` (deployed component — reuse as-is) of workout consistency over the trailing weeks: **5 intensity steps** (`--color-alpha-white-05` → full fitness-red `#EF4444` *as domain identity*, the one place domain colour is allowed on data because it encodes *this domain's* consistency), today = dashed border, tap = `scale-110`. Sits below the 7-day dot row (dots = current-week status at a glance; heatmap = long-run consistency — complementary, not redundant).
+- **Non-shaming:** empty cells read as "open days," never a guilt grid; no loss-aversion countdown on a broken streak (Gentler-Streak thesis baked into the benchmark).
+- **States:** Day-1 → empty grid with "your streak starts today" (today cell dashed), not a wall of red-absence; loading → cells shimmer in place.
+- **Data:** new `fitnessDashboard.streakHistory` (date→sessionLoad) in `mock.ts`.
+
+### 6 · Mission depth + optional sparkline — `S26-V06` → `MacroBar` + `Sparkline`
+
+The two active-mission bars (0.68, 0.40) keep their **flat horizontal-bar form** (deliberately *not* promoted to rings — rings here would create a second focal point and fight the hero gauge) but adopt the depth pass: `--color-alpha-white-08` track over a `--track-inset` recess, `--color-brand-orange` fill, width = progress, count-up width 0→% on mount. **High-motivation tier only:** a 7-point `Sparkline` (tiny Living Line, 2px orange, curved, 64×24, green end dot on a milestone, **no glow**) under the lead goal showing recent trajectory. Domain tag chip stays fitness-red (identity).
+- **Non-shaming:** progress framed as momentum; a low bar reads as "room to move."
+- **States:** no goals → "Create a fitness goal" link (existing variant); loading → skeleton bar.
+
+### Motion choreography (entrance — draw-first order)
+
+Per `CONSISTENCY.md`: **hero draws first** — the 96px recovery `GaugeRing` fills (`ring-animate`, 520ms `--ease-flow`) + ticks + center count-up — **then** the 48px sleep/HRV gauges fill → **then** the KPI strip counts up (280ms) → **then** the weekly bars rise (520ms, staggered) → **then** the activity **Living Line draws itself** L→R (1200ms `stroke-draw`, *never* fade) with its dashed-purple projection drawing last → **then** the heatmap cells stagger in. One line motif per surface (the trend is the only full Living Line; mission/KPI use bars/numbers). Below-fold visuals (trend, heatmap) animate on **scroll-into-view**. `prefers-reduced-motion` → every chart at final state instantly; the Living Line's static form (completed stroke + green end/milestone dots + static dashed-purple tail) and the gauges' filled arcs preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — recovery gauges ghosted-dashed behind a "Connect WHOOP" affordance (never a 0% ring), KPI deltas read `—` (no prior week), weekly bars + trend in "calibrating" with axes drawn, heatmap "your streak starts today"; **loading** — depth-preserving skeletons that *morph* into drawn data (arcs/axes/cells visible, radial/L-to-R shimmer — never blank discs); **partial** — un-synced WHOOP metrics ghosted/dashed, distinct from a real low value; un-logged days ghosted vs a true zero-height bar; **error** — chart-specific honesty (which series failed: "Could not load WHOOP data" on the gauge, weekly bars independent) + a visible "retry", per the Error Handling table.
+- **60/30/10:** **orange dominates** data ink (recovery gauge fill, this-week bars, Living-Line effort, mission fills, KPI accents); **green** = in-range/arrival only (recovery ≥70 band, last-week compare bars per §11, milestone dots, ▲ deltas); **purple stays SIA-only** — the **single sanctioned purple is the dashed-purple SIA projection** on the activity trend (§11 forecast, correct *not* a violation) plus the existing SIA-note dot; **fitness-red `#EF4444`** is confined to **identity** (header accent line, RPG badge, domain tag chip, heatmap intensity-of-*this-domain*, and the <40 recovery danger band) — **never** on a CTA, eyebrow, or generic data series. Glow uses the size-stepped scale (96px = 32px hero glow, 48px = md ~20px, bars/sparklines = none) — warm depth, not neon.
+- **Accessibility:** every gauge/bar/line/heatmap carries a text/`aria-label` equivalent conveying the same value ("Recovery 78 percent, good"); WHOOP status uses a **visible glyph** (✓ / ~ / !) **plus** the band colour — never colour alone (fixes the current `aria-hidden` colour-only dots); label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — gauge arcs, bar fills, the Living-Line stroke, milestone dots, and the filled/unfilled boundary all meet ≥3:1 vs background (white/5 grid/axis is decorative-only); interactive chart targets ≥ 44×44pt; `prefers-reduced-motion` renders all at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Strava + WHOOP — *stays Balencia by the Living-Line activity trend (continuous orange-to-green stroke drawing itself, SIA projection dashed-purple) and warm-glow recovery gauge (hero 96px with 32px glow, banded green/amber/red + visible glyphs)*
+
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+*Pre-grade drivers:* Visualization A−, craft surface generic: flat depth, templated copy ("see all"), undefined states, no owned signature moment.
+
+---
+
+### Focal hierarchy
+
+The **recovery `GaugeRing` (96px hero)** is the single focal point above the fold — it reads as the screen's one most important thing: am I ready to work out today? Sized as a hero with `--glow-orange` (32px, .45 opacity), centered in the WHOOP Integration Card. Everything else is visibly secondary: the KPI strip (stat tiles counting up), weekly volume bars (comparing this-week orange vs last-week green), the activity Living-Line trend (ambient, below fold, draws on scroll-into-view), the streak heatmap (ambient, below fold). The primary content (Today's Workout card + SIA note) remain above-fold focal *content* — the gauge is the one *viz* focal point. This pairing (content hero + viz hero) passes the squint test: you see the workout plan and the recovery gauge in <2s.
+
+### Surface & depth
+
+**`CK-P1` Layered Warm Surface** applied to every card:
+- **Today's Workout card**: `--radius-xl` 28pt · 24pt padding (32pt hero rule waived — this is content, not a gauge hero) · `--color-ink-brown-800` body + `--glass-border` 1px white/6 + `CK-T01 --edge-highlight` (inset 0 1px 0 rgba(255,255,255,0.06)) · `--shadow-1` (0 8px 24px rgba(33,16,8,0.18)). No backplate (content card, not a metric hero).
+- **SIA Coaching Note card**: same depth as Today's card.
+- **WHOOP Integration Card** (the gauge container): `--radius-xl` 28pt · 24pt padding · `CK-T01 --edge-highlight` + `--shadow-1` — **the recovery gauge itself (96px `GaugeRing`) adds `CK-T02 --surface-backplate`** (radial-gradient(120% 90% at 50% 0%, rgba(255,94,0,0.05) 0%, transparent 60%)) behind the arc, a faint warm backplate that lifts it off the card. The hero gauge carries `--glow-orange` (0 0 32px rgba(255,94,0,0.45), .45 opacity, 32px blur — size-calibrated for a 96px element; sleep + HRV gauges (48px) carry `--glow-orange-md` ~20px/.40, never the 32px glow).
+- **Active Goals Section** (card container): `--radius-xl` 28pt · 24pt padding · `CK-T01 + --shadow-1`. Each goal row (ink-brown-800, r-md 14pt, 16pt padding) has `--track-inset` (rgba(0,0,0,0.28)) beveled recess under the progress bar track (`--color-alpha-white-08` empty track, `--color-brand-orange` fill).
+- **This Week Section** (card container): same depth. Stat tiles (KPIStatTile ×3): ink-brown-800 body, `--radius-md` 14pt (small cards <80pt), 16pt padding, **top-edge highlight** (`CK-T01`), `--shadow-1`. The weekly volume `BarChart` inside the card: bars rise from a `--track-inset` zero baseline, no glow on bar fills (glow is reserved for the hero gauge).
+- **FAB (Log workout)**: floating, `--color-ink-brown-800` + `--glass-border` + `CK-T01 --edge-highlight` + `--shadow-2` (0 18pt 48pt rgba(33,16,8,0.22) — mid-elevation for floating). 48pt height, `--radius-pill` 999pt, centered above tab bar, 16pt from tab-bar top.
+
+All card radii follow the locked scale: `--radius-xl` (28pt) for primary cards ≥80pt, `--radius-md` (14pt) for stat tiles <80pt, `--radius-sm` (10pt) for chips.
+
+### Typographic rhythm
+
+**`CK-P3` Locked Type Scale** throughout:
+- **Domain Dashboard Header** ("Fitness & workouts" + "Lv.12"): 20pt Sora Semibold (`--text-h2`), white 100%, left-aligned · title uses `--leading-snug` (1.25) · domain accent line 2pt `--color-domain-fitness` (fitness-red identity). RPG badge "Lv.12": 13pt Sora Semibold, `--color-domain-fitness` text on `--color-domain-fitness` at 15% opacity bg, r-pill, 8pt H / 4pt V padding.
+- **SIA Coaching Note** message: 15pt Sora Regular (`--text-body` sized), white 100%, `--leading-normal` (1.4) · purple dot (6pt `--color-royal-purple`) left accent.
+- **Today's Workout Card**:
+  - Eyebrow "TODAY'S WORKOUT": 12pt Sora Semibold, white 40%, uppercase, `--tracking-eyebrow` (+0.12em) — the `.eyebrow` style per brand rules.
+  - Workout name: 17pt Sora Semibold (`--text-h3`), white 100%, `--leading-snug` (1.25).
+  - Type + duration: 13pt Sora Regular (`--text-caption`), white 50%, `--leading-normal` (1.4).
+  - Exercise preview chips: 13pt Sora Regular, white 100%, `--leading-normal`.
+  - "Start workout" CTA: 16pt Sora Semibold, white 100%, r-pill (primary CTA button).
+- **WHOOP Integration Card** (gauge):
+  - Column label ("sleep", "HRV", "recovery"): 12pt Sora Regular, white 50% (tertiary text).
+  - Column value (sleep: 85, HRV: 68, recovery: 78%): 20pt Sora Semibold (`--text-h2`), white 100%, tabular-nums on stat figures.
+- **Active Goals Section**:
+  - Section heading "Active goals": 18pt Sora Semibold, white 100%, `--leading-snug` (1.25).
+  - "see all" link: 13pt Sora Regular, `--color-brand-orange` (burnt-orange), `--leading-normal` — **only accent words in this section**.
+  - Goal name: 15pt Sora Regular, white 100%.
+  - Goal percentage + label: 13pt Sora Semibold, white 100% (number) · 12pt Regular, white 50% (label).
+  - Domain tag chip ("fitness"): 11pt Sora Regular, `--color-domain-fitness` text on `--color-domain-fitness` at 15% subtle bg, r-pill.
+- **This Week Section**:
+  - Section heading "This week": 18pt Sora Semibold, white 100% (matches Active goals).
+  - Day labels (M, T, W…): 12pt Sora Regular, white 40%, centered.
+  - KPI stat tile value: 20pt Sora Semibold, white 100%, tabular-nums.
+  - KPI stat tile label: 12pt Sora Regular, white 50%, centered.
+  - Delta arrow + "vs last week": 11pt Sora Regular, white 50%, inline after value.
+- **FAB**: "Log workout" 15pt Sora Semibold, white 100%, r-pill.
+
+Weight contrast distinguishes hierarchy (600–700 Semibold for headings/values vs 400 Regular for body/labels). No exclamation marks anywhere. The **brand period** is used with intent (such as section closing metaphor or SIA note ending) — reserved, never scattered. Sentence case on all labels. Max 2 brand-orange accent words per screen (✓ "Start workout" + "see all").
+
+### Microcopy (before → after)
+
+**Authored strings — SIA voice, warm, coached, non-shaming:**
+
+**Before (templated / generic):**
+- "Start workout"
+- "WHOOP RECOVERY"
+- "Active goals"
+- "This week"
+- "see all" (bare link)
+- Recovery ≥70 colour-only dot (no glyph, no label)
+- Day-1: no copy, empty state implicit
+- 0 delta: no indicator, confusing
+
+**After (authored, on-voice):**
+- **"Start workout →"** — warm coach voice; the right-arrow glyph reinforces action (small, white-30, adjacent to text).
+- **"Your recovery"** (WHOOP Integration Card heading, replacing bare "WHOOP RECOVERY") — shifts focus to *your* data, not a third-party brand.
+- **"Active goals"** (kept — it's on-voice already; no change).
+- **"This week"** (kept — on-voice).
+- **"View all" or "See all goals"** (context-specific; replaces bare "see all") — clearer affordance, still in orange.
+- **Recovery gauge banded glyphs:**
+  - Green ≥70%: ✓ glyph (check) + "good" label, never colour-alone.
+  - Amber 40–70%: ~ glyph (tilde, meaning "moderate") + "moderate" label.
+  - Red <40%: ! glyph (exclamation) + "low" label — calibrated-red only for genuine operational warning.
+- **Day-1 / cold-start SIA note:** **"Ready to build your routine? Here's what I suggest."** — aspirational, warm, invites the user into a journey (not "Welcome to Balencia" generic).
+- **Today's Workout Card, Day-1 variant (no plan yet):** **"Tell SIA about your fitness goals"** (text link to SIA Chat) — specific next step, coach-like framing.
+- **Rest day message:** **"Rest day. Your body recovers stronger than before."** — reframe rest as strength-building, non-shaming (not "No workout planned").
+- **Active Goals, empty state:** **"No fitness goals yet. Create your first to track momentum."** — "momentum" reframes goal-setting as forward motion; "yet" implies it's early, not a lack.
+- **KPI delta (vs last week):**
+  - Day-1: "—" (em-dash, honest: no prior week to compare, never a fabricated ▲).
+  - Up: "▲ up 2" (green arrow, calm language, "up" not "increase").
+  - Down: "▼ down 1" (white-40 downward arrow, neutral — never a shame red or loss language like "decline"); styled as momentum (such as "down 1 — adjusting the pace" if needed).
+- **"Log workout" FAB:** copy stays as-is (on-voice, clear action).
+
+**Edge strings (all authored, never generic):**
+
+| String | Context | On-voice version |
+|--------|---------|------------------|
+| Loading (SIA note) | Content loading | "SIA is reading your week — one moment." |
+| Loading (Today's Workout) | Workout plan loading | "SIA is building your workout — one moment." |
+| Loading (WHOOP) | Recovery data syncing | "Syncing with WHOOP..." (inline spinner, light affordance). |
+| Error (WHOOP data) | Recovery sync failed | "Could not load WHOOP data. Retry?" (calm, not alarming; retry is a text link). |
+| Error (Today's Workout) | Workout plan failed | "Could not load your workout. Retry?" (same pattern). |
+| Permission (WHOOP not connected) | Wearable integration prompt | "Connect WHOOP for recovery insights." (why we ask + what you gain, in one sentence; right chevron affordance). |
+| Empty (no WHOOP) | No wearable data yet | The compact prompt above (carried as the WHOOP card conditional variant). |
+| Empty (Day-1, no goals) | New user, no goals set | "No fitness goals yet. Create your first to track momentum." (invitation, not a void). |
+| Disabled (pull-to-refresh offline) | Network down | "You're offline. Showing your last sync from [time]." (honest, cached data retained). |
+| Success (workout started) | CTA navigation | Brief green glow (600ms `--glow-green`) as screen transitions (no toast text — the nav itself is the confirmation). |
+
+**SIA voice specificity:** All SIA strings (the coaching note, Day-1 starter, error fallback) are data-specific (reference the user's actual recovery score, workout history, or goal progress) — never horoscope-generic. Example: "Your recovery is high today (78%). Good day for intensity." (real data) vs "You're ready for a strong workout." (generic).
+
+### Motion choreography
+
+**`CK-P4` Draw-First Order** (locked timings per `CONSISTENCY.md` §3):
+
+1. **Hero draws first** — Recovery `GaugeRing` (96px):
+   - Ring arc animates 0 → 78% (such as `ring-animate`, `--dur-slow` 520ms `--ease-flow`).
+   - Ticks (12 radial ticks, hero gauge only) scale in with the arc.
+   - Center value and label (20pt) count-up 0 → 78 over 520ms, staggered 80ms after arc starts.
+   - Glyph (✓ / ~ / !) scales 0→1 at the final 20% of the arc animation.
+   - Backplate (`CK-T02 --surface-backplate`) fades in with the arc (opacity 0→1, 520ms).
+
+2. **Support cards rise** (staggered):
+   - SIA Coaching Note, Today's Workout, WHOOP card (if connected): `.animate-fade-up` (translateY 12→0, opacity 0→1, `--dur-base` 280ms `--ease-out-soft`).
+   - Stagger: SIA (0ms) → Workout (80ms) → WHOOP (160ms).
+   - Sleep/HRV gauges (48px, if WHOOP connected): fill after the hero (520ms mark), `--dur-slow`, `--glow-orange-md` 20px at final state only.
+
+3. **KPI strip counts up** (This Week section):
+   - Numbers (3, 135, 850) count-up 0→value, `--dur-base` 280ms `--ease-out-soft`, 40ms stagger between tiles.
+   - Delta arrows (▲/▼) fade in (opacity 0→1, `--dur-fast` 160ms) at the final 50% of the count-up.
+   - Triggers on scroll-into-view (This Week is below fold).
+
+4. **Weekly volume bars rise** (BarChart):
+   - This-week orange bars and last-week green bars rise from zero baseline, `--dur-slow` 520ms `--ease-flow`, staggered 40ms per day-pair.
+   - Grid lines / axes appear first (opacity 0→1, `--dur-fast` 160ms), then bars rise.
+   - Triggers on scroll-into-view.
+
+5. **Activity Living-Line draws itself** (TrendChart, S26-V04):
+   - Solid orange-to-green curved stroke draws L→R, `stroke-animate`, `--dur-flow` 1200ms `--ease-flow` — **never an opacity fade** (§8 rule).
+   - Green milestone dots (on PR weeks) scale 0→1 at the stroke endpoint, 160ms before stroke finish.
+   - Dashed-purple projection (SIA forecast) draws after the actual line, starting 200ms after the actual line finishes (so forecast follows the lived experience visually).
+   - Triggers on scroll-into-view (below fold).
+
+6. **Streak heatmap cells stagger in** (CalendarHeatmap):
+   - Cells fade-in (opacity 0→1, `--dur-base` 280ms, 20ms stagger per cell, reading L→R top→bottom).
+   - Intensity fill (from white-05 to fitness-red `--color-domain-fitness`) rises with opacity (synchronized).
+   - Triggers on scroll-into-view.
+
+7. **SIA purple element settles last** (if applicable) — not used on this screen (no purple motion elements except the dashed projection, which is drawn as part of step 5).
+
+**Reduced-motion (`prefers-reduced-motion: reduce`):**
+- All charts appear at final state instantly (no animations).
+- Gauges: arcs fully filled, ticks and glyphs visible, center value at 100%.
+- Living-Line: stroke fully drawn (no animation), green end/milestone dots present, dashed-purple tail static.
+- Heatmap: cells at final opacity/fill, no stagger.
+- Cards: fade-up animations skip; cards appear instantly at opacity 1, translateY 0.
+- The **static Living-Line frame** (fully drawn orange→green stroke, green milestone dots, static dashed-purple tail, ticks, axes, labels) is the canonical **reduced-motion frame** — it preserves the signature.
+
+**FAB scroll behavior:**
+- On scroll down (>50pt velocity): FAB fades out (opacity 1→0) + translateY 0→+20pt, `--dur-fast` 160ms.
+- On scroll up or stop: FAB fades in (opacity 0→1) + translateY +20pt→0, `--dur-fast` 160ms.
+- Kept above tab bar, always reachable, never hidden permanently.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | SIA note: motivational starter. Today's Workout: SIA-generated plan *or* "Tell SIA about your fitness goals" prompt card if fitness omitted from onboarding. WHOOP card: compact 64pt prompt "Connect WHOOP for recovery insights" (chevron affordance). Active Goals: "No fitness goals yet. Create your first to track momentum." prompt card. This Week: all day dots empty except today (subtle 800ms pulse, white-10 fill). KPI tiles: "0", "0", "0" visible (not hidden); delta arrows show "—" (no prior week). Weekly bars: both series empty with "Log your first workout" affordance, axes drawn (not a blank box). Activity trend: "Calibrating — building your trend" with faint flat baseline, **never a single dot**. Heatmap: "Your streak starts today" label, today cell dashed border, rest empty. | SIA: "Ready to build your routine? Here's what I suggest." Workout: (SIA plan) *or* "Tell SIA about your fitness goals." WHOOP: "Connect WHOOP for recovery insights." Goals: "Create your first goal to track momentum." This Week: (stat tiles zeroed visibly). Trend: "Calibrating — building your trend." | Today dot has subtle pulse animation (`--dur-slow` 800ms, opacity 0.4→1.0 ease-flow, infinite loop). Recovery gauges: **ghosted dashed arcs** (white-20 dashed border, no fill) with a "Connect WHOOP" affordance badge (never a real 0% ring — no-data ≠ zero). All cards: `CK-T01 + --shadow-1` intact (never flat on Day 1). `--surface-backplate` on hero surfaces. |
+| **Loading** | Depth-preserving skeletons that *morph* into data (not blank spinners): Gauges show a faint ring outline + radial shimmer that evolves into the filled arc. KPI tiles show skeleton number bars (white-10 bars where values will be) + shimmer. Weekly bars show gridlines + skeleton bar outlines + L→R shimmer. Activity trend shows a faint curved baseline + L→R shimmer (not a spinner). Heatmap shows cell grid + cell-level shimmer pattern. All surfaces retain their card shape/padding/depth. | Generic: "Loading…" (avoid on primary surfaces — use silent shimmer). Specific: "SIA is building your workout — one moment." (on Today's card). "Syncing with WHOOP…" (inline spinner on WHOOP card, light affordance, no error). | Shimmer uses `--color-alpha-white-06` pulsing on `--color-ink-brown-800` at 1000ms ease-flow (on-brand, warm shimmer, not a cold spinner). All depth (cards, shadows, borders) preserved during load. |
+| **Empty / partial** | Un-synced WHOOP gauges render as **ghosted dashed arcs** (distinct from loading shimmer), never hidden. Un-logged days on the weekly bars render as a **ghosted/dashed zero-height baseline tick** (distinct from a true zero-height bar, distinct from an un-logged day). Missing data zones (such as no trend yet) show a **faint baseline + "need more data" affordance text**; never a blank box or a degenerate single point. Sections that load successfully display normally (such as Today's Workout loads, but WHOOP is ghosted). | Per-zone, on-voice: "WHOOP not connected" (WHOOP gauges). "No prior week yet" (weekly bars). "Log more workouts to see your trend" (activity trend). "You're building your streak" (heatmap, with today's cell marked). | No-data ≠ zero (ghosted/dashed, not a real 0% ring or a real zero-height bar). Ghosted elements: white-20 dashed border, no fill. "Need more data" affordance text is white-50, `--text-caption` sized, centered in the zone. Sections load independently; partial load shows what's present, ghosts what's missing. |
+| **Error** | Per-section recovery affordance: WHOOP card shows "Could not load WHOOP data. Retry?" (text link, white-50 + orange chevron). Weekly bars show "Could not load your history. Retry?" (same pattern). Activity trend shows "Could not load your trend. Retry?" Goals/KPI tiles fail independently and show inline "Retry?" affordances (text link). Network banner (if full failure) appears below sticky header: "Couldn't refresh — pull to try again." (calm, not alarming). Pull-to-refresh button re-enabled. | Honest, specific per section: "Could not load WHOOP data. Retry?" (what failed + recovery path, clear). "Couldn't refresh — pull to try again." (banner text, encouraging retry, not a grave error). Never: "Error" (generic) or "Something went wrong" (vague). | Calibrated `--color-error-red` (`--color-error-red`) only on the "Retry?" link border or a genuine operational failure — not on the card bg or accent. Glyph (info icon or ↻ retry arrow) + word paired (never colour-alone). Failed zone retains its card shape/depth (not a flat error state). Error banner has a subtle left border in error-red, no box-shadow (calm, not alarming). Auto-retry in background (every 30s) with silent success (data refreshes without a toast). |
+| **Offline** | Cached data retained and displayed (all sections at their last known state). Pull-to-refresh dimmed (opacity 0.5, no touch response). Network banner appears: "You're offline — showing your last sync from [time]." (such as "from 2 hours ago"). Actions (FAB) remain enabled but show an honest affordance: tapping opens the manual log form (which works offline, or defers sync). | Banner: "You're offline — showing your last sync from [time]." (honest, calm, no shame). FAB label: still "Log workout" (stays enabled; form queues entries for sync). | Banner: white-50 text, centered, 44pt height, ink-brown-800 bg with white-8 border, positioned above the scrollable content (sticky). Actions honestly dimmed with a light visual signal (opacity 0.6), but never greyed-out (which reads like disabled — offline is recoverable). |
+
+### Signature & anti-generic
+
+**≥1 ownable Balencia moment:**
+
+The **Living-Line activity trend** (S26-V04) is the signature. Strava shows activity as a bar chart or dot dots; Fitbit shows strain/recovery as a flat gauge. We render a **continuous, curved, round-capped stroke that draws itself** (orange-to-green gradient, never opacity-faded) with **green milestone dots on PR weeks** and a **dashed-purple SIA projection** that forecasts the user's trajectory. The line **never fades in**; it **draws itself** L→R over 1200ms, earning the Living-Line motif from the Home screen (S12-V04). This is the Balencia signature — the one thing this screen's viz does that a competitor cannot.
+
+**Anti-generic fixes:**
+
+1. **Focal hierarchy removes card monotony** — Recovery gauge is hero-sized (96px, not a 36px dot), sits in a branded card with backplate + glow. Stat tiles are secondary (smaller, below fold). No wall of equal-weight cards (the cardinal "generic AI" tell). ✓
+
+2. **Depth is warm and size-calibrated** — Every surface is layered (edge-highlight + track-inset + glow), never flat boxes. Glow is calibrated: 96px hero gets 32px glow, 48px gauges get 20px glow, no glow on inline elements. Never a 32px neon glow on a 36px element (that's generic-design neon, not warm Balencia). ✓
+
+3. **Microcopy is authored, not templated** — Every user-facing string is authored and warm: "Ready to build your routine?" (not "Welcome"), "View all" (not bare "see all"), "Low" (not a red dot alone), "Your recovery" (not "WHOOP RECOVERY" brand-speak). ✓
+
+4. **States are designed, not deferred** — Day-1 uses "calibrating" gauges + honest-zero KPI deltas + a motivational SIA note. Loading preserves depth (shimmer, not a spinner). Empty states ghost missing data (no-data ≠ zero). Error is specific per zone ("Could not load WHOOP data. Retry?"). ✓
+
+5. **Domain identity is true, not cosmetic** — Fitness-red (`--color-domain-fitness`) is confined to identity (header accent line, RPG badge, heatmap domain-intensity, recovery danger band <40). Never on a CTA, never on a generic element. The colour supports the narrative (red = the domain, not "danger" on a workout). ✓
+
+6. **Motion draws, never fades** — The Living-Line and all strokes draw themselves (`stroke-animate`), never opacity-fade. The signature is movement, not a static graphic. The reduced-motion fallback is a fully drawn frame, which is *still* unmistakably Balencia (the line draws itself; at rest, it's drawn). ✓
+
+**Generic tells removed:** ✗ flat depth on cards, ✗ templated copy ("see all"), ✗ colour-only WHOOP indicators (now banded glyphs), ✗ undefined Day-1 state (now "calibrating" with warm SIA voice), ✗ equal-weight card grid (now hero-focused). The screen reads as Balencia: warm ink, burnt-orange accent, the Living-Line signature, the brand period with intent, non-shaming framing, and the continuous-stroke motif.
+
+### Accessibility
+
+**Tabulated load-bearing contrast pairs** (on `--color-ink-brown-800` / `--color-ink-900` per WCAG AA + 1.4.11):
+
+| Element | Color | Contrast | WCAG |
+|---------|-------|----------|------|
+| Domain header "Fitness & workouts" | white 100% | 12:1 on ink-900 | ✓ AA |
+| SIA coaching note (message text) | white 100% | 12:1 on ink-brown-800 | ✓ AA |
+| Workout name (17pt Semibold) | white 100% | 12:1 on ink-brown-800 | ✓ AA |
+| Section heading "Active goals" | white 100% | 12:1 on ink-brown-800 | ✓ AA |
+| "Start workout" CTA text | white 100% on `--color-brand-orange` | 4.8:1 | ✓ AA (4.5:1 threshold) |
+| KPI stat value (20pt Semibold) | white 100% | 12:1 on ink-brown-800 | ✓ AA |
+| Goal percentage + name (15pt Regular) | white 100% | 12:1 on ink-brown-800 | ✓ AA |
+| Recovery gauge arc (orange stroke, 4pt) | `--color-brand-orange` on `--color-ink-900` (ink-900 bg) | 4.3:1 | ✓ 1.4.11 (≥3:1) |
+| Recovery gauge track (white-10, 4pt) | white-10 on ink-900 | 1.8:1 | — (decorative grid, non-load-bearing) |
+| Green milestone dot (34pt, 3pt) | `--color-forest-green` on ink-900 | 3.2:1 | ✓ 1.4.11 (≥3:1) |
+| Dashed-purple projection (2pt stroke) | `--color-royal-purple` on ink-900 | 2.1:1 | — (decorative forecast, non-load-bearing) |
+| Progress bar fill (orange, 8pt height) | `--color-brand-orange` on white-8 track | 5.1:1 | ✓ 1.4.11 (≥3:1) |
+| Status glyph (✓ green / ~ amber / ! red, paired with colour) | colour + **visible glyph** (✓ / ~ / !) + text ("good" / "moderate" / "low") | N/A (colour + glyph + word) | ✓ WCAG 1.4.11 (never colour-alone) |
+| Section eyebrow "TODAY'S WORKOUT" | white 40%, uppercase | 2.1:1 | — (decorative label, position-paired, not load-bearing) |
+| "see all" link (orange, 13pt) | `--color-brand-orange` on ink-900 | 3.9:1 | ✓ 1.4.11 (≥3:1, actionable) |
+| RPG badge "Lv.12" | `--color-domain-fitness` on `--color-domain-fitness`/15% bg | 2.8:1 | — (secondary identifier, paired with position + "Lv" text prefix) |
+| Error "Retry?" link | `--color-brand-orange` on ink-brown-800 | 3.9:1 | ✓ actionable link |
+
+**Focus-visible:** Uniform `CK-T03 --focus-ring` (2pt orange, 2pt offset, white outline) on every focusable element: back button, "Start workout" CTA, "see all" links, FAB, goal rows (as cards), RPG badge, WHOOP connect prompt. No ad-hoc rings; the single token app-wide (per CONSISTENCY.md §4).
+
+**Touch targets:** All interactive elements ≥44×44pt (per `_shared-patterns.md`):
+- Back button: 44×44pt.
+- "Start workout" CTA: 48pt height (full card content width).
+- "see all" link: 44pt hit target (expand tap zone behind text).
+- FAB: 48pt height.
+- Goal row card: ≥56pt height (tappable row).
+- Day dot (calendar): 12pt dot on a 40pt row (hit target includes day label + dot).
+- WHOOP "Connect WHOOP" prompt: full card tappable, ≥44pt height.
+
+**WCAG 1.4.11 (Non-text contrast):** Gauges, bars, sparklines, heatmap cells all meet ≥3:1 on their backgrounds. The white-10 track under a 4pt orange bar meets the 3:1 threshold. The dashed-purple projection (2pt, decorative forecast) is designed to be secondary (not load-bearing for task completion); it aids understanding but is not required. Green milestone dots on the Living-Line meet 3:1 vs ink-900.
+
+**Colour + glyph + word (never colour-alone):**
+- Recovery gauge bands:
+  - Green ≥70%: **✓ check glyph + "good" label + green fill** (never just a green dot).
+  - Amber 40–70%: **~ tilde glyph + "moderate" label + amber fill**.
+  - Red <40%: **! exclamation glyph + "low" label + red fill**.
+- Status badges (such as WHOOP not connected): **text link ("Connect WHOOP") + right chevron icon** (not a bare link with colour alone).
+
+**Screen reader labels** (aria-label / aria-describedby):
+- Back button: "Back, navigate to previous screen."
+- Domain header: "Fitness and workouts, level 12."
+- RPG badge: "Fitness level 12, button, navigate to RPG character."
+- SIA coaching note card: "SIA says: [message text]. Button, navigate to SIA chat."
+- Today's Workout card: "Today's workout: [workout name]. [type], [duration]. Button, start workout or view details."
+- "Start workout" CTA: "Start workout, button."
+- Recovery gauge (96px): "Recovery, 78 percent, good. Gauge indicator."
+- Sleep gauge (48px): "Sleep, 85. Gauge indicator."
+- HRV gauge (48px): "Heart rate variability, 68. Gauge indicator."
+- Active goals heading: "Active goals, [number of goals] goal(s)."
+- Goal row: "[Goal name], [percentage] complete, button, view goal details."
+- "see all" link: "See all [section name], button."
+- Day dot: "[Day], [completed / planned / rest day / today]."
+- KPI stat tile: "[Value] [label], such as '3 workouts completed this week.'"
+- FAB: "Log workout, button."
+- WHOOP "Connect" prompt: "Connect WHOOP for recovery insights, button, navigate to connected services."
+
+**Reduced-motion (`prefers-reduced-motion: reduce`):**
+- Gauges appear at final fill state instantly (no arc animation).
+- Glyph and label appear with the gauge (no stagger).
+- Living-Line appears fully drawn at rest (no stroke animation). Green milestone dots present. Dashed-purple projection static.
+- KPI tiles appear with values at final count-up (no counting animation).
+- Weekly bars appear at final heights (no rise animation).
+- Heatmap cells appear at final fill/opacity (no stagger).
+- FAB scroll fade-out / fade-in disabled; FAB always visible at opacity 1.
+- Card entrance stagger skipped; all cards appear instantly.
+
+The **reduced-motion frame** (gauges filled, Living-Line drawn, all values static) is the canonical frame — it preserves the signature motion / signature look.
+
+**Accessibility summary:** Load-bearing graphics (gauges, bars, lines, heatmap) meet ≥3:1 contrast. Status is conveyed by colour **+ glyph + word**, never colour-alone (fixes the current aria-hidden colour-only WHOOP dots). Focus ring is the uniform `CK-T03` token. Touch targets meet 44pt. Reduced-motion preserves the visual signature.
+
+---
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -297,8 +655,8 @@ The Fitness & Workouts Dashboard is the user's command center for physical activ
 | Progress bar fills | #FF5E00 | burnt-orange | 60% primary — goal progress |
 | Calendar dots (done) | #FF5E00 | burnt-orange | 60% primary — completion |
 | WHOOP good indicator | #34A853 | forest-green | 30% secondary — positive state |
-| WHOOP moderate | #F59E0B | amber | caution indicator |
-| WHOOP low indicator | #EF4444 | fitness-red | warning (domain-appropriate) |
+| WHOOP moderate band | #F59E0B | amber | gauge band 40-70% — paired with a visible glyph (~), not colour alone (S26-V02) |
+| WHOOP low band | #EF4444 | fitness-red | gauge band <40% — domain-appropriate danger band, paired with a visible glyph (!), not colour alone (S26-V02) |
 | SIA purple dot | #7F24FF | royal-purple | 10% accent — AI indicator |
 | Primary text | #FFFFFF at 100% | white | headings, values |
 | Secondary text | #FFFFFF at 70% | white-70 | body text |
@@ -541,7 +899,7 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - FAB remains accessible when scrolling via scroll-up reveal
 - Exercise preview chips horizontally scrollable; VoiceOver swipe-right traverses all chips
 - All touch targets meet 44pt minimum
-- Color-coded WHOOP indicators supplemented by numeric values for color-blind users
+- WHOOP status conveyed by a visible glyph (✓ good / ~ moderate / ! low) plus the band colour and the numeric value — never colour alone (per Visualization S26-V02; fixes the current aria-hidden colour-only dots)
 
 ---
 

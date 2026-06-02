@@ -460,6 +460,143 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Stripe + iOS (trust preview) — *stays Balencia via warm-glow domain-chip tinting + continuous-stroke demo transition motion + non-shaming framing.*
+
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (95)
+
+Pre-grade drivers (the gap to A++): the entry form spec is textually complete but (1) surfaces are flat `--color-ink-brown-800` cards with no top-edge highlight or layered depth; (2) domain chips read as a generic tile grid, not a Balencia moment; (3) microcopy edge cases (demo loading, demo failure, soft-prompt permission rationale, disabled-CTA reasons) are partly unauthored; (4) the soft-prompt and session-end overlays lack designed states; (5) the persistent sign-up banner is flat, not layered; (6) contrast pairs on the entry form are asserted, not tabulated; (7) no single ownable moment anchors the screen's warmth.
+
+### Focal hierarchy
+
+The **entry form's focal point is the "Explore" CTA button** (56pt `--radius-pill`, full-width, `--color-brand-orange`), sized as a hero and visually dominant above the fold. The **"take a look around" heading** is the emotional anchor (32pt `--text-display-l`, white, sentence case), read first on mount. Everything else is secondary: the logo sits as a brand anchor (48pt, not competing); supporting text, name input, and domain picker form a structured information flow (tight, 8–12pt gaps within groups); the "sign in" link is the escape hatch (secondary weight, 15pt `--text-body` regular, white at 50%). The squint test lands on heading + orange CTA first, then domain chips as a grid block, then supporting scaffold. No competing foci.
+
+### Surface & depth
+
+Entry form surfaces adopt `CK-P1` Layered Warm Surface: every card — name input, domain chips, "Explore" CTA, persistent sign-up banner in demo mode — carries `--color-ink-brown-800` body · `--radius-md` (14pt for chips and small fields) or `--radius-pill` (CTAs) · 1px `--glass-border` (`--color-alpha-white-06`) · **`CK-T01 --edge-highlight`** (inset 0 1px 0 `--color-alpha-white-06`, the not-flat cue) · `--shadow-1`. Screen background is `--color-ink-900` (full-bleed dark). No glow at entry-form scale (all elements <36px or inline per `CONSISTENCY.md §1`); unselected chips are flat surfaces only; selected chips glow faintly with `CK-T05 --glow-orange-sm` (~12px /.35, warm, not neon). Persistent sign-up banner in demo mode adds `CK-T02 --surface-backplate` (faint warm radial tint behind banner) to read elevated above tab bar. Z-layers: ink-900 field → z-10 inputs/chips (surfaces) → z-20 CTAs → z-30 banner (above tab content) → z-40 tab bar. Extends layered depth language to all entry-form surfaces so nothing reads as flat box.
+
+### Typographic rhythm
+
+Map Typography table to `CK-P3` tokens: heading "take a look around" → `--text-display-l` (32pt) / 700 weight / `--leading-tight` (1.1) / white 100%; supporting text → `--text-body` (16pt, raised from 15pt) / 400 / `--leading-normal` (1.4) / white at 50%; name input hint text → `--text-body` / 400 / `--leading-normal` / white at 40%; eyebrow "LIFE AREAS" → `--text-eyebrow` (12pt) / 600 / `--leading-snug` (1.25) / `--tracking-eyebrow` (0.12em) / uppercase / white at 40%; domain chip label (unselected) → `--text-h3` (17pt, elevated from 13pt) / 600 / white at 70%; domain chip label (selected) → same, white 100%; Explore CTA text "explore" → `--text-h2` (20pt, elevated from 17pt for focal prominence) / 600 / `--leading-snug` / white 100%; nav link context → `--text-body` / 400 / white at 50%; nav link action "sign in" → `--text-body` / 600 / `--color-brand-orange`; persistent banner text → `--text-body` / 400 / white at 70%; banner button text → `--text-h3` / 600 / white 100%. Hierarchy by **weight** (600–700 vs 400), not size alone. Sentence case throughout. ≤2 `--color-brand-orange` accent words per screen (CTA "explore", nav "sign in"). Chillax logo-only (none here). Replaces ad-hoc pixels with `CK-T04` line-height scale.
+
+### Microcopy (before → after)
+
+Every user-facing string authored to `CK-P5` brand voice — warm, coaching, on-voice, non-shaming.
+
+Entry form:
+- Heading "take a look around" — *before:* given → *after (kept):* same; warm, inviting, no pressure.
+- Supporting text "tell us your name and pick a few areas you care about." — *before:* given → *after (kept):* same; warm, direct.
+- Name input hint text "your name" — *before:* given → *after (kept):* same; lowercase, warm.
+- Eyebrow "LIFE AREAS" — *before:* given → *after (kept):* same; already eyebrow-correct.
+- Domain chip 4th selection blocked — *before:* shake animation only → *after (new):* toast "Pick up to 3 areas" near tapped chip, 2s auto-dismiss; warm framing of limit.
+- Explore CTA disabled reason — *before:* no message → *after (new):* aria-label "Explore (requires a name and at least 1 area selected)"; disabled state 0.5 opacity clearly signals unavailability.
+- Explore CTA loading — *before:* no message → *after (new):* button text shifts to "Starting your preview…" or inline spinner + label "Loading…" (never blank spinner).
+- Explore CTA success — *before:* not specified → *after (new):* brief toast "Welcome to your preview" (warm, brief, 2s auto-dismiss before crossfade).
+- Explore CTA failure — *before:* not specified → *after (new):* button reverts to default, toast: "Couldn't start your preview — your internet or our servers might be busy. Try again." (warm, honest, specific recovery path).
+
+Demo phase persistent banner:
+- Banner heading "sign up to save your progress" — *before:* given → *after (kept):* same; warm, honest (no data implication).
+- Banner dismiss (swipe left) — *before:* no message → *after (new):* brief toast "Minimized — tap the pill to expand" on first swipe.
+- Soft-prompt sheet heading "this needs an account" — *before:* given → *after (kept):* same; warm, direct, non-shaming.
+- Soft-prompt supporting text — *before:* given → *after (kept):* same; warm, benefit-focused.
+- Soft-prompt "keep exploring" → aria-label "Close this prompt and keep browsing the demo"; styled as secondary text (15pt white at 50%), 44pt min target.
+- Soft-prompt max-reach inline toast → "sign up to unlock this" (kept, on-voice); brief, warm.
+- Session-end overlay heading "ready to make it real?" → *before:* given → *after (kept):* same; warm, conversational.
+- Session-end supporting text — *before:* given → *after (kept):* same; warm, benefit-driven, no pressure.
+- Session-end "not yet" → aria-label "Dismiss this and continue browsing the demo"; styled as secondary (15pt white at 50%).
+
+Error states & edge cases:
+- Demo mode init fails — *before:* "Could not load demo. Please try again." → *after (warmer):* "Couldn't start your preview. Your internet might be busy — pull to refresh or try again in a moment."
+- Demo data partial failure — *before:* shimmer indefinitely → *after (new):* 3s shimmer max, then "Demo content for [tab] isn't loading. Check your connection or try another tab." (specific, recovery action).
+- Network unavailable — *before:* "Demo requires a connection" → *after (warmer):* "Your preview needs a connection — once you're back online, try again."
+- No exclamation marks — all copy uses the brand period (.) with intent.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first, hero leads):
+
+Entry form entrance — staggered fade-in on screen mount:
+1. Back button (0ms, opacity 0→1, `--dur-base` 280ms, `--ease-out-soft`)
+2. Logo (80ms, same)
+3. Heading (160ms, same)
+4. Supporting text (240ms, same)
+5. Name input (320ms, same)
+6. Eyebrow + domain chips (400ms, staggered L-R top-to-bottom 40ms per chip, same easing)
+7. Explore CTA (480ms, same)
+8. Nav link (560ms, same)
+
+Domain chip selection/deselection:
+- Unselected → selected: scale 1→1.08→1 (160ms `--dur-fast`), bg crossfade to domain color at 20% opacity, border crossfade to domain color (1pt), text/icon brighten to white 100%; light haptic.
+- Selected → unselected: scale 1→0.95→1, bg/border/text fade to neutral; light haptic.
+- Max selection (4th tap): tapped chip shake (scale oscillate, 160ms), no selection, optional error tone.
+
+Demo mode transition (Explore success):
+Entry form fades out (opacity 1→0, `--dur-slow` 520ms `--ease-flow`) as tab navigator + banner fade in (staggered 40ms apart, each 280ms `--dur-base`). Banner slides up from below tab bar (translateY 56pt→0, 520ms `--dur-slow` `--ease-flow` in parallel). **Ownable moment**: continuous-stroke motion draws new UI into view (not hard swap).
+
+Persistent sign-up banner (demo mode):
+- Mount: slides up + content fades in (280ms `--dur-base`, `--ease-out-soft`).
+- Minimize (swipe left): slides right + shrinks to pill (280ms), animates to bottom-right above tab bar.
+- Expand (tap pill): animates from bottom-right to full-width (280ms).
+
+Soft-prompt bottom sheet (blocked action):
+- Enter: slides up (translateY 100%→0, 520ms `--dur-slow` `--ease-flow`), backdrop dims to ink-900 60%, content stagger within sheet (heading 0ms, supporting text 120ms, CTA 240ms, each 280ms `--dur-base`).
+- Dismiss: slides down (280ms).
+
+Session-end overlay (5-min timer):
+- Enter: fade-in (opacity 0→1, 280ms), backdrop appears, content stagger (symbol 0ms, heading 120ms, supporting text 240ms, CTA 360ms, each 280ms).
+- Dismiss: fade-out (280ms).
+
+Reduced-motion fallback: all animations collapse to instant; final states displayed immediately. Signature preserved in static form (continuous-stroke aesthetic in final UI layout).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| Cold-start / Day-1 (entry form, fresh) | Empty name field (hint text visible), all 9 chips unselected, Explore CTA disabled (0.5 opacity), nav link visible | "take a look around" heading sets no-pressure tone; hint text + eyebrow guide user | profile floats card-less on ink-900; chips flat ink-brown-800 surfaces (no glow); CTA orange pill, ready to activate |
+| Loading (Explore pressed, waiting) | Name input disabled (0.4 opacity), chips disabled, Explore CTA shows spinner + "Starting your preview…" or label "Loading…", nav link disabled | "Starting your preview…" (warm, brief) | CTA maintains orange bg (not greyed), spinner on white |
+| Empty / partial (form state, validation fails) | All fields rendered, only invalid field highlighted (red border 1pt `--color-error-red`, not blanket banner) | Per-field error: name empty → no message; domain chips max reached → toast "Pick up to 3 areas" (warm, specific) | invalid field gets red 1pt border (≥3:1 WCAG 1.4.11), no colour-alone; glyph + word if banner |
+| Error (Explore pressed, API/network fails) | Explore CTA reverts to default (orange, enabled), name + chips re-enabled, toast: "Couldn't start your preview — your internet or our servers might be busy. Try again." (48pt, ink-brown-800 bg, `--radius-md`, 4s auto-dismiss) | Honest, specific error (names two likely causes), offers recovery action, warm tone | toast on ink-brown-800 with 1pt `--color-alpha-white-06` border, `--edge-highlight` top, shadow-1; no red |
+| Success / demo transition | Entry form fades out, demo UI (tab navigator + banner) fades in + slides from below; tab bar animates into place; banner above it (smooth crossfade, no jumps) | Brief success toast "Welcome to your preview" (warm, calm); banner now reads "sign up to save your progress" | form's ink-brown-800 surfaces fade smoothly; demo surfaces appear with full depth (edge-highlight visible immediately); banner glows faintly with `--surface-backplate` |
+| Demo mode — no wearable / no data | Health Metrics Strip affordance card: "Connect a device to see your vitals" + connect button (orange pill, 44pt target) | "Connect a device to see your vitals" (warm, inviting); never silently hidden | affordance card uses `CK-P1` layered surface |
+| Demo mode — soft-prompt (blocked action) | Bottom sheet slides up, semi-transparent backdrop (ink-900 60%) over current screen, centered content: heading + supporting text + CTA + secondary link | Heading: "this needs an account" (warm, direct); supporting: "sign up to save your data, chat with SIA, and track real progress." (benefit-focused, non-shaming); CTA: "sign up"; secondary: "keep exploring" (lowercase, secondary) | sheet bg ink-brown-800, full `CK-P1` depth, heading `--text-h2` 600, supporting `--text-body` 400, CTA orange pill |
+| Demo mode — max soft-prompts reached | Inline toast below action trigger: "sign up to unlock this" (48pt, ink-brown-800 bg, centered, 3s auto-dismiss) | "sign up to unlock this" (brief, warm, specific); never shows counter | toast on ink-brown-800 with `--edge-highlight`, no red or urgency |
+| Demo mode — session-end overlay (5-min timer) | Full-screen overlay: gradient background (ink-900 90% opacity over current screen), centered: symbol + heading + supporting text (2-4 lines) + CTA + secondary link | Heading: "ready to make it real?" (warm, conversational, no pressure); supporting: "everything you've seen is waiting for you — with your own data, your own goals, and SIA coaching built around your life." (benefit-driven, specific); CTA: "sign up"; secondary: "not yet" | overlay bg gradient (not flat black); symbol 48pt orange; content white at 90% opacity; CTA orange pill; "not yet" secondary weight |
+| Offline (both phases) | Entry form: Explore CTA dimmed (0.4 opacity), nav link enabled; demo mode: all CTAs dimmed (0.4 opacity), inline banner below sticky header: "Demo requires a connection" | "Demo requires a connection. Check your internet and try again." (honest, specific, recovery action named) | all disabled at 0.4 opacity (WCAG-compliant, no colour-alone); banner on ink-brown-800 with `--edge-highlight` |
+
+### Signature & anti-generic
+
+Ownable moment: **demo transition motion** — entry form fades out as demo UI (tab navigator + persistent sign-up banner) slides up from below; banner animates in parallel. This is a **continuous-stroke aesthetic** (layout "draws" into view, not hard swap) that anchors Balencia signature (brand's motion law: draw, never fade). Domain chips' selection tinting (domain color at 20% opacity on chip bg when selected) is also a micro-signature — warm, not cold-neon, mirrors brand's color identity approach (domain colors as identity, not data ink). Anti-generic fixes: (1) domain chip grid is **not** symmetric 3×3 wall — eyebrow label + gap above chips break monotony, anchor hierarchy; (2) entry form is **not** generic onboarding — warm copy ("take a look around"), low-pressure framing, invite-to-explore CTAs signal trust and calm, not urgency; (3) persistent sign-up banner in demo mode is **not** generic paywall — floats above tab bar (intentional z-layer), carries warm-glow surface treatment (`--surface-backplate` radial tint), copy frames signups as preservation step, never coercion. Screen never reads as template onboarding — reads as warm, trust-first preview gate.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+
+| Element | Color | Contrast | Notes |
+| --- | --- | --- | --- |
+| Heading "take a look around" | `--color-alpha-white-100` | ≥12:1 on both | Primary text, focal |
+| Supporting text | `--color-alpha-white-50` | ≥4.5:1 on both | Secondary text |
+| Name input hint text | `--color-alpha-white-40` | ≥4.5:1 on `ink-brown-800` | Label-weight text |
+| Domain chip unselected (text) | `--color-alpha-white-70` | ≥4.5:1 on `ink-brown-800` | Interactive label |
+| Domain chip selected (text) | `--color-alpha-white-100` | ≥12:1 on domain-color-20% bg | Contrast on tinted bg |
+| Domain chip selected (border) | per-domain color | ≥3:1 on `ink-brown-800` (WCAG 1.4.11) | Identity indicator, not data-ink |
+| Explore CTA text | `--color-alpha-white-100` | ≥12:1 on `--color-brand-orange` | Primary action |
+| Nav link action "sign in" | `--color-brand-orange` | 3.2:1 on `ink-900` (WCAG 1.4.11) | Interactive text |
+| Banner text | `--color-alpha-white-70` | ≥4.5:1 on `ink-brown-800` | Secondary info |
+| Banner CTA "sign up" | `--color-alpha-white-100` | ≥12:1 on `--color-brand-orange` | Primary action in banner |
+| Error toast text | `--color-alpha-white-100` | ≥12:1 on `ink-brown-800` | Alert text |
+| Disabled state (Explore CTA) | `--color-brand-orange` at 0.5 opacity | ≥4.5:1 on `ink-900` | Disabled text, never colour-alone |
+
+**Focus-visible ring:** every focusable element (inputs, buttons, links, chips) uses `CK-T03 --focus-ring` (2px `--color-brand-orange`, 2pt offset on `ink-900` field) — uniform app-wide. Targets ≥44×44pt (domain chips: 36pt height × 110pt width, falls below 44pt height **flagged Medium finding for build phase** — recommend expanding touch area with vertical padding or increasing to 44pt height).
+
+**Status never colour-alone:** domain chips' selected state signalled by **both** visible colour tint + visible border change + visual weight change (text brightens) — not colour-alone; error state on name field is **red 1pt border + optional glyph** (never bare red bg); disabled CTAs use **reduced opacity + clear disabled state** (never colour-alone) + reason in aria-label.
+
+**Reduced-motion fallback:** entrance animations collapse to instant; forms appear fully rendered at final state (all fields visible, all chips unselected, CTA ready, nav link visible, etc.). Demo transition shows final UI (tab bar visible, banner visible, tab content visible) all at once, no motion. Signature of transition (continuous-stroke aesthetic) preserved in final static layout — UI appears intentional and crafted.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [03] — Welcome/Sign Up via stack push (banner "sign up"), Screen [04] — Sign In via stack push ("sign in" link)

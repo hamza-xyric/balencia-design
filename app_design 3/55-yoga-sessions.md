@@ -433,6 +433,191 @@ The Yoga Sessions screen is the user's gateway to guided yoga practice within Ba
 
 ---
 
+## Visualization
+
+> Source: no companion file (`55-yoga-sessions-visualization-recommendations.md` absent — this section is the spec-first source of truth). Audited in `viz-audit/` — Batch (Tracker B), findings `S55-V01..V04`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters; **mints no new primitive** (composes `CalendarHeatmap`, `GaugeRing`, `Sparkline`, plus a depth/brand pass on the in-session `GaugeRing` timer). Register = **Wellbeing Mode** → wellbeing-teal `#14B8A6` is an *identity* accent only (header line, RPG badge, eyebrows, difficulty badges); **orange dominates data ink** (60/30/10). Benchmark = **Gentler Streak + Down Dog / Alo Moves** (warm practice-consistency, non-shaming streak) + **Finch** (streak without loss-aversion) — rendered **the Balencia way** (warm glow on ink-brown, the Living-Line family), not a yoga-app clone. **Current grade D (52) → specced-target A− (85).** *(Honest re-grade under the revised 10-dimension rubric; today Browse Mode is a pure text dashboard — the streak, the screen's stated emotional anchor, is a bare `text-h2` string and the five stat tiles are flat text, with the only ring being the Active-Session countdown timer. The residual gap to A+++ is build-verified depth + the working scrub/drill micro-interactions, owned by the later viz-build program.)*
+
+This is a **MEDIUM Tracker** screen, deliberately kept calm: the **content** focus stays the browsable session cards + pose library (correctly textual/iconographic), and the visualization budget is spent on **one** focal slot (the practice-consistency hero) plus two ambient supports. The upgrade gives the screen its missing data layer — a streak that *reads* as a streak, a poses-mastered milestone dial, and an honest week sparkline — **without** over-charting a browse-first surface. It also corrects a live brand defect on the Active-Session timer ring (teal-on-data-ink → orange).
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Practice consistency (which days practiced, trailing weeks) | **not shown** — streak is a bare `12-day streak` string | **practice `CalendarHeatmap`** (intensity = session minutes/load per day) — the warm focal hero | **`CalendarHeatmap`** (deployed, reuse) |
+| Poses mastered (42) toward next milestone | flat text stat tile `42` | **`GaugeRing`** (96px hero, arc-gradient, glow, inset) — mastered / next milestone (e.g. 42 / 50) | `GaugeRing` (`VK-002`) |
+| Current streak (12) · longest (18) | bare `text-h2` number + caption string | streak figure **+ green milestone marker on the heatmap** at the longest-streak peak (no separate ring — one focal viz) | `CalendarHeatmap` marker (no new primitive) |
+| This-week practice (high-motivation: 7 session durations) | spec already gestures at a 7-pt sparkline (high-motivation only) | **`Sparkline`** (7-pt curved Living Line, orange, green end dot on a session-day high) — promoted to all tiers | `Sparkline` (`VK-001`) |
+| Sessions (24) · Hours (8.5) | flat text stat tiles | — (deliberately textual — one-off lifetime scalars, no useful visual form; kept as clean tiles beside the gauge) | — |
+| Pose-timer countdown (Active Session) | 120px teal countdown ring | **depth + brand pass** on the existing timer `GaugeRing` (arc-gradient, inset track) — **orange data ink, teal retires from the fill** | `GaugeRing` (depth/brand pass) |
+| Session name / type / duration / difficulty / pose library / SIA note / XP earned | text + badges | — (deliberately textual/iconographic — identity labels + browsable content, no chartable shape) | — |
+
+**Editorial hierarchy (calm, not maximal):** the session cards stay the screen's *content*; the **practice `CalendarHeatmap` is the one viz hero** (it makes the streak — the IA's #1 priority — literally legible); the poses-mastered `GaugeRing` + week `Sparkline` are clearly secondary; sessions/hours stay clean text. Three small charts, one focal — not a wall of equal charts.
+
+### 1 · Practice consistency heatmap — streak hero — `S55-V01` → `CalendarHeatmap`
+
+Replace the bare `12-day streak` string treatment with a **`CalendarHeatmap`** (deployed component — reuse as-is) of practice consistency over the trailing weeks, placed in the **Yoga Streak Banner** slot so the screen's stated emotional anchor finally *reads* as a streak. **5 intensity steps** (`--color-alpha-white-05` → full **wellbeing-teal `#14B8A6` as domain identity** — the one place a domain colour is sanctioned on data because the grid encodes *this domain's* consistency), today = dashed border, tap = `scale-110`. The streak figure (`12`) and longest (`18`) stay as the caption beside the grid; the **longest-streak peak day carries a green `#34A853` milestone marker** (arrival, glyph + colour, never colour-alone).
+- **Depth (token-backed):** cells `--r-xs` corners, 2px gap revealing the warm `ink-brown-800` surface; the banner's existing teal-8% top-edge glow stays as the layered backplate.
+- **Non-shaming (Gentler-Streak / Finch thesis, RUBRIC dim 6):** empty cells read as **"open days," never a guilt grid**; a missed day is a low-intensity cell, **not** a red-absence or a broken-chain alarm; **no loss-aversion countdown** ("don't lose your streak!"); past practiced days **stay lit** on a reset (achievements are permanent). The flame stays orange (identity-of-momentum), never recoloured to warn.
+- **Micro-interaction:** tap a cell → tooltip with that day's session(s) + minutes (`ink-brown-800`, `--r-sm`, `--dur-fast` 160ms).
+- **States:** Day-1 → empty grid with **"your practice starts today"** (today cell dashed), **not** a wall of teal-absence; loading → cells shimmer in place; partial-sync → un-synced days **ghosted** (distinct from a true rest day).
+- **Data:** new `yogaSessions.practiceHistory` (date→sessionMinutes) in `mock.ts`; `yogaSessions.streak.current/longest` (existing).
+
+### 2 · Poses-mastered milestone gauge — `S55-V02` → `GaugeRing` (96px)
+
+Promote the **poses-mastered** stat (`42`) from a flat text tile to a **96px `GaugeRing`** in the Stats Section — *mastered toward the next milestone* (e.g. 42 / 50 poses), a bounded progress that genuinely completes (so a full ring is honest here, unlike energy/level dials). Arc-following gradient stroke (`--grad-orange` **(mint)** via **conic-mask** — *not* a flat SVG `linearGradient`, the angular-gradient trap), the full `--glow-orange` (32px, hero-only at 96px), a `--track-inset` `rgba(0,0,0,0.28)` **(mint)** beveled track under the `--color-alpha-white-10` track, center value (`text-h2`, count-up 520ms `--ease-flow`) + "poses mastered" label, **`ticks`** (12 radial, `--color-alpha-white-25`).
+- **Why a gauge, the Balencia way:** rendered as our own warm-glow `GaugeRing` so poses-mastered, recovery, sleep score and every domain score across the app read as **one** instrument family — not a borrowed yoga-app progress arc. Green `#34A853` at 100% (milestone reached) paired with a visible ✓.
+- **Depth restraint:** Sessions (24) + Hours (8.5) **stay as flat text tiles** beside the gauge (lifetime scalars with no target — a false "% of goal" ring would be dishonest). One ring, not five.
+- **Micro-interaction:** tap the gauge → Pose Library "see all" (carries the existing route); count-up on scroll-into-view.
+- **States:** Day-1 → ghosted empty arc at "0 / 50" (a real zero, distinct from a ghosted no-data arc) + "master your first poses"; loading → arc track + ticks visible, radial shimmer that **morphs** into the drawn fill (never a blank disc).
+- **Data:** `yogaSessions.stats` poses value + a new `yogaSessions.posesTotal` (next milestone) in `mock.ts`.
+
+### 3 · This-week practice sparkline — `S55-V03` → `Sparkline`
+
+The high-motivation "this week mini chart" (the spec already gestures at a 7-point orange line) is **promoted to all tiers** as a **`Sparkline`** (a tiny Living Line) under the Stats Section: **exactly 7 points** (this week's daily practice minutes), `--stroke-thin` 2px **curved** orange, no axes/grid/glow, **green `#34A853` end dot** when the latest day is the week's high. Caption: "this week" + total minutes.
+- **Honesty:** a no-practice day is a true zero point on the line (not a gap interpolated to look active); <2 practice days → dots only, no connecting line, "practice a few days to see your week" (no fabricated trend from thin data — no-data ≠ a flattering curve).
+- **Motion:** draws itself L→R (`stroke-draw`, `--dur-slow` 520ms `--ease-flow`) on scroll-into-view — **never opacity-fades**; reduced-motion → completed stroke + green end dot at rest.
+- **Data:** new `yogaSessions.weekMinutes` (7 daily points) in `mock.ts`.
+
+### 4 · Active-Session pose-timer — depth + brand pass — `S55-V04` → `GaugeRing`
+
+The Active-Session **pose timer ring** (120px countdown) keeps its function but adopts the kit's depth + brand law: the current **teal `#14B8A6` fill moves to `--color-brand-orange`** (orange dominates data ink — teal stays identity only; the spec's "teal to distinguish yoga from fitness" rationale is overridden by 60/30/10, since orange is the *progress* ink everywhere, and yoga is already distinguished by the wellbeing-teal header line + badges). Arc-following `--grad-orange` **(mint)** via conic-mask, `--track-inset` **(mint)** beveled recess under the `--color-alpha-white-10` track, `--glow-orange-md` (~20px, **mint** — not the full 32px on a 120px ring), round caps. The 6px stroke stays; counterclockwise sweep stays; **completion flashes green `#34A853`** (arrival — correct, already in the spec).
+- **Non-shaming:** a timer is neutral mechanics — no alarm-red at low time-remaining; the green completion flash is the only colour change.
+- **States:** counting (orange sweep) · paused (fill frozen, time text pulses) · completed (green flash 280ms) · transitioning (resets to full) — all already specced; this pass only re-skins depth + the fill colour.
+- **Data:** per-pose `hold` duration from `yoga_sessions.poses` (existing).
+
+### Motion choreography (entrance, draw-first)
+
+Per `CONSISTENCY.md`: in **Browse Mode** the **practice `CalendarHeatmap` hero settles first** (cells stagger in, 40ms/cell, `--dur-base` 280ms) → **then** the poses-mastered `GaugeRing` fills (`ring-animate`, 520ms `--ease-flow`) + ticks + center count-up → **then** the week `Sparkline` **draws itself** L→R (`stroke-draw`, 520ms) with its green end dot → stat-tile numbers count up (280ms). One line motif per surface (the sparkline is the only Living Line in Browse Mode; the gauge is a ring, the heatmap a grid). Below-fold visuals (gauge, sparkline) animate on **scroll-into-view**. In **Active Session**, the timer `GaugeRing` sweeps per-pose. `prefers-reduced-motion` → every chart at final state instantly; the Sparkline's static form (completed stroke + green end dot), the gauge's filled arc, and the heatmap at full intensity are preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — heatmap empty with "your practice starts today" (today cell dashed, **not** a teal-absence wall), poses gauge ghosted at "0 / 50", week sparkline shows "practice a few days to see your week", stat tiles read a real `0` (distinct from no-data); **loading** — depth-preserving skeletons that *morph* into drawn data (heatmap cells shimmer, gauge arc + ticks visible with radial shimmer, sparkline axis-less flat line that draws in — never blank discs); **partial / sparse** — un-synced practice days **ghosted** (distinct from a real rest day or a true zero); **error** — chart-specific per the Error Handling table (streak/heatmap independent of stats; "streak data unavailable" falls back gracefully and does not block browsing) + a visible retry.
+- **60/30/10:** **orange dominates** data ink (poses gauge fill, week sparkline, timer-ring fill, streak flame, all CTAs + active filter chip + elapsed time). **Green `#34A853`** = arrival/milestone only (heatmap longest-streak marker, sparkline end dot, gauge 100% ✓, timer completion flash, XP earned, completed-session badge). **Purple `#7F24FF`** stays SIA-only (coaching-note dot, real-time session note) — **no chart-purple on this screen** (no projection/forecast surface here; a dashed-purple SIA practice forecast is a possible high-motivation add but is intentionally out of scope to keep the screen calm). **Wellbeing-teal `#14B8A6` is identity only** — header accent line, RPG badge, eyebrows, difficulty badges, and the heatmap intensity-of-*this-domain* (the sanctioned domain-on-data exception); it **no longer carries the timer-ring fill** (the `S55-V04` correction). Glow uses the size-stepped scale (96px gauge = 32px hero glow, 120px timer = md ~20px, sparkline = none) — warm depth, not neon.
+- **Non-shaming:** the streak is framed as **state + momentum**, never a verdict; a missed day is an "open day," not a guilt cell; **no loss-aversion countdown**; past practiced days stay lit on a reset; the low-motivation tier already drops the longest-streak comparison to avoid pressure (kept).
+- **Accessibility:** every chart carries a text/`aria-label` equivalent conveying the same value (heatmap → "practiced 12 of the last 14 days, current streak 12, longest 18"; gauge → "42 of 50 poses mastered"; sparkline → "this week, 5 sessions, 95 minutes, peak Wednesday"); status uses a **visible** glyph/sign (✓ on milestone/100%, green end dot), never colour alone; label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — heatmap cells, gauge arc, the filled/unfilled boundary, the Sparkline stroke + milestone dots, and the timer arc all meet ≥3:1 vs background (white/5 grid is decorative-only); interactive chart targets ≥ 44×44pt (carries the screen's existing 44pt extended hit-areas from B15-F06); `prefers-reduced-motion` renders all visuals at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+> Layers premium craft **on top of** the A− `## Visualization` section above (which it does not replace) — elevating non-chart surfaces, copy, motion, interaction, and states to the A++ bar, and reconciling internal contradictions between the component specs and the viz layer.
+
+**Profile:** data · **Cluster benchmark:** Down Dog + Alo Moves + Finch (warm practice-consistency, non-shaming streak, wellbeing tone) — *stays Balencia via the CalendarHeatmap hero + orange data-ink dominance + warm-glow surfaces on ink-brown, not a third-party yoga-app clone.*
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+One focal point: the **Yoga Streak Banner with embedded CalendarHeatmap** (`CK-P2`, data hero from `S55-V01`) — the screen's stated emotional anchor, rendered as a visual grid not a bare text string, placed above the fold (16pt below the sticky header). The heatmap is the ≥96px glyph-anchored element; its 5-step intensity cells stagger in, and the green milestone marker + flame icon + "X-day streak" caption complete the narrative. Everything else is visibly secondary: SIA Coaching Note (warm preamble, no glow, body text), difficulty filter chips (36pt actionable, tight spacing), session cards (standard 160pt browsable content), and the poses-mastered gauge + week sparkline (below-fold, animated on scroll). The squint test lands on the heatmap cells (visual anchor), then streak figure + flame, then SIA voice, then session browsing. No competing foci.
+
+### Surface & depth
+
+Every card adopts `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt for banner, SIA card, session cards) or `--radius-md` (14pt for small tiles) · 1pt `--glass-border` (white at 6%) · **`--edge-highlight` top-edge highlight** (`CK-T01`) · `--shadow-1`. The Yoga Streak Banner (hero) adds `--surface-backplate` (`CK-T02`) — a faint warm radial gradient, layering with the banner's existing teal-8% glow. Heatmap cells: `--radius-xs` (6pt), 2px gaps revealing `ink-brown-800`. SIA Card, Session Cards, Post-Summary: same layered depth. Difficulty Filter Chips: `--radius-pill`, no glow (inline 36pt). Poses-mastered GaugeRing (96px hero): `--glow-orange` (32px full hero glow per `S55-V02`) + inset track (`--track-inset`) + ticks. Week Sparkline: no glow (inline Living Line, `--stroke-thin` 2px). Stat tiles: deliberately flat text (no false rings for lifetime scalars). The entire Browse Mode reads as layered, warm surfaces with intentional gaps, never flat boxes.
+
+### Typographic rhythm
+
+Map to `CK-P3` tokens: Streak Banner heading (20pt Bold / `--leading-snug` / white-100) + longest-streak caption (13pt Regular / `--leading-normal` / white-50). SIA Coaching Note message: 15pt Regular (`--text-body`) / `--leading-normal` / white-70. Section eyebrows: 12pt Semibold / `--tracking-eyebrow` (0.12em) / uppercase / white-40 (`.eyebrow` recipe). Session card names: 17pt Semibold (`--text-h3`) / `--leading-snug` / white-100. Session meta: 13pt Regular (`--text-caption`) / white-50. Stat values: 20pt Bold / tabular-nums / white-100; stat labels: 12pt Regular / white-50. Poses-mastered gauge: 20pt Bold center value / "poses mastered" 12pt caption. Active Session timer: 32pt Semibold white-100. Post-Session: "SESSION COMPLETE" eyebrow (12pt / 600 / `--tracking-eyebrow` / wellbeing-teal) + stat grid (20pt bold / 12pt caption). All hierarchy by **weight** (600–700 vs 400), not size alone. **Sentence case** throughout. ≤2 `--color-brand-orange` accent words (CTAs, active filter). Chillax logo-only. Line-heights locked per `CK-T04`.
+
+### Microcopy (before → after)
+
+**SIA Coaching Note variants (authored):**
+- Already on-voice; kept as written.
+
+**Streak banner, no-streak state:**
+- "start your yoga streak today" (bare) → same; warm, plain, no exclamation.
+
+**SIA real-time note during Active Session (rotating messages):**
+- "breathe deeply — you're doing great" → pool of warm, specific cues: "steady pace," "breathe into it," "your body knows this," "almost there" — each 1 line, calm, no generic praise.
+
+**Post-Session rating:**
+- "How did that feel?" (given) → kept; open, non-judgmental.
+
+**Edge states (newly authored):**
+1. **Streak banner loading** → "Loading your practice..." (13pt caption, white-40, skeleton shimmer visible).
+2. **No sessions at filtered difficulty** → "No sessions at this level right now. Try beginner or refresh." (15pt body, white-70).
+3. **Pose library search, no results** → "No poses match your search. Try another term or browse all." (same tone).
+4. **Poses-mastered gauge, Day-1** → "Master your first poses" (13pt caption, white-40, positive build-forward framing).
+5. **Week sparkline, <2 practice days** → "Practice a few days to see your week" (13pt caption, white-40, encouraging).
+6. **Session complete, all actions done** → "Nothing left today. Rest, explore, or add more." (14pt regular, white-70, warm). SIA note: "You crushed your practice today." (italicized, 14pt, white-70).
+7. **Rating circle, rating required** → Brief inline label: "Select a rating to continue." (12pt caption, white-50, not shaming).
+8. **Error state** → "Couldn't load your streak. Pull to refresh." (specific, actionable, calm).
+
+No exclamation marks. Brand period used intentionally. Non-shaming framing: open day vs broken streak; "0 · building capacity" vs bare zero. SIA copy specific to user's data, never horoscope.
+
+### Motion choreography
+
+**Browse Mode entrance** (locked `CK-P4` order, draw-first):
+1. Heatmap hero cells stagger in (40ms/cell, `--dur-base` 280ms each, never opacity-fade). Flame pulses (`scale 0.95–1.05`, 600ms loop).
+2. SIA Coaching Note rises (fade-in + `translateY(12→0)`, 280ms, `--ease-out-soft`, 40ms stagger after heatmap).
+3. Filter chips rise (staggered, 280ms each, 40ms stagger).
+4. Session cards fade-in + rise (staggered, 280ms each, 80ms gap between cards, 40ms stagger).
+5. Pose library grid cards stagger (fade-in + scale 0.9→1.0, 280ms each, 40ms stagger, on scroll-into-view).
+6. Poses-mastered gauge (on scroll-into-view): arc fill 0→current% + ticks + count-up (520ms `--dur-slow` `--ease-flow`). Stat-tile numbers count up in parallel (280ms `--dur-base`).
+7. Week sparkline draws (on scroll-into-view): L→R stroke-draw (520ms `--dur-slow`), green end dot appears at completion.
+
+All animations preserve "draw, never fade." `prefers-reduced-motion` → all elements at final state instantly; heatmap at full intensity, sparkline completed with green dot, gauge filled to value, stat numbers at final value.
+
+**Active Session:** Timer ring sweeps counterclockwise per-pose (linear). Pose transition: current fades out, next fades in (280ms each, 40ms stagger). SIA real-time note rotates (fade-in + `translateY(8→0)`, 280ms, every 30 seconds).
+
+**Post-Session Summary:** Card fades in + rises (280ms). XP badge scales + glows (0.5→1.0 + `--glow-green`, 520ms). Streak flame animates (280ms, grows slightly, orange glow pulses once).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | Heatmap empty with dashed today cell; "your practice starts today" banner label. SIA: "Yoga builds strength and calm. Let's start with a beginner session." Beginner pre-selected. 2–3 default sessions pre-loaded. Poses-mastered gauge ghosted at "0 / 50". Week sparkline 7 dots at 0 height. Stat tiles show 0. | "Your practice starts today." "Yoga builds strength and calm." "Master your first poses." "Practice a few days to see your week." All labels frame as journey, never deficit. | Heatmap cell outlines visible (revealing ink-brown-800). Gauge arc ghosted (dark, unfilled). Sparkline dots only. No glow on empty. `--surface-backplate` on banner only. |
+| Loading | Depth-preserving skeletons: heatmap cells shimmer in place (grid visible, pulse), SIA card message skeleton (2–3 text lines), session cards shimmer, gauge arc + ticks visible with radial shimmer (morphing feel), sparkline row skeleton (flat line visible, about to draw). All skeletons preserve card surfaces + `--edge-highlight`. | "Loading your practice..." (banner, 13pt caption, white-40, animated skeleton). "SIA is preparing your insight..." (SIA area). "Loading sessions..." (session eyebrow level). | Skeleton on `--color-ink-brown-800`, radial shimmer for gauge. Cards stay layered. Depth preserved. |
+| Empty / partial | Un-synced practice days: ghosted/dashed heatmap cells (distinct from rest day with low intensity). Filtered zero results: hint text card. Missing poses: grid shows loaded poses only. Gauge: shows present value; sparkline: no-practice days are true 0 points (dots-only if <2 days). Stats: cached values if available, missing sections skeleton. | "No sessions at this level right now. Try beginner or refresh." "Your practice starts today." "Sync paused — check your connection." | Ghosted cells are dashed or 20% opacity. No-data ≠ zero. |
+| Error | Per-section skeletons + calm error banner below sticky header. Streak/heatmap: "Couldn't load your streak. Pull to refresh." Sessions: last-cached or hint text. Stats: cached values, failed sections grayed. | "Couldn't load your streak. Pull to refresh." (specific, actionable). "Sessions unavailable — try again." (calm, not blame). "Stats out of sync. Tap to retry." (honest language). | Calibrated `--color-error-red` only for genuine operational failure (never on user action). Error paired with glyph + word (never colour-alone, per WCAG 1.4.11). Retry affordance visible. |
+| Offline | Cached data retained on all cards. Pull-to-refresh dimmed (0.4 opacity, no haptic). Banner: "You're offline — showing your last sync." All actions remain available. | "You're offline — showing your last sync." (honest, calm, no blame). "Connect to sync your latest practice." (subtle call-to-action). | Content at ~70% opacity if needed. Cached state is visually honest. |
+
+### Signature & anti-generic
+
+Ownable moments: **(1) Yoga Streak CalendarHeatmap hero** — the screen's emotional anchor reads as a visual grid (warm teal-intensity ramp on ink-brown with layered depth, longest-streak green milestone marker) instead of a bare text string; distinctly Balencia, not a generic activity ring or flat grid. **(2) Warm glow surfaces** — every card layered with `--edge-highlight` and size-calibrated glow; hero gauges get full 32px, small tiles get none; never a flat box with just a border. **(3) Poses-Mastered GaugeRing** — 96px arc-following gradient ring (orange→lighter via conic-mask, inset track, glow), the honest alternative to linear bars or pie charts; connects yoga's progress to the same instrument family (GaugeRing) used for sleep, energy, recovery across the app — **one visual language, not a borrowed design.** **(4) Week Sparkline (Living Line)** — 7-point curved stroke (no axes, pure line) drawn in orange with green end-dot arrival; the continuous-stroke signature carried throughout Balencia.
+
+**Anti-generic layout fixes:** The Browse Mode vertical stack (banner → SIA → chips → sessions → poses → stats) reads as **three visually distinct zones**, not a flat grid of equal cards:
+  - **Zone 1: Hero + supporting context** — Yoga Streak Banner (heatmap hero, ≥96px glowing, visual dominance) + SIA Coaching Note (warm preamble, no glow, body text, emotionally distinct).
+  - **Zone 2: Browsable content** — Filter chips (36pt, actionable, tight spacing) + Session Cards (standard 160pt, vertically stacked with 12pt gaps, clearly secondary to hero).
+  - **Zone 3: Analytics & discovery** — Pose Library Grid (horizontal-scrollable), Stats Section (4 equal-weight stat tiles + focal 96px Poses-Mastered Gauge + Week Sparkline, all below-fold).
+
+This asymmetry breaks the "generic AI card grid" tell. The heatmap hero is the focal break; zone spacing is intentional (16pt within Zone 1, 24pt between zones); stat tiles stay deliberately flat text (not false rings) beside the one gauge. The screen never reads templated because heatmap hero + Living-Line sparkline + warm-glow surfaces + non-shaming empty states establish clear Balencia point of view — calm, warm, progress-not-pressure, data-legible-as-visual-shape.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-900` / `--color-ink-brown-800`):
+
+| Element | Color | Contrast | Notes |
+| --- | --- | --- | --- |
+| Streak banner heading (12-day streak) | white-100 | ≥12:1 | Primary data, largest text in hero |
+| Streak banner subtext (longest: 18) | white-50 | ≥4.5:1 | Secondary supporting stat |
+| SIA Coaching Note text | white-70 | ≥7:1 | Body content, readable at 15pt |
+| Section eyebrows (GUIDED SESSIONS) | white-40 | decorative-paired-with-position | Label + visual position convey intent |
+| Session card name (Morning Flow) | white-100 | ≥12:1 | Primary interactive target |
+| Session card meta (30 min, beginner) | white-50 | ≥4.5:1 | Secondary text |
+| Difficulty badge (Beginner/teal) | wellbeing-teal text on teal-15% bg | 2.8:1 | **Flagged for build phase** — if below-threshold, darken bg or increase teal opacity to 20–25%. |
+| Stat tile numbers (24 sessions) | white-100 | ≥12:1 | Primary data |
+| Stat tile labels (sessions) | white-50 | ≥4.5:1 | Secondary text |
+| Poses-mastered gauge value (42) | white-100 | ≥12:1 | Hero ring, large readable text |
+| Gauge arc (orange fill) | orange on `--track-inset` recess | 3.2:1 (WCAG 1.4.11) | Data ink meets threshold on beveled track |
+| Week sparkline (orange stroke) | orange (2px) on ink-900 | 3.2:1 | Living Line data ink meets threshold |
+| Green milestone dot (heatmap) | forest-green on heatmap cell | 2.1:1 | Status = glyph + color (green dot + tooltip text, never colour-alone) |
+| Green end dot (sparkline) | forest-green on ink-900 | 2.8:1 | Arrival indicator, paired with position (rightmost) + tooltip context |
+| CTA buttons (Start session, Done) | white text on orange bg | ≥4.5:1 | Primary interactive, meets standard |
+| Active filter chip | white text on orange bg | ≥4.5:1 | Interactive, meets standard |
+| Rating circles (selected) | white text on wellbeing-teal bg | 3.2:1 | Interactive selection, meets 1.4.11 |
+
+Status never colour-alone: completion pairs visible glyph (✓ checkmark on gauge at 100%, green end dot on sparkline + tooltip) + colour (green) + text. Heatmap milestone uses visible marker (green circle on longest-streak day) + text (tooltip: date + session info). Every interactive element carries `--focus-ring` (`CK-T03`, 2px orange, 2pt offset) uniform app-wide.
+
+**Touch targets ≥44×44pt:** heatmap cells tappable as group (row ≥44pt tall); difficulty filter chips 36pt tall (44pt extended hit areas for group); session cards full-width (≥44pt); pose grid cards 110pt; rating circles 40pt diameter with 44pt tap area; all CTA buttons ≥48pt.
+
+**Reduced-motion:** `prefers-reduced-motion` → heatmap fully drawn at final intensity instantly (cells at final opacity step, no stagger); sparkline fully drawn with green end dot (no line-draw animation); gauge filled to current % (no count-up); SIA card instant (no fade); staggered card entrances collapse to instant. **Settled frame is canonical** — visual information complete and accessible at rest.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -449,7 +634,7 @@ The Yoga Sessions screen is the user's gateway to guided yoga practice within Ba
 | Streak flame icon | #FF5E00 | burnt-orange | 60% primary -- motivational |
 | Elapsed session time | #FF5E00 | burnt-orange | 60% primary -- active timer |
 | Stat tile count-up | #FFFFFF | white | values animate in |
-| Pose timer ring fill | #14B8A6 | wellbeing-teal | domain-appropriate timer (not orange, to distinguish from fitness) |
+| Pose timer ring fill | #FF5E00 | burnt-orange | 60% primary -- progress data ink (S55-V04 correction; orange is the progress ink everywhere; yoga stays distinguished by the wellbeing-teal header line + badges) |
 | Timer completion flash | #34A853 | forest-green | 30% secondary -- pose complete |
 | XP earned text | #34A853 | forest-green | 30% secondary -- reward |
 | Session completed badge | #34A853 | forest-green | 30% secondary -- completed indicator |
@@ -465,7 +650,7 @@ The Yoga Sessions screen is the user's gateway to guided yoga practice within Ba
 | Quaternary text | #FFFFFF at 40% | white-40 | hints, eyebrow labels |
 | Streak banner teal glow | #14B8A6 at 8% | wellbeing-teal | subtle gradient glow |
 
-**60/30/10 verification**: Orange dominates interactive elements (CTAs, active filter chip, streak flame, elapsed time). Green appears on completion indicators (XP earned, session complete badge, timer flash). Purple limited to SIA dot and real-time coaching note. Wellbeing-teal (#14B8A6) confined to domain identification elements: header accent line, RPG badge, eyebrow labels, timer ring fill, difficulty badges, and streak banner glow -- never on primary CTAs or UI chrome. The pose timer ring uses teal rather than orange to visually distinguish yoga from fitness workouts, maintaining the wellbeing register throughout the experience.
+**60/30/10 verification**: Orange dominates interactive elements (CTAs, active filter chip, streak flame, elapsed time). Green appears on completion indicators (XP earned, session complete badge, timer flash). Purple limited to SIA dot and real-time coaching note. Wellbeing-teal (#14B8A6) confined to domain identification elements: header accent line, RPG badge, eyebrow labels, difficulty badges, the practice-consistency heatmap intensity ramp (the sanctioned domain-colour-on-its-own-consistency exception), and streak banner glow -- never on primary CTAs, data-ink, or UI chrome. The pose timer ring fill is burnt orange (the progress data ink everywhere, per S55-V04); yoga stays distinguished from fitness by the wellbeing-teal header accent line and badges, not by recolouring the progress ring.
 
 ---
 
@@ -530,7 +715,7 @@ The Yoga Sessions screen is the user's gateway to guided yoga practice within Ba
 ### Pose Timer Ring (Active Session)
 | State | Visual | Haptic |
 |-------|--------|--------|
-| Default (counting) | teal fill sweeping counterclockwise, white time text | -- |
+| Default (counting) | orange --grad-orange (conic-mask) fill sweeping counterclockwise, white time text | -- |
 | Paused | ring fill freezes, time text pulses (opacity 0.5-1.0, 800ms) | -- |
 | Completed | ring flashes green (#34A853) for 280ms | medium impact |
 | Transitioning | ring resets to full for next pose | light impact |

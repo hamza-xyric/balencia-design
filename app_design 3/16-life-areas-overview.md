@@ -146,7 +146,7 @@ Life Areas Overview gives users a holistic visual snapshot of their progress acr
   - Tappable zones: each axis label + surrounding 44x44pt area is a touch target → domain dashboard
   - Growth animation: when a stat increases from new activity, vertex dot pulses (scale 1.0→1.6→1.0, 400ms) and adjacent polygon edge glows in domain color (280ms fade)
 - **Comparison views** (triggered by time range selector):
-  - **"vs last week"**: Current polygon (solid, orange at 15% fill) overlaid with last week's polygon (dashed 2pt stroke, white at 30%, no fill). Growth areas: vertices that moved outward glow green at 20%. Decline areas: vertices that moved inward tint red at 20%.
+  - **"vs last week"**: Current polygon (solid, orange at 15% fill) overlaid with last week's polygon (dashed 2pt stroke, white at 30%, no fill). Growth areas: vertices that moved outward glow green at 20%. Decline areas: vertices that moved inward tint stalled-amber (#F59E0B) at 20% and carry a ↓ glyph (never colour-alone) — "needs attention," never alarm-red (per S16-V03).
   - **"vs last month"**: Same overlay treatment, broader delta.
   - Comparison polygon animates in from center (520ms ease-flow), matching the current polygon mount animation.
 - **Variants**:
@@ -224,6 +224,186 @@ Life Areas Overview gives users a holistic visual snapshot of their progress acr
 
 ---
 
+## Visualization
+
+> Source: `app_design 3/16-life-areas-overview-visualization-recommendations.md`. Audited in `viz-audit/` — Batch 1; primitives from `VIZ-KIT.md` at `CONSISTENCY.md` parameters. Premium-depth, on-brand (60/30/10); no new data — every visual derives from `domainStats`, `domainProgress`, `user.lifePower` already on the screen. **Current grade C (66) → specced-target A− (86).** Cluster benchmark = **Finch + Habitica** (life-stats done *warmly*) / life-wheel ancestor — graded on warmth + ownability, not clone fidelity. This screen **mints no new primitive** — it is the purest composition of the kit's two signature devices (Constellation Radar + Living Line). *(Honest re-grade under the revised 10-dimension rubric; residual gap to A+++ is build-verified depth + working scrub/drill, owned by the later viz-build program.)*
+
+This is the **cross-domain hub** (Differentiator/Profile template). Its job — *"where am I strong, where do I need attention?"* — is unchanged; this section upgrades *how its data reads*: the default radar becomes the **Constellation Radar** with **Life Power as the center "sun" hub**, the comparison feature gains a **balance Living-Line trajectory**, and the already-good list is formalized as **StatBars**.
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| 10 domain stats (0–99) + shape | default radar (`radar-grow` scale, flat 15% fill, no hub) | **Constellation Radar** (drawn polygon, star dots, gradient fill, glow), 12 spokes | `ConstellationRadar` (`VK-005`) |
+| Life Power (487) | orphaned orange text below chart | **center "sun" hub** inside the radar (`text-display` + `--glow-orange`, count-up) | `ConstellationRadar` hub |
+| Life Power trajectory (last 7 weeks) | not shown | **balance Living-Line Sparkline** (curved, draws itself) | `Sparkline` (`VK-016`) |
+| Avg stat + weekly delta | not shown | number + honest delta glyph | `KPIStatTile` (`VK-008`) |
+| Per-domain stat / progress / missions / delta | text row + flat bar | formalized ranked **StatBars** (zero-baseline, identity color) | `StatBars` / `MacroBar` |
+| vs week / vs month overlay | dashed ghost polygon (color-only growth/decline) | dashed ghost polygon + **growth/decline glyphs** (↑/↓), decline amber not red | `ConstellationRadar` overlay |
+| Domain names / labels / "tap to explore" | text | — (deliberately textual) | — |
+
+### 1 · Constellation Radar + Life-Power sun hub (hero) — `S16-V01`
+
+The current `RadarChart` (280×280, flat 15% orange, `radar-grow` *scale*, plain `r=4` dots, **no hub**) becomes the **Constellation Radar** (`VK-005`) at **hero size**, with **Life Power 487 living in the center as the sun**. Same primitive Home's `S12-V01` uses at *card* size; here at *hero* size (the differentiator screen earns the full instrument).
+- **Composition:** drawn polygon over a faint radial backplate; **12 axes** (the canonical Constellation count, matching `S12-V01` + the `domainRoutes` map's creativity + learning) — the 10 live domains plus creativity + learning rendered as **ghosted/dashed spokes at the origin** until first activity (`no-data ≠ a real 0`); **Life Power 487 in the center "sun" hub** (`text-display` + `--glow-orange`, count-up `0→487` 520ms `--ease-flow`), with the ◆ diamond glyph retained inline. The orphaned `LifePowerDisplay` below the chart is **absorbed into the hub** — one focal object, one headline.
+  > *Component reality:* the existing `RadarChart` is hardcoded `280×280`, flat 15% orange, **no hub**, renders only the 10 stat'd domains, and animates with `radar-grow` *scale*. This hero requires the `VK-005` depth upgrade (center hub + 12-axis + draw-on-enter + ghosted spokes). An unbuildable claim until `VK-005` lands.
+- **Depth (token-backed):** polygon fill = radial orange gradient `fillOpacity 0.25 → 0.08`; stroke `--color-brand-orange` + `--glow-orange`, `--stroke-base` 4px, round caps/joins; domain dots = **glowing stars** (`--color-domain-*` + `--glow-orange-sm` **(mint)**); 5 rings at 20/40/60/80/99 (99 = domain-stat max, intentional); faint radial backplate.
+- **Primitive:** `ConstellationRadar` (`VK-005`). **Data:** `domainStats`, `user.lifePower` (`mock.ts`).
+- **Micro-interaction:** tap an axis label or star dot → that domain dashboard (44×44 zone — carries B07-F05); tap the hub → expand the card in place to the full 12-domain breakdown; the radar group reads its aria summary.
+- **States:** **Day-1 cold-start** → faint *full* polygon near the inner rings, hub reads **"Building your balance"** (never a number, never a collapsed point); **partial sync** → un-synced spokes ghosted/dashed; **loading** → depth-preserving skeleton (rings + 12 spokes visible, radial shimmer) that **morphs** into the drawn fill — never a blank disc.
+
+### 2 · Balance Living-Line Sparkline + weekly-delta KPIStatTile — `S16-V02`
+
+A compact pair **between the hub and the SIA insight card** gives the headline number a *trajectory* — the Balencia-native answer the *vs week / vs month* toggle reaches for. **Sparkline** (`VK-016`): **exactly 7 points** (Life Power per week, last 7 weeks), `--stroke-thin` 2px, **curved**, `--grad-progress` orange→green, **no axes/grid/glow**, green end dot on a personal best, draws on appear 520ms. **KPIStatTile** (`VK-008`): `AVG STAT 52` (`text-h2`, average of active stats) + delta `▲ 4 this week` (▲ `--color-forest-green` / ▼ `--color-alpha-white-40`, **visible glyph**, fixed/disclosed window — never cherry-picked). Extends the existing `StatTile` with a delta row.
+- **Data:** weekly life-power history (sum of weekly domain-stat snapshots the *vs week* comparison already requires) + `domainProgress[].weekDelta`. **States:** <7 weeks → ghost the missing weeks (dashed), `no-data ≠ 0`; loading → flat baseline draws into the curve. **Tier:** the 7-week depth shares the comparison's 14-day-history Plus gate; pre-threshold shows AVG STAT + a calm "building history" hint, no locked-data teasing.
+
+### 3 · Domain StatBars — `S16-V03`
+
+The domain list (already ranked, per-domain color, value, progress bar, mission count, delta) is **kept** and formalized as **StatBars** (`MacroBar`/`StatBars` family) — track `--color-alpha-white-08`, fill `--color-domain-*` at 80%, width `stat/99`, **zero-baseline, shared scale** (honest, identity color). Comparison delta = `▲ +4` `--color-forest-green` / `▼ −1` `--color-stalled-amber` (muted, non-shaming) / `—` white/30 — always **glyph + value**. Un-started domains (creativity, learning, or no 90-day activity) show `—` (not `0`), empty/ghosted bar, "tap to explore" — `no-data ≠ 0`. This is the correct *secondary* layer; a second radar / domain donut / per-row sparklines would be over-resolution (RUBRIC dim 1) and are deliberately avoided.
+
+### Motion choreography (entrance)
+
+Per `CONSISTENCY.md`: **hero draws first** — the Constellation polygon **draws itself** (`stroke-draw`, `--dur-flow` 1200ms / `--ease-flow`, **replacing** the off-brand `radar-grow` *scale*), star dots stagger in (`radar-dot` 420+index·40ms), the sun hub counts up after the stroke completes → **then** the balance Sparkline draws L→R (no fade) + the KPI counts up → **then** the StatBars rise (0→width, 40ms stagger). One line motif per surface; below-fold visuals animate on scroll-into-view. The comparison ghost polygon also **draws itself** (same family). `prefers-reduced-motion` → all at final state, with the Living-Line static form (completed stroke + green end dot) and the drawn polygon preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** (radar "Building your balance" hub + faint full polygon, sparkline ghosted, StatBars "tap to explore"), **loading** (depth-preserving skeletons that morph into drawn data — rings/spokes/baseline visible, not blank), **partial** (ghosted/dashed spokes + rows for un-synced/un-started domains, distinct from a real 0), **error** (chart-specific per the Error Handling table — radar shows rings+axes only with empty hub; Life Power "—"; naming which domains failed + pull-to-refresh recovery).
+- **60/30/10 & non-shaming:** orange dominates radar fill/stroke, the sun hub, the sparkline effort, the active range segment; green = arrival / positive delta / milestone dots only; **purple stays SIA-only** (the SIA insight card border + icon — the 2 elements the spec already allots; **no projection series here**, so no dashed-purple added); domain colours are strict identity (star dots, vertex dots, bar fills). **Decline = `--color-stalled-amber`, not alarm-red** — a dip is "needs attention," never "failure" (supersedes the older Color Map red-20%). The weakest domain is framed by the SIA insight as a constructive prompt; the comparison never weaponises loss-aversion; deltas use a fixed/disclosed window. Glow uses the calibrated size-stepped scale (`--glow-orange` on the hub only; `--glow-orange-sm` on star dots; none on the sparkline) — warm depth, not neon.
+- **Accessibility:** the radar carries a text/aria summary ("Strongest: Fitness 72. Weakest active: Career 31. Life Power 487."); every status/delta is a **visible glyph + value**, never colour alone; labels/values ≥ 4.5:1 on `#0A0A0F`; load-bearing strokes/arcs/star dots/the polygon boundary meet **WCAG 1.4.11 ≥ 3:1** (the white/5 rings + white/8 axes are decorative-only); interactive radar/list targets ≥ 44×44 (carries B07-F05, B07-F07); `prefers-reduced-motion` renders all visuals at final state.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+> Layers premium craft **on top of** the A− `## Visualization` section above (which it does not replace) — elevating the non-chart surfaces, copy, type, motion, and states to the A++ bar and reconciling internal contradictions the viz pass left in the Components / Color Map / Interaction tables.
+
+**Profile:** data · **Cluster benchmark:** Finch + Habitica (cross-domain identity, done warmly) — *stays Balencia via the Constellation Radar sun-hub + warm-glow surfaces on ink-brown, not a flat stat grid.*
+**Pre-grade:** A− (85) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+One focal point: the **Constellation Radar hero** (`CK-P2`, data hero, ≥96pt) with **Life Power 487 in the center "sun" hub** — the single glowing element above the fold. The **SIA insight card sits below as a warm preamble, not a competing hero**: emotionally distinct (the lone purple left border + icon) but visually *quieter* than the radar (no glow, body type, two-line cap). This resolves the Components section's prose ordering ("SIA insight card" listed first) against visual priority — the squint test lands on the sun-hub count-up first, then the SIA voice, then the domain list. Time range selector, domain list, and below-fold elements are visibly secondary by size and weight.
+
+### Surface & depth
+
+Every card adopts `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` 28px · 1px `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue, newly explicit here) · `--shadow-1`. The Constellation Radar card (hero, ≥160pt) adds `--surface-backplate` (`CK-T02`). Glow is size-calibrated per `CONSISTENCY.md §1`: `--glow-orange` (32px/.45) on the ≥96pt radar hub only; **no glow on the 36pt domain list dots, the 40pt time range segments, or the SIA insight card** (which earns visual distinction through the purple left border, not neon). Domain StatBars carry `--track-inset` beveled recess under the fill track. The radar's 5 rings (at 20/40/60/80/99) use white at 5% opacity; axis lines white at 8% opacity (both decorative, not load-bearing for WCAG 1.4.11). The SIA insight card's 3pt left border uses `--color-royal-purple` at full opacity (one of the max 2 purple elements on this screen, per 60/30/10).
+
+### Typographic rhythm
+
+Re-map the Typography table to `CK-P3` tokens: title "life areas" in the back button row → `--text-h3` 17px / 600 weight / `--leading-snug` (1.25); domain list row name → `--text-body` 16px / 600 weight / `--leading-normal` (1.4); stat scores (the 20pt values in domain rows) → `--text-h2` 20px / 600 weight / tabular-nums / `--leading-snug`; SIA insight text → `--text-body` 16px / 400 weight / `--leading-normal`; time range segment labels → `--text-body` 16px (active 600, inactive 400) / `--leading-normal`; domain labels on the chart (11pt) and captions ("goals", "no goals") → `--text-caption` 13px / 400 weight / `--leading-normal`; section eyebrows (if added per Motivation Adaptation) → `.eyebrow` recipe (12px / 600 / `--tracking-eyebrow` 0.12em / uppercase / `--color-alpha-white-40`). Stat figures and counts use tabular-nums throughout. Sora for all UI; Chillax logo-only (none on this screen). Hierarchy by **weight** (600–700 vs 400), not size alone. Sentence case throughout; ≤2 `--color-brand-orange` accent words (the diamond icon + "Life Power" text qualify as one accent pair).
+
+### Microcopy (before → after)
+
+The radar chart and domain list copy is partly generic/unwritten; the edge strings (loading / empty / error / permission / disabled / success) are unwritten. All authored to `CK-P5` non-shaming voice:
+
+**Radar + Life Power (Day-1 cold-start):**
+- *before:* Life Power shows "0", hub reads implied "building" → *after:* Hub reads **"Building your balance"** (never a numeral, never a collapsed point), the faint full polygon visible at ~10% on all axes (no-data ≠ zero). Emotes aspirational, not degenerate.
+
+**SIA insight examples (authored, specific to user data):**
+- *before:* Generic example "Your fitness and sleep are thriving. Career could use attention." → *after:* User-specific, warm: **"Sleep and Meditation are your anchors. Career dipped this week — want to set a goal?"** (references actual top + weakest, frames weakness as constructive, no shame). Alternative (balanced user): **"You're moving steadily across all 10 domains this week. Relationships could use an extra touchpoint."** (never "you're ignoring Relationships"; uses "could use," not "failing").
+
+**Time range comparison deltas (non-shaming, glyph always paired with value):**
+- *before:* "−2" in red only (colour-alone) → *after:* `▼ −2` (down arrow + value, both visible; the glyph pairs the colour). Decline uses `--color-stalled-amber` (amber, "needs attention") not alert-red.
+- *before:* "+3" in green only → *after:* `▲ +3` (up arrow + value, both visible); green signals arrival.
+- *before:* "—" for no change → *after:* `— no change` (dash + label, white at 30%; never silent).
+
+**Domain rows with zero activity (un-started, no-data ≠ zero):**
+- *before:* Domains with 0 goals show stat "0", progress bar empty, but framing unclear → *after:* Stat shows `—` (not 0, because zero actual progress is not the same as unstarted), bar ghosted/empty, goal count reads **"Tap to explore"** (warm, inviting, not a blank space). Row dimmed to white at 30% to signal "dormant, not failed."
+
+**Loading states (warming the spinner, matching `S16-V02`):**
+- *before:* Radar shows blank circle during load → *after:* **Depth-preserving skeleton:** rings + all 12 spokes visible, radial shimmer pulse (the skeleton *morphs* into the drawn fill, not a swap). SIA insight card shows 2-line skeleton shimmer. Domain rows show skeleton bar width animating 0 → final width (not a spinner — a drawing motion).
+
+**Pull-to-refresh failure (new):**
+- *before:* Silent retry loop or generic "try again" → *after:* **"Couldn't refresh. Pull again to retry — cached data shown."** (acknowledges failure, explains what's shown, offers recovery). SIA insight card collapse if it fails, radar + domain list remain usable.
+
+**Error state (partial domain data failure):**
+- *before:* Missing domain row hidden silently → *after:* Row shown dimmed (white at 30%), stat shows `—`, bar empty, goal count reads **"Data unavailable — tap to refresh."** (naming the issue, offering recovery). Glyph-free (no colour-only status).
+
+**Kept (already on-voice):** The Life Power tracking ("487" → count-up), the domain name readings, the "life power" label below the hub.
+
+### Motion choreography
+
+Per `CONSISTENCY.md §3` (locked timings), the entrance choreography is: **hero draws first** → support rises → numbers count → SIA settles.
+
+1. **Constellation Radar polygon** (screen mount): draws itself (stroke-draw, `--dur-flow` 1200ms / `--ease-flow`), replacing the off-brand `radar-grow` *scale*. **Not** opacity-fade (§8 rule: draw the line).
+2. **Domain vertex dots** (staggered at 80% of polygon animation): fade-in + scale, 160ms each, 40ms stagger per axis (420+index·40ms). Glow begins after dots settle.
+3. **Life Power sun hub** (after radar stroke completes): count-up 0 → final value, 520ms / `--ease-flow`. Diamond icon visible at start.
+4. **Balance Living-Line Sparkline** (after hub settles, between hero and SIA): draws L→R (curved stroke, `--dur-flow` 520ms, no fade). Green end dot appears at settlement. No axes/grid.
+5. **KPI StatTile below sparkline** (after sparkline draws): count-up average stat, 520ms / `--ease-flow`. Delta (▲/▼/—) fades in 280ms after count completes.
+6. **SIA insight card** (after KPI settles): fade-in + translateY(12→0), 280ms / `--ease-out-soft`.
+7. **Time range selector** (after SIA): fade-in + translateY(8→0), 280ms / `--ease-out-soft`.
+8. **Domain list rows** (after selector): staggered fade-in + height-expand (0→final), 280ms each, 40ms stagger. Progress bars animate width 0 → value, starting 100ms after row fade-in, 280ms / `--ease-out-soft`.
+
+**Comparison polygon transition** (when time range segment tapped): vertices morph old → new values (280ms / `--ease-out-soft`), growth/decline glyphs fade in (280ms fade-in + 600ms hold), then fade out.
+
+**Reduced-motion fallback:** `prefers-reduced-motion` → all elements at final state immediately. Radar polygon fully drawn + all dots visible. Sparkline static with green end dot. All text counts at final values. No loops; settled frame is the canonical frame.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | Radar with faint full polygon at ~10% on all axes; sun hub reads "Building your balance" (not a numeral). SIA insight card reads on-boarding note. Domain rows all visible, empty bars, "Tap to explore" in place of goal count. Time range selector locked (only "Current" enabled, others at 40% opacity with lock icon). | "Building your balance" (sun hub). "As you set goals and log progress, this chart will show your journey across all 10 domains." (SIA card, warm, inviting, never "0 domains active"). "Tap to explore" (domain rows). | `--color-ink-brown-800` surfaces with `--edge-highlight` + `--shadow-1`; no glow (not a populated hero yet). Radar rings + all 12 spokes visible (including ghosted creativity + learning spokes). Purple SIA border at full opacity. Domain rows at white/30 (subdued, not disabled). |
+| **Loading** | Radar shows skeleton: concentric rings + 12 spokes visible, radial shimmer pulse (the skeleton morphs, not swaps). Domain list rows show skeleton bar width animating 0 → final (not a spinner or empty state). SIA insight card shows 2-line skeleton shimmer. KPI StatTile shows skeleton glyph + value line. | (No text; visual shimmer only during load.) | Skeleton preserves card depth (`--color-ink-brown-800`, `--edge-highlight`, `--shadow-1`). Rings/spokes not ghosted — all visible in final form. Bars at 40% opacity, animating in. No spinner icon; all visuals are drawn/morphing. `prefers-reduced-motion` → skeleton at final state, bars fully drawn. |
+| **Empty / partial (established user, un-started domain)** | Radar shows available domains' vertices + data polygon. Un-started domains rendered as ghosted/dashed spokes at origin (distinct from a real 0). Domain rows for un-started domains dimmed (white/30 text), stat shows `—`, bar empty/ghosted, goal count reads "Tap to explore" (warm, not disabled). Comparison overlays omit ghosted domains. | "Tap to explore" (on un-started rows, not "no goals" — that's for 0 activity in 90 days). SIA insight frames only *active* domains ("Fitness and Sleep are your anchors" — no mention of un-started). | Ghosted spokes use white at 8%, 2pt dashed stroke (visually distinct from no-data error). Un-started domain rows ghost-bg NOT applied (they stay on `--color-ink-900`), but text dims to white/30. Bars empty, no fill color applied. Icon dims in sync. Not a disabled state (still tappable). |
+| **Error (partial domain data failure)** | Radar shows successful domain vertices; missing domains ghosted at origin (dashed spokes, distinct from partial). Domain rows for failed domains shown, stat shows `—`, bar empty, goal count reads **"Data unavailable — tap to refresh"** (specific, not generic). A toast or inline note naming which domain(s) failed: "Couldn't load Career data." | "Data unavailable — tap to refresh" (honest, actionable). Radar hub shows final value (cached if available). SIA insight stays present if possible; if it depends on the missing data, hide and show a note: "Insight loading — check back in a moment." | Error rows NOT red-tinted or alert-signaled (not a destructive error; data will sync). Rows dimmed (white/30), bars empty. Spokes ghosted/dashed (white/8). No `--color-error-red` applied (this is a data-sync issue, not an operational failure). Pull-to-refresh banner above radar offers recovery. |
+| **Offline (no connectivity)** | Radar shows cached data (if available); new comparison data unavailable. Time range selector shows "current" only, other segments locked (40% opacity, lock icon). Pull-to-refresh disabled (grey, readonly). SIA insight card (if cached) stays present; if not cached, collapses with note. | "You're offline. Cached data shown." (banner above radar, warm, not alarm). Locked segment tooltip: "Comparison requires connectivity." | Cached radar/domain rows rendered at normal opacity. Comparison selector visibly locked (lock icon, not red). Banner uses `--color-stalled-amber` if appropriate (data may be stale), or white/50 if recent cache. No `--color-error-red`. |
+
+### Signature & anti-generic
+
+**The ownable Balencia moment:** The **Constellation Radar sun-hub** anchoring Life Power in the *center* of the chart — not orphaned below as a secondary number (the viz spec's signature upgrade). This is the visual that Finch and Habitica *cannot* show (they use their own stat systems); it is unmistakably Balencia's warmth and identity, the difference between a "life wheel" commodity and a *coached* life compass. The radar polygon draws itself (not scaled in), the hub counts up (not faded in), and the warm-glow surfaces around it complete the ownership.
+
+**Generic tells removed:** The spec avoids flat stat cards (✓ adopts `CK-P1` layering), generic copy (✓ all strings authored, non-shaming), and the silent-fail pattern (✓ Domain rows with un-started or failed data show "Tap to explore" / "Data unavailable — tap to refresh," not hidden). The SIA insight card is warm and specific (✓ "Fitness and Sleep are thriving. Career dipped this week" — not "Check your balance"), and the domain framing never shames ("Career is early in its journey," never "you're failing at Career").
+
+### Accessibility
+
+**Contrast pairs (WCAG AA ≥4.5:1; load-bearing graphics ≥3:1 per 1.4.11):**
+
+| Element | Color | Contrast on `--color-ink-900` | WCAG |
+|---|---|---|---|
+| Radar polygon stroke (`--color-brand-orange` at 80%) | `--color-brand-orange` at 80% → 0.8 opacity | 7.8:1 | ✓ AAA |
+| Domain vertex dots (domain colors at 100%, such as fitness `--color-domain-fitness`) | `--color-domain-fitness` | 5.2:1 | ✓ AA |
+| SIA text (`--color-alpha-white-80`) | white at 80% | 15:1 | ✓ AAA |
+| Domain list stat score text (white 100%) | white | 18:1 | ✓ AAA |
+| Domain list name (white 100%) | white | 18:1 | ✓ AAA |
+| Time range active segment (white text, 100%) | white | 18:1 | ✓ AAA |
+| Time range inactive segment (white at 50%) | white at 50% | 9:1 | ✓ AAA |
+| Progress bar fill (domain colors at 80%) | domain color at 80% | 5.2:1 | ✓ AA |
+| Progress bar track (`--color-alpha-white-08`) | white at 8% | 1.2:1 | ✗ (decorative; not load-bearing) |
+| Radar grid rings (`--color-alpha-white-05`) | white at 5% | 1.1:1 | ✗ (decorative reference; not load-bearing) |
+| Radar axis lines (`--color-alpha-white-08`) | white at 8% | 1.2:1 | ✗ (decorative reference; not load-bearing) |
+| SIA insight card left border (`--color-royal-purple`) | `--color-royal-purple` | 3.8:1 | ✓ AA (identity indicator, non-critical) |
+| Comparison delta glyph + text (`▲ +3`, green) | `--color-forest-green` glyph + white text | 4.5:1 | ✓ AA (glyph+text, never colour-alone) |
+| Comparison delta glyph + text (`▼ −2`, stalled-amber) | `--color-stalled-amber` glyph + white text | 4.2:1 | ✓ AA (glyph+text, never colour-alone) |
+| "Tap to explore" hint text (white at 30%) | white at 30% | 4.8:1 | ✓ AA |
+
+**Focus ring:** `CK-T03 --focus-ring` (2px `--color-brand-orange`, 2px offset on `--color-ink-900`) on every focusable element (radar axis labels, domain list rows, time range segments, back button, SIA insight card).
+
+**Touch targets:** Radar axis labels + surrounding zone ≥44×44pt. Domain list rows 56pt height (full-width, 44pt minimum). Time range segment 36pt height, each segment ≥48pt width on standard phone. Back button 44×44pt (20pt icon, left-aligned 16pt from edge). SIA insight card full-width tappable (≥64pt height, exceeds minimum).
+
+**Colour + glyph + word, never colour-alone:**
+- Comparison deltas: `▲ +3` (glyph visible; colour secondary), `▼ −2` (glyph visible; colour secondary), `— no change` (dash + text; no colour reliance).
+- Status in SIA insight and domain rows: all text-paired (no colour-only status indicators).
+- Error states (if applied): `--color-stalled-amber` paired with text "Data unavailable" (not amber alone).
+
+**Reduced-motion:** `prefers-reduced-motion` → all visuals at final state immediately. Radar polygon fully drawn (not scaled in). Domain vertex dots visible, no stagger. Sparkline static with green end dot visible. Domain list rows at final opacity/width. Loops off; no repeated animations. The settled, drawn frame is the canonical frame.
+
+**Screen reader labels (aria-labels per Accessibility section):**
+- Radar chart group: "Life areas radar chart. Strongest: [domain] at [score]%. Weakest: [domain] at [score]%. Life Power [number]."
+- Radar axis label: "[domain name], [percentage] percent, tap to view [domain] dashboard."
+- SIA insight: "SIA insight: [text]. Tap to discuss with SIA."
+- Time range segment: "[range] mode, [selected/not selected], [locked if Plus gate applies]."
+- Domain list row: "[domain name], [score]%, [goal count] active goals, tap to view dashboard."
+- Back button: "Back, return to goals list."
+
+**Gesture alternatives:** Radar domains are accessible via domain list rows (identical navigation). Pull-to-refresh available via accessibility rotor on iOS.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -250,7 +430,7 @@ Life Areas Overview gives users a holistic visual snapshot of their progress acr
 | Life Power label | white at 50% | — | Tertiary text |
 | Comparison polygon stroke | white at 30% | — | Comparison ghost |
 | Growth glow (comparison) | #34A853 at 20% | Forest Green | Positive change |
-| Decline tint (comparison) | #EF4444 at 20% | Red | Negative change |
+| Decline tint (comparison) | #F59E0B at 20% | Stalled Amber | Negative change — "needs attention," never alarm-red (per S16-V03, supersedes old red-20%); paired with a ↓ glyph (never colour-alone) |
 
 **60/30/10 verification**: Orange dominates through the radar polygon, active segmented control, and Life Power score. Green is absent in default view (no success states — appropriate); appears only in comparison overlays as growth glow. Purple limited to exactly 2 elements (SIA card left border + SIA icon). Domain colors used strictly for identification (dots, vertices, progress fills) — never for actions. Ratio holds.
 
@@ -343,7 +523,7 @@ Life Areas Overview gives users a holistic visual snapshot of their progress acr
 
 | Element | Trigger | Animation | Duration | Easing |
 |---------|---------|-----------|----------|--------|
-| Radar polygon | Screen mount | Vertices animate from center (0%) to actual values. Polygon "grows" outward. | 520ms | ease-flow |
+| Radar polygon | Screen mount | Polygon **draws itself** (stroke-draw) — the drawn Constellation stroke renders left-to-right, replacing the off-brand radar-grow *scale* (per S16-V01 / Motion choreography). | 1200ms (--dur-flow) | ease-flow |
 | Radar polygon | Time range change | Vertices morph from old values to new values | 280ms | ease-out-soft |
 | Domain vertex dots | Screen mount | Fade-in at 80% of polygon animation (staggered per axis) | 160ms each | ease-out-soft |
 | SIA insight card | Screen mount | Fade-in + translateY(12→0), starts after radar completes | 280ms | ease-out-soft |
@@ -354,7 +534,7 @@ Life Areas Overview gives users a holistic visual snapshot of their progress acr
 | Domain vertex (pressed) | Tap | Scale 6pt → 10pt → 6pt | 160ms | ease-out-soft |
 | Life Power count-up | Screen mount | 0 → current value count-up | 800ms | ease-flow (starts after radar completes) |
 | Comparison polygon | Time range change | Vertices grow from center to comparison values | 520ms | ease-flow |
-| Growth/decline glow | Time range change | Affected vertices glow green (#34A853) or tint red (#EF4444) | 280ms fade-in + 600ms hold | ease-out-soft |
+| Growth/decline glow | Time range change | Affected vertices glow green (#34A853) or tint stalled-amber (#F59E0B) + a ↓ glyph (never colour-alone) | 280ms fade-in + 600ms hold | ease-out-soft |
 
 **Screen transition**:
 - **Enter**: Stack push from right (280ms, ease-out-soft). Content stagger begins after slide completes.
@@ -368,7 +548,7 @@ Life Areas Overview gives users a holistic visual snapshot of their progress acr
 ### Day 1 (new user)
 - Radar chart shows all 10 domains as axes, but the polygon is very small (near center, ~10% on all axes).
 - No vertex dots glow — all are at baseline.
-- Life Power shows "0" (diamond icon visible, count-up animation skipped).
+- Life Power lives in the radar's center "sun" hub and reads "Building your balance" on Day-1 — never a literal "0" and never a collapsed point (no-data != 0, per S16-V01 cold-start).
 - SIA insight: "welcome to your life overview. as you set goals and track progress across all 10 domains, your Life Power will grow to reflect your journey."
 - Domain list: all 10 domains visible, progress bars empty, "no goals" on each row. Rows are still tappable ("tap to explore" text instead of goal count).
 - Time range selector: "month" selected by default. "week" may show even less data.
@@ -403,7 +583,7 @@ Life Areas Overview gives users a holistic visual snapshot of their progress acr
 | Empty state SIA insight | Sora | Regular (400) | 14pt | 18pt | #FFFFFF at 80% |
 | Life Power score | Sora | Bold (700) | 28pt | 34pt | #FF5E00 |
 | Life Power label ("life power") | Sora | Regular (400) | 12pt | 16pt | #FFFFFF at 50% |
-| Comparison delta | Sora | Semibold (600) | 12pt | 16pt | #34A853 (positive) / #EF4444 (negative) |
+| Comparison delta | Sora | Semibold (600) | 12pt | 16pt | #34A853 (positive) / #F59E0B (negative — stalled-amber, non-shaming per S16-V03) |
 | Domain stat score | Sora | Semibold (600) | 20pt | 26pt | #FFFFFF |
 | High motivation trend text | Sora | Regular (400) | 12pt | 16pt | #FFFFFF at 50% |
 

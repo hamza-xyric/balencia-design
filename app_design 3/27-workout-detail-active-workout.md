@@ -399,7 +399,7 @@ Mode transitions use content crossfade below the header (520ms, ease-out-soft). 
 - **Visual treatment**: centered circular countdown ring
 - **Size**: full-width × ~200pt (collapses to 0 when not active)
 - **Sub-elements**:
-  - Circular ring: 120pt diameter, centered. Track: white at 10%, 6pt stroke width. Fill: Burnt Orange (#FF5E00), 6pt stroke, sweeps counterclockwise from 12 o'clock position.
+  - Circular ring: 120pt diameter, centered — a bounded `GaugeRing` (`VK-002`), since rest is a true 0→1 completion of the prescribed interval. Track: `--color-alpha-white-10` over a `--track-inset` `rgba(0,0,0,0.28)` (mint) recessed ring, 10px stroke. Fill: arc-following `--grad-orange` (mint, conic-mask — not a flat SVG linearGradient), 10px stroke, round caps both ends, `--glow-orange` (32px, hero-size) outer glow; depletes (full→empty) as the interval elapses, sweeping counterclockwise from 12 o'clock; flashes green `#34A853` at 0. See Visualization `S27-V03`.
   - Time display: 32pt Sora Semibold, white, centered inside ring. Format "M:SS" (e.g., "1:23")
   - "REST" label: 12pt Sora Semibold, white at 40%, uppercase, centered above ring
   - "Skip rest" button: 15pt Sora Regular, white at 50%, centered below ring, 44pt touch target
@@ -460,6 +460,169 @@ Mode transitions use content crossfade below the header (520ms, ease-out-soft). 
 
 ---
 
+## Visualization
+
+> Source: `app_design 3/27-workout-detail-active-workout-visualization-recommendations.md` (companion, if present); Audited in `viz-audit/` — Batch (Tracker B), findings `S27-V01..S27-V06`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Premium-depth, on-brand (60/30/10), **Product Mode → orange-dominant accent** (fitness-red `#EF4444` stays an *identity* accent on the inherited domain header / level chrome only — never on data ink). Benchmark = **Strava + WHOOP** (live activity HR/pace, post-session effort & zones) rendered **the Balencia way** (Living Line + warm-glow ArcGauge/GaugeRing), not a Strava/WHOOP clone. **Current grade D (52) → specced-target A− (86).** *(Honest re-grade under the revised 10-dimension rubric. Today the prototype renders the active tracker + a text-tile summary with a single **hardcoded** flat rest-ring (`progress = 0.62`, `aria-hidden`, no gradient/glow/inset, bound to no real value) — a decorative-chart + 1.4.11 + colour/visual-only miss — and **no** HR, pace, effort gauge, weekly context, or XP ring at all. The residual gap to A+++ is build-verified depth + working scrub/drill micro-interactions, owned by the later viz-build program.)*
+
+This is a **Tracker B** screen with a real-time face (Active mode) and a reward face (Summary). Its data has genuine, distinct visual shapes per mode — but it is **not** a dashboard, so editorial restraint governs: the Active mode earns **exactly one** focal live trend (heart-rate Living Line) over two honest KPI tiles; the rest timer becomes a real **bounded GaugeRing** (it is a true 0→1 completion of the rest interval); the Summary earns **one** effort hero (`ArcGauge` — effort/zone is a *level*, not a completion) plus an honest XP-progress ring and a small zone split. Planning mode stays **deliberately textual** (an exercise list is a list, not a chart). Mints no new primitive; it retires kit backlog (`TrendChart`/`Living Line`, `KPIStatTile`, `GaugeRing`, `ArcGauge`, `Donut`, `BarChart`).
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Real-time heart rate (active session) | not shown (no HR in mock) | **live `TrendChart` Living Line** of HR over elapsed time — solid orange→green stroke that draws as the session runs; zone bands behind | `TrendChart` (`VK-006` / `VK-016`) |
+| Live pace / cadence (active) | not shown | **2× `KPIStatTile`** — current pace + cadence, honest "live" label (not a cherry-picked window) | `KPIStatTile` ×2 (`VK-008`) |
+| Rest interval remaining (1:23 of prescribed) | hardcoded flat ring, `progress=0.62`, `aria-hidden`, no depth | **bounded `GaugeRing` (120px)** — arc-gradient + inset track + size-stepped glow, fill = elapsed/total of *this* rest, green flash at 0 | `GaugeRing` (`VK-002`) |
+| Post-workout effort / training zone | not shown | **hero `ArcGauge` (160px)** — effort score (a bounded *level*, open arc, never a false 100% ring); orange default, green at peak band, **never alarm-red** | `ArcGauge` (`VK-015`) |
+| Time-in-zone split (Z1–Z5 of session) | not shown | **`Donut` (96px)** — minutes per zone summing to true session duration; primary/longest zone = orange, rest = warm neutral tints | `Donut` (`VK-007`) |
+| XP earned (+75) → level progress (89%) | spec'd badge+bar, **not built** | **XP-progress `GaugeRing` (96px)** around the +75 badge — honest fraction to next level; green at 100% (level-up → Celebration [42]) | `GaugeRing` (`VK-002`) |
+| Duration · exercises · calories (summary) | three plain text tiles | **3× `KPIStatTile`** — number + label + honest vs-last-session delta ("vs last upper-body") | `KPIStatTile` ×3 (`VK-008`) |
+| This-vs-last-session volume (optional, high-motivation) | not shown | optional **`BarChart`** — this orange / last green, zero baseline, shared scale | `BarChart` (`VK-006`) |
+| Exercise list / sets·reps·rest / coach notes (planning) | text list | — (**deliberately textual** — a plan is a list, charting it is over-resolution) | — |
+| Set tracker inputs · last-set reference · SIA notes · workout name | text/inputs | — (**deliberately textual** — interaction surface, not data viz) | — |
+
+**Editorial hierarchy (calm, not maximal):** Active mode has **one** focal viz (the HR Living Line) with two supporting KPI tiles and the functional rest GaugeRing — it must stay legible mid-set, so it is *not* a wall of charts. Summary has **one** hero (the effort `ArcGauge`) with the XP ring, zone donut, and KPI strip clearly secondary. Planning mode has **zero** charts by design.
+
+### 1 · Live heart-rate trend — `S27-V01` → `TrendChart` (Living Line, `VK-016`)
+
+The Active-mode focal viz: a **Living Line** of heart rate across the session — one continuous, curved, round-capped stroke that **draws itself** as elapsed time advances (append-on-tick, not opacity-fade), running orange `#FF5E00` (effort) → green `#34A853` (in recovery/cooldown) via `--grad-progress` **(mint)**, `--stroke-base` 4px, with **faint horizontal zone bands** behind (Z1–Z5 as `--color-alpha-white-05` strips — decorative structure, not load-bearing). No SIA projection here (a live feed has no forecast tail — correct; purple is absent in this mode). Sits in a compact card under the current-exercise display so it never displaces the set tracker.
+- **Depth (token-backed):** `ink-brown-800` backplate + top-edge highlight; the stroke carries **no glow at this card size** (glow is reserved for the Summary hero); current-HR end point = a small live dot.
+- **Why the line, not a WHOOP strain bar:** "every chart is the line" (§8) — the Living Line is the device WHOOP/Strava structurally don't have; it makes the live trend unmistakably Balencia and reuses the exact spine of the home-screen sparklines and the Fitness-dashboard activity trend [26].
+- **Micro-interaction:** long-press to scrub a crosshair back across the session (read HR at any past second); no W/M/Y selector (single live session).
+- **States:** **no wearable / no HR** → the card is **omitted entirely** (not a flat-zero line) and pace/cadence tiles read "—"; **<10s of data** → "reading your heart rate…" with a faint baseline, never a single dot; **sensor dropout** → the gap is **ghosted/dashed**, distinct from a real flatline; **reduced-motion** → completed stroke at rest + live end dot.
+- **Data:** new `workoutDetail.activeSession.hrSeries` (timestamped bpm) + `zones` in `mock.ts` (absent today).
+
+### 2 · Live pace / cadence tiles — `S27-V02` → `KPIStatTile` ×2
+
+Beside or below the HR line, two `KPIStatTile`s: uppercase label (`white/40`, +0.12em) · number `text-h2` · a small live-trend delta over a **disclosed** window (e.g. "vs last 30s" — never a flattering cherry-pick). Current pace (or rep-tempo for strength) + cadence. Count-up `--dur-base` 280ms `--ease-out-soft` on each update.
+- **Depth:** flat-premium tiles (no glow); `ink-brown-800` + top-edge highlight.
+- **Non-shaming:** a slowing pace shows a **neutral muted** ▼ (`--color-alpha-white-40`), never red or "falling behind" language.
+- **States:** strength workout (no pace) → tiles swap to "volume lifted" + "reps" (honest substitution, not blank); no sensor → "—".
+
+### 3 · Rest GaugeRing — `S27-V03` → `GaugeRing` (120px)
+
+Replace the **hardcoded flat ring** (today: a fixed `progress=0.62`, `aria-hidden`, single-tone orange) with a real **bounded `GaugeRing`** — rest *is* a true 0→1 completion of the prescribed interval, so a full ring is honest here: **arc-following `--grad-orange` (mint)** stroke (conic-mask, *not* a flat SVG `linearGradient`), `--track-inset` `rgba(0,0,0,0.28)` **(mint)** beveled track under the `--color-alpha-white-10` track, 10px stroke, `--glow-orange` (32px, hero-size), center `M:SS` count (`text-display`, tabular-nums), "REST" eyebrow above. Fill animates from full→empty as the interval elapses; **flashes green `#34A853` at 0** (arrival/done — already in the spec's Motion table) then collapses.
+- **Why a ring, the Balencia way:** the rest interval is the one genuinely *completable* bounded value on this screen — it gets the GaugeRing (full ring); effort, a *level*, gets the open `ArcGauge` instead, so the two never look interchangeable.
+- **Micro-interaction:** the existing "Skip rest" affordance (≥44pt) ends it early and collapses the ring.
+- **States:** appears only after a completed set (height 0→200pt); reduced-motion → ring at current fill, no sweep, green-at-zero still fires as a state change.
+- **Data:** `workoutDetail.activeSession.restRemaining` + a new `restTotal` so the fraction is real (today only the remaining string exists).
+
+### 4 · Effort / zone hero — `S27-V04` → `ArcGauge` (160px, `VK-015`)
+
+The Summary's **one viz hero**: an **open `ArcGauge`** (240° sweep, open foot at the bottom — *never* a closed ring, because effort is a bounded **level**, not a completion that would falsely imply "100% done"). Arc fill = arc-following `--grad-orange` **(mint)** via **conic-mask**, `--glow-orange-md` (~20px **mint**) on the 160px hero (never the full 32px on an open arc), `--track-inset` **(mint)** under the `--color-alpha-white-10` track, round caps both ends, 12 decorative radial ticks (`--color-alpha-white-25`, perceptual-only), center value `text-display` + faint `--glow-orange-sm`, a zone word below in identity colour ("Peak" / "Tempo" / "Easy").
+- **Non-shaming (ethical core):** a **low** effort reading is **never recoloured to alarm-red** — it shows a rest/recovery glyph + a constructive line ("a lighter session still counts"), per `VK-015`. Status carried by number + glyph + word, never colour alone. Green appears only at the top/in-range band.
+- **Micro-interaction:** tap the gauge → expand a per-zone breakdown sheet (feeds the zone donut below).
+- **States:** no HR captured → effort shown as a **derived** value from RPE/volume with a "estimated" label (honest), or omitted with the donut if no zone data; cold-start → arc at rest on a ghosted min-foot, center "—".
+- **Data:** new `workoutDetail.summary.effort` (0–100 + zone) in `mock.ts`.
+
+### 5 · Time-in-zone donut + XP ring — `S27-V05` → `Donut` (96px) + `GaugeRing` (96px)
+
+Two part-of-whole / progress visuals in the Summary, clearly secondary to the effort hero:
+- **Zone `Donut` (96px):** minutes spent per HR zone, slices **summing to the true session duration** (never a padded total — RUBRIC dim 5); **longest/primary zone = `--color-brand-orange`**, remaining zones = warm neutral tints (`--color-alpha-white-40 / -20`), **never rainbow, never purple**; 2px slice gap (carved separation), center hub = total minutes; arcs **draw clockwise from 12 o'clock, largest→smallest**. A 0-minute zone is **omitted**, never a zero-width wedge.
+- **XP-progress `GaugeRing` (96px):** wraps the existing **+75 XP** badge as an honest fraction-to-next-level ring (today the spec describes a flat `XP bar` at 89% — this promotes it to the kit's instrument family so XP reads like every other bounded score in the app): orange arc-gradient over `--track-inset`, `--glow-orange-md`, fills old%→new% (520ms `--ease-flow`), **green at 100%** → triggers Celebration [42] (level-up), per the existing summary sequence.
+- **A11y:** donut `aria-label` enumerates every zone's minutes + %; XP ring `aria-label` "Fitness level 12, 89 percent to level 13."
+- **States:** no zone data → donut omitted (not a single-slice 100% lie), XP ring still shown; reduced-motion → full arcs + ring at final value instantly.
+- **Data:** new `workoutDetail.summary.zoneMinutes` + reuse `summary.xpEarned` / `xpProgress`.
+
+### 6 · Summary KPI strip + optional volume bars — `S27-V06` → `KPIStatTile` ×3 (+ optional `BarChart`)
+
+Replace the three **plain text tiles** (duration / exercises / calories) with `KPIStatTile`s carrying an **honest vs-last-session delta** ("vs last upper-body session" — a fixed, disclosed window, not a flattering pick). **High-motivation tier only:** a small `BarChart` of this-session vs last-session volume — **this-session orange, last-session green** (§11 compare law), **zero baseline, one shared y-scale** (no truncated/dual axis).
+- **Depth:** flat-premium KPI tiles (no glow); bars rise 520ms `--ease-flow`, rounded caps, no glow (glow stays on the effort hero).
+- **Non-shaming:** a ▼ delta (fewer exercises than last time) is a neutral muted arrow + "vs last" framing — never "you did less," never red; the summary celebrates *showing up* (per Motivation Adaptation).
+- **States:** first-ever session → deltas read `—` (no prior session to compare — honest, not a fabricated ▲); loading → label + skeleton number.
+
+### Motion choreography (entrance — draw-first order)
+
+**Active mode (live):** the HR **Living Line draws itself** L→R as the session streams (`stroke-draw` spine, append-on-tick, *never* opacity-fades — §8) → pace/cadence `KPIStatTile`s count-up on each update (280ms) → the rest **GaugeRing** appears only on set-complete (height 0→200pt, then ring fills/empties over the real interval, green flash at 0). One line motif per surface (the HR line is the only Living Line in this mode).
+
+**Summary mode (the signature reward sequence — extends the existing 1200ms+ choreography):** "Workout complete." fades in → KPI tiles count up (800ms) → **effort `ArcGauge` fills 0→value** (`ring-animate` 520ms `--ease-flow`, hero draws first among the viz) + center count-up → **zone `Donut` arcs draw** clockwise largest→smallest → **XP `GaugeRing` fills** old%→new% with the +75 badge scale-in + glow pulse → SIA feedback → "Done". Below-fold visuals animate on **scroll-into-view**. `prefers-reduced-motion` → every chart at final state instantly; the Living Line's static form (completed stroke + live/end dot), the ArcGauge's filled open arc, the donut's full arcs, and both rings' filled arcs are all preserved.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — Active HR card omitted behind a "connect a heart-rate sensor" affordance (never a flat-zero line), pace/cadence "—"; Summary effort `ArcGauge` derived-from-RPE with an "estimated" label or omitted, KPI deltas read `—` (no prior session), XP ring shown from real XP. **Loading** — depth-preserving skeletons that *morph* into drawn data (ring arcs, donut ring, gauge track, axes visible; radial/L-to-R shimmer — never blank discs). **Partial** — sensor dropout in the HR line is **ghosted/dashed** (distinct from a real flatline); a zone with 0 min is omitted (not a phantom wedge). **Error** — chart-specific honesty (e.g. "Could not read heart rate" on the HR card only, summary tiles independent) + a visible "retry", per the Error Handling table; the active **set-log queue** is unaffected (the critical path stays functional).
+- **60/30/10:** **orange dominates** data ink (HR-line effort segment, rest GaugeRing fill, effort ArcGauge, primary zone slice, XP ring, this-session bars, KPI accents); **green** = arrival/in-range only (HR cooldown segment, rest-complete flash, peak-effort band, milestone, XP at 100%, last-session compare bars per §11, ▲ deltas); **purple stays SIA-only** and is **absent from every chart on this screen** (no projection on a live/completed session — correct) — the only purple is the existing SIA-note dot; **fitness-red `#EF4444`** is confined to inherited domain/level **identity chrome**, **never** on a CTA, eyebrow, or data series, and a low effort is **never** recoloured red (`VK-015` non-shaming). Glow uses the size-stepped scale (160px ArcGauge = `--glow-orange-md`, 120px rest ring = 32px hero glow, 96px XP ring/donut = md, HR line / KPI tiles = none) — warm depth, not neon.
+- **Accessibility:** every gauge/line/donut/ring/tile carries a text/`aria-label` equivalent conveying the same value ("Heart rate 142 beats per minute, zone 4"; "Effort 78 of 100, peak"; "Rest, 1 minute 23 seconds remaining") — fixing the current `aria-hidden` rest ring that exposes **no** value to AT; status uses a **visible glyph + word** (zone word, effort glyph, ▲/▼ delta), never colour alone; label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — the HR stroke, rest-ring arc, ArcGauge arc + filled/track boundary, donut slice boundaries, XP-ring arc, and all status glyphs meet ≥3:1 vs background (the Z1–Z5 band strips and radial ticks are decorative-only, exempt); interactive chart targets (skip-rest, gauge-tap, scrub) ≥ 44×44pt; live regions announce HR-zone changes and rest-complete (`aria-live`, already partially present); `prefers-reduced-motion` renders all at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Strava + WHOOP (active/summary mode split — redesign candidate) — *stays Balencia via the Living-Line HR trend + warm-glow surfaces on ink-brown, the green-flash rest-ring completion, and non-shaming effort framing, not a WHOOP/Strava clone.*
+**Pre-grade:** A− (86) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): the A− Visualization section specced premium data depth (Living Line HR chart, GaugeRing rest timer, ArcGauge effort hero, honest zone donut, XP ring), but (1) non-chart surfaces (set tracker card, SIA notes, the pause overlay) are flat `--color-ink-brown-800` with no top-edge highlight or depth cues; (2) microcopy on edges (rest timer completion, effort low-reading, loading states) is partly unwritten, and error recovery strings lack specific coaching tone; (3) the multi-mode transition (Planning → Active → Summary) lacks explicit motion choreography beyond "content crossfade"; (4) interaction states on the inputs (weight/reps fields) are listed but not depth-reconciled; (5) the set-logged success moment ("Set logged ✓") is a bare text swap with no glow feedback to match the visual depth of the rest-ring's green flash.
+
+### Focal hierarchy
+
+One focal point per mode, shifts across the three modes. **Planning mode:** the "Start workout →" CTA (56pt orange pill) — the action that unlocks the active experience, sized as a hero, positioned at mid-scroll so the exercise list above it anchors the read. The SIA note sits above as a preamble, visually quiet (body type, no glow). **Active mode:** the current exercise name (24pt Bold, white, centered) + the Set Tracker Card (180pt, the interactive surface) form the focal pair — the exercise name is read first, the set tracker receives all interaction. The rest GaugeRing appears below when active (after a set is completed) and becomes secondary to the set tracker. The HR Living Line sits in a compact card to the left, clearly secondary by position and size. **Summary mode:** the effort ArcGauge (160pt, hero) is the focal element — the visual reward for completing the workout. The XP badge (+75 XP) scales into prominence next, then the zone donut. The KPI stat tiles (duration/exercises/calories) sit above and are secondary by position. Everything below (SIA feedback, the "Done" button) is tertiary. Each mode has exactly one clear focal read when scanned in <2s.
+
+### Surface & depth
+
+Every card adopts `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt on primary cards) · 1pt `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue) · `--shadow-1`. Applied to: Set Tracker Card (Active mode), SIA Coaching Note (Planning + Active), SIA Feedback Card (Summary), Rest Timer card container, and the stats tiles card (Summary). The Detail Header floats on `--color-ink-900` (fixed, z-10). The profile section (Sticky header in Planning, Progress bar + Controls in Active) uses no card surface, sitting on `--color-ink-900` directly. Glow is size-calibrated per `CONSISTENCY.md §1`: **no glow** on the Set Tracker Card (180pt, but the inputs are <36px inline elements — glow reserved for the data-viz layer); **`--glow-orange-sm`** (~12px) on the rest timer card's GaugeRing if it carries a brief success state; **no glow** on the SIA notes (body-text cards); **`--glow-orange`** (32px hero glow) is delegated to the data-viz layer (the HR Living Line at full width, the effort ArcGauge, the XP-progress GaugeRing — all in the Visualization section, not the craft surface layer). The pause overlay carries a semi-transparent `--color-ink-900` at 60% backdrop with 0 glow (an overlay, intentionally calm). Track language (rest GaugeRing, XP progress ring via the Visualization section, and the horizontal Living-Line XP bar if present in the summary KPI tiles) uses `--track-inset` (`rgba(0,0,0,0.28)`) beveled recess under `--color-alpha-white-10` for the track fill, never flat. No surface reads as a flat box; depth is the consistent language.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` tokens. Detail header workout name `--text-h3` (17pt) / 600 / `--leading-snug` (1.25) / white 100%; subtitle "Strength · 45 min" `--text-caption` (13pt) / 400 / `--leading-normal` (1.4) / white 50%. Current exercise name (Active, centered) `--text-display-l` (32pt) / 700 / `--leading-tight` (1.1) / white 100% (raised from 24pt Bold per the spec to meet the display-scale cadence for a focal element). Set progress "Set X of Y" `--text-h3` (17pt) / 600 / white 50%. Input eyebrow ("Weight", "Reps") `--text-eyebrow` (12pt) / 600 / uppercase / white-40 / `--tracking-eyebrow` (0.12em). Input value `--text-h2` (20pt) / 600 / `--leading-snug` / white 100%, tabular-nums. Rest timer "REST" label `--text-eyebrow`; time display "1:23" `--text-display-l` (32pt) / 700 / `--leading-tight` / white 100%, tabular-nums, font-variant: tabular-nums. Section eyebrows ("EXERCISES", "EST. DURATION", "NEXT:") the `.eyebrow` recipe (12pt / 600 / uppercase / white-40 / +0.12em tracking). SIA note text `--text-body` (16pt) / 400 / `--leading-normal` (1.4). "Workout complete." header (Summary) `--text-display-l` (32pt) / 700 / `--leading-tight`. Stat figures (42 min, 5 exercises, 380 cal, +75 XP) tabular-nums, `--text-h2` / 600 / white 100%. Hierarchy is carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout. ≤2 `--color-brand-orange` accent words on the screen (the orange on the CTA buttons and the set-logged success glyph ✓; no undue orange spreads to every label). Chillax stays logo-only. Replaces ad-hoc pixel line-heights with the `CK-T04` scale (`--leading-tight / snug / normal / relaxed`), always paired with the size.
+
+### Microcopy (before → after)
+
+All user-facing copy authored to `CK-P5` brand voice: warm, conversational, coached, sentence case, no exclamation marks, the brand period with intent.
+
+- **Planning mode SIA note** — *before:* "Good pairing with yesterday's cardio." → *after (kept):* same; warm, specific, coaching. Already on-voice.
+- **Active mode set-complete success** — *before:* "Set logged ✓" text swap only → *after:* text swaps + a brief `--glow-green` flash (600ms) so success reads with the same visual depth as the rest-ring green moment.
+- **Active mode rest timer completion** — *before:* green flash + collapse → *after (kept):* same; the glyph + green flash + haptic are the signals; no user-facing text needed on completion.
+- **Active mode SIA real-time notes** — *before:* "Last set. Push through." / "Final exercise. Almost done." etc. → *after (kept):* same; warm, contextual, never shaming. Already on-voice.
+- **Active mode disabled inputs (weight = 0, reps = 0)** — *before:* no message → *after (new):* "Enter weight and reps to log the set" (13pt Sora Regular, white-50, below the field; warm, action-oriented).
+- **Active mode loading state** — *before:* no message → *after (new):* skeleton input with "Reading your last set…" (white-40); morphs into populated form.
+- **Summary mode stat tile delta** — *before:* "42 min" bare number → *after (new):* count kept, + small meta line "vs last upper-body +8 min" (13pt, white-40) with neutral ▲/▼ arrow (white-40, never red; frames motion, not judgment).
+- **Summary mode SIA feedback** — *before:* "Solid session. That's 3 this week. Your volume is up 12% from last week." → *after (kept):* same; warm, specific, data-driven. Already on-voice. Variant for low-motivation: "You showed up. That's what matters." (non-shaming).
+- **Error state, set-log failure** — *before:* no message → *after (new):* button red border + toast "Saving…" (white-40) → (failure) "Couldn't save this set — you're offline. It will sync when you reconnect." (specific, recovery named, non-blaming).
+
+No exclamation marks; the brand period used with intent on the "Workout complete." moment. All SIA copy is specific to the user's data, never a horoscope.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first). **Planning mode:** SIA note fades in (280ms) → exercise rows stagger in (280ms each, 40ms stagger) → CTA fades in (280ms) → eyebrows on scroll-into-view. **Planning → Active:** content crossfade below header (520ms ease-out-soft). **Active mode:** on set-complete, button flashes `--glow-green` (600ms) → text swaps "Set logged ✓" (280ms fade) → set tracker dims (280ms) → rest GaugeRing grows (0→200pt, 280ms) and depletes real-time (synchronized with timer duration) → at 0, ring flashes green (280ms) → collapses (280ms) → set tracker restores (280ms). SIA notes rotate (fade + translateY, 280ms each). Exercise name crossfades on change (280ms). **Active → Summary:** full screen crossfade (520ms) → stat tiles count (520ms at offset 520ms) → effort ArcGauge draws (520ms at offset 800ms) → zone Donut draws (520ms at offset 1000ms) → XP ring fills + badge scales (520ms at offset 1200ms) → SIA feedback fades in (280ms at offset 1500ms) → "Done" fades in (280ms at offset 1700ms). `prefers-reduced-motion`: all instant; settled final states preserved (complete line, filled arcs, rings at final fill, stat values at final number). No essential info lost.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | SIA-generated starter workout (5 exercises, conservatively weighted). HR card hidden if no wearable. Summary: effort ArcGauge derived from RPE or omitted. | "Your first workout. No pressure — just show up and move." Summary: "You showed up. That's what matters." | SIA note genuinely warm. Effort (if rendered) labeled "estimated". No degenerate empty states; rings always shown at starting values. |
+| Loading / fetching | Set tracker skeleton inputs + "Reading your last set — one moment." below. Rest timer skeleton ring with shimmer. | "Reading your last set — one moment." | Skeleton on `--color-ink-brown-800`, radial shimmer, morphs into real values. Depth preserved (layout doesn't shift). |
+| Empty / partial | Planning: same as cold-start. Active: HR card omitted (not rendered); pace/cadence show "—". Summary: effort omitted if no data; zone Donut omitted. KPI tiles always shown. | Active: "Sensor not available" (white-50) below pace/cadence if no HR. Summary: "Effort couldn't be calculated" with "log it manually" link. | no-data ≠ zero. Missing HR is visually distinct from flatline. Ghosted/dashed tracks per Visualization. |
+| Error | Set button red border. Toast "Saving…" → (failure) persistent: "Couldn't save this set — you're offline. It will sync when you reconnect." Set tracker remains interactive. | "Saving your set…" → (success) silent. (failure) "Couldn't save this set — you're offline. It will sync when you reconnect." | Calibrated `--color-error-red` only on genuine failure. Glyph + word paired, never colour-alone. Actions enabled (pause/end/log another). |
+| Offline / backgrounded | Timers pause/resume automatically. If app killed: "Resume your workout?" prompt (orange Resume, secondary Discard). Set data persisted. | "Resume your workout?" (simple, clear). Resume succeeds silently. | Cached state retained; prompt is the affordance. |
+
+### Signature & anti-generic
+
+Ownable moments: the **green-flash rest-ring completion** (arrival signal on a functional timer, the Balencia signature); the **warm-glow surfaces on ink-brown-800** (every card uses `--edge-highlight` + layered depth, not flat boxes); the **orange-→-green effort ArcGauge** (Living-Line journey on an open arc, never a false closed ring); the **non-shaming language** on low-effort and partial-completion states (framed as state + constructive next step, never guilt or red recolouring). Anti-generic fixes: **multi-mode screen is a deliberate state machine** (not generic form-submit-view); **set tracker pre-fills from last set** (contextual, supportive, "Last set: 85 lbs × 8"); **SIA real-time notes contextual to position** ("Final exercise. Almost done." on last set); **pause overlay calm**, no urgency or coercion; **restrained summary celebration** (warm, no cartoon confetti, no hyperbole); **effort never recoloured to alarm-red** (non-shaming per VK-015); **no generic-app moves here** — unmistakably Balencia.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs:
+
+| Element | Color | Contrast |
+| --- | --- | --- |
+| Current exercise name (24pt Bold) | white 100% | ≥12:1 |
+| Set progress "Set 2 of 4" | white 50% | ≥4.5:1 |
+| Input labels ("Weight", "Reps") | white-40 | ≥4.5:1 |
+| Input values | white 100% | ≥12:1 |
+| Rest timer "REST" | white-40 | ≥4.5:1 |
+| Rest timer countdown "1:23" | white 100% | ≥12:1 |
+| "Complete set" button | `--color-forest-green` | ≥3:1 (WCAG 1.4.11) |
+| SIA note text | white 100% | ≥12:1 |
+| Section eyebrows | white-40 | decorative, paired with position |
+| Stat figures (42 min, +75 XP) | white 100% | ≥12:1 |
+| "Done" CTA | `--color-brand-orange` | ≥3:1 (WCAG 1.4.11) |
+
+Status never colour-alone: set-logged success shows green glyph ✓ + text + haptic; rest-ring green flash + haptic (medium vibration); error shows red border + alert glyph + text. All interactive elements use `--focus-ring` (`CK-T03`, 2pt orange, 2pt offset) uniform app-wide. Targets ≥44×44pt. Input fields labelled with `aria-label` (current value announced). Rest timer aria-label updates real-time. SIA notes announced on rotation. Set-logged confirmed announced. Mode entries announced. Reduced-motion: HR line at final state; ArcGauge arc drawn instantly; Donut arcs at final state; stat numbers at final values; XP ring at final fill; all staggered entrances instant. "Set logged ✓" appears without glow animation, but green button persists. No essential info lost; signature static forms preserved.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -469,7 +632,7 @@ Mode transitions use content crossfade below the header (520ms, ease-out-soft). 
 | "Start workout" CTA | #FF5E00 | burnt-orange | 60% — primary CTA |
 | "Done" CTA | #FF5E00 | burnt-orange | 60% — primary CTA |
 | "Complete set" button | #34A853 | forest-green | 30% — completion action |
-| Rest timer ring fill | #FF5E00 | burnt-orange | 60% — progress indicator |
+| Rest timer ring fill | #FF5E00 → #FF8A3D | burnt-orange (`--grad-orange`, mint) | 60% — arc-following gradient over `--track-inset`, `--glow-orange` (32px); see Visualization S27-V03 |
 | Rest timer completion flash | #34A853 | forest-green | 30% — success state |
 | XP badge text + glow | #FF5E00 | burnt-orange | 60% — reward accent |
 | XP bar fill | #FF5E00 | burnt-orange | 60% — progress |
@@ -630,8 +793,8 @@ Mode transitions use content crossfade below the header (520ms, ease-out-soft). 
 | Set counter update | Set completed | Fade out→in with translateY | 280ms | ease-out-soft |
 | Rest timer expand | Set completed | Height 0→200pt | 280ms | ease-out-soft |
 | Rest timer collapse | Rest ends / skipped | Height 200pt→0 | 280ms | ease-out-soft |
-| Rest ring sweep | Timer counting | Continuous counterclockwise | matches duration | linear |
-| Rest complete flash | Timer hits 0 | Ring fill orange→green→fade | 280ms | ease-out-soft |
+| Rest ring fill | Timer counting | `GaugeRing` depletes full→empty, counterclockwise, arc-following `--grad-orange` (mint) | matches duration | linear |
+| Rest complete flash | Timer hits 0 | Arc flashes green `#34A853` (arrival) then ring collapses (height 200pt→0) | 280ms | ease-out-soft |
 | Set tracker dim | Rest timer appears | Opacity 1.0→0.6 | 280ms | ease-out-soft |
 | Set tracker restore | Rest timer collapses | Opacity 0.6→1.0 | 280ms | ease-out-soft |
 | SIA note rotate | Context changes | Fade out + fade in + translateY(8→0) | 280ms each | ease-out-soft |

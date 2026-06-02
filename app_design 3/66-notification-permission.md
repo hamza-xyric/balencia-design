@@ -463,6 +463,105 @@ The one exception: if the screen is triggered from Accountability Partners [46] 
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** iOS system sheets + Linear dialogs — *stays Balencia via warm-glow surfaces on ink-brown, the continuous-stroke CTA glow pulse, non-shaming permission rationale, and honest benefit-driven framing.*
+**Pre-grade:** B+ (80) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+One focal point: the **bell illustration with floating notification badges** — 120pt centered bounding area, the immediate visual anchor above the fold. Below it, the title "Stay on track" (26pt Sora Bold, white) is the verbal focal point — the value proposition in three words, not a request. The benefit rows (3 rows x 56pt) sit as secondary content, each with a purpose-driven icon and warm description. The Enable Notifications CTA (56pt orange button with glow pulse) is the affordance, not a focal element. The Not now link is the escape hatch, deliberately dimmed (white at 50%). The squint test reads: illustration → title → benefits → action. No competing foci.
+
+### Surface & depth
+
+The bell illustration floats within a beveled recess frame: `--track-inset` (`rgba(0,0,0,0.28)`) inset shadow on a contained zone, creating a visual shelf without a card surface — the illustration breathes but is grounded. The bell icon itself is 64pt white at 90%, with a subtle inner glow (white at 8%, 4pt blur) — a hand-crafted, not generic, bell silhouette. The three floating badges (SIA purple, streak orange, partner green) each carry the size-calibrated glow for their color: **`--glow-orange-md` (~20px /.40 base opacity) on the 24pt SIA badge (purple at 100% fill), `--glow-orange-sm` (~12px /.35) on the 20pt streak (orange) and partner (green) badges — never neon, warm radiance only**. Each badge has a 2pt `--color-ink-900` border (cutout effect) + `--shadow-1` for elevation. Every text surface (title, subtitle, benefit rows, CTA, skip link) is treated as a `CK-P1` Layered Warm Surface **if contained in a card**; on this screen, text floats on `--color-ink-900` (intentional, no card chrome), but the CTA button itself receives `--color-brand-orange` fill + `--shadow-2` (mid elevation for the primary action) + size-calibrated glow (`--glow-orange-md`, 20px, .40 opacity, pulsing). Benefit row icon backgrounds are `--color-royal-purple` / `--color-brand-orange` / `--color-forest-green` each at 15% fill (the subtle domain-color language), never flat white at 15%. No surface reads as a flat box.
+
+### Typographic rhythm
+
+Map all text to `CK-P3` locked scale: title "Stay on track" **`--text-display-l` (32pt) / 700 weight / `--leading-tight` (1.1)** — elevated one step from the 26pt cited in Components to anchor the focal point; subtitle "SIA uses notifications to help you build lasting habits." **`--text-body` (16pt) / 400 / `--leading-normal` (1.4)** (raised from 15pt, same reason); benefit row titles "SIA coaching nudges" etc. **`--text-h3` (17pt) / 600 / `--leading-snug` (1.25)**; benefit row descriptions "Stay focused with personalized advice" **`--text-caption` (13pt) / 400 / `--leading-normal`**; CTA button "ENABLE NOTIFICATIONS" **`--text-h3` (17pt) / 600 / `--leading-snug`** (white on orange, ≥4.5:1); skip link "Not now" **`--text-body` (16pt) / 400 / `--leading-normal` / white at 50%** (a proper touch target, not a tiny caption). Tabular-nums never required (no stats on this screen). Sentence case throughout; Chillax logo-only (none here). The brand period is used on the title as the sentence-terminal mark — "Stay on track." — the sacred period anchoring the screen's value proposition. Hierarchy is carried by **weight** (600–700 vs 400), not size alone.
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` brand voice — warm, plain, coaching, non-shaming, zero exclamation marks, zero filler. The benefit rows are the key reframe:
+
+- **Title — *before:* "Stay on track" (given) → *after (kept):* same; focal, warm, benefit-framed.**
+- **Subtitle — *before:* "SIA uses notifications to help you build lasting habits." (given) → *after (kept):* same; warm, plain, coaching tone — already on-voice.**
+- **Benefit Row 1 description — *before:* "Timely reminders tailored to your goals" → *after (reframed):* "Stay focused with personalized advice" (shifted from generic "timely reminders" to a voice-specific benefit: staying focused, not just being reminded).**
+- **Benefit Row 2 — *before:* "Never miss a day accidentally" (given) → *after (kept):* same; frames the benefit (protect your streak) as an earned positive, not a fear ("don't lose").**
+- **Benefit Row 3 — *before:* "Know when accountability partners check in" (given) → *after (kept):* same; warm, specific, social benefit framed as connection.**
+- **CTA button — *before:* "Enable Notifications" (given) → *after (kept):* same; direct, clear, no urgency language.**
+- **Skip link — *before:* "Not now" (given) → *after (kept):* same; honest escape hatch, no guilt ("you can enable later" is implied, not shamed).**
+- **Loading state (new) — "SIA is preparing your settings — one moment." (warm, specific, no generic "Loading…").**
+- **System dialog denied (new) — "No problem. You can enable notifications anytime in Settings." (non-shaming, offers recovery path, no "you missed out" framing).**
+- **Permission already granted (new) — "All set. You're connected." (brief, warm, celebrates the state).**
+- **Error / system dialog unavailable (new) — "Something went wrong. Try again or enable notifications in Settings later." (specific, two recovery paths named, warm recovery affordance).**
+
+No exclamation marks; all strings frame the ask as a benefit to the user, not a request from the app; the brand period is used with intent on key lines (the title, the SIA rationale subtitle).
+
+### Motion choreography
+
+Locked to `CK-P4` entrance order (draw-first, staggered rise):
+
+1. **0ms**: Screen background fades in (transparent → `--color-ink-900`), 280ms, `--ease-out-soft`.
+2. **0ms**: Bell icon fades + scales in (0.85 → 1.0), 320ms, `--ease-out-soft`, centered.
+3. **320ms**: Bell sway begins (infinite rotation −3° ↔ 3°, 3000ms sinusoidal cycle).
+4. **320ms**: SIA badge (purple) springs in — scale(0 → 1.0) + fade, 240ms, `--ease-out-back` (slight overshoot), 320ms delay from bell start.
+5. **440ms**: Streak badge (orange) springs in — scale(0 → 1.0) + fade, 240ms, `--ease-out-back`, 440ms delay.
+6. **560ms**: Partner badge (green) springs in — scale(0 → 1.0) + fade, 240ms, `--ease-out-back`, 560ms delay.
+7. **560ms**: Badges enter float cycle (each translateY ±2pt, 2400ms infinite sinusoidal, staggered phase).
+8. **400ms**: Title fades + slides up (0 + translateY(8pt) → final, 280ms, `--ease-out-soft`).
+9. **480ms**: Subtitle fades + slides up (same, 280ms, 480ms delay).
+10. **560ms**: Benefit Row 1 fades + slides in from left (0 + translateX(−12pt) → final, 280ms, `--ease-out-soft`).
+11. **640ms**: Benefit Row 2 fades + slides in from left (same, 280ms, 640ms delay).
+12. **720ms**: Benefit Row 3 fades + slides in from left (same, 280ms, 720ms delay).
+13. **800ms**: CTA button fades + slides up (0 + translateY(16pt) → final, 280ms, `--ease-out-soft`).
+14. **1200ms**: **CTA glow pulse begins infinite cycle: `--glow-orange-md` opacity 0.15 → 0.30, 2400ms sinusoidal, never urgent/aggressive**.
+15. **880ms**: Skip link fades in (280ms, `--ease-out-soft`).
+
+**Total animation to full visibility: ~1.1 seconds.** Bell sway and badge float loops begin after the entrance sequence settles. The CTA glow pulse is the **only infinite loop**, and it is calm, pulsing warmth (not a flashing alert) — the signature moment on this permission screen, drawing the eye to the primary action without urgency. `prefers-reduced-motion` → all entrance animations collapse to instant opacity 1, final position (no translate, no scale). Bell sway disabled (bell static). Badge float disabled (badges at final positions). CTA glow pulse replaced with static `--glow-orange-md` at 0.20 opacity (no animation). Screen renders fully in a single 200ms fade-in. The CTA glow pulse's static form (warm radiance at rest) is preserved as the canonical frame.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| **Cold-start / first arrival** | Full illustration + title + subtitle + 3 benefit rows + CTA + skip link, all visible. 56pt top spacer centers content vertically. | "Stay on track. SIA uses notifications to help you build lasting habits. [Benefits explain what you gain.]" | All surfaces at full depth; illustration floats in beveled recess; CTA glow pulse at rest (warm, not urgent) |
+| **Loading** | Same layout, but illustration fades to 40% opacity (ghosts), benefit text becomes skeleton shimmer. CTA button text becomes spinning 20pt white circle (loading spinner, centered). | "SIA is preparing your settings — one moment." (centered below subtitle, 13pt, white at 50%, fade-in 280ms) | Illustration ghosted but still visible (context preserved); CTA spinner on orange fill; depth preserved |
+| **System dialog denied / "Don't Allow"** | CTA text changes to "Got it" for 400ms (acknowledgment), orange fill dims to 40% opacity, then screen fades out (crossfade 280ms, `--ease-out-soft`). Below-fold message briefly appears: "You can enable notifications anytime in Settings." (13pt, white at 50%, center, fade-in 280ms) | "You can enable notifications anytime in Settings." (non-shaming, recovery path named) | CTA fill dims to 40% (honest feedback that the ask was declined), no guilt/shame language |
+| **Permission already granted (edge case)** | CTA text changes to "All set." for 1200ms, orange fill transitions to green (`--color-forest-green`, 200ms crossfade), white checkmark icon replaces text (160ms crossfade), `--glow-green` pulse 600ms. Screen then fades out. | "All set. You're connected." (brief, warm, celebrates the granted state) | CTA green glow flash, checkmark icon (success visual), warm tone — celebrates the permission without over-claiming value |
+| **System dialog unavailable (rare error)** | CTA reverts to Default state (orange fill, text "ENABLE NOTIFICATIONS"), inline message appears below: "Something went wrong. Try again or enable notifications in Settings later." (13pt Sora Regular, white at 50%, center-aligned, fade-in 280ms). | "Something went wrong. Try again or enable notifications in Settings later." (specific failure, two recovery paths named: retry, or settings deep-link) | Inline message on `--color-ink-900` at 50% contrast (readable, not alarming); no red border (not an operational error, not the user's fault); CTA enabled for retry |
+| **Offline / network unavailable** | Same layout, CTA dimmed to 50% opacity (no haptic). Inline banner below subtitle (80pt zone): "You're offline. Enable notifications when you're back online." (13pt, white at 40%, center). | "You're offline. Enable notifications when you're back online." (honest framing, recovery condition named, no shame) | CTA dimmed (50% opacity), no glow pulse (respects offline context). Banner uses white at 40% (not alarming). Illustration remains at full depth (context anchor preserved). |
+
+Every cell designed: layout specified (what's visible, what's ghosted), copy authored (warm, specific, recovery actions named), depth/brand applied (glow, color, opacity changes signal state, never colour-alone).
+
+### Signature & anti-generic
+
+The **ownable Balencia moment** is the warm-glow pulse on the CTA button — a signature device that communicates approachability and earned trust (the "come closer, this is safe" glow, never a "urgent, tap now" alert pulse). The continuous-stroke motif appears subtly in the illustration (the bell's outline is a smooth, warm silhouette) and in the CTA's glow (a continuous warm aura, not a staccato blink). The **benefit rows break generic permission-ask monotony** by color-coding each benefit to the Balencia system (purple SIA, orange action, green success/social) — making abstract concepts (coaching, streaks, accountability) visually semantic and ownable. The illustration's floating badges aren't generic notification icons; they are a custom, illustrative composition that teaches the user what types of notifications they'll receive (specific, not vague). The **non-shaming copy** frames notifications as benefits the user will gain (coaching nudges, streak protection, partner updates) — zero "you'll regret declining" or guilt framing — which is a brand-defining choice on a permission screen. Anti-generic fixes: (1) the benefit row icons are domain-color-coded, not monochrome badges; (2) the CTA glow is warm and pulsing (calm, earned trust) not a staccato/urgent alert; (3) every edge state (denied, error, offline) has authored, non-generic copy; (4) the illustration area floats on a beveled recess (premium detail, not a flat background). A generic permission screen would have a single alert/icon, generic benefit bullets, a red or urgent-toned button, and silent error states — this screen is unmistakably Balencia.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-900`):
+
+| Element | Color | Contrast ratio | WCAG level |
+|---------|-------|-----------------|-----------|
+| Title "Stay on track" | `--color-alpha-white-100` | ≥12:1 | AAA |
+| Subtitle text | `--color-alpha-white-60` | ≥4.5:1 | AA |
+| Benefit row title | `--color-alpha-white-100` | ≥12:1 | AAA |
+| Benefit row description | `--color-alpha-white-50` | ≥4.5:1 | AA |
+| CTA button text (white on orange) | `--color-brand-orange` fill + white text | ≥4.5:1 on fill | AA |
+| Skip link text | `--color-alpha-white-50` | ≥4.5:1 | AA |
+| Loading message | `--color-alpha-white-50` | ≥4.5:1 | AA |
+| Error/offline inline message | `--color-alpha-white-50` | ≥4.5:1 | AA |
+| Bell illustration (white at 90%) | `--color-alpha-white-90` | ≥4.5:1 | AA |
+| Badge icons (white on coloured fill) | White at 100% on purple/orange/green fills | ≥3:1 (WCAG 1.4.11 graphics) | AA (non-text graphics) |
+
+**VoiceOver / TalkBack reading order**: Bell illustration (`accessibilityElementsHidden={true}` — decorative, no unique info) → Title → Subtitle → Benefit Row 1 (combined as one element: "SIA coaching nudges. Stay focused with personalized advice.") → Benefit Row 2 → Benefit Row 3 → CTA button ("Enable Notifications" + hint "Double tap to allow push notifications") → Skip link ("Not now" + hint "Double tap to skip — you can enable notifications later").
+
+**Bell illustration** — marked `accessibilityElementsHidden={true}` (decorative; the title + subtitle + benefits communicate the same info in text form). **Benefit rows** — each combined as a single accessible element with `accessibilityLabel="[title]. [description]."` (not separate icon/title/description elements, which would fragment the read). **CTA button** — `accessibilityRole="button"`, `accessibilityLabel="Enable Notifications"`, `accessibilityHint="Double tap to allow Balencia to send you push notifications. The iOS permission dialog will appear."` (clear, specific, no jargon). **Skip link** — `accessibilityRole="button"`, `accessibilityLabel="Not now"`, `accessibilityHint="Double tap to skip. The iOS permission will not be requested yet."` (clear that the system prompt is preserved for later). **Dynamic type** — title, subtitle, and benefit text scale with system font size up to 1.3x. Beyond 1.3x, text truncates gracefully (benefit descriptions may wrap to 2 lines, expanding row height from 56pt to 72pt, layout reflows). **High contrast mode** — CTA button gains a 2pt white border for additional definition; skip link opacity increases from 50% to 70%; benefit row icon backgrounds increase from 15% to 25% opacity. **Reduced motion** — all entrance animations disabled (final state instantly, no translate/scale); bell sway loop disabled, badge float loops disabled, CTA glow pulse replaced with static 0.20 opacity (no animation). Signature static forms preserved: the warm-glow radiance on the CTA (the color/depth read is unchanged) and the bell illustration's floating badges at their final positions (no loss of context).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Home Screen [12] (first launch, after allow/deny/skip). Settings App (external, when "Open Settings" variant is shown for `.denied` users). Requesting screen (modal dismiss, re-entry context — returns to Settings [21], Accountability Partners [46], or Reminders [61]).

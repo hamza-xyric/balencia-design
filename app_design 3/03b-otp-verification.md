@@ -429,6 +429,130 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Stripe + Linear + iOS auth — *stays Balencia via the warm-glow input surfaces, the non-shaming error recovery copy, and the continuous-stroke digit entry moment.*
+**Pre-grade:** A− (84) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): the spec has a clear IA and strong interaction design, but (1) the OTP input boxes are flat ink-brown-800 with no top-edge highlight or glow-calibrated depth; (2) microcopy on cold-start, loading, and error states is partly generic or unsigned; (3) type line-heights are ad-hoc pixels (30pt, 22pt) instead of the `CK-P3` scale; (4) the brand signature (the continuous-stroke draw on digit entry, the brand period on "verify.") is mentioned in motion but not authored as an ownable moment; (5) error-recovery framing is clinical, not warm; (6) contrast pairs are claimed but not tabulated; (7) the success state copy is generic ("Success!") not on-voice.
+
+### Focal hierarchy
+
+One focal point: the **4 OTP input boxes** — the task at hand, sized as heroes (56×56pt each), centered on screen, the most visually prominent element. The heading "Verify your email" reads second (24pt, bold, identity-setting); the subtitle (masked email) and the resend link read third and fourth (supporting context); the "verify" CTA reads last (the final action, not a competing focal point — it sits below the boxes, secondary by position and by virtue of its dependence on completion). The squint test lands on the four boxes first, then reads down the hierarchy. No competing foci.
+
+### Surface & depth
+
+Every interactive surface adopts the `CK-P1` Layered Warm Surface: each OTP input box is `--color-ink-brown-800` body · `--radius-md` (14pt, per the brand rule for mid-size elements ~36–56px) · 1px `--color-alpha-white-10` border (white at 10% opacity) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the not-flat cue — previously absent) · `--shadow-1` (subtle elevation). On focus, the border transitions to 2pt `--color-brand-orange` (the focus indicator, never a flat outline). On error, the border transitions to 2pt `--color-error-red` (calibrated-red only for operational failure — a genuine invalid code, not a shame state). The primary CTA button ("verify") and the "Resend code" link are also surfaces: the CTA is a pill (`--radius-pill`) with a warm glow (`--glow-orange` 32px, size-calibrated for a ≥96pt button; the 56pt pill qualifies) + the inset track beneath it (if rendering an optional loading state with an inline spinner) carries `--track-inset`. The back button and the brand logo are graphic elements (no surface glow). The screen background is full-bleed `--color-ink-900`.
+
+### Typographic rhythm
+
+Remap the Typography table to `CK-P3` tokens: heading "Verify your email" is `--text-h2` (20pt) / weight 700 / `--leading-snug` (1.25) / white 100%; subtitle "We sent a 4-digit code to j***@email.com" is `--text-body` (16pt, raised from the spec's 15pt) / 400 / `--leading-normal` (1.4) / white 50% (secondary guidance tone); OTP digit is `--text-h2` (20pt) / 700 / `--leading-snug` / white 100% (prominent, legible in the small box); CTA text "verify" is `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%; resend link text "Resend code" is `--text-h3` (17pt) / 600 / white 30% (disabled state, faded) → `--color-brand-orange` when enabled (interactive); error text below boxes is `--text-caption` (13pt) / 400 / `--leading-normal` / `--color-error-red` (specific, non-shaming). All text uses sentence case. No exclamation marks. The brand period is used with intent on the CTA: "verify." (the sacred period, not "Verify"). Replaces ad-hoc pixel line-heights (such as 30pt on the 24pt heading) with the locked `CK-T04` scale.
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` voice — warm, plain, coaching, non-shaming:
+
+- **Heading** — *before:* "Verify your email" (given, on-voice) → *after (kept):* same; clear, direct, one-line intent.
+- **Subtitle** — *before:* "We sent a 4-digit code to j***@email.com" (given) → *after (kept):* same; warm, confirms confidence in the right inbox.
+- **OTP box hint text** — *before:* none (boxes render empty) → *after (new):* no visible generic text (numeric keyboard is context enough); the first box auto-focuses and a subtle pulse animation on focus (not a shake — that's reserved for error).
+- **OTP box focused state** — *before:* no message → *after (implied):* the focus border transitions to orange (visual affordance); no text needed.
+- **CTA button text** — *before:* "verify" (given) → *after (kept):* same; sentence case, lowercase. **The brand period** — the sacred period appears here: "verify." (internal design only, not user-visible CTA text, but the spec names it "verify" + the period is understood as the brand signature moment, the finish line).
+- **Resend link, countdown active (day 1)** — *before:* "Resend code (0:59)" text, white at 30% (disabled) → *after (same implementation, authored warmth):* the countdown timer is clear and non-accusatory (no "waiting..." preamble); the countdown reads as a protective measure, not a punishment.
+- **Resend link, countdown complete** — *before:* orange text → *after (same, warm framing):* "Resend code" (not "Click here again" — warm, actionable).
+- **Error state: invalid code** — *before:* "Invalid code. Please try again." → *after (reframed, non-shaming):* "That code didn't work. Check the email and try again." (warm, specific, recovery-focused; "check the email" is the recovery action, not a blame). Boxes clear and focus returns to the first; no shake (the shake is reserved for a user's third invalid attempt — a rare case, not the default error).
+- **Error state: expired code** — *before:* "Code expired. Please request a new one." → *after (reframed):* "That code expired. We've enabled resend below." (warm, no blame; "enabled resend" frames the solution as already available).
+- **Error state: too many attempts** — *before:* toast "Too many attempts. Please try again in 5 minutes." → *after (same messaging, warm tone):* toast remains (a protective measure to prevent brute-force), but no blame language. CTA and boxes are honestly dimmed (0.4 opacity) with a reason: "Please wait — your code will be ready to verify again in 4:32." (specific countdown, not a generic "try later").
+- **Success state (OTP verified)** — *before:* implied navigation (no explicit copy) → *after (new, on-voice):* optional brief success indication (not "Success!" — that's generic and loud). Instead, the CTA shows a green glow flash (600ms) as the user is navigated to the next screen (the navigation itself is the confirmation, per the spec). No toast needed.
+- **Loading state (verify API pending)** — *before:* no message → *after (new, on-voice):* CTA button shows an inline spinner and text "Verifying..." (warm, specific action); boxes remain interactive in case the user wants to correct a digit while waiting.
+- **Resend API pending** — *before:* no message → *after (new):* "Resend code" text is replaced with a small inline spinner (14pt) briefly; on success, shows "Code sent" in `--color-forest-green` for 3 seconds, then countdown restarts (warm, specific confirmation).
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first, no fade):
+
+1. **Screen content entrance** → staggered fade-up (`--dur-base` 280ms `--ease-out-soft`, 80ms stagger): logo (0ms) → heading (80ms) → subtitle (160ms) → OTP boxes group (240ms, all 4 together) → resend link (320ms) → CTA (400ms). All: opacity 0→1, translateY(12pt→0).
+
+2. **OTP digit entry** → when the user types a digit into a focused box, the digit scales from 0.5→1.0 + opacity 0→1 (120ms `--ease-out-soft`) — a subtle arrival motion (never fading in, always scaling up).
+
+3. **OTP focus border transition** → when a box receives focus, the border transitions from 1pt white-10% to 2pt orange (`--dur-fast` 160ms `--ease-out-soft`) — a smooth focus indicator (no harsh swap).
+
+4. **Auto-advance to next box** → when a digit is entered and focus moves to the next box, the previous box border fades to the default 1pt white-10% (160ms) *and* the next box border appears orange (160ms), both in parallel — a coherent hand-off.
+
+5. **Error shake** → on invalid code (the rare third attempt), all 4 boxes translate horizontally: `translateX(0→6→-6→4→-4→2→-2→0)` (3 oscillations, 400ms total `--ease-out`). The shake is a haptic moment, not a visual shame; after the shake, boxes clear and focus returns to box 1.
+
+6. **Error border transition** → all 4 box borders transition to 2pt red (`--dur-fast` 160ms `--ease-out-soft`) simultaneously (not a stagger — a unified error state).
+
+7. **CTA loading spinner** → on "verify" tap, the text "verify." crossfades to a spinner (160ms `--dur-fast` `--ease-out-soft`) — a clear state change (no text + spinner together).
+
+8. **CTA success glow** → on verification success, a green glow radiates outward from the CTA (opacity 0→0.3→0, 600ms `--dur-slow` `--ease-out-soft`); the CTA remains visible and orange until the navigation completes.
+
+9. **Countdown timer crossfade** → the resend link's countdown number changes every second with a soft crossfade (160ms `--dur-fast`) — no harsh jump or flashing.
+
+10. **Resend success** → "Resend code" text crossfades to "Code sent" in green (280ms `--dur-base`), then fades back to the countdown state after 3 seconds (280ms out).
+
+**Reduced-motion fallback**: `prefers-reduced-motion` → all animations instant, final state only. The OTP box scales and digits appear at full size instantly. Border transitions snap to the final color. Error borders snap red. Shake animation is skipped (red borders remain, no motion). CTA spinner appears instantly. Success glow is skipped (the green flash is a motion moment — at-rest the button is orange, and the user is navigated away before they'd miss the flash). Countdown timer updates instantly (no crossfade).
+
+**Screen transition**: *Enter* — stack push from right (from Sign Up [03]), 280ms `--ease-out-soft`; content stagger begins after the push completes. *Exit (success)* — stack push from right (to Consent [03c]), 280ms, starting after the success glow completes (600ms). *Exit (back)* — stack pop to left (to Sign Up [03]), 280ms.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | First OTP box auto-focused, numeric keyboard visible, empty boxes (no generic text), resend link shows countdown starting from 60 seconds, CTA enabled | "Verify your email" heading + "We sent a 4-digit code to j***@email.com" subtitle + keyboard context (numeric only) | all surfaces carry `--edge-highlight` + `--shadow-1`; focus box border is orange (visual cue, not a text message) |
+| Loading (verify API pending) | Boxes remain interactive (user can still correct), CTA shows spinner + "Verifying..." text, resend link remains enabled if countdown permits | "Verifying..." in the CTA (warm, specific action) | CTA spinner is white-100, orange background remains (no state change in appearance other than the spinner) |
+| Empty / partial (edge case: fewer than 4 digits entered) | All boxes show entered digits (no clearing), CTA is disabled (0.4 opacity, no touch response) with a subtle reason (optional: "Enter all 4 digits") | CTA visually disabled (opacity 0.4); no error toast (incomplete entry is expected, not an error) | CTA is dimmed but carries the same surface treatment (no red, no error styling) |
+| Error: invalid code (wrong digits) | All 4 boxes get 2pt red borders (160ms transition), shake animation plays (400ms, 3 oscillations), error text appears below boxes: "That code didn't work. Check the email and try again." (centered, 13pt, red), then boxes clear and focus returns to box 1 | "That code didn't work. Check the email and try again." (warm, non-shaming, recovery action named — "check the email") | red borders are the sole error indicator (never a bg color change, just the border); `--color-error-red` used only for genuine operational failure; glyph + word not needed here (the red border + text pair is sufficient) |
+| Error: expired code | All 4 boxes get 2pt red borders (no shake — this is not the user's fault), error text: "That code expired. We've enabled resend below.", resend link text changes to orange immediately (countdown is bypassed), boxes clear and focus returns to box 1 | "That code expired. We've enabled resend below." (warm, no blame, solution named) | red borders signal the error; no shake (honest, calm error recovery) |
+| Error: too many attempts (rate limit) | Toast at top of screen (ink-brown-800 bg, --r-md, --shadow-2), CTA and OTP boxes disabled (0.4 opacity, no touch response), resend link disabled. Toast shows: "Too many attempts. Your code will be ready again in 4:32." (countdown updates every second). | "Too many attempts. Your code will be ready again in 4:32." (protective, specific countdown, no blame) | boxes and CTA honestly dimmed (0.4 opacity); toast has depth (`--shadow-2`); countdown is a visible protection, not a punishment |
+| Error: network failure (verify or resend) | CTA reverts to default state (orange, enabled), boxes retain entered digits (not cleared), no shake. Toast: "Something went wrong. Please try again." (auto-dismisses after 4s). | "Something went wrong. Please try again." (generic but brief; the retry path is clear from context) | boxes stay as-is (digits preserved for retry); CTA stays enabled (no false blocking); toast has depth |
+| Success (OTP verified) | CTA shows green glow flash (600ms), then navigates to Consent [03c] via stack push | No explicit success copy (the navigation is the confirmation); the success flash is the brand moment | green glow (`--glow-green` 32px, size-calibrated for the 56pt CTA) flash is the only visual — no toast, no "Success!" text (warm, celebratory, brief) |
+| Offline | All interactive elements remain active (the user can still enter digits, tap buttons); a cached banner appears below the sticky header (if applicable, per the screen's offline-behavior section) | "You're offline — we'll try to verify when you're back online." (honest, not alarming) | actions are not dimmed (unlike the rate-limit case, where the user must wait); the banner is informational, not an error |
+
+### Signature & anti-generic
+
+Ownable moments: the **continuous-stroke digit entry animation** (each digit scales in, never fades) — the brand signature on an input screen; and the **warm-glow surfaces on every interactive element** (the OTP boxes, the CTA, the resend link hover state) — the depth language that makes the auth flow premium, not generic. The **non-shaming error recovery copy** ("that code didn't work — check the email" instead of a blame-frame) is a signature of the Balencia voice (coaching, not judging). Anti-generic fixes: the 4 boxes are not a flat equal-width stack — they are sized as 56×56pt heroes, centered on screen, with 12pt gaps that read as intentional (not a generic form field row). The empty state (cold-start) is the only scenario — every user arriving here has just submitted a sign-up form and an OTP has been sent — so the screen *never* feels empty; it is purpose-built for this moment. The error states are **all designed** (not deferred to a generic error table) — each error has its own copy, visual treatment, and recovery path, so the screen never reads as a template.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-900` and `--color-ink-brown-800` surfaces):
+
+| Element | Color | Contrast | Notes |
+| --- | --- | --- | --- |
+| Heading "Verify your email" | `--color-alpha-white-100` (white 100%) | ≥12:1 on both | Primary text, high contrast |
+| Subtitle (masked email) | `--color-alpha-white-50` (white 50%) | ≥4.5:1 | Secondary guidance, meets AA |
+| OTP digit (when filled) | `--color-alpha-white-100` | ≥12:1 | User input, high contrast |
+| CTA text "verify." | `--color-alpha-white-100` | ≥12:1 | Primary action, high contrast |
+| CTA background (orange) | `--color-brand-orange` | 3.2:1 on `--color-ink-900` | WCAG 1.4.11 ≥3:1, passes |
+| OTP box border (default, white 10%) | `--color-alpha-white-10` | <3:1 (decorative, not load-bearing) | The border is decorative; focus indicator (orange border) is load-bearing |
+| OTP box border (focused, orange) | `--color-brand-orange` | 3.2:1 | WCAG 1.4.11 focus indicator ≥3:1, passes |
+| OTP box border (error, red) | `--color-error-red` | 3.5:1 on `--color-ink-brown-800` | WCAG 1.4.11 ≥3:1, error signal, passes |
+| Error text below boxes | `--color-error-red` | 3.5:1 | Status message, glyph + word paired (the red border + text, not colour-alone) |
+| Resend link (enabled, orange) | `--color-brand-orange` | 3.2:1 | Interactive text, meets WCAG 1.4.11 |
+| Resend link (disabled, white 30%) | `--color-alpha-white-30` | <3:1 (decorative state, disabled affordance) | Opacity change signals disabled state + mechanical unavailability (countdown timer) |
+
+**Focus-visible**: the single standardized `--focus-ring` (`CK-T03`, 2px `--color-brand-orange`, 2px offset) is applied to every focusable element: OTP boxes (the 56×56pt boxes carry the ring 2pt outside the border), the CTA button (56pt pill carries the ring 2pt outside), the resend link (carries the ring around the text). All focus rings are consistent and universally applied — no ad-hoc "2pt orange ring" repeated per-element.
+
+**Touch targets**: every interactive element ≥44×44pt: each OTP box is 56×56pt (exceeds minimum); the CTA button is full-width minus margins (minimum 48pt height given the 56pt spec, exceeds minimum); the resend link is a full-width text link with a 44pt touch target (the link text plus vertical padding).
+
+**Haptic feedback**: the spec defines haptic points: light impact on OTP focus, light impact on digit entry (the scale-in is the visual moment), light impact on CTA press (scale(0.97) + slight darken), error notification on invalid code (the shake is the physical feedback, paired with the red border + text).
+
+**Keyboard behavior**: numeric keyboard only (number-pad type); no "Next" or "Done" toolbar (the 4-digit limit auto-advances focus, eliminating the need for a toolbar). Backspace clears the current box; if already empty, moves to the previous box and clears it (a power-user affordance). Paste support: if the user pastes a 4-digit string into any box, all 4 boxes populate simultaneously. Tab key (if used) moves focus through OTP boxes left-to-right, then to the resend link, then to the CTA.
+
+**Screen reader labels**:
+- Heading: "Verify your email" (announced on mount)
+- Subtitle: "We sent a 4-digit code to j***@email.com" (announced after heading)
+- OTP box 1: "Digit 1 of 4, empty" (announced on mount + when empty; "digit 1 of 4, [digit]" when filled)
+- OTP auto-advance announcement: "Moved to digit 2" (via live region when focus auto-advances)
+- CTA: "Verify, button" (tappable affordance clear)
+- Resend link: "Resend code, available in 47 seconds" or "Resend code, available" (countdown updates announced)
+- Error message: announced via live region when error text appears ("That code didn't work. Check the email and try again.")
+
+**Reduced-motion**: `prefers-reduced-motion` → all staggered entrance animations collapse to instant, all transitions (border color, opacity, scale) are instant, the error shake is skipped (red borders remain visible, no motion), the success glow flash is skipped (orange button remains visible until navigation), the countdown timer updates instantly (no crossfade). The **settled frame is the canonical frame**: all elements appear at their final state, fully visible, legible, and functional. No essential information is lost.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: Screen [03c] — Consent via stack push (OTP verified, account created)

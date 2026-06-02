@@ -545,6 +545,130 @@ The Recipes screen is the user's personal recipe library and discovery hub withi
 
 ---
 
+## Visualization
+
+> Source: no companion file; audited in `viz-audit/` — Batch (Lightweight-MEDIUM), findings `S56-V01..S56-V02`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **No new data** — every visual derives from macros the screen already prints (`calories_per_serving`, `protein_grams`, `carbs_grams`, `fat_grams`). **Current grade C (72) → specced-target A− (86).** *(Honest re-grade under the 10-dimension rubric. This is a deliberately **light** screen: a recipe **library/browser**, not a data dashboard. It has exactly one datum that genuinely benefits from a chart — the per-recipe macro split — so a 2-subsection mini-section is correct; forcing a hero gauge, trend line, or KPI strip onto a browse grid would be over-resolution and is intentionally avoided. The residual gap to A+++ is build-verified depth + the working draw-on-enter micro-interaction, owned by the later viz-build program.)*
+
+Template = **Lightweight-MEDIUM** (`CONSISTENCY.md` §6 thin variants; 56 is named there). Cluster benchmark = **MyFitnessPal premium / Cronometer + Bevel** (macro rings/donuts) under the **Apple Health / Linear** calm-restraint floor. Register = **Nutrition Mode** → nutrition-lime `#84CC16` is **identity only** (header line, eyebrows, diet-plan tags, cuisine chips, RPG badge), never data ink. This section changes only **one thing about how the data reads**: the per-recipe macro numbers (today a flat `"480 cal · 35g P · 40g C · 18g F"` text string) become an honest **part-of-whole** so the eye reads *composition* — protein-forward vs. carb-heavy — at a glance, exactly the decision a recipe browser exists to support. The star **rating stays as the 5-star row** (it is already the right primitive — a 0–5 ordinal, not a chart); calories, prep time, difficulty, names, cuisine, times-made, and all SIA copy stay **deliberately textual** (one-off scalars/labels with no useful visual form).
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Macro split per recipe — P/C/F as calorie share (card) | flat text `"480 cal · 35g P"` / `"…40g C · 18g F"` | **24px micro Donut** (no hub, no glow) beside the macro line — protein = orange primary slice, carbs/fat = warm neutral tints | **`Donut` (VK-007), micro variant** |
+| Macros Per Serving (Recipe Detail card) | 4 flat stat tiles + bare numbers | **96px card Donut** with **center hub = total cal** + the 4 tiles kept as the legend/values beside it | **`Donut` (VK-007), card variant** |
+| Star rating (4.5 / Made 3×) | 5-star amber row | — (deliberately textual/ordinal — stars are already the correct primitive; a chart would be worse) | — |
+| Calories · prep time · difficulty · cuisine · name · times-made · SIA notes | text / badges / chips | — (deliberately textual — one-off scalars + identity labels, no useful visual form) | — |
+
+**Editorial hierarchy (justified restraint).** There is exactly one focal visual — the **96px card Donut** on the Recipe Detail "Macros Per Serving" card — and one secondary, repeated micro-visual — the **24px Donut** on each recipe card. Everything else is intentionally textual. A recipe **browser** is a discovery surface, not a metrics dashboard: a hero `GaugeRing`, a `TrendChart`, or a `KPIStatTile` strip would be over-resolution (penalised under RUBRIC dims 1 & 2) because there is no time-series, no single bounded score, and no delta to honestly show on a list of recipes. The single composition chart is the one place a visual genuinely beats text, so it — and only it — is added.
+
+### 1 · Donut — per-recipe macro split — `S56-V01`  *(reuse `VK-007`, micro + card variants)*
+
+Render the macro composition as a **`Donut` (VK-007)** so a recipe reads as *protein-forward* / *carb-heavy* / *balanced* at a glance — the part-of-whole view a `"35g P · 40g C · 18g F"` text string structurally cannot show. Two sizes, one primitive:
+- **Micro variant (24px) — on every Recipe Card** (grid + AI-suggestion + favorites cards): a 24px donut beside (or replacing) the macro text line. **No hub, no glow** at micro scale (per `VK-007` — a 32px `--glow-orange` would swamp a 24px ring; that is a depth *failure*, not depth). 2px slice gap (reveals `ink-brown-800` for carved separation); consistent inner-radius app-wide. The macro text caption stays as the legend/value (donut + numbers, never donut alone).
+- **Card variant (96px) — on the Recipe Detail "Macros Per Serving" card**: a 96px donut with a **center hub = total `calories_per_serving`** (`text-h2`) + sub-label "cal / serving"; the existing 4 stat tiles (`480` · `35g P` · `40g C` · `18g F`) become its **visible legend** beside the ring. `--glow-orange-sm` (~12px, **mint** `VK-017`) on the primary slice only at this ≥48px size; faint radial backplate behind the ring; `--track-inset` (**mint**) under the ring.
+- **Honest whole (non-negotiable, RUBRIC dim 5):** slices are **calorie share**, not gram share — protein 4 cal/g, carbs 4 cal/g, fat 9 cal/g — so the three slices **sum to a true whole the user can name** (`calories_per_serving`), never to padded grams. A 0-value macro is **omitted**, never a zero-width wedge. Fiber is a *subset* of carbs → it is **not** a slice (it stays the "Fiber: 8g" text line); adding it would double-count and lie about composition.
+- **Brand slice colours (60/30/10-safe, `CONSISTENCY.md` Donut):** **largest-by-default / protein slice = `--color-brand-orange`** (orange dominates data ink — protein is the metric a macro-aware user scans for); carbs + fat = **warm neutral tints** (`--color-alpha-white-40`, `--color-alpha-white-20`). **Never rainbow** (one-hue-per-macro is a competitor clone + a 60/30/10 violation); **never nutrition-lime** in the slices (lime is identity only); **never purple** (no SIA-origin here). Green is **not** used (no arrival/completion state on a recipe browse).
+- **Data source:** `calories_per_serving`, `protein_grams`, `carbs_grams`, `fat_grams` from `user_recipes` (Data Model Mapping above) — converted to calorie share client-side; nothing new fetched.
+- **States:** **missing macros** (community recipe with null protein/carbs/fat) → a **ghosted full-ring outline + "macros unavailable"** hub/caption, **never** a collapsed disc or a misleading 100%-of-calories ring (no-data ≠ a fabricated single slice); **partial** (some macros null) → the present slices + a ghosted remainder arc; **loading** → a ring skeleton that **draws into** the real arcs (shares the card's existing skeleton-shimmer); **image/recipe load fail** → the donut is simply absent (card degrades to the text macro line — matches the spec's graceful-degrade rule).
+- **Low-motivation mode (reconciles Motivation Adaptation):** when low-motivation Recipe Detail shows **calories only** (no P/C/F breakdown — see Motivation Adaptation), the card Donut has no honest composition to split, so it does **not** render a composition ring. Instead the 96px card collapses to a single **calorie KPI** (the hub number + "cal / serving" on a **ghosted full-ring outline**, no slices, no glow) — the same honest "no breakdown to show" treatment as the missing-macros state, **never** a fabricated single-macro ring. The full composition ring returns automatically at medium/high motivation when the breakdown is shown. The 24px micro-donut on cards is likewise suppressed in low-motivation mode (cards already drop to the simplest recipes; the macro text line carries calories).
+
+### 2 · Star rating — kept as honest stars — `S56-V02`  *(no chart — restraint)*
+
+The 5-star rating row (`★★★★½ · 4.5 · Made 3 times`) is **left exactly as designed** and logged here so the resolution is **intentional, not an omission**: a 0–5 ordinal rating with half-star precision is already shown in its **right** primitive (a star row reads faster than any gauge/bar and carries the half-star natively). A `GaugeRing` or bar here would be *over-resolution* (penalised under RUBRIC dim 1/2). The only viz-program note: amber stars must pair the colour with the **visible numeral "4.5"** and the filled/empty star **shape** (already specced) so rating is never colour-alone (1.4.11 / dim 10). `times_made` stays plain text.
+
+### Motion choreography
+
+Donuts **draw themselves** — arcs sweep clockwise from 12 o'clock via `stroke-dashoffset` (`stroke-draw`, `--dur-flow` 1200ms `--ease-flow`), **largest → smallest** (the orange protein slice first); the detail-card hub counts up (`--dur-base` 280ms `--ease-out-soft`) — **never opacity-fades** (§8). On the Recipe Detail card the draw order is **hero-first**: the 96px composition Donut draws as the macro card mounts, hub counting up in parallel, before the ingredients/instructions rows settle. Card-grid **micro-donuts draw on scroll-into-view** (they are below the fold), folded into the existing **40ms-per-card stagger** so the grid still lands as one choreography — the card container may translate/fade in as specced, but the donut ring *inside* it always **draws** (it never fades, per §8). `prefers-reduced-motion` → full arcs at rest with the hub at its final value, no sweep (the settled donut is the canonical static form). One viz motif per surface; no competing focal animation is added to this browse screen.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — AI-suggested cards arrive with real macros → real micro-donuts; any starter recipe missing macros shows the **ghosted-ring "macros unavailable"** state (never a fake slice). **Loading** — the card/grid skeleton shimmer already specced; the ring skeleton **morphs** into drawn arcs (depth preserved, never a blank disc). **Empty** (no recipes / no search match) — the existing "No recipes yet" / "No recipes match" copy carries the screen; no degenerate empty chart is shown. **Partial** (some macros null) — present slices + ghosted remainder, distinct from loading and from a real zero. **Low-motivation** — calorie-only KPI on a ghosted ring (see S56-V01), never a single-macro ring. **Error** — per the Error Handling table; a recipe that fails to load shows no donut (graceful text fallback), never a broken ring.
+- **60/30/10 & brand:** **orange dominates data ink** — the protein primary slice, the only chart colour that carries meaning; carbs/fat are warm neutral tints (not a palette). **Nutrition-lime stays identity only** (header accent line, eyebrows, diet-plan/cuisine tags, ingredient checkboxes, RPG badge) — it never enters a donut slice. **Purple stays SIA-only** (coaching-note dot, "SIA pick" badge) — there is no chart-purple here (no projection on a browse screen). **Green absent from charts** (no arrival/completion datum). Amber remains only on difficulty badges + the star rating (identity/ordinal, word- and shape-paired), not in any donut. Glow uses the calibrated size-stepped scale — `--glow-orange-sm` on the 96px card slice, **none** at 24px micro — warm depth, never neon.
+- **Non-shaming:** macro composition is shown as **information, never a verdict** — a high-fat recipe's slice is a neutral warm tint, **never** recoloured to an alarm red, and no "good/bad food" framing is introduced; the SIA insight stays a coaching note, not a judgement.
+- **Accessibility:** each donut carries an `aria-label` enumerating every slice — e.g. *"Protein 29%, carbs 33%, fat 38% of 480 calories"* (1.4.11: load-bearing arcs + slice boundaries ≥ **3:1** on `#211008`); the visible macro-text line + the detail-card legend tiles are the **visible** (not colour-alone) equivalent for every slice; the star rating pairs the amber colour with the **numeral + filled-star shape**; text/value contrast ≥ **4.5:1**; the micro-donut is decorative-adjacent inside an already-44×44pt tappable card (the card is the target — the 24px ring needs no separate hit area); the 96px card donut is non-interactive (legend tiles carry the values). `prefers-reduced-motion` renders all donuts at final state.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** MyFitnessPal premium / Cronometer + Bevel — *stays Balencia via orange data-ink, warm-glow surfaces on ink-brown, the nutrition-lime identity layer (header line, eyebrows, diet-plan tags), and honest part-of-whole Donut visualizations, not a cold flat grid or competitor clone.*
+
+**Pre-grade:** B+ (77) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): (1) the search bar and filter chips read as the focal point (size, visual weight), displacing the browse-grid hierarchy; (2) all card surfaces are flat `--color-ink-brown-800` with no top-edge highlight or layered depth — never warm glow; (3) microcopy on empty / loading / error / permission states is partly unwritten; (4) type line-heights and tracking are ad-hoc, not mapped to the `CK-T04/T05` system; (5) the State Craft matrix is deferred; (6) the recipe card grid reads as symmetric monotony (CK-P6 violation) — no intentional hierarchy or varied card sizes to break the eye's path.
+
+### Focal hierarchy
+
+One focal point: the **All recipes grid** (the screen's primary job — browsable recipe library) — sized and positioned as the main content zone below a calm, secondary search-and-filter header. The squint test lands on the grid's 2-column card layout first, then retreats upward to the search bar as a refinement affordance, not a competing hero. The Search Bar is sized at 52pt (medium, with margin breathing room) and positioned with 12pt top margin, establishing it as functional chrome rather than a hero. The Filter Chips (80pt height, two rows) sit immediately below, optically light (low-contrast pill chips on dark field) and scrollable — they refine without overwhelming. Every section below (AI Suggestions, Favorites, Diet Plan Recipes, All Recipes Grid) is visibly secondary by card-body-text hierarchy: the All Recipes Grid dominates via card density and grid repetition, not a single large element. Below-fold sections (AI suggestions, favorites) are deliberately shorter (horizontal scroll, fewer cards) to guide the eye downward through the grid. The FAB ("Create recipe") sits floating, persistent, outside the scroll content but visible — a secondary entry point that does not compete with the grid.
+
+### Surface & depth
+
+Every card surface adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-md` (14pt for recipe grid cards <80px height) · 1pt `--color-glass-border` (`--color-alpha-white-06`) · **`CK-T01 --edge-highlight`** (inset 0 1px 0 rgba(255,255,255,0.06), the top-edge inner highlight that lifts every surface off the field — the single highest-leverage not-flat cue, previously absent) · `--shadow-1`. The larger hero surfaces (SIA Coaching Note Card 80pt, Favorites Section header, Diet Plan card group) use `--radius-xl` (28pt) and add `CK-T02 --surface-backplate` (radial warm-backplate, 120% 90% at 50% 0%, orange 5% to transparent 60%). Glow is size-calibrated per `CONSISTENCY.md §1`: **no glow on inline recipe cards** (<36px elements) or filter chips; the **SIA Suggestions section header carries `--glow-orange-sm` (~12px /.35)** on the purple-dot coaching note (80pt mid-size); the **card-grid Recipe Cards carry no glow at rest** (they are browsable, not focal). The recipe-detail hero image (200pt) carries a **warm overlay gradient** (transparent top 60% to `--color-ink-900` 40% bottom) and sits on a `--radius-xl` card with `CK-T02` backplate; this is the only hero glow surface (≥96px element, carries full `--glow-orange` 32px /.45). All tracks use `--track-inset` (`rgba(0,0,0,0.28)`) beveled recess. Radius locked by role: `--radius-xl` (28pt) primary cards, `--radius-md` (14pt) small grid cards, `--radius-sm` (10pt) chips/nested. No surface reads as a flat box — the calm, crafted feel of a premium recipe app.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` locked tokens: **Domain Dashboard Header title** ("Recipes") — `--text-h2` (20pt) / 600 / `--leading-snug` (1.25) / white 100%. **Section eyebrows** ("AI Suggestions", "Favorites", etc.) — `.eyebrow` recipe: `--text-eyebrow` (12pt) / 600 / `--tracking-eyebrow` (0.12em) / uppercase / `--color-alpha-white-40`. **Search bar hint text + input** — `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 100% (input) / white 40% (hint text). **Recipe card names** — `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%, max 2 lines. **Macro summary** — `--text-caption` (13pt) / 400 / `--leading-normal` / white 50%. **Prep time + difficulty** — `--text-small` (11pt) / 400. **Recipe Detail: name + metadata** — `--text-h1` (28pt) / 700 / `--leading-snug` / white 100% (name); `--text-caption` / white 50% (metadata). **Stat figures** (calories, protein) — tabular-nums, 20pt–32pt / 700 / white 100%. **"see all" links** — `--text-h3` / 600 / `--color-brand-orange`. **Button text** — `--text-h3` / 600 / white. Sentence case throughout. ≤2 `--color-brand-orange` accent words. Hierarchy by **weight** (600–700 vs 400), not size. Chillax logo-only. Replace ad-hoc pixel line-heights with `CK-T04` scale; letter-spacing via `CK-T05`.
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` brand voice. Notable crafted strings: **Search hint** — *before:* "Search recipes..." → *after:* "Search recipes." (period, on-voice). **SIA Coaching Note** — *before:* generic → *after (authored):* "You're short on protein this week. Try these high-protein recipes." (real connection, specific, coaching tone). **No favorites** — *before:* section hidden → *after:* "Favorite your first recipe to see them here." (warm invitation). **Macros unavailable** — *before:* no copy → *after:* "Macros unavailable. Add them to help others." (non-shaming). **All ingredients checked** — *before:* "Add to Shopping List" (enabled) → *after:* "All ingredients ready" (disabled, 0.4 opacity). **Create recipe modal** — *before:* "Recipe name" → *after:* "Give it a name" (warm, conversational). **Save button disabled** — *before:* no reason → *after:* tooltip "Fill in recipe name, category, at least 1 ingredient, 1 instruction, and calories." **Save success** — *before:* "Recipe created" → *after:* "Recipe saved. Add to shopping list." (warm, forward-looking).
+
+### Motion choreography
+
+Locked to `CK-P4` order: Domain Dashboard Header fades in (280ms `--dur-base`) → Search bar fades in + rises (280ms, 40ms stagger) → Filter chips fade in + rise (280ms, 80ms offset, two rows stagger) → AI Suggestions section fades in + rises (280ms, 120ms offset) → Favorites, Diet Plan fades in + rise (160ms/200ms offset) → All Recipes Grid cards fade in + rise (staggered, 40–80ms per card) with **micro-Donut rings drawn within each card** (image fades 100ms, ring draws 280ms `--dur-base`, morphs into final arc) → FAB fades in (280ms, 280ms offset).
+
+**Recipe Detail entrance:** Detail Header fades in (280ms) → Hero Image fades in + rises (280ms, 40ms offset) → Recipe Info Row fades in (280ms, 80ms offset) → Macros Card fades in + rises (280ms, 120ms offset) with **96px Donut arcs sweeping clockwise** from 12 o'clock (largest slice first, 1200ms `--dur-flow` `--ease-flow`); hub counts up (520ms `--dur-slow` `--ease-out-soft`, starting after arc begins) → Ingredients, Instructions, Rating, CTAs, SIA Insight settle with staggered fade-in + rise. Below-fold surfaces animate on-scroll-into-view.
+
+`prefers-reduced-motion`: all cards at final state instantly; micro & macro Donuts render fully drawn (no sweep); no loops; signature visuals (Donut arcs, warm-overlay gradient) preserved.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | Search + filters visible; starter recipes shown; Favorites/Diet Plan sections hidden; AI Suggestions shows welcome note. | "Start by exploring these recipes. Save your favorites as you discover them." (warm, invitation) | all cards on layered warm surfaces; micro-Donuts render with real macro data; layout feels full |
+| Loading | All cards + sections show skeleton shimmer (image hint text, text lines, Donut ring outline shimmer that morphs into arcs); grid layout preserved. | "SIA is gathering recipes — one moment." (warm, specific) | skeleton depth preserved; Donut rings morph into drawn arcs — never a swap |
+| Empty / partial | **No results:** message card "No recipes match. Try adjusting filters." + "clear filters" button. **Partial:** loaded cards + skeleton cards (distinct visual states). **Missing macros:** ghosted full-ring outline ("macros unavailable" text, never zero-width wedge). | "No recipes match your search. Try 'Chicken' or 'Vegan'." / "Building your recipe library." / "Macros unavailable. Add them to help others." | cards on layered surfaces; ghosted Donut rings visually distinct (dashed outline) — no-data ≠ zero |
+| Error | **Search error:** message card "Couldn't search. Pull to refresh." + retry button. **Recipe load error:** card shows hint text + "Couldn't load recipe. Tap to retry." (dimmed 50%). **Image fail:** card renders without image (gradient hint text). | "Couldn't search your recipes. Check your connection and try again." / "Couldn't load. Tap to try again." | calibrated `--color-error-red` only for operational failure (red border + text — glyph + word paired, never colour-alone); cached data retained |
+| Offline | All cards show cached data; pull-to-refresh dimmed (50% opacity). FAB disabled (50% opacity). | "You're offline. Showing your saved recipes." / FAB focus tooltip: "You're offline — go online to create recipes." | all cards render with full depth (CK-P1 + CK-T01); disabled FAB shows reason on focus |
+
+### Signature & anti-generic
+
+Ownable moments: (1) **Micro-Donut ring on every recipe card** (24px, orange protein slice + warm neutral carbs/fat tints, no hub, 2px slice gap) — the part-of-whole visual that makes macro composition legible at a glance. (2) **96px macro card Donut** (center hub = total calories, 4 stat tiles as legend, orange slice, drawn-on-enter) — the premium differentiator. (3) **Warm-glow surfaces** (CK-T01 edge-highlight, CK-T02 backplate, calibrated glows) — Balencia signature depth. (4) **The brand period** used with intent.
+
+Anti-generic fixes: The All Recipes Grid is **not flat symmetric-card monotony** (CK-P6). Instead: (1) search + filter header acts as visual break, (2) AI Suggestions + Favorites are horizontal scrolls (asymmetry guides the eye), (3) recipe cards are 2-column with staggered-entrance micro-Donut draw motion inside (motion breaks the grid's static reading). Grid reads as *a carefully curated browse experience*, not a template grid. **Orange-dominant data ink** (Donut slices use orange primary + warm neutral tints, never rainbow). Nutrition-lime stays identity-only. Purple stays SIA-only. **60/30/10 integrity maintained.**
+
+### Accessibility
+
+**Tabulated load-bearing contrast pairs** (on `--color-ink-brown-800` / `--color-ink-900`):
+
+| Element | Color | Contrast | A11y note |
+| --- | --- | --- | --- |
+| Recipe card name | `--color-alpha-white-100` | ≥12:1 | Primary text, heading-weight |
+| Macro summary text | `--color-alpha-white-50` | ≥4.5:1 | Caption-weight |
+| Prep time + icon | `--color-alpha-white-40` | ≥4.5:1 | Icon supplementary, text load-bearing |
+| Difficulty badge | domain color 100% text on domain color 15% bg | ≥3:1 (1.4.11) | Colour + text label paired (never colour-alone) |
+| "SIA pick" badge | `--color-royal-purple` text on purple 15% bg | ≥3:1 | Label visible ("SIA pick" text) |
+| Favorite heart (favorited) | `--color-brand-orange` filled | ≥3:1 (1.4.11) | Colour + filled heart shape paired |
+| Micro-Donut slices | `--color-brand-orange` (primary) / white 40% / white 20% | ≥3:1 on `--color-ink-brown-800` | Visible macro-text is the equivalent (never colour-alone) |
+| Macro card Donut (96px) | Orange primary + warm-neutral | ≥3:1 | Hub (calorie number) + 4 stat tiles are legend (never colour-alone) |
+| "Add to Shopping List" button | `--color-brand-orange` bg / white text | ≥4.5:1 | Primary action, high contrast |
+| Search focused border | `--color-brand-orange` 2pt | ≥3:1 (1.4.11) | Focus indicator |
+| Filter chip (active) | `--color-brand-orange` bg / white text | ≥4.5:1 | Active state = colour + shape |
+| "see all" link | `--color-brand-orange` | ≥3:1 (1.4.11) | Interactive text paired with underline/button context |
+| Ingredient checkbox (checked) | `--color-domain-nutrition` fill + white checkmark | ≥3:1 (1.4.11) | Colour (lime, identity-only) + checkmark paired |
+| Instruction step (completed) | `--color-forest-green` circle | ≥3:1 | Colour + filled circle + strikethrough text |
+| Star rating (filled) | `--color-stalled-amber` | ≥3:1 | Colour + filled star shape + visible numeral "4.5" |
+
+**Focus & interaction:** `CK-T03 --focus-ring` (2px `--color-brand-orange`, 2pt offset) on all focusable elements. Targets ≥44×44pt. Pressed: `scale(0.97)` + light haptic. Success: brief `--glow-green` flash 600ms. Error: `--color-error-red` border + `role="alert"`. **Colour + glyph + word, never colour-alone.** Keyboard: Tab order search → chips → cards → FAB; Enter/Space/Escape on interactive elements. **Live regions:** `aria-label` on Donuts (slice breakdown), `aria-pressed` on chips, `aria-checked` on checkboxes, `role="alert"` on errors, `role="status"` on toasts. **Reduced-motion:** all elements at final state instantly; signature visuals (Donut arcs, warm-overlay gradient) preserved without animation.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -737,10 +861,12 @@ The Recipes screen is the user's personal recipe library and discovery hub withi
 | Favorites section | Screen mount | fade-in, 240ms stagger | 280ms | ease-out-soft |
 | Diet plan section | Screen mount | fade-in, 320ms stagger | 280ms | ease-out-soft |
 | Recipe grid cards | Screen mount | staggered fade-in, 40ms per card | 280ms each | ease-out-soft |
+| Recipe card micro-donut (S56-V01) | Scroll-into-view | macro-split arcs draw clockwise from 12 o'clock (stroke-dashoffset), largest → smallest; folded into the 40ms-per-card stagger; never opacity-fade (§8) | 1200ms | ease-flow |
 | Favorite heart toggle | Tap | scale 0.8 to 1.2 to 1.0 + color change | 280ms | ease-out-soft |
 | Filter chip activate | Tap | bg color crossfade | 160ms | ease-out-soft |
 | Recipe detail hero image | Detail mount | fade-in + scale(1.02 to 1.0) | 280ms | ease-out-soft |
 | Macro stat tiles | Detail mount | count-up from 0 | 280ms | ease-out-soft |
+| Macros card donut (S56-V01) | Detail mount | composition arcs draw clockwise, largest → smallest; center hub (total cal) counts up in parallel; never opacity-fade (§8) | 1200ms (arcs) / 280ms (hub) | ease-flow / ease-out-soft |
 | Ingredients list | Detail mount | staggered fade-in, 40ms per row | 280ms each | ease-out-soft |
 | Instruction steps | Detail mount | staggered fade-in, 60ms per step | 280ms each | ease-out-soft |
 | Step completion | Tap number | circle color crossfade orange to green, checkmark draws in | 280ms | ease-out-soft |
@@ -793,7 +919,7 @@ The Recipes screen is the user's personal recipe library and discovery hub withi
 
 ## Motivation Adaptation
 
-- **Low motivation**: AI suggestions section shows only 2 recipe cards (simplest, quickest recipes). Filter chips row collapses to single row (categories only, no attribute chips). All Recipes grid shows only 4 cards. Diet plan section hidden. SIA note is simpler: "Here are two easy recipes for today." Create Recipe FAB remains visible but less prominent (no label, just "+" icon). Recipe Detail shows simplified macros (calories only, no protein/carbs/fat breakdown).
+- **Low motivation**: AI suggestions section shows only 2 recipe cards (simplest, quickest recipes). Filter chips row collapses to single row (categories only, no attribute chips). All Recipes grid shows only 4 cards. Diet plan section hidden. SIA note is simpler: "Here are two easy recipes for today." Create Recipe FAB remains visible but less prominent (no label, just "+" icon). Recipe Detail shows simplified macros (calories only, no protein/carbs/fat breakdown); accordingly the 96px Macros Per Serving Donut (S56-V01) does not render a composition ring — it collapses to a calorie KPI on a ghosted full-ring outline (hub + 'cal / serving', no slices, no glow), never a fabricated single-macro ring, and the per-card micro-donuts are suppressed (the macro text line carries calories). The full composition donut returns at medium/high motivation.
 
 - **Medium motivation**: default experience as designed. All sections visible with standard detail level. AI suggestions show 3-5 cards. Full filter chip set. Recipe grid loads progressively.
 

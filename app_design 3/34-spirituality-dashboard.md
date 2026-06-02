@@ -149,7 +149,7 @@ The spirituality dashboard adapts entirely to the user's stated beliefs — Musl
 ### Practice Tracker
 - **Purpose**: Daily spiritual practice checklist — the primary interaction on this screen
 - **Data source**: Spirituality API (practice schedule), prayer times API (for Islamic prayers), user-configured practices
-- **Visual treatment**: Card container (ink-brown-800, 20pt border-radius, 16pt padding). Section eyebrow includes a completion counter ("3/5" in 13pt Sora Semibold, orange). Each row: left — circular checkbox (24pt, 2pt stroke white at 30%, filled orange with checkmark when completed). Center — practice name (16pt Sora Semibold, white). Right — time (15pt Sora Regular, white at 50%, tabular-nums). Completed rows: name at 50% opacity with subtle strikethrough effect. Rows separated by 1pt divider (white at 5%). Below all rows: streak indicator — flame icon (20pt, orange) + "X day streak" (15pt Sora Semibold, orange).
+- **Visual treatment**: Card container (ink-brown-800, 20pt border-radius, 16pt padding). Section eyebrow includes a completion counter ("3/5" in 13pt Sora Semibold, orange). Directly beneath the counter, a calm continuous MomentumBar (--grad-progress orange→green fill, 8px, --color-alpha-white-08 track over --track-inset recess) reads as the single quiet completion signal — arrival-green only when all practices are complete; never a ring/gauge (a ring would gamify a spiritual practice). See the Visualization section. Each row: left — circular checkbox (24pt, 2pt stroke white at 30%, filled orange with checkmark when completed). Center — practice name (16pt Sora Semibold, white). Right — time (15pt Sora Regular, white at 50%, tabular-nums). Completed rows: name at 50% opacity with subtle strikethrough effect. Rows separated by 1pt divider (white at 5%). Below all rows: streak indicator — flame icon (20pt, orange) + "X day streak" (15pt Sora Semibold, orange).
 - **Adaptive content by belief system**:
   - **Muslim**: 5 daily prayers (Fajr, Dhuhr, Asr, Maghrib, Isha) with calculated prayer times based on location. Optional sunnah/nafl prayers as secondary rows.
   - **Christian**: Customizable slots (morning prayer, evening prayer, church service, scripture reading, etc.)
@@ -158,13 +158,13 @@ The spirituality dashboard adapts entirely to the user's stated beliefs — Musl
   - **Agnostic/spiritual**: Mindfulness sessions, gratitude practice, contemplation
   - **Custom**: User-defined practice names and times (fully configurable via SIA or settings)
 - **Variants**: All complete (all checkboxes filled, celebration state), partial (some complete), none complete (default start of day), missed (past time, unchecked — dimmed with "missed" label at 40% opacity)
-- **Gestures**: Tap checkbox → toggle completion (XP earned). Tap practice name → expand to show additional options (late completion, skip, notes). Long-press → edit practice time or name. Tap streak → push to streak history view.
+- **Gestures**: Tap checkbox → toggle completion (XP earned). Tap practice name → expand to show additional options (late completion, skip, notes). Long-press → edit practice time or name. Tap streak → push to streak history view, which renders a real practice CalendarHeatmap (practices+reflection consistency, honest intensity, today = dashed border) — NOT the retired decorative Mon–Sat grid. See the Visualization section.
 - **Size**: Full-width - 32pt × ~52pt per practice row + 24pt streak area
 
 ### Reading Progress Card
 - **Purpose**: Track progress through spiritual/religious text
 - **Data source**: Spirituality API (reading tracker), user-configured text/book
-- **Visual treatment**: Card container (ink-brown-800, 20pt border-radius, 16pt padding). Top row: book icon (24pt, purple domain color #A855F7) + text title (17pt Sora Semibold, white). Second row: current position (15pt Sora Regular, white at 70% — e.g., "Surah Al-Baqarah" or "Gospel of John, Chapter 3" or "Chapter 5 of Meditations"). Third row: page or section indicator (13pt Sora Regular, white at 50% — "page 42 of 604"). Progress bar: 6pt height, green (#34A853) fill, white at 10% track, full-width within card. Daily goal: 13pt Sora Regular, white at 50%. Bottom: "log reading" compact button (text link, 15pt Sora Regular, orange, right-aligned).
+- **Visual treatment**: Card container (ink-brown-800, 20pt border-radius, 16pt padding). Top row: book icon (24pt, purple domain color #A855F7) + text title (17pt Sora Semibold, white). Second row: current position (15pt Sora Regular, white at 70% — e.g., "Surah Al-Baqarah" or "Gospel of John, Chapter 3" or "Chapter 5 of Meditations"). Third row: page or section indicator (13pt Sora Regular, white at 50% — "page 42 of 604"). Progress bar: 6pt height, green (#34A853) fill over a --track-inset recess (white at 10% track), full-width within card, with a small distinct daily-goal tick mark on the track so today's pages-vs-target is visible separately from the lifetime book-completion %. Daily goal: 13pt Sora Regular, white at 50%. Bottom: "log reading" compact button (text link, 15pt Sora Regular, orange, right-aligned).
 - **Adaptive content**:
   - **Quran**: Surah name, page/juz tracking, daily page goal
   - **Bible**: Book + chapter tracking, daily chapter goal
@@ -240,6 +240,163 @@ The spirituality dashboard adapts entirely to the user's stated beliefs — Musl
 
 ---
 
+## Visualization
+
+> Source: embedded section (no companion file — Batch 4 is embedded-only). Audited in `viz-audit/` — Batch 4 (Domain-Dashboard A), findings `S34-V01..S34-V05`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Premium-depth, on-brand (60/30/10), **Product Mode → orange-dominant accent** (spirituality-purple `#A855F7` stays an *identity* accent on the header line + book/moon icons only — never on data ink; SIA's royal-purple `#7F24FF` is distinct and SIA-only). Benchmark = **Reflectly + Stoic + Daylio** (mood/reflection cadence, warm editorial restraint) rendered **the Balencia way** (continuous progress, warm glow), not a calm-app clone. **This is the calmest dashboard in the app — editorial restraint is the brief: resolve every datum, but do *not* over-chart a contemplative space. HEAVY non-shaming: a spiritual practice is never gamified into pressure, a missed prayer is never a verdict, a streak never weaponises loss.** **Current grade D (54) → specced-target A− (85).** *(Honest re-grade under the 10-dimension rubric; the residual gap to A+++ is build-verified depth + the calm scrub/expand micro-interactions, owned by the later viz-build program.)*
+
+Today the screen renders as a **text checklist with two flat bars**: the practice tracker is checkbox rows, reading + fasting are flat single-tone `ProgressBar`s (no inset, no gradient, no depth), the streak is text only, and the *only* grid — the 6-cell `M T W T F S` block inside the streak modal — is a **decorative non-data chart** (a fixed Mon–Sat green grid that does **not** encode real consistency: a §11 honesty defect and a 1.4.11 colour-alone status). This section upgrades *how the calm data reads* — a restrained completion **MomentumBar** (continuous, not a gamified ring), an honest reading value-vs-target bar, a real practice **CalendarHeatmap** that *replaces* the decorative modal grid, and an optional fasting micro-trend — **without** displacing the practice tracker, which stays the screen's primary *interaction*, or adding a single competitive/score visual. Mints **no new primitive**; it composes from the frozen kit (`MomentumBar`, `MacroBar`/`ProgressBar`, `CalendarHeatmap`, `Sparkline`, `KPIStatTile`).
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Today's practice completion (3/5) | text counter `3/5` + checkbox rows | **calm `MomentumBar`** — a single *continuous* orange→green fill (path-of-progress), arrival-green only when *all* are done; the counter stays the label | `MomentumBar` (`VK-004`) |
+| Reading progress (page 42 of 604 · 7% · daily target 5 pages) | flat green `ProgressBar`, no depth | **honest value-vs-target `ProgressBar`** depth pass (`--track-inset` + green fill; **two markers**: long-arc = book completion, plus a small *daily-goal* tick so "5 pages today" is visible-vs-target, not just lifetime %) | `MacroBar`/`ProgressBar` (`VK-007`-family) |
+| Practice / reflection consistency (12-day streak, implied history) | text "12 day streak" + **decorative** fixed 6-cell green modal grid | **real practice `CalendarHeatmap`** (intensity = practices+reflection completed that day) — *replaces* the decorative grid with honest data; today = dashed border | `CalendarHeatmap` |
+| Fasting progress (78% elapsed · 3h 12m remaining) | flat orange `ProgressBar` | depth pass on the **same** `ProgressBar` (time-elapsed; remaining shown as text, **never** as a phantom "behind" slice) **+ high-motivation-only** 7-pt fasting-day `Sparkline` (focus correlation) | `ProgressBar` + opt `Sparkline` (`VK-001`) |
+| Reflection cadence (reflected-today, implied weekly count) | "reflected today ✓" text only | **high-motivation-only** reflection-count `KPIStatTile` ("reflections this week" + honest WoW delta) — gated off by default to protect the calm | `KPIStatTile` (`VK-008`) — deferred/optional |
+| Practice rows (name · time · checkbox) | checkbox list | — (deliberately textual/interactive — the tracker is an *interaction*, not a chart; charting it would gamify a prayer) | — |
+| Prayer schedule · next-prayer countdown · location · daily reflection prompt · timer durations · SIA note · level | text | — (deliberately textual — times, a name, a single status word, a prompt have no honest visual form) | — |
+
+**Editorial hierarchy (calm, not maximal — this is the restraint screen):** there is **no viz "hero"** by design — a contemplative dashboard must not open on a gauge. The **practice tracker stays the focal *interaction***; the **`MomentumBar` is the single quiet completion signal** beneath it; reading + fasting bars and the consistency heatmap are clearly secondary/ambient. **Four visuals, zero competitive charts, zero score gauges** — the calm-vs-clutter tie-break is decided *toward* calm on purpose (RUBRIC dim 1/2). A spirituality screen that out-charted Stoic would be *wrong*, not premium.
+
+### 1 · Practice completion — `S34-V01` → `MomentumBar` (calm, continuous)
+
+Render the `3/5` completion as a **single continuous `MomentumBar`** directly under the practice-tracker eyebrow counter: a rounded-pill bar, `--grad-progress` **(mint)** orange→green fill, 8px height, `--color-alpha-white-08` track over a `--track-inset` `rgba(0,0,0,0.28)` **(mint)** recess. Source: `spiritualityDashboard.practices` (completed/total, live as the user checks rows).
+- **Why a MomentumBar, not a ring/gauge:** a full ring implies a completable score and would gamify a spiritual practice into a target to "win." A continuous fill *frames momentum* (VK-004 non-shaming clause) — calm, never a verdict. **One** fill motif, no segments (§8).
+- **Depth (token-backed):** continuous fill only (no glow — glow is for heroes, and this screen has none); arrival end goes **green `#34A853` only when all practices are complete** (a quiet "complete" warmth, not a celebration explosion).
+- **Motion:** fill grows `--dur-slow` 520ms `--ease-flow` on mount and re-eases when a row is checked/unchecked; **never** a fade.
+- **Non-shaming (paramount here):** an incomplete bar reads as "the day is still open," **never** as failure; **un-checking a practice silently retracts the fill** with no loss-aversion language; a missed past prayer is dimmed text ("missed"), it does **not** turn the bar red or trigger a guilt animation.
+- **States:** Day-1 / "set up your practice" → bar absent (no fabricated 0% pressure on a brand-new contemplative user — the "get started" affordance stands alone); all-complete → full green fill + the existing "All practices complete today" green line.
+
+### 2 · Reading progress (honest value-vs-target) — `S34-V02` → `ProgressBar` depth pass
+
+Keep the reading card's **horizontal bar form** (rings would fight the calm and imply a score), upgraded to honest depth: `--color-alpha-white-08` track over `--track-inset` **(mint)**, **green `#34A853` fill** (reading is *arrival/completion*, the one place green leads — §11 in-range), width = book completion (7%). Add a **small daily-goal tick mark** on the track so "daily target: 5 pages" is shown *against today's logged pages*, not only as a lifetime %. Source: `spiritualityDashboard.reading` (`progress` + `dailyTarget`).
+- **Honesty (non-negotiable):** the lifetime-% fill and the daily-goal tick are visually distinct — the bar must not conflate "7% of the book" with "today's 5-page goal." No truncated scale; a 0-page day is a true empty fill, not a ghost.
+- **Depth:** fill width `0→%` `--dur-slow` 520ms `--ease-flow` on scroll-into-view; rounded pill caps; `ink-brown-800` card with top-edge highlight.
+- **Micro-interaction:** tap card body → expand reading streak/history in place (existing gesture); "log reading" sheet updates the bar + daily tick live.
+- **States:** no text set → ghosted track + "Choose a text to read" prompt (no fake fill); completed → full green + "completed" badge; paused → dimmed bar.
+
+### 3 · Practice consistency heatmap — `S34-V03` → `CalendarHeatmap` (replaces the decorative grid)
+
+**Retire the decorative 6-cell modal grid** and render a real `CalendarHeatmap` of practice + reflection consistency over the trailing weeks (deployed component — reuse as-is): **5 intensity steps** (`--color-alpha-white-05` → full **spirituality-purple `#A855F7` *as this domain's identity***, the one sanctioned place domain colour sits on data because it encodes *spirituality's own* consistency), today = dashed border, tap = `scale-110`. Lives in the streak-history view (the `🔥 12 day streak` tap target), replacing the fixed Mon–Sat green block. Source: new `spiritualityDashboard.consistencyHistory` (date→count of practices+reflection that day) in `mock.ts`.
+- **Why this fixes a defect:** the current modal grid is a §11 decorative non-data chart with colour-alone cells (a 1.4.11 + honesty miss). A real heatmap makes the streak *honest* — and a heatmap (calm consistency cloud) is exactly the Reflectly/Daylio-family idiom, done warm.
+- **Non-shaming (Gentler-Streak thesis, baked into the benchmark):** empty cells read as **"open days," never a guilt grid**; **no loss-aversion countdown** on the 12-day streak — the number is celebrated, a *break* is never weaponised ("you'll lose your streak"); the heatmap shows presence, not absence-as-shame.
+- **States:** Day-1 → empty grid + "your practice begins today" (today cell dashed), **not** a wall of purple-absence; loading → cells shimmer in place; partial-sync → un-synced days ghosted, distinct from a real "no practice" day.
+
+### 4 · Fasting progress + optional micro-trend — `S34-V04` → `ProgressBar` (+ opt `Sparkline`)
+
+The conditional fasting card keeps its **orange `ProgressBar`** (time *elapsed*, a literal progress dimension — orange effort is correct), upgraded with the `--track-inset` depth pass; **remaining time stays text** ("3h 12m remaining"), **never** rendered as a phantom "behind" slice that would lie about composition. **High-motivation tier only:** a 7-point `Sparkline` (tiny Living Line, 2px orange, curved, 64×24, **no glow**) of focus-on-fasting-days under the card (the spec's "Your focus tends to improve during fasting days" correlation). Source: `spiritualityDashboard.fasting` + new `fasting.focusTrend` (high-motivation only).
+- **Depth:** elapsed fill `0→%` `--dur-slow` 520ms `--ease-flow`, then continuous real-time advance; the real-time countdown digits cross-fade (existing 160ms digit motion).
+- **Honesty:** elapsed is a true proportion of the suhoor→iftar window; no dual axis; the sparkline (if shown) uses a shared scale across fasting days.
+- **Non-shaming:** fasting is framed as a window to move *through*, never a target to "beat"; no comparison to other users' fasts.
+- **States:** not fasting → card hidden entirely (correct — absence, not an empty 0% bar); about-to-start → "fast begins in X hours" text, bar at rest; complete → green check + "fast complete" (quiet arrival).
+
+### 5 · Reflection cadence (deferred / high-motivation only) — `S34-V05` → `KPIStatTile` (gated)
+
+Reflection cadence is **deliberately deferred**: by default it stays the calm "reflected today ✓" text (charting a daily contemplation would pressure it). **High-motivation tier only**, the "spiritual growth summary" surfaces a single `KPIStatTile`: "reflections this week" (`text-h2` number) + an **honest, fixed-window** WoW delta (▲ `--color-forest-green` / ▼ `--color-alpha-white-40`, "vs last week"), count-up `--dur-base` 280ms `--ease-out-soft`. Source: new `spiritualityDashboard.reflectionWeek` (this-week + last-week counts) — gated, so the default screen never shows it.
+- **Non-shaming:** a ▼ delta is a **neutral muted arrow**, never red or "you reflected less" shaming language; the window is fixed/disclosed, never a cherry-picked flattering range; **no streak-loss framing** on reflection cadence.
+- **States:** <2 weeks of data → `—` delta (honest: no prior week, not a fabricated ▲); default/low/medium motivation → not rendered at all.
+
+### Motion choreography (entrance — draw-first order, calm tempo)
+
+Per `CONSISTENCY.md`, but at the **calmest tempo** — this screen has **no hero gauge to draw first**, so the choreography is gentle and staggered, never a synchronized flourish: the **practice `MomentumBar` fills first** (`--dur-slow` 520ms `--ease-flow`) as the rows stagger in (existing 60ms/row) → **then** the reading bar fills on its card-enter → **then** (below fold, on **scroll-into-view**) the fasting bar fills and the consistency `CalendarHeatmap` cells stagger in (40ms) → the optional `Sparkline` **draws itself** L→R last (1200ms `stroke-draw`, *never* fade) only at high motivation. One continuous-fill motif per surface (the bars); no competing draw animations. `prefers-reduced-motion` → every bar at its final fill instantly, the heatmap at final intensity, the optional sparkline as a completed stroke + green end dot — the calm static frame is the canonical frame.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — `MomentumBar` absent (no 0% pressure), reading "Choose a text" ghosted track, heatmap "your practice begins today" (today cell dashed), fasting hidden, reflection text-only; **loading** — depth-preserving skeletons that *morph* into drawn fills (track + cells visible, no blank boxes); **partial** — un-synced practice/reading days ghosted in the heatmap, distinct from a real "no practice" day; the fasting card hides on data failure (treated as no active fast); **error** — chart-specific honesty (reading bar shimmer→fallback, heatmap retry) + a visible "retry", per the Error Handling table. The decorative modal grid is **removed** in all states.
+- **60/30/10:** **orange dominates** data ink (`MomentumBar` fill, fasting elapsed bar, optional sparkline, KPI accents); **green** = arrival/in-range only (reading completion fill, MomentumBar arrival when all-complete, fast-complete, ▲ deltas, "reflected today ✓"); **purple is split and disciplined** — SIA's royal-purple `#7F24FF` is **SIA-only** (note left bar/avatar), and spirituality-domain purple `#A855F7` is **identity-only** (header accent line, book/moon icons, **and the heatmap intensity encoding *this domain's* consistency** — the one sanctioned data use of a domain colour); **no projection/forecast appears on this calm screen** (no dashed-purple SIA tail — a contemplative space is not forecast against itself). Glow is intentionally **absent** (no hero → no 32px glow; warm depth comes from inset tracks + layered surfaces, not neon).
+- **Accessibility:** every bar/heatmap/sparkline carries a text/`aria-label` equivalent conveying the same value ("3 of 5 practices complete today"; "Quran, page 42 of 604, 7 percent, daily goal 5 pages"); the **heatmap replaces the colour-alone modal grid** — each cell carries an `aria-label` ("[date]: [N] practices") and the streak number is the visible label, never colour alone; completion status is conveyed by **text/state** (the existing strikethrough + "missed"/"completed" labels), never by colour alone; label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — the MomentumBar fill, both ProgressBar fills, the heatmap cell intensities, and every filled/unfilled boundary meet ≥3:1 vs background (white/5 track is decorative-only); interactive chart/streak targets ≥ 44×44pt; `prefers-reduced-motion` renders all at final state with the calm static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Stoic + Reflectly (belief, calm) — *stays Balencia via warm-glow surfaces on ink-brown, the continuous-stroke MomentumBar, honest reading bars with daily-goal tick marks, and the real CalendarHeatmap replacing the decorative grid.*
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+One focal point: the **practice tracker card** — the primary interaction zone (the checklist rows + the calm MomentumBar completion signal beneath the eyebrow). It spans ~52pt per row × 5 rows + 24pt streak area = ~300pt of engaged interaction, positioned after the SIA coaching note. Everything else is visibly secondary: the SIA note sits above as an emotional anchor (no glow, body type), reading/fasting cards are secondary surfaces (48–80pt each, no glow), the reflection prompt is a mid-weight card (80pt), and the timer shortcuts are equal-weight pairs. The squint test lands on the practice checker rows first, then the orange-to-green MomentumBar glow (arrival signal only when complete), then the SIA voice. No competing foci.
+
+### Surface & depth
+
+Every card adopts `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt) · 1px `--glass-border` (white at 6%) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the sacred not-flat cue, now present on all surfaces) · `--shadow-1`. The practice tracker card, reading card, fasting card, daily reflection card, and timer shortcut cards all receive this treatment. The SIA coaching note card carries the same layering (fixing the flat-box read on this screen's currently highest-priority copy). Glow is size-calibrated: the MomentumBar (8px height, 48–96pt wide) carries **no glow** (inline/small elements, per CONSISTENCY.md §1); the reading/fasting cards (80–96pt) carry **`--glow-orange-md`** (~20px /.40) only as a focal depth pass (warm, not neon, applied only once during the screen's entrance so it reads as a premium surface, not every card simultaneously — this is the calmest dashboard in the app, and restraint is the point). The inset tracks (`--track-inset` rgba(0,0,0,0.28)) under the MomentumBar, reading bar, and fasting bar fix the current flat-fill read and sit in a recessed visual plane. Streak indicator (flame icon + text) floats on the surface, no glyph-glow. Practice rows are separated by 1pt dividers (white at 5%), reading and fasting cards have top-edge highlight + track inset depth. The optional reflection card and timer cards use the same depth language.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` tokens: section eyebrow ("today's practice" / "reading" / "fasting" / etc.) the `.eyebrow` recipe (`--text-eyebrow` 12pt / 600 weight / `--tracking-eyebrow` +0.12em / uppercase / `--color-alpha-white-40`) — tighter than today's ad-hoc values. Completion counter ("3/5") `--text-h3` (17pt) / 600 / `--leading-snug` (1.25) / `--color-brand-orange`; practice names `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%; practice times `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 50%, tabular-nums; streak text `--text-h3` (17pt) / 600 / `--leading-snug` / `--color-brand-orange`; reading title `--text-h3` (17pt) / 600 / white 100%; reading position / page indicator `--text-body` (16pt) / 400 / `--leading-normal` / white 70% and white 50% respectively; "log reading" link `--text-body` (16pt) / 400 / `--leading-normal` / `--color-brand-orange`; fasting type name `--text-h3` (17pt) / 600 / white 100%; fasting times `--text-body` (16pt) / 400 / white 70%; fasting time-remaining `--text-h2` (20pt) / 600 / `--leading-snug` / white 100%, tabular-nums; daily-reflection "SIA asks:" label `--text-eyebrow` (12pt / 600 / `--tracking-eyebrow` / uppercase / white 40%); reflection prompt `--text-body` (16pt) / 400 / `--leading-normal` / white 100%; "write reflection" link `--text-body` (16pt) / 400 / `--color-brand-orange`; timer label `--text-h3` (17pt) / 600 / white 100%; timer duration `--text-body` (16pt) / 400 / white 50%. Stat figures (practice count, page count, fasting %, streak count, timer minutes) tabular-nums. Hierarchy carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout. ≤2 `--color-brand-orange` accent words per screen (the completion counter + one CTA link = the two orange accents; the flame streak icon is a glyph, not a word). Chillax stays logo-only (none on this screen). Replace the ad-hoc line-heights with locked `CK-T04` and `CK-T05` values.
+
+### Microcopy (before → after)
+
+The narrative copy is already calm and coaching-voiced; this section authors the **edge strings** to `CK-P5`:
+
+- **Practice tracker, day-1** — *before:* "Set up your daily practice" button only → *after:* "Set up your daily practice" stays, plus below it: "SIA can suggest practices for your beliefs" (warm, specific, never "get started now").
+- **Practice tracker, missed prayer** — *before:* Missed row dimmed at 40% → *after:* Dimmed row + visible "missed" label (state made clear, never colour-alone); microcopy when tapped: "5:12 AM has passed — log it late or skip" (honest, constructive, never "you failed").
+- **Practice row completed** — *before:* Orange fill + checkmark → *after:* Same visual + animated "+10 XP" float up (kept); strikethrough on name (visual, already present); no shaming language on undo.
+- **Reading card, no text set** — *before:* "Choose a text to read" link only → *after:* "Choose a text to read" + below: "Quran, Bible, Torah, or any book — SIA can suggest a reading plan" (warm, faith-adaptive, specific).
+- **Reading card, loading** — *before:* No message → *after (new):* Label beneath title: "Reading progress loading — one moment" (specific, warm).
+- **Fasting card, not active** — *before:* Section hidden entirely → *after (kept):* Correct — section hidden is honest, not an empty 0% card.
+- **Fasting card, about-to-start** — *before:* Not specified → *after (new):* "Fast begins in 2 hours" (specific time, warm).
+- **Daily reflection, cold-start** — *before:* First prompt always shown → *after (kept):* Same; on first arrival, an additional line: "Reflect to deepen your practice" (warm context).
+- **Daily reflection, already reflected** — *before:* Card dimmed, "reflected today ✓" → *after (kept):* Same; if reflected in prior days, show small delta: "reflected 4 days this week" (honest low-motivation view).
+- **Prayer Schedule card, permission denied** — *before:* Not specified → *after (new, permission rationale):* "Enable location to show accurate prayer times for your area" + "Open settings" button (never: "we need your location"; always: "why it helps").
+- **Streak history modal, loading** — *before:* No message → *after (new):* "Checking your practice history — one moment" (specific).
+- **Error state (API failure)** — *before:* No fallback → *after (new, on-voice):* "Couldn't load your practices — pull to refresh" (specific, action named). Cached data shown if available.
+
+Kept (already on-voice): SIA coaching note is warm and specific; the "log reading" / "write reflection" CTAs are active-voice and brief; streak flame is a glyph, not copy. All permission rationales are specific ("why we ask, what you gain"). Non-shaming throughout: a 0-practice day is "the day is still open," never a verdict. A broken streak is "your streak paused — pick it back up today," never "you failed."
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order (focal practice tracker, then support, then below-fold): domain header fades in + translateY(8→0) (`--dur-base` 280ms `--ease-out-soft`) → SIA coaching note fades in + translateY(12→0) (`--dur-base` 280ms `--ease-out-soft`, 40ms stagger) → **practice rows stagger in** (60ms per row, `--dur-base` 280ms each) → **practice completion MomentumBar fills** `0→actual` (`--dur-slow` 520ms `--ease-flow`, starting after rows are in — a fill/draw, never opacity-fade; arrival orange→green only when all practices complete) → streak flame pulses gently (2s loop, continuous, subtle — not urgent) → reading card fades in + translateY (below-fold, on scroll-into-view) → reading progress bar fills `0→%` (`--dur-slow` 520ms `--ease-flow` on scroll-into-view) → fasting card (if present) fades in + reading bar morphs/draws (same timing, coordinated, one fill motif per surface) → reflection card fades in + "write reflection" CTA lightens slightly → timer shortcut cards fade in staggered (40ms each). Below-fold surfaces (heatmap modal if streak is tapped, timer modal if shortcut is tapped) animate on open separately. One continuous-stroke motif (the MomentumBar) per surface; no competing draw animations. `prefers-reduced-motion` → every element at final state instantly, MomentumBar at its final fill width (never animated), the heatmap at final intensity, the optional sparkline as a completed stroke + green end dot — the calm static frame is the canonical frame.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | MomentumBar absent (no 0% pressure), practice tracker shows "Set up your daily practice" + SIA suggestion chips (belief-adaptive), reading "Choose a text to read" + suggestion, fasting hidden, reflection shows first prompt, timer shortcuts show generic defaults (meditate + breathe), streak shows "0" with "your practice begins today" | "SIA can suggest practices for your beliefs"; "Quran, Bible, Torah, or any book"; "Reflect to deepen your practice" (never "build this habit now" / never "get started") | profile section keeps depth; MomentumBar absent is honest (no fabricated 0% pressure on a contemplative user) |
+| Loading | MomentumBar absent while rows load (skeleton shimmer on checkbox + name, preserving 52pt row height + depth), reading bar shows skeleton track + shimmer → morphs into filled bar, heatmap cells shimmer → draw in | "SIA is reading your week — one moment"; "Reading progress loading — one moment"; "Checking your practice history — one moment" | depth-preserving skeletons (rows visible, not blank boxes; bar track + cells visible, not spinners) |
+| Empty / partial | un-synced practices: ghosted/dashed rows (visually distinct from complete ✓), un-synced reading days: ghosted heatmap cells, fasting hidden (no active fast = truly absent, not 0%), reflection text-only if no prompt cached, timer shortcuts show defaults | "Can't sync Dhikr data — try again later"; "Your stats grow as you build habits"; "showing your last sync" (cached) | ghosted/dashed rows + cells visually distinct from real 0; no-data ≠ zero |
+| Error | practice rows show "Could not load practices" banner + retry link, reading bar shows "Couldn't load progress" + retry, fasting hidden (treated as no active fast), reflection shows "Could not load prompt" (inline, not modal), heatmap modal shows "Couldn't load history" + retry | "Couldn't load your practices — pull to refresh"; "Couldn't load your stats. Try again later." | calibrated `--color-error-red` only on genuine failure (red border on the affected zone, glyph + word paired); cached data retained if available |
+| Offline | all surfaces show cached data; pull-to-refresh is dimmed with reason | "You're offline — showing your last sync" | actions honestly dimmed (50% opacity, no haptic); cached data retained |
+
+### Signature & anti-generic
+
+Ownable moments: the **continuous-stroke MomentumBar** (orange→green arrival, never segmented, framing momentum not a gamified target — "the day is still open," not a pressure gauge) and the **honest reading value-vs-target bar** (with the daily-goal tick mark visible on the track, making "5 pages today" distinct from "7% lifetime" — a real depth of honesty on this quiet screen). Anti-generic fixes: (1) the practice tracker is deliberately textual/interactive — charting a prayer checklist would gamify a spiritual practice into a performance, which is wrong for this screen's job; (2) the streak indicator stays as text + flame, not a rotting ring or countdown timer (no loss-aversion weaponisation); (3) the CalendarHeatmap (in the streak modal) is honest consistency data, not a decorative 6-cell grid — this is the one place domain colour (`--color-domain-faith` purple) sits on data because it encodes *spirituality's own* consistency, the screen's identity (not a generic heatmap); (4) every state is designed with non-shaming framing — a 0-practice day is "the day is still open," a low reading day is "building capacity," a missed prayer is "5:12 AM has passed — log it late or skip" (constructive, never a verdict). The fasting card's orange bar is effort-framed ("time elapsed"), not a phantom "behind" slice. The optional reflection KPI is gated off by default to protect the calm. The whole screen reads warm, calm, and premium — not a Duolingo-style gamification, not a cold health dashboard, but exactly what Stoic and Reflectly do: belief-adaptive, non-shaming, a coach's arm around your shoulder.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+
+| Element | Color | Contrast |
+| --- | --- | --- |
+| Domain header title | `--color-alpha-white-100` | ≥12:1 on both backgrounds |
+| Spirituality level badge | `--color-alpha-white-70` | ≥4.5:1 on `ink-brown-800` |
+| SIA coaching note text | `--color-alpha-white-100` | ≥12:1 |
+| Section eyebrow ("today's practice") | `--color-alpha-white-40` | ≥4.5:1 (decorative, but label clarity required) |
+| Completion counter ("3/5") | `--color-brand-orange` (`--color-brand-orange`) | 3.2:1 on `ink-brown-800` (WCAG 1.4.11) |
+| Practice name (completed) | `--color-alpha-white-100` → 50% | strikethrough adds visual clarity beyond opacity alone |
+| Practice time | `--color-alpha-white-50` | ≥4.5:1 |
+| Streak text + flame | `--color-brand-orange` | 3.2:1 (WCAG 1.4.11) |
+| MomentumBar orange fill | `--color-brand-orange` | 3.2:1 on `--track-inset` recess |
+| MomentumBar green arrival segment | `--color-forest-green` (`--color-forest-green`) | 2.8:1 on track (below 3:1; flagged as a Visualization build responsibility) |
+| Reading progress bar fill (green) | `--color-forest-green` | 2.8:1 (same as above) |
+| "log reading" link | `--color-brand-orange` | 3.2:1 |
+| Fasting bar orange fill | `--color-brand-orange` | 3.2:1 on `--track-inset` recess |
+| Fasting time-remaining text | `--color-alpha-white-100` | ≥12:1 |
+| Reflection prompt text | `--color-alpha-white-100` | ≥12:1 |
+| "write reflection" link | `--color-brand-orange` | 3.2:1 |
+| Timer shortcut label | `--color-alpha-white-100` | ≥12:1 |
+| Timer shortcut duration | `--color-alpha-white-50` | ≥4.5:1 |
+| CalendarHeatmap cells (intensity) | `--color-alpha-white-05` → `--color-domain-faith` (spirituality-purple, 5 steps) | 3:1 between adjacent intensity steps (honesty — all cell values are labelled so intensity is never colour-alone) |
+
+Status never colour-alone: practice completion (checkbox orange fill) is paired with a **visible checkmark** glyph and strikethrough on the name (visual + text state); missed practices show a **visible "missed" label** (white at 40%); reflection "reflected today ✓" shows a **green checkmark glyph** + the label (not just green colour); fasting "fast complete" shows a **visible checkmark** + green label; the CalendarHeatmap cells each carry an `aria-label` ("[date]: [N] practices completed today") and the intensity is **never** colour-alone. Every interactive element carries `--focus-ring` (`CK-T03`, 2px orange offset 2pt) — the practice checkboxes, "log reading" button, "write reflection" button, timer shortcuts, streak indicator, all tap targets. Targets ≥44×44pt (practice checkboxes 24pt × 52pt per row meets this; timer shortcut cards are ~76pt × 72pt, exceeds this; button hit areas explicitly 44×44pt minimum). Reduced-motion: the MomentumBar appears at final fill width instantly (no fill animation), the heatmap cells at final intensity instantly (no stagger), reflection card at final opacity instantly — essential spiritual data is all present in the static frame. Screen-reader labels on every element: "[Practice name] [time] [uncompleted/completed/missed] checkbox"; "Completion counter: [count] of [total] practices"; "Streak: [N] day streak, button, tap to view history"; "[Text title] page [current] of [total] [percentage] percent, daily goal [pages] pages"; "Daily reflection, SIA asks: [prompt text]"; "Timer [label] [duration] button"; "Prayer schedule [location] Next: [prayer] in [countdown]".
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -251,7 +408,9 @@ The spirituality dashboard adapts entirely to the user's stated beliefs — Musl
 | "Write reflection" link | #FF5E00 | Burnt Orange | 60% — interactive text |
 | Fasting progress bar fill | #FF5E00 | Burnt Orange | 60% — time progress |
 | Save buttons (bottom sheets) | #FF5E00 | Burnt Orange | 60% — primary CTA |
-| Reading progress bar fill | #34A853 | Forest Green | 30% — completion progress |
+| Reading progress bar fill | #34A853 | Forest Green | 30% — completion progress (over --track-inset recess; distinct daily-goal tick on track) |
+| Practice completion MomentumBar fill | --grad-progress (orange→green) | Burnt Orange→Forest Green | 60→30% — continuous path-of-progress; arrival-green only when all practices complete |
+| Consistency heatmap intensity | #A855F7 | Purple (domain) | Domain identity used AS DATA — the one sanctioned domain-colour data use (encodes spirituality's own consistency); 5 intensity steps from --color-alpha-white-05 |
 | Fast complete indicator | #34A853 | Forest Green | 30% — success state |
 | "Reflected today" checkmark | #34A853 | Forest Green | 30% — done state |
 | XP earned animations | #34A853 | Forest Green | 30% — reward |
@@ -267,7 +426,7 @@ The spirituality dashboard adapts entirely to the user's stated beliefs — Musl
 | Secondary text | #FFFFFF B3 | White 70% | Descriptions, values |
 | Tertiary text | #FFFFFF 80 | White 50% | Times, meta, captions |
 
-**60/30/10 verification**: Orange on all interactive/completion states (checkboxes, streak, counters, links, fasting bar, CTAs). Green on completion/success (reading progress, fast complete, reflected today, XP). Purple limited to SIA indicator (2 elements). Domain purple (#A855F7) only on identification icons (header, book, moon — distinct from SIA purple #7F24FF). Note: spirituality's domain color is purple (#A855F7) while SIA's indicator is royal purple (#7F24FF) — the slightly different hues prevent confusion. Both are used sparingly. Ratio holds.
+**60/30/10 verification**: Orange on all interactive/completion states (checkboxes, streak, counters, links, fasting bar, CTAs). Green on completion/success (reading progress, fast complete, reflected today, XP). Purple limited to SIA indicator (2 elements). Domain purple (#A855F7) on identification icons (header, book, moon) and — as the single sanctioned domain-colour-as-data exception — the consistency heatmap intensity, which encodes spirituality's OWN practice consistency (distinct from SIA purple #7F24FF). Note: spirituality's domain color is purple (#A855F7) while SIA's indicator is royal purple (#7F24FF) — the slightly different hues prevent confusion. Both are used sparingly. Ratio holds.
 
 ---
 
@@ -328,7 +487,7 @@ The spirituality dashboard adapts entirely to the user's stated beliefs — Musl
 | Disabled | N/A | — |
 | Loading | Shimmer on time remaining | — |
 | Error | N/A | — |
-| Success (fast complete) | Green glow (600ms), check icon, "fast complete" label, XP animation | success notification |
+| Success (fast complete) | Quiet green check icon + "fast complete" label, XP animation (no glow — fast-complete is a calm arrival, not a celebration; glow is intentionally absent on this contemplative screen) | success notification |
 
 ### Gesture Map
 | Gesture | Target | Action |
@@ -363,7 +522,10 @@ The spirituality dashboard adapts entirely to the user's stated beliefs — Musl
 | Practice checkbox completion | Tap | Fill animation (circle → filled orange + checkmark) | 280ms | ease-out-soft |
 | XP float (practice) | After checkbox | "+10 XP" floats up 24pt + fades | 520ms | ease-flow |
 | Streak flame | Screen enter | Scale(0.8→1.0) + subtle flicker animation (continuous, subtle) | 280ms initial, continuous flicker 2s loop | ease-out-soft |
-| Reading progress bar | Scroll into view | Width 0% → actual | 520ms | ease-flow |
+| Practice completion MomentumBar | Screen enter / row check-uncheck | Fill grows/re-eases 0→actual (continuous, never fade); arrival-green at all-complete | 520ms | ease-flow |
+| Reading progress bar | Scroll into view | Width 0% → actual (over inset track) | 520ms | ease-flow |
+| Consistency heatmap (streak view) | Scroll into view / modal open | Cells stagger in to final intensity | 40ms/cell stagger | ease-out-soft |
+| Fasting focus Sparkline (high-motivation only) | Scroll into view | Draws itself L→R via stroke-draw (never fade); green end dot at rest | 1200ms | ease-flow |
 | Fasting progress bar | Screen enter | Width 0% → actual (real-time progress) | 520ms initial, then continuous | ease-flow |
 | Fasting countdown | Continuous | Number transition (old digit fades/slides, new digit appears) | 160ms per digit change | ease-out-soft |
 | Reflection card | Scroll into view | Fade-in + translateY(12pt→0) | 280ms | ease-out-soft |

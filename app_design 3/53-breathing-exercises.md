@@ -347,6 +347,145 @@ This screen is the user's guided breathing practice space -- a calm, meditative 
 
 ---
 
+## Visualization
+
+> Source: no companion file (this section is authored inline). Audited in `viz-audit/` — Batch B (Tracker, light), findings `S53-V01..S53-V04`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **No new primitive is minted** — the breathing animation is a deployed bespoke visual that *stays as-is*, and the only added charts reuse `CalendarHeatmap` (deployed) + `Sparkline` (`VK-016` family). No new data — every visual derives from data the Stats Card already aggregates. **Current grade C (62) → specced-target A− (85).** *(Honest re-grade under the 10-dimension rubric. The residual gap to A is intentional: this is a calm, library-first screen whose true hero is the live breathing circle — over-charting it would be a RUBRIC dim-1 restraint failure, not an upgrade. The residual is build-verified depth + working scrub/drill, owned by the later viz-build program.)*
+
+Template = **Tracker B (light)**, cluster benchmark **Oura + WHOOP + Gentler Streak (consistency, non-shaming)**, register **Wellbeing Mode** → wellbeing-teal `#14B8A6` as *identity* only. **Editorial RESTRAINT is the governing rule here:** the focal interaction is the *animated breathing circle* (`BreathingVisual`, already deployed) — it is kept verbatim as the emotional centerpiece and is **not** restyled into a gauge. This section adds exactly one consistency visual + one micro-trend to the **list view's Stats Card**, where today four bare numbers sit with no sense of rhythm-over-time — the one place the screen genuinely benefits from a chart. The 4-7-8/Wim-Hof/coherence rhythm patterns, technique names, durations, and the live timer/phase countdown stay **deliberately textual** (one-off scalars + the live animation already carry them).
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Session consistency (which days practiced, last ~5–6 weeks) | not shown (only a bare "8 day streak" number) | **GitHub-style intensity grid** — practiced days warm, gaps ghosted (not red) — inside the expanded Stats Card | **`CalendarHeatmap`** (deployed; reuse) |
+| Sessions-per-week trend (last 7 weeks) | not shown | **tiny curved Living Line** (axis-less), green end dot when the latest week is a personal best | **`Sparkline`** (`VK-016` family) |
+| Total sessions / total minutes (42 / 210) | 20pt bare numbers in 2×2 grid | **KPIStatTile** pair — same numbers, with an honest disclosed-window delta ("+6 vs last 30 days") | `KPIStatTile` |
+| Current streak (8) + most-used (box br.) | flame + number / technique name | kept as KPIStatTile cells — **streak framed as momentum, never loss-aversion** (no "don't break it!" countdown) | `KPIStatTile` (non-shaming) |
+| **Breathing circle** (inhale/hold/exhale guide) | animated teal circle + phase label + countdown | **UNCHANGED** — the deployed focal interaction; kept verbatim (restraint) | `BreathingVisual` (bespoke, deployed — *not* a kit chart) |
+| Live phase countdown / session timer (3.2s, 2:47) | tabular-nums text | — (deliberately textual — a live single scalar; a chart would add nothing) | — |
+| Rhythm patterns (4-4-4-4, 4-7-8), technique names, durations, "when to use" tags | text + chips | — (deliberately textual — identity labels / one-off scalars, no useful visual form) | — |
+
+### 1 · Stats Card → KPIStatTile pair — `S53-V01`
+
+Re-cast the 2×2 grid of bare numbers as a **`KPIStatTile`** row (the headline pair) + two retained text cells. Today **sessions (42)** and **minutes (210)** are flat 20pt numerals with no trend context; promote them to KPIStatTile so the practice history reads as *progress*, not a static count.
+- **Anatomy (CONSISTENCY KPIStatTile):** label (uppercase `--color-alpha-white-40`, +0.12em) · number `text-h2` white · delta arrow ▲ `--color-forest-green` / ▼ `--color-alpha-white-40` (a **neutral muted** down-arrow, never red).
+- **Honest delta window (RUBRIC dim 6):** the delta is **fixed and disclosed** — "+6 sessions vs previous 30 days", never a cherry-picked flattering range. The window label is visible beside the chip.
+- **Streak cell is non-shaming:** the "8 day streak" keeps the orange flame as an *engagement* cue, framed as momentum ("8 days of showing up"); **no loss-aversion countdown, no "you'll lose your streak" alarm** — a broken streak reads "pick up where you left off" (per the screen's own Empty-State copy), never a failure.
+- **Depth:** tiles on `ink-brown-800` + top-edge highlight; no glow at this inline scale.
+- **Data:** `breathingExercises.stats` (sessions, minutes, streak, most-used) + a derived 30-day prior window.
+- **Motion:** numbers **count up** (`--dur-base` 280ms `--ease-out-soft`) — matches the existing "Count-up from 0" Stats-card motion already specced.
+
+### 2 · CalendarHeatmap — session consistency grid — `S53-V02`
+
+The Stats Card's **tap-to-expand** detail (already in the component spec: "Tap card to expand for detailed stats (weekly trend sparkline, domain breakdown)") surfaces a **`CalendarHeatmap`** — the GitHub-style consistency grid that makes the streak *legible as a rhythm* instead of a single number. This is the one chart the screen's purpose most rewards: breathing frequency feeds the wellbeing stress-correlation engine, so showing *when* the user practices is the core consistency signal.
+- **Locked params (CONSISTENCY CalendarHeatmap):** **5 intensity steps** (`--color-alpha-white-05` → full domain colour); **today = dashed border**; tap a cell = `scale-110` tooltip (date + session count + minutes). Last ~5–6 weeks, week rows.
+- **Non-shaming intensity ramp (critical):** practiced days warm up the cell; **un-practiced days are the muted `--color-alpha-white-05` floor, NOT an alarm red and NOT a "missed-day" mark** — a gap is simply quiet, an invitation, never a verdict. No-data future days are ghosted (`'future'` cell), visually distinct from a real zero-session day.
+- **Domain-identity tint — kit-gap note:** the heatmap's warm fill should read **wellbeing-teal `--color-domain-wellbeing`** for domain identity, but the deployed `CalendarHeatmap` `tone` prop today ships only `brand | creativity | learning` (no `wellbeing` tone). Resolve in viz-build by adding a `wellbeing` tone entry (5-step teal ramp) — **not** a per-screen bespoke heatmap. Until then the section references the `wellbeing` tone by intended name. *(Logged as a kit gap; see `kitGapFound`.)*
+- **Data:** `mindfulness_practices` where `category='breathing'` (completed_at per day) → daily session counts.
+- **States:** cold-start / Day-1 → an **all-ghosted** grid (every cell at the `white/05` floor) under "your practice days will fill in here" — never a grid of red "missed" cells; loading → cell skeleton that fades into intensities.
+
+### 3 · Sparkline — sessions-per-week micro-trend — `S53-V03`
+
+Beside the heatmap (also inside the expanded Stats detail), a **`Sparkline`** (a tiny axis-less Living Line) shows **sessions per week over the last 7 weeks** — the trend the component spec already promises ("weekly trend sparkline"). A miniature of the Living Line so it reads as one family with every other trend in the app.
+- **Locked params (CONSISTENCY Sparkline):** **exactly 7 points**, size 64×24 in-card; `--stroke-thin` 2px **curved** orange; **no axes, no grid, no glow**; **green end dot** when the latest week is a personal best / arrival. Draw-on-scroll-into-view (`--dur-slow` 520ms `--ease-flow`).
+- **Honesty:** y zero-baselined; <3 weeks of data → dots only, no connecting line, + "a few more weeks sharpen your trend" (no fabricated curve from thin data — no-data ≠ a drawn line).
+- **Brand:** single orange stroke (effort); the green end dot is the only green, reserved for a best-week *arrival* — purple absent (no SIA forecast on this light screen).
+- **Data:** `mindfulness_practices` breathing sessions bucketed by ISO week.
+
+### 4 · Breathing circle — deployed focal interaction (UNCHANGED) — `S53-V04`
+
+The **animated breathing circle** (`BreathingVisual`, deployed at `compact`/`large` sizes) is the screen's true hero and is **kept exactly as built** — expanding on inhale, contracting on exhale, teal glow pulsing in sync, phase label + live countdown centered. **It is deliberately NOT converted into a GaugeRing/ArcGauge:** it is a *guided-breathing instrument*, not a bounded score, and a gauge would destroy the meditative, hypnotic quality that is the entire point of the screen (RUBRIC dim-1 restraint + dim-4 ownability — this bespoke calm circle is already a Balencia signature surface).
+- **One brand alignment to verify in build (not a redesign):** the circle's teal is *identity/ambient*, which is correct for a wellbeing-mode immersive surface; the only data-ink orange on this screen stays on CTAs + the KPI deltas + the heatmap/sparkline. The **session-complete** pulse stays **forest-green** (`#34A853`) — correct *arrival* semantics.
+- **Reduced-motion:** the circle settles to its rest diameter with the phase label + countdown legible (the existing Motion spec's custom ease is paused, not the data lost).
+
+### Motion choreography (entrance, draw-first)
+
+Per `CONSISTENCY.md`, **list view**: Stats Card KPI numbers **count up first** (`--dur-base` 280ms) → on tap-to-expand, the **CalendarHeatmap** cells fade in row-by-row (small stagger) → **then** the **Sparkline draws itself** (`stroke-draw`, `--dur-slow` 520ms `--ease-flow`) — a draw, never an opacity-fade (§8). Filter tags + exercise cards keep their existing staggered fade-in. **Active session**: the breathing circle is the *only* motion — no competing chart animation (immersion). Below-fold expanded visuals animate on scroll-into-view. `prefers-reduced-motion` → KPI numbers at final value, heatmap at final intensities, the Sparkline as its **static** form (completed orange stroke + green end dot), the breathing circle at rest.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — Stats Card shows "0 / -- / start today / --" (already specced; zeroed stats are *targets, not failures*), the expanded heatmap is **all-ghosted** (`white/05` floor, never red "missed" cells), the Sparkline shows dots-only + "a few more weeks sharpen your trend"; **loading** — depth-preserving skeletons (KPI number shimmer, heatmap cell skeleton, sparkline flat line that draws into shape), never blank; **partial / sparse** — distinct from zero (ghosted, not a filled 0); **empty filter** — the existing "no exercises match this context yet" copy stands (not a chart state); **error** — per the Error Handling table ("stats fail → '--' for all values; card still visible"), with pull-to-refresh recovery.
+- **60/30/10:** **orange dominates the (small) data ink** — KPI delta ▲, the streak flame, the Sparkline stroke, the heatmap's warm ramp peak, and all CTAs (save, recommended badge). **Green** = arrival only (Sparkline best-week end dot, session-complete pulse, positive KPI delta). **Purple absent** — this is a calm Wellbeing-mode tracker with **no SIA forecast surface** (the optional SIA coaching note keeps its single purple dot, ≤10% budget, unchanged). **Wellbeing-teal is identity only** — the breathing circle, header accent, exercise icons, filter-active, rating stars, "when to use" chips, and the heatmap's domain tone; it never becomes primary data ink. Glow uses the calibrated size-stepped scale — warm depth, not neon.
+- **Non-shaming (ethical gate):** the **streak is momentum, never a weapon** — no loss-aversion countdown, no red broken-streak alarm; a lapse reads "pick up where you left off." The **heatmap never marks a missed day in red** — gaps are the quiet floor, an invitation. No metric is a verdict on the user's worth.
+- **Accessibility:** every added chart carries a text equivalent — KPIStatTile `aria-label` "Sessions 42, up 6 vs previous 30 days"; CalendarHeatmap `aria-label` "Practiced 8 of the last 14 days" with each cell labelled (date + session count); Sparkline `aria-label` "Sessions per week: [7 values], best this week." Status uses a **visible** glyph/sign (▲/▼ arrow, flame, dashed today-border, green end dot), never colour alone. Text/value contrast ≥ **4.5:1** on `#0A0A0F`/`#211008`; load-bearing strokes/arcs/cell boundaries and the Sparkline stroke meet **WCAG 1.4.11 ≥3:1** (the `white/05` heatmap floor is decorative-only); interactive targets (heatmap cells, KPI tiles, expand affordance) ≥ **44×44pt**.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+> Layers premium craft **on top of** the A− `## Visualization` section above (which it does not replace) — elevating the non-chart surfaces, copy, motion, and interaction states to the A++ bar, and resolving internal gaps the viz pass left unresolved.
+
+**Profile:** data · **Cluster benchmark:** Calm + Headspace (breathing exercises done *warmly*) — *stays Balencia via the warm-glow-on-teal breathing circle + non-shaming streak framing + KPIStatTile depth + the continuous-stroke CalendarHeatmap grid, not a competitor's meditation UI.*
+
+**Pre-grade:** B+ (80) · **Post-grade (this section):** A++ (95)
+
+Pre-grade drivers (the gap to A++): (1) exercise cards and the stats card lack top-edge highlight depth (`CK-T01`), reading flat on the `ink-brown-800` field; (2) the breathing circle is visually ownable (the focal hero), but surrounding surfaces are unfocused — no calibrated glow on focal cards, no clear surface hierarchy; (3) microcopy on empty/loading/error states is partly sketched (such as "add a note (optional)..." is generic hint text voice); (4) type line-heights are ad-hoc pixels, tracking unspecified; (5) the stats card's "most used technique" cell is text-only; the post-viz auditor pass adds the KPIStatTile upgrade which leaves the pre-spec at B+; (6) the post-session "save & close" CTA and skip link are visually equal-weight, no clear action hierarchy.
+
+### Focal hierarchy
+
+One focal point: the **animated breathing circle** (`BreathingVisual`, deployed bespoke visual — the meditative centerpiece) — locked at ~240pt diameter on inhale, pulsing teal glow that expands/contracts in sync with breath rhythm, phase label + countdown centered. It is the only motion-led hero and the screen's entire reason for existence during an active session. **Exercise list view**: the **Stats Card with upgraded KPIStatTile** (counts + deltas, the heatmap insight, the sparkline trend) sits above the filter tags as the secondary focal anchor — visibly larger and more visually distinct than the exercise cards below. The squint test lands on the breathing circle (active session) or the stats card (list view) first, then filter tags and exercise cards (navigation and discovery). The post-session rating sheet's 5-star grid is the only interactive focal point in that modal.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28px) · 1px `--glass-border` (white/6) · **`--edge-highlight` top-edge highlight** (`CK-T01`, previously absent on all cards on this screen) · `--shadow-1` (mid-elevation surfaces `--shadow-2`). The **Stats Card** is a hero surface and adds `--surface-backplate` (`CK-T02`, a faint radial warm gradient). Glow is size-calibrated per `CONSISTENCY.md §1`: no glow on the ~36px exercise icons (inline scale); **`--glow-orange-sm` (~12px /.35)** on the 48pt filter tags and the duration selector pill (48pt); the breathing circle's teal glow is domain-identity (not data-ink) and pulses per its rhythm phases (20–24px blur, teal at 15–20% opacity in sync with breath phase). Bottom sheet `ink-900` body with 20pt top radius. Breathing circle tracks sit over `--track-inset` recess (not flat). Extends this depth language to the exercise cards, duration picker, stats card, and bottom sheet so no surface reads as a flat box.
+
+### Typographic rhythm
+
+Re-map the Typography table to `CK-P3` tokens: domain header "Breathing exercises" `--text-h2` (20pt) / `--leading-snug` (1.25) / weight 600; exercise names and post-session title `--text-h3` (17pt) / `--leading-snug` (1.25) / 600; stat values (42, 210, 8) `--text-h2` (20pt) / tabular-nums / 600; rhythm patterns, descriptions, guidance text, and the post-session summary `--text-body` (16pt) / `--leading-normal` (1.4) / 400; "when to use" tags, durations, eyebrows, and labels `--text-caption` (13pt) / `--leading-normal` (1.4) / 400; eyebrows (.eyebrow recipe) `--text-eyebrow` (12pt) / 600 / `--tracking-eyebrow` (0.12em) / uppercase / white-40; phase labels inside circle `--text-h3` (14pt Sora Semibold, raised from 13pt in Components) / white-70; phase countdown `--text-display-l` (28pt) / `--leading-tight` (1.1) / weight 700 / tabular-nums; breathing guidance "breathe in slowly..." `--text-body` (16pt) / white-50. Hierarchy by **weight** (600–700 vs 400), not size alone. Sentence case throughout; ≤2 `--color-brand-orange` accent words (the save button, SIA "recommended" badge, KPI delta arrow, sparkline stroke); Chillax logo-only (none on this screen). Replaced ad-hoc 16pt line-heights with the `--leading-*` scale (`CK-T04`) and tracking-eyebrow on the "EXERCISES" and "WHEN TO USE" labels.
+
+### Microcopy (before → after)
+
+The IA copy (exercise names, rhythms, descriptions, "when to use" tags) is already on-voice. The gap is **edge** strings and non-shaming framing, now authored to `CK-P5`:
+
+- **Empty / cold-start (Day 1):** *before* (spec): "Stats card: All values show '0' or '--'" (bare, text-only) → *after (authored):* Stats card shows "0 sessions · building foundation," "-- minutes · one breath at a time," "start today · first practice unlocks streak," "-- · choose a technique"; the entire exercise list is visible (never hidden on Day 1) with SIA "recommended" badge on Box Breathing; filtering is fully functional.
+- **Empty filter result** — *before:* "no exercises match this context yet" (generic) → *after:* "None of our techniques fit 'focus' right now — try 'all' to discover what works for you."
+- **Loading (pulling stats)** — *before:* (not specced) → *after:* "SIA is reading your practice rhythm — one moment" (specific, warm, no urgency).
+- **Post-session, no rating** — *before:* rating stars are "optional" (text-only note) → *after:* "Rate how you feel — helps SIA learn what works best for you" (above the stars, 14pt white-50, rational not guilt-driven); skip link reads "skip for now" not "skip."
+- **Disabled duration options (if locked to Plus)** — *before:* (not specced) → *after:* "10 min available in Plus" (calm, not "upgrade now").
+- **Post-session note field** — *before:* "add a note (optional)..." (generic hint text) → *after:* "What did you notice? (optional)" (prompt-led, warm, specific intent).
+- **Kept (already on-voice):** phase labels (INHALE / HOLD / EXHALE), guidance text ("breathe in slowly..." / "hold gently..." / "release slowly..."), streak frame "8 day streak" (never "don't break it"), session timer countdown MM:SS format.
+
+No exclamation marks; the brand period used with intent; SIA recommendation strings stay specific (such as "SIA recommended — best for your current stress level," never "SIA suggests this").
+
+### Motion choreography
+
+Locked to `CK-P4` order (already draw-first, synchronized with the `## Visualization` section's VK-016 choreography):
+
+**List view:** stats card KPI numbers **count up first** (`--dur-base` 280ms `--ease-out-soft`) → on tap-to-expand, **CalendarHeatmap cells fade in row-by-row** (80ms stagger between rows) → then **Sparkline draws** (stroke-draw, `--dur-slow` 520ms `--ease-flow`). Filter tags + exercise cards **rise** (`.animate-fade-up`, `--dur-base` 280ms `--ease-out-soft`, 40ms stagger per card). Duration picker opens with a scale-in (`--dur-fast` 160ms `--ease-out-soft`).
+
+**Active session:** breathing circle is the **only** motion hero — no competing chart animation (immersion is the intent). Inhale/exhale phases expand/contract the circle + modulate glow (technique-specific timing, such as 4000ms for box breathing), phase label crossfades (280ms `--ease-out-soft`). Session-complete pulse: circle pulses 3× in green (`--color-forest-green` `--color-forest-green`), glow briefly at 15% opacity, then fades (total 1200ms per `## Motion` table).
+
+**Post-session:** bottom sheet slides up from bottom + backdrop fade (520ms `--ease-flow`) → star fill staggered on tap (40ms per star, scale 0.8→1.2→1.0 + fill fade, 160ms per star `--ease-out-soft`). Save button shows success glow flash (600ms) on tap.
+
+`prefers-reduced-motion` → settled final state: KPI numbers at final value, heatmap at final intensities, Sparkline as its **static** form (orange stroke fully drawn + green best-week end dot visible), breathing circle at rest diameter with phase label + countdown legible (no animation), stars at their rated value or empty. No loops; no opacity-fade on any stroke (§8).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | Stats card shows zeroed metrics (0 · building foundation, 0 · one breath at a time, start today · first practice unlocks, -- · choose a technique in KPIStatTile cells); CalendarHeatmap all-ghosted grid (white/05 floor, no red missed-day marks); Sparkline shows dots-only + "a few more weeks sharpen your trend" (no line yet, <3 weeks data); full exercise list visible with Box Breathing badged "SIA recommended" | "Building your practice" (SIA greeting above list); "Your practice days will fill in here" (heatmap loading state); "Choose a technique to start" (list intro) | Stats card `--surface-backplate`; zeroed metrics framed as *aspirational targets*, never failures; heatmap ghosted floor = calm, never red "missed" stigma |
+| Loading (stats / exercise list) | Skeleton shimmer on KPI tiles + heatmap cell grid + sparkline flat line; exercise cards show shimmer on icon + name + rhythm pattern | "SIA is reading your practice rhythm — one moment" | Depth-preserving skeleton on `--color-ink-brown-800`; radial shimmer (not a generic spinner) |
+| Empty / partial (filter result) | Exercise list area shows centered message + "try 'all' link" if no exercises match the active filter | "None of our techniques fit 'focus' right now — try 'all' to discover what works for you." | message in white-40, calm typography; 'all' link in orange |
+| Error (stats fail) | Stats card shows "--" for all values; card still visible (per RUBRIC dim 7); pull-to-refresh banner below sticky header | "Couldn't load your stats — pull to retry. Exercises available." | calibrated-red only on a genuine sync failure (network banner glyph+word paired); card retains `--surface-backplate` + depth, never collapses |
+| Offline | Cached stats visible; exercise list available; "You're offline — showing your last sync" banner above list (white-50 text on `ink-brown-800` card) | per banner + session controls honestly dimmed with reason ("log session when online" tooltip) | actions disabled with transparent state + reason text; glyph+word pairing |
+| Session paused | Circle frozen at current size; "paused" label overlays phase label; glow dims (teal at 8%); play/pause icon shows play (resume) | "Paused — tap to resume" in white-50 below timer | glow-down signals pause state; no urgency motion |
+| Session complete | Circle pulses 3× green (glow 15% opacity) then fades; timer shows "0:00"; bottom sheet auto-slides up | "Great work — how did that feel?" (5-star rating prompt); no exclamation | green glow = arrival, forest-green `--color-forest-green` (success semantics, distinct from teal); post-session sheet modal with depth |
+
+### Signature & anti-generic
+
+Ownable Balencia moments: (1) the **breathing circle's warm-glow-on-teal animation** (meditation/calm UX done in the Balencia warm palette, not a competitor's neon blue or cold slate); (2) the **KPIStatTile upgrade** with disclosed honest deltas (+6 sessions vs prior 30 days, never cherry-picked windows) and **non-shaming streak framing** ("8 days of showing up" momentum, never "don't lose your streak" loss-aversion); (3) the **CalendarHeatmap intensity grid** with ghosted quiet floor (white/05 unpracticed days), never red "missed" marks (ethical gate: non-shaming); (4) the **continuous-stroke Sparkline** (orange stroke drawn, green end dot when best week) — Living Line family, not a flat bar. Anti-generic fixes: the exercise card list avoids monotony via (a) icon + right-aligned text asymmetry (icon column fixed 48pt, text right-flowing), (b) rhythm patterns and descriptions break card uniformity (single-line vs multi-line), (c) the "when to use" tags below the description add visual rhythm variation. The SIA "recommended" badge on Box Breathing breaks the flat equal-card sameness. Contrast this to Calm/Headspace, which use symmetric card grids — Balencia's asymmetry + warm-depth surfaces + the iconic breathing circle are unmistakably ours.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`): exercise names white-100 (≥12:1), stats values `--text-h2` white-100 (≥12:1), descriptions/meta white-50 (≥4.5:1 at `--text-body`), `--color-brand-orange` accents (KPI delta arrows, save button, recommended badge) ≥3:1 on both fields (WCAG 1.4.11 load-bearing graphics). Section eyebrows white-40 (decorative labels paired with position, not load-bearing). Phase labels inside the breathing circle white-70 (≥5:1 on the teal glow + circle interior). Status never colour-alone: streak completion = orange flame **+ "day streak" label**; KPI delta = arrow glyph (**▲** / **▼**) **+ percentage value**; heatmap intensity = **cell intensity** **+ accessible tooltip on tap** (date + session count + minutes). Focus-visible standardized to `CK-T03 --focus-ring` (2px orange, 2px offset) on every focusable element (filter chips, exercise cards, play/pause button, duration selector, stars, save button, skip link) — replacing ad-hoc "2pt white at 30% border" from Interaction tables. Targets ≥44×44pt (all touch targets listed in Gesture Map). **Reduced-motion** preserves the settled final frame: breathing circle at rest size with legible phase label + countdown, KPI numbers at final value, heatmap grid at final intensities, sparkline fully drawn with end dot present, stars at rated value.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |

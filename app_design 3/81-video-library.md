@@ -173,6 +173,80 @@ Video Library gathers short coaching videos relevant to the user's active missio
 - No runtime route/API changes are required.
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** YouTube + Apple TV (honest provider framing, premium video rows) — *stays Balencia via warm-glow surfaces on ink-brown, the SIA recommendation warmth, non-generic row craft, and authored edge copy.*
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): (1) the featured video hero is underdesigned — no depth (flat card surface), no glow, no focal sizing against the row list; (2) the search bar has no visible affordance for the call-to-action or loading states; (3) video row copy is generic ("Recommended..." hint text) and non-shaming microcopy is missing; (4) empty/loading/error states are listed textually, not designed; (5) the SIA note reads generic ("filters videos by...") rather than warm/specific; (6) no type rhythm or depth language specified; (7) the YouTube bottom CTA reads generic/button-like, not warm coaching.
+
+### Focal hierarchy
+
+One focal point: the **Featured SIA Pick video card** — above the fold, largest element, hero-sized (full-width minus 32pt, ~180pt tall including play button and explanation). It carries the visual and emotional weight; everything below (search, Next Best Videos list, SIA note, YouTube CTA) is visibly secondary by size and visual weight. The search bar sits *above* it as a quiet anchor, not a competing focus. The squint test reads: play button → thumbnail → "Next Best Videos" rows smaller. No competing foci.
+
+### Surface & depth
+
+The Featured Video card adopts `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` (28pt) · 1px `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`) · **`--surface-backplate`** radial warm glow (`CK-T02`) behind the thumbnail region. The **play button** (the focal element within the hero) carries **`--glow-orange`** (32px /.45) — the only ≥96pt glowing element on screen, calibrated to the button's ~64pt diameter. Each "Next Best Videos" row is a small card (`--radius-md` 14pt, ~72pt tall) with `--color-ink-brown-800` body · 1px `--glass-border` · `--edge-highlight` · `--shadow-1`, no glow (inline size, per CONSISTENCY §1 table). The SIA Filtering Note is a `CK-P1` surface at `--color-ink-brown-800` with a subtle 2pt top accent stripe in `--color-royal-purple` (SIA-only purple, earns its presence here). The Search YouTube button is a full-width CTA with `--color-brand-orange` fill (no glow — it's a 48pt action button inline size, per locked params). The search bar input itself has a `--focus-ring` on focus-visible (the `CK-T03` recipe, 2pt orange + 2pt offset). No surface reads as flat; every surface carries the warm-glow / top-edge / beveled-track language.
+
+### Typographic rhythm
+
+Map to `CK-P3` tokens: Featured video title `--text-h2` (20pt) / 600 weight / `--leading-snug` (1.25) / white 100%; "SIA pick" eyebrow `--text-eyebrow` (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white 40%); explanation copy below thumbnail `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 70%; video row titles `--text-h3` (17pt) / 600 / white 100%; row metadata (recommendation reason, duration) `--text-caption` (13pt) / 400 / white 50%; SIA note text `--text-body` (16pt) / 400 / white 70%; section eyebrow "NEXT BEST VIDEOS" the `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white 40%); "Search YouTube" button text `--text-h3` (17pt) / 600 / white 100%. Sentence case throughout. ≤2 `--color-brand-orange` accent words (the orange play button icon + "Search YouTube" link are non-text glyphs, so the microcopy limit is: none on Featured, one on each CTA). Chillax logo-only (none on this screen). Replaces the Interaction States table's ad-hoc pixel line-heights with `CK-T04` `--leading-*` scale.
+
+### Microcopy (before → after)
+
+Every user-facing string authored to `CK-P5` brand voice — warm, plain, specific, non-shaming, no exclamation marks:
+
+- **Featured video explanation** — *before:* "Chosen because your left..." (generic, cut off) → *after:* "Chosen because your left leg recovered faster this week — light mobility preps you for tomorrow's run." (specific to user data, real coaching).
+- **Video row recommendation reason** — *before:* "Recommended..." (hint text) → *after:* "Great for post-workout" / "Builds hip flexibility" / "Fits your 5-min break" (depends on SIA context; never generic).
+- **SIA Filtering Note** — *before:* "SIA filters videos by your active missions and recovery context." → *after:* "SIA picks videos for your recovery and focus right now — tap to learn more." (warmer verb "picks", frames positively, invites interaction).
+- **Empty state (no videos found)** — *before:* none → *after:* "No videos match that search. Try searching for a body part or goal — such as `hip` or `post-run`. YouTube has more if you want to explore." (warm, specific guidance, non-shaming).
+- **Loading state** — *before:* none → *after:* "SIA is finding your next video — one moment." (specific, warm, brief).
+- **Network error** — *before:* none → *after:* "Couldn't load videos — check your connection and pull to refresh." (honest, recovery action named).
+- **Video unavailable** — *before:* "Video not available" → *after:* "This video is no longer available. Try another — SIA has plenty." (warm fallback, never blames user).
+- **Permission (YouTube handoff)** — *before:* none → *after:* "This opens YouTube in a browser. Your search stays private — we don't share your journal or health data." (trust-first, honest, specific).
+
+No exclamation marks; the brand period used with intent; all SIA copy is specific to the user's data (real, curated recommendation, never generic).
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order (entrance): **Featured video card fades in** + thumbnail region appears (280ms `--dur-base` `--ease-out-soft`) → **play button glow settles** (glow appears at final brightness, no pulse or wiggle — a calm, premium moment; reduced motion → glow present at rest) → **Next Best Videos rows rise** staggered L-anchored (each row 280ms `--dur-base`, 60ms stagger between rows, `--ease-out-soft`) → **SIA note and YouTube CTA fade in** together (280ms, `--dur-base`, 40ms after the last video row). Below-fold surfaces animate on scroll-into-view. Play button uses **subtle pulse only when reduced motion is off** (pulse: scale(1→1.04→1), 2s loop, stops looping after first 3s). **`prefers-reduced-motion`** → all at final state instantly; play button glow present, no pulse, no scale animation. No opacity-fade on any element.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| Cold-start / no videos in library | Featured card shows warm SIA message, no image hint text; "Next Best Videos" section hidden; YouTube CTA remains. | "Your video library builds as you log workouts and set goals — we'll recommend videos tailored to your recovery." | featured card on `--color-ink-brown-800` with `--surface-backplate`; warm, never empty-feeling |
+| Loading | Featured skeleton (thumbnail shimmer, title/duration hint text), search bar visible; 3 video row skeletons with shimmer animation that morphs into loaded content (layout preserved, depth visible) | "SIA is finding your next video — one moment." | skeleton cards on `--color-ink-brown-800`, shimmer radial animation (morph, not swap) |
+| Empty / no results | Featured card hidden, search bar with typed query visible, "Next Best Videos" label shown but empty, YouTube CTA remains. | "No videos match that search. Try searching for a body part or goal — such as `hip` or `post-run`. YouTube has more if you want to explore." | no card surfaces rendered; white-50 copy text; helpful, never degenerate |
+| Error / network failure | Featured skeleton + network banner below search with retry affordance; video rows show skeleton state or cached last-viewed row. | "Couldn't load videos — check your connection and pull to refresh." | `--color-error-red` (glyph + word paired: ! icon + "error" label, never colour-alone) |
+| Offline | cached featured video + last-viewed rows shown at 80% opacity; pull-to-refresh dimmed with reason; YouTube CTA disabled and dimmed with reason. | "You're offline — showing your last videos. Go online to refresh." | actions honestly dimmed (50% opacity); cached data retained and readable |
+| Watched (row state) | video row's duration pill muted (white 30%), small checkmark icon (12pt, `--color-forest-green`) appears inline with duration. | duration remains visible + check glyph; no text change | `--color-forest-green` check only (glyph + position make it readable, never colour-alone) |
+
+### Signature & anti-generic
+
+Ownable moment: **the warm-glow Featured SIA Pick card** (orange glow on `ink-brown-800`, continuous layered surface craft, the brand period / warm voice in the explanation) — the honest SIA recommendation surface that YouTube/Spotify neither design nor curate this way. Anti-generic fixes: (1) video rows are crafted small cards with depth, not flat generic list rows; (2) the SIA note reads like coaching ("SIA picks videos for your recovery *right now*"), not template copy; (3) the Featured card is hero-sized (180pt), distinctly larger than rows below, breaking equal-card monotony; (4) every copy string is authored, warm, and specific to user data — no horoscope-like recommendations.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+| Element | Color | Contrast | Notes |
+| --- | --- | --- | --- |
+| Featured video title | `--color-alpha-white-100` | ≥12:1 | Primary text |
+| "SIA pick" eyebrow | `--color-alpha-white-40` | ≥4.5:1 | Decorative label, paired with position |
+| Explanation copy | `--color-alpha-white-70` | ≥9:1 | Secondary text |
+| Video row title | `--color-alpha-white-100` | ≥12:1 | Primary text |
+| Recommendation reason | `--color-alpha-white-50` | ≥4.5:1 | Tertiary text |
+| Duration pill | `--color-alpha-white-50` | ≥4.5:1 | Metadata |
+| Watched check ✓ | `--color-forest-green` | 2.8:1 on track | Glyph + position (never colour-alone) |
+| SIA note body text | `--color-alpha-white-70` | ≥9:1 | Secondary text |
+| YouTube CTA text | `--color-alpha-white-100` | ≥12:1 | Primary text on orange bg |
+
+Search input label: "Search coaching videos" (never hidden, always readable). Featured play button label: "Play featured video, [title], [duration]". Video row labels: "[title], [recommendation reason], [duration], tap to play". SIA note is readable text, not tooltip-only. Play button carries `--focus-ring` (`CK-T03`) on focus-visible. Touch targets ≥44×44pt (play button 64pt, rows ≥56pt tall, YouTube CTA 48pt). Status never colour-alone: watched state = green check + duration-pill visual change (position + glyph, not colour). Reduced-motion: animations collapse to instant; play button glow present at rest (no pulse); skeletons morph into data, never swap. Captions supported (where source video provides them).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Audit Feedback Integration (2026-05-26)
 
 **Source**: `balencia-screens-reviewed/findings/findings-ledger.md` plus batch-18.md and resolved decisions in `balencia-screens-reviewed/findings/deferred-decisions.md`.

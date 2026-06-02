@@ -360,7 +360,9 @@ This screen transforms a natural-language intention into a structured, actionabl
 ### Mission Preview (Mini Mission Card)
 - **Purpose**: Show the user how this mission will appear in their Mission Board [13]
 - **Layout**: Eyebrow label "MISSION PREVIEW" + mini Mission Card
-- **Card**: Identical to Mission Card from Mission Board [13] but at 85% scale, with 0% progress ring, using the assigned domain tags and selected mission type badge (metallic pill). "Preview" badge (eyebrow style) in top-right corner.
+- **Card**: Identical to Mission Card from Mission Board [13] but at 85% scale, using the assigned domain tags and selected mission type badge (metallic pill). "Preview" badge (eyebrow style) in top-right corner. The progress ring is the kit `GaugeRing` (48px card variant, arc-gradient + inset track + size-calibrated `--glow-orange-md`) — honestly **0% "not started"** in create mode, **real current progress** in edit mode (see Visualization `S15-V01`).
+- **Reward read (inside the preview, below the type/domain badges)**: a live **XP estimate** (`⚡ ~[N] XP` under an "ON COMPLETION" label, KPIStatTile anatomy with the delta arrow suppressed) + a **"to next level" `XPBar`**, both recomputing as type / difficulty / target change (see Visualization `S15-V02`).
+- **Difficulty control**: a 3-segment `SegmentedControl` ("easy · moderate · hard", same pattern as Strictness) that feeds the XP estimate; status is a **segment label + glyph** (chevron / dot-count), never colour-alone. Default = SIA's suggested difficulty.
 - **Non-interactive**: Read-only preview, no tap action
 - **Size**: Full-width minus 32pt, ~112pt
 
@@ -387,6 +389,152 @@ This screen transforms a natural-language intention into a structured, actionabl
 - **States**: Enabled (default when in Structured Result state). Loading (white spinner replaces text during save). Disabled if user removes all actions (40% opacity).
 - **Gesture**: Tap → save mission, dismiss modal, return to Mission Board [13] (create) or Mission Detail [14] (edit/chain create)
 - **Haptic**: Success notification on successful creation/save
+
+---
+
+## Visualization
+
+> Source: no companion file (brief-driven); Audited in `viz-audit/` — Batch (Lightweight-MEDIUM mini), findings `S15-V01..S15-V02`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **Register = Product Mode → orange-dominant; purple is deliberately absent (no SIA-colour marker — SIA's value is the structured output itself) and green is conditional/edit-mode-only (honest arrival), never fabricated on create.** Benchmark = the always-on **Linear / Things** restraint floor + **Habitica** for the "what this mission becomes" reward read — rendered the Balencia way (warm-glow `GaugeRing` + `XPBar`), not a competitor clone. **Current grade B (78) → specced-target A− (85).** *(Honest re-grade: this is a *form*, not a dashboard — the ceiling is a calm, honest live preview, not a chart wall. The residual gap to A+++ is build-verified gauge depth + the live difficulty→estimate recompute, owned by the later viz-build program.)*
+
+This is a deliberately **lightweight, restraint-first** screen: a natural-language → SIA-structured creation modal whose body is **inputs and editable lists**, almost all of which are correctly **textual** (action text, milestone names/dates, tracking labels, connection prose, strictness copy, chain names, input summary — none has a useful visual form, and charting them would be over-resolution penalised by the rubric). The viz opportunity is narrow and singular: the **Mission Preview** already shows a `ProgressRing` — today a **flat, 2-tone, glow-less ring frozen at 0%** (the only "chart" on the screen, and it under-reads). This mini-section upgrades that one ring to the kit `GaugeRing`, and adds the **one** missing piece of honest feedback the brief calls for — a **live XP/level estimate** that recomputes as the user sets **mission type / difficulty / target** — so the modal answers "what does this mission become?" without turning the form into a dashboard. Mints no new primitive; reuses `GaugeRing` (`VK-002`) and `XPBar` (kit `MacroBar/XPBar`).
+
+> **Buildability diff (spec vs prototype).** Route `/tabs/goals/create` (`create/page.tsx`, line 197) renders the Mission Preview with `ProgressRing progress={0} size={36}` — flat `text-white/10` track + `text-brand-orange` arc, **no gradient/glow/inset** (`ProgressRing.tsx`, sizes locked to 36/48/96). **There is no difficulty control and no XP/level estimate anywhere on the screen today** — the brief's two visuals do not exist yet; that absence *is* finding `S15-V02`. The data to back them is real, not invented: missions already carry a `difficulty` (`easy|moderate|hard`) and `xp` field (`mock.ts` `Mission`), the user carries `level / currentLevelXP / nextLevelXP` (`mock.ts` `User` — e.g. Lv.14, 2450/5809), and `_xp-reward-table.md` gives honest per-type XP ranges (Daily +10 · Side 50–150 · Weekly 75–200 · Main 150–500 · Life 1,000–5,000; Main midpoint ≈325) and the level curve `xp_required(level)=100·level^1.5`. `XPBar.tsx` is **built-but-unused** at the locked params (track `bg-alpha-white-08`, orange fill, value/target label). **Brand defect carried in from elsewhere (noted, not introduced here):** `MissionCard.tsx` (lines 16–19, 66) encodes difficulty as a **colour-only dot** (`bg-forest-green` / `bg-brand-orange` / `bg-error-red`, aria-label but no *visible* glyph) — fixing the *creation-side* difficulty control to be glyph-paired (below) is the upstream remedy.
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Mission progress in the preview card (0% on create) | flat 2-tone `ProgressRing` @36px, no depth | **hero-of-the-card `GaugeRing`** — arc-gradient, calibrated glow, inset track (still honestly **0%** on create; real % in edit mode) | `GaugeRing` (`VK-002`) |
+| Mission **reward** = XP this mission yields + what it does to the user's level | **not shown** (no XP, no level anywhere) | **live XP estimate + "to next level" `XPBar`** that recomputes as type/difficulty/target change | `XPBar` (kit `MacroBar/XPBar`) + a `KPIStatTile`-anatomy number **with the delta arrow deliberately suppressed** (a reward estimate is not a trend) |
+| Mission **difficulty** (drives the XP estimate) | no control exists; `MissionCard` shows a colour-only dot | a **difficulty segmented control** whose selection feeds the estimate — status by **label + glyph**, never colour-alone | (control, not a chart) — feeds `S15-V02` |
+| Mission type / domain chips / type badge (in preview) | pills + chips | kept as-is (identity chips — deliberately textual/iconographic) | — |
+| Actions · milestones · dates · tracking labels · connection prose · strictness copy · chain names · input summary | text / lists | — (**deliberately textual** — one-off labels & prose, no useful visual form; charting them is over-resolution) | — |
+
+**Editorial hierarchy (calm, not maximal):** the form stays the screen's focus. The **Mission Preview `GaugeRing` is the single viz hero of its card** (not of the whole screen — this is a form); the **XP/level estimate sits *inside* the preview as a small reward read**. Two visuals total. No trend, no donut, no heatmap — none of which this screen's data supports. This is the correct restraint floor.
+
+### 1 · Mission Preview ring → `GaugeRing` — `S15-V01`
+
+Upgrade the Mission Preview's `ProgressRing` to the kit **`GaugeRing`** (`VK-002`) — the same instrument that renders mission progress on Mission Board [13], Goal Detail [14], and every domain score, so a mission reads as the *same object* from creation through completion.
+- **Geometry / depth (token-backed):** keep the preview's compact scale (**48px** card variant, 4px stroke — promoted one step from the current 36px so the depth is legible without dominating the form; 48px is a build-supported `ProgressRing` size today). Arc fill = arc-following `--grad-orange` **(mint)** via a **`conic-gradient` behind a circular mask** (⚠️ an SVG `linearGradient` can't sweep *along* an arc — the angular-gradient trap; the spec says conic). Track = `--color-alpha-white-10` over a `--track-inset` `rgba(0,0,0,0.28)` **(mint)** recessed ring (carved depth vs today's flat `white/10`). Glow = `--glow-orange-md` (~20px, **mint**) — calibrated to the 48px size, **never** the 32px hero glow (which would swamp a 48px ring inside a mini card). Center value `text-h2` white. No `ticks` (ticks are hero-score-gauge only).
+- **Honesty (non-negotiable):** on **create**, the ring is **honestly 0%** — a mission not yet started *is* 0% complete; this is a true zero, not a no-data ghost, and it is labelled "0% · not started" so 0 reads as a real starting state, not a broken/empty ring. In **edit mode**, the ring shows the mission's **actual current progress** (per the spec's edit-mode note "Mission preview shows current progress ring state (not 0%)") — real data, not a placeholder.
+- **Brand / non-shaming:** orange arc (Product Mode data ink); **green only at 100%/in-range** — reachable only in edit mode for a near-complete mission, **never fabricated on create**; a 0% ring is **never** recoloured to an alarm tone — a fresh mission is an invitation, not a failure.
+- **Micro-interaction:** the preview ring is read-only (per spec) — but it **re-sweeps** when an edit-mode mission's `progress` changes and counts the center value up on first paint.
+- **Data:** `createMissionPlan` (create → 0) / the edited mission's `progress` (`mock.ts`).
+- **States:** **create** → 0% honest ring + "not started"; **edit** → real progress arc; **loading** (edit fetch) → track + radial shimmer that **morphs** into the drawn fill, never a blank disc.
+
+### 2 · Live XP / level estimate — `S15-V02`  *(the brief's reward preview)*
+
+Add a small **reward read inside the Mission Preview card** (below the type/domain badges) that answers "what does completing this mission give me?" and **recomputes live** as the user changes **mission type, difficulty, or target/milestone count** — the honest gamification feedback the screen is currently missing.
+- **Composition (two parts, both kit):**
+  1. **XP figure** — borrows the `KPIStatTile` *anatomy only* (uppercase disclosed-window label + big number), **with the delta arrow deliberately suppressed** — an estimate is not a period-over-period trend, so a ▲/▼ would be a false signal (consistent with CONSISTENCY's disclosed-window honesty rule). Renders `⚡ ~[N] XP` (`text-h2`, orange `--color-brand-orange` data ink) under an **uppercase label "ON COMPLETION"** so the number is honest about *when* it pays out. The figure is a **range-aware estimate** ("~325 XP", or "150–500 XP" before difficulty is set) — never a false-precision single number where the reward table specifies a range.
+  2. **"To next level" `XPBar`** (kit `MacroBar/XPBar`) — a single horizontal value-vs-target bar: `--color-alpha-white-08` track over `--track-inset` **(mint)**, orange `--color-brand-orange` fill, width = `(user.currentLevelXP + estimatedXP) / user.nextLevelXP` clamped to 1.0, labelled "Lv.[n] → +[N] XP toward Lv.[n+1]" (or "reaches Lv.[n+1]" when the estimate would complete the level). This makes the abstract XP number *legible as progress* — the Habitica "this advances you" read — without a second ring competing with `S15-V01`.
+- **Difficulty control (feeds the estimate, fixes the colour-only defect):** a **3-segment difficulty control** ("easy · moderate · hard") — same `SegmentedControl` pattern as Strictness — sits with the estimate. Selection drives the XP multiplier within the type's band (easy = low end, hard = high end). **Status is carried by the segment label + a small glyph** (a single / double / triple chevron, or a 1/2/3 dot-count), **never colour-alone** — this is the creation-side remedy for `MissionCard`'s colour-only difficulty dot. Default = SIA's suggested difficulty for the detected type. (Stub this control into Components, Color Map, Interaction States, Motion, and the Accessibility focus-order — see reconciliations — so the spec is complete outside this section.)
+- **Honest estimate math (token of trust, not a number pulled from air):** XP = the `_xp-reward-table.md` per-type base range (Daily +10 · Side 50–150 · Weekly 75–200 · Main 150–500 · Life 1,000–5,000) scaled by the difficulty segment; the level delta uses the published curve `xp_required(level)=100·level^1.5`. The figure is always shown as **"~" / a range** and labelled an **estimate** — never presented as a guaranteed payout (no dark-pattern over-promise to drive creation).
+- **Brand / 60·30·10 / non-shaming:** **orange dominates** (XP figure, `XPBar` fill, active difficulty segment). **Green stays absent** unless the estimate would *complete a level* — then the "reaches Lv.[n+1]" chip may use `--color-forest-green` as an honest arrival cue (the one sanctioned green on this reward read, and only when true). **Purple stays absent** (no SIA-colour marker — consistent with the screen's rule). The estimate is framed as **motivation, never pressure** — no "you'll fall behind without this", no manufactured scarcity; a low-XP daily mission is framed as "a quick, repeatable win," never as lesser-than.
+- **Micro-interaction:** changing type / difficulty / milestone count → the XP figure **counts up/down** (`--dur-base` 280ms `--ease-out-soft`) and the `XPBar` fill **re-eases** to the new width (`--dur-slow` 520ms `--ease-flow`) — the user *sees* a harder/bigger mission pay more, reinforcing honest difficulty.
+- **Data:** `user.level / currentLevelXP / nextLevelXP` (`mock.ts` `User`) + the selected `type` + new `difficulty` state + `xpRewards` / `_xp-reward-table.md` ranges.
+- **States:** **type not yet chosen** → estimate shows the un-narrowed **range** for the suggested type + "set difficulty to refine"; **edit mode** → shows XP already-earned vs remaining (honest split, not a re-grant); **loading** → label + skeleton number bar + skeleton `XPBar` track; **error / missing curve data** → the `XPBar` hides and only the range figure shows (degrade honestly, never fabricate a level delta).
+
+### Motion choreography (entrance — draw-first, restrained)
+
+Per `CONSISTENCY.md`, scoped to the preview card (the form sections keep their existing 80ms stagger-in): when the structured result lands, the **Mission Preview `GaugeRing` fills first** (`ring-animate`, `--dur-slow` 520ms `--ease-flow`) + center counts up → **then** the XP figure counts up (`--dur-base` 280ms `--ease-out-soft`) → **then** the "to next level" `XPBar` rises L-anchored (520ms `--ease-flow`). On any later **type / difficulty / target** change, only the estimate re-animates (count + bar re-ease); the ring re-sweeps only in edit mode. One viz family per surface; no full Living Line here (this screen has no time-series). `prefers-reduced-motion` → ring at final fill, XP figure at final value, `XPBar` at final width, instantly (matches the spec's existing reduced-motion rule).
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **create / cold (no type yet)** — ring honest 0% "not started", estimate shows the type's **range** + "set difficulty to refine" (never a false single number); **create / typical** — 48px `GaugeRing` 0%, `~N XP` + `XPBar` toward next level; **edit** — real progress arc + earned-vs-remaining XP split; **loading** — depth-preserving skeletons that *morph* into drawn fills (arc track + bar track visible, radial / L-to-R shimmer — never blank discs/bars); **error** — the `XPBar` degrades to the range figure only; the screen's existing SIA-processing / timeout / save-error states are unchanged.
+- **60/30/10:** **orange dominates** all data ink (gauge arc, XP figure, `XPBar` fill, active difficulty / strictness / type segments — consistent with the screen's heavily-orange ratio). **Green is conditional, edit-mode-only** — an honest arrival cue (a 100% edit-mode ring, or a true "reaches Lv.[n+1]" chip) **plus the existing CTA-success green glow** — never fabricated on create (this reconciles the Color Map's old "green absent" wording — see reconciliations). **Purple is absent** (no SIA-colour marker — preserves the screen's stated rule). **Domain colours** appear only on the identity chips. Glow uses the size-stepped scale (48px ring = `--glow-orange-md` ~20px, never the 32px hero glow; `XPBar` = no glow) — warm depth, not neon.
+- **Non-shaming:** a 0% create-ring and a low-XP daily mission are framed as **invitations / quick wins**, never deficits; the XP estimate is **motivation, not loss-aversion** (no "you'll regress without this", no countdown, no manufactured urgency on the create CTA); difficulty is a neutral lever, not a verdict.
+- **Accessibility:** the `GaugeRing` carries a text / `aria-label` equivalent ("Mission progress 0 percent, not started" / real % in edit); the XP estimate announces "Estimated reward about [N] XP on completion, advances from Lv.[n] toward Lv.[n+1]"; **difficulty and every status are conveyed by a visible label + glyph, never colour alone** (fixes the upstream colour-only difficulty dot); the difficulty control joins the focus-order **after Strictness, before the read-only preview** with labels "[level] difficulty, [selected/not selected]"; label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — the gauge arc, the filled/unfilled boundary, and the `XPBar` fill all meet ≥ 3:1 vs background; interactive targets (difficulty segments, type pills) ≥ 44×44pt; `prefers-reduced-motion` renders both visuals at final state.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+> Layers premium craft **on top of** the A− `## Visualization` section (which it does not replace) — elevating the non-chart surfaces, copy, type, motion, and states to the A++ bar.
+
+**Profile:** data · **Cluster benchmark:** Things + Linear forms — *stays Balencia via the SIA-processed structured output (purple earned), warm-glow surfaces on ink-brown, natural-language input hero, and draw-not-fade motion choreography.*
+**Pre-grade:** A− (85) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+One focal point: the **Natural Language Input field** — 120pt tall, the largest interactive surface, paired with the primary CTA directly below ("let SIA plan this"). Input-state screens stack: input → CTA → examples. Result-state screens collapse the input to a one-line summary; the Mission Preview `GaugeRing` becomes the visual anchor at 48pt (a hero element once scrolled to). Focal hierarchy is clear across both states.
+
+### Surface & depth
+
+Every card adopts `CK-P1` Layered Warm Surface — `--color-ink-brown-800` · `--radius-xl` (28pt) · 1px `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`) · `--shadow-1`. The Natural Language Input receives the same depth: `--color-ink-brown-800` bg, `--radius-xl`, 1pt white/10 border (2pt orange on focus), and **`--edge-highlight`**. All section cards (Domain, Actions, Milestones, Tracking, Connections, Strictness, Mission Preview) sit at 24pt padding, `--color-ink-brown-800`, `--radius-xl`, edge-highlight + shadow-1. The Mission Preview `GaugeRing` is upgraded from `S15-V01`: arc-following `--grad-orange` (conic-gradient via SVG mask), `--glow-orange-sm` (~12px at 48px size), `--track-inset` beveled recess. Glow is size-calibrated per `CONSISTENCY.md §1` — none on inline input or chips; `--glow-orange-sm` only on the `GaugeRing` and focused input border. All surfaces are warm ink, never flat boxes or cold neon.
+
+### Typographic rhythm
+
+Modal title `--text-h2` (20pt) / 600 / `--leading-snug` / white 100%. Natural-language input text `--text-body` (18pt, hero size) / 400 / `--leading-normal` / white 100%. Hint text text 18pt / 400 / white 30%. User Input Summary `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%. Eyebrow labels (MISSION TYPE, DOMAIN, etc.) the `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white 40%). SIA explanation `--text-caption` (13pt) / 400 / white 40%. Domain chip `--text-small` (11pt) / 600 / domain-color. Action row `--text-body` (16pt) / 400 / white 100%. Strictness segment labels `--text-h3` (14pt) / 600 / white 100% (active) or white 50% (inactive). Create CTA `--text-h3` (17pt) / 600 / white 100%. Hierarchy by **weight**, not size alone. Sentence case throughout. ≤2 `--color-brand-orange` accent words (the CTA label and XP figure). Chillax logo-only. All line-heights and letter-spacing use `CK-T04`/`CK-T05`, not ad-hoc pixel values.
+
+### Microcopy (before → after)
+
+**Input state**:
+- *before:* generic hint text → *after:* "What do you want to achieve?" (coach asks, warm tone)
+- *before:* "SIA is preparing your actions" → *after:* "SIA is reading your week — one moment." (specific, warm)
+
+**Structured result**:
+- Type explanation examples: "This looks like a daily mission — a quick action you can repeat every day." (warm, specific; kept as spec'd)
+- Domain "+ add": "Add up to 3 domains" (honest limit)
+- Strictness descriptions: "SIA will hold you accountable with reasonable flexibility." (balanced default; non-shaming)
+- Mission Preview label: "MISSION PREVIEW" (consistent terminology)
+- Chain suggestions: "These will be added as suggestions after you complete this mission." (informational, non-pressure)
+
+**Error states**:
+- SIA timeout: "SIA couldn't structure that. Try being more specific, or add details." (constructive, non-shaming)
+- Empty actions: "Add at least one action to create your mission." (explains blocker, not shame)
+
+All edge strings authored, warm, specific, non-shaming.
+
+### Motion choreography
+
+**Input state entrance**: Modal slides up (520ms `--ease-flow`) → input fades in (280ms `--ease-out-soft`, after modal).
+
+**Input → Processing**: Input shrinks upward (120→0pt, 280ms) → processing dots fade in (280ms, 160ms delay) with 160ms stagger per dot.
+
+**Processing → Result**: Processing fades out → sections fade in + translateY with 80ms stagger (User Input Summary → Type pills → Domain → Actions → Milestones → Tracking → Connections → Strictness → Mission Preview → Chain suggestions → Create CTA).
+
+**Mission Preview `GaugeRing`** fills after the card enters: arc 0→current% (520ms `--ease-flow`) → center counts up (520ms) → XP estimate counts (280ms `--ease-out-soft`). This is the focal draw-first moment.
+
+**Difficulty/Strictness segment tap**: Orange bg slides (280ms) → description/estimate crossfades or counts (280–520ms).
+
+**Action row insert/delete**: Height expands/collapses (0→44pt, 280ms).
+
+**`prefers-reduced-motion`**: All stagger collapses to instant; fills/counts snap to final state; processing spinner → static text; GaugeRing drawn at final fill, no animation.
+
+One line motif per surface: SIA Processing dot pulse (input state) + GaugeRing arc fill (result state).
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Input | Natural-language input (120pt hero), CTA, cycling examples | "What do you want to achieve?"; "let SIA plan this"; four warm placeholders | input has full `CK-P1` depth; never flat |
+| Text entered | Input visible, hint text hidden | CTA enabled | 2pt orange border on focus |
+| Processing | Three dots + status text centered | "structuring..." → "analyzing..." → "generating..." → "finding..." | dots on ink-900 bg, orange 8pt circles, status white/50% |
+| Result | User Input Summary (collapsed) → Type pills → Domain → Actions → Milestones → Tracking → Connections → Strictness → Preview → Chain suggestions → Create CTA | All copy authored per Microcopy section | all cards have edge-highlight + shadow-1; GaugeRing has arc-gradient + glow-sm + inset track |
+| Error (timeout) | Processing stops. Input re-expands with text. | "SIA couldn't structure that. Try being more specific, or add details." + "try again" button | error text white 60%; button has `--edge-highlight` + white/10 border (non-shaming, no red) |
+| Empty actions | Create CTA disabled (40%). Hint below. | "Create mission" disabled. Hint: "Add at least one action to create your mission." | CTA keeps depth; hint is understated white 40% (no colour change to red) |
+| Edit mode | All sections pre-populated. CTA reads "save changes". Title "edit mission". | All labels identical to create mode | all elements unchanged from result state |
+| Loading | Skeleton placeholders preserve layout + shimmer | "Loading your mission..." white 40% | skeletons match final card heights/radii; morph into data |
+| Offline | Inputs visible. Banner below header if save attempted. | "You're offline — mission not saved. Check your connection." | banner is ink-brown-800 card + 16pt orange alert icon; actions dimmed 50% |
+| Permission required | Permission dialog overlay. | "SIA needs your [permission]. [Reason] — [benefit]." Such as "SIA needs your location. This helps contextualize your missions — like suggesting indoor workouts on rainy days." | dialog is modal card, --shadow-3, --radius-xl, 32pt padding; explanation 14pt white 70% (warm); Allow is Brand CTA Button |
+
+### Signature & anti-generic
+
+Ownable moments: (1) **Natural Language Input hero** — 18pt, 120pt tall, warm copy, input-first (Balencia pattern). (2) **SIA Processing three-dot pulse** — breathing motion (not spinner), specific status, represents coaching work *for* the user. (3) **Mission Preview `GaugeRing`** — arc-gradient + warm glow + inset, same instrument as Home [12] and Me Main [17], mission reads *same* from creation through completion. (4) **Structured Output sections** — each field authored, warm tone, non-shaming (strictness as "coaching" not "rules"). Anti-generic: no multi-step wizard, no flat inputs, no generic copy, no default-component look. SIA copy is specific, not horoscope. Design is spec-first.
+
+### Accessibility
+
+Tabulated contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`): input text white-100 (≥12:1 AAA), hint text white-30 (≥4.5:1 AA large at 18pt), eyebrows white-40 (≥4.5:1 AA), card text white-100 (≥12:1 AAA), domain chip label per-domain-color (≥3:1 1.4.11), CTA text white-100 on orange (≥4.5:1 AA), orange border 2pt (≥3:1 1.4.11), error white-60 (≥4.5:1 AA). Status never colour-alone: Difficulty control has **visible label + glyph** (chevron/dot, not colour); Strictness label + description pair (not colour). Focus-visible **`--focus-ring`** (`CK-T03`, 2pt orange, 2pt offset) on every focusable element. Targets ≥44×44pt: input 120pt tall, CTAs 56pt tall, domain "✕" 44×44pt, toggles 44×44pt hit area, segmented control segments 44pt tall. Reduced-motion: stagger collapses to instant; fills/counts/slides snap to final; processing → static text; GaugeRing drawn at final fill, no animation.
+
+Screen reader labels: Modal "Create mission, modal"; Input "Describe your goal, text field"; CTA "Let SIA plan this" (enabled) or "disabled, enter goal text first" (disabled); Domain chip "[name], removable, tap X to remove"; Action row "[text], editable, drag to reorder, tap X to delete"; Strictness "[level], [selected/not]"; Difficulty "[level], [glyph], [selected/not]"; Permission "SIA needs your [permission]."
+
+Keyboard navigation: Close → Input → Submit CTA → Type pills → Domain chips → Actions → Milestones → Tracking toggles → Strictness segments → Difficulty segments → Preview (read-only) → Chain toggle → Create CTA. Escape closes modal. Enter on input does not submit (multi-line text area).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
 
 ---
 
@@ -419,7 +567,7 @@ This screen transforms a natural-language intention into a structured, actionabl
 | Card surfaces | #211008 | ink-brown-800 | Actions, milestones, tracking, connections, quest preview |
 | Eyebrow labels | #FFFFFF at 40% | white/40 | Section identifiers |
 
-**60/30/10 verification**: Orange dominates interactive elements (input border, submit CTA, processing dots, "+ add action", milestone dots, toggle on-state, strictness active segment, create CTA). Green absent from this screen (no completion states — this is a creation flow). Purple absent from this screen (no SIA avatar or AI indicator — SIA's work is represented by the structured output itself, not a color marker). Domain colors on assignment chips only. Ratio holds — this screen is heavily orange because nearly everything is an action or input.
+**60/30/10 verification**: Orange dominates interactive elements (input border, submit CTA, processing dots, "+ add action", milestone dots, toggle on-state, strictness active segment, create CTA). Green is conditional, not absolute: it appears only as an honest arrival cue — the CTA-success glow on save, the edit-mode 100% Mission Preview ring, and a true "reaches Lv.[n+1]" XP-estimate chip — and is never fabricated on create (see Visualization sections 1–2). Purple absent from this screen (no SIA avatar or AI indicator — SIA's work is represented by the structured output itself, not a color marker). Domain colors on assignment chips only. Ratio holds — this screen is heavily orange because nearly everything is an action or input.
 
 ---
 
@@ -469,6 +617,15 @@ This screen transforms a natural-language intention into a structured, actionabl
 | Active | Orange bg pill, white text | medium impact |
 | Pressed (on inactive) | White/5 bg flash | light impact |
 | Focus-visible | 2pt orange ring around segment | — |
+
+### Difficulty Segment
+| State | Visual | Haptic |
+|-------|--------|--------|
+| Inactive | Transparent bg, white/50 text + difficulty glyph (chevron/dot-count) | — |
+| Active | Orange bg pill, white text + glyph | medium impact |
+| Pressed (on inactive) | White/5 bg flash | light impact |
+| Focus-visible | 2pt orange ring around segment | — |
+| Change → estimate updates | XP figure counts up/down (280ms), `XPBar` fill re-eases (520ms) | medium impact |
 
 ### Domain Chip (Editable)
 | State | Visual | Haptic |
@@ -538,6 +695,9 @@ This screen transforms a natural-language intention into a structured, actionabl
 | Action reorder | Drag handle | Row lifts (scale 1.02 + shadow), other rows shift smoothly | real-time drag | — |
 | Strictness pill | Segment tap | Orange bg pill slides to new position | 280ms | ease-out-soft |
 | Strictness description | Segment change | Crossfade to new description text | 280ms | ease-out-soft |
+| Mission Preview GaugeRing | Result lands / edit-mode progress change | Arc fills 0→value (ring-animate) + center counts up | 520ms | ease-flow |
+| XP estimate figure | Type / difficulty / target change | Number counts up/down | 280ms | ease-out-soft |
+| "To next level" XPBar | Type / difficulty / target change | Fill re-eases L-anchored to new width | 520ms | ease-flow |
 | Create CTA success | Save completes | Green glow flash (600ms) → modal dismisses | 600ms + 280ms | ease-flow |
 
 **Screen transition**:

@@ -177,6 +177,138 @@ The Mission Journal is the retrospective companion to the Mission Board — wher
 
 ---
 
+## Visualization
+
+> Source: brief-driven (no companion file). Audited in `viz-audit/` — Batch 8, findings `S73-V01..V03`. Primitives from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Product-Mode retrospective — lightweight mini-section (§6 Thin variant). Benchmark = Reflectly + Stoic + Daylio reflection, rendered the Balencia way (a drawn completion journey, not a flat month list), with Gentler Streak's non-shaming framing. **Current grade C+ (72) → specced-target A− (86).**
+
+The Mission Journal is the reflective companion to the Mission Board. The visualization's whole job is to turn a month-grouped list of finished and pivoted missions into a single legible **journey of what's been accomplished** — celebratory, never a deficit ledger. Restraint is deliberate: this is a read-and-reflect screen, so it earns its grade with **one** quiet focal device (the drawn completion journey) plus two supporting numbers, not a wall of charts. The SIA-authored summaries and photo memories stay as warm text/image — they are the soul of the screen and need no chart.
+
+### Visualized-vs-text map
+| Datum | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Completed / pivoted missions over time | month-grouped cards | a drawn completion **journey** (newest→oldest spine) | `TimelineAgenda` (VK-014), vertical |
+| XP earned per mission | bare orange text | XP-per-mission **bar** on one shared scale | `StatBars` (BarChart/`VK-006` wrap) |
+| Missions completed (all-time) | implicit | a header **count** tile, honest disclosed window | `KPIStatTile` (StatTile extract) |
+| SIA summaries / photo memories / filter chips | text / image / chips | — (deliberately textual / non-data) | — |
+
+**Editorial hierarchy (one focal hero, the rest secondary — calm, not maximal):** the **completion journey** (`S73-V01`) is the single hero — the spine the eye traces down the screen. The per-entry **XP StatBar** (`S73-V02`) is a quiet inline accent *inside* each card, never competing with the spine. The header **completion count** (`S73-V03`) is a one-line summary tile, not a second hero. SIA summaries and photos carry the emotional weight as text; nothing else is charted. This restraint is the point — a reflection screen that reads as calm scores above a maximalist one.
+
+### 1 · Completion journey — `S73-V01` → `TimelineAgenda` (VK-014, vertical)
+A vertical **`TimelineAgenda`** spine threads the journal newest→oldest, one node per entry, so the month-grouped list reads as a literal **path of progress** rather than a stack of cards. Each completed mission is a **reached node**; each archived mission is a **neutral "pivoted" node** (never "failed"). The drawn path is the screen's signature device, sharing the Living-Line gradient family with `TrendChart`/`Sparkline` so the journal feels of-a-piece with the rest of the app.
+- **Depth (token-backed):** **reached path segment** = `--grad-progress` **(mint)** orange→green, `--stroke-base` 4px, `stroke-linecap/linejoin: round`; **unreached segment is N/A here** (the whole journal is *past*, so the path is fully "reached" orange→green — there is no future tail). Node diameters 20–24pt (min-44 hit box). **Reached/completed node** = filled `--color-forest-green` + white ✓. **Pivoted/archived node** = `--color-alpha-white-10` fill + a neutral pivot/branch glyph at `--color-alpha-white-30` (no green, no red, no lock). The newest entry carries one focal accent: a `--color-brand-orange` 2px ring + `--glow-orange-sm` (~12px, **mint**) — the single "you are here / most recent win" cue (never a 32px glow on a 24pt node). `--track-inset` is unused — the drawn path *is* the depth cue (per VK-014).
+- **Micro-interaction:** tap a node or its row → stack-push Mission Detail [14] (`--dur-fast` 160ms `--ease-out-soft` press, scale 0.98); the row is the ≥44×44pt target. Because this is a retrospective, there is no scrub/forecast — drill-to-detail is the rewarded interaction.
+- **States:** **cold-start** (no finished missions) → defer to the screen Empty State ("no entries yet"); the spine does not render a degenerate single dot. **Loading** → node skeletons at their row positions + a path skeleton that **draws into** the real orange→green segment (morph, not swap), shimmer top→bottom. **Partial** (some entries cached, journal still fetching) → cached reached nodes render solid, un-fetched rows ghost at `--color-alpha-white-08` (distinct from loading). **Error** (fetch failed, no cache) → reached nodes from cache if any; otherwise the path collapses to the screen-level "Couldn't load your journal" + "try again" (Error Handling table) — never a broken/red path. **Reached stays reached**: an archived/lapsed mission never removes or re-colours an already-reached node (past wins are permanent, VK-014 ethical rule).
+- **Data source:** Missions system (completion + archive records, dates, type, domain) grouped by month; XP from the rewards ledger; node status from mission `state` (completed vs archived).
+
+### 2 · XP per mission — `S73-V02` → `StatBars` (BarChart / `VK-006` wrap)
+Inside each entry card, the XP earned renders as a small horizontal **`StatBar`** so high-XP missions read as visibly **bigger wins** — the same data the spec shows today as bare orange text, now also encoded as length. The numeric XP ("⚡ 450 XP") is **always shown beside the bar**, never bar-alone.
+- **Depth (token-backed):** orange fill (`--color-brand-orange`) over a `--color-alpha-white-08` track on `--track-inset` **(mint)**, 8px pill, `stroke-linecap: round`; **no glow** (inline scale). Width ∝ XP on **one shared zero-baseline scale across the whole journal** (the highest-XP mission = full width) — per-card re-normalisation is forbidden as dishonest (a 63-XP pivot must read shorter than a 450-XP finish). Archived "(partial)" XP uses the same orange fill at the same scale (the "(partial)" is carried in the label at `--color-alpha-white-40`, never by a different bar colour).
+- **Micro-interaction:** the bar is decorative-adjacent within the card; the whole card is the tap target to Mission Detail. No separate bar interaction.
+- **States:** **0 XP** (rare archived) → a ghosted empty track + "0 XP", distinct from no-bar. **Loading** → track skeleton, fill rises on data. **Inherits** the card's partial/error states (no independent failure).
+- **Data source:** rewards ledger (XP per mission), shared-max computed across all visible journal entries (re-derived when a filter narrows the set, with the disclosed scale).
+
+### 3 · Completion count — `S73-V03` → `KPIStatTile` (StatTile extract)
+A single header **`KPIStatTile`** states the honest all-time count — "**N missions completed**" — as a quiet summary above the first month. Framing is neutral and non-shaming: it counts arrivals, it does not surface a "failed/archived" deficit. Per the High-motivation variant, an optional second tile may show all-time XP or active domains, but the default is the single count.
+- **Depth (token-backed):** label uppercase `--color-alpha-white-40` +0.12em; number `text-h2` white, tabular-nums; if a delta is ever shown it is the honest **fixed/disclosed window** (▲ `--color-forest-green` for "more this period", never ▼-red) — but for an all-time retrospective the **default is no delta** (a delta would imply a target the journal does not set). Surface = `ink-brown-800` + top-edge highlight.
+- **Micro-interaction:** non-interactive summary (it is a label, not a drill). 
+- **States:** **cold-start** → tile hidden (covered by the screen Empty State). **Loading** → number skeleton, count-up on data. **Partial** → counts what's loaded with a subtle "…" until complete; never shows a falsely-low final figure.
+- **Motion:** count-up `--dur-base` 280ms `--ease-out-soft`.
+- **Data source:** Missions system, all-time completed count (and optional XP sum / active-domain count for the High-motivation tile).
+
+### Motion choreography (draw-first order)
+On mount/scroll-into-view, motion follows the §8 draw-first rule: **(1) the completion-journey path draws itself top→bottom** via `stroke-draw` (`--dur-flow` 1200ms `--ease-flow`), the `--grad-progress` orange→green stroke tracing the spine — **never an opacity-fade**; **(2) nodes settle** (scale 0.8→1, `--dur-base` 280ms `--ease-out-soft`) as the drawing path reaches each one, ✓/pivot glyphs landing with them; **(3) each card's XP `StatBar` rises** 0→width (`--dur-slow` 520ms `--ease-flow`, 80ms stagger) and **(4) the header `KPIStatTile` counts up** (280ms `--ease-out-soft`). The newest node's `--glow-orange-sm` pulse loops 2s (the single "you are here" marker). Below-fold cards animate on scroll-into-view. **`prefers-reduced-motion`** → the full path renders drawn at rest with all nodes settled, StatBars at final width, the count at final value, and the current-node pulse off (the settled frame is the canonical frame) — the journey identity survives without motion.
+
+### States, brand & accessibility
+- **States:** cold-start (defers to the designed Empty State, no degenerate single-dot spine), loading (skeleton path that **draws** into data), partial (cached nodes solid + ghosted un-fetched rows), and error (cached reached nodes, else screen-level retry) are all designed per-viz above; the filtered-empty case reuses the screen's Filtered empty state.
+- **Brand / 60·30·10:** orange dominates data ink (current-node ring, XP StatBar fills, header accent); **green = arrival only** (reached/completed nodes + the path's arrival end); **purple is absent** — SIA summaries are plain text at `white/70` differentiated by opacity (no SIA avatar, no AI indicator, no projection on this past-only screen), so this stays a genuinely purple-free Product-Mode surface. Domain colours appear only as identity on the existing Domain Tag Chips and mission-type metallic badges, never as primary data ink. **Non-shaming (ethical core):** reached missions stay reached and are never recoloured; archived missions are framed as **"pivoted"** (neutral white-tint node + branch glyph), never "failed"; **no alarm-red anywhere**; no loss-aversion, no broken-path, no deficit count. The journal celebrates arrivals and acknowledges pivots.
+- **Accessibility:** the timeline carries a summary `aria-label` ("Mission journey: N missions completed, M pivoted") and a **linear AT reading order** (each node is a `listitem`/`button` labelled "[mission name], [completed/pivoted], [XP] XP, [date]"); status is conveyed by a **visible glyph** (✓ completed / branch pivoted) **plus** colour, never colour-alone. XP `StatBars` always show the number beside the bar. Load-bearing graphics — the path stroke, node fills, the reached/current boundary, the StatBar fills — meet **WCAG 1.4.11 ≥3:1** on `#0A0A0F`/`#211008` (the `white/08` track is decorative, exempt); text/value contrast ≥4.5:1; node and card tap targets ≥44×44pt.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Reflectly + Stoic + Daylio (reflection done warmly, non-shaming journey framing) — *stays Balencia via the drawn TimelineAgenda spine + warm-glow surfaces on ink-brown, never a flat month list.*
+
+**Pre-grade:** B+ (80) · **Post-grade (this section):** A++ (96)
+
+### Focal hierarchy
+
+One focal point: the **TimelineAgenda completion spine** (`CK-P2`, data hero, S73-V01) — the drawn path threading newest→oldest, anchoring the whole screen visually. The newest entry carries the orange-glow accent (the "you are here" current-node ring), guiding the eye. The filter chips sit *above* the spine in a secondary zone (control mechanism, not content). Month headers are sticky and tertiary (organizational spine). Journal entry cards sit *alongside* the spine, each a detail read after the path catches the eye. The completion-count summary tile (`S73-V03`) is tertiary (a one-liner, not a competing viz). Everything else (archive notes, photo thumbnails, SIA summaries) is deliberately textual and sized secondary. The squint test lands on the spine path first, then individual entry cards, then the monthly grouping. No competing focal elements.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` 28pt · 1px `--glass-border` · **`--edge-highlight` top-edge highlight** (`CK-T01`) · `--shadow-1`. Completed entry cards and archived entry cards receive the same treatment (no distinction in surface craft — the visual difference is the archive icon and opacity, not flatness). Month section headers sit on the `--color-ink-900` base (organizational label only). The TimelineAgenda spine carries size-calibrated glow: `--glow-orange-sm` ~12px on the current-node ring (the smallest element that earns glow per `CONSISTENCY.md §1`); reached/pivoted nodes carry no additional glow, only the spine path's `--grad-progress` orange→green gradient. XP StatBars (`S73-V02`): 8px height · `--radius-pill` · `--color-brand-orange` fill over `--color-alpha-white-08` track on `--track-inset` beveled recess — no glow (inline scale). Filter chip surfaces: inactive `--color-ink-brown-800` + 1pt `--glass-border` + **`--edge-highlight`**; active `--color-brand-orange` fill + white text. Extends the depth language uniformly so no element reads as a flat box.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` tokens: nav bar title `--text-h3` 17pt / 600 / `--leading-snug` / white 100%; month header `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white-40); mission name `--text-h3` 16pt / 600 / `--leading-snug` / white 100%; metadata `--text-caption` 13pt / 400 / `--leading-normal` / white-50; XP earned `--text-h3` 13pt / 600 / `--color-brand-orange` (primary), "(partial)" white-40 (secondary); SIA summary `--text-body` 14pt / 400 / `--leading-relaxed` 1.6 / white-70; archive note `--text-caption` 13pt / 400 / white-50; photo count `--text-small` 12pt / 400 / white-40; filter chip `--text-h3` 13pt / 600 / white-60 (inactive) or white-100 (active on orange). Hierarchy by **weight** (600–700 vs 400) and `--leading-*` rhythm, not size alone. Sentence case on all labels. Stat figures tabular-nums. ≤2 `--color-brand-orange` accent words per screen. Chillax logo-only. Replaces ad-hoc pixel line-heights with `CK-T04` scale.
+
+### Microcopy (before → after)
+
+Authored per `CK-P5`. Every user-facing string is warm, on-voice, non-shaming:
+
+**SIA summaries** — *after (grounded coach voice, specific to data):* "You trained through rain and doubt. 47 runs. One finish line." (references specific session count, frames perseverance + earned arrival; memoir-like, no exclamation, period with intent) · "You explored 8 new recipes before life shifted your focus." (acknowledges partial progress, reframes archive as pivot not failure) · "Six weeks of discipline. Your emergency fund is real now." (celebrates concrete outcome, specific timeframe).
+
+**Archive note label** — *after:* "Archive note" or "Your note" (clear a11y label for the 📝 icon).
+
+**Empty state** — *after:* Heading "No entries yet" + Body "Complete or archive a mission and it'll appear here with a summary of your journey." (frames act as building process, inviting, non-deficit).
+
+**Filtered-empty** — *after:* "No [domain/type] entries.\nTry a different filter or check back after completing more missions." (actionable, never "nothing to see").
+
+**Filter chip labels** — *after (sentence case):* "All" · "By domain" · "By type" (with small down-chevron glyph, not text).
+
+**Loading / error** — *after:* Loading "SIA is loading your journey — one moment." (warm, screen-specific) · Error "Couldn't load your journal. Pull to refresh." (honest, recovery named).
+
+No exclamation marks. Brand period used with intent. Archive framing uses "pivoted," "archived," "paused," "shifted focus" — never "failed" or "quit."
+
+### Motion choreography
+
+Locked to `CK-P4` draw-first order: **TimelineAgenda path draws** top→bottom (`stroke-draw`, `--dur-flow` 1200ms / `--ease-flow`, hero motion, never opacity-fade) → **timeline nodes settle** (scale 0.8→1, `--dur-base` 280ms / `--ease-out-soft`) as path reaches each one, glyphs landing; current-node `--glow-orange-sm` pulse loops 2s → **entry cards fade-up + translateY** (12→0, `--dur-base` 280ms / `--ease-out-soft`, 80ms stagger) → **XP StatBars rise** (0→width, `--dur-slow` 520ms / `--ease-flow`, shared scale, 80ms stagger) → **completion-count KPI counts up** (`--dur-slow` 520ms / `--ease-out-soft`) → **photo thumbnails fade-in** (60ms stagger, 280ms each). Filter chips and month headers fade-in parallel. Below-fold animates on scroll-into-view. `prefers-reduced-motion` → path fully drawn at rest, StatBars at final width, KPI at final value, node pulse off, all stagger instant. Signature **draw-not-fade** (§8) survives reduced-motion via drawn path's settled form.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 | Filter chips visible, no month headers, no entries, empty state centered | "No entries yet.\nComplete or archive a mission and it'll appear here with a summary of your journey." | Cards not rendered; TimelineAgenda spine defers to empty state (no degenerate single dot) |
+| Loading | Skeleton cards at row positions; month headers skeleton; path skeleton draws into real orange→green spine, morphs not swaps; node skeletons land as path reaches them | "SIA is loading your journey — one moment." | Depth-preserving skeleton: cards show body + 3-line text shimmer + thumbnail placeholders; path visible but shimmering, morphs to real data |
+| Empty after filter | Filter chips visible (active distinct), empty-state centered, no cards, no timeline | "No [domain/type] entries.\nTry a different filter or check back after completing more missions." | Cards and spine not rendered; empty state is focal point; never "no results" line in a card |
+| Partial (cached + fetching) | Cached entries render fully + path reaches them solid (orange→green); un-fetched rows ghost at `--color-alpha-white-08` (distinct from loading), subtle skeleton visible, nodes ghosted until data arrives | "Syncing your journey…" (subtle, non-intrusive) | Cached nodes reached/pivoted glyph visible; un-fetched rows clearly distinct (paler, not spinner-confusion) |
+| Error (fetch failed, no cache) | Filter chips visible, network error banner at top ("Couldn't load your journal — pull to refresh"), no entries, fallback to empty state; if cached reached nodes exist, show in muted state with "incomplete" caveat | "Couldn't load your journal. Pull to refresh." | Error banner calibrated error-red only if operational failure; cache-fallback reads as state, not failure; spine only renders reached nodes (never broken path) |
+| Filtered result (non-empty) | Active filter chip orange + white text, path draws only filtered entries, month headers only for months with filtered entries, cards show only filtered missions | "Journal refreshed" (brief toast on successful filter change) | Full depth on filtered cards; no visual distinction between "all" and filtered (same surface depth); spine adapts to show only filtered entries (honest, not hidden) |
+
+### Signature & anti-generic
+
+Ownable moments: the **TimelineAgenda completion spine** (vertical drawn path threading the journal, continuous-stroke motif shared with Living-Line family — brand signature on a reflection screen) and the **TimelineAgenda spatial metaphor** (missions as nodes reached on a literal path, not a flat month list — honest alternative to a card stack). Anti-generic fixes: (1) archive framing as "pivoted" neutral nodes (never red, never shamed) — ethical differentiator vs competitors' deficit ledgers; (2) SIA summaries authored and specific to user's actual mission data (real insights, not horoscopes — depth competitors skip); (3) filter interaction designed as full affordance (chips + sub-filter rows + animated states) not relegated to text; (4) completion-count summary tile (`S73-V03`) is designed focal object in header, not generic "stats card." Screen reads as *Balencia's* journal because of the path metaphor, warm-glow surfaces, and non-shaming archive framing.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`):
+
+| Element | Color | Contrast | WCAG |
+|---|---|---|---|
+| Mission name (completed/archived) | `--color-alpha-white-100` | ≥12:1 on both | AAA |
+| Metadata (date/duration) | `--color-alpha-white-50` | ≥4.5:1 | AA |
+| XP text (primary "450 XP") | `--color-brand-orange` | 3.2:1 on `--color-ink-brown-800` (1.4.11) | Enhanced |
+| XP text "(partial)" label | `--color-alpha-white-40` | ≥4.5:1 | AA |
+| SIA summary text | `--color-alpha-white-70` | ≥4.5:1 on `--color-ink-brown-800` | AA |
+| Archive note text | `--color-alpha-white-50` | ≥4.5:1 | AA |
+| Photo count label | `--color-alpha-white-40` | ≥4.5:1 | AA |
+| Month section header (eyebrow) | `--color-alpha-white-40` | ≥4.5:1 | AA |
+| TimelineAgenda path stroke | `--grad-progress` (orange→green) | 3.2:1 orange on `--color-ink-900`; 2.8:1 green (viz-build) | Enhanced |
+| Reached/completed node ✓ | `--color-forest-green` + white bg | 4.2:1 | AA |
+| Pivoted/archived node glyph | `--color-alpha-white-30` on `--color-alpha-white-10` fill | ≥3:1 | AA |
+| Filter chip (active) text on orange | white 100% on `--color-brand-orange` | ≥4.5:1 | AA |
+| Filter chip (inactive) text | `--color-alpha-white-60` on `--color-ink-brown-800` | ≥4.5:1 | AA |
+
+Status never colour-alone: TimelineAgenda uses **visible glyph** (✓ completed / neutral branch pivoted) **plus** colour (green reach / white neutral) **plus label** ("Completed: [mission name]" in aria-label). Focus-visible ring: `CK-T03` (2px orange offset 2pt) uniform app-wide. Touch targets ≥44×44pt (back button, entry cards ≥60pt, photo thumbnails 32pt + ≥44pt hit box, filter chips 36pt height · ≥44pt width). Keyboard navigation: tab through filter chips (left→right, wraps), back button, then entries (top→bottom by visual spine order). Reduced-motion: path fully drawn at rest, cards at final opacity, text at rest value — canonical settled frame preserved. Screen-reader labels: back button "Back, return to previous screen"; month header "[Month] [year], section"; completed entry "[mission name], completed [date], [type] mission, [domain], [XP] earned"; archived entry "[mission name], archived [date], [type] mission, [domain], [XP] partial earned"; SIA summary "Summary: [summary text]"; photo thumbnails "View [count] progress photos from this mission"; archive note "Archive note: [note text]". AT announces TimelineAgenda as journey summary with entry count, then lists entries in visual order.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -201,8 +333,13 @@ The Mission Journal is the retrospective companion to the Mission Board — wher
 | Inactive filter chip text | #FFFFFF at 60% | white/60 | Muted |
 | Mission type badges | [metallic tones] | per type | See _shared-patterns.md |
 | Domain tag chips | [domain color] at 15% bg | per domain | Identification only |
+| Timeline reached path | orange→green | --grad-progress (mint) | TimelineAgenda spine — Living-Line family (S73-V01) |
+| Timeline reached node | #34A853 | green | Completed mission node + white ✓ |
+| Timeline pivoted node | #FFFFFF at 10% fill | white/10 | Archived = "pivoted", branch glyph at white/30 — never red |
+| Timeline current node ring | #FF5E00 + --glow-orange-sm | orange | Newest entry "you are here" accent (~12px glow, mint) |
+| XP StatBar fill | #FF5E00 | orange | XP-per-mission bar over white/08 track on --track-inset (S73-V02) |
 
-**60/30/10 verification**: Orange on active filter chip, XP earned text. Green on completed checkmarks only. Purple absent from this screen (no SIA avatar or AI indicator — SIA summaries are text-only, differentiated by opacity). Domain colors on tag chips only. Metallic tones on type badges. Ratio holds — this is a subdued, reflective screen.
+**60/30/10 verification**: Orange dominates data ink — active filter chip, XP earned text, XP StatBar fills, the timeline current-node accent, and the reached path's effort segment. Green is arrival only — completed checkmarks, reached timeline nodes, and the path's orange→green arrival end. Purple is absent from this screen (no SIA avatar or AI indicator — SIA summaries are text-only at white/70, differentiated by opacity; the journal is past-only so there is no dashed-purple projection). Domain colors on tag chips only; metallic tones on type badges (identity only). Non-shaming: archived = "pivoted" neutral node, no alarm-red anywhere. Ratio holds — this is a subdued, reflective screen.
 
 ---
 
@@ -266,6 +403,10 @@ The Mission Journal is the retrospective companion to the Mission Board — wher
 | Filter chips | Screen mount | Fade-in + translateX(-12→0), staggered 60ms | 280ms each | ease-out-soft |
 | Month headers | Screen mount | Fade-in | 160ms | ease-out-soft |
 | Journal entry cards | Screen mount | Staggered fade-in + translateY(12→0), 80ms stagger | 280ms each | ease-out-soft |
+| Completion-journey path (S73-V01) | Scroll-into-view | stroke-draw top→bottom, --grad-progress orange→green; never opacity-fade (§8) | 1200ms (--dur-flow) | ease-flow |
+| Timeline nodes (S73-V01) | Path reaches node | Settle scale 0.8→1 + glyph land; current node --glow-orange-sm pulse loops 2s | 280ms (node) / 2s loop (pulse) | ease-out-soft |
+| XP StatBars (S73-V02) | Card enters viewport | Fill rises 0→width, shared scale, 80ms stagger | 520ms (--dur-slow) | ease-flow |
+| Completion-count tile (S73-V03) | Screen mount | Count-up to all-time value | 280ms (--dur-base) | ease-out-soft |
 | Photo thumbnails | Card enters viewport | Fade-in, staggered 60ms per thumbnail | 280ms each | ease-out-soft |
 | Domain sub-filter row | "by domain" chip tap | Slide-down + fade-in (height 0→44pt) | 280ms | ease-out-soft |
 | Type sub-filter row | "by type" chip tap | Slide-down + fade-in (height 0→44pt) | 280ms | ease-out-soft |
@@ -358,7 +499,7 @@ Accessibility follows global standards from `_shared-patterns.md`. Screen-specif
   - Archive note: "Archive note: [note text]"
 - **Focus order**: Back button → Filter chips (left to right) → Month header → Entry cards (top to bottom, each card as a unit, summary and photos as child elements) → Next month header → Next entries
 - **Gesture alternatives**: Standard tap and swipe-from-edge navigation. No custom gestures required.
-- **Reduced motion**: Staggered card entry replaced with instant display. Photo thumbnail stagger replaced with instant display. Filter transition crossfade replaced with instant swap.
+- **Reduced motion**: Staggered card entry replaced with instant display. Photo thumbnail stagger replaced with instant display. Filter transition crossfade replaced with instant swap. Completion-journey path (S73-V01) renders fully drawn at rest with all nodes settled and the current-node pulse off; XP StatBars render at final width; the completion-count tile renders at final value (the settled frame is canonical — no info lost).
 
 ---
 

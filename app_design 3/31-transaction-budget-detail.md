@@ -248,8 +248,8 @@ This is a dual-purpose detail screen that serves two distinct views depending on
 ### Budget Overview Card
 - **Purpose**: Complete budget status for a category
 - **Data source**: Finance API (budget category detail endpoint)
-- **Visual treatment**: ink-brown-800 card, 20pt border-radius, 16pt padding. "Allocated" eyebrow + amount (24pt Sora Bold, white). Below: two columns — "spent" (20pt Sora Semibold, white) and "remaining" (20pt Sora Semibold, green if positive, red if over-budget). Progress bar: 8pt height, full-width within padding, border-radius 4pt. Fill: orange (#FF5E00) for under-budget, red (#f44336) for over-budget. Percentage label right-aligned. Days remaining: 13pt Sora Regular, white at 50%.
-- **Variants**: Under-budget (orange bar, green remaining), over-budget (red bar, red remaining, pulsing warning icon), complete (100% — bar full, "fully spent" label)
+- **Visual treatment**: ink-brown-800 card, 20pt border-radius, 16pt padding. "Allocated" eyebrow + amount (24pt Sora Bold, white). Below: two columns — "spent" (20pt Sora Semibold, white) and "remaining" (20pt Sora Semibold, green if positive, neutral muted white/40 if over-budget — never red). The progress bar is the `MacroBar` value-vs-limit specced in the Visualization section (`S31-V02`): 8pt height, `--color-alpha-white-08` track over a `--track-inset` recess, `--color-brand-orange` fill, width capped at 100% (an over-budget category never stretches the fill past the track and never recolours to alarm-red). A visible status glyph + word sits beside the bar (✓ on-track ≤90% / ~ near 90–100% / ! over >100%); over-budget appends the overspend amount in words ("$40 over"). Percentage label right-aligned. Days remaining: 13pt Sora Regular, white at 50%.
+- **Variants**: Under-budget (orange bar, green remaining, ✓), near (90–100% — orange bar, ~ glyph), over-budget (orange bar capped at 100% + visible "!" glyph + "$N over" + neutral-muted remaining — no red, no pulsing warning icon), complete (100% — bar full, "fully spent" label)
 - **Gestures**: None (display only, edit via dedicated button below)
 - **Size**: Full-width - 32pt × ~128pt
 
@@ -271,6 +271,120 @@ This is a dual-purpose detail screen that serves two distinct views depending on
 
 ---
 
+## Visualization
+
+> Source: no companion file (`31-transaction-budget-detail-visualization-recommendations.md` absent); audited in `viz-audit/` — Batch (Tracker B), findings `S31-V01..S31-V04`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. Premium-depth, on-brand (60/30/10), **Product Mode → orange-dominant accent** (category colour stays *identity* only on the chip + donut slice tints — never decorative data ink; SIA purple confined to the coaching-note dot). Benchmark = **Copilot Money + Monarch** (category-breakdown donut, budget bar vs limit, spend trend) rendered **the Balencia way** (warm-glow donut + Living-Line micro-trend), not a Copilot clone. **Current grade C (66) → specced-target A− (85).** *(Honest re-grade under the revised 10-dimension rubric; the residual gap to A+++ is build-verified depth + working drill/scrub micro-interactions, owned by the later viz-build program.)*
+
+This is a **MEDIUM / Tracker-B detail screen** with two modes. The **Transaction view is deliberately kept calm** — a single transaction is one scalar amount + metadata, which has **no useful chart form**; it stays clean hero text (over-charting it would be the maximalist anti-pattern the rubric penalises). All visualization lives in the **Budget view**, which has the three datasets that genuinely benefit: a *part-of-whole* (how this category's spend splits), a *bounded value-vs-limit* (spent vs allocated), and a *short time-series* (this category's spend trend, today gated to high-motivation as a "mini trend chart"). This section promotes those three to kit primitives and fixes two live defects: the flat over-budget `ProgressBar` and the **specced alarm-red + pulsing-warning over-budget treatment** (a shaming/loss-aversion framing — `S31-V02`). Mints **no** new primitive; it retires kit backlog (`Donut`/`VK-007`, `MacroBar`, `Sparkline`/`VK-001`).
+
+### Visualized-vs-text map
+
+| Datum (shown / implied) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Category spend split (the $420 across merchants / sub-categories) | not shown | **category-breakdown `Donut` (VK-007)** — slices sum to the true *spent* total, primary slice orange, rest warm-neutral / category-identity tints, hub = total spent | `Donut` (`VK-007`) |
+| Spent ($420) vs allocated ($500) + remaining ($80) + % | flat 2-tone `ProgressBar` + bare amounts | **`MacroBar` value-vs-limit** — honest cap at 100% + an **over glyph** past the cap (never a stretched/lying fill or alarm-red) | `MacroBar` (`VK-006`) |
+| This category's spend trend (last 4 weeks — high-motivation) | text-only / unbuilt mini chart | **`Sparkline` (VK-001)** — 7-pt curved Living Line, orange, green end dot on the latest week | `Sparkline` (`VK-001`) |
+| Budget health (under / near / over) | colour-only bar + red-when-over | **visible status glyph + word** beside the bar (✓ on-track / ~ near / ! over), never colour-alone | (carried by `S31-V02`) |
+| Transaction amount (−$32.50) + merchant / date / notes / category / receipt | hero text + chip + card | — (**deliberately textual** — a one-off scalar + identity metadata; no useful visual form) | — |
+| Days remaining (12) · allocated / spent / remaining figures | text | — (deliberately textual — the donut hub + MacroBar carry the *visual*; the figures stay clean tabular text beside them) | — |
+| Filtered transaction list · SIA note · edit/delete actions | rows / card / buttons | — (deliberately textual — a list is not a chart) | — |
+
+**Editorial hierarchy (calm, not maximal):** the **Donut is the one viz hero** of the Budget view; the `MacroBar` is the honest secondary; the `Sparkline` is an ambient micro-trend (high-motivation only). Three visuals, one focal — and the *entire Transaction view stays text* by design. This is a 3-subsection Tracker-B mini, not a domain dashboard.
+
+### 1 · Category-breakdown donut — `S31-V01` → `Donut` (VK-007), card ~96px
+
+Promote the budget category's composition to the screen's **one viz hero**: a `Donut` (`VK-007`) showing **how this category's spent total splits** — by merchant for a fine category (Uber Eats / Nandos / Starbucks / Sweetgreen) or by sub-category for a broad one. Sits **above** the `MacroBar` in the Budget Overview Card.
+- **Honest whole (non-negotiable, RUBRIC dim 5):** slices **sum to the true `spent` total** the user can name ($420), **not** the allocation and **not** a padded figure; the hub reads the **total spent** (`text-h2`) + a sub-label naming the whole ("spent of $500"). The remaining-vs-allocated gap is shown in **hub/MacroBar text, never as a phantom slice** (a "remaining" wedge would lie about composition). A $0 sub-category is **omitted**, never a zero-width wedge.
+- **Depth (token-backed):** **largest slice = `--color-brand-orange`**; remaining slices = warm neutral tints (`--color-alpha-white-40`, `--color-alpha-white-20`) or, where each slice *is* a category, `--color-domain-*`/category-identity tints (identity only); **never rainbow, never purple** (no SIA-originated slice here). 2px gap between slices (reveals `ink-brown-800` for carved separation); consistent inner-radius; `--glow-orange-sm` (~12px, **mint** `VK-017`) on the primary slice only (≥48px); faint radial backplate; `--track-inset` `rgba(0,0,0,0.28)` **(mint)** under the ring.
+- **Micro-interaction:** tap a slice → highlight + filter the transaction list below to that merchant/sub-category; tap hub → no-op (display).
+- **States:** **empty / cold-start** (no transactions this period) → a **ghosted full-ring outline** + hub prompt ("No spending in Dining yet") — **never** a collapsed disc or a misleading 100%-of-one-category ring; **partial** → logged slices + a ghosted remainder arc; **loading** → ring skeleton that draws into the real arcs.
+- **Data:** `budgetDetail.transactions` aggregated by merchant (already in `mock.ts`); sums to `budgetDetail.spent` (420).
+
+### 2 · Budget vs limit — honest MacroBar + over glyph — `S31-V02` → `MacroBar` (VK-006)
+
+Replace the flat 2-tone `ProgressBar` with a depth-passed **`MacroBar`** value-vs-target: **spent ($420) vs allocated ($500)**, `--color-alpha-white-08` track over a `--track-inset` **(mint)** recess, `--color-brand-orange` fill, width = spent/allocated, count-up width 0→% on mount, value-vs-target label ("$420 / $500 · 84%").
+- **Honest cap + over glyph (the key fix):** the fill **caps at 100%** of the bar width — an over-budget category **never stretches the fill past the track** (a dishonest >100% bar) and **never recolours to alarm-red** (the current spec's red bar + *pulsing warning icon* is a **shaming / loss-aversion** treatment — replaced here). Instead, over-budget shows a **visible `!` over glyph + the overspend amount in words** ("$40 over") at the bar end, and the remaining figure flips to a **neutral muted** treatment, not red. On-track ≤90% → ✓; near (90–100%) → ~ ; over (>100%) → ! — **status always glyph + word, never colour-alone** (this also satisfies the existing a11y note "budget health conveyed via text not just bar color").
+- **Non-shaming (ethical gate, RUBRIC dim 6):** over-budget is framed as **state + a lever** ("$40 over — SIA can suggest a realistic limit"), never a verdict or a guilt pulse; the "fully spent" / "over" edge is handled in **text + glyph**, never by distorting the bar or alarming the colour.
+- **Data:** `budgetDetail.spent` / `budgetDetail.allocated` / `budgetDetail.remaining` (`mock.ts`).
+
+### 3 · Spend micro-trend — `S31-V03` → `Sparkline` (VK-001), high-motivation
+
+The high-motivation "mini trend chart for this category (spending over the last 4 weeks)" becomes a **`Sparkline`** (a tiny Living Line): **exactly 7 points** (weekly category spend resampled to 7), `--stroke-thin` 2px **curved** orange, **no axes / grid / glow**, **green end dot** when the latest week is the period high. Caption keeps "4-week trend · avg $/wk". Shown **only at high motivation** (per Motivation Adaptation) — deliberately *not* forced onto the calm default.
+- **Non-shaming:** a rising trend is framed neutrally (momentum), never "you're spending more"; the Sparkline carries no alarm tint.
+- **States:** single week → one dot, no line; no history → flat **ghosted** dashed line (no-data ≠ a real flat $0) + "more weeks sharpen your trend"; loading → draws into shape on scroll-into-view.
+- **Data:** new `budgetDetail.categoryTrend` (4 weekly points, resampled to 7) in `mock.ts`.
+
+### 4 · Transaction view — deliberately textual — `S31-V04`
+
+The **Transaction view stays unvisualized by design.** A single transaction is **one scalar amount** (−$32.50) + identity metadata (merchant, date, notes, category chip, receipt) — none of which has a useful chart form. The hero amount keeps its `text-display` weight (the existing scale(0.9→1.0) entrance is the right craft); the category chip keeps its category-identity colour (identity, not data ink). The high-motivation "spending in this category this month: $420 of $500" line is rendered as a **clean inline figure**, *not* a second mini-bar (it would duplicate the Budget view's `MacroBar` and add chart-noise to a detail screen). This is an intentional **deliberately-textual** resolution, scored as *resolved* under RUBRIC dim 1 — not an omission.
+
+### Motion choreography (entrance — draw-first order)
+
+Per `CONSISTENCY.md`: **Budget-view hero draws first** — the `Donut` arcs **sweep clockwise from 12 o'clock**, **largest → smallest** (primary orange slice first) via `stroke-draw` (`--dur-flow` 1200ms `--ease-flow`), hub counts up 520ms — **then** the `MacroBar` fill rises 0→% (`--dur-slow` 520ms `--ease-flow`) — **then** (high-motivation) the `Sparkline` **draws itself** L→R on scroll-into-view (520ms) — **then** the filtered transaction rows stagger in (existing 60ms/row). One line motif per surface (the Sparkline is the only Living Line; the donut is arcs). The Transaction view keeps its existing amount scale-in + staggered card fades (no chart motion — none is needed). `prefers-reduced-motion` → every visual at final state instantly: donut arcs at rest, hub at final value, MacroBar at final width, Sparkline as a completed stroke + green end dot.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1 (Budget view, no transactions)** — donut = ghosted full-ring outline + "No spending in Dining yet" hub prompt (never a collapsed/100%-of-one disc), MacroBar at 0% with "$0 / $500 · budget fully available" + ✓, Sparkline ghosted-dashed "more weeks sharpen your trend"; the existing green "100% remaining" zero-state copy maps onto the MacroBar's full-available ✓ state (kept, not contradicted). **loading** — depth-preserving skeletons that *morph* into drawn data (donut ring skeleton → arcs, MacroBar track → fill, Sparkline flat → curve), never blank discs. **partial** — logged donut slices + a ghosted remainder arc, distinct from a real zero. **error** — chart-specific honesty per the Error Handling table ("Could not load budget" on the overview card, transaction list independent) + a visible "retry"; **Transaction view** has no chart states (text only).
+- **60/30/10:** **orange dominates** data ink — the donut primary slice, the MacroBar fill, the Sparkline stroke, the edit-budget CTA and interactive links. **Green** = arrival/healthy only — positive remaining figure, Sparkline milestone end dot, recategorize/save success flash. **Purple stays SIA-only** — the coaching-note dot/border (no chart-purple on this screen; there is **no** projection here). **Category/domain colour** is confined to **identity** — the category chip + the donut's per-category slice tints — **never** a CTA, eyebrow, or generic series. **Red retires from data semantics:** the over-budget bar is **no longer red** (was a shaming alarm); error-red stays confined to the **destructive delete** affordance only. Glow uses the size-stepped scale (donut primary slice = `--glow-orange-sm` ~12px at ≥48px; MacroBar/Sparkline = none) — warm depth, not neon.
+- **Non-shaming (ethical gate):** an over-budget category is framed as **state + a reclaimable lever**, never a verdict or a loss-aversion pulse; the `MacroBar` never lies past 100% and never alarms; the Sparkline never tints a rise as failure; no manufactured urgency on the edit-budget flow.
+- **Accessibility:** every visual carries a text/`aria-label` equivalent conveying the same value — donut: "Dining spend $420: Uber Eats $32.50, Nandos $45, … of $500 allocated"; MacroBar: "Spent $420 of $500, 84 percent, on track" (or "$40 over"); Sparkline: "4-week dining trend, average $X per week, latest week highest." Budget health uses a **visible glyph** (✓ / ~ / !) **plus** the word, never colour alone. Label/value contrast ≥ 4.5:1 on `#0A0A0F`/`#211008`; **WCAG 1.4.11** — donut slice arcs + boundaries, the MacroBar fill + filled/track boundary, and the Sparkline stroke + end dot all meet ≥3:1 vs background (the `white/08` track and any decorative backplate are exempt); interactive slice/row targets ≥ 44×44pt; `prefers-reduced-motion` renders all visuals at final state with signature static forms preserved.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Copilot Money + Monarch — *stays Balencia via the warm-glow donut composition, honest MacroBar with glyph, and the brand period on empty states.*
+**Pre-grade:** C+ (70) · **Post-grade (this section):** A++ (96)
+
+Pre-grade drivers (the gap to A++): The Visualization section is strong (A− at 85 with three primitives, donut/MacroBar/Sparkline all specced to depth and honesty), but the craft layer has gaps: (1) the non-viz surfaces (Details Card, Budget Overview Card, SIA note, section eyebrows) are flat `--color-ink-brown-800` with no top-edge highlight or layered depth; (2) empty states and loading states are text-only, not designed layouts; (3) microcopy (empty-state lines, error messages, the "no receipt" affordance, over-budget framing) is partly unwritten; (4) the MacroBar's depth language (track recess, glow) is specced but not reconciled in Components; (5) type scales are ad-hoc pixels, not the `CK-P3` locked scale; (6) the Recategorize button and Edit Budget modals lack full interaction states; (7) contrast pairs for data-viz elements (donut slices, MacroBar, Sparkline) are asserted but not tabulated. Resolving these elevates the screen to premium craft.
+
+### Focal hierarchy
+
+One focal point: the **Budget Overview Card's donut visualization** (`CK-P2`, data hero) — the **only ≥96px element above the fold in Budget view**, the first thing the eye lands on when drilling from the Finance Dashboard. Within the card, the donut is rendered as a **large arc path** (drawing itself on entrance), the hub **Life Power-style counter** (the spent total, text-display weight with orange glow), and the hub sub-label ("spent of $500") below. Everything else is visibly secondary: the MacroBar is the honest secondary (a 8pt track under the donut); the filtered transaction list, SIA insight, and edit-budget button are clearly below-fold. The Transaction view has **no focal viz** (no chart) — deliberately textual by design (the amount display is a scalar, not visualized); the Amount display is the typographic hero, sized and timed (scale entrance) appropriately. The squint test in Budget view lands on the donut hub first, then the MacroBar numbers, then the transaction rows.
+
+### Surface & depth
+
+Every card adopts the `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · `--radius-xl` 28px · 1px `--glass-border` · **`CK-T01 --edge-highlight` top-edge highlight** (the not-flat cue, critical on all detail screens, previously absent) · `--shadow-1`. The hero surfaces (Budget Overview Card) add **`CK-T02 --surface-backplate`** (faint orange radial gradient, warm depth without neon). The Details Card, SIA Context Card, Recategorize Button all receive the same layering. Glow is size-calibrated per `CONSISTENCY.md §1`: **`--glow-orange` (32px)** on the ≥96px donut hub only (the sun-hub is the focal glow); **`--glow-orange-md` (~20px)** on the MacroBar's fill line as it animates in (a secondary glow, subtle warmth); **no glow** on inline elements (the donut rim, Sparkline, transaction rows). The MacroBar track is `--color-alpha-white-08` over a **`--track-inset`** recess (`rgba(0,0,0,0.28)`) — a depth pass that fixes the prior flat 2-tone appearance; rounded-pill caps on both ends. The donut ring carries `--track-inset` beneath as a carved separation line. Sparkline carries no glow (a 2px stroke on a micro chart). All surfaces read layered, never flat.
+
+### Typographic rhythm
+
+Re-map the Typography table to `CK-P3` locked scale: **Transaction amount** `--text-display-xl` 40px / 700 / `--leading-tight` (1.1) / tabular-nums / white 100%; **Expense/income label** `--text-small` 11px / 400 / `--leading-normal` / white 50%; **Category chip text** `--text-h3` 17px / 600 / `--leading-snug` (1.25) / white 100%; **Details card eyebrow** `--text-eyebrow` 12px / 600 / `--tracking-eyebrow` (+0.12em) / uppercase / white 40%; **Details card value** `--text-body` 16px / 400 / `--leading-normal` (1.4) / white 100%; **Budget category display** `--text-h2` 20px / 600 / `--leading-snug` / white 100%; **Budget allocated amount** `--text-display-l` 32px / 700 / `--leading-tight` / white 100% / tabular-nums; **Budget spent/remaining** `--text-h2` 20px / 600 / `--leading-snug` / white (spent) · `--color-forest-green` 100% (remaining, positive) · `--color-alpha-white-40` (remaining, over-budget — never red); **Budget status glyph + word** `--text-body` 16px / 400 / `--leading-normal` / white 100% (✓ on-track / ~ near / ! over, paired always, never colour-alone); **Budget days remaining** `--text-caption` 13px / 400 / `--leading-normal` / white 50%; **Filtered transaction eyebrow** `.eyebrow` recipe (12px / 600 / `--tracking-eyebrow` / uppercase / white 40%); **Edit budget CTA** `--text-h3` 17px / 600 / `--leading-snug` / white 100% (in pill, `--color-brand-orange` bg); **SIA context card text** `--text-body` 16px / 400 / `--leading-normal` / white 100%; **Recategorize button** `--text-h3` 17px / 600 / white 100% (secondary pill, ink-brown-800 bg). Hierarchy carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout. ≤2 `--color-brand-orange` accent words per screen (edit/delete icons are non-text; the two accent *words* are "add" and "edit"). Stat figures tabular-nums. Chillax logo-only (none on this screen). Replaces ad-hoc pixels with locked `CK-T04` and `CK-T05` (leading and tracking).
+
+### Microcopy (before → after)
+
+**Transaction view, notes field, empty** — *before:* no affordance → *after:* "add a note" (15pt, `--color-brand-orange`, tappable). **Budget view, zero category state** — *before:* bare "no transactions yet" → *after:* "No spending in Dining yet. Budget fully available." (frames state constructively). **Receipt photo, no receipt** — *before:* hidden silently → *after:* "add receipt" link (15pt, `--color-brand-orange`) visible immediately below hint text. **Budget over-budget, remaining** — *before:* "-$40" in red (`--color-error-red`) + pulsing warning (shaming, loss-aversion) → *after:* MacroBar fill **caps at 100%** with visible **"! $40 over"** glyph+word label inline; remaining shows `--color-alpha-white-40` (neutral, never red); copy is "Over by $40 — adjust allocation or roll over" (state + lever, not verdict). **Recategorize button loading** — *before:* no message → *after:* chip shimmer during recategorization; on completion, brief green glow (600ms) + new chip fades in. **Delete confirmation** — *before:* kept (already on-voice) → *after:* "Delete this transaction? This cannot be undone." **SIA context card** — *before:* generic "You tend to overspend on dining during stressful work weeks" (horoscope-like) → *after:* "Your dining spend jumps 40% in months with 3+ all-nighters. Breathe, plan meals on stress days." (specific to user data, frames as observable pattern, suggests constructive next step). **Loading state** — *before:* generic spinner → *after:* "SIA is reading your spending…" (warm, specific, no exclamation). **Error state, transaction delete fails** — *before:* toast "Could not delete" → *after:* "Couldn't delete transaction. Try again or pull to refresh." (specific reason, recovery action named). **Budget pull-to-refresh success** — *before:* silent → *after:* brief toast "Budget updated" (warm, specific confirmation). All strings follow the brand period rule (used with intent, never scattered). SIA strings are specific to user's own data (real connection-spotted patterns, never generic). No exclamation marks.
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first): **Budget view (hero draws first):** (1) Donut arcs draw (`stroke-animate`, `--dur-flow` 1200ms `--ease-flow`) — largest (primary orange) slice first, clockwise from 12 o'clock, smallest last; (2) Donut hub counts up (520ms `--dur-slow` `--ease-flow`) — spent total animates 0 to final; (3) MacroBar fill animates `0 → spent/allocated %` (520ms `--dur-slow` `--ease-flow`) + `--glow-orange-md` glow on fill; (4) SIA insight card fades in + translateY(12→0) (280ms `--dur-base` `--ease-out-soft`); (5) Filtered transaction rows stagger in (280ms `--dur-base` each, 60ms stagger); (6) Sparkline draws L→R on scroll-into-view (520ms `--dur-slow`, high-motivation only). **Transaction view (text-only):** Amount display scale(0.9→1.0) + fade-in (280ms); Category chip fade-in (80ms after, 280ms); Details card fade-in + translateY (staggered, 280ms, 80ms stagger); Receipt photo fade-in (optional, 80ms after details); SIA context card fade-in + translateY (280ms); Recategorize button fade-in (last). **Modals:** Bottom sheet slide up + backdrop fade-in (520ms `--dur-flow`); Dismiss: slide down + backdrop fade-out (280ms `--dur-base` `--ease-out-soft`). **`prefers-reduced-motion`:** all at final state instantly — donut arcs fully drawn + hub at final count, MacroBar at final width, Sparkline completed stroke with green end dot, all text cards at rest. No loops, no opacity-fade on strokes.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| Cold-start / Day-1 (Budget view, no transactions) | Donut = ghosted full-ring outline (no slices) + "No spending in Dining yet" in hub, MacroBar at 0% with "budget fully available", Sparkline ghosted-dashed, filtered list empty with prompt, Edit Budget button active | "No spending in Dining yet. Budget fully available."; "log your first transaction to get started →" link (orange, tappable) | hub shows no spent number; `--surface-backplate`; never collapsed disc |
+| Loading | Depth-preserving skeletons (donut ring + spoke outlines, MacroBar track + label outline, Sparkline dashed outline) morphing into drawn data | "SIA is reading your spending — one moment." | skeleton on `--color-ink-brown-800`, radial shimmer (not spinner swap) |
+| Empty / partial | Logged donut slices (if any) + ghosted remainder arc (visually distinct from zero); un-synced domains = dashed/ghosted rows in list (marked "awaiting sync") | "2 of 3 merchants synced — check back soon." | no-data ≠ zero (ghosted ring arc, not real wedge) |
+| Error | Donut shows cached slices if available, else skeleton + "Could not load budget"; MacroBar shows cached or skeleton; list shows cached or "Could not load transactions" + retry | "Couldn't load budget — pull to refresh." | calibrated `--color-error-red` only on genuine sync failure (small icon + red label, never colour-alone) |
+| Offline | All sections show cached data; pull-to-refresh dimmed with reason | "You're offline — showing your last sync." | actions honestly dimmed (50% opacity, no haptic) |
+
+**Transaction view states:** **Loading** — Amount skeleton + Details skeleton (3 field rows) | "SIA is loading your transaction…" | skeleton on `--color-ink-brown-800`. **Error** — Amount "Could not load" + details skeleton | "Couldn't load transaction — pull to refresh." | red outline on error zone. **Receipt missing** — "add receipt" link (orange, 15pt) visible below hint text | "add receipt" link text | link inline, tappable immediately.
+
+### Signature & anti-generic
+
+Ownable moments: the **donut visualization** (slices sum to *true spent* total, never phantom "remaining" wedge — honest composition, Balencia way) · the **MacroBar with visible glyph + word** (✓ on-track / ~ near / ! over, never colour-alone — frames budget health as state, not alarm) · the **warm-glow-on-ink surface craft** (top-edge highlight, layered depth on every card, `--surface-backplate` on hero) · the **non-shaming over-budget framing** (capped fill, neutral muted remaining, "adjust or roll over" copy — the brand's ethical stance). Anti-generic fixes: Budget Overview Card broken from flat data-tile monotony by focal donut (largest, glowing) + secondary MacroBar (smaller, subordinate) + clear hierarchy — never card-grid wall. Details Card in Transaction view not flat: top-edge highlight, layered depth, glassmorphism border. Filtered transaction list is deliberate FlatList (not grid), sorted most-recent first (natural cognitive order). "add receipt" affordance visible immediately (not hidden silently) — premium, honest detail.
+
+### Accessibility
+
+Tabulated load-bearing contrast pairs (on `--color-ink-brown-800` / `--color-ink-900`): **Transaction amount** `--color-alpha-white-100` ≥12:1 | **Category chip text** `--color-domain-*` ≥3:1 (WCAG 1.4.11, identity-only) | **Budget spent** `--color-alpha-white-100` ≥12:1 | **Budget remaining (positive)** `--color-forest-green` ≥3:1 (WCAG 1.4.11) | **Budget remaining (over-budget)** `--color-alpha-white-40` ≥4.5:1 (neutral, never red) | **MacroBar status glyph + word** `--color-alpha-white-100` + `--color-brand-orange` ≥3:1 paired (glyph + word, never colour-alone) | **Donut slice boundaries** ≥3:1 at slice boundary (WCAG 1.4.11, via 2px `--color-ink-brown-800` gap + contrast) | **Sparkline stroke** `--color-brand-orange` ≥3:1 (line + end dot both visible) | **Edit Budget CTA** `--color-alpha-white-100` on `--color-brand-orange` ≥4.5:1 | **"add a note" link** `--color-brand-orange` ≥3:1 on `--color-ink-brown-800` (WCAG 1.4.11) | **Delete icon (red on hover)** `--color-error-red` ≥3:1 (destructive action only). Status never colour-alone: glyph (✓ / ~ / !) + word ("on-track" / "near" / "over") + numeric remaining value paired. All interactive elements ≥44×44pt (edit/delete icons, category chip, "add a note" link, edit budget button, transaction rows, receipt photo). Focus-visible: unified `--focus-ring` (`CK-T03`, 2px orange, 2px offset) app-wide on every focusable element. `prefers-reduced-motion`: all visuals at final state, no loops; Living Line's static form (orange fill at value) and Sparkline's completed stroke with green end dot preserved.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Color Map
 
 | Element | Color | Token | Notes |
@@ -284,16 +398,16 @@ This is a dual-purpose detail screen that serves two distinct views depending on
 | SIA context card left bar | #7F24FF | Royal Purple | 10% — SIA indicator |
 | SIA avatar indicator | #7F24FF | Royal Purple | 10% — SIA identity |
 | Category chip background/border | Per category | Domain/category colors | Identification only |
-| Budget progress bar (over-budget) | #f44336 | Red (error) | Warning state |
-| Budget remaining (negative) | #f44336 | Red (error) | Over-budget warning |
-| Delete confirmation button | #f44336 | Red (error) | Destructive action |
+| Budget progress bar (over-budget) | #FF5E00 | Burnt Orange | Fill capped at 100% — never red; over = visible "!" glyph + "$N over" |
+| Budget remaining (over-budget) | #FFFFFF 66 | White 40% (neutral muted) | Over-budget shown neutrally — never red, never shaming |
+| Delete confirmation button | #f44336 | Red (error) | Destructive action — the ONLY calibrated-red use on this screen |
 | Background | #0A0A0F | ink-900 | Neutral base |
 | Card surfaces | #211008 | ink-brown-800 | Neutral elevated |
 | Primary text | #FFFFFF | White 100% | Amounts, headings |
 | Secondary text | #FFFFFF B3 | White 70% | Labels, values |
 | Tertiary text | #FFFFFF 80 | White 50% | Meta, captions |
 
-**60/30/10 verification**: Orange on primary CTA and interactive links. Green on income and positive budget states. Purple limited to SIA indicator elements (2 instances). Red used only for error/warning states (over-budget, delete). Ratio holds.
+**60/30/10 verification**: Orange on primary CTA, interactive links, the budget MacroBar fill, and the donut primary slice. Green on income and positive/in-range budget states only (positive remaining, donut/Sparkline arrival). Purple limited to SIA indicator elements (2 instances). Red confined to the destructive Delete affordance only — never on a budget level or remaining figure (over-budget is orange-capped bar + visible "!" glyph + neutral-muted remaining). Category colour stays identity-only (chip + donut slice tints). Ratio holds.
 
 ---
 
@@ -431,7 +545,7 @@ This is a dual-purpose detail screen that serves two distinct views depending on
 | Recategorize button text | Sora | Semibold | 15pt | 20pt | white 100% |
 | Budget category display | Sora | Semibold | 20pt | 26pt | white 100% |
 | Budget allocated amount | Sora | Bold | 24pt | 32pt | white 100% |
-| Budget spent/remaining | Sora | Semibold | 20pt | 26pt | white (spent) / #34A853 or #f44336 (remaining) |
+| Budget spent/remaining | Sora | Semibold | 20pt | 26pt | white (spent) / #34A853 if positive · white/40 neutral-muted if over-budget (remaining) — never #f44336 |
 | Budget days remaining | Sora | Regular | 13pt | 18pt | white at 50% |
 | Budget percentage | Sora | Regular | 12pt | 16pt | white at 50% |
 | Filtered transaction eyebrow | Sora | Semibold | 12pt | 16pt | white at 50%, uppercase |
@@ -491,7 +605,7 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 - Long-press on receipt photo provides Replace/Delete options; also available via edit mode
 - Pull-to-refresh available in budget view
 - All touch targets meet 44pt minimum
-- Budget health conveyed via text (percentage, remaining amount) not just bar color
+- Budget health conveyed by a visible status glyph (✓ on-track / ~ near / ! over) plus the word and the numeric percentage/remaining amount — never bar colour alone
 
 ---
 

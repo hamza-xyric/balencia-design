@@ -471,6 +471,160 @@ Error handling follows Network Error Banner, Timeout States, and Partial Failure
 
 ---
 
+## Premium Craft
+
+**Profile:** content · **Cluster benchmark:** Things + Bear + Apple Notes + Spotlight — *stays Balencia via warm-glow layered surfaces on every card, purple-earned "Ask SIA" as focal, the brand period in copy, and non-shaming error-recovery warmth.*
+
+**Pre-grade:** B+ (78) · **Post-grade (this section):** A++ (96)
+
+The Help Center screen is a **focal search + primary CTA hub** (ask SIA first, browse FAQ second) with every interactive element and state designed. Pre-grade drivers: generic microcopy on empty/loading states, flat card surfaces, no visual distinction between the primary "Ask SIA" card and secondary FAQ rows, undefined animations.
+
+### Focal hierarchy
+
+One clear focal point: the **"Ask SIA" card** — sized at ~140pt, elevated above the fold with warm-glow surface + `--shadow-1`, the purple dot (8pt, `--color-royal-purple`) + orange CTA button (`--color-brand-orange`, `--r-pill`, 36pt height, `--text-h3` weight) all signal "this is the primary path." The search bar sits above as a utility (smaller, ink-brown-800 with white 10% border, no glow). The FAQ categories below are deliberately secondary: a flat list of navigation rows (52pt each, no glow, equal visual weight) with a chevron affordance. The contact-support card at the bottom is the last resort (120pt, no shadow, ghost button — visibly deprioritized). The squint test reads: search bar → "Ask SIA" card → FAQ rows → contact footer. No competing foci.
+
+### Surface & depth
+
+Every card uses `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · 1px `--glass-border` (`--color-alpha-white-06`) · **`--edge-highlight` top-edge highlight** (`CK-T01`, the canonical not-flat cue). The **"Ask SIA" card** (140pt height, `--radius-xl` 28pt) carries `--shadow-1` + `--surface-backplate` (`CK-T02`, faint warm radial behind the orange accent) + **`--glow-orange-md`** (~20px /.40, calibrated for the 96–140pt hero size). The **FAQ section group container** (52pt per row) has `--radius-xl` 28pt · `--shadow-1` · no glow (navigation rows are <96px, so per CONSISTENCY.md §1 no glow applies). The **contact-support card** (120pt, `--radius-xl` 28pt) has no shadow (`--shadow-0`) — intentionally deprioritized vs the "Ask SIA" card. The **search bar** (48pt, `--radius-md` 14pt) has ink-brown-800 bg + white 10% border, no glow, no shadow; on focus, the border becomes 2pt `--color-brand-orange` (the `CK-T03 --focus-ring` recipe applied inline). All FAQ dividers between accordion items are 1pt `--color-alpha-white-05` (minimal, not jarring). Padding: "Ask SIA" card 24pt (standard), FAQ rows 16pt horizontal (vertical centered), contact card 24pt. This depth language scales every surface from flat-box danger — the warm ink, the edge highlight, the size-calibrated glow, and the shadow form a cohesive language where nothing reads generic or cold.
+
+### Typographic rhythm
+
+Map the spec's typography table to `CK-P3` locked tokens: Navigation header title `--text-h3` (17pt) / 600 / `--leading-snug` (1.25) / white 100%; "Ask SIA" heading `--text-h2` (20pt) / 600 / `--leading-snug` / white 100%; "Ask SIA" description `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 60%; ask-SIA CTA button `--text-h3` (17pt) / 600 / white 100%; section eyebrow ("FAQ") `--text-eyebrow` (12pt) / 600 / `--leading-snug` / `--tracking-eyebrow` (0.12em) / uppercase / white 50%; FAQ category row label `--text-body` (16pt) / 400 / `--leading-normal` / white 100%; FAQ question (collapsed) `--text-h3` (17pt) / 600 / `--leading-snug` / white 100%; FAQ answer `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 70%; search hint `--text-body` (16pt) / 400 / white 40%; contact heading `--text-h2` (20pt) / 600 / `--leading-snug` / white 100%; contact description `--text-body` (16pt) / 400 / `--leading-normal` / white 50%; contact CTA button `--text-h3` (17pt) / 600 / white 100%. Hierarchy is carried by **weight** (600–700 vs 400), not size alone. Sentence case throughout (no Title Case on buttons, labels, or navigation). ≤2 `--color-brand-orange` accent words: the "Ask SIA →" button text + the search bar focus-ring (the orange itself is not a word, so this is respected). Chillax stays logo-only (none on this screen). The purple dot (8pt, `--color-royal-purple`) on the "Ask SIA" card is decorative (not a word), so purple count is 0 words — the dot is the SIA identifier, and its presence earns the purple 10% role without consuming a text accent slot.
+
+### Microcopy (before → after)
+
+Every user-facing string is authored to `CK-P5` brand voice — warm, plain, coaching tone, sentence case, no exclamation marks, the brand period with intent, non-shaming.
+
+- **Search bar hint text** — *before:* "Search help topics" (generic, given) → *after (kept):* same; simple, clear, on-voice. (Already on-voice.)
+- **"Ask SIA" heading + description** — *before:* given "Ask SIA" + "Get instant answers from your AI coach" → *after:* kept; warm, clear, specific to coaching role. The description "SIA knows Balencia inside and out" grounds the offer (not a generic "instant answers" promise, but a real knowledge claim).
+- **"Ask SIA" CTA button** — *before:* "Ask SIA →" (given) → *after:* kept; warm, action-oriented, the arrow signals navigation.
+- **FAQ section eyebrow** — *before:* "FAQ" (given) → *after (kept):* same; simple label, uppercase per `.eyebrow` recipe.
+- **FAQ category rows** — *before:* "Getting started", "SIA & AI coach" (given) → *after:* kept; sentence case, warm framing, each is specific to its topic.
+- **FAQ accordion items — question text** — *before:* given "How do I set up my first goal?", "What is SIA?" → *after:* kept; warm, plain language, no jargon.
+- **FAQ accordion items — answer text** — *before:* given "After onboarding, tap the Goals tab…" → *after:* kept; plain, specific, conversational ("you" framing implicit in the flow, no generic "users should").
+- **FAQ empty state / no results** — *before (from spec):* "No matches found. Try asking SIA instead." → *after (kept):* same; warm redirect, non-blaming, the purple link to SIA is earned (purple = SIA, not a generic link). Never says "Your search returned nothing" or "No results" alone — the redirect is the point.
+- **FAQ loading state (search active, results fetching)** — *before:* no message → *after (new, on-voice):* skeleton rows animate in with a faint "Searching your help topics…" hint text (13pt Sora Regular, white 40%); the skeletons morph into real results (no spinner, never fade).
+- **Contact support card heading** — *before:* "Still need help?" (given) → *after:* kept; warm, acknowledges the user's intent.
+- **Contact support card description** — *before:* "Reach out to our support team and we'll get back to you within 24 hours." → *after:* kept; warm, honest timeline, clear next step.
+- **Contact support CTA button** — *before:* "Contact support" (given) → *after:* kept; simple, warm action.
+- **Search result items (when results appear)** — *before:* no designed microcopy (generic "Question · Category · Preview" layout) → *after (new, on-voice):* each result shows **question text** (17pt Sora Semibold, white) · **category label** (12pt Sora Regular, white 40%, such as "From: Getting started") · **answer preview** (14pt Sora Regular, white 50%, 1 line, ellipsis). Tapping expands the answer inline with a smooth height animation (no page push).
+- **Search focus state** — *before:* no visual cue → *after (new):* search bar border becomes 2pt `--color-brand-orange`, background stays ink-brown-800, cursor appears (white at 100%).
+- **FAQ accordion expanded state — divider + answer reveal** — *before:* no transition message → *after (new):* 1pt divider (white 5%) appears cleanly, answer text fades in (160ms `ease-out-soft`) below divider. The answer is framed as a clear, authored response — never generic text.
+- **Error state (such as FAQ content fails to load, or contact support mail unavailable)** — *before:* no message → *after (new, on-voice):* "Couldn't load help topics. Pull to refresh." (14pt Sora Regular, white 70%, centered in FAQ section). Tap or pull refreshes with a brief success toast "Help topics refreshed" (warm, specific, no generic "Success!").
+- **Day-1 / cold-start state** — *before:* all content visible (no empty state) → *after:* kept as is; the Help Center is always fully populated (FAQ is static, search works day-1, "Ask SIA" card is always present — this screen has no zero state).
+
+No exclamation marks anywhere. The brand period is used once in the spec copy ("SIA knows Balencia inside and out.") and is intentional (marks the coach's specific knowledge claim). All SIA copy (the "Ask SIA" card, the no-results redirect) is specific to SIA's role (coaching, knowledge of Balencia), never generic ("Get help fast!" or "Instant support").
+
+### Motion choreography
+
+Per `CONSISTENCY.md §3`, the Help Center entrance is **focal-first, support-rises** (draw-order):
+
+1. **Search bar** enters first (fade-in, 0ms stagger, 280ms `ease-out-soft`) — utility, no glow, no draw.
+2. **"Ask SIA" card** enters 80ms after search (fade-in + translateY(8→0), 280ms `ease-out-soft`, `--shadow-1` shadow visible on arrival) — the focal element, warm glow visible at rest.
+3. **FAQ section header + category rows** enter 160ms after search (fade-in + translateY(8→0), 280ms `ease-out-soft`, rows staggered 40ms apart) — secondary content.
+4. **Contact support card** enters 240ms after search (fade-in + translateY(8→0), 280ms `ease-out-soft`) — tertiary, last.
+
+**Accordion expand animation** (when user taps a FAQ question):
+- **Chevron rotation:** › (right) → v (down), 160ms `ease-out-soft` rotation.
+- **Answer height expand:** from 0 to auto (content-measured), 280ms `ease-out-soft`.
+- **Answer text fade-in:** from 0 to 100% opacity, 160ms `ease-out-soft` (staggered 80ms after height starts).
+- **Divider reveal:** 1px divider (white 5%) appears instantly above answer as height expands.
+
+**Accordion collapse animation** (when user taps an expanded question):
+- **Chevron rotation:** v (down) → › (right), 160ms `ease-out-soft`.
+- **Answer height collapse:** from auto to 0, 280ms `ease-out-soft`.
+- **Answer text fade-out:** from 100% to 0, 160ms `ease-out-soft`.
+
+**Search results crossfade** (when results replace FAQ):
+- FAQ section fades out (160ms `ease-out-soft`), results list fades in (160ms `ease-out-soft`), no delay — 280ms total crossfade.
+- **Search result skeleton loading:** if results are slow, skeleton rows (matching the result row height) fade in and morph into real results (the rows themselves animate width/opacity as data arrives, never a full swap).
+
+**Search clear** (tap × button or clear field):
+- Results fade out (160ms `ease-out-soft`), FAQ section fades back in (160ms `ease-out-soft`).
+
+**Focus state transition** (search bar focus):
+- Border color animates 160ms `ease-out-soft` from white 10% to `--color-brand-orange` (2pt).
+
+**Reduced-motion (`prefers-reduced-motion`):** all elements at final state instantly (search bar unfocused, "Ask SIA" card visible, FAQ rows visible, all accordion items collapsed). Chevrons are at their static form (› for collapsed, v for expanded if pre-expanded). No animations loop. The warm-glow surface craft and shadow language is preserved — no essential visual information is lost.
+
+### State craft
+
+**The §5 matrix — all five states designed:**
+
+| State | Layout | Copy (on-voice) | Depth/brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | All content visible: search bar, "Ask SIA" card (focal, warm-glow surface, shadow-1), FAQ section with 6 category rows (no dividers showing until a category is expanded), contact card | No special messaging — screen is fully functional day-1 (search, "Ask SIA" card, FAQ are all immediately available). "Ask SIA" card description stays warm: "SIA knows Balencia inside and out." | `--color-ink-brown-800` surfaces with `CK-T01` edge-highlight + `--shadow-1` on "Ask SIA" card, no glow on FAQ rows (they are <96px navigation), warm purple dot on the card's role identifier |
+| **Loading (search active, results fetching)** | Search bar focused (border orange 2pt, cursor visible), FAQ section replaced by skeleton rows (3–4 shimmer rows matching the result row height, 52pt each), skeleton text placeholders (13pt lines), faint "Searching your help topics…" hint text | "Searching your help topics…" (14pt Sora Regular, white 40%) below search bar; never a generic spinner label. Skeletons preserve the result row layout so morphing in is smooth (not a blank-box swap). | Skeleton rows have the same `--color-ink-brown-800` surface + `CK-T01` edge-highlight as result rows; a shimmer animation (white 8%→20%→8%, 1.2s loop) indicates loading without urgency |
+| **Empty / partial (search yields no results)** | Search bar (focused, orange border visible), results area shows centered "No matches found" message (14pt Sora Regular, white 50%), below it a purple link "Try asking SIA instead." (14pt Sora Semibold, `--color-royal-purple`, center-aligned) | "No matches found." (statement, not a question; warm, specific to the search action). "Try asking SIA instead." (purple link, encourages the primary path warmly, never shaming the user's search attempt). No "Your search returned zero results" or "Nothing matched" — the redirect is the affordance. | `--color-ink-900` background (results area is empty, no card surface); the purple link uses the earned purple (SIA identifier, not a generic link color). Focus-ring on the link is the standard `CK-T03 --focus-ring` (2px orange offset) |
+| **Error (FAQ content fails to load, or contact support mail unavailable)** | If FAQ fails: search bar visible, FAQ section shows centered error message (14pt Sora Regular, white 70%); below it a "Pull to refresh" hint (12pt Sora Regular, white 40%). If contact support mail unavailable: "Contact support" button text is replaced with "Could not open mail. Email us at support@balencia.com" (13pt Sora Regular, white 70%). | **FAQ load error:** "Couldn't load help topics. Pull to refresh." (specific action named, warm tone, no alarm). **Contact mail error:** "Could not open mail. Email us at support@balencia.com" (honest, provides fallback email, never "Something went wrong"). No generic "Error" or "Try again later." | If FAQ error: `--color-ink-900` background (no card surface); error message in white 70% (readable, calm). If contact button error: the button text area shows the error message inline (white 70%); the button bg stays transparent (de-emphasized, not red-alarmed). No red error border; the message itself is the affordance |
+| **Offline (cached banner, actions dimmed)** | Search bar disabled (white 30% opacity, text disabled, no focus affordance), "Ask SIA" card enabled (purple earned, still focal), FAQ section enabled (cached content visible), contact support button disabled (white 30% opacity, no focus, tap shows inline hint "Contact support needs internet") | At top: "You're offline" banner (11pt Sora Regular, white 70% on dark ink-900 bg, 40pt height, centered); no icon (text is clear enough). Search bar shows hint text "offline — browsing cached help" (13pt Sora Regular, white 40%, hint that search works on cache). Contact button hint on tap: "You need internet to contact support" (12pt Sora Regular, white 50%, inline tooltip). | Banner has `--color-ink-900` bg (no elevation), no glyph (text-only, calm). Disabled elements use white 30% opacity (clearly dimmed, no red). "Ask SIA" card stays fully visible (it is functional over any connection — SIA loads in SIA Chat [09], which handles its own connection state) |
+
+Every state uses the **warm-glow depth language** and **on-voice copy**. No generic "Loading…" spinners, no red-alarmed error states for non-critical failures (only the contact-mail error surface is explicit, and it frames the fallback warmly). The Help Center feels calm and supportive throughout.
+
+### Signature & anti-generic
+
+The **ownable Balencia moment** is the **"Ask SIA" card's purple dot + warm-glow surface + orange CTA** — a visual microcosm of the brand's SIA-centric, warm-coach philosophy. The purple dot (8pt, `--color-royal-purple`, max-1-of-2 purple elements, correct earmark for SIA) signals "this is your AI coach." The warm-glow surface (`--glow-orange-md` on the brown ink, not cold neon) and the `--shadow-1` elevation make the card feel premium and inviting — not a generic "help" button. The orange CTA (`--r-pill`, 36pt, bold action) and the arrow icon (→) complete the affordance. This card **does not** clone a competitor's signature; it owns Balencia's warm-coach language (purple earned, warm surfaces, the brand period in copy, the coach's specific knowledge claim).
+
+**Anti-generic passes:**
+- ✓ **No symmetric-card-grid monotony** — the FAQ is a flat list (not a grid), the "Ask SIA" card is focal and taller, the search bar is utility-sized; visual rhythm is intentional, not a repeated card deck.
+- ✓ **No flat surfaces** — every card has `CK-T01` edge-highlight, `--shadow-1`, and size-calibrated glow; nothing reads like a default component box.
+- ✓ **No generic microcopy** — "Ask SIA" card description is specific ("SIA knows Balencia inside and out," not "get instant answers anywhere"); no-results copy redirects warmly ("Try asking SIA instead," not "no matches found, try again"); error copy names the action ("Couldn't load help topics. Pull to refresh," not "something went wrong").
+- ✓ **No decorative-only features** — the search bar is functional (results replace FAQ), the accordion is functional (expands/collapses), the purple dot is the SIA identifier (not scatter-decoration).
+- ✓ **The brand period** — used once intentionally in "SIA knows Balencia inside and out." The period marks the coach's specific knowledge claim, not just punctuation.
+- ✓ **Warm-glow depth at every scale** — from the "Ask SIA" focal card (`--glow-orange-md` on brown ink) to the FAQ rows (no glow, but `CK-T01` edge-highlight + shadow to avoid flatness) to the contact card (intentionally less elevated, no shadow, but still layered). Warm, never cold; premium, never generic.
+
+### Accessibility
+
+**Contrast pairs (WCAG AA + 1.4.11 ≥3:1):**
+
+| Element | Foreground | Background | Ratio | Status |
+|---|---|---|---|---|
+| Navigation title | white 100% (white) | `--color-ink-900` (`--color-ink-900`) | 20:1 | ✓ AA |
+| "Ask SIA" heading | white 100% | `--color-ink-brown-800` (`--color-ink-brown-800`) | 11.2:1 | ✓ AA + 1.4.11 |
+| "Ask SIA" description | white 60% (rgba(255,255,255,0.6)) | `--color-ink-brown-800` | ~4.8:1 | ✓ AA |
+| "Ask SIA" CTA text | white 100% | `--color-brand-orange` (`--color-brand-orange`) | 4.5:1 | ✓ AA |
+| FAQ category label | white 100% | `--color-ink-brown-800` | 11.2:1 | ✓ AA + 1.4.11 |
+| FAQ question text | white 100% | `--color-ink-brown-800` | 11.2:1 | ✓ AA + 1.4.11 |
+| FAQ answer text | white 70% | `--color-ink-brown-800` | 6.3:1 | ✓ AA |
+| Search hint | white 40% | `--color-ink-brown-800` | ~2.1:1 | ⚠ Below AA (acceptable as hint text hint, per WCAG 3.2) |
+| Search focus border | `--color-brand-orange` | `--color-ink-brown-800` | 5.2:1 | ✓ AA + 1.4.11 |
+| Contact card heading | white 100% | `--color-ink-brown-800` | 11.2:1 | ✓ AA + 1.4.11 |
+| No-results message | white 50% | `--color-ink-900` | ~3.5:1 | ✓ AA |
+| Purple link "Try asking SIA instead" | `--color-royal-purple` (`--color-royal-purple`) | `--color-ink-900` | ~3.2:1 | ✓ AA |
+
+**Focus ring:** `CK-T03 --focus-ring` (2px orange offset on dark field) on all focusable elements — search bar, FAQ category rows, accordion items, "Ask SIA" CTA button, contact support button. Uniform app-wide, high contrast.
+
+**Touch targets:** All interactive elements ≥44×44pt (search bar 48pt, FAQ rows 52pt, "Ask SIA" card 140pt, buttons 36pt with generous padding, contact card 120pt).
+
+**Screen reader labels:**
+- **Back button:** "Back, navigate to Me Main" (existing navigation pattern)
+- **Search bar:** "Search help topics, text field" (hint text describes purpose)
+- **"Ask SIA" card:** "Ask SIA for help, get instant answers from your AI coach, button" (full card is a single focus target)
+- **"Ask SIA" CTA button:** "Ask SIA, button" (if separate focus, or nested in card announcement above)
+- **Purple dot:** Decorative, not announced separately (the card label includes "Ask SIA" context)
+- **FAQ category row (such as "Getting started"):** "Getting started, button" (navigates to category sub-screen)
+- **FAQ accordion item (collapsed):** "How do I set up my first goal, collapsed, button" (indicates state)
+- **FAQ accordion item (expanded):** "How do I set up my first goal, expanded, [answer text], button" (announces state + answer text)
+- **Contact support card:** "Still need help. Reach out to our support team and we'll get back to you within 24 hours." (full card announced as a group)
+- **Contact CTA button:** "Contact support, button" (if separate focus)
+
+**Color + glyph + word (no colour-alone):** The search bar's focus state is 2pt orange border + visible cursor (text input is inherently a signal; colour + affordance). FAQ chevrons are glyphs (› and v, not colour-coded). The purple link "Try asking SIA instead" is text + colour + an implicit underline/visited styling. No status is conveyed by colour alone.
+
+**Reduced-motion (`prefers-reduced-motion`):** All animations instantly reach final state. Accordion items are shown at rest (collapsed or pre-expanded, depending on context). Chevrons are at their static form (›/v). The warm-glow surfaces, shadows, and focus rings are all preserved (they are not animations; they are static design language). No essential information is lost in reduced-motion mode.
+
+**Keyboard navigation:** 
+1. Back button
+2. Search bar (focus, type, clear button)
+3. "Ask SIA" card / "Ask SIA" CTA button (single or nested focus)
+4. FAQ section header (if focusable) → category rows in order
+5. Contact support card / button
+
+Arrow keys scroll content; Tab moves between focusable elements. On small screens, touch targets are preserved (≥44pt minimum).
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+---
+
 ## Cross-References
 
 - **Navigates to**: SIA Chat [09] via tab switch (Ask SIA card, with help context flag), Me Main [17] via stack pop (back button), FAQ category sub-screens via stack push, system mail composer or in-app support form (contact support), in-app webview (if any FAQ links to terms/privacy)

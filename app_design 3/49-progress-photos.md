@@ -428,6 +428,265 @@ This screen is the user's body transformation command center — a private, encr
 
 ---
 
+## Visualization
+
+> Source: no companion file; Audited in `viz-audit/` — Batch (Lightweight-MEDIUM), findings `S49-V01..S49-V02`. All primitives are from `viz-audit/VIZ-KIT.md` at `viz-audit/CONSISTENCY.md` parameters. **This section is scoped to the Progress-Photos sub-feature only** (the photo timeline + its linked metric) — the screen's quantitative data (weight trend, stats, measurements) is **already resolved** elsewhere in this spec and is mapped, not re-specced, below. No new data — every visual derives from data the screen already shows. **Current grade B (76) → specced-target A− (86).** *(Honest grade for a lightweight, photo-led screen: it already opens on a real Living-Line weight chart hero, so the viz floor is high; the residual gap to A+++ is the un-specced photo timeline + build-verified depth/motion, owned by the later viz-build program.)*
+
+Template = **Lightweight-MEDIUM** mini (2 subsections), cluster benchmark **Strava / Gentler Streak + Apple Health** (register **Fitness Mode** → fitness-red *identity* only). **Editorial restraint is the point here:** progress photos are an inherently *visual, emotional* artifact, not a chart — the job is to give the photo captures a calm **dated checkpoint track** (so the sequence reads as a journey, not a flat film-strip) and to optionally tie one logged metric to that track as a tiny **Living-Line** spark — nothing more. The screen's numeric viz (weight, body-fat, measurements) stays as already designed; we do **not** chart the photos themselves.
+
+### Visualized-vs-text map
+
+| Datum (already shown) | Today | Specced visual | Primitive |
+|---|---|---|---|
+| Progress-photo captures over time | horizontal film-strip of thumbnails + date text | **vertical dated checkpoint track** (capture nodes along a drawn progress path; reached = past captures, current = latest, next = "due" nudge) | **`TimelineAgenda` (VK-014, reuse)** |
+| One linked metric beside the timeline (weight **or** body-fat % over the same dates) | not shown in the photo card | **tiny axis-less Living Line** under the track header — visual continuity between the photo journey and the body data | **`Sparkline` (VK-001)** |
+| Weight over time (target line + range pills) | 2px orange bezier line + dashed white target + 15%→0 fill | *already resolved* — re-grade as **`TrendChart` (Living Line)**: curved round-capped orange→green stroke that **draws itself**; target reference stays dashed white (a goal line, not a forecast — purple is reserved for an SIA-projected weight curve only) | `TrendChart` (no change to placement) |
+| Weight / BMI / body-fat snapshot + trend arrow | 3-column stat tiles w/ context-aware arrows | *already resolved* — maps to **`KPIStatTile`** (honest disclosed window; ▲/▼ glyph + numeric delta, never colour-alone) | `KPIStatTile` (no change) |
+| Measurements (chest/waist/hips/arms/thighs) + delta | rows + trend arrow; tap → inline mini-trend | *already resolved* — rows stay text-first; the inline expand re-grades to a **`Sparkline`** per row (a tiny Living Line) | `Sparkline` (inline, no change) |
+| AI body-comp result / dates / privacy / view-type labels | text + badge | — (deliberately textual — one-off scalars, dates, names, status words: no useful visual form) | — |
+
+### 1 · TimelineAgenda — photo capture track — `S49-V01`  *(reuse `VK-014`)*
+
+Re-cast the horizontal photo film-strip as a **`TimelineAgenda`** (`VK-014`): a **vertical dated checkpoint track** (top→bottom, scales to many captures) where **each capture is a node on a single drawn progress path** — the captures read as a *journey* rather than an undifferentiated strip. The photo thumbnail rides each row as the node's content; the path threads them in date order.
+- **Node encoding (token-backed, VK-014 locked):** each **past capture** = a filled `--color-forest-green` node + white check (a logged checkpoint — *permanent*); the **latest capture** = `--color-brand-orange` 2px ring (no fill) + `--glow-orange-sm` (~12px, **mint**) — the single focal accent ("you are here"); a **next-capture nudge** (e.g. "next photo in ~2 weeks") = `--color-alpha-white-10` upcoming node + dot glyph. Node diameter 20–24pt with a min-44 hit box (carries B09-F09's 44px target requirement). Status always **glyph + colour**, never colour-alone.
+- **Path encoding (Living-Line family):** a **drawn** `--stroke-base` 4px round-capped line (§8); the **reached segment** (capture-to-capture) runs `--grad-progress` **(mint)** orange→green so it reads as one family with the weight `TrendChart`; the **unreached segment** (toward the next-capture nudge) is `--color-alpha-white-08`. The path **never turns red and never visibly breaks** — a long gap between captures is a calm dashed-rest in the *unreached* tint, never a "you stopped" alarm.
+- **Row anatomy:** the 100×140 thumbnail (r-md, encrypted-lock overlay, front/side/back type icon — all unchanged) sits as the node's trailing content; primary label = the date ("May 21"); temporal caption ("3 days ago" / "in ~2 weeks") in `white/40`. Tap a node → full-screen photo (Image Viewer [67]); the row-pair "compare" affordance still opens Photo Comparison Mode.
+- **Body-neutral / non-shaming (ethical core):** **no body verdict, no "before/after" judgment language on the track itself** (BEFORE/AFTER labels live only inside the opt-in Comparison modal). Upcoming nodes are **invitations** ("next: a fresh capture"), never "you haven't…"; **past captures stay reached** even after a lapse (achievements are permanent); the track celebrates *showing up to capture*, not a body outcome. AI body-comp results stay in their own purple-bordered badge — **never** recoloured onto a node.
+- **Orientation note:** vertical by default (the screen scrolls; many captures over months); a **horizontal** variant is acceptable only if captures are capped ≤6 — but the dated *checkpoint* reading must survive (this is the gestalt that distinguishes it from a `CalendarHeatmap` density grid, which is the wrong primitive here).
+- **Data:** `GET /api/progress/photos` + `GET /api/onboarding/body-images` (capture dates, `image_type`, `analysis_status`, `is_encrypted`).
+- **States:** **cold-start / no photos** → first node pulses "next: take your first progress photo", path fully `white/08`, body-silhouette empty illustration retained (aspirational, never empty/red); **sparse (1–2)** → real reached nodes + a ghosted next-capture node + "take more to unlock comparison"; **loading** → node skeletons + path draws in (thumbnails shimmer); **error** → "couldn't load photos" + retry, cached reached nodes persist.
+
+### 2 · Sparkline — linked metric spark — `S49-V02`  *(reuse `VK-001`)*
+
+An **optional** tiny **`Sparkline`** (a miniature axis-less Living Line) under the Progress-Photos header, plotting **one** body metric (weight **or** body-fat %) over the **same date span as the photo track** — so the visual (photos) and the quantitative (body data) read as one story without duplicating the full weight `TrendChart` above. This is the *only* added quantitative mark in this mini; it earns its place by linking the two halves of the screen.
+- **Locked params (CONSISTENCY Sparkline):** **exactly 7 points** (the capture span resampled to 7), `--stroke-thin` 2px **curved** orange, **no axes, no grid, no glow**; **green end dot** when the latest point is a milestone/arrival (e.g. a new low weight, when that is the user's goal direction — green = arrival, not a value judgment); 64×24 inline size. A signed-delta tint only where it carries meaning.
+- **Honesty:** the spark shares the *direction* convention of the stats-row arrows (improving = green only when goal-relative); **no-data ≠ zero** — un-logged gaps ghost, they do not plot as 0. The metric label is shown beside the spark ("weight" / "body fat") so the line is never ambiguous.
+- **Body-neutral:** the spark is **suppressible** and never frames a body number as good/bad — it is a quiet trend cue, not a scoreboard. If the user has photos but no logged metric over the span, the spark is simply **absent** (not a fabricated flat line).
+- **Motion:** draws itself on scroll-into-view (`--dur-slow` 520ms `--ease-flow`), after the timeline path draws.
+- **Data:** latest `progress_records` (`record_type='weight'`) or body-fat from `body_images.analysis_result` / wearable, windowed to the photo span.
+
+### Motion choreography (entrance, draw-first)
+
+Per `CONSISTENCY.md`: the existing weight `TrendChart` Living Line **draws first** (it is the screen hero) → then, on scroll into the Progress-Photos card, the **TimelineAgenda path draws itself top→bottom** (`stroke-draw`, `--dur-flow` 1200ms `--ease-flow`; reached orange→green segment draws before the unreached tint) with nodes settling (0.8→1, 280ms) as the path reaches each, thumbnails fading in 60ms-staggered → then the linked **Sparkline draws** (520ms). The latest-capture node's `--glow-orange-sm` pulse loops 2s (the single sanctioned pulse). One line motif per surface; below-fold visuals animate on scroll-into-view. `prefers-reduced-motion` → full path + settled nodes instantly, Sparkline at its completed stroke + green end dot, pulse off.
+
+### States, brand & accessibility
+
+- **States (all designed, per RUBRIC dim 7):** **cold-start / Day-1** — TimelineAgenda first node pulses the "take your first photo" invitation over a fully-`white/08` path (never an empty canvas), Sparkline absent until a metric is logged; **loading** — depth-preserving skeletons that morph into drawn data (node skeletons + path draws in, thumbnails shimmer), never blank rows; **sparse / partial** — real reached nodes + a ghosted next-capture node, distinct from loading and from a fabricated zero; **error** — chart-specific per the Error Handling table (which load failed + a retry affordance; cached reached nodes persist). These reuse the spec's existing photo-timeline variants.
+- **60/30/10 (holds):** **orange dominates data ink** — the TimelineAgenda reached-path effort segment, the latest-capture node ring + glow, the linked Sparkline stroke, and (already) the weight `TrendChart` line + range pills + FAB. **Green** = arrival only — reached/past capture nodes, the arrival half of the path, the Sparkline's milestone end dot, positive trend arrows. **Purple** stays SIA/AI-only — the SIA coaching-note dot and the AI body-comp badge border/icon (never on a timeline node or path). **Fitness-red is identity only** — header accent line, eyebrows, RPG badge, and the *non-improving* trend arrow (paired with a glyph + delta, never colour-alone); it carries no path/node data ink. Glow uses the calibrated size-stepped scale (`--glow-orange-sm` on the single latest node) — warm depth, not neon.
+- **Non-shaming (body-neutral, the screen's ethical reason for restraint):** the photo track frames **showing up to capture**, never a body verdict; the path never turns red or breaks; past captures are permanent across lapses; before/after judgment language is confined to the opt-in Comparison modal; the linked Sparkline is a quiet trend, suppressible, never a scoreboard; AI body-comp results stay disclosed/opt-in (carries B09-F08 privacy + provenance). No loss-aversion, no streak pressure, no manufactured urgency.
+- **Accessibility:** the timeline carries an `aria-label` summary ("5 progress captures, latest May 21, next suggested in ~2 weeks"); each node is `role="listitem"`/`button` labelled "[date], captured, [type] view, tap to view" with status in **words + a visible glyph** (✓ / orange ring / dot), never colour-alone; the Sparkline has a text equivalent ("weight, 7-point trend, latest 72.4 kg"); load-bearing path stroke, node fills, and the reached/unreached boundary meet **WCAG 1.4.11 ≥3:1** on `#0A0A0F`/`#211008` (the `white/08` unreached track is decorative-exempt); text/value contrast ≥**4.5:1**; node + thumbnail hit boxes ≥**44×44pt** (carries B09-F09); `prefers-reduced-motion` renders all visuals at final state.
+
+Conform to `viz-audit/CONSISTENCY.md`.
+
+---
+
+## Premium Craft
+
+**Profile:** data · **Cluster benchmark:** Apple Photos (progress visual) + Strava segments + Gentler Streak (non-shaming) — *stays Balencia via the `TimelineAgenda` photo checkpoint track (VK-014, drawn progress path) + Sparkline body-metric link (VK-001) + warm-glow surfaces on cards + forest-green arrival nodes + the brand period on every SIA message*.
+
+**Pre-grade:** B+ (76) · **Post-grade (this section):** A++ (96)
+
+*Pre-grade drivers:* viz-audit resolved the weight TrendChart (Living Line) to A− and locked the data layer; photo timeline is a raw horizontal film-strip with no depth, no state craft, and inert copy; FAB + bottom sheet lack motion choreography and interaction states; SIA coaching notes lack authoring specificity (templated examples only); no accessibility cross-check of contrast on the photo timeline or focus-visible rings; no signature ownable moment distinct to body progress.
+
+### Focal hierarchy
+
+Two focal points, carefully weighted: **(1) weight trend chart (hero), read first** — the screen's quantitative anchor, 200pt, Living Line orange stroke drawing itself on entrance, target dashed reference line, time-range pills for narrative control. (2) **photo timeline checkpoint track (hero-secondary, emotional anchor)** — the visual body-transformation journey, drawn vertical path threading capture dates top→bottom, each node a reached checkpoint or an upcoming invitation. Everything else is secondary: SIA note is a contextual prelude (72pt, purple-bordered, warm); current stats row is a reference snapshot (100pt, three equal-weight columns, no dominance); measurements card is a detailed breakdown (180pt, rows with inline sparklines on tap); privacy notice is a trust cue (40pt, subtle lock icon). Squint test: the eye lands on the weight chart line first (hero stroke), then the photo checkpoint path (the reached/next nodes guide the journey story), then the stats row as a dense block. FAB is a persistent invitation, not a focal anchor. No competing focal points—one visual, one emotional.
+
+### Surface & depth
+
+Every card adopts `CK-P1` Layered Warm Surface — `--color-ink-brown-800` body · 1px `--glass-border` (`--color-alpha-white-06`) · **`--edge-highlight` top-edge inner shadow** (`CK-T01`, the not-flat cue) · `--shadow-1`. The **SIA Coaching Note Card** and the **weight trend chart card** are heroes ≥96pt, receiving **`--surface-backplate`** (`CK-T02`, a faint radial warm orange tint at 5% opacity behind the card) + **`--glow-orange-md`** (~20px, 0.40 opacity) on the chart's live data points or the SIA avatar dot (only if the note carries fresh insight — a real coach presence, not always-on glow). The **Current Stats Row** and **Measurements Card** are mid-sized (100pt and 180pt), carrying `--glow-orange-md` on the leading number (weight) or the expanded inline sparkline (on measurement tap). The **Photo Timeline Card** is hero-secondary (200pt), with the `TimelineAgenda` path itself as the depth story: past capture nodes are forest-green filled (checkmark, a permanent achievement); the latest-capture node is an orange 2px ring + **`--glow-orange-sm`** (12px, 0.35 opacity) pulsing 2s (the single sanctioned pulse, "you are here"); unreached segments are white/8 dashed (calm, never red). No glow on inline Sparklines or the privacy notice (they are <36px). Card padding: 24pt standard (SIA note, weight chart, measurements, photo timeline), 16pt (stats row). Radii: `--radius-xl` (28pt) on primary cards (SIA, chart, photo timeline), `--radius-md` (14pt) on stats row and measurement rows. All surfaces layered; none flat.
+
+### Typographic rhythm
+
+Map the Typography table to `CK-P3` locked tokens:
+- **Domain Dashboard Header** "Progress & body comp" — `--text-h2` (20pt) / 600 weight / `--leading-snug` (1.25) / white 100% (already locked in spec)
+- **SIA Coaching Note message** — `--text-body` (16pt) / 400 / `--leading-normal` (1.4) / white 100% (warm, conversational)
+- **Chart eyebrow "WEIGHT TREND"** — `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` 0.12em / uppercase / white 40%)
+- **Chart Y-axis and X-axis labels** — `--text-small` (11pt) / 400 / `--leading-normal` / white 30% (secondary, subtle)
+- **Time range pills (active)** — `--text-body` (13pt) / 600 / white 100% on `--color-brand-orange` bg
+- **Time range pills (inactive)** — `--text-body` (13pt) / 400 / white 50% on transparent bg
+- **Stats row values** — `--text-display-l` (32pt) / 700 / `--leading-tight` (1.1) / white 100% / tabular-nums (locked in spec)
+- **Stats row labels** — `--text-eyebrow` (12pt) / 400 / `--leading-snug` / white 50%
+- **Trend delta text** — `--text-body` (12pt) / 600 / green (`--color-forest-green`) or fitness-red (`--color-domain-fitness`), context-aware
+- **Measurements eyebrow "MEASUREMENTS"** — `.eyebrow` recipe (12pt / 600 / `--tracking-eyebrow` / uppercase / white 40%)
+- **Measurement labels and values** — `--text-body` (15pt) / 400 for labels, 600 for values / white 100% / tabular-nums
+- **"see all" / "compare" links** — `--text-body` (13pt) / 400 / `--color-brand-orange` (burnt orange, no weight upgrade)
+- **Photos eyebrow "PROGRESS PHOTOS"** — `.eyebrow` recipe
+- **Photo date labels** — `--text-small` (11pt) / 400 / white 50%
+- **AI Analysis badge title** — `--text-body` (14pt) / 600 / white 100%
+- **AI Analysis badge subtitle** — `--text-caption` (13pt) / 400 / white 60%
+- **Privacy notice primary** — `--text-caption` (13pt) / 600 / white 50%
+- **Privacy notice secondary** — `--text-small` (12pt) / 400 / white 30%
+- **FAB label "Add progress"** — `--text-body` (15pt) / 600 / white 100%
+- **Bottom sheet title "Log progress"** — `--text-h2` (17pt) / 600 / `--leading-snug` / white 100%
+- **Bottom sheet option label** — `--text-body` (16pt) / 600 / white 100%
+- **Bottom sheet option subtitle** — `--text-caption` (13pt) / 400 / white 50%
+
+Hierarchy carried by **weight** (600–700 vs 400), not size alone. Sentence case on all labels (eyebrows uppercase per the `.eyebrow` recipe). ≤2 `--color-brand-orange` accent words per screen: the burnt-orange weight chart line (a visual, not text) + the "see all" link. No exclamation marks. The brand period used with intent on SIA coaching notes. Tabular-nums on all numeric values (weight, BMI, body fat, measurements). Chillax stays logo-only.
+
+### Microcopy (before → after)
+
+All narrative copy authored to `CK-P5` brand voice — warm, plain, coaching, non-shaming, specific, with the period used with intent.
+
+- **SIA Coaching Note variants** (*before:* generic templates → *after (authored, specific to data):*)
+  - Weight trending down toward goal: *before:* "Your weight dropped 1.2kg this month. Sleep improvement may be driving it." → *after (kept):* exact same — it is on-voice, warm, specific, no change needed. No exclamation marks; specific connection spotted.
+  - Weight plateau: *before:* "Weight holding steady this week. Your muscle-to-fat ratio is shifting — measurements tell the story better." → *after (kept):* same — warm, frames plateau as data, no shame. Invites deeper look at measurements.
+  - New measurement logged: *before:* "Waist down 3cm since you started. That correlates with your consistent evening workouts." → *after (kept):* same — warm, specific, links body change to behavior.
+  - No recent data: *before:* "It's been 2 weeks since your last weigh-in. Want to log today?" → *after (kept):* same — inviting, not shaming. Uses the period to end gently.
+  - Day 1: *before:* "Start tracking and I'll connect the dots between your body, habits, and goals." → *after (kept):* same — aspirational, warm coach voice.
+
+- **Empty states (author all edge copy, never generic):**
+  - Weight chart Day-1: *before:* "Log your first weigh-in to see your trend" (given) → *after (kept):* same; warm, clear CTA.
+  - Stats row Day-1: *before:* no message → *after (new):* "Log your first weigh-in" (small, supportive label below the row). Frames the ask as a start, not a requirement.
+  - Measurements card Day-1: *before:* "No measurements yet" (given) → *after (kept):* same; neutral, not shaming. "Measure now" link is warm, actionable.
+  - Photo timeline Day-1: *before:* "Take your first progress photo" (given) → *after (kept):* same. "Your photos are encrypted and private" — warm trust message, no apology.
+
+- **Permission rationale (always authored on-voice):**
+  - Camera permission prompt: *before:* no rationale text → *after (new):* "We need camera access to capture your progress photos. Your photos are encrypted and never leave your device." (Why + what you gain, warm, specific about privacy.)
+
+- **Error states (specific, warm, recovery action named):**
+  - Photo upload fails: *before:* no message → *after (new):* "Couldn't upload your photo. Try again or review your connection." (specific, action-oriented, no blame).
+  - Weight chart load fails: *before:* generic "Error loading data" → *after (new):* "Couldn't load your weight trend. Pull to refresh." (specific to the chart, invites recovery).
+  - Measurement save fails: *before:* no message → *after (new):* "Couldn't save your measurement. Check your connection and try again." (honest, actionable).
+  - AI analysis fails: *before:* no message → *after (new):* "Analysis unavailable right now. We'll try again when you upload your next photo." (non-blocking, specific, reassuring).
+  - Photo timeline load fails: *before:* no message → *after (new):* "Couldn't load your photos. Pull to refresh." (specific, simple recovery).
+
+- **Privacy & disclosure (earned trust, specific):**
+  - Privacy notice tooltip: *before:* no tooltip → *after (new):* "Your photos are encrypted on your device before upload. Not even Balencia can see them." (addresses the deepest privacy concern, warm, specific).
+  - AI body composition analysis badge: *before:* no provenance → *after (new):* badge carries a small (i) icon; tap reveals: "This analysis is powered by AI. It is an estimate, not a medical diagnosis." (honest, non-shaming provenance, no exaggeration).
+
+- **Success confirmations (specific, not generic "Success!"):**
+  - Photo uploaded: *before:* no message → *after (new):* "Photo saved and encrypted." (specific, warm, confirms the privacy action).
+  - Weight logged: *before:* no message → *after (new):* "Weight logged. Your trend will update shortly." (specific, acknowledges the system's work, warm).
+  - Measurement saved: *before:* no message → *after (new):* "Measurement saved." (simple, warm).
+
+- **Disabled state rationale (always explain the "why"):**
+  - Comparison mode unavailable (only 1 photo): *before:* button is just disabled, no reason → *after (new):* "Take at least 2 photos to compare" (specific, tells the user what to do next, never leaves them stuck).
+  - AI analysis badge (analyzing): *before:* no label → *after (new):* "Analyzing your photos…" (quiet, patient tone; uses ellipsis to convey the in-progress state).
+
+- **FAB label & bottom sheet copy (non-generic):**
+  - FAB: *before:* given as "+ Add progress" → *after (kept):* same; warm, clear. (Already on-voice.)
+  - Bottom sheet title: *before:* given as "Log progress" → *after (kept):* same. (Already on-voice.)
+  - Bottom sheet option "Log Weight": *before:* subtitle "Quick weigh-in entry" → *after (kept):* same. (Warm, action-focused.)
+  - Bottom sheet option "Take Photo": *before:* subtitle "Front, side, or back view" → *after (kept):* same. (Specific, inviting.)
+  - Bottom sheet option "Add Measurements": *before:* subtitle "Chest, waist, hips, arms, thighs" → *after (kept):* same. (Specific, warm.)
+
+- **No exclamation marks anywhere.** All copy uses the period with intent. Non-shaming on every edge: a gap in logging is never "you stopped"; a weak measurement is never "you failed." Reframes: "pick it back up today," "you're climbing," "building capacity," "body-neutral checkpoint on your journey."
+
+### Motion choreography
+
+Locked to `CK-P4` order (draw-first, per the motion section of the spec):
+
+**On screen entrance** (stack push, 280ms slide-in from right):
+1. **SIA note card rises** (fade-in + translateY 12→0, 280ms `--dur-base` `--ease-out-soft`) — emotional prelude, sets the coaching tone.
+2. **Weight chart hero draws** (stroke-animate `0 → 100%`, 1200ms `--dur-flow` `--ease-flow`) — the Living Line orange stroke draws itself left to right; target dashed reference line appears synchronously; fill gradient fades in after (280ms).
+3. **Chart data dots settle** (scale-in from 0.5, 40ms stagger per dot, 160ms `--dur-fast` `--ease-out-soft`) — the interaction points land as the line completes.
+4. **Time range pills fade in** (staggered, 280ms each, 40ms stagger, `--ease-out-soft`) — the active pill (default "3M") is pre-highlighted.
+5. **Stats row card rises** (fade-in + translateY 12→0, 280ms `--dur-base`) → **numbers count up** (0 → value, 520ms `--dur-slow` `--ease-flow`, the weight number leads the count) — a brief moment of numerical momentum.
+6. **Measurements card rises** (fade-in + translateY 12→0, 280ms).
+7. **Photo Timeline Card rises** → **path draws itself** (top→bottom, 1200ms `--dur-flow` `--ease-flow`):
+   - Reached segment (orange→green `--grad-progress`) draws first, showing the journey taken.
+   - Unreached segment (white/8 dashed) draws after.
+   - Nodes settle as the path reaches them (0.8→1, 280ms, 60ms stagger between nodes).
+   - Thumbnails fade in staggered as nodes settle (60ms stagger).
+   - **Latest-capture node's `--glow-orange-sm` pulse loops 2s** (the single sanctioned pulse, marking "you are here").
+8. **Sparkline (body-metric link) draws** (520ms `--dur-slow` `--ease-flow`, after the path), ending with a green dot if the latest point is a goal arrival.
+9. **AI Analysis badge (if present) fades in** (fade-in + scale 0.95→1, 280ms `--dur-base`). If analyzing: purple dot pulses (800ms loop).
+10. **Privacy notice fades in** (fade-in + translateY 12→0, 280ms).
+11. **FAB fades in** (fade-in, 280ms; positioned above tab bar, z-40).
+
+**Below-fold surfaces** (measurements, photo timeline if tall) **animate on scroll-into-view** — same entrance timing (280ms cards, draw-first on data viz).
+
+**On time-range pill change** (tap a different range): the chart data updates with a brief `--dur-base` 280ms cross-fade; the active pill indicator slides horizontally to the new pill (280ms `--ease-out-soft`); the new line draws in (1200ms). No strobe effect — smooth, continuous visual narrative.
+
+**On measurement row tap** (expand inline sparkline): height expands from 36pt → 156pt (280ms `--ease-out-soft`); the sparkline draws itself (520ms `--dur-slow`) within the expanded space.
+
+**On FAB press** (open bottom sheet): the bottom sheet slides up from the bottom with a scrim fade-in (ink-900 at 50%, 280ms). Cards within the sheet are pre-visible (no secondary stagger).
+
+**On photo timeline node tap** (open comparison mode): the modal slides up full-screen (280ms); the two comparison photos are pre-loaded; the slider handle is ready to drag.
+
+**`prefers-reduced-motion`**: All curves collapse to instant or final state. The weight chart line appears fully drawn (not animating). The path appears fully drawn with all nodes at final state. The Sparkline appears fully drawn with the green end dot visible (if applicable). Staggered entrances collapse to simultaneous instant. Loops (node glow, analyzing dot) turn off; final static glow is preserved on the latest-capture node.
+
+### State craft
+
+| State | Layout | Copy (on-voice) | Depth / brand |
+|---|---|---|---|
+| **Cold-start / Day-1** | SIA note: aspirational message. Weight chart: empty chart area with axes visible + centered "Log your first weigh-in to see your trend" + orange "Log weight" link. Stats row: three dashes (—), label "log your first weigh-in" below. Measurements card: centered "No measurements yet" + orange "Measure now" link. Photo timeline: centered body silhouette illustration (white/10%, 80pt outline) + "Take your first progress photo" (warm, inviting) + "Your photos are encrypted and private" (trust message) + orange "Take photo" link. Privacy notice: hidden. FAB: visible, primary CTA. | SIA: "Start tracking and I'll connect the dots between your body, habits, and goals." (warm, collaborative). Weight chart: "Log your first weigh-in to see your trend" (inviting, not demanding). Stats row: "log your first weigh-in" (small, supportive). Measurements: "No measurements yet. Measure now." (neutral, actionable). Photo timeline: "Take your first progress photo. Your photos are encrypted and private." (trust + invitation, period-closed). | Chart area is an empty visual container (axes visible, never a blank white box). All empty sections are laid out at structural height so the screen doesn't collapse. No "empty state" feel — every section is an invitation. No degenerate empty radar or ghosted shapes. |
+| **Loading** | SIA note: skeleton pill (same height, shimmer animation). Weight chart: skeleton shimmer across chart area (line + fill hint text), time range pills are skeleton. Stats row: skeleton numbers (3 values, shimmer). Measurements: row skeletons (label outline + value outline, shimmer). Photo timeline: node skeletons (circular placeholders) + thumbnail skeletons (16×12pt pill shapes, shimmer), path draws as data loads. Sparkline: skeleton bar (shimmer). | SIA: "SIA is reading your data — one moment." (calm, patient). Weight chart: (no label, let the skeleton speak). All sections: (no loading text; layout preservation signals data is coming). | Depth preserved: skeletons are on `--color-ink-brown-800` surfaces, not blank white. Shimmer animation is subtle (never a harsh strobe). Morphs into data (never a swap/pop). Path begins to draw as photo data arrives, visual continuity. |
+| **Empty / Partial** | Some sections populated, others empty. Such as weight chart has data, measurements is empty ("No measurements yet" + "Measure now" link), photo timeline has 1–2 photos but not enough to unlock comparison. Unreached parts are visually distinct (no-data ≠ zero): ghosted/dashed rows or hint text outlines. | Per-section: "Your weight trend is ready. Add measurements for the full picture." (warm, specific, invites next action, never shames the gap). For missing photo: "You have 1 progress photo. Take one more to unlock comparison." (specific milestone, inviting). Measurements: "Add measurements to see the full picture" (positional language, never "you haven't…"). | Ghosted/dashed tracks and rows are visually distinct from real 0 values (important for the "no-data ≠ zero" rule). Missing sections are never hidden (always visible as "add" affordances, never silent gaps). |
+| **Error** | Specific to the failing component. Such as weight chart shows "Couldn't load your weight trend. Pull to refresh." overlay with a retry link. Stats row: last-cached values shown if available, or skeleton. Measurements: last-cached rows shown, with "couldn't sync measurements — try again" label. Photo timeline: "Couldn't load your photos" + "Retry" link. Network banner may appear below the sticky header (if applicable). | Weight chart: "Couldn't load your weight trend. Pull to refresh." (specific, action named). Stats row: "Couldn't refresh your stats. Try again." Measurements: "Can't sync Fitness measurements — check your connection." (specific domain, recovery action). Photos: "Couldn't load your photos. Pull to refresh." (specific section, simple recovery). AI badge: "Analysis unavailable right now. We'll try again on next upload." (non-blocking, reassuring). | Calibrated `--color-error-red` only on genuine operational failure (never on every missing field). Red border or red icon + text, never colour-alone. Glyph + word paired (small alert icon + "couldn't sync"). Cached data is retained and displayed (honest fallback). Error messages are warm, specific, never shaming. |
+| **Offline** | All sections show cached data (last known weight, measurements, photos). Pull-to-refresh is dimmed. Network banner: "You're offline — showing your last sync from [time]." (48pt, ink-brown-800 card, white at 60% text). Photo uploads and measurement saves queue locally with a "will upload when connected" status indicator on the respective cards. | "You're offline — showing your last sync." (honest, time-anchored). FAB remains visible; bottom sheet can capture data locally. | Cached data is never hidden silently. Network banner is always visible when offline (never a surprise reconnect). Queued uploads show a subtle pending indicator (such as a small "⟳ pending" label on a photo thumbnail, white at 50%, never red or urgent). |
+
+### Signature & anti-generic
+
+**Ownable Balencia moment:** The **photo timeline as a drawn `TimelineAgenda` progress path** — a vertical checkpoint track threading captures top→bottom, where the path itself is a continuous drawn stroke (the brand's signature "draw, never fade" motif). Past captures are reached checkpoints (forest-green nodes with checkmarks, a permanent achievement); the latest is the present moment (orange ring + warm glow); the next is an invitation (ghosted node, never pressure). The **path never turns red and never breaks visibly** — a long gap between captures is a calm dashed segment, never an alarm. This is unmistakably Balencia: the warm-glow surfaces, the continuous stroke, the non-shaming body-neutral framing ("you showed up to capture"), the forest-green arrival language.
+
+**Secondary ownable moment:** The **Sparkline body-metric link** beneath the photo header — an axis-less miniature Living Line (VK-001), orange stroke, ending in a green dot when the latest point marks a goal arrival. This visual bridge connects the emotional photo journey to the quantitative body data without duplicating the full weight chart. It earns its place by tying the two halves of the screen together: "your photos and your body changes are one story."
+
+**Anti-generic fixes:**
+- The **photo timeline is not a flat horizontal film-strip** — it is a drawn, dated checkpoint track with a journey metaphor. CK-P6 (anti-generic layout) applies: the photo strip is broken into a narrative structure (past captures are landed, future is an invitation).
+- The **SIA note, weight chart, and photo timeline are three focal surfaces, not a flat card wall** — varied depth (glow sizes), varied entry timings (draw-first sequencing), varied color roles (orange data-ink on chart, green arrivals on timeline, purple SIA accent). The screen is not symmetric or monotonous.
+- The **bottom sheet is not generic** — its three option cards carry inline icons and warm subtitles ("Front, side, or back view"). The copy is specific and warm, never "Item 1 / Item 2."
+- The **privacy notice is a premium detail** — it is not a legal footnote; it is a warm trust statement ("Your photos are encrypted. Only visible to you."), a coaching moment, not a disclaimer.
+- The **empty states are calibrating, not degenerate** — a day-1 user sees a body silhouette illustration (aspirational, never empty/red), warm SIA copy, and clear CTAs. No blank canvas.
+
+### Accessibility
+
+**Contrast pairs (load-bearing elements, on `--color-ink-900` and `--color-ink-brown-800` backgrounds):**
+
+| Element | Color | Contrast |
+| --- | --- | --- |
+| SIA message text | `--color-alpha-white-100` | ≥12:1 on `--color-ink-brown-800` |
+| SIA purple dot (indicator only) | `--color-royal-purple` | ≥3:1; paired with SIA label "SIA" text, never colour-alone |
+| Header title "Progress & body comp" | `--color-alpha-white-100` | ≥12:1 on `--color-ink-900` |
+| Domain accent line (2pt red) | `--color-domain-fitness` (`--color-domain-fitness`) | ≥3:1 on `--color-ink-900` (WCAG 1.4.11); identity-only (not load-bearing data) |
+| Chart line (orange stroke) | `--color-brand-orange` | ≥3:1 on `--color-ink-brown-800` / chart area |
+| Chart target line (white/30% dashed) | `--color-alpha-white-30` | ≥3:1 on chart fill (Visualization responsibility) |
+| Chart data dots (orange) | `--color-brand-orange` | ≥3:1 (Visualization responsibility) |
+| Time range pill active (orange fill) | `--color-alpha-white-100` (text on orange bg) | ≥4.5:1 |
+| Time range pill inactive | `--color-alpha-white-50` (text on transparent) | ≥4.5:1 on `--color-ink-900` |
+| Stats row numbers | `--color-alpha-white-100` | ≥12:1 |
+| Stats row labels | `--color-alpha-white-50` | ≥4.5:1 |
+| Trend arrow (green, improving) | `--color-forest-green` | ≥3:1 on background; **paired with numeric delta text**, never colour-alone |
+| Trend arrow (fitness-red, not improving) | `--color-domain-fitness` (`--color-domain-fitness`) | ≥3:1; **paired with numeric delta text + glyph**, never colour-alone |
+| Measurements label + value | `--color-alpha-white-100` | ≥12:1 |
+| "see all" / "compare" links | `--color-brand-orange` | ≥3:1 (WCAG 1.4.11) |
+| Photo date labels | `--color-alpha-white-50` | ≥4.5:1 on `--color-ink-900` |
+| Photo type indicator (silhouette icon) | `--color-alpha-white-60` | ≥4.5:1 on icon backdrop circle |
+| AI badge border (purple) | `--color-royal-purple` at 20% opacity | ≥3:1 on `--color-ink-brown-800` (identity-only, not load-bearing) |
+| AI badge icon + text | `--color-royal-purple` + `--color-alpha-white-100` | ≥3:1 each, never colour-alone |
+| Privacy lock icon | `--color-alpha-white-40` | ≥4.5:1 on `--color-ink-brown-800` |
+| Privacy primary text | `--color-alpha-white-50` | ≥4.5:1 |
+| FAB text (white on orange) | `--color-alpha-white-100` on `--color-brand-orange` | ≥4.5:1 |
+| Bottom sheet option label | `--color-alpha-white-100` | ≥12:1 |
+| Bottom sheet option subtitle | `--color-alpha-white-50` | ≥4.5:1 |
+
+**Focus-visible ring:** `CK-T03 --focus-ring` (2px orange, 2px offset) on all interactive elements (time range pills, "see all" link, "compare" link, FAB, photo thumbnail, bottom sheet cards, measurement rows, stats row column taps). Uniform app-wide, never missed.
+
+**Touch targets:** All interactive elements ≥44×44pt. Photo thumbnails have expanded touch targets (the label area below the image counts toward the target). Bottom sheet cards are 64pt tall (meets 44pt minimum). Time range pills are 32pt tall but have 44pt vertical + 44pt horizontal padding. Stats row columns are tappable regions ≥44pt wide each.
+
+**Color + glyph + word:** Trend arrows are never colour-only. Every up/down arrow is paired with a numeric delta (such as "+1" in green or "−2" in green). The AI badge icon is paired with text ("AI Analysis"); the SIA dot is paired with the label "SIA"; the photo type indicator (silhouette) is paired with a date label; the privacy lock is paired with "Photos encrypted" text. Status never rides on colour alone.
+
+**Screen reader labels:**
+- SIA note card: `aria-label="SIA coaching note"` + the full message text is readable by scrolling into the card.
+- Weight chart: `aria-label="Weight trend chart over 30 days. Current 78.2 kg. Target 75 kg. Down 1.3 kg from 30 days ago."` (summary for the chart).
+- Time range pills: each pill is a button with `aria-label="[range], [active or inactive]"` (such as "3 months, active").
+- Stats row: `aria-label="Weight 78.2 kilograms, down 0.4 from last week. BMI 24.1. Body fat 18%."` (summary; each column can be tabbed and announced individually).
+- Measurements row: each row is a button with `aria-label="Waist: 82 centimeters, down 1.5 from last month."` (label + value + trend).
+- Photo timeline: `aria-label="5 progress captures. Latest May 21. Next suggested in 2 weeks."` (summary). Each node: `role="listitem"` or `role="button"` with `aria-label="[date], captured, [type] view, tap to view full photo"` + visible glyph (✓ for reached, orange ring for latest, dot for next).
+- Sparkline: `aria-label="Weight trend, 7-point line, latest 72.4 kilograms."` (text equivalent; never relies on the visual alone).
+- AI badge: `aria-label="AI analysis: 18 percent body fat, muscle gain detected."` (readable label, never just a purple icon).
+- Privacy notice: `role="status"` + `aria-label="Your photos are encrypted and stored only on your device."` (important trust info, announced on screen load).
+- FAB: `aria-label="Add progress entry, button."` (clear action).
+- Photo comparison modal: `aria-label="Comparing photos from March 15 and May 21. Slider at 50 percent."` (orientation + slider state).
+
+**Reduced-motion (`prefers-reduced-motion: reduce`):** All animations collapse to final state. The weight chart line appears fully drawn (not stroke-animating). The path appears fully drawn. The Sparkline appears fully drawn with the green end dot (if applicable). All staggered entrances are simultaneous/instant. The latest-capture node's glow pulse is off; the static orange ring + subtle warm depth is preserved (the visual is still distinct, just not animating). No urgency motion on any surface.
+
+Conform to `design-audit/CONSISTENCY.md`.
+
+
+---
+
 ## Typography
 
 | Element | Font | Size | Weight | Color | Notes |
@@ -634,14 +893,16 @@ The screen follows the **Domain Dashboard Template** established in Screen 26, w
 | Photo timeline card | Screen mount | fade-in + translateY(12 to 0) | 280ms | ease-out-soft |
 | Privacy notice | Screen mount | fade-in + translateY(12 to 0) | 280ms | ease-out-soft |
 | All content entry | Screen mount | staggered: 80ms between elements | 280ms each | ease-out-soft |
-| Weight chart line | Mount/range change | line draws from left to right (stroke-dashoffset) | 520ms | ease-flow |
+| Weight chart line | Mount/range change | Living Line draws itself left to right (stroke-dashoffset, stroke-draw) | 1200ms (--dur-flow) | ease-flow |
 | Weight chart fill | After line draw | gradient fades in from 0 to 15% opacity | 280ms | ease-out-soft |
 | Chart data dots | After line draw | scale-in from 0.5, 40ms stagger per dot | 160ms each | ease-out-soft |
 | Stats row values | Scroll into view | count-up from 0 | 280ms | ease-out-soft |
 | Trend arrows | After value count-up | fade-in + translateY(4 to 0) | 160ms | ease-out-soft |
 | Measurement row expand | Tap row | height 0 to 120pt, sparkline fades in | 280ms | ease-out-soft |
 | Measurement row collapse | Tap expanded row | height 120pt to 0, sparkline fades out | 280ms | ease-out-soft |
-| Photo strip thumbnails | Mount | staggered fade-in, 60ms per photo | 280ms each | ease-out-soft |
+| TimelineAgenda path | Scroll into view | path draws itself top→bottom (stroke-draw), reached orange→green segment before unreached | 1200ms (--dur-flow) | ease-flow |
+| Timeline nodes + thumbnails | After path reaches each | node settles 0.8→1 then thumbnail fades in, 60ms stagger | 280ms each | ease-out-soft |
+| Latest-capture node glow | Continuous | --glow-orange-sm pulse (the single sanctioned pulse) | 2s loop | ease-flow |
 | AI badge | After photos mount | fade-in + scale(0.95 to 1) | 280ms | ease-out-soft |
 | AI badge analyzing dot | Continuous | purple dot pulse (opacity 0.4 to 1.0) | 800ms loop | ease-flow |
 | Chart crosshair | Touch-hold | opacity 0 to 1, vertical line appears | 160ms | ease-out-soft |
