@@ -545,6 +545,11 @@ export const domainProgress: DomainProgress[] = [
   { domain: 'meditation',    activeMissions: 1, weekDelta: 1,  monthDelta: 4 },
 ]
 
+// S16-V02 — 7-week Life Power history for the Life Areas trajectory sparkline (latest = user.lifePower).
+export const lifePowerHistory = [402, 418, 431, 440, 455, 472, 487]
+// Completed missions count (Me [17] stats row).
+export const missionsCompleted = 12
+
 export const missions: Mission[] = [
   {
     id: '1', name: 'Run a half marathon', domain: 'fitness', domains: ['fitness', 'nutrition'], type: 'main',

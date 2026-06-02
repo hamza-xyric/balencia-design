@@ -13,12 +13,17 @@ import {
   Star,
   Trophy,
 } from 'lucide-react'
+import { MomentumBar } from '@/components/charts/MomentumBar'
+import { StatBar } from '@/components/charts/StatBar'
+import { CountUp } from '@/components/CountUp'
 import { LevelBadge } from '@/components/design-system/LevelBadge'
+import { Eyebrow } from '@/components/design-system/Eyebrow'
 import { PhoneFrame } from '@/components/layout/PhoneFrame'
 import { ScreenShell } from '@/components/layout/ScreenShell'
 import { ModuleCard } from '@/components/screens/ModuleCard'
 import { StatTile } from '@/components/screens/StatTile'
-import { suggestedModules, type ExploreModule, user } from '@/data/mock'
+import { domainDashboardRoutes } from '@/data/domains'
+import { domainStats, missionsCompleted, suggestedModules, type ExploreModule, user } from '@/data/mock'
 
 // Screen 17 of 78: Me main
 // Spec: /Users/hamza/yHealth/app_design 3/17-me-main.md
@@ -49,11 +54,9 @@ function moduleForTier(module: ExploreModule) {
 }
 
 function ProfileSection() {
-  const progress = Math.max(0, Math.min(user.currentLevelXP / user.nextLevelXP, 1))
-
   return (
     <section className="flex flex-col items-center pt-4 text-center">
-      <Link href="/tabs/me/profile-edit" className="relative block">
+      <Link href="/tabs/me/profile-edit" className="focus-ring relative block rounded-full">
         <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/20 bg-ink-brown-800 text-[24px] font-bold text-white shadow-1">
           {user.avatar}
         </div>
@@ -62,15 +65,19 @@ function ProfileSection() {
         </span>
       </Link>
 
-      <h1 className="mt-3 text-h2 font-semibold leading-[26px] text-white">{user.name}</h1>
-      <Link href="/tabs/me/rpg" className="mt-2 flex min-h-11 items-center justify-center rounded-pill px-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-orange/70">
+      <h1 className="mt-3 text-h2 font-semibold leading-[var(--leading-snug)] text-white">{user.name}</h1>
+      <Link href="/tabs/me/rpg" className="focus-ring mt-2 flex min-h-11 items-center justify-center rounded-pill px-3" aria-label={`Level ${user.level}, view RPG character`}>
         <LevelBadge level={user.level} />
       </Link>
 
+      {/* XP as the Living-Line bar (the one focal viz on this hub) */}
       <div className="mt-3 w-[calc(100%-64px)]">
-        <div className="h-1.5 overflow-hidden rounded-pill bg-ink-brown-800">
-          <div className="h-full rounded-pill bg-brand-orange" style={{ width: `${progress * 100}%` }} />
-        </div>
+        <MomentumBar
+          value={user.currentLevelXP}
+          max={user.nextLevelXP}
+          showPercent={false}
+          aria-label={`${user.currentLevelXP.toLocaleString()} of ${user.nextLevelXP.toLocaleString()} XP to level ${user.level + 1}`}
+        />
         <div className="mt-1 text-right text-[12px] leading-4 text-white/50">
           {user.currentLevelXP.toLocaleString()} / {user.nextLevelXP.toLocaleString()} XP
         </div>
@@ -81,17 +88,38 @@ function ProfileSection() {
   )
 }
 
+function LifePowerComposition() {
+  const top = [...domainStats].sort((a, b) => b.stat - a.stat).slice(0, 5)
+
+  return (
+    <section className="surface-warm p-5">
+      <Eyebrow>Life Power is made of</Eyebrow>
+      <div className="mt-3 space-y-3">
+        {top.map((stat) => (
+          <Link key={stat.domain} href={domainDashboardRoutes[stat.domain]} className="focus-ring block rounded-md">
+            <StatBar domain={stat.domain} value={stat.stat} tone="orange" size="compact" />
+          </Link>
+        ))}
+      </div>
+      <Link href="/tabs/me/rpg" className="focus-ring mt-3 inline-flex min-h-11 items-center rounded-md text-caption font-semibold leading-[18px] text-brand-orange">
+        See all 10 areas
+      </Link>
+    </section>
+  )
+}
+
 function StatsRow() {
   return (
     <Link
       href="/tabs/me/rpg"
-      className="flex h-20 items-center rounded-lg border border-white/[0.06] bg-ink-brown-800 p-4 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-[0.97]"
+      className="focus-ring flex h-20 items-center rounded-lg border border-white/[0.06] bg-ink-brown-800 p-4 transition-transform duration-[var(--dur-fast)] active:scale-[0.97]"
+      style={{ boxShadow: 'var(--edge-highlight), var(--shadow-1)' }}
       aria-label="Open RPG character"
     >
       <StatTile value={user.currentStreak} label="Day streak" />
-      <StatTile value={12} label="Completed" />
+      <StatTile value={missionsCompleted} label="Completed" />
       <StatTile
-        value={<span className="inline-flex items-center justify-center gap-1"><span className="text-brand-orange">◆</span>{user.lifePower}</span>}
+        value={<span className="inline-flex items-center justify-center gap-1"><span className="text-brand-orange">◆</span><CountUp value={user.lifePower} durationMs={520} /></span>}
         label="Life Power"
       />
       <StatTile value={user.totalXP.toLocaleString()} label="Total XP" />
@@ -106,8 +134,8 @@ function QuickLinksGrid() {
         <Link
           key={label}
           href={route}
-          className="relative flex min-h-[72px] flex-col rounded-md border border-white/[0.06] bg-ink-brown-800 p-4 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-[0.97] animate-fade-up"
-          style={{ animationDelay: `${220 + index * 45}ms` }}
+          className="focus-ring relative flex min-h-[72px] flex-col rounded-md border border-white/[0.06] bg-ink-brown-800 p-4 transition-transform duration-[var(--dur-fast)] active:scale-[0.97] animate-fade-up"
+          style={{ boxShadow: 'var(--edge-highlight), var(--shadow-1)', animationDelay: `${220 + index * 45}ms` }}
         >
           <Icon size={22} className={orange ? 'text-brand-orange' : 'text-white/70'} strokeWidth={1.8} />
           <span className="mt-2 text-[15px] font-semibold leading-5 text-white">{label}</span>
@@ -124,10 +152,8 @@ function ExplorePreview() {
   return (
     <section>
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-white/50">
-          Suggested for you
-        </h2>
-        <Link href="/tabs/me/explore" className="flex min-h-11 items-center px-1 text-[14px] font-semibold leading-[18px] text-brand-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-orange/70">
+        <Eyebrow>Suggested for you</Eyebrow>
+        <Link href="/tabs/me/explore" className="focus-ring flex min-h-11 items-center rounded-md px-1 text-[14px] font-semibold leading-[18px] text-brand-orange">
           See all
         </Link>
       </div>
@@ -155,7 +181,7 @@ export default function MeMainScreen() {
         <main className="relative px-4 pb-16 pt-2">
           <Link
             href="/tabs/me/settings"
-            className="absolute right-2 top-2 z-10 flex h-11 w-11 items-center justify-center rounded-full text-white/60 transition-transform duration-[var(--dur-fast)] active:scale-90"
+            className="focus-ring absolute right-2 top-2 z-10 flex h-11 w-11 items-center justify-center rounded-full text-white/60 transition-transform duration-[var(--dur-fast)] active:scale-90"
             aria-label="Settings"
           >
             <Settings size={22} strokeWidth={1.8} />
@@ -167,6 +193,10 @@ export default function MeMainScreen() {
 
           <div className="mt-6 animate-fade-up" style={{ animationDelay: '100ms' }}>
             <StatsRow />
+          </div>
+
+          <div className="mt-4 animate-fade-up" style={{ animationDelay: '160ms' }}>
+            <LifePowerComposition />
           </div>
 
           <div className="mt-6">
