@@ -33,7 +33,7 @@ export function QuickActionsRow({ actions, onAction, className = '', ...props }:
             key={action.id}
             type="button"
             onClick={() => onAction?.(action.id)}
-            className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-pill border border-alpha-white-08 bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white shadow-1"
+            className="focus-ring inline-flex min-h-11 shrink-0 items-center gap-2 rounded-pill border border-alpha-white-08 bg-ink-brown-800 px-4 text-caption font-semibold leading-[18px] text-white shadow-1"
             aria-label={`${action.label}, tap to open`}
           >
             {action.isSIASuggested && <span className="h-1 w-1 rounded-full bg-royal-purple" aria-hidden="true" />}

@@ -142,7 +142,7 @@ Updated: complete consolidation covering Screens 01–72, all 14 batches + gap a
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--grad-progress` | Teal/green → warm progress color | Progress movement in charts |
+| `--grad-progress` | `linear-gradient(90deg, #FF5E00 → #34A853)` — orange (effort) → green (arrival) | Progress movement / the Living Line path-of-progress (canonical in `globals.css`; the earlier teal→warm definition is retired per CK-F00 / VK-018) |
 | `--grad-growth` | Warm yellow/orange → stronger orange | Growth and effort indicators |
 | `--grad-status` | Green → warm status color | 0% to 100% completion status |
 | `--grad-hero-glow` | radial-gradient(circle, rgba(255, 94, 0, 0.42) 0%, rgba(255, 94, 0, 0) 70%) | Hero atmosphere, depth glow |

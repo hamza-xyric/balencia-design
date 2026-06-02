@@ -164,6 +164,47 @@
   /* Glass */
   --glass-border: rgba(255, 255, 255, 0.06);
   --glass-border-strong: rgba(255, 255, 255, 0.1);
+
+  /* === Depth tokens (VK-017 — viz-build) ===
+     Minted once here; the craft + viz kits reference these by name. */
+  --orange-light: #FF8A3D;
+  --grad-orange: linear-gradient(180deg, var(--color-brand-orange) 0%, var(--orange-light) 100%);
+  --grad-progress: linear-gradient(90deg, var(--color-brand-orange) 0%, var(--color-forest-green) 100%);
+  /* Recessed inner track. Spec value is rgba(0,0,0,0.28); expressed via the brand's
+     screen-base ink-900 rgb(10,10,15) so it carves toward the screen base AND clears
+     verify:brand's cool pure-black-shadow guard. Visually equivalent at 0.28. */
+  --track-inset: rgba(10, 10, 15, 0.28);
+  /* Size-stepped glow scale (calibrated by element size — never neon). */
+  --glow-orange-md: 0 0 20px rgba(255, 94, 0, 0.40);
+  --glow-orange-sm: 0 0 12px rgba(255, 94, 0, 0.35);
+  --glow-green-md: 0 0 20px rgba(52, 168, 83, 0.36);
+  --glow-green-sm: 0 0 12px rgba(52, 168, 83, 0.32);
+  --glow-purple-md: 0 0 20px rgba(127, 36, 255, 0.36);
+  --glow-purple-sm: 0 0 12px rgba(127, 36, 255, 0.32);
+  /* SVG-filter glow (drop-shadow-shaped). The box-shadow --glow-* tokens cannot feed an
+     SVG filter:drop-shadow(); these are the token-backed equivalents for strokes/dots/slices.
+     Radii are smaller than the box-shadow scale on purpose — a 32px bloom on a 2px stroke
+     reads neon. */
+  --glow-drop-orange-sm: drop-shadow(0 0 3px rgba(255, 94, 0, 0.35));
+  --glow-drop-orange-md: drop-shadow(0 0 6px rgba(255, 94, 0, 0.45));
+  --glow-drop-orange-lg: drop-shadow(0 0 8px rgba(255, 94, 0, 0.35));
+  /* Brand stroke-width scale (§8). */
+  --stroke-thin: 2px;
+  --stroke-base: 4px;
+  --stroke-bold: 8px;
+  --stroke-poster: 12px;
+
+  /* === Craft tokens (CK-T — design-audit) === */
+  --edge-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --surface-backplate: radial-gradient(120% 90% at 50% 0%, rgba(255, 94, 0, 0.05) 0%, transparent 60%);
+  --focus-ring: 0 0 0 2px var(--color-ink-900), 0 0 0 4px var(--color-brand-orange);
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.6;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-eyebrow: 0.12em;
 }
 
 body {
@@ -186,6 +227,30 @@ body {
   background-color: var(--color-ink-brown-800);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
+}
+
+/* === CK-P1 · Layered Warm Surface ===
+   The anti-flat-box default: warm ink body + top-edge highlight + honest shadow.
+   .surface-hero adds the faint warm backplate behind above-the-fold heroes (CK-P2). */
+.surface-warm {
+  background-color: var(--color-ink-brown-800);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--edge-highlight), var(--shadow-1);
+}
+
+.surface-hero {
+  background-color: var(--color-ink-brown-800);
+  background-image: var(--surface-backplate);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--edge-highlight), var(--shadow-1);
+}
+
+/* === CK-P8 / CK-T03 · the one app-wide focus ring === */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 /* Scrollbar hiding */
@@ -479,4 +544,121 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
+}
+
+/* === Living-Line / Constellation draw (§8 — draw, never fade) ===
+   Stroke geometry normalized via pathLength="1"; the stroke reveals itself by
+   retracting its dash offset. Never an opacity fade on a line. */
+@keyframes line-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.line-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: line-draw var(--dur-flow) var(--ease-flow) forwards;
+}
+
+/* Sparkline / shorter strokes draw at the 520ms step. */
+.line-draw-slow {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: line-draw var(--dur-slow) var(--ease-flow) forwards;
+}
+
+/* Radar/area fill arrives with its stroke (an area, not a line — gentle reveal). */
+@keyframes area-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.area-in {
+  animation: area-in var(--dur-slow) var(--ease-flow) both;
+}
+
+/* === MomentumBar — the horizontal Living Line fills left→right === */
+@keyframes momentum-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.momentum-animate {
+  transform-origin: left center;
+  animation: momentum-fill var(--dur-slow) var(--ease-flow) forwards;
+}
+
+/* === GaugeRing — arc-following gradient fill ===
+   The arc-following gradient is a conic-gradient behind a circular (annulus) mask;
+   an SVG linearGradient cannot sweep along a ring arc. The swept angle is a
+   registered <angle> custom property so it animates 0→target on the GPU without JS,
+   and the round end-cap rides the same property so it tracks the arc tip. */
+@property --gauge-sweep {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes gauge-fill {
+  from {
+    --gauge-sweep: 0deg;
+  }
+  to {
+    --gauge-sweep: var(--gauge-target, 0deg);
+  }
+}
+
+.gauge-animate {
+  animation: gauge-fill var(--dur-slow) var(--ease-flow) forwards;
+}
+
+.gauge-cap-animate {
+  animation: gauge-fill var(--dur-slow) var(--ease-flow) forwards;
+}
+
+/* === Reduced motion — the settled final frame is the canonical frame ===
+   Strokes fully drawn + end dots present, fills at rest, rings at final fill,
+   loops off — the identity survives without motion (CK-P4 / §8). */
+@media (prefers-reduced-motion: reduce) {
+  .line-draw,
+  .line-draw-slow {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .ring-animate {
+    animation: none;
+    stroke-dashoffset: var(--ring-target, 0);
+  }
+
+  .momentum-animate {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .gauge-animate,
+  .gauge-cap-animate {
+    animation: none;
+  }
+
+  .area-in,
+  .animate-fade-up,
+  .radar-grow,
+  .radar-dot {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
