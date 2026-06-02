@@ -1,0 +1,26 @@
+# whoop — official store screenshot sources
+
+- `app-store/01-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/Features126/v4/ba/91/1a/ba911ac0-dae3-7dfc-46a5-3b2c1020955f/731619d1-37fa-4b57-ab3f-5621709a2343.png
+- `app-store/02-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ec/05/73/ec0573a5-b7d3-01c0-8c90-37c5f1b0678e/EN-iOS-6.5-1284x2778-Vertical-Frame-01.jpg
+- `app-store/03-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/20/84/67/208467a4-664a-1090-f14e-5e6561606c89/iOS-6.5-1284x2778-Vertical-Frame_02-SLEEP.png
+- `app-store/04-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/55/3c/1e/553c1e21-45f9-4715-fb35-3ed5e6bbe8cd/iOS-6.5-1284x2778-Vertical-Frame_03-RECOVERY.png
+- `app-store/05-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/4f/fd/11/4ffd1104-86e4-d933-4234-b1679ff86046/iOS-6.5-1284x2778-Vertical-Frame_04-STRAIN.png
+- `app-store/06-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cd/a3/08/cda30891-d1a2-c70d-c182-f6e44b3ef753/iOS-6.5-1284x2778-Vertical-Frame_05-HEALTHSPAN.png
+- `app-store/07-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a5/a5/b8/a5a5b8bb-8168-dcb4-decb-ccf8acdb1c9c/iOS-6.5-1284x2778-Vertical-Frame_06-COACH.png
+- `app-store/08-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/53/e4/ab/53e4ab07-5a59-0c4a-dd5e-a52aef2fbf16/iOS-6.5-1284x2778-Vertical-Frame_07-JOURNAL.png
+- `app-store/09-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/01/9a/52/019a5260-a432-5a1a-2732-9246e01f4325/iOS-6.5-1284x2778-Vertical-Frame_08-MCI.png
+- `app-store/10-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d2/48/e9/d248e956-eea7-b108-610a-cf51cbe7a9c8/iOS-6.5-1284x2778-Vertical-Frame_09-STRESS.png
+- `app-store/11-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9e/08/0f/9e080fb3-abff-5a5b-a90b-6a3c52f99234/iOS-6.5-1284x2778-Vertical-Frame_10-WEEKLY.png
+- `app-store/12-whoop-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/3a/03/f3/3a03f346-e3b1-242c-22da-48b57bed0234/EN-iPad-2752x2064-Horizontal-Frame-01__U00281_U0029.png
+- `google-play/01-whoop-googleplay.png` — https://play-lh.googleusercontent.com/RpXxly7Gn0C_MjCHbynE9QxhMgC2D3PI4CAC7E2ujha2GRqepYWgH9IletL1x5facA
+- `google-play/02-whoop-googleplay.png` — https://play-lh.googleusercontent.com/xl04GurQer374yogi24hRkvUcXtMStMOcOo86Sprmrid9j6wQHF0d9xMh73CwUEg57lbsGIwpOXgrJ927Q
+- `google-play/03-whoop-googleplay.png` — https://play-lh.googleusercontent.com/CCooyLouqo7laO7wODMWN7VtFw7S57i3miCSkXkYZ3cKeW30mGJ9T8ch1lrUWczbssM
+- `google-play/04-whoop-googleplay.png` — https://play-lh.googleusercontent.com/pI_Tog1o49ckZKrh4XzBOuxW_IEH9x--nlrIeHZT1GydM2xmdPxiSqj7pYxbRY36Fg
+- `google-play/05-whoop-googleplay.png` — https://play-lh.googleusercontent.com/d1kRT3SwurLuTcKk4PY72WvIvQDo3Ezi9rQDbx62KfiOnQuetPR7t3hiaZ78lnNWryUD
+- `google-play/06-whoop-googleplay.png` — https://play-lh.googleusercontent.com/rqNptXckUj-23Ei7ABYeXnZY7sJuas4mi7Ktj5aU4mzmv-l696IhCXHJbL17V71fokMy
+- `google-play/07-whoop-googleplay.png` — https://play-lh.googleusercontent.com/x3qh9CtLLpHgJR00G6QoXPX24Hzt0Qf0ztO2fcm_eeErkUW1y89XHhZxoDX-4L7pQA
+- `google-play/08-whoop-googleplay.png` — https://play-lh.googleusercontent.com/9J-rVDfGgEAtQyfRLT9v8ZCZsOXocQIHmR5frEbTrKbHBZUvnnAm6In7syUUG_zwd_K2
+- `google-play/09-whoop-googleplay.png` — https://play-lh.googleusercontent.com/SVMtbO_6I8pQsnZ-GA8PoPvcgneexf6sjvySc7avtKulYdij12M3h9TCY4-gp8COqzU
+- `google-play/10-whoop-googleplay.png` — https://play-lh.googleusercontent.com/9lqF46Fgck4futHaABhOWVL48rye_NtgXdlcv1fJfCqH_ommYmuIOeGRKAkyqH5VJiMn
+- `google-play/11-whoop-googleplay.png` — https://play-lh.googleusercontent.com/iFstqoxDElUVv4T3KxkxP3OTcuFvWF5ZQQjT7aIxy4n2uaVigCCykxeG6EZV9FQ10X1itPj1oORm
+- `google-play/12-whoop-googleplay.png` — https://play-lh.googleusercontent.com/12USW7aflgz466ifDehKTnMoAep_VHxDmKJ6jEBoDZWCSefOC-ThRX14Mqe0r8KF9XCzrpMqJts

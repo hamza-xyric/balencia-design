@@ -1,0 +1,23 @@
+# garmin — official store screenshot sources
+
+- `app-store/01-garmin-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/Features126/v4/ba/91/1a/ba911ac0-dae3-7dfc-46a5-3b2c1020955f/731619d1-37fa-4b57-ab3f-5621709a2343.png
+- `app-store/02-garmin-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/50/7c/a8/507ca8ab-74e0-c80a-b329-4b77cffb9ff3/281c5aef-ea28-42e8-abed-93dce3c23f8c_6.7-Phone-EN-01.png
+- `app-store/03-garmin-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/55/ad/b3/55adb3f1-8749-1d90-b328-64d8bc7a7a3d/f2b149b5-6638-4074-958e-f33fd507ec92_6.7-Phone-EN-02.png
+- `app-store/04-garmin-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f9/20/d9/f920d9bd-f363-03b8-9ccd-e886c7161a3e/02af283d-cacf-4339-809f-50aaa5fc2207_6.7-Phone-EN-03.png
+- `app-store/05-garmin-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f0/41/9f/f0419f55-bb71-0f0b-0ea3-4c01cfd98ba0/abf0fcaa-8d59-4f0c-b188-c080f79752c9_6.7-Phone-EN-04.png
+- `app-store/06-garmin-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7f/e6/d6/7fe6d626-33c0-12f8-fa4e-731a789065b5/d986e0cc-8375-4909-b84f-369261e938a3_6.7-Phone-EN-05.png
+- `app-store/07-garmin-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5e/46/5b/5e465b18-cfd2-d078-69ac-48180b4a6d19/be1823ab-56a3-46e1-94d1-e17933e4c972_6.7-Phone-EN-06.png
+- `app-store/08-garmin-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/46/a8/fa/46a8fa53-40cc-e736-85d2-f0ae5380cb65/8cfa801d-4ff7-4009-b599-f717cea855f5_6.7-Phone-EN-07.png
+- `app-store/09-garmin-appstore.png` — https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/35/7e/db/357edb43-83d2-2864-2483-f3628337c936/31e63fc4-0afe-4cbf-ae4b-c4e5421d14ac_6.7-Phone-EN-08.png
+- `google-play/01-garmin-googleplay.png` — https://play-lh.googleusercontent.com/iij3jFOUWtGGTVwOqved-9DLpBsRbvgfyPpFuebloLUuIz-JO42h2UVyQ-c8IrRg9kb9
+- `google-play/02-garmin-googleplay.png` — https://play-lh.googleusercontent.com/OBVqgRK7eerY0GPfK8AOzitu5oE9ecC6kG4kURTCb1K41gpqVsN0WjmJwJh-wX8vILzpcc1kYHt56aLN2g
+- `google-play/03-garmin-googleplay.png` — https://play-lh.googleusercontent.com/xvlPrn3s5R3pY4gUxcqyrc-zze0wg8kNX0ToKL10A2hk9k3ec7_aUAkd3_zCfS7ikmM
+- `google-play/04-garmin-googleplay.png` — https://play-lh.googleusercontent.com/0RwPiBy4z5P_Lb6oJYHAH7cR6RDPOAnt04n4-tNzUyF1ZyeaZrfVcBY2SJguYgKCXw
+- `google-play/05-garmin-googleplay.png` — https://play-lh.googleusercontent.com/df-CN7xu2Z7bWYmdJnWyeo03m0ZNbh1GpVpryIok3e0UCRp4NmaIp4R6vijmoBJvrg
+- `google-play/06-garmin-googleplay.png` — https://play-lh.googleusercontent.com/WYj0c16PfcVsqOC4dJPvLKeUHKkIA6W-EWaiakKN_bx4PoMjcKXpUPHt_-bQvas_Xw
+- `google-play/07-garmin-googleplay.png` — https://play-lh.googleusercontent.com/3X_YAMmo_t0qOp39IXfzkCC7ZtsuLdAMNRoorMPe0H_JkdNmFMspUZ569_cCksYoZTc
+- `google-play/08-garmin-googleplay.png` — https://play-lh.googleusercontent.com/nl0oJBI6A7SCTCxd6dhjtrTa2EZ3iSqiEsFbgpngGlt22FdbjSxTWkdbIR-Vpva5pBc
+- `google-play/09-garmin-googleplay.png` — https://play-lh.googleusercontent.com/L-2nGe4Ze3IxJqzoKrth_Aw8l9O9vsQg65bWRLnHisX4p9wETm8m0JnR1jzUGKRqZag
+- `google-play/10-garmin-googleplay.png` — https://play-lh.googleusercontent.com/6UP5ib89fRM4k72AZ5G5g9IyFUe0ODRMBTjpE38Mm4ESe7m7vTjrO6Gk0X3JPFqqYiM
+- `google-play/11-garmin-googleplay.png` — https://play-lh.googleusercontent.com/iFstqoxDElUVv4T3KxkxP3OTcuFvWF5ZQQjT7aIxy4n2uaVigCCykxeG6EZV9FQ10X1itPj1oORm
+- `google-play/12-garmin-googleplay.png` — https://play-lh.googleusercontent.com/12USW7aflgz466ifDehKTnMoAep_VHxDmKJ6jEBoDZWCSefOC-ThRX14Mqe0r8KF9XCzrpMqJts
