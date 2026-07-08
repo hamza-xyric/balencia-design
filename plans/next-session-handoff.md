@@ -1,54 +1,29 @@
-# Next-Session Handoff — Hi-Fi Build (104 screens)
+# Next-Session Handoff — Hi-Fi Build COMPLETE, Sweep Session Next
 
-> Status: IN PROGRESS — 55/104 complete, B5a in flight
-> Branch: `hifi-build` @ `7a19884` · Updated: 2026-07-08 (mid-session checkpoint)
+> Status: **ALL 104/104 SCREENS BUILT AND VERIFIED** · Branch: `hifi-build` · Updated: 2026-07-08
+> Every hi-fi spec renders at `/screens/[id]`; full `npm run check` green; validator 104/104;
+> SIA sweep clean; FULL-104 screenshot pass zero console errors.
 
-## Lane
+## What the next session is: the SWEEP session
 
-104-screen hi-fi build from `Balencia-New-Screens/hifi-screens/` into `balencia-screens/` (`/screens/[id]`). Plan approved at `/Users/hamza/.claude/plans/next-session-prompt-foamy-waterfall.md`. Durable truth: `Balencia-New-Screens/build-progress/BUILD-LEDGER.md` (orchestrator-only writes).
+1. **W-007 independent re-review** (highest priority): batches B5b (52,53,54,55,58,60,62), B6 (18,30–38), B7a (39,40,42,46,47,71,82,94,95), B7b (21–25,43,64,67,69,78,80,81,85,98) were built during the Anthropic spend-cap LIMIT EVENT with orchestrator-direct review only. Run independent trust + a11y + (for B5b) clinical-safety review agents over those 40 screens using the prompts pattern in this file's history / BUILD-LEDGER batch rows. Fix findings, re-gate, update ledger.
+2. **Cross-family visual consistency pass**: browse `Balencia-New-Screens/build-progress/screenshots/FULL-104/`; check type ramp, chip/provenance idiom, glow discipline, spacing rhythm across families; fix drift.
+3. **Deferred debt**: `figma-tokens-map.json` regen (globals.css grew canon tokens in B0); S04 offline-banner-in-default-frame; legacy SIA routes (W-005, separate lane); image slots backlog (`_IMAGE-SLOTS.md`).
+4. **Founder review**: present FULL-104 screenshots for direction sign-off.
 
-## Locked founder decisions
+## Build system (reuse for fixes)
 
-1. Dark glass only (warm-light spec passages = theme debt, not built).
-2. GLM 5.2 primary bulk drafter (spec content to z.ai approved — supersedes W-004); sonnet repairs; Fable owns truth.
-3. Branch `hifi-build`; path-scoped commits; repo-split deletions untouched.
-4. Max autonomous; verified batches only.
+- Truth: `Balencia-New-Screens/build-progress/BUILD-LEDGER.md` (orchestrator-only writes; per-screen rows with evidence).
+- Cheat-sheet for any agent: `Balencia-New-Screens/build-progress/KIT-CHEATSHEET.md`.
+- Kit: `balencia-screens/src/components/hifi/kit/` (all Btn*/IconButton/Chip-interactive are real buttons; ConsentRail interactive; DonutHub/TrendChart/ProgressRing/ChargeMeter/HeatGrid/VolumeBars viz set).
+- Screens: `src/components/hifi/screens/{auth,cia,today,intelligence,health,domains,profile,social,system}/S{id}{Name}.tsx`, family index maps, `registry.ts`.
+- Gates: `npm run check` (balencia-screens); `node Balencia-New-Screens/work/validate-redesign.mjs --json`; SIA rg sweep; `node scripts/hifi-screenshots.mjs --ids … --out …` (dev server on :3001).
+- GLM bridge (founder-approved for spec content): `scripts/glm-worker.sh -t 8192`; expect z.ai 529s under >4 concurrency — retry with 15–30s backoff.
 
-## Done this session
+## Locked decisions (unchanged)
 
-- Phase 0: baseline commit `ff59f6f`, gates green, GLM ping OK, BUILD-LEDGER created, dev server :3001.
-- B0 (3 commits `8bdc343`/`c4a2aba`/`5a06da7`): kit/ + screens/<family>/ + registry architecture (pixel-verified), canon tokens (glass tiers, inner glow, atmosphere, grain), Hanken Grotesk + Newsreader italic scoped `.hifi`, GlassNavBar, HifiShell.
-- Pilot P (`342af65`): 03, 07, 26, 28 + pilot kit (buttons, CIA orb/insight, ProgressRing/ChargeMeter/TrendChart/HeatGrid/VolumeBars/DonutHub, StepperRail). 10 review findings fixed.
-- B1 (`5123770`): 12 auth/onboarding screens. 16 review findings fixed (incl. pre-checked-consent dark pattern).
+Dark glass only · GLM 5.2 primary drafter (supersedes W-004) · branch `hifi-build` · "mission" never "goal" · CIA never SIA · persona Amira/Lv 12 · never invent policy/privacy numbers.
 
-## Closed batches
+## Session log (2026-07-08)
 
-B1 auth (12, commit `5123770`) → B2 cia/voice (8, `44390cb`) → B3 today/missions (9, `afd573a`) → B4 intel/profile (12, `7a19884`). Each: workflow build → review findings fixed → registered → gated → screenshot → ledger row.
-
-## In flight
-
-- **B5a** (workflow `wf_4bad103f-80c`): 27, 29, 49, 56, 57, 70, 86, 87, 88 → `screens/health/`. On completion: fix findings → register in `screens/health/index.ts` → flip statuses → `npm run check` → screenshots → ledger → commit.
-
-## Batch queue after B5a
-
-B5b mind/body (52,53,54,55,58,60,62 — safety-heaviest, slowest review) → B6 domains (18,30–38) → B7a social (39,40,42,46,47,71,82,94,95) → B7b account/system (21–25,43,64,67,69,78,80,81,85,98) → sweep session (full-104 screenshot pass, cross-family consistency, acceptance checklist).
-
-## Method per batch (proven in P + B1)
-
-1. Get spec filenames: grep screens.ts specFile.
-2. Workflow: digest (haiku) → GLM draft (haiku wrapper shelling `scripts/glm-worker.sh -t 8192`, prompt = directive + KIT-CHEATSHEET.md + spec) → sonnet builders (packets ≤4, never touch shared files) → trust + a11y reviews.
-3. Fix findings (one sonnet fixer with explicit list, or Fable direct).
-4. Fable: register in family index, flip statuses, full check, screenshots, visual inspect, ledger, commit.
-
-Key files: `Balencia-New-Screens/build-progress/KIT-CHEATSHEET.md` (feed to every agent), `balencia-screens/scripts/hifi-screenshots.mjs`, kit at `balencia-screens/src/components/hifi/kit/`.
-
-## Known debt
-
-- `figma-tokens-map.json` regen owed (B0 globals.css additions).
-- S04 renders offline banner inside its default frame (minor state-mixing; revisit in sweep).
-- Legacy SIA routes grandfathered (W-005).
-- Image slots = styled placeholders (`_IMAGE-SLOTS.md` backlog).
-
-## Verify commands
-
-From `balencia-screens/`: `npm run check`. From root: `node Balencia-New-Screens/work/validate-redesign.mjs --json` + `rg -n "\bSIA\b" Balencia-New-Screens/hifi-screens balencia-screens/src/app/screens balencia-screens/src/components/hifi balencia-screens/src/data/screens.ts` (must be 0 in hifi paths). GLM: `scripts/glm-worker.sh --ping`.
+Phase 0 → B0 architecture (3 commits) → pilot P (4) → B1 (12) → B2 (8) → B3 (9) → B4 (12) → B5a (9) — all with full workflow + independent reviews (62 findings fixed pre-limit). LIMIT EVENT mid-B5b → recovery mode (GLM direct via bash + Fable integration, W-007): B5b (7) → B6 (10) → B7a (9) → B7b (14). Commits `ff59f6f`…`ee10718` on `hifi-build`.

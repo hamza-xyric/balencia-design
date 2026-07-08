@@ -1,5 +1,10 @@
 # BUILD-LEDGER — Balencia 104-Screen Hi-Fi Prototype Build
 
+> **STATUS: ALL 104 SCREENS COMPLETE (2026-07-08).** Full npm run check green; validator
+> 104/104; SIA sweep clean; FULL-104 screenshot pass with zero console errors (evidence:
+> `screenshots/FULL-104/`). Open follow-up: sweep session — independent re-review of
+> B5b/B6/B7a/B7b (W-007), cross-family visual consistency pass, figma-tokens-map regen.
+>
 > Durable build truth for rendering `Balencia-New-Screens/hifi-screens/` (104 specs) into
 > `balencia-screens/` at `/screens/[id]`. **Sole writer: the Fable orchestrator.** Worker
 > output is evidence, not truth, until verified and applied here.
