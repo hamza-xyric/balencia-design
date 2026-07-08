@@ -6,6 +6,8 @@ Batches are thematic ledger groups + consistency-check units, not execution barr
 
 As of 2026-07-07, PASS means the screen was repaired and rechecked against the hardened validator. Rows marked `repair` were demoted from the previous false universal PASS and still need source/route audit before promotion.
 
+**Remediation run (2026-07-08 →):** the B+→A+++ remediation is underway per `build-progress/audit-2026-07-08/REMEDIATION-PLAN.md`; batch state lives in `build-progress/remediation-2026-07/REMEDIATION-LEDGER.md`. R0 closed 2026-07-08: strict-104 harness codified (`balencia-screens/scripts/verify-visual-104.mjs`), baseline captured at `737d5ad` (104/0/21, exact audit reproduction), independent W-007 TRIAGE filed 40/40 FIX-FILED (59H/101M/70L → clustered items `remediation-2026-07/R0/new-rw-items.md`), W-TRUNC-40/80 waived. W-007 remains formally open until R11 closure. PASS grades above predate the triage findings; the remediation ledger is the current quality state.
+
 | ID | Output name | Batch | Source | Status | Grade | Defects | Notes |
 |---|---|---|---|---|---|---|---|
 | 01 | 01-splash-screen | 1 | spec 01-* | PASS | 14/14 | — | pilot · repaired 2026-07-07 |
