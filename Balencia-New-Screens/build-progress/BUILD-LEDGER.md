@@ -81,8 +81,8 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 07 | 07-cia-onboarding-conversation.md | /onboarding | Auth & onboarding | P | complete | screens/auth/S07CiaOnboarding.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/07.png |  |
 | 08 | 08-initial-plan-summary.md | /onboarding | Auth & onboarding | B1 | complete | screens/auth/S08InitialPlanSummary.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/08.png |  |
 | 09 | 09-cia-chat.md | /ai-coach | CIA, voice & chat | A | complete | screens/cia/S09CiaChat.tsx | Batch A gates | 2026-07-08 baseline | — |  |
-| 10 | 10-cia-voice-in-chat.md | review-route only | CIA, voice & chat | B2 | todo | — | — | — | — | review-route only |
-| 11 | 11-cia-voice-full-screen.md | /voice-assistant, /voice-call | CIA, voice & chat | B2 | todo | — | — | — | — |  |
+| 10 | 10-cia-voice-in-chat.md | review-route only | CIA, voice & chat | B2 | complete | screens/cia/S10CiaVoiceInChat.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/10.png | review-route only |
+| 11 | 11-cia-voice-full-screen.md | /voice-assistant, /voice-call | CIA, voice & chat | B2 | complete | screens/cia/S11CiaVoiceFullScreen.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/11.png |  |
 | 12 | 12-home-screen.md | /dashboard, /activity-status | Today & missions | A | complete | screens/today/S12HomeScreen.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 13 | 13-goals-list.md | /goals | Today & missions | A | complete | screens/today/S13MissionBoard.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 14 | 14-goal-detail.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
@@ -122,7 +122,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 48 | 48-intelligence-dashboard.md | /wellbeing/insights | Life intelligence | A | complete | screens/intelligence/S48Intelligence.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 49 | 49-progress-photos.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
 | 50 | 50-profile-edit.md | /profile/edit | Profile & settings | B4 | todo | — | — | — | — |  |
-| 51 | 51-voice-call-history.md | /voice-call | CIA, voice & chat | B2 | todo | — | — | — | — |  |
+| 51 | 51-voice-call-history.md | /voice-call | CIA, voice & chat | B2 | complete | screens/cia/S51VoiceCallHistory.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/51.png |  |
 | 52 | 52-stress-management.md | /wellbeing/stress | Health & wellbeing | B5b | todo | — | — | — | — |  |
 | 53 | 53-breathing-exercises.md | /wellbeing/breathing | Health & wellbeing | B5b | todo | — | — | — | — |  |
 | 54 | 54-meditation-mindfulness.md | No live app route; source-only mindfulness surface. | Health & wellbeing | B5b | todo | — | — | — | — |  |
@@ -145,12 +145,12 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 71 | 71-achievement-gallery.md | /achievements | Profile & settings | B7a | todo | — | — | — | — |  |
 | 72 | 72-knowledge-graph.md | /knowledge-graph | Life intelligence | B4 | todo | — | — | — | — |  |
 | 73 | 73-mission-journal.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
-| 74 | 74-conversations-hub.md | /chat-history, /chat | CIA, voice & chat | B2 | todo | — | — | — | — |  |
+| 74 | 74-conversations-hub.md | /chat-history, /chat | CIA, voice & chat | B2 | complete | screens/cia/S74ConversationsHub.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/74.png |  |
 | 75 | 75-direct-chat.md | /messages | CIA, voice & chat | A | complete | screens/cia/S75DirectChat.tsx | Batch A gates | 2026-07-08 baseline | — |  |
-| 76 | 76-group-chat.md | /chat | CIA, voice & chat | B2 | todo | — | — | — | — |  |
-| 77 | 77-message-actions.md | review-route only | CIA, voice & chat | B2 | todo | — | — | — | — | review-route only |
+| 76 | 76-group-chat.md | /chat | CIA, voice & chat | B2 | complete | screens/cia/S76GroupChat.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/76.png |  |
+| 77 | 77-message-actions.md | review-route only | CIA, voice & chat | B2 | complete | screens/cia/S77MessageActions.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/77.png | review-route only |
 | 78 | 78-reports-center.md | review-route only | Social & community | B7b | todo | — | — | — | — | review-route only |
-| 79 | 79-call-summary.md | review-route only | CIA, voice & chat | B2 | todo | — | — | — | — | review-route only |
+| 79 | 79-call-summary.md | review-route only | CIA, voice & chat | B2 | complete | screens/cia/S79CallSummary.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/79.png | review-route only |
 | 80 | 80-music-coach.md | /soundscape | System & media | B7b | todo | — | — | — | — |  |
 | 81 | 81-video-library.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
 | 82 | 82-accountability-contract.md | /contracts | Social & community | B7a | todo | — | — | — | — |  |
@@ -170,7 +170,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 96 | 96-health-data-view.md | /whoop | Life intelligence | B4 | todo | — | — | — | — |  |
 | 97 | 97-plans-library.md | /plans | Today & missions | B3 | todo | — | — | — | — |  |
 | 98 | 98-system-states.md | /offline, /maintenance, /forbidden, /unauthorized, /coming-soon | System & media | B7b | todo | — | — | — | — |  |
-| 99 | 99-whatsapp-inbox.md | /whatsapp | CIA, voice & chat | B2 | todo | — | — | — | — |  |
+| 99 | 99-whatsapp-inbox.md | /whatsapp | CIA, voice & chat | B2 | complete | screens/cia/S99WhatsappInbox.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/99.png |  |
 
 ## Batch log
 
@@ -178,6 +178,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 |---|---|---|---|---|---|
 | A | 10 (09,12,13,16,48,63,66,75,89,91) | 2026-07-07 | 2026-07-07 | npm run check PASS (prior session) | Baseline commit ff59f6f |
 | P | 4 (03,07,26,28) | 2026-07-08 | 2026-07-08 | GLM drafts x4 OK; sonnet builds T1 green; trust+a11y reviews -> 10 findings, all fixed; npm run check PASS; console clean; screenshots reviewed | Commit 342af65. Chip gained interactive variant; TopBar title now ReactNode; VolumeBars key bug fixed |
+| B2 | 8 (10,11,51,74,76,77,79,99) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 2 sonnet builders T1 green; trust 4 (fabricated retention values killed, mic-state honesty, online-count mismatch) + a11y 11 (IconButton kit-wide -> real button, tablist semantics, contrast floors) — all 15 fixed + re-verified; npm run check PASS; 8/8 screenshots clean; 09 kit-regression check benign | Commit pending. Overlays 10/77 composed over dimmed base per plan |
 | B1 | 12 (01,02,03b,03c,03d,03e,04,05,05b,06,08,65) | 2026-07-08 | 2026-07-08 | 12 digests + 12 GLM drafts (1 empty, rebuilt from spec) + 3 sonnet builders T1 green; trust 4 findings (pre-checked consent dark pattern, fabricated confidence, masked-email mismatch, missing provenance) + a11y 12 findings — ALL 16 fixed + re-verified; npm run check PASS; 12/12 screenshots clean consoles | Central registration by orchestrator (single family index). New local components: OTP cells, ConsentCheckbox/Toggle, ConstellationRadar, MilestoneTimeline, PrivacyFooter |
 | B0 | 0 new (architecture) | 2026-07-08 | 2026-07-08 | npm run check PASS ×3; screenshot byte-diff pixel-identical on structural commit; canon-aligned shots reviewed | Commits 8bdc343 (kit+registry decomposition), c4a2aba (canon tokens), 5a06da7 (fonts/atmosphere/nav/glow). Evidence: screenshots/B0-baseline, B0-post-refactor, B0-canon-aligned. verify:copy gained inline-emphasis continuation rule. figma-tokens-map.json regen still owed. |
 

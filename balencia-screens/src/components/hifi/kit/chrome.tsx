@@ -59,9 +59,9 @@ export function TopBar({
 
 export function IconButton({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <span className="flex h-11 w-11 items-center justify-center rounded-full text-white/60" aria-label={label}>
+    <button type="button" className="flex h-11 w-11 items-center justify-center rounded-full text-white/60" aria-label={label}>
       {children}
-    </span>
+    </button>
   )
 }
 

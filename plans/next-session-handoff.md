@@ -1,102 +1,50 @@
-# Balencia Design Workspace - Next-Session Handoff
+# Next-Session Handoff — Hi-Fi Build (104 screens)
 
-- Last updated: 2026-07-07
-- Status: READY WITH WAIVERS
-- Current lane: 104-screen hi-fi prototype conversion
-- Active implementation root: `balencia-screens/`
-- Exact next recommended slice: Batch B auth/onboarding screens from `Balencia-New-Screens/hifi-screens/`, building on the new `/screens/<id>` renderer.
+> Status: IN PROGRESS — 26/104 complete, B2 in flight
+> Branch: `hifi-build` @ `5123770` · Updated: 2026-07-08 (mid-session checkpoint)
 
-## Read-First Order
+## Lane
 
-1. Root `AGENTS.md`
-2. `balencia-screens/AGENTS.md`
-3. `balencia-screens/README.md`
-4. `plans/batches/HIFI-PROTOTYPE-A/batch.md`
-5. `Balencia-New-Screens/hifi-screens/_HIFI-LEDGER.md`
-6. `Balencia-New-Screens/hifi-screens/_IMAGE-SLOTS.md`
-7. Target hi-fi specs for the next batch
+104-screen hi-fi build from `Balencia-New-Screens/hifi-screens/` into `balencia-screens/` (`/screens/[id]`). Plan approved at `/Users/hamza/.claude/plans/next-session-prompt-foamy-waterfall.md`. Durable truth: `Balencia-New-Screens/build-progress/BUILD-LEDGER.md` (orchestrator-only writes).
 
-## Start By
+## Locked founder decisions
 
-```bash
-cd /Users/hamza/Desktop/balencia-design
-git status --short
-cd balencia-screens
-npm run check
-npm run dev
-```
+1. Dark glass only (warm-light spec passages = theme debt, not built).
+2. GLM 5.2 primary bulk drafter (spec content to z.ai approved — supersedes W-004); sonnet repairs; Fable owns truth.
+3. Branch `hifi-build`; path-scoped commits; repo-split deletions untouched.
+4. Max autonomous; verified batches only.
 
-Expected state:
-- Worktree is intentionally dirty from older project work. Do not revert unrelated files.
-- `yhealth-app/` tracked deletions are expected drift from the repo split and are not part of this prototype batch.
-- New prototype routes live at `/screens/<id>`.
-- Dev server may choose `http://localhost:3001` if port 3000 is occupied.
+## Done this session
 
-## Current State
+- Phase 0: baseline commit `ff59f6f`, gates green, GLM ping OK, BUILD-LEDGER created, dev server :3001.
+- B0 (3 commits `8bdc343`/`c4a2aba`/`5a06da7`): kit/ + screens/<family>/ + registry architecture (pixel-verified), canon tokens (glass tiers, inner glow, atmosphere, grain), Hanken Grotesk + Newsreader italic scoped `.hifi`, GlassNavBar, HifiShell.
+- Pilot P (`342af65`): 03, 07, 26, 28 + pilot kit (buttons, CIA orb/insight, ProgressRing/ChargeMeter/TrendChart/HeatGrid/VolumeBars/DonutHub, StepperRail). 10 review findings fixed.
+- B1 (`5123770`): 12 auth/onboarding screens. 16 review findings fixed (incl. pre-checked-consent dark pattern).
 
-- Batch A completed the scalable 104-screen foundation and 10 reference screens.
-- The new source of truth is `Balencia-New-Screens/hifi-screens/`.
-- `balencia-screens` should be treated as the visual shell and component library, not the source truth.
-- Use CIA in new visible UI and new code/data. Do not introduce SIA in new prototype content.
+## In flight
 
-## Completed In Batch A
+- **B2** (workflow `wf_d7e1674c-1af`): 10, 11, 51, 74, 76, 77, 79, 99 → `screens/cia/`. Pipeline: haiku digest → GLM draft → 2 sonnet builders (4 each) → trust+a11y reviews. On completion: fix findings → register in `screens/cia/index.ts` (orchestrator does this — builders never touch index) → flip `screens.ts` statuses → `npm run check` → `node scripts/hifi-screenshots.mjs --ids ... --out ../Balencia-New-Screens/build-progress/screenshots/B2` → visual inspect → ledger rows + batch log → commit.
 
-| ID | Work completed | Evidence/source | Files/areas touched |
-|----|----------------|-----------------|---------------------|
-| HIFI-A-01 | Generated 104-screen inventory from the new hi-fi ledger and filenames | `scripts/generate-screen-inventory.mjs`; `npm run verify:routes` | `balencia-screens/src/data/screens.ts`, `balencia-screens/scripts/screen-specs.mjs` |
-| HIFI-A-02 | Added stable dynamic route for all prototype screens | `/screens/<id>` smoke-tested with Playwright | `balencia-screens/src/app/screens/[id]/page.tsx` |
-| HIFI-A-03 | Built reusable hi-fi renderer and completed 10 reference screens | Batch A IDs: `09`, `12`, `13`, `16`, `48`, `63`, `66`, `75`, `89`, `91` | `balencia-screens/src/components/hifi/HifiPrototype.tsx` |
-| HIFI-A-04 | Updated review shell details for the new target | 390x844 frame; CIA tab label | `PhoneFrame.tsx`, `ScreenShell.tsx`, `TabBar.tsx` |
-| HIFI-A-05 | Updated route, copy, and brand verification for the 104-screen CIA prototype path | `npm run check` passed | `scripts/verify-routes.mjs`, `scripts/verify-copy.mjs`, `scripts/verify-brand.mjs` |
-| HIFI-A-06 | Refreshed local repo guidance to point future work at the new hi-fi source | README/AGENTS updated | `balencia-screens/README.md`, `balencia-screens/AGENTS.md` |
+## Batch queue after B2
 
-## Verification Log
+B3 today/missions (14,15,41,44,45,59,61,73,97) → B4 intel/profile (17,19,20,50,68,72,83,84,90,92,93,96) → B5a (27,29,49,56,57,70,86,87,88) → B5b mind/body (52,53,54,55,58,60,62 — safety-heaviest) → B6 domains (18,30–38) → B7a social (39,40,42,46,47,71,82,94,95) → B7b account/system (21–25,43,64,67,69,78,80,81,85,98) → sweep session.
 
-| Command / check | Result | Notes |
-|-----------------|--------|-------|
-| `npm run lint` | pass with warning | Pre-existing warning: `DomainDashboardHeader.figma.tsx` has unused `MoreHorizontal`. |
-| `npm run typecheck` | pass | TypeScript clean. |
-| `npm run verify:routes` | pass | `104 screens, 104 specs`. |
-| `npm run verify:assets` | pass | `14 logo assets`. |
-| `npm run verify:copy` | pass | `250 files scanned`. |
-| `npm run verify:brand` | pass | `250 files scanned`. |
-| `npm run check` | pass with same lint warning | Full configured gate passed. |
-| Playwright smoke | pass | `/`, `/screens/12`, `/screens/09`, `/screens/66`, `/screens/91`, `/screens/01`; no sampled console errors or SIA matches. |
-| `./scripts/glm-worker.sh --ping` | pass after approved escalation | `OK model=glm-5.2 reply=pong`. |
+## Method per batch (proven in P + B1)
 
-## Waivers And Drift
+1. Get spec filenames: grep screens.ts specFile.
+2. Workflow: digest (haiku) → GLM draft (haiku wrapper shelling `scripts/glm-worker.sh -t 8192`, prompt = directive + KIT-CHEATSHEET.md + spec) → sonnet builders (packets ≤4, never touch shared files) → trust + a11y reviews.
+3. Fix findings (one sonnet fixer with explicit list, or Fable direct).
+4. Fable: register in family index, flip statuses, full check, screenshots, visual inspect, ledger, commit.
 
-| ID | Waiver / drift | Owner | Next action |
-|----|----------------|-------|-------------|
-| W-001 | Dirty worktree predates this batch and includes broad unrelated changes. | Hamza | Ignore unless explicitly asked to clean or commit. |
-| W-002 | `yhealth-app/` tracked deletions are expected from the repo split. | Hamza | Do not stage/commit without explicit approval. |
-| W-003 | `framework/verify/portability-check.mjs .` still reports known Codex/.agents starter gaps. | Hamza | Not blocking the visual prototype lane. |
-| W-004 | GLM ping works, but content delegation was blocked by the approval reviewer due private workspace/project disclosure risk. | Codex/Hamza | Use local multi-agent workers for private repo details unless a safer redacted packet is prepared. |
-| W-005 | Legacy per-screen routes still contain SIA-era names/copy. | Codex | Continue implementing the new CIA-clean `/screens/<id>` route tree; legacy route cleanup is a separate batch. |
-| W-006 | Lint has a pre-existing unused import warning in a Figma Code Connect file. | Codex | Fix in a separate cleanup slice if desired. |
+Key files: `Balencia-New-Screens/build-progress/KIT-CHEATSHEET.md` (feed to every agent), `balencia-screens/scripts/hifi-screenshots.mjs`, kit at `balencia-screens/src/components/hifi/kit/`.
 
-## Next Slice
+## Known debt
 
-Goal: implement Batch B auth/onboarding screens in the new renderer.
+- `figma-tokens-map.json` regen owed (B0 globals.css additions).
+- S04 renders offline banner inside its default frame (minor state-mixing; revisit in sweep).
+- Legacy SIA routes grandfathered (W-005).
+- Image slots = styled placeholders (`_IMAGE-SLOTS.md` backlog).
 
-Suggested screen cluster:
-- `01` Splash screen
-- `02` Welcome screen
-- `03` Sign up
-- `03b` Google sign in details
-- `03c` Apple sign in details
-- `03d` Facebook sign in details
-- `03e` Phone sign in details
-- `04` Log in
-- `05` Choose plan
-- `05b` Start trial details
-- `06` Onboarding stack intro
-- `07` Life wheel assessment
-- `08` Mission creation
+## Verify commands
 
-Done when:
-- Each target spec has been read and rendered as a polished 390x844 composition.
-- CIA naming is preserved.
-- Consent, provenance, honest-null states, and safety language are present where the specs call for them.
-- `cd balencia-screens && npm run check` passes.
-- Playwright smoke covers the batch’s representative routes.
+From `balencia-screens/`: `npm run check`. From root: `node Balencia-New-Screens/work/validate-redesign.mjs --json` + `rg -n "\bSIA\b" Balencia-New-Screens/hifi-screens balencia-screens/src/app/screens balencia-screens/src/components/hifi balencia-screens/src/data/screens.ts` (must be 0 in hifi paths). GLM: `scripts/glm-worker.sh --ping`.

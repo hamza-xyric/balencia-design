@@ -95,7 +95,7 @@ export function ComplianceFooter({ links = ['Terms of service', 'Privacy'] }: { 
   return (
     <div className="flex items-center justify-center gap-5 py-2">
       {links.map(link => (
-        <span key={link} className="flex min-h-11 items-center text-[12px] text-white/40">{link}</span>
+        <span key={link} className="flex min-h-11 items-center text-[12px] text-white/55">{link}</span>
       ))}
     </div>
   )
