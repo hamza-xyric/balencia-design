@@ -1,5 +1,34 @@
-import { Calendar, ChevronLeft, Flag, MessageCircle, Plus, User } from 'lucide-react'
+import { Calendar, Check, ChevronLeft, Flag, MessageCircle, Plus, User } from 'lucide-react'
 import { cx } from './core'
+
+// Horizontal onboarding progress rail: completed = orange filled + check,
+// current = orange ring, future = dim.
+export function StepperRail({ steps, current }: { steps: string[]; current: number }) {
+  return (
+    <div className="flex items-start justify-between px-1" role="img" aria-label={`Step ${current + 1} of ${steps.length}: ${steps[current]}`}>
+      {steps.map((step, index) => {
+        const state = index < current ? 'done' : index === current ? 'current' : 'future'
+        return (
+          <div key={step} className="flex min-w-0 flex-1 flex-col items-center gap-1.5">
+            <span
+              className={cx(
+                'flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-semibold',
+                state === 'done' && 'bg-brand-orange text-white',
+                state === 'current' && 'border-2 border-brand-orange text-brand-orange',
+                state === 'future' && 'border border-white/20 text-white/35',
+              )}
+            >
+              {state === 'done' ? <Check size={12} strokeWidth={3} /> : index + 1}
+            </span>
+            <span className={cx('truncate text-[10px] leading-3', state === 'current' ? 'font-semibold text-brand-orange' : state === 'done' ? 'text-white/70' : 'text-white/35')}>
+              {step}
+            </span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
 
 export function TopBar({
   title,

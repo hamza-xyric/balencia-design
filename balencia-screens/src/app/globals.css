@@ -832,4 +832,12 @@ body {
     animation: none;
     background: var(--color-surface-3);
   }
+
+  .quiet-pulse,
+  .avatar-breathe,
+  .breathing-guide,
+  .voice-status-pulse,
+  .sia-thinking-dot {
+    animation: none;
+  }
 }
