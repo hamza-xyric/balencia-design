@@ -4,28 +4,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repo Is
 
-**Balencia** is a premium AI life coaching mobile app with deep RPG gamification. This repository is the **design workspace** — it contains screen specifications, a visual prototype, HTML wireframes, creative asset production, UX audit artifacts, and the production app codebase. It is not a single-app repo; it is a multi-workspace monorepo where each subdirectory has its own purpose, CLAUDE.md, and agent rules.
+**Balencia** is a premium AI life coaching mobile app with deep RPG gamification. This repository is the **design workspace** — it contains the hi-fi screen build ledger/canon (`Balencia-New-Screens/`), a Next.js visual prototype (`balencia-screens/`), desktop app documentation (`balencia_doc/`), and the mobile production app codebase (`yhealth-app/`, git submodule). It is not a single-app repo; it is a multi-workspace monorepo where each subdirectory has its own purpose, CLAUDE.md, and agent rules.
 
 ## Workspace Map
 
 | Directory | Purpose | Has own CLAUDE.md / AGENTS.md |
 |-----------|---------|-------------------------------|
-| `app_design 3/` | 99 screen specification markdown files (85 numbered + sub-screens + meta docs). Source of truth for every screen's IA, layout, components, states, and motion. | `_session-prompt.md` governs design sessions |
-| `balencia-screens/` | Next.js 16 visual prototype — renders each screen inside an iPhone frame for review. Visual-only, no backend. | Yes — see `AGENTS.md` there |
-| `balencia-screens-reviewed/` | UX audit workspace — batch-based screen reviews, findings, scoring rubrics, A++ re-review pass, team roles. | Yes — `AGENTS.md` + `teams/` |
-| `balencia-creatives-production/` | Asset production (Higgsfield AI generation) — briefs, QA rubric, generation ledger, accepted outputs. | Yes — `AGENTS.md` |
-| `figma-build-audit/` | Living grade report for the Figma DS build (premium A+++ bar): `RUBRIC.md`, `REPORT.md`, `findings-ledger.md`, `methodology.md`, `history/`, `scripts/consistency-check.mjs`. Audit (read-only) via `/figma-build-auditor`; remediate findings via `/figma-build-fixer` (plan-then-apply; writes to Figma + globals.css/maps + prototype). | `methodology.md` |
-| `Wireframes/` | HTML wireframes organized in 17 batches, rendered via `balencia-foundation.css`. Browser-viewable reference for Figma. | `WIREFRAME-PROMPT.md` |
+| `Balencia-New-Screens/` | **Current source of truth** for the 104-screen hi-fi build: `_MASTER-LEDGER.md`, `canon/`, `build-progress/BUILD-LEDGER.md`, `hifi-screens/`, screenshots. Supersedes the old `app_design 3/` spec set (retired). | `NEXT-SESSION-PROMPT.md` |
+| `balencia-screens/` | Next.js 16 app — renders each hi-fi screen (`src/components/hifi/screens/`) inside an iPhone frame. Visual-only, no backend. | Yes — see `AGENTS.md` there |
+| `balencia_doc/` | Up-to-date desktop app documentation (features, modules, PRD/epics, QA). | No |
 | `Balencia/` | Brand reference — `Design-System-Overview.md`, `Balencia-Creatives-Reference/` (logos, brand assets, `CREATIVE-REFERENCE.md`). | No |
-| `yhealth-app/` | Production app codebase (Next.js 16 client + Express 5 server). Has its own CLAUDE.md with full architecture docs. | Yes |
+| `yhealth-app/` | **Git submodule** ([xyric-solutions/yhealth-app](https://github.com/xyric-solutions/yhealth-app)) — the mobile app dev target this design work feeds into (Next.js 16 client + Express 5 server). | Yes (in its own repo) |
 | `Archive/` | Historical drafts, meeting transcripts, earlier design versions. Read-only reference. | No |
+
+**Retired** (removed from disk, no longer part of this workspace): `app_design 3/`, `Wireframes/`, `Website-design-references/`, `balencia-creatives-production/`, `balencia-website/`, `competitor-analysis/`, `viz-audit/`, `design-audit/`, `figma-build-audit/`, `balencia-screens-reviewed/`. If any doc below still references one of these, treat it as stale — `Balencia-New-Screens/` is current.
 
 ## Key Design Documents
 
-- **Screen specs**: `app_design 3/NN-screen-name.md` (85 screens, numbered 01–85)
-- **Shared patterns**: `app_design 3/_shared-patterns.md` — canonical component specs, design tokens, motion, interaction models, accessibility standards. Read this before any screen work.
-- **Tier matrix**: `app_design 3/_tier-matrix.md` — free vs. premium feature gates
-- **XP reward table**: `app_design 3/_xp-reward-table.md`
+- **Screen specs / ledger**: `Balencia-New-Screens/_MASTER-LEDGER.md` + `Balencia-New-Screens/build-progress/BUILD-LEDGER.md` (104 screens, source of truth)
+- **Shared patterns**: `Balencia-New-Screens/canon/COMPACT-CANON.md` + `COMPONENT-CATALOG.md` — canonical component specs, design tokens, motion, interaction models. Read this before any screen work.
+- **Tier matrix / XP reward table**: not migrated from the retired `app_design 3/` spec set — verify current values in `Balencia-New-Screens/` or the RPG design doc below before relying on old numbers.
 - **Design system**: `Balencia/Design-System-Overview.md` — brand foundation, color system, typography, spacing, component primitives
 - **RPG system**: `RPG_SYSTEM_DESIGN.md` — full gamification spec (WoW-inspired, 10 life domains, stat system, quest chains, progression)
 - **Life Correlation Matrix**: `LIFE_CORRELATION_MATRIX.md` — cross-domain correlation engine (Balencia's core differentiator)
@@ -90,6 +88,26 @@ npm run db:migrate       # Run database migrations
 - **Creative production**: do not AI-generate or approximate the Balencia logo — use official assets from `Balencia/Balencia-Creatives-Reference/logos/`
 - **Batch discipline**: review/implement screens in batches (typically 3–12 screens per session). Always read the screen spec and `_shared-patterns.md` before working on a screen
 - Each sub-workspace has its own AGENTS.md — read it before starting work in that directory
+
+## Forgeflow (this project's operating method)
+
+This repo runs on **Forgeflow** (`framework/`, vendored from `xyric-solutions/xyric-frameworks`, v1.5.0) — a reusable 8-move method (Ground → Capture → Equip → Reference → Plan & Slice → Build → Verify → Persist) for getting high-quality output from AI models on serious work. Read `framework/FRAMEWORK.md` Part A once; keep Part C as the working reference. This section doesn't replace anything above — it adds Forgeflow's cross-cutting mechanics on top of this repo's own workspace map and rules.
+
+**Committed project memory** (git-tracked, distinct from machine-local Claude/Codex memory — travels with the repo, and any Codex session reads it too):
+@memory/MEMORY.md
+
+**Handoff.** Resume from `plans/next-session-handoff.md` via `/start-handoff` if one exists; write one via `/handoff` at the end of a meaningful session. `.claude/plans/next-session-handoff.md` is legacy fallback only.
+
+**Batch commands** (`.claude/commands/`, backed by `runbooks/`): `/start-batch`, `/close-batch`, `/pre-development-check`, `/runtime-profiles`, `/worker-task-packet`, `/audit-docs`, `/plan-story`, `/create-work-items`, `/verify`, `/upgrade-framework`. Use `/runtime-profiles` at the start of any batch to record the loop primitive (`none`/`/goal`/`/loop`/`ultracode:`) and runtime profile — don't skip this for anything beyond a trivial single-turn edit.
+
+**Knowledge wiki** (`knowledge-wiki` skill + `/wiki-ingest`, `/wiki-query`, `/wiki-lint`) — for accumulating research/domain knowledge as an interlinked wiki instead of re-deriving it each session. Distinct from `memory/`: memory is small always-on facts, the wiki is a large on-demand knowledge base.
+
+**Multiagent / model routing** (native, no gateway):
+- Session orchestrator: whatever `/model` is currently set to (`/model` is a global CLI preference, not repo-scoped — check `/status` to see what's active; switch with `/model fable`, `/model sonnet`, etc. as needed per session).
+- Subagents (Agent tool `model` param): `haiku` for cheap read-only search/exploration, `sonnet` for most reviewers and routine implementation, `opus` only for high-risk architecture/security/final calls.
+- **GLM as a Workflow sub-worker** (`runbooks/glm-workflow-worker.md`, `scripts/glm-worker.sh`): inside a `Workflow` script, shell out to GLM for cheap bulk/repetitive generation stages while Fable/Claude stays the orchestrator and verifies the output. Requires `ZAI_API_KEY` in `~/.xyric/framework.env` (one-time, per-machine, never committed) — smoke-test with `scripts/glm-worker.sh --ping` before relying on it in a batch.
+- A separate `glm-coding-backend` runtime profile (whole-session GLM via a dedicated terminal, `source scripts/use-profile.sh glm`) exists for offloading entire routine-coding batches — distinct from the sub-worker pattern above, not run simultaneously with the Fable session.
+- GLM/DeepSeek/local workers are **explicit** profiles, never implicit automatic routing. Worker output is evidence, not durable truth, until the orchestrator verifies it.
 
 ## Tech Stack Summary
 
