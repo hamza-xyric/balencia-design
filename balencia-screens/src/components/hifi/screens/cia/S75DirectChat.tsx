@@ -1,12 +1,9 @@
 import { Activity, Info, Phone, Sparkles } from 'lucide-react'
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { ChatBubble, Chip, Composer, GlassCard, IconButton, ProgressBar, Provenance, SolidCard, TopBar } from '@/components/hifi/kit'
+import { ChatBubble, Chip, Composer, GlassCard, HifiShell, IconButton, ProgressBar, Provenance, SolidCard, TopBar } from '@/components/hifi/kit'
 
 export function S75DirectChat() {
   return (
-    <PhoneFrame>
-      <ScreenShell
+    <HifiShell atmosphere="cia" 
         header={<TopBar title="Aisha Khan" right={<><IconButton label="Call"><Phone size={18} /></IconButton><IconButton label="Info"><Info size={18} /></IconButton></>} />}
         activeTab="cia"
         composer={<Composer placeholder="Message Aisha" />}
@@ -14,7 +11,7 @@ export function S75DirectChat() {
         <main className="space-y-4 px-4 pb-4 pt-3">
           <SolidCard>
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange/15 text-[14px] font-bold text-brand-orange">AK</span>
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange/15 text-[14px] font-semibold text-brand-orange">AK</span>
               <div className="min-w-0 flex-1">
                 <h2 className="text-[15px] font-semibold text-white">Aisha is training with you</h2>
                 <p className="mt-1 text-[12px] text-white/45">Shared mission: Run 30 min</p>
@@ -46,7 +43,6 @@ export function S75DirectChat() {
           </SolidCard>
           <p className="text-[13px] text-white/40">Aisha is typing</p>
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }

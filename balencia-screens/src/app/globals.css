@@ -658,6 +658,27 @@ body {
    Shadows are warm ink (33,16,8), never cool black (verify:brand).
    ============================================================ */
 
+/* Hi-fi typography — Hanken Grotesk (Neue Montreal stand-in) across the
+   .hifi tree; Newsreader italic carries the single Tiempos emphasis word. */
+.hifi {
+  font-family: var(--font-hanken), system-ui, sans-serif;
+}
+
+.text-emphasis {
+  font-family: var(--font-emphasis), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Hi-fi shell transparency — the atmosphere layer paints the base; the
+   legacy shell's opaque inks would cover it. */
+.hifi [data-testid='screen-shell'],
+.hifi [data-testid='screen-bottom-action'],
+.hifi [data-testid='screen-composer'],
+.hifi [data-testid='home-indicator-clearance'] {
+  background: transparent;
+}
+
 /* Screen atmosphere — every hi-fi screen sits on a soft warm radial,
    never flat black. CIA moments add a purple pool. */
 .screen-atmosphere {

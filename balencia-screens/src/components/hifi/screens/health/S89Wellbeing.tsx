@@ -1,7 +1,5 @@
 import { Activity, BatteryCharging, BookOpen, Check, HeartPulse, Info, Smile, Sparkles, Zap } from 'lucide-react'
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { Chip, FloatingQuickLog, GlassCard, IconButton, MetricPill, SafetyCard, SolidCard, TopBar } from '@/components/hifi/kit'
+import { Chip, FloatingQuickLog, GlassCard, HifiShell, IconButton, MetricPill, SafetyCard, SolidCard, TopBar } from '@/components/hifi/kit'
 
 export function S89Wellbeing() {
   const modules = [
@@ -16,14 +14,13 @@ export function S89Wellbeing() {
   ] as const
 
   return (
-    <PhoneFrame>
-      <ScreenShell header={<TopBar title="Wellbeing" eyebrow="Tuesday, Jul 7" back={false} right={<IconButton label="Help"><Info size={18} /></IconButton>} />} activeTab="today" bottomAction={<FloatingQuickLog />}>
+    <HifiShell header={<TopBar title="Wellbeing" eyebrow="Tuesday, Jul 7" back={false} right={<IconButton label="Help"><Info size={18} /></IconButton>} />} activeTab="today" bottomAction={<FloatingQuickLog />}>
         <main className="space-y-4 px-4 pb-4 pt-3">
-          <p className="text-[22px] font-semibold leading-7 text-white">Your daily whole state</p>
+          <p className="text-[22px] font-semibold leading-7 text-white">Your daily <span className="text-emphasis">whole</span> state</p>
           <GlassCard>
             <p className="text-[12px] font-semibold uppercase text-white/45">How your system feels</p>
             <div className="mt-4 flex items-center justify-center">
-              <span className="rounded-pill border border-brand-orange/25 bg-brand-orange/10 px-6 py-3 text-[28px] font-bold text-white shadow-[var(--glow-orange-sm)]">Steady</span>
+              <span className="rounded-pill border border-brand-orange/25 bg-brand-orange/10 px-6 py-3 text-[28px] font-semibold text-white shadow-[var(--glow-orange-sm)]">Steady</span>
             </div>
             <div className="mt-5 grid grid-cols-4 gap-2">
               <MetricPill label="Mood" value="6" />
@@ -51,7 +48,6 @@ export function S89Wellbeing() {
             <p className="text-[13px] text-white/55">Today: 5:30 walk, 1 quick note.</p>
           </SolidCard>
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }

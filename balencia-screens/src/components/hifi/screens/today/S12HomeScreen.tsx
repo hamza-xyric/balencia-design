@@ -1,12 +1,9 @@
 import { Check, Flag, Sparkles } from 'lucide-react'
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { Chip, FloatingQuickLog, GlassCard, MiniRadar, ProgressBar, Provenance, SectionTitle, SolidCard, TopBar, cx } from '@/components/hifi/kit'
+import { Chip, FloatingQuickLog, GlassCard, HifiShell, MiniRadar, ProgressBar, Provenance, SectionTitle, SolidCard, TopBar, cx } from '@/components/hifi/kit'
 
 export function S12HomeScreen() {
   return (
-    <PhoneFrame>
-      <ScreenShell
+    <HifiShell 
         header={<TopBar title="Good morning, Amira" eyebrow="Tuesday, Jul 7" back={false} right={<Chip tone="you">Lv 12</Chip>} />}
         activeTab="today"
         bottomAction={<FloatingQuickLog />}
@@ -65,7 +62,6 @@ export function S12HomeScreen() {
             </SolidCard>
           ))}
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }

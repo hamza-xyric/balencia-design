@@ -1,4 +1,5 @@
-import { ChevronLeft, Plus } from 'lucide-react'
+import { Calendar, ChevronLeft, Flag, MessageCircle, Plus, User } from 'lucide-react'
+import { cx } from './core'
 
 export function TopBar({
   title,
@@ -12,7 +13,7 @@ export function TopBar({
   back?: boolean
 }) {
   return (
-    <header className="z-30 flex min-h-[58px] shrink-0 items-center gap-3 bg-ink-900/90 px-4 backdrop-blur-md">
+    <header className="z-30 flex min-h-[58px] shrink-0 items-center gap-3 bg-ink-900/40 px-4 backdrop-blur-md">
       {back && (
         <span className="flex h-11 w-11 items-center justify-center rounded-full text-white/70" aria-hidden="true">
           <ChevronLeft size={20} strokeWidth={1.9} />
@@ -41,6 +42,41 @@ export function SectionTitle({ title, meta }: { title: string; meta?: string }) 
       <h2 className="text-[12px] font-semibold uppercase leading-4 text-white/45">{title}</h2>
       {meta && <span className="text-[12px] leading-4 text-white/35">{meta}</span>}
     </div>
+  )
+}
+
+const navTabs = [
+  { key: 'today', label: 'Today', Icon: Calendar },
+  { key: 'cia', label: 'CIA', Icon: MessageCircle },
+  { key: 'goals', label: 'Missions', Icon: Flag },
+  { key: 'me', label: 'Me', Icon: User },
+] as const
+
+export type HifiTab = (typeof navTabs)[number]['key']
+
+// Floating glass pill bottom nav (COMPACT-CANON §6). Active tab reads orange
+// with a heavier stroke — the lucide outline set has no filled variants.
+export function GlassNavBar({ active = 'today' }: { active?: HifiTab }) {
+  return (
+    <nav className="shrink-0 px-5 pb-1" aria-label="Primary">
+      <div className="glass-pill flex h-[60px] items-center justify-around px-2 shadow-2">
+        {navTabs.map(({ key, label, Icon }) => {
+          const isActive = key === active
+          return (
+            <div key={key} className="flex h-11 min-w-[64px] flex-col items-center justify-center gap-[2px]">
+              <Icon
+                size={22}
+                strokeWidth={isActive ? 2.4 : 1.6}
+                className={isActive ? 'text-brand-orange' : 'text-white/60'}
+              />
+              <span className={cx('text-[11px] leading-3', isActive ? 'font-semibold text-brand-orange' : 'text-white/60')}>
+                {label}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+    </nav>
   )
 }
 

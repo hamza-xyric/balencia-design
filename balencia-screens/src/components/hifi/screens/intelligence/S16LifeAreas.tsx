@@ -1,6 +1,4 @@
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { Chip, GlassCard, MetricPill, MiniRadar, ProgressBar, Provenance, SectionTitle, SolidCard, Sparkline, TopBar, cx } from '@/components/hifi/kit'
+import { Chip, GlassCard, HifiShell, MetricPill, MiniRadar, ProgressBar, Provenance, SectionTitle, SolidCard, Sparkline, TopBar, cx } from '@/components/hifi/kit'
 
 export function S16LifeAreas() {
   const rows = [
@@ -12,8 +10,7 @@ export function S16LifeAreas() {
   ] as const
 
   return (
-    <PhoneFrame>
-      <ScreenShell header={<TopBar title="Life areas" right={<Chip>Data sources</Chip>} />} activeTab="me">
+    <HifiShell header={<TopBar title="Life areas" right={<Chip>Data sources</Chip>} />} activeTab="me">
         <main className="space-y-4 px-4 pb-4 pt-3">
           <GlassCard>
             <div className="flex items-center justify-between">
@@ -49,7 +46,6 @@ export function S16LifeAreas() {
             </div>
           </SolidCard>
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }

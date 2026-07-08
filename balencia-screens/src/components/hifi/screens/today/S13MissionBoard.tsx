@@ -1,7 +1,5 @@
 import { Check, Flag, MoreHorizontal } from 'lucide-react'
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { Chip, FloatingQuickLog, GlassCard, IconButton, MetricPill, MiniRadar, ProgressBar, SectionTitle, SolidCard, TopBar, cx } from '@/components/hifi/kit'
+import { Chip, FloatingQuickLog, GlassCard, HifiShell, IconButton, MetricPill, MiniRadar, ProgressBar, SectionTitle, SolidCard, TopBar, cx } from '@/components/hifi/kit'
 
 export function S13MissionBoard() {
   const missions = [
@@ -12,8 +10,7 @@ export function S13MissionBoard() {
   ] as const
 
   return (
-    <PhoneFrame>
-      <ScreenShell
+    <HifiShell 
         header={<TopBar title="Mission Board" eyebrow="Synced 2h ago" back={false} right={<IconButton label="Filter"><MoreHorizontal size={19} /></IconButton>} />}
         activeTab="goals"
         bottomAction={<FloatingQuickLog label="New mission" />}
@@ -28,7 +25,7 @@ export function S13MissionBoard() {
             <div className="grid grid-cols-[1fr_120px] gap-4">
               <div>
                 <p className="text-[12px] font-semibold uppercase text-white/45">Whole-life map</p>
-                <h2 className="mt-2 text-[20px] font-semibold leading-6 text-white">Missions across every domain.</h2>
+                <h2 className="mt-2 text-[20px] font-semibold leading-6 text-white">Missions across <span className="text-emphasis">every</span> domain.</h2>
                 <p className="mt-2 text-[13px] leading-[18px] text-white/55">The board favors effort in progress, then completion.</p>
               </div>
               <MiniRadar />
@@ -56,7 +53,6 @@ export function S13MissionBoard() {
             ))}
           </div>
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }

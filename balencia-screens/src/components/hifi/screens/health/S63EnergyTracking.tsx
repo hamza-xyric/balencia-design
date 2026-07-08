@@ -1,12 +1,9 @@
 import { Lock, MoreHorizontal } from 'lucide-react'
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { ArcGauge, Chip, ConsentRail, FloatingQuickLog, GlassCard, IconButton, ProgressBar, Provenance, SectionTitle, SolidCard, Sparkline, TopBar } from '@/components/hifi/kit'
+import { ArcGauge, Chip, ConsentRail, FloatingQuickLog, GlassCard, HifiShell, IconButton, ProgressBar, Provenance, SectionTitle, SolidCard, Sparkline, TopBar } from '@/components/hifi/kit'
 
 export function S63EnergyTracking() {
   return (
-    <PhoneFrame>
-      <ScreenShell header={<TopBar title="Energy tracking" right={<IconButton label="Options"><MoreHorizontal size={18} /></IconButton>} />} activeTab="me" bottomAction={<FloatingQuickLog label="Log energy" />}>
+    <HifiShell header={<TopBar title="Energy tracking" right={<IconButton label="Options"><MoreHorizontal size={18} /></IconButton>} />} activeTab="me" bottomAction={<FloatingQuickLog label="Log energy" />}>
         <main className="space-y-4 px-4 pb-4 pt-3">
           <GlassCard>
             <p className="text-[12px] font-semibold uppercase text-white/45">Current energy</p>
@@ -36,7 +33,6 @@ export function S63EnergyTracking() {
             <ConsentRail compact />
           </GlassCard>
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }

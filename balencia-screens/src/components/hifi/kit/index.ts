@@ -1,5 +1,6 @@
 export { cx, toneClass, type Tone } from './core'
-export { TopBar, IconButton, SectionTitle, FloatingQuickLog } from './chrome'
+export { HifiShell } from './HifiShell'
+export { TopBar, IconButton, SectionTitle, FloatingQuickLog, GlassNavBar, type HifiTab } from './chrome'
 export { GlassCard, SolidCard } from './surfaces'
 export { Chip, Provenance, ConsentRail } from './chips'
 export { ProgressBar, MetricPill, MiniRadar, ArcGauge, Sparkline } from './data'

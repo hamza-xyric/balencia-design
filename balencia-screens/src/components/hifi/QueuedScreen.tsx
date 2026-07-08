@@ -1,16 +1,13 @@
 import type { ScreenInfo } from '@/data/screens'
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { Chip, ConsentRail, GlassCard, SectionTitle, SolidCard, TopBar } from '@/components/hifi/kit'
+import { Chip, ConsentRail, GlassCard, HifiShell, SectionTitle, SolidCard, TopBar } from '@/components/hifi/kit'
 
 export function QueuedScreen({ screen }: { screen: ScreenInfo }) {
   return (
-    <PhoneFrame>
-      <ScreenShell header={<TopBar title={screen.name} eyebrow={`Spec ${screen.id}`} />} showTabBar={false}>
+    <HifiShell atmosphere="cia" header={<TopBar title={screen.name} eyebrow={`Spec ${screen.id}`} />} showTabBar={false}>
         <main className="flex min-h-full flex-col px-4 pb-8 pt-4">
           <GlassCard tone="cia">
             <p className="text-[12px] font-semibold uppercase text-white/45">Source queued</p>
-            <h1 className="mt-3 text-[27px] font-bold leading-8 text-white">{screen.name}</h1>
+            <h1 className="mt-3 text-[27px] font-semibold leading-8 text-white">{screen.name}</h1>
             <p className="mt-3 text-[14px] leading-5 text-white/60">This screen is registered from the new 104-screen hi-fi source and waits for its implementation batch.</p>
             <ConsentRail />
           </GlassCard>
@@ -38,7 +35,6 @@ export function QueuedScreen({ screen }: { screen: ScreenInfo }) {
           </div>
           <div className="flex-1" />
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }

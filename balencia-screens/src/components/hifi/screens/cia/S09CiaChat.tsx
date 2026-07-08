@@ -1,12 +1,9 @@
 import { Mic, Search } from 'lucide-react'
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { ChatBubble, Chip, Composer, ConsentRail, IconButton, InlineArtifact, TopBar } from '@/components/hifi/kit'
+import { ChatBubble, Chip, Composer, ConsentRail, HifiShell, IconButton, InlineArtifact, TopBar } from '@/components/hifi/kit'
 
 export function S09CiaChat() {
   return (
-    <PhoneFrame>
-      <ScreenShell
+    <HifiShell atmosphere="cia" 
         header={<TopBar title="CIA" eyebrow="Today" back={false} right={<><IconButton label="Search"><Search size={18} /></IconButton><IconButton label="Voice"><Mic size={18} /></IconButton></>} />}
         activeTab="cia"
         composer={<Composer />}
@@ -30,7 +27,6 @@ export function S09CiaChat() {
           </div>
           <ConsentRail />
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }

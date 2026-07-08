@@ -13,7 +13,7 @@ export function MetricPill({ label, value, tone = 'muted' }: { label: string; va
   return (
     <div className={cx('rounded-lg border p-3', toneClass[tone])}>
       <p className="text-[11px] font-semibold uppercase leading-3 opacity-80">{label}</p>
-      <p className="mt-2 text-[20px] font-bold leading-6 text-white">{value}</p>
+      <p className="mt-2 text-[20px] font-semibold leading-6 text-white">{value}</p>
     </div>
   )
 }
@@ -29,7 +29,7 @@ export function MiniRadar({ labels = false }: { labels?: boolean }) {
         <circle cx="86" cy="86" r="21" className="fill-ink-900 stroke-brand-orange" strokeWidth="2" />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-        <span className="text-[28px] font-bold leading-8 text-white tabular-nums">487</span>
+        <span className="text-[28px] font-semibold leading-8 text-white tabular-nums">487</span>
         <span className="text-[11px] text-white/45">Life Power</span>
       </div>
       {labels && (
@@ -50,7 +50,7 @@ export function ArcGauge({ value, label }: { value: string; label: string }) {
         <circle cx="80" cy="80" r="62" fill="none" stroke="currentColor" strokeWidth="14" strokeDasharray="300 390" strokeLinecap="round" />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-        <span className="text-[38px] font-bold leading-10 text-white tabular-nums">{value}</span>
+        <span className="text-[38px] font-semibold leading-10 text-white tabular-nums">{value}</span>
         <span className="mt-1 text-[12px] text-white/45">{label}</span>
       </div>
     </div>

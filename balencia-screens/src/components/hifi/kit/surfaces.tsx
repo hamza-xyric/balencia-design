@@ -1,5 +1,9 @@
 import { cx, type Tone } from './core'
 
+// Canon glass card (.hifi .glass-card recipe) with the semantic inner-glow
+// signature: one glow per card, meaning-driven — you/effort = orange,
+// done/growth = green, CIA/AI = purple. tone="muted" renders glass without
+// a glow for neutral surfaces.
 export function GlassCard({
   children,
   className,
@@ -9,14 +13,16 @@ export function GlassCard({
   className?: string
   tone?: Tone
 }) {
-  const shadow = tone === 'cia'
-    ? 'shadow-[var(--glow-purple-sm)]'
+  const glow = tone === 'cia'
+    ? 'glow-inner-cia'
     : tone === 'done'
-      ? 'shadow-[var(--glow-green-sm)]'
-      : 'shadow-[var(--glow-orange-sm)]'
+      ? 'glow-inner-done'
+      : tone === 'muted'
+        ? undefined
+        : 'glow-inner-you'
 
   return (
-    <section className={cx('surface-hero rounded-2xl p-5', shadow, className)}>
+    <section className={cx('glass-card p-5', glow, className)}>
       {children}
     </section>
   )

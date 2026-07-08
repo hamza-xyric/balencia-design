@@ -110,10 +110,24 @@ function checkSentenceCase(relativePath, value, context) {
   }
 }
 
+function isSentenceContinuation(source, matchIndex) {
+  // Text resuming after an inline </span> continues its sentence
+  // (e.g. `Your daily <span …>whole</span> state`).
+  if (source.slice(Math.max(0, matchIndex - 6), matchIndex + 1) === '</span>') return true
+  // A mid-sentence emphasis word inside <span className="text-emphasis">.
+  const tagStart = source.lastIndexOf('<', matchIndex)
+  if (tagStart !== -1) {
+    const tag = source.slice(tagStart, matchIndex + 1)
+    if (/^<span\b[^>]*text-emphasis/.test(tag)) return true
+  }
+  return false
+}
+
 function checkVisibleJsxText(relativePath, source) {
   const matches = [...source.matchAll(/>([^<>{}\n]*[A-Za-z][^<>{}\n]*)</g)]
   for (const match of matches) {
     if (source[match.index - 1] === '=') continue
+    if (isSentenceContinuation(source, match.index)) continue
     checkSentenceCase(relativePath, match[1], 'visible JSX text')
   }
 }

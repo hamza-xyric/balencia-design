@@ -1,13 +1,11 @@
 import { Activity, MoreHorizontal, Plus } from 'lucide-react'
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { Chip, FloatingQuickLog, GlassCard, IconButton, SolidCard, TopBar } from '@/components/hifi/kit'
+import { Chip, FloatingQuickLog, GlassCard, HifiShell, IconButton, SolidCard, TopBar } from '@/components/hifi/kit'
 
 function FeedPost({ author, time, body, proof, media = false }: { author: string; time: string; body: string; proof: string; media?: boolean }) {
   return (
     <SolidCard>
       <div className="flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.05] text-[12px] font-bold text-white/70">{author.split(' ').map(part => part[0]).join('')}</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.05] text-[12px] font-semibold text-white/70">{author.split(' ').map(part => part[0]).join('')}</span>
         <div className="min-w-0 flex-1">
           <h2 className="text-[14px] font-semibold text-white">{author}</h2>
           <p className="text-[12px] text-white/35">{time}</p>
@@ -30,12 +28,11 @@ function FeedPost({ author, time, body, proof, media = false }: { author: string
 
 export function S91SocialFeed() {
   return (
-    <PhoneFrame>
-      <ScreenShell header={<TopBar title="Feed" back={false} right={<><IconButton label="Post"><Plus size={18} /></IconButton><IconButton label="Filter"><MoreHorizontal size={18} /></IconButton></>} />} activeTab="me" bottomAction={<FloatingQuickLog label="Post" />}>
+    <HifiShell header={<TopBar title="Feed" back={false} right={<><IconButton label="Post"><Plus size={18} /></IconButton><IconButton label="Filter"><MoreHorizontal size={18} /></IconButton></>} />} activeTab="me" bottomAction={<FloatingQuickLog label="Post" />}>
         <main className="space-y-4 px-4 pb-4 pt-3">
           <div className="flex gap-2 overflow-hidden"><Chip tone="you">All</Chip><Chip>My pods</Chip><Chip>Circles</Chip><Chip>Partners</Chip></div>
           <GlassCard>
-            <h2 className="text-[20px] font-semibold leading-6 text-white">Share one proof update</h2>
+            <h2 className="text-[20px] font-semibold leading-6 text-white">Share one <span className="text-emphasis">proof</span> update</h2>
             <p className="mt-2 text-[13px] text-white/50">Visible to buddies. Choose audience before attaching health proof.</p>
             <div className="mt-4 flex gap-2"><Chip>Discussion</Chip><Chip>Question</Chip><Chip tone="you">Win</Chip></div>
           </GlassCard>
@@ -57,7 +54,6 @@ export function S91SocialFeed() {
             proof="Mission update - inspectable"
           />
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }

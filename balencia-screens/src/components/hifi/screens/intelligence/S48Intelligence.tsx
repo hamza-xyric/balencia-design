@@ -1,11 +1,8 @@
-import { PhoneFrame } from '@/components/layout/PhoneFrame'
-import { ScreenShell } from '@/components/layout/ScreenShell'
-import { ArcGauge, Chip, GlassCard, ProgressBar, Provenance, SectionTitle, SolidCard, Sparkline, TopBar, cx } from '@/components/hifi/kit'
+import { ArcGauge, Chip, GlassCard, HifiShell, ProgressBar, Provenance, SectionTitle, SolidCard, Sparkline, TopBar, cx } from '@/components/hifi/kit'
 
 export function S48Intelligence() {
   return (
-    <PhoneFrame>
-      <ScreenShell header={<TopBar title="Intelligence" right={<Chip>Manage data</Chip>} />} activeTab="me">
+    <HifiShell header={<TopBar title="Intelligence" right={<Chip>Manage data</Chip>} />} activeTab="me">
         <main className="space-y-4 px-4 pb-4 pt-3">
           <GlassCard>
             <p className="text-[12px] font-semibold uppercase text-white/45">Your daily intelligence</p>
@@ -44,7 +41,6 @@ export function S48Intelligence() {
             <div className="mt-4"><ProgressBar value={80} tone="done" /></div>
           </SolidCard>
         </main>
-      </ScreenShell>
-    </PhoneFrame>
+      </HifiShell>
   )
 }
