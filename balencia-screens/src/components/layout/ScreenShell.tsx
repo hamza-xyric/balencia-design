@@ -7,7 +7,7 @@ interface ScreenShellProps {
   bottomAction?: React.ReactNode
   composer?: React.ReactNode
   showTabBar?: boolean
-  activeTab?: 'today' | 'sia' | 'goals' | 'me'
+  activeTab?: 'today' | 'cia' | 'sia' | 'goals' | 'me'
 }
 
 export function ScreenShell({

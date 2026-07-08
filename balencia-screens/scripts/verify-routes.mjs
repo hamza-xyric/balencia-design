@@ -1,14 +1,12 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { expectedScreenCount, screenSpecs, sharedSpecFiles } from './screen-specs.mjs'
+import { expectedScreenCount, screenSpecs, sharedSpecFiles, specRoot } from './screen-specs.mjs'
 
 const root = process.cwd()
 const appDir = path.join(root, 'src/app')
 const screensFile = path.join(root, 'src/data/screens.ts')
 const specDirs = [
-  path.resolve(root, '../app_design 3'),
-  path.resolve(root, '../app_design'),
-  path.resolve(root, '../Screen-Drafts'),
+  path.resolve(root, specRoot),
 ]
 let warningCount = 0
 
@@ -28,6 +26,14 @@ function findSpecFile(specName) {
     if (fs.existsSync(specFile)) return specFile
   }
   return null
+}
+
+function routeFileFor(route) {
+  if (/^\/screens\/[^/]+$/.test(route)) {
+    return path.join(appDir, 'screens/[id]/page.tsx')
+  }
+
+  return path.join(appDir, route.replace(/^\//, ''), 'page.tsx')
 }
 
 function parseScreens() {
@@ -57,9 +63,13 @@ for (const screen of screens) {
   if (routeSet.has(screen.route)) fail(`duplicate route "${screen.route}"`)
   routeSet.add(screen.route)
 
-  const routeFile = path.join(appDir, screen.route.replace(/^\//, ''), 'page.tsx')
+  const routeFile = routeFileFor(screen.route)
   if (!fs.existsSync(routeFile)) {
     fail(`missing route file for ${screen.id} ${screen.route}: ${path.relative(root, routeFile)}`)
+  }
+
+  if (/^\/screens\//.test(screen.route) && screen.route !== `/screens/${screen.id}`) {
+    fail(`screen ${screen.id} route must be /screens/${screen.id}, found ${screen.route}`)
   }
 
   const specName = screenSpecs[screen.id]
@@ -78,6 +88,12 @@ for (const [id, specName] of Object.entries(screenSpecs)) {
 
 for (const specName of sharedSpecFiles) {
   if (!findSpecFile(specName)) warn(`missing shared spec file: ${specName}`)
+}
+
+const activeSpecFiles = fs.readdirSync(path.resolve(root, specRoot))
+  .filter(fileName => /^\d{2}[a-z]?-.+\.md$/.test(fileName))
+if (activeSpecFiles.length !== expectedScreenCount) {
+  fail(`expected ${expectedScreenCount} active hi-fi specs, found ${activeSpecFiles.length}`)
 }
 
 if (!process.exitCode) {

@@ -42,6 +42,10 @@ Before implementing any screen, read:
 - `ink-brown-800` #211008 — card surfaces (glassmorphism, 28px radius, glass border)
 - `paper-100` #FEFAF3 — text on dark
 
+## Theming (light + dark)
+
+The prototype renders **dark-first**, but Balencia is designed as **two co-equal themes**. Light mode is fully spec'd in `../app_design 3/_light-mode-color-spec.md` (Final v1). When building screens, bind **semantic intent** (surface / text / accent-fill vs accent-ink) via the design-token Tailwind classes — *not* raw `ink-brown-800` / `white/70` literals — so screens theme automatically once the light `[data-theme="light"]` block lands in `globals.css`. Two rules to keep in mind even while building dark-only: **fills keep the brand hue, ink darkens** (orange/green text → `-ink` on light), and **depth flips emission→occlusion** (a dark glow becomes a colored lift on light). *(Wiring the working theme toggle is a follow-up build task; today, build dark but don't bake in assumptions that would break light.)*
+
 ## Route Structure
 
 ```

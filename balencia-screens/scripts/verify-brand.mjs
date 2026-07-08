@@ -41,6 +41,11 @@ const allowedWarmRgbaFiles = new Set([
   'src/app/features/videos/page.tsx',
   'src/app/features/reports/page.tsx',
 ])
+const ciaGuardedPathPatterns = [
+  /^src\/app\/screens\//,
+  /^src\/components\/hifi\//,
+  /^src\/data\/screens\.ts$/,
+]
 
 function fail(message) {
   console.error(`verify:brand failed: ${message}`)
@@ -146,6 +151,10 @@ for (const filePath of files) {
 
   if (/SIA[^'\n]*brand-orange|brand-orange[^'\n]*SIA/.test(source)) {
     fail(`${relativePath} appears to pair SIA copy with brand-orange; SIA/AI accents must use royal-purple`)
+  }
+
+  if (ciaGuardedPathPatterns.some(pattern => pattern.test(relativePath)) && /\bSIA\b/i.test(source)) {
+    fail(`${relativePath} contains legacy SIA naming in the new CIA prototype path`)
   }
 
   checkVisibleGoalLanguage(relativePath, source)

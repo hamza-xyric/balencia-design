@@ -194,6 +194,14 @@
   --stroke-bold: 8px;
   --stroke-poster: 12px;
 
+  /* === ChargeMeter tokens (VK-020 — Design-Elevation pass) ===
+     Segmented energy/charge meter (the sanctioned §8 segmentation exception).
+     No new colours: filled ticks interpolate --grad-progress per-tick; off-ticks
+     alias --color-alpha-white-10; glow reuses --glow-orange-sm / --glow-green-sm. */
+  --charge-gap: 2px;
+  --charge-tick-off: var(--color-alpha-white-10);
+  --charge-radius: var(--radius-xs);
+
   /* === Craft tokens (CK-T — design-audit) === */
   --edge-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --surface-backplate: radial-gradient(120% 90% at 50% 0%, rgba(255, 94, 0, 0.05) 0%, transparent 60%);

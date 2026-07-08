@@ -4,12 +4,12 @@ import { Calendar, MessageCircle, Flag, User } from 'lucide-react'
 
 const tabs = [
   { key: 'today', label: 'Today', Icon: Calendar },
-  { key: 'sia',   label: 'SIA',   Icon: MessageCircle },
+  { key: 'cia',   label: 'CIA',   Icon: MessageCircle },
   { key: 'goals', label: 'Missions', Icon: Flag },
   { key: 'me',    label: 'Me',    Icon: User },
 ] as const
 
-type TabKey = (typeof tabs)[number]['key']
+type TabKey = (typeof tabs)[number]['key'] | 'sia'
 
 export function TabBar({ active = 'today' }: { active?: TabKey }) {
   return (
@@ -18,7 +18,7 @@ export function TabBar({ active = 'today' }: { active?: TabKey }) {
       data-testid="tab-bar"
     >
       {tabs.map(({ key, label, Icon }) => {
-        const isActive = key === active
+        const isActive = key === active || (key === 'cia' && active === 'sia')
         return (
           <div key={key} className="flex flex-col items-center gap-[2px] w-[64px]">
             <Icon
