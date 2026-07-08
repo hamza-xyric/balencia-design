@@ -7,6 +7,7 @@ import { healthScreens } from './health'
 import { domainScreens } from './domains'
 import { profileScreens } from './profile'
 import { socialScreens } from './social'
+import { systemScreens } from './system'
 
 export const hifiScreenRegistry: Record<string, ComponentType> = {
   ...authScreens,
@@ -17,4 +18,5 @@ export const hifiScreenRegistry: Record<string, ComponentType> = {
   ...domainScreens,
   ...profileScreens,
   ...socialScreens,
+  ...systemScreens,
 }

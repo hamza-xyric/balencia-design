@@ -102,11 +102,11 @@ trust/a11y/clinical-safety review passes itself against the established checklis
 | 18 | 18-explore-section.md | review-route only | Profile & settings | B6 | complete | screens/profile/S18Explore.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B6/18.png | review-route only |
 | 19 | 19-rpg-character.md | /life-world | Profile & settings | B4 | complete | screens/profile/S19RpgCharacter.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/19.png |  |
 | 20 | 20-personal-wiki-cia-memory.md | /wiki | Life intelligence | B4 | complete | screens/intelligence/S20CiaMemory.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/20.png |  |
-| 21 | 21-settings.md | /settings, /preferences | Profile & settings | B7b | todo | — | — | — | — |  |
-| 22 | 22-connected-services.md | /auth/whoop/callback, /calendar/connected | Profile & settings | B7b | todo | — | — | — | — |  |
-| 23 | 23-subscription-billing.md | /settings/billing, /settings/billing/credits | Profile & settings | B7b | todo | — | — | — | — |  |
-| 24 | 24-notification-history.md | /notifications | Profile & settings | B7b | todo | — | — | — | — |  |
-| 25 | 25-help-center.md | /help, /help/[slug] | Profile & settings | B7b | todo | — | — | — | — |  |
+| 21 | 21-settings.md | /settings, /preferences | Profile & settings | B7b | complete | screens/profile/S21Settings.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/21.png |  |
+| 22 | 22-connected-services.md | /auth/whoop/callback, /calendar/connected | Profile & settings | B7b | complete | screens/profile/S22ConnectedServices.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/22.png |  |
+| 23 | 23-subscription-billing.md | /settings/billing, /settings/billing/credits | Profile & settings | B7b | complete | screens/profile/S23SubscriptionBilling.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/23.png |  |
+| 24 | 24-notification-history.md | /notifications | Profile & settings | B7b | complete | screens/profile/S24NotificationHistory.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/24.png |  |
+| 25 | 25-help-center.md | /help, /help/[slug] | Profile & settings | B7b | complete | screens/profile/S25HelpCenter.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/25.png |  |
 | 26 | 26-fitness-workouts-dashboard.md | /activity, /workouts | Health & wellbeing | P | complete | screens/health/S26FitnessDashboard.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/26.png |  |
 | 27 | 27-workout-detail-active.md | review-route only | Health & wellbeing | B5a | complete | screens/health/S27WorkoutDetail.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/27.png | review-route only |
 | 28 | 28-nutrition-diet-dashboard.md | /nutrition | Health & wellbeing | P | complete | screens/health/S28NutritionDashboard.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/28.png |  |
@@ -124,7 +124,7 @@ trust/a11y/clinical-safety review passes itself against the established checklis
 | 40 | 40-community-chat-rooms.md | /community, /community/[slug] | Social & community | B7a | complete | screens/social/S40CommunityRooms.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7a/40.png |  |
 | 41 | 41-schedule-calendar.md | /schedule, /wellbeing/schedule, /wellbeing/schedule/[date] | Today & missions | B3 | complete | screens/today/S41ScheduleCalendar.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/41.png |  |
 | 42 | 42-celebration-overlay.md | /subscription/success | Profile & settings | B7a | complete | screens/profile/S42CelebrationOverlay.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7a/42.png |  |
-| 43 | 43-paywall-upgrade.md | /subscription, /upgrade, /locked/[pageKey] | Profile & settings | B7b | todo | — | — | — | — |  |
+| 43 | 43-paywall-upgrade.md | /subscription, /upgrade, /locked/[pageKey] | Profile & settings | B7b | complete | screens/profile/S43Paywall.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/43.png |  |
 | 44 | 44-water-intake.md | review-route only | Today & missions | B3 | complete | screens/today/S44WaterIntake.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/44.png | review-route only |
 | 45 | 45-daily-checkin.md | /wellbeing/emotional-checkin | Today & missions | B3 | complete | screens/today/S45DailyCheckin.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/45.png |  |
 | 46 | 46-accountability.md | review-route only | Social & community | B7a | complete | screens/social/S46Accountability.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7a/46.png | review-route only |
@@ -145,12 +145,12 @@ trust/a11y/clinical-safety review passes itself against the established checklis
 | 61 | 61-reminders-tasks.md | review-route only | Today & missions | B3 | complete | screens/today/S61RemindersTasks.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/61.png | review-route only |
 | 62 | 62-quick-notes.md | /quick-notes | Health & wellbeing | B5b | complete | screens/health/S62QuickNotes.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B5b/62.png |  |
 | 63 | 63-energy-tracking.md | /wellbeing/energy | Health & wellbeing | A | complete | screens/health/S63EnergyTracking.tsx | Batch A gates | 2026-07-08 baseline | — |  |
-| 64 | 64-report-block.md | review-route only | Social & community | B7b | todo | — | — | — | — | review-route only |
+| 64 | 64-report-block.md | review-route only | Social & community | B7b | complete | screens/social/S64ReportBlock.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/64.png | review-route only |
 | 65 | 65-force-update.md | review-route only | Auth & onboarding | B1 | complete | screens/auth/S65ForceUpdate.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/65.png | review-route only |
 | 66 | 66-notification-permission.md | review-route only | Auth & onboarding | A | complete | screens/auth/S66NotificationPermission.tsx | Batch A gates | 2026-07-08 baseline | — | review-route only |
-| 67 | 67-image-viewer.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
+| 67 | 67-image-viewer.md | review-route only | System & media | B7b | complete | screens/system/S67ImageViewer.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/67.png | review-route only |
 | 68 | 68-universal-search.md | review-route only | Profile & settings | B4 | complete | screens/profile/S68UniversalSearch.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/68.png | review-route only |
-| 69 | 69-app-rating.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
+| 69 | 69-app-rating.md | review-route only | System & media | B7b | complete | screens/system/S69AppRating.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/69.png | review-route only |
 | 70 | 70-exercise-library.md | /exercises, /exercises/[id] | Health & wellbeing | B5a | complete | screens/health/S70ExerciseLibrary.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/70.png |  |
 | 71 | 71-achievement-gallery.md | /achievements | Profile & settings | B7a | complete | screens/profile/S71AchievementGallery.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7a/71.png |  |
 | 72 | 72-knowledge-graph.md | /knowledge-graph | Life intelligence | B4 | complete | screens/intelligence/S72KnowledgeGraph.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/72.png |  |
@@ -159,14 +159,14 @@ trust/a11y/clinical-safety review passes itself against the established checklis
 | 75 | 75-direct-chat.md | /messages | CIA, voice & chat | A | complete | screens/cia/S75DirectChat.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 76 | 76-group-chat.md | /chat | CIA, voice & chat | B2 | complete | screens/cia/S76GroupChat.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/76.png |  |
 | 77 | 77-message-actions.md | review-route only | CIA, voice & chat | B2 | complete | screens/cia/S77MessageActions.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/77.png | review-route only |
-| 78 | 78-reports-center.md | review-route only | Social & community | B7b | todo | — | — | — | — | review-route only |
+| 78 | 78-reports-center.md | review-route only | Social & community | B7b | complete | screens/social/S78ReportsCenter.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/78.png | review-route only |
 | 79 | 79-call-summary.md | review-route only | CIA, voice & chat | B2 | complete | screens/cia/S79CallSummary.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/79.png | review-route only |
-| 80 | 80-music-coach.md | /soundscape | System & media | B7b | todo | — | — | — | — |  |
-| 81 | 81-video-library.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
+| 80 | 80-music-coach.md | /soundscape | System & media | B7b | complete | screens/system/S80MusicCoach.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/80.png |  |
+| 81 | 81-video-library.md | review-route only | System & media | B7b | complete | screens/system/S81VideoLibrary.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/81.png | review-route only |
 | 82 | 82-accountability-contract.md | /contracts | Social & community | B7a | complete | screens/social/S82AccountabilityContract.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7a/82.png |  |
 | 83 | 83-social-buddy-profile.md | /profile/[id] | Profile & settings | B4 | complete | screens/profile/S83BuddyProfile.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/83.png |  |
 | 84 | 84-data-sources.md | review-route only | Life intelligence | B4 | complete | screens/intelligence/S84DataSources.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/84.png | review-route only |
-| 85 | 85-obstacle-coach.md | /obstacles/[id] | System & media | B7b | todo | — | — | — | — |  |
+| 85 | 85-obstacle-coach.md | /obstacles/[id] | System & media | B7b | complete | screens/system/S85ObstacleCoach.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/85.png |  |
 | 86 | 86-virtual-tryon.md | /wellbeing/virtual-tryon | Health & wellbeing | B5a | complete | screens/health/S86VirtualTryon.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/86.png |  |
 | 87 | 87-tryon-history.md | /wellbeing/virtual-tryon/history | Health & wellbeing | B5a | complete | screens/health/S87TryonHistory.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/87.png |  |
 | 88 | 88-vision-suite.md | /wellbeing/vision | Health & wellbeing | B5a | complete | screens/health/S88VisionSuite.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/88.png |  |
@@ -179,7 +179,7 @@ trust/a11y/clinical-safety review passes itself against the established checklis
 | 95 | 95-pods-hub.md | /groups | Social & community | B7a | complete | screens/social/S95PodsHub.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7a/95.png |  |
 | 96 | 96-health-data-view.md | /whoop | Life intelligence | B4 | complete | screens/intelligence/S96HealthDataView.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/96.png |  |
 | 97 | 97-plans-library.md | /plans | Today & missions | B3 | complete | screens/today/S97PlansLibrary.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/97.png |  |
-| 98 | 98-system-states.md | /offline, /maintenance, /forbidden, /unauthorized, /coming-soon | System & media | B7b | todo | — | — | — | — |  |
+| 98 | 98-system-states.md | /offline, /maintenance, /forbidden, /unauthorized, /coming-soon | System & media | B7b | complete | screens/system/S98SystemStates.tsx | orchestrator-direct review (W-007) | 2026-07-08 npm run check | screenshots/B7b/98.png |  |
 | 99 | 99-whatsapp-inbox.md | /whatsapp | CIA, voice & chat | B2 | complete | screens/cia/S99WhatsappInbox.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/99.png |  |
 
 ## Batch log
@@ -188,6 +188,7 @@ trust/a11y/clinical-safety review passes itself against the established checklis
 |---|---|---|---|---|---|
 | A | 10 (09,12,13,16,48,63,66,75,89,91) | 2026-07-07 | 2026-07-07 | npm run check PASS (prior session) | Baseline commit ff59f6f |
 | P | 4 (03,07,26,28) | 2026-07-08 | 2026-07-08 | GLM drafts x4 OK; sonnet builds T1 green; trust+a11y reviews -> 10 findings, all fixed; npm run check PASS; console clean; screenshots reviewed | Commit 342af65. Chip gained interactive variant; TopBar title now ReactNode; VolumeBars key bug fixed |
+| B7b | 14 (21,22,23,24,25,43,64,67,69,78,80,81,85,98) | 2026-07-08 | 2026-07-08 | Recovery build, final batch: GLM drafts direct (4 retries); fixes: TopBar prop misuse, orb states, SkeletonBar->skeleton-block, nested row-buttons (81 x2), cool-black scrim, email/casing copy gates, paywall CTA sentence case; paywall preview generic + honest cancel; report sheet calm over dimmed base; W-007; npm run check PASS; 14/14 screenshots clean | system/ family created. ALL 104 SCREENS COMPLETE |
 | B7a | 9 (39,40,42,46,47,71,82,94,95) | 2026-07-08 | 2026-07-08 | Recovery build: GLM drafts direct (3 retries); fixes: JSX syntax breaks, invalid tones/sizes, nested-button hydration (71), hardcoded hex, persona coherence on celebration (Lv 12->13), ring overlap; honesty + purple sweeps clean; W-007; npm run check PASS; 9/9 screenshots clean | Leaderboard ships progress-not-comparison framing |
 | B6 | 10 (18,30,31,32,33,34,35,36,37,38) | 2026-07-08 | 2026-07-08 | Recovery build: GLM drafts direct (5 z.ai 529 retries), Fable integrated; fixes: 13 type errors, purple-as-data-category, location claims, out-of-range TrendChart milestone (kit hardened), button-in-button hydration bug, unused imports, entity escapes; orchestrator review W-007; npm run check PASS; 10/10 screenshots (32 re-shot clean) | domains/ family created |
 | B5b | 7 (52,53,54,55,58,60,62) | 2026-07-08 | 2026-07-08 | LIMIT-EVENT recovery: GLM drafts via direct bash (2 z.ai 529 retries), Fable integrated/repaired directly; fixes: invisible-card animation bug, phantom type classes, nested h1, purple-on-non-CIA, encrypted-locally claim removed, blame-free med copy, radiogroup/tablist semantics, contrast floors; trust/a11y/safety checklists applied by orchestrator (W-007 — independent review deferred to sweep); npm run check PASS; 7/7 screenshots clean | No subagents available (spend cap) |
