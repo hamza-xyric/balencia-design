@@ -47,6 +47,9 @@ export function S26FitnessDashboard() {
 - Exactly ONE serif emphasis word per screen: `<span className="text-emphasis">word</span>` (the spec names it, e.g. *dashboard*).
 - Numbers/stats get `tabular-nums` class.
 
+## Never invent policy or privacy claims
+NEVER write retention windows ("deleted within 24 hours", "kept 7 days"), processing-location claims ("processed locally", "never leaves your device"), or confidence percentages unless the spec literally states them. Name control CATEGORIES instead (source, retention, export, revoke, delete). Charts never announce fabricated series as "real values".
+
 ## Honesty invariant (canon §7)
 Every metric shows one of: **real** (value + `Provenance` chip, e.g. "Via WHOOP", "You logged"), **estimate** (muted value + "Estimated · low confidence"), **honest-null** (designed empty: "Not enough data yet — 3 more days", never a fake number or bare zero-bar).
 

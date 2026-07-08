@@ -12,7 +12,7 @@ export function ProgressBar({ value, tone = 'you' }: { value: number; tone?: Ton
 export function MetricPill({ label, value, tone = 'muted' }: { label: string; value: string; tone?: Tone }) {
   return (
     <div className={cx('rounded-lg border p-3', toneClass[tone])}>
-      <p className="text-[11px] font-semibold uppercase leading-3 opacity-80">{label}</p>
+      <p className="text-[11px] font-semibold uppercase leading-3 text-white/60">{label}</p>
       <p className="mt-2 text-[20px] font-semibold leading-6 text-white">{value}</p>
     </div>
   )

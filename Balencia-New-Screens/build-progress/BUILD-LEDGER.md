@@ -98,9 +98,9 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 24 | 24-notification-history.md | /notifications | Profile & settings | B7b | todo | — | — | — | — |  |
 | 25 | 25-help-center.md | /help, /help/[slug] | Profile & settings | B7b | todo | — | — | — | — |  |
 | 26 | 26-fitness-workouts-dashboard.md | /activity, /workouts | Health & wellbeing | P | complete | screens/health/S26FitnessDashboard.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/26.png |  |
-| 27 | 27-workout-detail-active.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
+| 27 | 27-workout-detail-active.md | review-route only | Health & wellbeing | B5a | complete | screens/health/S27WorkoutDetail.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/27.png | review-route only |
 | 28 | 28-nutrition-diet-dashboard.md | /nutrition | Health & wellbeing | P | complete | screens/health/S28NutritionDashboard.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/28.png |  |
-| 29 | 29-meal-detail-food-logger.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
+| 29 | 29-meal-detail-food-logger.md | review-route only | Health & wellbeing | B5a | complete | screens/health/S29MealDetail.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/29.png | review-route only |
 | 30 | 30-finance-money-map.md | /money-map | Domains & money | B6 | todo | — | — | — | — |  |
 | 31 | 31-transaction-budget-detail.md | review-route only | Domains & money | B6 | todo | — | — | — | — | review-route only |
 | 32 | 32-career-work-dashboard.md | /career | Domains & money | B6 | todo | — | — | — | — |  |
@@ -120,15 +120,15 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 46 | 46-accountability.md | review-route only | Social & community | B7a | todo | — | — | — | — | review-route only |
 | 47 | 47-competitions.md | /competitions | Social & community | B7a | todo | — | — | — | — |  |
 | 48 | 48-intelligence-dashboard.md | /wellbeing/insights | Life intelligence | A | complete | screens/intelligence/S48Intelligence.tsx | Batch A gates | 2026-07-08 baseline | — |  |
-| 49 | 49-progress-photos.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
+| 49 | 49-progress-photos.md | review-route only | Health & wellbeing | B5a | complete | screens/health/S49ProgressPhotos.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/49.png | review-route only |
 | 50 | 50-profile-edit.md | /profile/edit | Profile & settings | B4 | complete | screens/profile/S50ProfileEdit.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/50.png |  |
 | 51 | 51-voice-call-history.md | /voice-call | CIA, voice & chat | B2 | complete | screens/cia/S51VoiceCallHistory.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/51.png |  |
 | 52 | 52-stress-management.md | /wellbeing/stress | Health & wellbeing | B5b | todo | — | — | — | — |  |
 | 53 | 53-breathing-exercises.md | /wellbeing/breathing | Health & wellbeing | B5b | todo | — | — | — | — |  |
 | 54 | 54-meditation-mindfulness.md | No live app route; source-only mindfulness surface. | Health & wellbeing | B5b | todo | — | — | — | — |  |
 | 55 | 55-yoga-sessions.md | /yoga | Health & wellbeing | B5b | todo | — | — | — | — |  |
-| 56 | 56-recipes.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
-| 57 | 57-shopping-list.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
+| 56 | 56-recipes.md | review-route only | Health & wellbeing | B5a | complete | screens/health/S56Recipes.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/56.png | review-route only |
+| 57 | 57-shopping-list.md | review-route only | Health & wellbeing | B5a | complete | screens/health/S57ShoppingList.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/57.png | review-route only |
 | 58 | 58-sleep-tracking.md | review-route only | Health & wellbeing | B5b | todo | — | — | — | — | review-route only |
 | 59 | 59-streak-details.md | review-route only | Today & missions | B3 | complete | screens/today/S59StreakDetails.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/59.png | review-route only |
 | 60 | 60-medication-tracking.md | No live app route; source-only medication surface. | Health & wellbeing | B5b | todo | — | — | — | — |  |
@@ -141,7 +141,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 67 | 67-image-viewer.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
 | 68 | 68-universal-search.md | review-route only | Profile & settings | B4 | complete | screens/profile/S68UniversalSearch.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/68.png | review-route only |
 | 69 | 69-app-rating.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
-| 70 | 70-exercise-library.md | /exercises, /exercises/[id] | Health & wellbeing | B5a | todo | — | — | — | — |  |
+| 70 | 70-exercise-library.md | /exercises, /exercises/[id] | Health & wellbeing | B5a | complete | screens/health/S70ExerciseLibrary.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/70.png |  |
 | 71 | 71-achievement-gallery.md | /achievements | Profile & settings | B7a | todo | — | — | — | — |  |
 | 72 | 72-knowledge-graph.md | /knowledge-graph | Life intelligence | B4 | complete | screens/intelligence/S72KnowledgeGraph.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/72.png |  |
 | 73 | 73-mission-journal.md | review-route only | Today & missions | B3 | complete | screens/today/S73MissionJournal.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/73.png | review-route only |
@@ -157,9 +157,9 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 83 | 83-social-buddy-profile.md | /profile/[id] | Profile & settings | B4 | complete | screens/profile/S83BuddyProfile.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/83.png |  |
 | 84 | 84-data-sources.md | review-route only | Life intelligence | B4 | complete | screens/intelligence/S84DataSources.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/84.png | review-route only |
 | 85 | 85-obstacle-coach.md | /obstacles/[id] | System & media | B7b | todo | — | — | — | — |  |
-| 86 | 86-virtual-tryon.md | /wellbeing/virtual-tryon | Health & wellbeing | B5a | todo | — | — | — | — |  |
-| 87 | 87-tryon-history.md | /wellbeing/virtual-tryon/history | Health & wellbeing | B5a | todo | — | — | — | — |  |
-| 88 | 88-vision-suite.md | /wellbeing/vision | Health & wellbeing | B5a | todo | — | — | — | — |  |
+| 86 | 86-virtual-tryon.md | /wellbeing/virtual-tryon | Health & wellbeing | B5a | complete | screens/health/S86VirtualTryon.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/86.png |  |
+| 87 | 87-tryon-history.md | /wellbeing/virtual-tryon/history | Health & wellbeing | B5a | complete | screens/health/S87TryonHistory.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/87.png |  |
+| 88 | 88-vision-suite.md | /wellbeing/vision | Health & wellbeing | B5a | complete | screens/health/S88VisionSuite.tsx | trust+a11y: 20 findings fixed | 2026-07-08 npm run check | screenshots/B5a/88.png |  |
 | 89 | 89-wellbeing-hub.md | /wellbeing | Health & wellbeing | A | complete | screens/health/S89Wellbeing.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 90 | 90-progress-measurements.md | /progress | Life intelligence | B4 | complete | screens/intelligence/S90ProgressMeasurements.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/90.png |  |
 | 91 | 91-social-feed.md | /feed | Social & community | A | complete | screens/social/S91SocialFeed.tsx | Batch A gates | 2026-07-08 baseline | — |  |
@@ -178,6 +178,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 |---|---|---|---|---|---|
 | A | 10 (09,12,13,16,48,63,66,75,89,91) | 2026-07-07 | 2026-07-07 | npm run check PASS (prior session) | Baseline commit ff59f6f |
 | P | 4 (03,07,26,28) | 2026-07-08 | 2026-07-08 | GLM drafts x4 OK; sonnet builds T1 green; trust+a11y reviews -> 10 findings, all fixed; npm run check PASS; console clean; screenshots reviewed | Commit 342af65. Chip gained interactive variant; TopBar title now ReactNode; VolumeBars key bug fixed |
+| B5a | 9 (27,29,49,56,57,70,86,87,88) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 3 sonnet builders; trust 8 (fabricated "real values" chart claim, invented never-leaves-device privacy claim, allergy-order inversion, green urgent-care card) + a11y 12 (kit Btn* now real buttons, aria-pressed via Chip pressed prop, tab-rail targets) — all 20 fixed; cheat-sheet gained no-invented-policy-claims rule; npm run check PASS; screenshots clean | Kit: buttons semantic, MetricPill contrast, Chip pressed prop |
 | B4 | 12 (17,19,20,50,68,72,83,84,90,92,93,96) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 4 sonnet builders; trust 8 (graph edge/sheet honesty mismatches, persona drift on buddy missions, missing per-fact delete, KPI count) + a11y 11 (Chip interactive now real button kit-wide, MiniRadar role, icon/label mismatch, target sizes) — all 19 fixed; npm run check PASS; 12/12 screenshots clean | persona.ts extended (lastName/email/phone/dob/tz); S92 registered under profile/ |
 | B3 | 9 (14,15,41,44,45,59,61,73,97) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 3 sonnet builders; trust 5 (fabricated confidence stat, personalized data behind CSS-only paywall blur, contradictory milestone math, wrong provenance) + a11y 12 (ConsentRail kit-wide interactive, roving tabindex, contrast sweep, color-only calendar states) — all 17 fixed; S59 weekday key bug fixed; npm run check PASS; screenshots clean | Kit: ConsentRail interactive, SafetyCard /55 |
 | B2 | 8 (10,11,51,74,76,77,79,99) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 2 sonnet builders T1 green; trust 4 (fabricated retention values killed, mic-state honesty, online-count mismatch) + a11y 11 (IconButton kit-wide -> real button, tablist semantics, contrast floors) — all 15 fixed + re-verified; npm run check PASS; 8/8 screenshots clean; 09 kit-regression check benign | Commit pending. Overlays 10/77 composed over dimmed base per plan |

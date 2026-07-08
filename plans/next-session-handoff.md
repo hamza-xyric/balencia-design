@@ -1,7 +1,7 @@
 # Next-Session Handoff — Hi-Fi Build (104 screens)
 
-> Status: IN PROGRESS — 26/104 complete, B2 in flight
-> Branch: `hifi-build` @ `5123770` · Updated: 2026-07-08 (mid-session checkpoint)
+> Status: IN PROGRESS — 55/104 complete, B5a in flight
+> Branch: `hifi-build` @ `7a19884` · Updated: 2026-07-08 (mid-session checkpoint)
 
 ## Lane
 
@@ -21,13 +21,17 @@
 - Pilot P (`342af65`): 03, 07, 26, 28 + pilot kit (buttons, CIA orb/insight, ProgressRing/ChargeMeter/TrendChart/HeatGrid/VolumeBars/DonutHub, StepperRail). 10 review findings fixed.
 - B1 (`5123770`): 12 auth/onboarding screens. 16 review findings fixed (incl. pre-checked-consent dark pattern).
 
+## Closed batches
+
+B1 auth (12, commit `5123770`) → B2 cia/voice (8, `44390cb`) → B3 today/missions (9, `afd573a`) → B4 intel/profile (12, `7a19884`). Each: workflow build → review findings fixed → registered → gated → screenshot → ledger row.
+
 ## In flight
 
-- **B2** (workflow `wf_d7e1674c-1af`): 10, 11, 51, 74, 76, 77, 79, 99 → `screens/cia/`. Pipeline: haiku digest → GLM draft → 2 sonnet builders (4 each) → trust+a11y reviews. On completion: fix findings → register in `screens/cia/index.ts` (orchestrator does this — builders never touch index) → flip `screens.ts` statuses → `npm run check` → `node scripts/hifi-screenshots.mjs --ids ... --out ../Balencia-New-Screens/build-progress/screenshots/B2` → visual inspect → ledger rows + batch log → commit.
+- **B5a** (workflow `wf_4bad103f-80c`): 27, 29, 49, 56, 57, 70, 86, 87, 88 → `screens/health/`. On completion: fix findings → register in `screens/health/index.ts` → flip statuses → `npm run check` → screenshots → ledger → commit.
 
-## Batch queue after B2
+## Batch queue after B5a
 
-B3 today/missions (14,15,41,44,45,59,61,73,97) → B4 intel/profile (17,19,20,50,68,72,83,84,90,92,93,96) → B5a (27,29,49,56,57,70,86,87,88) → B5b mind/body (52,53,54,55,58,60,62 — safety-heaviest) → B6 domains (18,30–38) → B7a social (39,40,42,46,47,71,82,94,95) → B7b account/system (21–25,43,64,67,69,78,80,81,85,98) → sweep session.
+B5b mind/body (52,53,54,55,58,60,62 — safety-heaviest, slowest review) → B6 domains (18,30–38) → B7a social (39,40,42,46,47,71,82,94,95) → B7b account/system (21–25,43,64,67,69,78,80,81,85,98) → sweep session (full-104 screenshot pass, cross-family consistency, acceptance checklist).
 
 ## Method per batch (proven in P + B1)
 

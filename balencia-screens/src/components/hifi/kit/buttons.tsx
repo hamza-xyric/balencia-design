@@ -12,7 +12,9 @@ export function BtnPrimary({
   className?: string
 }) {
   return (
-    <div
+    <button
+      type="button"
+      disabled={disabled}
       className={cx(
         'flex h-[52px] items-center justify-center rounded-pill bg-brand-orange px-6 text-[16px] font-semibold text-white',
         disabled ? 'opacity-40' : 'shadow-[var(--glow-orange-sm)]',
@@ -20,39 +22,39 @@ export function BtnPrimary({
       )}
     >
       {children}
-    </div>
+    </button>
   )
 }
 
 export function BtnSecondary({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={cx('glass-pill flex h-12 items-center justify-center gap-2 px-5 text-[15px] font-medium text-white', className)}>
+    <button type="button" className={cx('glass-pill flex h-12 items-center justify-center gap-2 px-5 text-[15px] font-medium text-white', className)}>
       {children}
-    </div>
+    </button>
   )
 }
 
 export function BtnGhost({ children, quiet = false, className }: { children: React.ReactNode; quiet?: boolean; className?: string }) {
   return (
-    <div className={cx('flex h-11 items-center justify-center px-4 text-[15px] font-medium', quiet ? 'text-white/50' : 'text-brand-orange', className)}>
+    <button type="button" className={cx('flex h-11 items-center justify-center px-4 text-[15px] font-medium', quiet ? 'text-white/50' : 'text-brand-orange', className)}>
       {children}
-    </div>
+    </button>
   )
 }
 
 export function BtnCoach({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={cx('flex h-[52px] items-center justify-center rounded-pill bg-royal-purple px-6 text-[16px] font-semibold text-white shadow-[var(--glow-purple-sm)]', className)}>
+    <button type="button" className={cx('flex h-[52px] items-center justify-center rounded-pill bg-royal-purple px-6 text-[16px] font-semibold text-white shadow-[var(--glow-purple-sm)]', className)}>
       {children}
-    </div>
+    </button>
   )
 }
 
 export function BtnSuccess({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={cx('flex h-[52px] items-center justify-center rounded-pill bg-forest-green px-6 text-[16px] font-semibold text-white shadow-[var(--glow-green-sm)]', className)}>
+    <button type="button" className={cx('flex h-[52px] items-center justify-center rounded-pill bg-forest-green px-6 text-[16px] font-semibold text-white shadow-[var(--glow-green-sm)]', className)}>
       {children}
-    </div>
+    </button>
   )
 }
 
