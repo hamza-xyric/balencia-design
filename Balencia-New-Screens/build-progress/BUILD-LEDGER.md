@@ -69,7 +69,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 |---|---|---|---|---|---|---|---|---|---|---|
 | 01 | 01-splash-screen.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
 | 02 | 02-motion-carousel.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
-| 03 | 03-welcome-sign-up.md | /auth/signup | Auth & onboarding | P | todo | — | — | — | — |  |
+| 03 | 03-welcome-sign-up.md | /auth/signup | Auth & onboarding | P | complete | screens/auth/S03WelcomeSignUp.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/03.png |  |
 | 03b | 03b-otp-verification.md | /auth/verify | Auth & onboarding | B1 | todo | — | — | — | — |  |
 | 03c | 03c-consent.md | /onboarding | Auth & onboarding | B1 | todo | — | — | — | — |  |
 | 03d | 03d-complete-profile.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
@@ -78,7 +78,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 05 | 05-forgot-password.md | /auth/forgot-password | Auth & onboarding | B1 | todo | — | — | — | — |  |
 | 05b | 05b-reset-password.md | /auth/reset-password, /reset-password | Auth & onboarding | B1 | todo | — | — | — | — |  |
 | 06 | 06-guest-mode-preview.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
-| 07 | 07-cia-onboarding-conversation.md | /onboarding | Auth & onboarding | P | todo | — | — | — | — |  |
+| 07 | 07-cia-onboarding-conversation.md | /onboarding | Auth & onboarding | P | complete | screens/auth/S07CiaOnboarding.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/07.png |  |
 | 08 | 08-initial-plan-summary.md | /onboarding | Auth & onboarding | B1 | todo | — | — | — | — |  |
 | 09 | 09-cia-chat.md | /ai-coach | CIA, voice & chat | A | complete | screens/cia/S09CiaChat.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 10 | 10-cia-voice-in-chat.md | review-route only | CIA, voice & chat | B2 | todo | — | — | — | — | review-route only |
@@ -97,9 +97,9 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 23 | 23-subscription-billing.md | /settings/billing, /settings/billing/credits | Profile & settings | B7b | todo | — | — | — | — |  |
 | 24 | 24-notification-history.md | /notifications | Profile & settings | B7b | todo | — | — | — | — |  |
 | 25 | 25-help-center.md | /help, /help/[slug] | Profile & settings | B7b | todo | — | — | — | — |  |
-| 26 | 26-fitness-workouts-dashboard.md | /activity, /workouts | Health & wellbeing | P | todo | — | — | — | — |  |
+| 26 | 26-fitness-workouts-dashboard.md | /activity, /workouts | Health & wellbeing | P | complete | screens/health/S26FitnessDashboard.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/26.png |  |
 | 27 | 27-workout-detail-active.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
-| 28 | 28-nutrition-diet-dashboard.md | /nutrition | Health & wellbeing | P | todo | — | — | — | — |  |
+| 28 | 28-nutrition-diet-dashboard.md | /nutrition | Health & wellbeing | P | complete | screens/health/S28NutritionDashboard.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/28.png |  |
 | 29 | 29-meal-detail-food-logger.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
 | 30 | 30-finance-money-map.md | /money-map | Domains & money | B6 | todo | — | — | — | — |  |
 | 31 | 31-transaction-budget-detail.md | review-route only | Domains & money | B6 | todo | — | — | — | — | review-route only |
@@ -177,6 +177,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | Batch | Screens | Opened | Closed | Verification | Notes |
 |---|---|---|---|---|---|
 | A | 10 (09,12,13,16,48,63,66,75,89,91) | 2026-07-07 | 2026-07-07 | npm run check PASS (prior session) | Baseline commit ff59f6f |
+| P | 4 (03,07,26,28) | 2026-07-08 | 2026-07-08 | GLM drafts x4 OK; sonnet builds T1 green; trust+a11y reviews -> 10 findings, all fixed; npm run check PASS; console clean; screenshots reviewed | Commit 342af65. Chip gained interactive variant; TopBar title now ReactNode; VolumeBars key bug fixed |
 | B0 | 0 new (architecture) | 2026-07-08 | 2026-07-08 | npm run check PASS ×3; screenshot byte-diff pixel-identical on structural commit; canon-aligned shots reviewed | Commits 8bdc343 (kit+registry decomposition), c4a2aba (canon tokens), 5a06da7 (fonts/atmosphere/nav/glow). Evidence: screenshots/B0-baseline, B0-post-refactor, B0-canon-aligned. verify:copy gained inline-emphasis continuation rule. figma-tokens-map.json regen still owed. |
 
 Batch sizes: A=10 · P=4 · B1=12 · B2=8 · B3=9 · B4=12 · B5a=9 · B5b=7 · B6=10 · B7a=9 · B7b=14 · total 104
