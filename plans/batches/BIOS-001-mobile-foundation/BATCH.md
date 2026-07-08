@@ -51,6 +51,7 @@ Waivers:
 - [x] Build native Balencia UI foundation.
 - [x] Add typed API wrappers and SecureStore session helpers.
 - [x] Build pilot screens.
+- [x] Import reusable TestFlight/EAS/backend public config from `yhealth-app-main`.
 - [x] Install updated mobile dependencies.
 - [x] Run mobile source verifier.
 - [x] Run mobile typecheck.
@@ -76,3 +77,4 @@ Recorded caveats:
 
 - iOS Simulator smoke was not run in this batch.
 - `npm install` reports 11 moderate audit findings inherited from the current Expo dependency tree; no force fix was applied.
+- No reusable production/TestFlight login was found in `yhealth-app-main`; next authenticated QA still needs OTP access or a deliberately seeded account.

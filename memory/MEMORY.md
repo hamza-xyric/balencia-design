@@ -60,6 +60,7 @@ Critical memory is not magic. Even a `critical_invariant` loses to verified live
 - [Source hierarchy](project_source-hierarchy.md) — CREATIVE-REFERENCE.md/logos/CSS tokens win ties; teal-palette docs are stale
 - [Verify commands](reference_verify-commands.md) — `npm run check` (balencia-screens), portability-check.mjs (framework)
 - [Agent workflow rules](feedback_agent-workflow-rules.md) — prototype visual-only, audits read-only, never approximate the logo
+- [ASC/TestFlight verification](reference_asc-testflight-verification.md) — eas-cli has no submissions-list; verify via ASC API local-JWT script; submit creds live in eas.json
 
 _Worked examples live in `examples/` — they show the shape of each fact type. Delete them once you have real facts._
 

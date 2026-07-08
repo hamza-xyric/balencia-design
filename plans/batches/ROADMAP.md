@@ -1,0 +1,24 @@
+# Balencia iOS — Batch Roadmap (BIOS-002 … BIOS-012)
+
+> Finalized in the BIOS-002 architecture phase (Opus plan `plans/batches/BIOS-002-ios-simulator-contracts/evidence/architecture-plan.md` §5 + ADR-10, Sonnet-reviewed, Fable-accepted 2026-07-08).
+> One batch at a time; a batch closes only with green/waived gates (see the master operating procedure).
+> Backend-unsupported features (finance, WhatsApp, documents, barcode, PSTN, offline/PWA) stay visible-but-gated with provenance — never faked, never silently dropped.
+
+| ID | Title | Scope summary | Entry criteria | Key risks | Status |
+|---|---|---|---|---|---|
+| BIOS-002 | Simulator + real backend contracts | Local backend up; 7 slices (auth/session, Cia onboarding+chat, Today, Missions, Life Areas, Fitness, data controls) wired to live DTOs via honest adapters; session state machine; Vitest contract tests; simulator smoke evidence | READINESS-001 READY WITH WAIVERS; local backend booted | Backend drift; honesty regressions; GLM packet under-specification | **CLOSED 2026-07-09** — all gates green (41 tests, simulator walk of all 7 slices vs live backend); 2 sim-found bugs fixed in-batch; evidence in `BIOS-002-ios-simulator-contracts/evidence/` |
+| BIOS-003 | Auth hardening + multi-device | Backend session-model work for multi-refresh (OQ-1); Google/Apple sign-in; registration/OTP/forgot-password screens; token security review | 002 closed ✓; backend session-model decision (Hamza/OQ-1) | Refresh-token model change; social-auth verification fallback risk (server) | **next** |
+| BIOS-004 | Today + Missions hi-fi parity | Deep visual parity to hifi-screens; GlassNavBar; motion; density tiers; first EAS/TestFlight build of the integrated app | 002 adapters stable; W-007 re-review state checked for affected screens | Design canon drift (W5); Reanimated perf | pending |
+| BIOS-005 | Cia coach full experience | Streaming transport decision (OQ-3: socket layer trace); insights/suggestedActions UI; image analysis; MCQ onboarding | Socket/`chat.routes` traced; entitlement enforcement plan confirmed | Streaming transport unknown; credit/entitlement 402 flows | pending |
+| BIOS-006 | Life Areas + LCM | `/v1/intelligence/lcm` 10-domain matrix; per-area trend/drivers (needs backend support) | LCM contract traced; life-areas trend source decided | No server trend/drivers today (gap) | pending |
+| BIOS-007 | Fitness + wearable | Real workout plans render (JSONB), today's workout, consistency heatmap, WHOOP provenance | Workout JSONB types traced; wearable contract confirmed | Free-form JSONB; wearable data absent | pending |
+| BIOS-008 | Gamification + leaderboards | XP history, level progress, daily-score, leaderboards | gamification/leaderboard contracts traced | ~~`req.user.id` bug~~ fixed in BIOS-002 (A1); leaderboard contracts untraced | pending |
+| BIOS-009 | Trust center + consent | Export UX, privacy, consent history (needs backend endpoint), account-delete polish | Consent-audit endpoint exists (OQ-5) | No consent-audit endpoint today (gap) | pending |
+| BIOS-010 | Social / squads / communities | Feed, pledges, reputation, groups — to the depth the backend supports | social-growth contracts traced | Large surface; backend-gated depth | pending |
+| BIOS-011 | Offline + resilience | Cache persistence, offline banner behavior, retry policy hardening; RPG polish + PaywallLock per design | Query persistence strategy chosen | No offline layer today | pending |
+| BIOS-012 | Store readiness | Release hardening, a11y sweep, EAS build/submit, TestFlight metadata (W2/W3), privacy URLs, release notes | Apple team type + beta metadata provided (Hamza) | W2/W3 waivers unresolved | pending |
+
+Cross-batch notes:
+- EAS/TestFlight builds: minimum at BIOS-004 (first integrated milestone) and BIOS-012 (release); more if risk warrants.
+- Every batch runs the Per-Batch Operating Procedure (Ground → Inventory → Architecture → Slice → Implement (GLM-first) → Review panel → Verify → Persist).
+- Open questions OQ-1..OQ-5 tracked in the BIOS-002 plan §6; owners assigned there.

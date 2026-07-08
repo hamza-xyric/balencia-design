@@ -84,38 +84,36 @@ canon §6 wording, gate coverage. Loop `/goal`; profile claude-native.
 
 ---
 
-# 2. Lane B — iOS development (READINESS-001 complete)
+# 2. Lane B — iOS development (BIOS-002 CLOSED)
 
-> Status: **READINESS-001 COMPLETE — READY WITH WAIVERS for autonomous iOS development** · Updated: 2026-07-08 (evening)
-> Pre-development readiness audit done. Canonical checklist: `yhealth-app/mobile/docs/READINESS.md`.
-> Full report: `plans/batches/READINESS-001-ios-predev/evidence/readiness-report.md`.
+> Status: **BIOS-002 CLOSED 2026-07-09 — all gates green, app runs live against the real backend in the iOS Simulator** · Next: **BIOS-003 auth hardening**
+> Batch record: `plans/batches/BIOS-002-ios-simulator-contracts/BATCH.md` · Verification: `evidence/verification.md` · Roadmap: `plans/batches/ROADMAP.md`.
 
-## What Changed (READINESS-001-ios-predev)
+## What Changed (BIOS-002-ios-simulator-contracts)
 
-- Re-verified all BIOS-001 gates green: mobile lint / typecheck / test (`mobile-source-ok routes=11 files=38`), Expo public config (SDK 57, correct identity).
-- Verified EAS/TestFlight state: build `63265de5` (v1.0.0 **build 10**) finished on EAS 21:41 PKT; submission `aa6ed762` **succeeded** — build 10 VALID in ASC at 22:12 PKT. Internal group "Internal Balencia Testing" exists. TestFlight beta metadata (privacy URL, feedback email, review contact) is empty.
-- Verified secrets posture: `.p8` local + gitignored, `mobile/.env` gitignored, nothing secret-shaped tracked in either repo.
-- **High-risk finding (owner Hamza):** `mobile/.env` contains a full server-grade env — replace with `EXPO_PUBLIC_*`-only per new `mobile/.env.example`.
-- Created `yhealth-app/mobile/docs/READINESS.md` (checklist + ported release-readiness-verifier gate + model routing) and `yhealth-app/mobile/.env.example` (was missing despite import doc claim).
-- Confirmed skills: Codex `source-command-*` + architect/frontend/designer/review skills in `.agents/skills/`; expo plugin skills cached; Claude equivalents native. GLM bridge ping OK.
-- Doc drift fixed: BIOS-001 evidence recorded slug `balencia-ios`; live app.json slug is `balencia`.
-- Appended readiness section to `yhealth-app/.agent/specs/balencia-ios-foundation.md`; corrected BIOS-001 evidence files.
+- **Local backend runs** (see `evidence/local-backend.md`): docker `balencia-postgres` (pgvector, :5433) + `balencia-redis` (:6380), server :9090, 15 seeded test users (`john.doe@balancia.test` / `Test1234!`). Fresh-DB sequence: `db:setup` → `db:migrate` → `db:migrate:auto` → manual `139-life-area-checkins.sql`. Local LLM provider = GLM via Z.ai Anthropic-compatible endpoint (`ANTHROPIC_*` in server/.env, dev only) — real Cia completions work locally.
+- **Mobile contract layer rebuilt** (submodule commits `00922b87..f2bdefd4`): vendored DTO mirror, honest adapters (canon §7 enforced by an anti-fabrication test walker — old fake fitness/lifePower numbers deleted), SessionProvider state machine (SecureStore v1 schema, proactive+reactive refresh, rotation replay → global expired state), TanStack Query conventions, non-streaming Cia chat with Idempotency-Key + 4 distinct gated states, trust center (real export w/ truncation honesty, exact-phrase hard delete, optimistic privacy toggles).
+- **Server fix shipped**: gamification routes read `req.user.userId` (was `.id` = undefined → zero stats for every user; proven live before/after). 3 upstream server findings documented in `evidence/local-backend.md`.
+- **Simulator smoke (Maestro 2.6.1 + Expo Go)**: full walk of sign-in → onboarding (live Cia calibration chat) → Today (honest-null Life Power/pulse) → Cia live reply → Missions → Me (real Level 5/1,200 XP/streak 7) → Life Areas → Fitness → Data Controls (live toggles + real export counts) → boot hydration. 14 screenshots in `evidence/simulator/`. Two real bugs found by smoke and fixed: hidden-NativeTabs routes were unreachable via router.push (now root Stack pushes w/ native headers); eyebrow style uppercased "Cia" → visible "CIA" (eyebrows now "Coach").
+- **Review panel**: 4 Sonnet lenses, 19 adversarially-confirmed findings, all fixed (notably: business-401s no longer collapsed into SessionExpiredError; session expiry now propagates globally; purple stripped from non-Cia surfaces; AA-safe purpleText token; keyboard avoidance on input screens).
+- **Tests**: Vitest infra + 41 tests green (`npm run test` = manifest verifier + vitest).
+- GLM 5.2 drafted 100% of the 12 implementation packets (`packets/`), per the token-routing policy; Fable did seam/review fixes only.
 
-## Manual Items Still Needed From Hamza
+## Manual Items Still Needed From Hamza (unchanged + one urgency bump)
 
-1. Replace `mobile/.env` with EXPO_PUBLIC_*-only content (high-risk hygiene).
+1. **Replace `mobile/.env` with EXPO_PUBLIC_*-only content — urgency bumped:** expo/npm auto-load it and echo all var NAMES to logs every run (values never printed).
 2. Confirm Apple team type intent (EAS showed Individual).
 3. Provide TestFlight privacy policy URL + feedback email (before external testers only).
-4. Decide QA account approach: OTP throwaway vs seeded dev account.
-5. (Resolved during audit: submission `aa6ed762` succeeded — build 10 VALID in ASC; just confirm internal testers can install.)
+4. Decide QA account approach for production (local dev uses seeded users; production QA still undecided).
+5. **BIOS-003 entry decision (OQ-1):** single-refresh-token-per-user silently logs out other devices — approve a backend session-table change or accept the limitation.
 
-## Next Batch (Lane B)
+## Next Batch (Lane B): BIOS-003 — Auth hardening + multi-device
 
-Start `BIOS-002-ios-simulator-contracts` with the exact /goal prompt in
-`plans/batches/READINESS-001-ios-predev/evidence/readiness-report.md` §10. Bounded scope:
-auth/session hardening, Cia onboarding/chat, Today data, Missions, Life Areas, Fitness dashboard,
-trust/data controls, simulator smoke + screenshots. Routing: Fable orchestrates, Opus architecture,
-GLM 5.2 bounded packets, Sonnet reviews, Haiku sweeps.
+Per `plans/batches/ROADMAP.md`. Scope: backend session model (OQ-1), Google/Apple sign-in,
+registration/OTP/forgot-password screens, token security review. Entry: OQ-1 decision from Hamza.
+Follow the Per-Batch Operating Procedure in `plans/BIOS-DEV-MASTER-PROMPT.md`; local backend
+setup is reproducible from `BIOS-002 .../evidence/local-backend.md`. Open questions OQ-1..5 in
+`evidence/architecture-plan.md` §6.
 
 ## Standing Constraints (Lane B)
 

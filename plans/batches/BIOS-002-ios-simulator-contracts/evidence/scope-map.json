@@ -1,0 +1,1019 @@
+{
+  "serverBoot": {
+    "requiredEnvVars": [
+      {
+        "name": "NODE_ENV",
+        "requiredAtBoot": true,
+        "notes": "Must be 'development', 'production', or 'test'. Determines app behavior and which validations run."
+      },
+      {
+        "name": "PORT",
+        "requiredAtBoot": true,
+        "notes": "Server port. Defaults to 5000 if not set, but validation fails if missing. Try 9090 for dev."
+      },
+      {
+        "name": "DATABASE_URL",
+        "requiredAtBoot": true,
+        "notes": "PostgreSQL connection string. Format: postgresql://user:password@host:port/dbname?schema=public. Connects to Postgres pool with 30-connection max, 5s timeout, 15s statement timeout."
+      },
+      {
+        "name": "JWT_SECRET",
+        "requiredAtBoot": true,
+        "notes": "Minimum 32 chars. Signs access tokens. Failed validation hard-stops boot with clear error message."
+      },
+      {
+        "name": "JWT_REFRESH_SECRET",
+        "requiredAtBoot": true,
+        "notes": "Signs refresh tokens. Minimum 32 chars. Same validation as JWT_SECRET."
+      },
+      {
+        "name": "ENCRYPTION_KEY",
+        "requiredAtBoot": true,
+        "notes": "Must be exactly 64-character hexadecimal string (32 bytes AES-256-GCM). Generated via: node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\". Boot validation includes format check—wrong length/encoding throws immediate error, preventing deep failures in OAuth callbacks."
+      },
+      {
+        "name": "REDIS_URL",
+        "requiredAtBoot": false,
+        "notes": "Optional. If set (or REDIS_HOST is set), enables embedding worker, email worker, AI coach call worker. Workers are lazy-imported; failures log warn but don't crash boot. Set to redis://localhost:6379 for local dev with background jobs."
+      },
+      {
+        "name": "REDIS_HOST",
+        "requiredAtBoot": false,
+        "notes": "Alternative to REDIS_URL. Defaults to 'localhost'. Parsed with REDIS_PORT (default 6379), REDIS_PASSWORD (optional)."
+      },
+      {
+        "name": "SMTP_HOST",
+        "requiredAtBoot": false,
+        "notes": "Email server (registration OTP, password reset, etc.). Without it, registration OTP emails fail silently in test mode but throw serviceUnavailable in production."
+      },
+      {
+        "name": "SMTP_PORT",
+        "requiredAtBoot": false,
+        "notes": "Default 587. Set to 465 or SMTP_SECURE=true for TLS. Parsed as integer."
+      },
+      {
+        "name": "SMTP_USER",
+        "requiredAtBoot": false,
+        "notes": "SMTP auth username. Fallback to SMTP_FROM if not set."
+      },
+      {
+        "name": "SMTP_PASS",
+        "requiredAtBoot": false,
+        "notes": "SMTP auth password (plaintext in .env, never committed)."
+      },
+      {
+        "name": "SMTP_FROM",
+        "requiredAtBoot": false,
+        "notes": "From address for emails. Defaults to noreply@balencia.com. Also used as SMTP_USER fallback."
+      },
+      {
+        "name": "GEMINI_API_KEY",
+        "requiredAtBoot": false,
+        "notes": "Google Gemini API key (primary LLM). If absent, /ai-coach/status returns available=false. Per-request errors, no boot failure."
+      },
+      {
+        "name": "OPENAI_API_KEY",
+        "requiredAtBoot": false,
+        "notes": "OpenAI API key (fallback LLM + embeddings). If both GEMINI and OPENAI keys absent, AI Coach disabled. Per-request errors, no boot failure."
+      },
+      {
+        "name": "CORS_ORIGIN",
+        "requiredAtBoot": false,
+        "notes": "Comma-separated list. Defaults to http://localhost:3000. Parsed and set on Express CORS middleware."
+      },
+      {
+        "name": "LOG_LEVEL",
+        "requiredAtBoot": false,
+        "notes": "debug, info, warn, error. Default 'info'. 'debug' emits every DB query line."
+      },
+      {
+        "name": "ENABLE_BACKGROUND_JOBS",
+        "requiredAtBoot": false,
+        "notes": "true/false. Default true. Disables all cron jobs except crisis-follow-up and WhatsApp fleet (which have independent kill-switches). Useful for frontend-only dev."
+      },
+      {
+        "name": "ENABLE_CRISIS_FOLLOWUP",
+        "requiredAtBoot": false,
+        "notes": "true/false. Default true. Independent kill-switch for crisis 24h check-in job (exempt from ENABLE_BACKGROUND_JOBS master switch)."
+      },
+      {
+        "name": "ENABLE_BAILEYS_FLEET",
+        "requiredAtBoot": false,
+        "notes": "true/false. Default false. Enables WhatsApp Baileys fleet (session-based transport). Independent of ENABLE_BACKGROUND_JOBS."
+      },
+      {
+        "name": "ENABLE_BACKGROUND_JOBS",
+        "requiredAtBoot": false,
+        "notes": "Set to 'false' for frontend dev (disables all scheduled jobs except crisis-follow-up). Default 'true'."
+      }
+    ],
+    "bootSequence": "1. Load .env via dotenv.config() (src/index.ts line 6)\n2. Validate required env vars (NODE_ENV, PORT, DATABASE_URL, JWT_SECRET, JWT_REFRESH_SECRET, ENCRYPTION_KEY). Fail hard if missing. ENCRYPTION_KEY format validated: must be 64-char hex (src/config/env.config.ts line 44).\n3. Connect to PostgreSQL (src/index.ts line 154). On connect: set timezone=UTC, statement_timeout per env. Pool health checked via SELECT NOW(). Retry: max 5 attempts, exponential backoff. Fail hard if all attempts fail.\n4. Verify 'roles' table exists (src/index.ts line 157). If missing, log error suggesting npm run db:migrate.\n5. Create HTTP server and Socket.IO initialization (src/index.ts line 163-166).\n6. If REDIS_URL or REDIS_HOST set (env.redis.enabled):\n   - Lazy-import and start embedding worker (src/index.ts line 171). Fail: log warn, continue (graceful degradation).\n   - Lazy-import and start email worker (src/index.ts line 184). Fail: log warn, continue.\n   - Lazy-import and start AI coach call worker (src/index.ts line 194). Fail: log warn, continue.\n7. If Redis NOT configured, log info 'Embedding/email workers skipped (Redis not configured...)'.\n8. If documents feature enabled AND (cluster.worker not defined OR cluster.worker.id === 1): recover stuck documents (best-effort, never blocks boot).\n9. HTTP server listen() on env.port/env.host (src/index.ts line 225). On listen:\n   - Log server start (port, host, environment, pid, Node version).\n   - If development, log API URLs.\n   - Warn if entitlement.mode === 'shadow' in production.\n10. Start background jobs (only if isSchedulerWorker AND ENABLE_BACKGROUND_JOBS !== 'false'):\n    - Register ~40+ cron jobs via schedulerRegistry (reminder-processor, daily-scoring, weekly-report, etc.) with staggered start times (90ms–3120ms after listen).\n    - If ENABLE_CRISIS_FOLLOWUP !== 'false', register crisis-follow-up job (exempt from master ENABLE_BACKGROUND_JOBS).\n    - If WhatsApp enabled (ENABLE_BAILEYS_FLEET=true or WA_CLOUD_API_TOKEN set):\n      - Register WhatsApp jobs (outbox-relay, proactive, behavior-baseline, automation-scheduler, fleet-reaper).\n      - Call initWhatsAppLayer() (idempotent).\n    - If !ENABLE_BACKGROUND_JOBS, log 'Background jobs DISABLED' and log WhatsApp fleet decoupling if applicable.\n11. If !backgroundJobsEnabled BUT WhatsApp fleet enabled: call initWhatsAppLayer() directly (start() guards double-start).\n12. If !backgroundJobsEnabled BUT crisis-follow-up enabled: start crisisFollowUpJob directly.\n13. Start activity event processor on all workers (src/index.ts line 392).\n14. Attach graceful shutdown handlers (SIGTERM, SIGINT) → stop schedulers → close workers → disconnect DB → exit.\n\nHARD FAIL scenarios (exit 1):\n- Missing required env var (step 2).\n- ENCRYPTION_KEY malformed (step 2).\n- Database connection fails after 5 retries (step 3).\n- HTTP listen() fails (EACCES on port, EADDRINUSE) (step 9).\n\nGRACEFUL DEGRADATION scenarios (log warn, continue):\n- Redis unavailable → workers not started, continue without caching/background-job queue.\n- Embedding worker fails → skip embeddings, fall back to text-only search.\n- Email worker fails → skip background email delivery (per-request email still works via SMTP).\n- AI coach call worker fails → skip background AI coach calls, continue with sync chat.\n- Stuck document recovery fails → log warn, continue (best-effort on next startup).\n- WhatsApp layer init fails → log error, continue (no WhatsApp, but app runs).\n\nFeature kill-switches (independent of ENABLE_BACKGROUND_JOBS):\n- ENABLE_BACKGROUND_JOBS=false → disable all scheduled jobs EXCEPT crisis-follow-up and WhatsApp fleet.\n- ENABLE_CRISIS_FOLLOWUP=false → disable crisis follow-up job (safety path exempt even when ENABLE_BACKGROUND_JOBS=false).\n- ENABLE_BAILEYS_FLEET=false → disable WhatsApp Baileys fleet (but Cloud API can still run if WA_CLOUD_API_TOKEN set).",
+    "db": {
+      "migrateCmd": "npm run db:migrate (runs: tsx src/database/run-migrations.ts). Alternatively npm run db:migrate:auto or custom scripts like npm run db:migrate:chat, npm run db:migrate:gamification, etc. for specific tables.",
+      "seedCmds": [
+        "npm run db:seed:test-users — creates 15 test users (john.doe@balancia.test, jane.smith@balancia.test, etc.) with password 'Test1234!' (bcrypt-hashed), is_email_verified=true, onboarding_status='completed'.",
+        "npm run db:seed:questions — seed assessment MCQ questions.",
+        "npm run db:seed:community — seed demo community group.",
+        "npm run db:seed:blogs — seed blog content.",
+        "npm run db:seed:subscription-plans — seed subscription tiers.",
+        "npm run db:seed:demo-dashboard — seed demo user dashboard data."
+      ],
+      "seedUsers": "15 test users seeded by seed-test-users.ts (src/database/seed-test-users.ts line 17-33). Emails: john.doe@balancia.test, jane.smith@balancia.test, alex.johnson@balancia.test, maria.garcia@balancia.test, david.chen@balancia.test, sarah.williams@balancia.test, omar.hassan@balancia.test, emily.brown@balancia.test, carlos.martinez@balancia.test, aisha.khan@balancia.test, lucas.taylor@balancia.test, sofia.anderson@balancia.test, james.wilson@balancia.test, nina.patel@balancia.test, ryan.lee@balancia.test. Password for all: 'Test1234!' (hashed with bcrypt salt=12, line 38-39). Marked is_email_verified=true, onboarding_status='completed', is_active=true, role_id='11111111-1111-1111-1111-111111111101' (USER role). Idempotent: ON CONFLICT (email) DO NOTHING (line 50).",
+      "devUserPath": "Seed script: /Users/hamza/Desktop/balencia-design/yhealth-app/server/src/database/seed-test-users.ts. Run via: npm run db:seed:test-users. To create a single dev user locally: use the seed script, or manually INSERT into users table with email, hashed password (bcrypt), first_name, last_name, is_email_verified=true, role_id=11111111-1111-1111-1111-111111111101. No registration endpoint bypass; registration still requires OTP email verification (POST /api/auth/register → OTP email sent → POST /api/auth/verify-registration). For dev, seed users avoid SMTP by pre-marking is_email_verified=true."
+    },
+    "aiProvider": "Provider selection: checks GEMINI_API_KEY (primary) and OPENAI_API_KEY (fallback).\n\n**If both GEMINI_API_KEY and OPENAI_API_KEY are absent or fake:**\n- GET /api/ai-coach/status returns { available: false, message: 'AI Coach is not configured. Please set OPENAI_API_KEY.' } (src/controllers/ai-coach.controller.ts line 83-91).\n- POST /api/ai-coach/start, /message, /complete: returns 400 or 500 depending on where the missing key is detected (e.g., OpenAI client init fails, returns error to caller).\n- No hard boot failure. The app starts normally; AI Coach routes just fail per-request with a clear error (e.g., \"API key not found\").\n- Fallback: some routes return a fallback greeting if provider is unavailable (src/services/ai-coach/conversation/conversation.service.ts line 77-93).\n\n**Hard vs soft failure:**\n- Hard fail at boot: NONE for missing GEMINI/OPENAI keys.\n- Per-request error: OpenAI or Gemini API call fails → throws ApiError (400/500) → middleware catches → JSON error response to client.\n- Graceful fallback: if LLM is down, some endpoints return a static fallback message (no LLM call, no error thrown).\n\n**Provider selection code (source of truth):**\n- src/config/env.config.ts line 185-226: env.gemini and env.openai config objects.\n- src/services/ai-coach/core/ai-provider.ts line 7-37: AIProvider constructor checks this.geminiApiKey and this.visionClient (OpenAI). isAvailable() returns true if either is set (line 35-36).\n- src/controllers/ai-coach.controller.ts line 34-36: routerLlmClient = new OpenAI({apiKey: env.openai.apiKey}) if apiKey exists, else null. routerLlm() function (line 38-54) returns '' on any error, no throw.\n- src/services/ai-coach/conversation/conversation.service.ts line 44-125: generateOpeningMessage() tries LangGraph greeting → falls back to static greeting if LLM fails. No exception thrown; graceful degradation.",
+    "otpEmail": "**Registration flow (requires OTP + email verification):**\n1. POST /api/auth/register (src/controllers/auth/auth-registration.controller.ts line 43-98):\n   - Client sends { email, firstName, lastName, password, dateOfBirth, gender }.\n   - Server generates 4-digit OTP via createActivationToken() (line 70-71).\n   - Sends OTP email via mailHelper.sendRegistrationOTPEmail() (line 74).\n   - Returns { activationToken, message: 'Verification code sent to your email' }.\n   - Email not verified at this stage.\n\n2. POST /api/auth/verify-registration (line 105-150+):\n   - Client sends { activationToken, activationCode }.\n   - Server verifies JWT token (line 113-116).\n   - Verifies 4-digit code matches (line 124-125).\n   - If valid, creates user in DB with is_email_verified=true (line 139).\n   - Auth complete; returns access + refresh tokens + user profile.\n\n**Email requirement:**\n- Login does NOT require email verification; only registration does.\n- Registration OTP sent via SMTP (env.smtp config required).\n- If SMTP not configured: email send fails → in test mode (NODE_ENV=test) silently continues, in production throws serviceUnavailable (line 81-86).\n\n**Dev bypass:**\n- NO code-level bypass for OTP requirement during registration.\n- Workaround: use seed-test-users.ts to pre-create users with is_email_verified=true (line 49), avoiding SMTP.\n- Or: seed a user and manually set is_email_verified=true in the DB after account creation.\n- No OTP-less registration endpoint.\n\n**OTP details:**\n- 4-digit code (line 70).\n- Token TTL: 10 minutes (hard-coded in mailHelper, line 78 'activation.ts').\n- SMTP required: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM.\n- No Twilio SMS fallback; email-only (Twilio config exists for WhatsApp, not for OTP).\n\n**Local dev setup:**\n- Option 1: Set SMTP_* env vars to a real email provider (SendGrid, Gmail, Mailgun).\n- Option 2: Use MailHog / Ethereal (fake SMTP for testing); set SMTP_HOST=localhost:1025.\n- Option 3: Use seed-test-users.ts to bypass registration entirely.",
+    "risks": [
+      "ENCRYPTION_KEY validation is strict (64-char hex, 32 bytes). Typo or wrong length boots cleanly but then deep cryptography fails inside OAuth callbacks—the env.config validation (line 44-48) prevents this by checking at import time.",
+      "REDIS unavailable: all background jobs silently skipped (best-effort workers). Embedding, email, AI coach call workers logged as warn and continued. No user-facing error unless the client explicitly waits for a queued job.",
+      "Database pool: 30 max connections, 5s connect timeout, 15s statement timeout. Long-running migrations or queries time out—increase DB_STATEMENT_TIMEOUT_MS if needed.",
+      "Missing GEMINI_API_KEY and OPENAI_API_KEY: AI Coach returns empty/fallback responses per-request (no boot error). Client sees 'Coach is not configured' via /status endpoint.",
+      "SMTP not configured: registration OTP emails fail. In test mode, continues; in production, throws 503. Users cannot register.",
+      "ENABLE_BACKGROUND_JOBS=false: disables ~40 scheduled jobs (proactive messaging, daily-scoring, etc.), but crisis-follow-up and WhatsApp fleet run independently. This is intentional (safety paths).",
+      "JWT secrets (JWT_SECRET, JWT_REFRESH_SECRET) must be different in production. If both are the same, refresh-token attacks are possible (but validation passes).",
+      "Database must be PostgreSQL. Migrations assume pg driver. No automatic schema creation—npm run db:migrate must run before boot or roles table check will log error (not crash).",
+      "Socket.IO initialized on boot: if something hangs during socket setup, the server hangs before the listen() callback fires.",
+      "Cluster mode (CLUSTER_MODE=true in production): forking happens but workers all boot independently—make sure your scheduler registry or kill-switch logic doesn't run duplicate jobs on each worker.",
+      "WhatsApp session encryption (WA_SESSION_ENCRYPTION_KEY): falls back to ENCRYPTION_KEY if not set. If ENCRYPTION_KEY is weak, WhatsApp credentials are weakly encrypted at rest.",
+      "No explicit .env file validation for typos (e.g., 'DATBASE_URL' vs 'DATABASE_URL'). Missing var defaults silently, causing boot failures later (e.g., pool connect timeout)."
+    ]
+  },
+  "authContracts": {
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/api/auth/register",
+        "file": "src/controllers/auth/auth-registration.controller.ts:43-99 (route: src/routes/auth.routes.ts:53-58)",
+        "requestShape": "{ email, password, firstName, lastName, dateOfBirth (string/date, 18+ enforced), gender: 'male'|'female'|'non_binary'|'prefer_not_to_say' } - validated by registerSchema, src/validators/auth.validator.ts:39-46",
+        "responseShape": "200 via ApiResponse.success: { success:true, message, timestamp, data: { activationToken (JWT, 10m exp, JWT_SECRET, contains hashed pw + user fields + activationCode), message } }",
+        "notes": "Step 1 of registration (send OTP). Rate-limited by authLimiter. 409 conflict if email already registered. 503 if OTP email send fails outside test env."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/verify-registration",
+        "file": "src/controllers/auth/auth-registration.controller.ts:105-242 (route: auth.routes.ts:61-66)",
+        "requestShape": "{ activationToken, activationCode(4 digits) } - verifyRegistrationSchema, auth.validator.ts:136-141",
+        "responseShape": "201 via ApiResponse.created: { success:true, data: { user: PublicUserProfile, tokens: (mobile: {accessToken,refreshToken,expiresIn}; web: {expiresIn} only), nextStep:'consent' }, message }",
+        "notes": "Step 2 - creates user in a DB transaction (users+user_preferences), grants signup credits (non-blocking), sends welcome email/notification/community-group add (non-blocking), auto-promotes admin via ADMIN_EMAILS, generateTokens(), stores hashed refresh token, sets HttpOnly cookies. 400 invalid/expired token or code mismatch; 409 on pg unique-violation race."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/resend-registration-otp",
+        "file": "src/controllers/auth/auth-registration.controller.ts:248-314 (route: auth.routes.ts:69-74)",
+        "requestShape": "{ activationToken } - resendRegistrationOTPSchema",
+        "responseShape": "{ success:true, data: { activationToken (new JWT, new OTP), message } }",
+        "notes": "strictLimiter applied. 409 if email already registered; 400 if token invalid."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/social",
+        "file": "src/controllers/auth/auth-registration.controller.ts:320-512 (route: auth.routes.ts:77-82)",
+        "requestShape": "socialAuthSchema (auth.validator.ts:50-60): { provider:'google'|'apple', email, providerId?, idToken?, name?, firstName?, lastName?, avatar? }",
+        "responseShape": "201 (new) or 200 (existing): { success, data: { user, tokens (per X-Client rule), isNewUser, needsProfileCompletion, nextStep? ('consent'|'complete_profile', new users only) }, message }",
+        "notes": "Combined Google/Apple OAuth endpoint; assumes NextAuth already completed OAuth client-side and forwards profile+idToken. For provider='google' with idToken present, attempts server verification via oauthService.verifySocialToken (src/services/oauth.service.ts) and falls back to trusting client-supplied profile if verification throws (logged as warning) - flagged as a risk. No separate /auth/apple or /auth/google route; both go through this endpoint keyed by provider."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/complete-profile",
+        "file": "src/controllers/auth/auth-registration.controller.ts:518-556 (route: auth.routes.ts:128-133, authenticated)",
+        "requestShape": "completeSocialProfileSchema: { dateOfBirth, gender, firstName?, lastName? }",
+        "responseShape": "{ success:true, data: { user: PublicUserProfile, nextStep:'consent' } }",
+        "notes": "Guarded by authenticate middleware. Fills DOB/gender missing after social sign-up."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "file": "src/controllers/auth/auth-session.controller.ts:35-98 (route: auth.routes.ts:85-90)",
+        "requestShape": "loginSchema (auth.validator.ts:93-97): { email, password, rememberMe?: boolean, default false - present in schema but not read anywhere in login() }",
+        "responseShape": "{ success:true, message:'Logged in successfully', data: { user: PublicUserProfile, tokens: AuthTokenPayload } }",
+        "notes": "401 if email not found / no password (social-only account) / wrong password. 403 if isActive false. Auto-admin-promotion. generateTokens(), stores SHA-256 hash of refresh token in users.refresh_token, sets HttpOnly cookies via setAuthCookies (auth.middleware.ts:91-114). X-Client:mobile behavior implemented in getAuthTokenPayload, src/controllers/auth/auth.types.ts:88-95: `const client = req.get('X-Client')?.toLowerCase(); if (client === 'mobile') return tokens; return { expiresIn: tokens.expiresIn };` - when request carries header X-Client: mobile (case-insensitive), response body additionally includes raw accessToken/refreshToken strings on top of the HttpOnly cookies; otherwise only { expiresIn } is returned in the body."
+      },
+      {
+        "method": "GET",
+        "path": "/api/auth/me",
+        "file": "src/controllers/auth/auth-onboarding.controller.ts:300-320 (route: auth.routes.ts:184-193, authenticated)",
+        "requestShape": "none (Bearer/cookie access_token required)",
+        "responseShape": "{ success:true, data: { user: PublicUserProfile } }",
+        "notes": "Guarded by authenticate + per-user rate limiter (30 req/min, keyGenerator:'user'). 401 if no valid token; 404 if user row missing."
+      },
+      {
+        "method": "GET",
+        "path": "/api/auth/onboarding-status",
+        "file": "src/controllers/auth/auth-onboarding.controller.ts:326-~360 (route: auth.routes.ts:196-200, authenticated)",
+        "requestShape": "none",
+        "responseShape": "not fully read (truncated in inspection) - returns onboarding/consent state derived from users + consent_records tables",
+        "notes": "Not core to AUTH contract; flagged for completeness. Exact body not fully enumerated - treat as unverified, re-read file if BIOS-002 depends on exact fields."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/refresh",
+        "file": "src/controllers/auth/auth-session.controller.ts:106-181 (route: auth.routes.ts:93-98); middleware verifyRefreshToken, src/middlewares/auth.middleware.ts:265-293",
+        "requestShape": "{ refreshToken?: string } body OR refresh_token HttpOnly cookie (cookie path scoped to `${API_PREFIX}/auth/refresh`)",
+        "responseShape": "{ success:true, message:'Tokens refreshed successfully', data: { user: PublicUserProfile, tokens: AuthTokenPayload (per X-Client rule) } }",
+        "notes": "ROTATION: verifyRefreshToken middleware verifies refresh JWT against JWT_REFRESH_SECRET first (401 if expired/invalid), attaches decoded payload as req.user; handler re-fetches user, re-checks isActive (403 if blocked), fetches stored hashed refresh_token, and if a refreshToken was supplied it must SHA-256-match the stored hash or 401 'Refresh token mismatch'. On success calls generateTokens() again for a NEW access+refresh pair (full rotation, not reuse) and overwrites users.refresh_token with the new hash, invalidating the old one server-side. New cookies set via setAuthCookies."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/logout",
+        "file": "src/controllers/auth/auth-session.controller.ts:187-202 (route: auth.routes.ts:177-181, authenticated)",
+        "requestShape": "none (requires valid access token)",
+        "responseShape": "{ success:true, message:'Logged out successfully', data: null }",
+        "notes": "Server-side invalidation: sets users.refresh_token = NULL for req.user.userId, so any existing refresh token immediately fails the stored-hash check on /auth/refresh. Clears access_token and refresh_token cookies (clearAuthCookies, auth.middleware.ts:116-120). Access token itself is not blacklisted/revoked - remains valid until its short TTL (default 15m) naturally expires; no denylist/JTI mechanism found."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/forgot-password",
+        "file": "src/controllers/auth/auth-session.controller.ts:208-255",
+        "requestShape": "{ email }",
+        "responseShape": "{ success:true, data:null, message:'A reset code has been sent to your email.' }",
+        "notes": "404 if email not registered - code comment explicitly notes this trades email-enumeration protection for UX clarity. Generates 4-digit crypto.randomInt OTP, stores only its SHA-256 hash + 10-min expiry + resets attempt counter."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/reset-password",
+        "file": "src/controllers/auth/auth-session.controller.ts:261-333",
+        "requestShape": "resetPasswordSchema: { email, otp(4 digits), password, confirmPassword } (password===confirmPassword enforced)",
+        "responseShape": "{ success:true, data:null, message:'Password reset successfully' }",
+        "notes": "Brute-force guard: max 5 attempts (password_reset_attempts), constant-time compare via crypto.timingSafeEqual, code burned after 5th wrong try. 400 on invalid/expired/mismatched OTP."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/verify-email",
+        "file": "src/controllers/auth/auth-session.controller.ts:339-376",
+        "requestShape": "{ token }",
+        "responseShape": "{ success:true, data:null, message:'Email verified successfully' }",
+        "notes": "Token SHA-256 hashed and matched against users.email_verification_token with expiry check."
+      },
+      {
+        "method": "POST",
+        "path": "/api/auth/change-password",
+        "file": "src/controllers/auth/auth-session.controller.ts:382-426 (authenticated, strictLimiter)",
+        "requestShape": "{ currentPassword, newPassword, confirmPassword } (new!==current and new===confirm enforced by schema)",
+        "responseShape": "{ success:true, data:null, message:'Password changed successfully' }",
+        "notes": "400 if account is social-only (no password set). Sends non-blocking password-changed notification email."
+      }
+    ],
+    "tokenPayload": "IJwtPayload (src/types/index.ts:33-38) signed by generateTokens (src/middlewares/auth.middleware.ts:298-320): { userId, email, role, sessionId?, iat, exp } plus iss/aud set via jwt.sign options (not payload literal fields) - issuer=env.jwt.issuer (JWT_ISSUER, default 'balencia-api'), audience=env.jwt.audience (JWT_AUDIENCE, default 'balencia-client'). Access and refresh tokens share the same payload shape {userId,email,role} - only secret and TTL differ (access: JWT_SECRET/JWT_EXPIRES_IN; refresh: JWT_REFRESH_SECRET/JWT_REFRESH_EXPIRES_IN). sessionId is declared in the type but not populated by generateTokens as inspected.",
+    "refreshFlow": "POST /api/auth/refresh, guarded by verifyRefreshToken middleware (verifies against JWT_REFRESH_SECRET, issuer/audience) then the controller (auth-session.controller.ts:106-181) re-validates account isActive, compares the caller-supplied refresh token's SHA-256 hash against the single hash stored in users.refresh_token (one active refresh token per user - no multi-device session table found), and on success performs full rotation: mints a brand-new access+refresh pair via generateTokens and immediately overwrites users.refresh_token with the new hash, so the previous refresh token can never be reused (old-token replay after refresh returns 401 'Refresh token mismatch'). Logout (POST /api/auth/logout) nulls users.refresh_token, invalidating any outstanding refresh token immediately, but the short-lived access token is not revoked and stays valid until natural expiry (default 15m) since no denylist/JTI mechanism exists.",
+    "notes": "Env vars for TTL/secrets (src/config/env.config.ts:82-89): JWT_SECRET (required, has an unreachable-in-practice placeholder fallback), JWT_REFRESH_SECRET (same), JWT_EXPIRES_IN (default '15m'), JWT_REFRESH_EXPIRES_IN (default '7d'), JWT_ISSUER (default 'balencia-api'), JWT_AUDIENCE (default 'balencia-client'). API mount prefix: env.api.prefix = process.env.API_PREFIX || '/api' (env.config.ts:177), applied in src/app.ts:196 (`app.use(env.api.prefix, routes)`); auth router mounted at /auth under that (src/routes/index.ts:191) - effective paths are /api/auth/* unless API_PREFIX is overridden. Middlewares guarding authenticated routes: `authenticate` (auth.middleware.ts:125-144 - extracts Bearer header or access_token cookie, verifies JWT, re-loads user row from DB every request to check is_active and get live role) used on /me, /onboarding-status, /profile (PATCH), /logout, /change-password, /complete-profile, /consent, /whatsapp/*; `verifyRefreshToken` (auth.middleware.ts:265-293) guards only /refresh; `optionalAuth` and `authorize()`/`authorizeOwnerOrAdmin` exist for other route families but are not used on the /auth router itself. Rate limiting: authLimiter on register/verify-registration/social/login/refresh; strictLimiter on resend-registration-otp/forgot-password/reset-password/change-password/whatsapp-enroll; dedicated per-user 30-req/min limiter on GET /me. Error shape sent to clients for thrown ApiError instances via the global error handler (distinct from the also-present but apparently-unused-by-auth-controllers ApiResponse.error* static methods, which have a slightly different shape with no `code` field): `{ success:false, message, code, errors?: AppErrorDetails[], timestamp, stack? (dev only), requestId? }` with HTTP status = ApiError.statusCode (src/middlewares/error.middleware.ts:241-263). Presence-only secrets check: found .env.example at yhealth-app/server/.env.example; no .env file and no .local-secrets/ directory present in server root (values not read/reported, presence only).",
+    "risks": [
+      "Google social-auth verification fallback: if oauthService.verifySocialToken() throws for ANY reason (including a genuinely forged/invalid idToken, not just network issues), auth-registration.controller.ts:340-345 catches it, logs a warning, and falls back to trusting the client-supplied email/providerId directly - a network hiccup and a forged token are handled identically, weakening the claimed security guarantee; confirm NextAuth's server-side verification is actually enforced upstream, otherwise this is a spoofable account-creation/takeover vector.",
+      "JWT_SECRET / JWT_REFRESH_SECRET have hardcoded placeholder fallback strings in env.config.ts:83-84 even though both are in requiredEnvVars (so validateEnv() should throw if unset) - fallback should be unreachable in practice but is a latent footgun if that check is ever bypassed.",
+      "Access tokens are not revocable server-side (no denylist/JTI blacklist) - logout only invalidates the refresh token; a stolen/leaked access token remains valid for its full TTL (default 15 minutes) even after logout.",
+      "loginSchema accepts rememberMe:boolean but login() (auth-session.controller.ts:35-98) never reads data.rememberMe - currently has no effect on token/cookie TTL; confirm with the team whether this is an intentional no-op or a gap.",
+      "GET /api/auth/onboarding-status full response shape was not fully read/verified in this pass - treat as unconfirmed if BIOS-002 depends on its exact fields.",
+      "Refresh-token uniqueness model stores exactly one hashed refresh_token per user row - logging in or refreshing on a second device appears to silently invalidate the other device's refresh token (each login/refresh overwrites users.refresh_token); confirm this is intended given mobile multi-device use cases."
+    ]
+  },
+  "domainDtos": {
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/v1/goals/unified",
+        "file": "yhealth-app/server/src/routes/goals.routes.ts:14 -> controllers/goals-unified.controller.ts:12 -> services/goals-aggregator/goals-aggregator.service.ts:105",
+        "authNotes": "router.use(authenticate) at routes/goals.routes.ts:13 — JWT required (Bearer header or access_token cookie). No entitlement/feature gate. userId taken from req.user.userId; 401 via ApiError.unauthorized() if missing.",
+        "requestShape": "Query only, validated by validators/goals.validator.ts:7 unifiedGoalsQuerySchema: { status?: 'active'|'in_progress'|'paused'|'completed', source?: 'health'|'life'|'career'|'finance' }. No body.",
+        "responseShape": "200 { success: true, data: { goals: UnifiedGoal[], summary: UnifiedGoalsSummary } }. UnifiedGoal (unified-goal.types.ts:9-26): { id: string; source: 'health'|'life'|'career'|'finance'; domain: string; title: string; description: string|null; progress: number (0-100); status: 'active'|'in_progress'|'paused'|'completed'; isPrimary: boolean; target?: {current:number,target:number,unit:string}|null; amount?: {current:number,target:number,currency?:string}|null; level?: {current:number,max:number}|null; cadence?: string|null; dueDate?: string|null (ISO date); editable: boolean; deepLink: string|null; updatedAt: string (ISO) }. UnifiedGoalsSummary (unified-goal.types.ts:28-36): { total, active, inProgress, paused, completed: number; avgProgress: number; bySource: Record<GoalSource, number> } — built by normalize.ts buildSummary() (not read line-by-line but referenced/imported at goals-aggregator.service.ts:4).",
+        "notes": "Aggregates 4 source tables (user_goals, life_goals, career_goals, finance_saving_goals) in parallel via Promise.all (goals-aggregator.service.ts:109-111). Each source query degrades to [] on missing relation/column (Postgres error codes 42P01/42703) rather than failing the whole request (safeRows, lines 14-26) — so a partially-migrated environment silently returns fewer goals per source; this is a known/intentional degrade-not-fail design, not a bug. Sort: isPrimary first, then updatedAt desc, then id (lines 115-119)."
+      },
+      {
+        "method": "GET",
+        "path": "/api/life-areas/summary",
+        "file": "yhealth-app/server/src/routes/life-areas.routes.ts:30 -> controllers/life-areas.controller.ts (getSummary) -> services/life-areas.service.ts:358 getDashboardSummary",
+        "authNotes": "router.use(authenticate) at life-areas.routes.ts:14 — JWT required. No entitlement gate. No UUID param on this route (validateUuidParams only applies to /:id routes).",
+        "requestShape": "No query/body params consumed.",
+        "responseShape": "200 { success:true, message:'Life areas summary retrieved', timestamp, data: LifeAreasDashboardSummary } via ApiResponse.success wrapper (utils/ApiResponse.ts:21-48). LifeAreasDashboardSummary (life-areas.service.ts:49-55): { activeAreaCount: number; totalLinks: number; averageMomentum: number|null; areas: LifeAreaSummaryRow[] }. LifeAreaSummaryRow (life-areas.service.ts:38-47): { id: string; display_name: string; domain_type: string; link_count: number; momentum: number|null (0-100 self-report momentum, null if no check-ins); checkin_streak: number; last_checkin_date: string|null }.",
+        "notes": "Query limited to top 24 active life areas ordered by recent update (service:358-384, LIMIT 24) — pagination gap if a user has >24 active life areas. momentum computed via computeMomentum() and streak via computeCheckinStreak() (imported helpers, not traced field-by-field here). Field names in DB are snake_case; response DTO preserves snake_case (display_name, domain_type, link_count) unlike most other endpoints in this codebase which camelCase at the DTO boundary — worth flagging for mobile client mapping consistency."
+      },
+      {
+        "method": "GET",
+        "path": "/api/gamification/stats",
+        "file": "yhealth-app/server/src/routes/gamification.routes.ts:21-33 -> services/gamification.service.ts getUserStats()",
+        "authNotes": "router.use(authenticate) at gamification.routes.ts:15 — JWT required. No entitlement gate. userId from req.user!.id (note: this route uses req.user!.id, NOT req.user!.userId used elsewhere — verify these resolve to the same value in AuthenticatedRequest; inconsistent field naming across controllers is a real repo pattern, flagged as uncertain).",
+        "requestShape": "No query/body params.",
+        "responseShape": "200 { success:true, data:{ stats: UserGamificationStats } }. UserGamificationStats (gamification.service.ts): { totalXP:number; currentLevel:number; currentStreak:number; longestStreak:number; lastActivityDate:string|null (ISO); levelProgress: LevelProgress }. LevelProgress: { currentLevel:number; currentXP:number; xpForCurrentLevel:number; xpForNextLevel:number; progressPercent:number (0-100, clamped by Math.min) }.",
+        "notes": "Falls back to all-zero default stats (level 1, 0 XP) if the users row isn't found rather than 404ing — logged as a warning ('User not found, returning default stats'). XP_PER_LEVEL constant drives level math (not independently verified in this pass — confirm current value before relying on level-progress math for UI). Related endpoints on same router: GET /api/gamification/level-progress, GET /api/gamification/xp-values, GET /api/gamification/xp-history, POST /api/gamification/streak/update, POST /api/gamification/daily-check, GET /api/gamification/leaderboard."
+      },
+      {
+        "method": "GET",
+        "path": "/api/workouts/plans",
+        "file": "yhealth-app/server/src/routes/workouts.routes.ts:123-135 -> services/workout-plan.service.ts getUserPlans() -> mapWorkoutPlanRow()",
+        "authNotes": "router.use(authenticate) at workouts.routes.ts:59 — JWT required. No entitlement gate on this GET (entitlement gates only apply to AI-generation routes on this router: /exercises/suggest and /plans/generate-ai). userId from req.user!.userId.",
+        "requestShape": "No query params read by this handler (status filter param exists in service signature but is not wired from req.query on this route).",
+        "responseShape": "200 { success:true, data:{ plans: WorkoutPlan[] } }. WorkoutPlan (services/workout-plan.service.ts, ~30 fields): { id,userId:string; planId?:string; name:string; description?:string; goalCategory:string; initialDifficultyLevel:string; currentDifficultyMultiplier:number; durationWeeks:number; workoutsPerWeek:number; weeklySchedule?:Record<string,DayWorkout> (legacy field, JSON-parsed if stored as string); weeks?:WeeksStructure; scheduleDays?:string[]; progressiveOverload?:ProgressiveOverload; availableEquipment:string[]; workoutLocation:string; totalWorkoutsCompleted:number; currentWeek:number; currentDay?:string; overallCompletionRate:number; status:string; startDate:string (YYYY-MM-DD, local-formatted); endDate?:string; aiGenerated:boolean; notes?:string; createdAt:string (ISO) }.",
+        "notes": "DayWorkout, WeeksStructure and ProgressiveOverload types are referenced but not traced field-by-field in this pass (flag as dynamic/complex — the weeklySchedule/weeks JSON blobs are the actual workout content and are effectively free-form JSONB). No pagination on this list endpoint — returns ALL plans for the user ordered by created_at desc; potential unbounded-list gap if a user accumulates many plans. Also present on this router: GET /api/workouts/plans/:id, GET /api/workouts/today (requires planId query param), GET /api/workouts/stats/weekly, GET /api/workouts/schedule/weekly, GET /api/workouts/stats/consistency (heatmap)."
+      },
+      {
+        "method": "POST",
+        "path": "/api/ai-coach/chat",
+        "file": "yhealth-app/server/src/routes/ai-coach.routes.ts:142-149 -> controllers/ai-coach.controller.ts (chat method) -> services/ai-coach/core/ai-coach.engine.ts generateResponse() -> ai-coach/conversation/conversation.service.ts",
+        "authNotes": "authenticate required (ai-coach.routes.ts:144). Entitlement gates: skipWhenOnboarding(requireFeature('ai.coach.message')) and skipWhenOnboarding(consumeCredits('ai.coach.message')) at lines 146-147 — these are SKIPPED when req.body.isOnboarding===true AND env.entitlement.onboardingCreditUsage is false (default free onboarding chat, per code comment ai-coach.routes.ts:16-31). isOnboarding is client-controlled/spoofable per an explicit code comment (lines 27-31) — the product decision documented in-code is that this is acceptable because it only unlocks the lightweight assessment coach, not the full live coach; flag this as a trust boundary to re-verify if BIOS-002 relies on server-side onboarding-state truth. requireFeature returns 402 'Feature not available on your plan' (entitlement.middleware.ts) when gate is enforced and the feature isn't in the user's entitlement bundle, unless shadow-mode (shouldEnforce) applies.",
+        "requestShape": "Body validated by validators/ai-coach.validator.ts chatSchema: { sessionId?: string (uuid), message: string (1-2000 chars), goal: GoalCategoryEnum (large enum incl. weight_loss, muscle_building, sleep_improvement, stress_wellness, energy_productivity, event_training, health_condition, habit_building, overall_optimization, nutrition, fitness, health, wellbeing, career, learning, productivity, finance, relationships, spirituality, creativity, custom), isOnboarding?: boolean }.",
+        "responseShape": "NOT streaming — standard synchronous JSON response via this.success()->ApiResponse.success: { success:true, message, timestamp, data: { sessionId:string; message:string; phase: ConversationPhase (string enum, not independently traced); insights: ExtractedInsight[] ({category:string; text:string; confidence:number}); isComplete:boolean; suggestedActions?: string[]; historicalContextUsed:boolean; routingChip: <return type of routeCoachIntent(), NOT traced in this pass — flag as unverified/dynamic> } }.",
+        "notes": "No SSE/websocket streaming on this route — the reply is generated fully server-side (aiCoachService.generateResponse, likely calling an LLM provider synchronously) then returned as one JSON payload; confirm with product whether the mobile Cia chat UI expects token-by-token streaming, because if so this endpoint does not provide it and a separate mechanism (chat.routes.ts/message.routes.ts/socket.service.ts use Socket.IO for the full messaging system — NOT traced in this pass) may be the actual streaming path for live coach conversations, which is a meaningful open question for BIOS-002. Session persistence: creates or reuses an ai_coach session row and rejects (400) if the request's goal doesn't match an existing session's goalCategory. routingChip / routeCoachIntent is a separate 'reasoning graph' intent router not traced here — treat as opaque/dynamic."
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/users/me/export",
+        "file": "yhealth-app/server/src/routes/user-self.routes.ts:23 -> controllers/user.controller.ts exportMyData -> services/user.service.ts exportUserData()",
+        "authNotes": "authenticate required (user-self.routes.ts:17) + exportLimiter rate limit. Self-scoped only (userId from req.user!.userId — no admin bypass on this route).",
+        "requestShape": "No query/body.",
+        "responseShape": "200 { success:true, data: UserDataExport }. UserDataExport: { exportedAt:string(ISO); user: Record<string,unknown> (users row minus USER_EXPORT_EXCLUDED_COLUMNS and columns matching SENSITIVE_COLUMN_PATTERN — exact exclusion list/pattern not read in this pass, flag as unverified); data: Record<string, Record<string,unknown>[]> keyed by: user_preferences, user_goals, activity_logs, meal_logs, workout_logs, journal_entries, daily_health_metrics, rag_conversations, rag_messages, intelligence_memories, documents, career_goals, finance_transactions (services/user.service.ts EXPORT_TABLES); counts: Record<string, {total:number, exported:number}> per table }.",
+        "notes": "This is the GDPR/CCPA-style data export endpoint (the closest thing to a 'trust/data-control' surface found). Row cap per table via EXPORT_ROW_LIMIT constant (value not read in this pass) and `LIMIT` clause in SQL — an export of a long-lived account could silently truncate rows (counts.exported vs counts.total exposes this honestly, which is good, but confirm mobile UI surfaces the truncation). Tables missing on an environment degrade to an honest empty array rather than erroring."
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/v1/users/me",
+        "file": "yhealth-app/server/src/routes/user-self.routes.ts:29 -> controllers/user.controller.ts deleteMyAccount -> services/user.service.ts deleteUser()",
+        "authNotes": "authenticate required + strictLimiter rate limit. Self-scoped (own account only). Password re-verification required if the account has a password (comparePassword against stored hash); OAuth-only accounts (password IS NULL) skip password check and rely on the just-verified JWT as recent-auth proof (documented in-code, user.controller.ts comment above deleteMyAccount).",
+        "requestShape": "Body validated by validators/user.validator.ts deleteOwnAccountSchema: { password?: string (1-200 chars, required only if account has a password — enforced in controller not validator), confirmation: literal string matching DELETE_ACCOUNT_CONFIRMATION constant (exact confirmation phrase not read in this pass — flag as unverified, needed for mobile copy) }.",
+        "responseShape": "200 { success:true, data: { deleted: true }, message:'Account deleted successfully' }. On failure: 400 'Password is required to delete your account' (password account, no password sent) or 401 'Password is incorrect'.",
+        "notes": "Hard delete, cascades (per file header comment 'Delete own account (hard delete, cascades)') — deleteUser(userId) is called directly with no soft-delete/grace-period step visible in this route; if BIOS-002 wants an undo window this does not currently exist and would be a gap. Clears auth cookies after delete (clearAuthCookies). Structured audit log (userId only, no PII) on request and completion."
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/preferences/privacy",
+        "file": "yhealth-app/server/src/routes/preferences.routes.ts (privacy section) -> controllers/preferences.controller.ts updatePrivacyPreferences",
+        "authNotes": "router.use(authenticate) applies to whole preferences router. No entitlement gate.",
+        "requestShape": "Body validated by validators/preferences.validator.ts privacyPreferencesSchema: { shareProgressWithCoach?:boolean (default true); allowAnonymousDataForResearch?:boolean (default false); showInLeaderboards?:boolean (default false); profileVisibility?: 'private'|'friends'|'public' (default 'private'); healthProfileVisibility?: 'disabled'|'friends'|'all'|'custom' (default 'friends'); healthProfileAllowedUsers?: string[] (uuid array, default []) }.",
+        "responseShape": "Not traced in this pass (controller body not read) — flag as unverified. Almost certainly the standard ApiResponse.success wrapper given the pattern used by every other controller in this codebase.",
+        "notes": "This is the closest thing to a 'privacy/data-control' settings surface, distinct from the data export/delete endpoints. GET /api/preferences (whole bundle) would return this alongside notification/coaching/display/integration preferences — not traced field-by-field. No dedicated consent-log or consent-history endpoint found for this surface (WhatsApp has its own /api/whatsapp/consent, /consent/revoke, unrelated to general app privacy prefs)."
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/overview/dashboard",
+        "file": "yhealth-app/server/src/routes/overview.routes.ts:14 -> controllers/overview.controller.ts getDashboard -> services/overview-dashboard.service.ts getDashboard()",
+        "authNotes": "authenticate required + apiLimiter rate limit. No entitlement gate observed on this route.",
+        "requestShape": "No query/body — userId from req.user?.userId only.",
+        "responseShape": "200 { success:true, data: OverviewDashboardResponse } (shared/types/domain/overview.ts:317-337) — this is the FULLY TYPED, apparent 'Today' home dashboard payload: { lifeScore: OverviewLifeScore {totalScore:number|null; components:{score,weight,label}[]; dimensionScores:Record<string,number|null>}; pulse: OverviewPulse (energy/recovery/stress hero card — score, scoreDelta, tone, summary, summaryAccent, metrics:OverviewPulseMetric[] each {key:'energy'|'recovery'|'stress', value:number|null, display, qualityLabel, qualityTone:'good'|'ok'|'warn'|'bad'|'none', delta:number|null, positiveIsGood:boolean, trend:number[], caption, source:'whoop'|'self_report'|'computed', accent}, tip:string|null, hasWearable:boolean); dailyBrief: {headline, opportunity:string|null, risk:string|null, focusAreas:string[], dayScore:number|null, expectedImpacts:{label,delta}[]}; priorities: OverviewPriority[] {id,action,impact,pillar,priority:'high'|'medium'|'low',source}; lifeAreas: OverviewLifeAreaSnapshot[]; journey: OverviewJourneyItem[] (schedule/timeline items with status 'completed'|'active'|'upcoming'|'skipped'); dimensions: OverviewDimensionScore[]; insights: OverviewInsight[]; momentum: OverviewMomentum {streak,xp,level,levelName,weeklyTrend:number[],weeklyDelta:number|null,habitsCompleted:number|null,habitsTotal:number|null,weeklyGoalProgress:number|null}; coachPrompts:string[]; featureSurfacing: OverviewFeatureChip[]; domains: OverviewDomainScore[] (per-life-domain score with status 'strong'|'steady'|'attention'|'no_data'); correlations: OverviewCorrelation[]; relationships: OverviewRelationshipsSummary|null; finance: OverviewFinanceSummary|null; goals: OverviewGoalsSummary|null; schedule: OverviewScheduleItem[]; meta: OverviewMeta {generatedAt,hasDailyReport,hasLifeAreas,hasCoachingProfile,activeDomainCount,hasFinance,hasGoals,hasRelationships,hasSchedule} }.",
+        "notes": "This is the best candidate for BIOS-002's Today home dashboard source — it is a purpose-built, cached (redisCacheService, cache key overview:dashboard:<userId>) aggregation across nearly every domain (goals, life areas, finance, relationships, schedule, gamification/momentum). The service file itself (overview-dashboard.service.ts, ~52KB) is large and composes many sub-services not individually traced in this pass — treat the shared type file as the authoritative contract, but verify the running implementation actually populates every field for a fresh/low-data account (the type comments describe an explicit 'no fabricated numbers' honesty rule: null+status:'no_data' when a domain has no signal). Two related endpoints exist: GET /api/v1/overview/life-score (subset) and GET /api/v1/overview/life-pulse (pulse only)."
+      }
+    ],
+    "trustRoutes": [
+      "GET /api/v1/users/me/export (self-service data export, JSON, table-capped, own-account only) — user-self.routes.ts:23",
+      "DELETE /api/v1/users/me (self-service hard account delete with cascades; password re-verify for password accounts, JWT-as-proof for OAuth-only accounts) — user-self.routes.ts:29",
+      "PATCH /api/preferences/privacy (profile/health visibility, leaderboard opt-in, anonymous-research opt-in, coach data sharing) — preferences.routes.ts privacy section",
+      "GET/PATCH/POST /api/whatsapp/consent, /consent/revoke — WhatsApp-specific data consent, NOT a general app privacy surface (whatsapp.routes.ts:25-27)",
+      "No unified 'Trust Center' / consent-history / consent-log endpoint was found anywhere in server/src/routes — each integration (WhatsApp, data-sources, calendar) manages its own consent/connect/disconnect independently"
+    ],
+    "gaps": [
+      "No dedicated GDPR-style consent audit trail/history endpoint exists — deletion is logged server-side (logger.warn) but not exposed to the client as a queryable consent/audit log.",
+      "GET /api/workouts/plans has no pagination — returns all plans for a user; if BIOS-002's fitness dashboard assumes a paginated/limited list, this is a mismatch to confirm with Backend before building the client.",
+      "GET /api/life-areas/summary silently caps at 24 active life areas (LIMIT 24) with no cursor/pageInfo — if a power user exceeds 24 areas, some are simply missing from the summary with no signal to the client.",
+      "POST /api/ai-coach/chat is NOT a streaming endpoint (confirmed: standard synchronous JSON, no SSE/chunked response, no socket.io wiring in this controller path) — if the Cia chat UI in BIOS-002 expects token-by-token streaming, this contract does not provide it; the actual live-chat/socket layer (chat.routes.ts, message.routes.ts, socket.service.ts) was NOT traced in this pass and may be the real transport for the production coach UI. This needs a follow-up read before building the mobile chat screen.",
+      "isOnboarding on POST /api/ai-coach/chat is client-controlled and explicitly documented in-code as spoofable (only bounded blast radius per the in-code comment) — if BIOS-002's onboarding gating needs a server-verified onboarding state rather than a client flag, that does not exist on this endpoint today.",
+      "The 'routingChip' field in POST /api/ai-coach/chat's response was not traced to its concrete shape (routeCoachIntent() return type) — treat as dynamic/opaque until a follow-up trace.",
+      "GoalCategory/ConversationPhase enums used by ai-coach responses were only partially traced (goalCategoryEnum values confirmed; ConversationPhase type not read) — confirm before building any UI that branches on `phase`.",
+      "DayWorkout / WeeksStructure / ProgressiveOverload types feeding GET /api/workouts/plans's weeklySchedule/weeks fields are effectively free-form JSONB and were not traced field-by-field — treat as dynamic/complex; a dedicated read pass is needed before the mobile fitness dashboard renders these directly.",
+      "UserDataExport's field-exclusion rules (USER_EXPORT_EXCLUDED_COLUMNS set, SENSITIVE_COLUMN_PATTERN regex, EXPORT_ROW_LIMIT constant) were referenced but not read line-by-line — confirm exact values before promising a mobile 'export includes everything except X' claim to users.",
+      "PATCH /api/preferences/privacy's controller response shape was not opened in this pass (inferred only, not confirmed) — verify before wiring a client against it.",
+      "GET /v1/goals/unified's `normalizeStatus`/`buildSummary` helper logic in normalize.ts was imported but not opened — confirm status-normalization edge cases (e.g. what non-matching source statuses map to) before relying on the summary counts."
+    ],
+    "risks": [
+      "Auth is JWT (jsonwebtoken), accepted via either an `Authorization: Bearer <token>` header OR an `access_token` HttpOnly cookie (auth.middleware.ts extractToken()) — mobile BIOS-002 client must decide which transport it uses consistently; mixing both across different HTTP clients on-device could cause confusing auth-state divergence.",
+      "req.user field naming is inconsistent across controllers observed in this pass — gamification.routes.ts uses `req.user!.id` while goals-unified.controller.ts, life-areas.controller.ts, workouts.routes.ts, and ai-coach.controller.ts all use `req.user!.userId`/`req.user?.userId`. This was not resolved to a single AuthenticatedRequest type definition in this pass — if `.id` and `.userId` are NOT guaranteed to be the same value, GET /api/gamification/stats could silently misresolve the user. Flagging as uncertain, needs a one-line type-definition check before BIOS-002 relies on it.",
+      "requireFeature()/consumeCredits() entitlement gates return HTTP 402 with `{code:'FEATURE_DISABLED'}` when a feature isn't in the user's plan, UNLESS a 'shadow enforcement' mode (shouldEnforce()) is active, in which case the gate is silently skipped and only logged (logShadowDenial) — the exact conditions for shadow-mode were not traced, meaning entitlement behavior in dev/staging could differ from prod in ways not yet documented for BIOS-002 test planning.",
+      "DELETE /api/v1/users/me is an immediate hard delete with no grace/undo period found in this pass — if the mobile app's trust/data-control UI implies a 'you have N days to cancel' pattern, that does not match the current backend contract; must be confirmed/changed with Backend before shipping copy that promises it.",
+      ".env files, .p8 keys, and .local-secrets/ were not read for values in this investigation per instructions — presence was not explicitly checked either since none of the traced files required secret values; if BIOS-002 needs JWT_SECRET/session config specifics, a separate scoped follow-up (presence-only) would be needed."
+    ]
+  },
+  "mobileState": {
+    "routes": [
+      "src/app/index.tsx — root, redirects to /(auth)/sign-in",
+      "src/app/_layout.tsx — root layout (QueryClientProvider, SafeAreaProvider, Stack with 3 screens: index, (auth), (tabs))",
+      "src/app/(auth)/_layout.tsx — auth group layout (Stack, headerShown: false)",
+      "src/app/(auth)/sign-in.tsx — delegates to SignInScreen feature; renders email/password form, 'Continue in pilot mode' button",
+      "src/app/(auth)/onboarding.tsx — delegates to CiaOnboardingScreen feature; renders 'Quick calibration' and 'Deep life map' modes",
+      "src/app/(tabs)/_layout.tsx — NativeTabs layout (4 visible: today, cia, missions, me; 3 hidden: life-areas, fitness, data-controls)",
+      "src/app/(tabs)/today.tsx — delegates to TodayScreen; Life Power hero, active mission, Cia briefing, trust gates",
+      "src/app/(tabs)/cia.tsx — delegates to CiaScreen; chat message list + text composer, postCiaChat on send",
+      "src/app/(tabs)/missions.tsx — delegates to MissionsScreen; map missions with tier colors, status labels",
+      "src/app/(tabs)/me.tsx — delegates to MeScreen; level/streak metrics, nav buttons to Life Areas/Fitness/Data Controls",
+      "src/app/(tabs)/life-areas.tsx — delegates to LifeAreasScreen; map life areas with score, trend, drivers",
+      "src/app/(tabs)/fitness.tsx — delegates to FitnessScreen; fitness domain stat, trend bars, metric tiles",
+      "src/app/(tabs)/data-controls.tsx — delegates to DataControlsScreen; export/revoke/delete controls, session clear, readiness ledger"
+    ],
+    "apiWrappers": [
+      {
+        "file": "src/services/api/client.ts",
+        "endpoint": "apiFetch<T>(path: string, options?: ApiFetchOptions)",
+        "typesConfirmed": false,
+        "notes": "Generic fetch wrapper; injects Bearer token from getAccessToken(), handles ApiEnvelope<T> or raw T, throws ApiError on !response.ok or envelope.success === false. No retry/timeout/backoff logic. Error details leaked to caller."
+      },
+      {
+        "file": "src/services/api/pilot.ts",
+        "endpoint": "POST /auth/login",
+        "typesConfirmed": false,
+        "notes": "login(payload: LoginRequest) → LoginResponse. Request: {email, password, rememberMe?}. Response: {user: UserSummary, tokens: {accessToken?, refreshToken?, expiresIn?}}. Types are app-derived; no server schema cross-check. No entitlement verification."
+      },
+      {
+        "file": "src/services/api/pilot.ts",
+        "endpoint": "GET /auth/me",
+        "typesConfirmed": false,
+        "notes": "getCurrentUser() → UserSummary | {user?: UserSummary}. Flexible response shape handles both direct UserSummary and wrapped form. UserSummary has optional fields (firstName, lastName, role, onboardingStatus) not validated."
+      },
+      {
+        "file": "src/services/api/pilot.ts",
+        "endpoint": "GET /v1/goals/unified",
+        "typesConfirmed": false,
+        "notes": "getUnifiedMissions() → Mission[]. Response envelope has `missions` OR `goals` fallback (app-side defensiveness). Mission tier: 'life'|'main'|'side'|'daily'|'weekly'. Status: 'active'|'blocked'|'complete'. Contract undefined; backward-compat fallback suggests envelope was changed."
+      },
+      {
+        "file": "src/services/api/pilot.ts",
+        "endpoint": "GET /life-areas/summary",
+        "typesConfirmed": false,
+        "notes": "getLifeAreas() → LifeArea[]. Response has `areas` OR `domains` fallback. LifeArea shape: {id, name, score, trend, drivers[string]}. No validation of score range (0–99 per RPG spec). No enum for life area IDs."
+      },
+      {
+        "file": "src/services/api/pilot.ts",
+        "endpoint": "GET /gamification/stats",
+        "typesConfirmed": false,
+        "notes": "getGamificationStats() → GamificationStats | undefined. Response wrapped as {stats?: GamificationStats}. GamificationStats = {level, xp, streak, lifePower}. No validation. Can return undefined if stats absent."
+      },
+      {
+        "file": "src/services/api/pilot.ts",
+        "endpoint": "GET /workouts/plans",
+        "typesConfirmed": false,
+        "notes": "getFitnessDashboard() → FitnessDashboard | null. CRITICAL: Mobile derives FitnessDashboard fields from the response; not backend-native. score=74 (hardcoded), weeklyMinutes = plans.length * 38 (computed), recovery=68 (hardcoded), metrics[] includes literal strings 'Readiness: Derived until native fitness contract is finalized' + 'Load: Flagged mobile transformation'. Fixture flagged 'wearable contract' needs verification."
+      },
+      {
+        "file": "src/services/api/pilot.ts",
+        "endpoint": "POST /ai-coach/chat",
+        "typesConfirmed": false,
+        "notes": "postCiaChat(message: string, history: CiaMessage[]) → {message?: CiaMessage; response?: string; text?: string}. Body: {message, goal: 'overall_optimization', conversationHistory, isOnboarding: false}. Response shape ambiguous (message.text OR response string OR text string fallback). Fixture: 'Backend route exists; final mobile entitlement and streaming behavior still need verification.' No streaming consumer visible."
+      }
+    ],
+    "authSession": "\nSecureStore key: 'balencia.mobile.session.v1'. Stores AuthSession = {accessToken, refreshToken?, expiresIn?, user?: UserSummary, storedAt}. Persistence: expo-secure-store setItemAsync / getItemAsync / deleteItemAsync. CRITICAL GAPS: (1) NO token refresh logic — refreshToken stored but never used; 401/expired token will fail with no retry. (2) NO session-expired handler — no redirect on 401. (3) Sign-out calls clearSession() which deletes SecureStore key. (4) updateStoredUser() merges user into existing session. (5) getAccessToken() returns accessToken OR null (no refresh attempt). Session lifecycle: sign-in stores session → screens check hasSession with getStoredSession() → usePilotData hooks enabled when hasSession=true → data.source set to 'api' if queries succeed, else 'demo'. NO context provider or session observer pattern — state isolated in hooks.\"",
+    "fixtureUsage": [
+      {
+        "screen": "Today, Missions, Life Areas, Fitness, Me, Data Controls",
+        "source": "usePilotData() hook in src/hooks/use-pilot-data.ts",
+        "notes": "All data-driven screens use usePilotData() which orchestrates useQuery for missions, lifeAreas, gamification, fitness. If queries error OR no session (hasSession=false), returns fixture. Fixture: pilotSnapshotFixture from src/fixtures/pilot.ts. Data provenance tracked: data.source = 'api' if all queries succeed, else 'demo'. CRITICAL: Fixture is NOT confirmed against real backend responses — missions/lifeAreas/fitness fields are demo-only; app assumes same shape on live API."
+      },
+      {
+        "screen": "Sign-in",
+        "source": "None — form state only (useState email, password)",
+        "notes": "SignInScreen has no fixtures; calls login() directly, stores session on success, navigates to onboarding. Error caught as string message. No retry logic."
+      },
+      {
+        "screen": "Cia chat",
+        "source": "useState messages (initial starterMessage), postCiaChat()",
+        "notes": "CiaScreen has one hardcoded starter message from Cia (not fixture). On send, appends user message to state, calls postCiaChat(), appends response. Fallback if error: shows 'I can draft the next mission step locally, but live Cia chat needs a signed-in mobile token and entitlement verification.' No fixture for Cia responses."
+      }
+    ],
+    "components": [
+      "BalenciaButton (tone: primary|secondary|quiet|danger, disabled?, onPress)",
+      "BalenciaScreen (eyebrow, title, subtitle, withTabPadding?, children)",
+      "GlassCard (tone: default|orange|green|purple, children)",
+      "MetricTile (label, value, detail, tone?)",
+      "CardTitle, CardBody (ReactNode children)",
+      "StatBar (label, value, max=100, tone)",
+      "TrendBars (values: number[], tone)",
+      "StatusChip (label, tone)",
+      "ProvenanceChip (label)",
+      "ReadinessBadge (status: ready|flagged|waiver)",
+      "LoadingState (label?)",
+      "EmptyState (title, detail)",
+      "ErrorState (message)"
+    ],
+    "testSetup": "'npm run test' → executes scripts/verify-mobile-source.mjs. Checks: (1) required routes exist (11 routes listed), (2) required API/auth/component files exist, (3) forbidden patterns absent (SIA legacy name, Expo starter copy), (4) Balencia color tokens present (#FF5E00, #34A853, #7F24FF, #0A0A0F, #211008). CRITICAL: NO unit or integration tests. NO test framework (Jest/Vitest). NO coverage. Verification is manifest-only (file presence + pattern grep). npm run lint (expo lint), npm run typecheck (tsc --noEmit), npm run ios (expo start --ios). Package.json scripts show no test fixtures or mock setup.'",
+    "gaps": [
+      "Token refresh missing — refreshToken stored in SecureStore but never used; 401/expired will fail with no retry or session recovery flow.",
+      "Session-expired redirect missing — no 401 handler that redirects to sign-in; screens will error.",
+      "Error/loading UI missing — screens have no error/retry render path; useQuery errors not surfaced visibly.",
+      "Loading skeletons missing — useQuery loading state not rendered; screens blank until data arrives.",
+      "DTO mapper pattern missing — raw API responses used directly without adapter layer; breaks if backend contract changes.",
+      "Cia chat response shape undefined — postCiaChat catches response.message OR response.response OR response.text (3-way fallback); fixture says 'streaming behavior still needs verification' but no streaming consumer visible.",
+      "Fitness domain contract incomplete — getFitnessDashboard derives score/recovery/metrics from /workouts/plans (plans.length * 38 for weekly minutes); metrics include literal 'Derived until native fitness contract is finalized' — not production-ready.",
+      "Finance/documents flagged as waiver — routes exist but no mobile flow; screens show placeholder controls marked 'waiver' status.",
+      "Wearable data missing — fitness recovery % hardcoded 68%; fixture says 'needs wearable contract'.",
+      "WebSocket setup incomplete — config has EXPO_PUBLIC_SOCKET_URL but no WebSocket consumer visible; no real-time updates.",
+      "No offline/degraded state — screens will error if network unavailable; no local sync or cached fallback beyond fixture.",
+      "No authentication state machine — no context provider for session state; scattered useState in components; no guarantee of consistent auth checks.",
+      "No retry/backoff logic — apiFetch throws immediately on error; no exponential backoff or retry count.",
+      "No API type cross-verification — types in pilot.ts are app-derived; no generated-from-server schema or OpenAPI contract visible.",
+      "Unit/integration tests missing — NO unit tests for apiFetch, login, API wrappers; NO integration tests hitting real backend.",
+      "No access token expiry check — expiresIn stored but never consulted; app cannot detect stale token before send.",
+      "No rate-limit handling — no 429 backoff or request throttle.",
+      "Google Sign-In config present but unused — EXPO_PUBLIC_GOOGLE_CLIENT_ID / EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID in env, but no sign-in UI.",
+      "No mutation/cache invalidation — useQuery reads only; no useMutation or cache invalidation on sign-in/sign-out.",
+      "Readiness ledger visible but static — data.readiness comes from fixture; no dynamic backend readiness API visible."
+    ]
+  },
+  "clientEvidence": {
+    "serviceModules": [
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/lib/auth.ts",
+        "endpoints": [
+          "POST /api/auth/login (credentials)",
+          "POST /api/auth/social (Google OAuth)",
+          "POST /api/auth/backend-session (token re-install from NextAuth JWT)"
+        ],
+        "transforms": "NextAuth v5 JWT strategy; stores backend tokens in encrypted JWT; HTTP-only cookies for API requests; token refresh via reinstallBackendSession() which calls /api/auth/backend-session and retries 401s once",
+        "notes": "Credentials provider + Google provider; signIn callback extracts access/refresh tokens from response headers; JWT callback stores tokens in token object (not exposed to client session); 401 handler auto-retries after calling reinstallBackendSession() to handle post-login race condition"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/lib/api-client.ts",
+        "endpoints": [
+          "Generic axios instance wrapping GET/POST/PATCH/PUT/DELETE/upload",
+          "Request deduplication for GET requests (tracks pending by endpoint+params)"
+        ],
+        "transforms": "GET deduplication; 401 handler extracts error code/message, calls reinstallBackendSession(), retries once; cache-busting for WHOOP/integration endpoints; error normalization to ApiError class; upload() method for FormData without Content-Type header",
+        "notes": "All tokens in HTTP-only cookies or NextAuth JWT. ApiError class with statusCode, code, details. Manual retry on 401 after backend-session re-install. AbortSignal support. Legacy cookie cleanup. Concurrent reauthentication deduplication with reauthInFlight flag"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/src/shared/services/goals.service.ts",
+        "endpoints": [
+          "GET /assessment/goals/suggested",
+          "POST /assessment/goals/accept-suggested",
+          "GET /goals",
+          "PATCH /goals/{goalId}",
+          "DELETE /goals/{goalId}",
+          "GET /v1/goals/unified"
+        ],
+        "transforms": "acceptSuggestedGoals() maps Goal[] to request: converts timeline dates to ISO strings, defaults confidenceLevel to 7 if undefined. Returns GoalCategory + HealthPillar + timeline structure",
+        "notes": "Unified goals endpoint fetches goals across all domains (health, life, career, finance). No built-in retry or idempotency. Request body includes motivation, confidenceLevel (0-100), targetValue/targetUnit for metric tracking"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/src/shared/services/workouts.service.ts",
+        "endpoints": [
+          "GET /workouts/plans",
+          "GET /workouts/plans/{planId}",
+          "POST /workouts/plans",
+          "PATCH /workouts/plans/{planId}",
+          "POST /workouts/plans/{planId}/activate",
+          "POST /workouts/plans/generate-ai (with idempotency key)",
+          "POST /workouts/exercises/suggest (with idempotency key)",
+          "GET /workouts/today?planId={id}",
+          "POST /workouts/logs",
+          "GET /workouts/logs/{date}",
+          "GET /workouts/logs/range",
+          "GET /workouts/stats/consistency (heatmap: completed|partial|pending|rest)",
+          "PATCH /workouts/plans/{planId}/difficulty",
+          "GET /workouts/exercises (with filters)",
+          "GET /workouts/stats/weekly",
+          "GET /workouts/stats/prs",
+          "GET /workouts/schedule/weekly"
+        ],
+        "transforms": "generateAIPlan() & suggestExercises() use newIdempotencyKey('workout-ai'). logWorkout() accepts exercisesCompleted array with per-exercise set data (reps, weight, completed). ConsistencyResponse: days array with completionRate (0-100), status enum. WorkoutPlan: difficulty level, goalCategory, workoutsPerWeek, weeklySchedule object",
+        "notes": "Idempotency key pattern critical for AI endpoints to prevent double-charging. Weekly heatmap marks days outside plan window as 'rest' not 'missed'. Exercise library filterable by category/difficulty/muscleGroup/equipment. Workout log includes xpEarned. Consistency tracks trailing weeks"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/src/shared/services/ai-coach.service.ts",
+        "endpoints": [
+          "GET /ai-coach/status",
+          "POST /ai-coach/start",
+          "POST /ai-coach/message (with idempotency key)",
+          "POST /ai-coach/chat (with idempotency key)",
+          "POST /ai-coach/complete",
+          "POST /ai-coach/image/analyze (multipart, with idempotency key)",
+          "POST /ai-coach/chat-with-image (multipart, with idempotency key)",
+          "POST /ai-coach/session (get or create)",
+          "GET /ai-coach/session/{sessionId}",
+          "GET /ai-coach/history",
+          "DELETE /ai-coach/session/{sessionId}",
+          "GET /ai-coach/session/{sessionId}/pdf (blob response)",
+          "POST /ai-coach/generate-goals",
+          "POST /ai-coach/mcq/question (multi-domain support)",
+          "POST /ai-coach/mcq/answer",
+          "POST /ai-coach/mcq/batch-questions",
+          "POST /ai-coach/life-coach-questions",
+          "GET /ai-coach/profile",
+          "POST /ai-coach/profile/refresh",
+          "PATCH /ai-coach/profile/tone",
+          "GET /ai-coach/suggested-prompts (free, no credits)"
+        ],
+        "transforms": "sendMessage()/chat() use idempotency: ai-coach-chat-${Date.now()}-${random}. ConversationPhase enum: opening|exploration|deepening|closing. ExtractedInsight: category (motivation|barrier|preference|lifestyle|goal|health_status) + confidence. MCQGenerationRequest: selectedDomains array for multi-domain rotation. GenerateGoalsRequest: selectedDomains for spanning life areas",
+        "notes": "Credit-consuming (idempotency prevents double-charge). Session auto-persists chat. HealthImageType enum: body_photo|xray|medical_report|food_photo|nutrition_label|fitness_progress|unknown. CoachingProfile: adherence scores, risk flags, predictions, goal alignment, data gaps. Suggested prompts free. PDF download uses direct fetch (returns Blob). Multi-domain MCQ: domain param forces specific, else rotation across selectedDomains"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/src/shared/services/leaderboard.service.ts",
+        "endpoints": [
+          "GET /leaderboards/daily (type: global|country|friends|competition)",
+          "GET /leaderboards/daily/around-me (rank context ±range)",
+          "GET /leaderboards/daily/my-rank",
+          "GET /leaderboards/me/country",
+          "PATCH /leaderboards/me/country",
+          "GET /daily-score",
+          "GET /daily-score/history",
+          "GET /competitions",
+          "GET /competitions/{competitionId}",
+          "GET /competitions/{competitionId}/leaderboard",
+          "POST /competitions/{competitionId}/join",
+          "DELETE /competitions/{competitionId}/leave",
+          "POST /activity-events"
+        ],
+        "transforms": "ComponentScores: workout, nutrition, wellbeing, biometrics, engagement, consistency (participation deprecated). withRetry() applies 3x exponential backoff (1s→2s→4s) for 5xx. LeaderboardEntry: rank, total_score, component_scores, user (name, avatar, email). DailyScore: explanation + rank object. Competition status: draft|active|ended. CompetitionEntry status: active|disqualified|completed|withdrawn",
+        "notes": "Leaderboard has retry logic built-in (not api-client level). Component scores used in BIOS-002 summary. ActivityEvents submission for WHOOP/Apple Health/manual intake. Country setter allows country leaderboard. Competitions separate from daily leaderboard with eligibility/scoring_weights metadata"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/src/shared/services/lcm.service.ts",
+        "endpoints": [
+          "GET /v1/intelligence/lcm (effective: base ⊕ personal ⊕ temporal)",
+          "GET /v1/intelligence/lcm/base (base matrix, optional domain param, returns priorities)"
+        ],
+        "transforms": "LcmMatrix: userId, asOf, baseVersion, nodes (10 domains: score/trend), edges (correlations: baseWeight, personalWeight, posteriorWeight, effectiveWeight, confidence, evidenceCount, lagDays, contradictsBase flag, driftFlag, activeModifiers). LcmNode: domain, score or null, hasData, trend enum (improving|stable|declining). LCM_DOMAIN_ORDER: fitness, sleep, nutrition, wellbeing, productivity, career, finance, relationships, faith, meditation. LCM_DOMAIN_COLORS: hardcoded per domain",
+        "notes": "Life Correlation Matrix is Balencia differentiator: 10-domain model with learned personal correlations. Nodes = domain scores. Edges = bidirectional influence. getBaseMatrix(domain?) returns domain priorities for onboarding. Effective matrix combines base + user-learned + temporal modifiers"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/src/shared/services/wellbeing.service.ts",
+        "endpoints": [
+          "GET /v1/wellbeing/summary (module activity + habit counts)",
+          "POST /v1/wellbeing/mood",
+          "GET /v1/wellbeing/mood (paginated)",
+          "POST /v1/wellbeing/breathing",
+          "GET /v1/wellbeing/breathing (paginated)",
+          "GET /v1/wellbeing/breathing/timeline",
+          "GET /v1/wellbeing/breathing/stats",
+          "GET /v1/wellbeing/behavioral-patterns",
+          "POST /v1/wellbeing/behavioral-patterns/{id}/acknowledge",
+          "POST /v1/wellbeing/behavioral-patterns/{id}/dismiss",
+          "GET /v1/wellbeing/insights/correlations",
+          "POST /v1/wellbeing/insights/{id}/dismiss",
+          "GET /v1/wellbeing/insights/themes",
+          "POST /v1/wellbeing/insights/compute?days=N"
+        ],
+        "transforms": "WellbeingSummaryData: modules Record<string, ModuleActivity> {lastActivityAt, recentCount} + habits {todayCompleted, todayTotal}. MoodLog: emoji, emotion_tags, happiness/energy/stress/anxiety ratings, context_note. BreathingTest: type, results, duration. BehavioralPattern: type, severity, recommendations. InsightCorrelation: patternType, headline, insight, correlationStrength, confidence enum (high|medium|low), evidence, windowDays",
+        "notes": "Lightweight summary for dashboard module grid. Modules tracked separately (mood, breathing, habits, journal). Behavioral patterns: AI-generated → user acknowledges (marks learned) or dismisses. Insights auto-compute or on-demand. Correlation engine extracts themes and co-occurrence patterns"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/src/shared/services/social-growth.service.ts",
+        "endpoints": [
+          "GET /feed",
+          "POST /feed/{feedId}/react",
+          "GET /pledges/today",
+          "POST /pledges",
+          "PATCH /pledges/{pledgeId}",
+          "DELETE /pledges/{pledgeId}",
+          "POST /pledges/{pledgeId}/complete",
+          "GET /pledges/streak",
+          "GET /reputation/me",
+          "GET /reputation/leaderboard",
+          "GET /reputation/me/breakdown",
+          "GET /reputation/me/history",
+          "GET /reputation/me/rank",
+          "GET /reputation/mentors",
+          "GET /rewards/drops",
+          "GET /referrals/code",
+          "GET /referrals/mine",
+          "GET /groups/mine",
+          "GET /groups/circles",
+          "GET /groups/circles/{circleId}",
+          "GET /groups/communities",
+          "GET /groups/communities/{communityId}",
+          "GET /groups/{groupId}",
+          "GET /groups/{groupId}/health",
+          "POST /groups/{groupId}/join",
+          "POST /groups/{groupId}/leave",
+          "GET /follows/consent",
+          "PUT /follows/consent",
+          "POST /follows/{userId}",
+          "GET /follows/accountability-partners",
+          "GET /moderation/reports",
+          "POST /moderation/report",
+          "PATCH /moderation/reports/{reportId}",
+          "GET /moderation/trust-flags",
+          "PATCH /moderation/trust-flags/{userId}"
+        ],
+        "transforms": "Reputation: accountabilityScore, kudosReceived/Given, mentorStatus enum (none|eligible|active), statusTitle, eliteTier. DailyPledge: date, text, category, targetValue, actualValue, completed. Pledge completion accepts actualValue. BuddyConsent enum for follow/accountability. CircleVsCommunity: circles=temporary 2-5, communities=persistent large. GroupHealth: collective engagement metrics",
+        "notes": "Social features: pledges (daily commitments), reputation (accountability score), referrals, groups/circles/communities, moderation. Reputation leaderboard separate from gamification. Follow system: buddy/accountability consent. Rewards tied to reputation. Moderation: reports + trust flags for user-generated content safety"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/hooks/use-auth.ts",
+        "endpoints": [
+          "POST /auth/register (returns activationToken)",
+          "POST /auth/verify-registration",
+          "POST /auth/forgot-password",
+          "POST /auth/reset-password",
+          "POST /auth/verify-email",
+          "POST /auth/resend-verification",
+          "POST /auth/resend-registration-otp",
+          "POST /auth/change-password"
+        ],
+        "transforms": "register() returns activationToken for email verification. verifyRegistration() calls signIn() if email/password provided, then installBackendSessionCookies(). login() calls signIn() then installBackendSessionCookies(). loginWithGoogle() calls signIn('google') with callbackUrl redirect",
+        "notes": "useAuth hook wraps all auth flows. installBackendSessionCookies() is critical post-login step. Toast notifications for UX feedback. Error handler uses getAuthFlowErrorMessage() for user-friendly messages. logout() calls signOut(callbackUrl). resetPassword/verifyEmail redirect to signin on success"
+      },
+      {
+        "file": "/Users/hamza/Desktop/balencia-design/yhealth-app/client/hooks/use-api-mutation.ts",
+        "endpoints": [
+          "Generic POST/PATCH/DELETE wrapper around api client methods"
+        ],
+        "transforms": "useApiMutation({method, onSuccess, onError, onSettled, transform}): returns {mutate, mutateAsync, data, isLoading, isSuccess, isError, error, reset}. mutate() swallows errors (returns null). mutateAsync() throws. Optional transform() callback on response data",
+        "notes": "Reusable mutation hook for all data mutations. onSettled() fires after success or error. Component unmount safety via mountedRef. ApiError thrown on !response.success. Useful for form submissions, deletions, patches"
+      }
+    ],
+    "authPattern": "NextAuth.js v5 with JWT strategy. Credentials provider (email/password) + Google OAuth. POST /api/auth/login validates, returns user + backend tokens in HTTP-only cookies (access_token, refresh_token). NextAuth stores backend tokens in encrypted JWT (server-side only). Token refresh: 401 triggers POST /api/auth/backend-session to reinstall cookies from JWT, then retries once. 3-day session max age. HTTP-only cookies + credentials: true in axios ensures auto-send on same-origin requests.",
+    "reusableLogic": [
+      "GET request deduplication by endpoint + params (prevents duplicate fetches during React Strict Mode)",
+      "Idempotency key pattern for credit-consuming AI: {endpoint}-${Date.now()}-${random} prevents double-charging on retry",
+      "Exponential backoff retry wrapper (3x, 1s→2s→4s) for 5xx errors, applicable to any stateless read endpoint",
+      "ApiError class with statusCode/code/details for consistent error handling across all services",
+      "ComponentScores mapper: {workout, nutrition, wellbeing, biometrics, engagement, consistency} — canonical gamification dimensions",
+      "ConversationPhase enum (opening→exploration→deepening→closing) for AI Coach session progression",
+      "LCM canonical domain order [fitness, sleep, nutrition, wellbeing, productivity, career, finance, relationships, faith, meditation] with hardcoded color map",
+      "WorkoutLog exercise completion structure: exercisesCompleted array with per-exercise sets (reps, weight, completed) for progressive tracking",
+      "Consistency heatmap: distinguishes 'rest' (outside plan window) from 'missed' (within plan but not completed) — critical for mobile",
+      "AI Coach session auto-persist pattern: /ai-coach/chat endpoint saves automatically (preferred over manual message+complete)",
+      "HealthImageType enum (body_photo|xray|medical_report|food_photo|nutrition_label|fitness_progress|unknown) from image analysis",
+      "Behavioral pattern flow: AI-generated → user acknowledges (learns) or dismisses → persists until user action",
+      "Reputation vs Leaderboard separation: Reputation = social/trust metric, Leaderboard = performance metric, two independent systems"
+    ],
+    "notes": "READ-ONLY INVENTORY — no .env/.p8 secrets. Auth token storage is critical for mobile port: SecureStore on iOS replaces HTTP-only cookies; same re-install flow applies. LCM (Life Correlation Matrix) is foundational: 10 domains with Bayesian-learned personal weights; single GET /v1/intelligence/lcm provides full effective matrix for life-areas UI. Idempotency keys required for: AI Coach messages, image analysis, workout AI generation, goal generation (all credit-consuming). Consistency heatmap logic: checks if date within plan active window to distinguish rest from missed. Gamification coupling: workout logging returns xpEarned; leaderboard daily-score includes component breakdown for badges. AI Coach session: prefer /ai-coach/chat (auto-saves) over manual message+complete. Suggested prompts free endpoint (no credits). Behavioral patterns, reputation, pledges, groups optional for MVP. Retry logic service-level (leaderboard) not client-level (api-client retries 401 once after re-auth only). Request deduplication prevents duplicate calls during rapid component mounts. Coaching profile comprehensive (adherence scores, risk flags, predictions, goal alignment, data gaps). No AsyncStorage patterns found; state via React hooks + inferred TanStack Query."
+  },
+  "designScope": {
+    "screens": [
+      {
+        "id": "01",
+        "name": "Splash Screen",
+        "flow": "Sign-in/Auth",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/01-splash-screen.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/01.png",
+        "notes": "System launch surface; brand cluster reveal focal moment; no live route; batch 1 pilot"
+      },
+      {
+        "id": "02",
+        "name": "Motion Carousel",
+        "flow": "Sign-in/Auth",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/02-motion-carousel.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/02.png",
+        "notes": "Onboarding animation sequence; batch 1 pilot"
+      },
+      {
+        "id": "03",
+        "name": "Welcome Sign-Up",
+        "flow": "Sign-in/Auth",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/03-welcome-sign-up.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/03.png",
+        "notes": "Guest mode entry point (Explore as guest); batch 1 pilot"
+      },
+      {
+        "id": "03b",
+        "name": "OTP Verification",
+        "flow": "Sign-in/Auth",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/03b-otp-verification.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/03b.png",
+        "notes": "Email/phone verification step; batch 2"
+      },
+      {
+        "id": "03c",
+        "name": "Consent",
+        "flow": "Sign-in/Auth",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/03c-consent.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/03c.png",
+        "notes": "ConsentCard canon pattern; data/privacy acceptance; batch 2"
+      },
+      {
+        "id": "03d",
+        "name": "Complete Profile",
+        "flow": "Sign-in/Auth",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/03d-complete-profile.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/03d.png",
+        "notes": "Profile onboarding completion; batch 2"
+      },
+      {
+        "id": "04",
+        "name": "Sign-In",
+        "flow": "Sign-in/Auth",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/04-sign-in.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/04.png",
+        "notes": "Social-first authentication; batch 2"
+      },
+      {
+        "id": "05",
+        "name": "Forgot Password",
+        "flow": "Sign-in/Auth",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/05-forgot-password.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/05.png",
+        "notes": "Password recovery initiation; batch 2"
+      },
+      {
+        "id": "05b",
+        "name": "Reset Password",
+        "flow": "Sign-in/Auth",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/05b-reset-password.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/05b.png",
+        "notes": "Password reset completion; batch 3"
+      },
+      {
+        "id": "07",
+        "name": "CIA Onboarding Conversation",
+        "flow": "Cia Onboarding",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/07-cia-onboarding-conversation.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/07.png",
+        "notes": "5-step onboarding rail (Goal/Mode/Assessment/Plan/Preferences); CIA chat + CIAPresenceOrb; quick/deep choice cards; coach naming locked to CIA; batch 1 pilot; route=/onboarding"
+      },
+      {
+        "id": "08",
+        "name": "Initial Plan Summary",
+        "flow": "Cia Onboarding",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/08-initial-plan-summary.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/08.png",
+        "notes": "Post-onboarding plan summary; no RPG on this screen; batch 1 pilot"
+      },
+      {
+        "id": "09",
+        "name": "CIA Chat",
+        "flow": "Cia Chat",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/09-cia-chat.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B0-canon-aligned/09.png",
+        "notes": "Main CIA chat interface; CIAChatBubble + ChatComposer; IntelligenceTimeline; batch 4; route=/chat-history or /messages"
+      },
+      {
+        "id": "10",
+        "name": "CIA Voice In Chat",
+        "flow": "Cia Chat",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/10-cia-voice-in-chat.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/10.png",
+        "notes": "Voice input in chat mode; VoiceMicGlow; amplitude ring; batch 4"
+      },
+      {
+        "id": "11",
+        "name": "CIA Voice Full Screen",
+        "flow": "Cia Chat",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/11-cia-voice-full-screen.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B2/11.png",
+        "notes": "Full-screen voice conversation mode; CIAPresenceOrb hero; listening/thinking/idle states; batch 4; route=/voice-call"
+      },
+      {
+        "id": "12",
+        "name": "Home Screen",
+        "flow": "Today Home",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/12-home-screen.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B0-canon-aligned/12.png",
+        "notes": "Today tab bento dashboard; activity-status merge; quick-log FAB; GlassNavBar active; batch 5; route=/dashboard"
+      },
+      {
+        "id": "13",
+        "name": "Goals List",
+        "flow": "Mission Board",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/13-goals-list.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B0-canon-aligned/13.png",
+        "notes": "Mission Board; goals = missions (gold/silver/bronze tier system); batch 6; route=/goals"
+      },
+      {
+        "id": "14",
+        "name": "Goal Detail",
+        "flow": "Mission Board",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/14-goal-detail.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B3/14.png",
+        "notes": "Single goal/mission detail view; batch 6; route=/goals/[id]"
+      },
+      {
+        "id": "15",
+        "name": "Create/Edit Goal",
+        "flow": "Mission Board",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/15-create-edit-goal.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B3/15.png",
+        "notes": "Goal creation and editing interface; batch 6; route=/goals/new or /goals/[id]/edit"
+      },
+      {
+        "id": "16",
+        "name": "Life Areas Overview",
+        "flow": "Life Areas",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/16-life-areas-overview.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B0-canon-aligned/16.png",
+        "notes": "10-domain life correlation matrix hub; cross-pillar intelligence entry point; batch 7; route=/life-areas"
+      },
+      {
+        "id": "17",
+        "name": "Me Main",
+        "flow": "Me/Profile",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/17-me-main.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B4/17.png",
+        "notes": "Me tab hub; profile/character/hub entry point; GlassNavBar active; batch 8; route=/me or /profile"
+      },
+      {
+        "id": "21",
+        "name": "Settings",
+        "flow": "Trust/Privacy/Data Controls",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/21-settings.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B7b/21.png",
+        "notes": "Privacy, consent, data controls hub; Toggle components for preferences; SafetyResourceCard (crisis); ConsentRail; batch 10; route=/settings; W-007 FIX-FILED review available"
+      },
+      {
+        "id": "22",
+        "name": "Connected Services",
+        "flow": "Trust/Privacy/Data Controls",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/22-connected-services.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B7b/22.png",
+        "notes": "Third-party integrations, health data sources, consent state management; batch 10; route=/settings/connected; W-007 FIX-FILED review available"
+      },
+      {
+        "id": "26",
+        "name": "Fitness Workouts Dashboard",
+        "flow": "Fitness Domain Dashboard",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/26-fitness-workouts-dashboard.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/26.png",
+        "notes": "Fitness domain hub; workout list + activity status; batch 11; route=/fitness or /workouts"
+      },
+      {
+        "id": "27",
+        "name": "Workout Detail Active",
+        "flow": "Fitness Domain Dashboard",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/27-workout-detail-active.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/FULL-104/27.png",
+        "notes": "Active/in-progress workout detail view; batch 11; route=/workouts/[id] or /activity"
+      },
+      {
+        "id": "73",
+        "name": "Mission Journal",
+        "flow": "Mission Board",
+        "hifiPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/hifi-screens/73-mission-journal.md",
+        "screenshotPath": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/screenshots/B3/73.png",
+        "notes": "Goal journal and reflection interface; batch 6; route=/goals/[id]/journal or /journal"
+      }
+    ],
+    "canonSections": [
+      "§0 Identity: App name Balencia, Coach persona CIA (never SIA), native mobile iOS/Android 390x844, dark only",
+      "§1 Surfaces: warm dark (ink-900 #0A0A0F base, warm tones for zones), top-center radial glow + grain overlay (signature atmosphere)",
+      "§2 Glass tiers: .glass-card (default data/surfaces), .glass-frost (immersive onboarding/overlays), .glass-pill (inputs/chips/nav) — rule: glass for hero/nav/overlay, solid for data-dense",
+      "§3 Semantic inner-glow: one glow per card, meaning-driven; glow-you orange #FF5E00 (effort/streak), glow-done green #34A853 (completion), glow-cia purple #7F24FF (CIA/AI/premium)",
+      "§4 Color roles 60/30/10: burnt orange 60% (primary CTA/active/progress), forest green 30% (completion/health/positive), royal purple 10% (CIA/AI only); domain tag colors for icons/tags only",
+      "§5 Type: Neue Montreal UI + Tiempos italic accent (one emphasis word max per moment); Display/H1/H2/H3/Body/Caption hierarchy; tabular-nums on all numerics",
+      "§6 Shape/spacing/motion/icons: radii 28/40 cards, glass-pill 999, inputs 14; spacing 4px base grid; bottom nav GlassNavBar (4 tabs: Today/CIA/Goals/Me, active orange); motion 150-250ms easing, transform/opacity only, reduced-motion paths required",
+      "§7 Data viz honesty invariant (non-negotiable): solid orange user line, dashed purple projection, green milestone dots; 3 states per metric (real + provenance chip, low-confidence + muted label, honest null + designed empty state, never invented)",
+      "§8 Cross-cutting patterns: crisis/safety layer (quiet, always reachable, never gamified), consent & data control (shows state + revoke/delete entry point), locked-feature gating (PaywallLock blurred preview, never dead-end), quick-log FAB (global, Today-tab screens), provenance chips on all synced data, AA+ contrast, 44px min touch targets, reduced-motion variants, motivation-tier density variants",
+      "§9 Component catalog: canonical component names with variants in COMPONENT-CATALOG.md; new components flagged NEW: in spec with rationale",
+      "§10 CIA voice rules: sentence case no exclamations, warm coach tone, honest direct, short verbs, second person ('your sleep' not 'the user's sleep'), leads with meaning not metric"
+    ],
+    "components": [
+      "GlassCard (default container, hero variant, interactive variant)",
+      "FrostCard (immersive frost for onboarding/overlays, choice variant, summary variant)",
+      "SolidCard (data-density surface, elevated variant)",
+      "BentoGrid (2-col dashboard, 1x1/2x1/2x2 tiles)",
+      "SectionHeader (overline + H2 + optional trailing action)",
+      "TopBar (screen header, back chevron 44px target, H1/title-on-scroll, up to 2 glyph actions)",
+      "GlassNavBar (floating bottom pill, 4 tabs Today/CIA/Goals/Me, active orange filled)",
+      "Sheet (bottom sheet, half/full/action variants)",
+      "ModalOverlay (centered FrostCard, blocking moments)",
+      "SegmentedTabs (glass pill track, orange active segment)",
+      "ListRow (settings/list unit, 56px min height, chevron/toggle trailing)",
+      "CalendarStrip (7-day scroller, glass-pill days, today orange ring, green dot for completed)",
+      "FABQuickLog (56px orange circle, expands to 3 glass-pill actions: water/meal/mood)",
+      "BtnPrimary (orange #FF5E00 fill, 52px height, one per composition)",
+      "BtnSecondary (glass-pill bg, paper-100 label)",
+      "BtnGhost (no fill, orange label, 44px target)",
+      "BtnSuccess (forest green fill)",
+      "BtnCoach (royal purple, CIA-initiated actions only)",
+      "GlassPillInput (52px height, text/email/password/search variants)",
+      "ChoiceCardFrost (numbered MCQ, leading badge, Body title, Body-light sub, selected orange border)",
+      "ChipDomainTag (pill chip, domain color 16% bg)",
+      "ChipProvenance (24px micro glass-pill, 'via WHOOP'/'you logged'/'estimated' labels)",
+      "Toggle (track --surface-3, active orange, paper-50 thumb)",
+      "Stepper/Slider (track --surface-3, active orange fill, value bubble tabular-nums)",
+      "GlassStatCard (workhorse: overline label, KPI tabular-nums, delta, provenance chip, semantic glow; metric/ring/sparkline variants)",
+      "KPIRow (2-3 inline mini-stats, SolidCard, hairline dividers)",
+      "ProgressRing (6-8px stroke, orange→green at 100%)",
+      "ProgressBar (8px, radius 999, segmented variant)",
+      "TrendChart (solid orange user line 2px, dashed purple projection, green milestone dots 6px, gridlines, axis Caption)",
+      "ConfidenceMeter (3-dot/thin-bar low/med/high, purple when AI-derived)",
+      "HonestNullState (designed empty: quiet glyph, Body-light line, optional BtnGhost action)",
+      "MomentumBar/ChargeMeter (energy/momentum visual, warm-glow fill, tabular-nums value)",
+      "CIAPresenceOrb (breathing purple-core orb, idle breathe 4s, listening ring pulse, thinking slow rotation shimmer)",
+      "CIAInsightCard (purple-tint glass, spark glyph, insight copy + one Tiempos-italic emphasis, evidence row, BtnCoach + BtnGhost)",
+      "IntelligenceTimeline (live trace in CIA: staged Caption lines, purple dot pulses, collapses to summary)",
+      "CIAChatBubble (user orange fill radius 20/4, CIA purple-tint glass radius 20/4, timestamps on long-press)",
+      "InlineArtifactCard (rich card in chat: mini GlassStatCard/goal/plan, embedded in bubble, tap expands)",
+      "VoiceMicGlow (glass-pill circle 64px, orange core glow + amplitude ring, tap-and-hold or tap-to-toggle)",
+      "ChatComposer (glass-pill input + VoiceMicGlow + send circle 44px, attachment row expands)",
+      "CelebrationOverlay (full-screen: continuous-stroke line draws, green→orange particle restraint, XP tabular-nums, single BtnPrimary, reduced-motion fade variant)",
+      "XPToast (compact top toast: +40 XP + ChipDomainTag, auto-dismiss 2.5s)",
+      "StreakCard (flame glyph, day count tabular-nums, glow-you, freeze/recovery green 'recovered' chip)",
+      "BadgeTile (emblem in domain color, locked 24% opacity + lock glyph, earned date Caption)",
+      "LeaderboardRow (rank tabular-nums, avatar, name, score; self-row orange 1px; top-3 metal accents)",
+      "AvatarStack (overlapping 28px avatars, +N pill)",
+      "FeedPostCard (SolidCard: author row, body, optional embedded GlassStatCard proof, action row kudos/comment)",
+      "PodCard (group unit: name H3, AvatarStack, shared-goal ProgressBar, activity Caption; browse/member variants)",
+      "ReputationDial (trust-score arc orange fill, tier label, breakdown rows)",
+      "PaywallLock (locked-feature gate: blurred glass preview blur 20px over real layout, lock glyph, one-line value, BtnPrimary Unlock; full-screen/inline variants)",
+      "ConsentCard (FrostCard: data + why + retention, BtnPrimary accept + BtnGhost decline, revoke path named)",
+      "SafetyResourceCard (calm --surface-2 card, teal-free, no gamification, one-tap call/text actions, always reachable)",
+      "EmptyState (first-use: Display-small + one emphasis word, Body-light sub, BtnPrimary starter action)",
+      "ErrorState (quiet failure: glyph, Body plain language, BtnSecondary retry, never blames user)",
+      "SkeletonState (shimmer blocks --surface-3 base, 1.2s sweep, chart skeleton axis + ghost line)",
+      "OfflineBanner/SyncStatus (glass-pill banner: 'offline — showing last sync 2h ago', honest staleness)",
+      "NotificationCard (ListRow variant, unread orange dot, domain tag, relative time, swipe done/archive)",
+      "SearchOverlay (universal search screen 68: full-screen scrim + GlassPillInput autofocus + grouped results, recent queries ChipChoice row)"
+    ],
+    "w007InScope": [
+      "21 (Settings — 6 high-severity defects: Toggle component absent, ConsentRail vs Provenance, SafetyCard non-interactive, data-honesty missing, emphasis italic-scope violation, duplicate identity rows)",
+      "22 (Connected Services — review available)"
+    ],
+    "risks": [
+      "S21/S22 have W-007 FIX-FILED reviews; S21 specifically: Toggle components missing entirely (spec calls for Face ID/biometric toggles), ConsentRail interactive controls rendered as non-interactive Provenance chips, SafetyResourceCard (Crisis) is dead label (no button/link/chevron), data-honesty states missing (real/low-confidence/honest-null per spec), emphasis italic scope violation (full sentence vs one word per canon §5)",
+      "Navigation spec requires GlassNavBar consistency (Today/CIA/Goals/Me tabs) — verify all 27 screens implement correct active/inactive tab state per route",
+      "CIA brand casing: Coach should be 'Cia' not 'CIA' in visible text per canon §10 and memory feedback A24-008; check all in-scope screens for compliance",
+      "Cia onboarding (S07) introduces NEW components not in catalog: StepperRail (5-step progress: Goal/Mode/Assessment/Plan/Preferences), BrainstormCanvas (domain bubble constellation), ContinuousStrokeOnboardingLine — these must be either pulled from Figma alias mapping or spec'd as promotable NEW components",
+      "Crisis/safety layer (canon §8) must be present and interactive on mood/check-in/journal surfaces — verify S21's SafetyCard is fixed in R0+ with callable button/link/chevron",
+      "Data honesty invariant (canon §7) is non-negotiable: all metrics ship 3 states (real + ChipProvenance, low-confidence + muted label, honest-null + designed empty) — S21 review flags missing honesty states; audit all 27 screens",
+      "Consent & data control screens (S21/S22) must show: consent state indicator, revoke/delete entry point interactive (not dead label), privacy/retention/export info per ConsentCard spec — S21 review shows ConsentRail incorrectly swapped for non-interactive Provenance",
+      "Quick-log FAB (canon §8) is required on Today-tab screens only (S12 Home confirmed). Verify not present on other flows to avoid UI clutter.",
+      "Glass vs solid rule (canon §2): data-dense regions use solid --surface-2, glass reserved for hero/nav/sheets/overlays — audit hifi files for consistent application across 27 screens",
+      "Bottom nav (GlassNavBar) 4-tab structure (Today/CIA/Goals/Me) assumed throughout batch — verify routes map correctly: S12 (Today), S09 (CIA), S13 (Goals), S17 (Me) as default active per flow",
+      "Reduced-motion variants and AA+ contrast are required for all 27 screens per canon §8 and a11y rules — verify implementations don't rely on animations alone",
+      "Screenshot paths vary across build-progress subdirectories (FULL-104, B0-canon-aligned, B2, B3, B4, B7b); verify all paths resolve before implementation handoff",
+      "Sign-in/auth flow (S01–S05b) requires guest mode (S03 'Explore as guest') and WhatsApp enrollment (S03e paired with S99, out of scope for BIOS-002) — coordination point with backend OAuth/mobile SDK",
+      "Cia onboarding (S07/S08) blocks entry to S12 (Today) — verify flow routing and success state advancement"
+    ]
+  }
+}

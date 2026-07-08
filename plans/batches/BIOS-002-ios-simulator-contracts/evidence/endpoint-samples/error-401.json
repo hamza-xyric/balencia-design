@@ -1,0 +1,7 @@
+{
+ "success": false,
+ "message": "Invalid token",
+ "code": "UNAUTHORIZED",
+ "timestamp": "2026-07-08T18:30:19.129Z",
+ "requestId": "4e576b5e-f29f-4aed-b1b8-aeebffa13d38"
+}
