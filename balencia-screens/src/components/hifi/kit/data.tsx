@@ -165,7 +165,7 @@ export function TrendChart({
       {projectedPoints.length > 0 && (
         <polyline points={projectedPoints.join(' ')} fill="none" className="stroke-royal-purple" strokeWidth="2" strokeDasharray="5 5" strokeLinecap="round" />
       )}
-      {milestones.map(index => {
+      {milestones.filter(index => index >= 0 && index < pastPoints.length).map(index => {
         const [x, y] = pastPoints[index].split(',')
         return <circle key={index} cx={x} cy={y} r="3.5" className="fill-forest-green" />
       })}
