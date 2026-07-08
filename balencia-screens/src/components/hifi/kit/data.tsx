@@ -20,7 +20,7 @@ export function MetricPill({ label, value, tone = 'muted' }: { label: string; va
 
 export function MiniRadar({ labels = false }: { labels?: boolean }) {
   return (
-    <div className="relative mx-auto h-[172px] w-[172px]" aria-label="Life balance shape">
+    <div className="relative mx-auto h-[172px] w-[172px]" role="img" aria-label="Life balance shape">
       <svg viewBox="0 0 172 172" className="h-full w-full text-brand-orange" aria-hidden="true">
         <circle cx="86" cy="86" r="68" fill="none" stroke="currentColor" strokeOpacity="0.18" strokeWidth="1" />
         <circle cx="86" cy="86" r="42" fill="none" stroke="currentColor" strokeOpacity="0.14" strokeWidth="1" />

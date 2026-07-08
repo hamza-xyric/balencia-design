@@ -88,10 +88,10 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 14 | 14-goal-detail.md | review-route only | Today & missions | B3 | complete | screens/today/S14MissionDetail.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/14.png | review-route only |
 | 15 | 15-create-edit-goal.md | review-route only | Today & missions | B3 | complete | screens/today/S15CreateEditMission.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/15.png | review-route only |
 | 16 | 16-life-areas-overview.md | /life-areas | Life intelligence | A | complete | screens/intelligence/S16LifeAreas.tsx | Batch A gates | 2026-07-08 baseline | — |  |
-| 17 | 17-me-main.md | /profile | Profile & settings | B4 | todo | — | — | — | — |  |
+| 17 | 17-me-main.md | /profile | Profile & settings | B4 | complete | screens/profile/S17MeMain.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/17.png |  |
 | 18 | 18-explore-section.md | review-route only | Profile & settings | B6 | todo | — | — | — | — | review-route only |
-| 19 | 19-rpg-character.md | /life-world | Profile & settings | B4 | todo | — | — | — | — |  |
-| 20 | 20-personal-wiki-cia-memory.md | /wiki | Life intelligence | B4 | todo | — | — | — | — |  |
+| 19 | 19-rpg-character.md | /life-world | Profile & settings | B4 | complete | screens/profile/S19RpgCharacter.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/19.png |  |
+| 20 | 20-personal-wiki-cia-memory.md | /wiki | Life intelligence | B4 | complete | screens/intelligence/S20CiaMemory.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/20.png |  |
 | 21 | 21-settings.md | /settings, /preferences | Profile & settings | B7b | todo | — | — | — | — |  |
 | 22 | 22-connected-services.md | /auth/whoop/callback, /calendar/connected | Profile & settings | B7b | todo | — | — | — | — |  |
 | 23 | 23-subscription-billing.md | /settings/billing, /settings/billing/credits | Profile & settings | B7b | todo | — | — | — | — |  |
@@ -121,7 +121,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 47 | 47-competitions.md | /competitions | Social & community | B7a | todo | — | — | — | — |  |
 | 48 | 48-intelligence-dashboard.md | /wellbeing/insights | Life intelligence | A | complete | screens/intelligence/S48Intelligence.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 49 | 49-progress-photos.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
-| 50 | 50-profile-edit.md | /profile/edit | Profile & settings | B4 | todo | — | — | — | — |  |
+| 50 | 50-profile-edit.md | /profile/edit | Profile & settings | B4 | complete | screens/profile/S50ProfileEdit.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/50.png |  |
 | 51 | 51-voice-call-history.md | /voice-call | CIA, voice & chat | B2 | complete | screens/cia/S51VoiceCallHistory.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/51.png |  |
 | 52 | 52-stress-management.md | /wellbeing/stress | Health & wellbeing | B5b | todo | — | — | — | — |  |
 | 53 | 53-breathing-exercises.md | /wellbeing/breathing | Health & wellbeing | B5b | todo | — | — | — | — |  |
@@ -139,11 +139,11 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 65 | 65-force-update.md | review-route only | Auth & onboarding | B1 | complete | screens/auth/S65ForceUpdate.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/65.png | review-route only |
 | 66 | 66-notification-permission.md | review-route only | Auth & onboarding | A | complete | screens/auth/S66NotificationPermission.tsx | Batch A gates | 2026-07-08 baseline | — | review-route only |
 | 67 | 67-image-viewer.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
-| 68 | 68-universal-search.md | review-route only | Profile & settings | B4 | todo | — | — | — | — | review-route only |
+| 68 | 68-universal-search.md | review-route only | Profile & settings | B4 | complete | screens/profile/S68UniversalSearch.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/68.png | review-route only |
 | 69 | 69-app-rating.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
 | 70 | 70-exercise-library.md | /exercises, /exercises/[id] | Health & wellbeing | B5a | todo | — | — | — | — |  |
 | 71 | 71-achievement-gallery.md | /achievements | Profile & settings | B7a | todo | — | — | — | — |  |
-| 72 | 72-knowledge-graph.md | /knowledge-graph | Life intelligence | B4 | todo | — | — | — | — |  |
+| 72 | 72-knowledge-graph.md | /knowledge-graph | Life intelligence | B4 | complete | screens/intelligence/S72KnowledgeGraph.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/72.png |  |
 | 73 | 73-mission-journal.md | review-route only | Today & missions | B3 | complete | screens/today/S73MissionJournal.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/73.png | review-route only |
 | 74 | 74-conversations-hub.md | /chat-history, /chat | CIA, voice & chat | B2 | complete | screens/cia/S74ConversationsHub.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/74.png |  |
 | 75 | 75-direct-chat.md | /messages | CIA, voice & chat | A | complete | screens/cia/S75DirectChat.tsx | Batch A gates | 2026-07-08 baseline | — |  |
@@ -154,20 +154,20 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 80 | 80-music-coach.md | /soundscape | System & media | B7b | todo | — | — | — | — |  |
 | 81 | 81-video-library.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
 | 82 | 82-accountability-contract.md | /contracts | Social & community | B7a | todo | — | — | — | — |  |
-| 83 | 83-social-buddy-profile.md | /profile/[id] | Profile & settings | B4 | todo | — | — | — | — |  |
-| 84 | 84-data-sources.md | review-route only | Life intelligence | B4 | todo | — | — | — | — | review-route only |
+| 83 | 83-social-buddy-profile.md | /profile/[id] | Profile & settings | B4 | complete | screens/profile/S83BuddyProfile.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/83.png |  |
+| 84 | 84-data-sources.md | review-route only | Life intelligence | B4 | complete | screens/intelligence/S84DataSources.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/84.png | review-route only |
 | 85 | 85-obstacle-coach.md | /obstacles/[id] | System & media | B7b | todo | — | — | — | — |  |
 | 86 | 86-virtual-tryon.md | /wellbeing/virtual-tryon | Health & wellbeing | B5a | todo | — | — | — | — |  |
 | 87 | 87-tryon-history.md | /wellbeing/virtual-tryon/history | Health & wellbeing | B5a | todo | — | — | — | — |  |
 | 88 | 88-vision-suite.md | /wellbeing/vision | Health & wellbeing | B5a | todo | — | — | — | — |  |
 | 89 | 89-wellbeing-hub.md | /wellbeing | Health & wellbeing | A | complete | screens/health/S89Wellbeing.tsx | Batch A gates | 2026-07-08 baseline | — |  |
-| 90 | 90-progress-measurements.md | /progress | Life intelligence | B4 | todo | — | — | — | — |  |
+| 90 | 90-progress-measurements.md | /progress | Life intelligence | B4 | complete | screens/intelligence/S90ProgressMeasurements.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/90.png |  |
 | 91 | 91-social-feed.md | /feed | Social & community | A | complete | screens/social/S91SocialFeed.tsx | Batch A gates | 2026-07-08 baseline | — |  |
-| 92 | 92-reputation.md | /reputation | Life intelligence | B4 | todo | — | — | — | — |  |
-| 93 | 93-mood-trends.md | /wellbeing/mood | Life intelligence | B4 | todo | — | — | — | — |  |
+| 92 | 92-reputation.md | /reputation | Life intelligence | B4 | complete | screens/profile/S92Reputation.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/92.png |  |
+| 93 | 93-mood-trends.md | /wellbeing/mood | Life intelligence | B4 | complete | screens/intelligence/S93MoodTrends.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/93.png |  |
 | 94 | 94-webinars.md | /webinars, /webinars/[slug] | Social & community | B7a | todo | — | — | — | — |  |
 | 95 | 95-pods-hub.md | /groups | Social & community | B7a | todo | — | — | — | — |  |
-| 96 | 96-health-data-view.md | /whoop | Life intelligence | B4 | todo | — | — | — | — |  |
+| 96 | 96-health-data-view.md | /whoop | Life intelligence | B4 | complete | screens/intelligence/S96HealthDataView.tsx | trust+a11y: 19 findings fixed | 2026-07-08 npm run check | screenshots/B4/96.png |  |
 | 97 | 97-plans-library.md | /plans | Today & missions | B3 | complete | screens/today/S97PlansLibrary.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/97.png |  |
 | 98 | 98-system-states.md | /offline, /maintenance, /forbidden, /unauthorized, /coming-soon | System & media | B7b | todo | — | — | — | — |  |
 | 99 | 99-whatsapp-inbox.md | /whatsapp | CIA, voice & chat | B2 | complete | screens/cia/S99WhatsappInbox.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/99.png |  |
@@ -178,6 +178,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 |---|---|---|---|---|---|
 | A | 10 (09,12,13,16,48,63,66,75,89,91) | 2026-07-07 | 2026-07-07 | npm run check PASS (prior session) | Baseline commit ff59f6f |
 | P | 4 (03,07,26,28) | 2026-07-08 | 2026-07-08 | GLM drafts x4 OK; sonnet builds T1 green; trust+a11y reviews -> 10 findings, all fixed; npm run check PASS; console clean; screenshots reviewed | Commit 342af65. Chip gained interactive variant; TopBar title now ReactNode; VolumeBars key bug fixed |
+| B4 | 12 (17,19,20,50,68,72,83,84,90,92,93,96) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 4 sonnet builders; trust 8 (graph edge/sheet honesty mismatches, persona drift on buddy missions, missing per-fact delete, KPI count) + a11y 11 (Chip interactive now real button kit-wide, MiniRadar role, icon/label mismatch, target sizes) — all 19 fixed; npm run check PASS; 12/12 screenshots clean | persona.ts extended (lastName/email/phone/dob/tz); S92 registered under profile/ |
 | B3 | 9 (14,15,41,44,45,59,61,73,97) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 3 sonnet builders; trust 5 (fabricated confidence stat, personalized data behind CSS-only paywall blur, contradictory milestone math, wrong provenance) + a11y 12 (ConsentRail kit-wide interactive, roving tabindex, contrast sweep, color-only calendar states) — all 17 fixed; S59 weekday key bug fixed; npm run check PASS; screenshots clean | Kit: ConsentRail interactive, SafetyCard /55 |
 | B2 | 8 (10,11,51,74,76,77,79,99) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 2 sonnet builders T1 green; trust 4 (fabricated retention values killed, mic-state honesty, online-count mismatch) + a11y 11 (IconButton kit-wide -> real button, tablist semantics, contrast floors) — all 15 fixed + re-verified; npm run check PASS; 8/8 screenshots clean; 09 kit-regression check benign | Commit pending. Overlays 10/77 composed over dimmed base per plan |
 | B1 | 12 (01,02,03b,03c,03d,03e,04,05,05b,06,08,65) | 2026-07-08 | 2026-07-08 | 12 digests + 12 GLM drafts (1 empty, rebuilt from spec) + 3 sonnet builders T1 green; trust 4 findings (pre-checked consent dark pattern, fabricated confidence, masked-email mismatch, missing provenance) + a11y 12 findings — ALL 16 fixed + re-verified; npm run check PASS; 12/12 screenshots clean consoles | Central registration by orchestrator (single family index). New local components: OTP cells, ConsentCheckbox/Toggle, ConstellationRadar, MilestoneTimeline, PrivacyFooter |

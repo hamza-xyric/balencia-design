@@ -3,6 +3,11 @@
 // mentions these facts must read them from here, never restate them inline.
 export const persona = {
   firstName: 'Amira',
+  lastName: 'Hassan',
+  email: 'amira@balencia.app',
+  phone: '+971 50 123 4567',
+  dateOfBirth: '1 Jan 1996',
+  timezone: 'Asia/Dubai',
   level: 12,
   lifePower: 487,
   domainAverage: 78,
