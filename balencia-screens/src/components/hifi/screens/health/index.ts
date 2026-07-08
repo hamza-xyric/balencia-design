@@ -4,8 +4,15 @@ import { S27WorkoutDetail } from './S27WorkoutDetail'
 import { S28NutritionDashboard } from './S28NutritionDashboard'
 import { S29MealDetail } from './S29MealDetail'
 import { S49ProgressPhotos } from './S49ProgressPhotos'
+import { S52StressManagement } from './S52StressManagement'
+import { S53BreathingExercises } from './S53BreathingExercises'
+import { S54Meditation } from './S54Meditation'
+import { S55YogaSessions } from './S55YogaSessions'
 import { S56Recipes } from './S56Recipes'
 import { S57ShoppingList } from './S57ShoppingList'
+import { S58SleepTracking } from './S58SleepTracking'
+import { S60MedicationTracking } from './S60MedicationTracking'
+import { S62QuickNotes } from './S62QuickNotes'
 import { S63EnergyTracking } from './S63EnergyTracking'
 import { S70ExerciseLibrary } from './S70ExerciseLibrary'
 import { S86VirtualTryon } from './S86VirtualTryon'
@@ -19,8 +26,15 @@ export const healthScreens = {
   '28': S28NutritionDashboard,
   '29': S29MealDetail,
   '49': S49ProgressPhotos,
+  '52': S52StressManagement,
+  '53': S53BreathingExercises,
+  '54': S54Meditation,
+  '55': S55YogaSessions,
   '56': S56Recipes,
   '57': S57ShoppingList,
+  '58': S58SleepTracking,
+  '60': S60MedicationTracking,
+  '62': S62QuickNotes,
   '63': S63EnergyTracking,
   '70': S70ExerciseLibrary,
   '86': S86VirtualTryon,
