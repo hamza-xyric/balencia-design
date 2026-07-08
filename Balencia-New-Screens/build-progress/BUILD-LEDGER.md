@@ -67,19 +67,19 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 
 | ID | Spec file | Route truth | Family | Batch | Status | Module | Reviews | Gates | Evidence | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 01 | 01-splash-screen.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
-| 02 | 02-motion-carousel.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
+| 01 | 01-splash-screen.md | review-route only | Auth & onboarding | B1 | complete | screens/auth/S01Splash.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/01.png | review-route only |
+| 02 | 02-motion-carousel.md | review-route only | Auth & onboarding | B1 | complete | screens/auth/S02MotionCarousel.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/02.png | review-route only |
 | 03 | 03-welcome-sign-up.md | /auth/signup | Auth & onboarding | P | complete | screens/auth/S03WelcomeSignUp.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/03.png |  |
-| 03b | 03b-otp-verification.md | /auth/verify | Auth & onboarding | B1 | todo | — | — | — | — |  |
-| 03c | 03c-consent.md | /onboarding | Auth & onboarding | B1 | todo | — | — | — | — |  |
-| 03d | 03d-complete-profile.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
-| 03e | 03e-whatsapp-enrollment.md | /onboarding | Auth & onboarding | B1 | todo | — | — | — | — |  |
-| 04 | 04-sign-in.md | /auth/signin | Auth & onboarding | B1 | todo | — | — | — | — |  |
-| 05 | 05-forgot-password.md | /auth/forgot-password | Auth & onboarding | B1 | todo | — | — | — | — |  |
-| 05b | 05b-reset-password.md | /auth/reset-password, /reset-password | Auth & onboarding | B1 | todo | — | — | — | — |  |
-| 06 | 06-guest-mode-preview.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
+| 03b | 03b-otp-verification.md | /auth/verify | Auth & onboarding | B1 | complete | screens/auth/S03bOtpVerification.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/03b.png |  |
+| 03c | 03c-consent.md | /onboarding | Auth & onboarding | B1 | complete | screens/auth/S03cConsent.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/03c.png |  |
+| 03d | 03d-complete-profile.md | review-route only | Auth & onboarding | B1 | complete | screens/auth/S03dCompleteProfile.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/03d.png | review-route only |
+| 03e | 03e-whatsapp-enrollment.md | /onboarding | Auth & onboarding | B1 | complete | screens/auth/S03eWhatsappEnrollment.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/03e.png |  |
+| 04 | 04-sign-in.md | /auth/signin | Auth & onboarding | B1 | complete | screens/auth/S04SignIn.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/04.png |  |
+| 05 | 05-forgot-password.md | /auth/forgot-password | Auth & onboarding | B1 | complete | screens/auth/S05ForgotPassword.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/05.png |  |
+| 05b | 05b-reset-password.md | /auth/reset-password, /reset-password | Auth & onboarding | B1 | complete | screens/auth/S05bResetPassword.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/05b.png |  |
+| 06 | 06-guest-mode-preview.md | review-route only | Auth & onboarding | B1 | complete | screens/auth/S06GuestModePreview.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/06.png | review-route only |
 | 07 | 07-cia-onboarding-conversation.md | /onboarding | Auth & onboarding | P | complete | screens/auth/S07CiaOnboarding.tsx | trust+a11y PASS (10 findings fixed) | 2026-07-08 npm run check | screenshots/pilot/07.png |  |
-| 08 | 08-initial-plan-summary.md | /onboarding | Auth & onboarding | B1 | todo | — | — | — | — |  |
+| 08 | 08-initial-plan-summary.md | /onboarding | Auth & onboarding | B1 | complete | screens/auth/S08InitialPlanSummary.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/08.png |  |
 | 09 | 09-cia-chat.md | /ai-coach | CIA, voice & chat | A | complete | screens/cia/S09CiaChat.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 10 | 10-cia-voice-in-chat.md | review-route only | CIA, voice & chat | B2 | todo | — | — | — | — | review-route only |
 | 11 | 11-cia-voice-full-screen.md | /voice-assistant, /voice-call | CIA, voice & chat | B2 | todo | — | — | — | — |  |
@@ -136,7 +136,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 62 | 62-quick-notes.md | /quick-notes | Health & wellbeing | B5b | todo | — | — | — | — |  |
 | 63 | 63-energy-tracking.md | /wellbeing/energy | Health & wellbeing | A | complete | screens/health/S63EnergyTracking.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 64 | 64-report-block.md | review-route only | Social & community | B7b | todo | — | — | — | — | review-route only |
-| 65 | 65-force-update.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
+| 65 | 65-force-update.md | review-route only | Auth & onboarding | B1 | complete | screens/auth/S65ForceUpdate.tsx | trust+a11y: 16 findings fixed | 2026-07-08 npm run check | screenshots/B1/65.png | review-route only |
 | 66 | 66-notification-permission.md | review-route only | Auth & onboarding | A | complete | screens/auth/S66NotificationPermission.tsx | Batch A gates | 2026-07-08 baseline | — | review-route only |
 | 67 | 67-image-viewer.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
 | 68 | 68-universal-search.md | review-route only | Profile & settings | B4 | todo | — | — | — | — | review-route only |
@@ -178,6 +178,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 |---|---|---|---|---|---|
 | A | 10 (09,12,13,16,48,63,66,75,89,91) | 2026-07-07 | 2026-07-07 | npm run check PASS (prior session) | Baseline commit ff59f6f |
 | P | 4 (03,07,26,28) | 2026-07-08 | 2026-07-08 | GLM drafts x4 OK; sonnet builds T1 green; trust+a11y reviews -> 10 findings, all fixed; npm run check PASS; console clean; screenshots reviewed | Commit 342af65. Chip gained interactive variant; TopBar title now ReactNode; VolumeBars key bug fixed |
+| B1 | 12 (01,02,03b,03c,03d,03e,04,05,05b,06,08,65) | 2026-07-08 | 2026-07-08 | 12 digests + 12 GLM drafts (1 empty, rebuilt from spec) + 3 sonnet builders T1 green; trust 4 findings (pre-checked consent dark pattern, fabricated confidence, masked-email mismatch, missing provenance) + a11y 12 findings — ALL 16 fixed + re-verified; npm run check PASS; 12/12 screenshots clean consoles | Central registration by orchestrator (single family index). New local components: OTP cells, ConsentCheckbox/Toggle, ConstellationRadar, MilestoneTimeline, PrivacyFooter |
 | B0 | 0 new (architecture) | 2026-07-08 | 2026-07-08 | npm run check PASS ×3; screenshot byte-diff pixel-identical on structural commit; canon-aligned shots reviewed | Commits 8bdc343 (kit+registry decomposition), c4a2aba (canon tokens), 5a06da7 (fonts/atmosphere/nav/glow). Evidence: screenshots/B0-baseline, B0-post-refactor, B0-canon-aligned. verify:copy gained inline-emphasis continuation rule. figma-tokens-map.json regen still owed. |
 
 Batch sizes: A=10 · P=4 · B1=12 · B2=8 · B3=9 · B4=12 · B5a=9 · B5b=7 · B6=10 · B7a=9 · B7b=14 · total 104
