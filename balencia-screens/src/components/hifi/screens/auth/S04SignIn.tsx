@@ -66,19 +66,28 @@ export function S04SignIn() {
             />
           </div>
 
-          <div className="mt-4 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
+          <div className="mt-4 flex h-11 items-center justify-between gap-2">
+            <div className="flex min-w-0 flex-1 items-center gap-2.5">
               <span
                 role="switch"
                 aria-checked={false}
                 aria-label="Remember me"
-                className="relative flex h-6 w-11 shrink-0 items-center rounded-pill border border-white/15 bg-white/[0.06] px-[3px]"
+                className="flex h-11 w-11 shrink-0 items-center"
               >
-                <span aria-hidden="true" className="h-4 w-4 rounded-full bg-white/40" />
+                <span
+                  aria-hidden="true"
+                  className="relative flex h-6 w-11 items-center rounded-pill border border-white/15 bg-white/[0.06] px-[3px]"
+                >
+                  <span className="h-4 w-4 rounded-full bg-white/40" />
+                </span>
               </span>
-              <span className="text-[14px] text-white/80">Remember me</span>
+              <span className="min-w-0 truncate whitespace-nowrap text-[14px] leading-5 text-white/80">
+                Remember me
+              </span>
             </div>
-            <BtnGhost>Forgot password?</BtnGhost>
+            <BtnGhost className="shrink-0 whitespace-nowrap !px-0 !text-[14px] leading-5">
+              Forgot password?
+            </BtnGhost>
           </div>
 
           <p className="mt-3 text-[11px] leading-relaxed text-white/55">

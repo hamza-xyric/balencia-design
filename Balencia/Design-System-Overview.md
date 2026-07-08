@@ -357,6 +357,39 @@ The PDF defines a warm-cool neutral system with dark ink tones and warm paper to
 | `--paper-200` | `#F9F3E6` |
 | `--paper-300` | `#F2ECD8` |
 
+## Light mode — the second theme
+
+The system is **dark-first**, but light is a **co-equal theme**, not a color inversion. Two reasons it must be re-derived rather than flipped: (1) full-strength orange/green **fail WCAG AA as text/data-ink on paper**, and (2) the dark depth language (warm glow lifted off `ink-900`) has no meaning on a light field. The full token set, depth system, and **verified contrast ledger** live in `app_design 3/_light-mode-color-spec.md` (Final v1) — the authority for all light-mode values. Summary:
+
+**Surface ramp (light).** Warm cream canvas; cards lift *toward* white via shadow (the inverse of the dark move, where cards lift up from near-black).
+
+| Semantic | Light value | Note |
+|---|---|---|
+| `bg-screen` (canvas) | `paper-200` `#F9F3E6` | warm cream so white cards separate; never a pure-white canvas |
+| `surface-card` | `paper-50` `#FDFDFB` | raised card (shadow + hairline) |
+| `surface-elevated` | `#FFFFFF` | sheets, popovers, menus |
+| `surface-sunken` | `paper-300` `#F2ECD8` | recessed wells / inset fields |
+
+> This realizes the brand's "App — light mode: Paper-100 / White base" intent as *depth*: `paper-200` is the brand's own "warm section background" (the canvas), Paper-100/White becomes the card/elevated planes that lift off it. *(The original "App — light mode" row lives in `Archive/Balencia-Brand-Guidelines-v2.md`, kept as read-only reference; this overview + the light spec are the living source per the repo's source hierarchy.)*
+
+**Text ramp (light) — solid warm-ink, not low-alpha black.** On dark, secondary/tertiary text is white at 70/50/40% alpha. On light that fails AA, so light uses solid steps: primary `#0A0A0F`, secondary `#423D38`, tertiary `#6B635C`, quaternary (eyebrows/large only) `#857C74`.
+
+**Accents (light) — fills keep the hue, ink darkens.** Orange `#FF5E00` and green `#34A853` stay as fills/dots/large accents; as text or ≤2px strokes they become `#C2410C` / `#15803D`. Purple `#7F24FF` passes as text on light unchanged. Each of the 12 domain hues likewise has an `-on-light` data-ink value.
+
+**Dual-mode contrast (verified, WCAG 2.1 relative luminance):**
+
+| Pair | Ratio | Verdict |
+|---|---|---|
+| Dark — white on `ink-900` | 19.4 | AAA |
+| Dark — orange `#FF5E00` on `ink-900` | 5.7 | AA |
+| Light — `text-primary #0A0A0F` on canvas `#F9F3E6` | 17.86 | AAA |
+| Light — `text-secondary #423D38` on canvas | 9.71 | AAA |
+| Light — `text-tertiary #6B635C` on canvas | 5.33 | AA |
+| Light — `accent-orange-ink #C2410C` on card `#FDFDFB` | 5.08 | AA |
+| Light — `accent-green-ink #15803D` on card | 4.92 | AA |
+| Light — `accent-purple #7F24FF` on card | 5.73 | AA |
+| Light — `accent-orange #FF5E00` as text on card | 3.01 | fill / large-only |
+
 ## Gradients — the journey palette
 
 The PDF names four gradient tokens.
@@ -681,6 +714,15 @@ The PDF does not provide exact shadow blur, spread, or opacity values. Define th
 - Subtle
 - Low contrast
 - Never harsh or cold
+
+### Depth per theme — emission (dark) vs occlusion (light)
+
+Shadows keep the warm-brown tint `rgba(33,16,8,…)` in both themes, but depth *reads inversely*:
+
+- **Dark** — a focal element **emits**: a warm glow bloom (`--glow-orange 0 0 32px …`) and a white top-edge highlight (`inset 0 1px 0 rgba(255,255,255,.06)`). Shadows are atmospheric.
+- **Light** — a focal element **casts**: a glow bloom reads as a smudge on cream, so it becomes a **colored soft lift + 1px colored ring + tint backplate**; the top highlight inverts to a thin **bottom occlusion** (`inset 0 -1px 0 rgba(10,10,15,.05)`); shadows become real two-layer contact+ambient casts that do the lifting (e.g. `--shadow-1` light = `0 1px 2px rgba(33,16,8,.06), 0 8px 24px rgba(33,16,8,.10)`).
+
+Full per-token light values are in `app_design 3/_light-mode-color-spec.md` §5–6.
 
 ## Motion — never linear
 

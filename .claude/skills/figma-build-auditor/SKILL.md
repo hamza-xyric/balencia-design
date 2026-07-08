@@ -19,6 +19,7 @@ You grade the **Balencia DS** Figma library build against its source of truth an
 - **Pages:** Atoms `17:11`, Molecules `17:12`, Organisms `17:13`, Foundations `17:3`, Icons `89:2`, Charts `17:14`, Templates `17:15`.
 - **Rubric:** `figma-build-audit/RUBRIC.md` (9 weighted dimensions, grade bands, severity map). Read it every run — it is the scoring authority.
 - **Methodology:** `figma-build-audit/methodology.md` (full pipeline). 
+- **Themes:** the system is **dark-first with a co-equal light theme** (`app_design 3/_light-mode-color-spec.md`, Final v1). The prototype + DS file are currently **dark-only**; light is a follow-up build. Audit contrast (Dim 6) and token binding (Dim 1) **per built theme** — when the DS variable collection gains a `Light` mode, verify semantic tokens resolve in both. Until light ships, treat missing light coverage as a forward-looking *Low* note, **not** a deduction.
 
 ## Arguments
 Parse `$ARGUMENTS`:

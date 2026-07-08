@@ -19,6 +19,7 @@ The **write** companion to `/figma-build-auditor` (which is read-only). You read
 - **DS file:** `XF2diepp3IfcWuDWHwL4ez`. Pages: Atoms `17:11`, Molecules `17:12`, Organisms `17:13`, Foundations `17:3`.
 - **Existing variables (verify in `figma-mapping.json.ds_variables`):** alpha-white family `color/alpha/white-{05,06,08,10,15,20,25,30,35,40,50,60,70,80,100}` (Primitives collection, intrinsic-alpha); radius `radius/{xs,sm,md,lg,xl,2xl,pill}` (`xs`=`VariableID:9:2`, 6px); `--color-paper-100` = warm white. So most token-leakage fixes are **rebinds to existing vars**, not new tokens.
 - **Inputs:** `figma-build-audit/REPORT.md`, `findings-ledger.md`, `RUBRIC.md`.
+- **Themes (light is a follow-up build).** Balencia is dark-first with a co-equal **light theme** spec'd in `app_design 3/_light-mode-color-spec.md` (Final v1). When you implement light mode: author the light **values in `globals.css` first** (the §10 `[data-theme="light"]` reference block + the semantic-alias layer), regenerate `figma-tokens-map.json`, then add a **`Light` mode** to the Figma DS variable collection and resolve semantic tokens per mode — **never hand-edit Figma variable values** (same workflow rule as `balencia-screens/AGENTS.md`). Light theme-coverage findings only apply once light has landed in `globals.css`.
 
 ## Arguments
 `<finding-id | component | batch>` (e.g. `X-001`, `TierCard`, `3C`) · `--all` · `--plan` (default, dry run) · `--apply` (execute the approved plan).
