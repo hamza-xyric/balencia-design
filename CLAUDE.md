@@ -60,7 +60,7 @@ npm run verify:visual    # Visual regression (use with VISUAL_AUDIT_BASE_URL)
 
 Run `npm run check` before marking any batch complete.
 
-## Production App Commands (from `yhealth-app/`)
+## Production App Commands (from `yhealth-app/`, git submodule)
 
 See `yhealth-app/CLAUDE.md` for full details. Key commands:
 ```bash
@@ -77,17 +77,18 @@ npm run db:migrate       # Run database migrations
 ## Source Hierarchy (When Documents Conflict)
 
 1. `CREATIVE-REFERENCE.md`, official logo files, and current `balencia-screens` CSS tokens are canonical
-2. `app_design 3/_shared-patterns.md` is canonical for component specs
+2. `Balencia-New-Screens/canon/COMPACT-CANON.md` + `COMPONENT-CATALOG.md` are canonical for component specs
 3. `Balencia/Design-System-Overview.md` is supplemental
 4. If any older file describes a teal-primary or three-pillar health palette, ignore it — the current system is warm ink / burnt orange / forest green / royal purple
 
 ## Agent Workflow Rules
 
 - **Prototype is visual-only**: no API calls, auth logic, backend state, or state management libraries in `balencia-screens/`
-- **Screen reviews are audit-only**: do not edit `balencia-screens/` or `app_design 3/` during audit sessions unless the user explicitly asks
+- **Screen reviews are audit-only**: do not edit `balencia-screens/` or `Balencia-New-Screens/` during audit sessions unless the user explicitly asks
 - **Creative production**: do not AI-generate or approximate the Balencia logo — use official assets from `Balencia/Balencia-Creatives-Reference/logos/`
-- **Batch discipline**: review/implement screens in batches (typically 3–12 screens per session). Always read the screen spec and `_shared-patterns.md` before working on a screen
+- **Batch discipline**: review/implement screens in batches (typically 3–12 screens per session). Always read the ledger row and `canon/COMPACT-CANON.md` before working on a screen
 - Each sub-workspace has its own AGENTS.md — read it before starting work in that directory
+- **yhealth-app is a git submodule**: commit/push its changes from inside `yhealth-app/` against its own remote, not the design-workspace remote. Run `git submodule update --remote yhealth-app` to pull upstream changes; the parent repo only tracks which commit SHA it's pinned to.
 
 ## Forgeflow (this project's operating method)
 
@@ -113,9 +114,8 @@ This repo runs on **Forgeflow** (`framework/`, vendored from `xyric-solutions/xy
 
 | Layer | Stack |
 |-------|-------|
-| Prototype | Next.js 16, React 19, Tailwind CSS 4, Framer Motion, Recharts, Lucide React |
-| Wireframes | Static HTML + shared CSS (`balencia-foundation.css`) |
-| Production client | Next.js 16, React 19, TailwindCSS 4, shadcn/ui, TanStack Query, Redux Toolkit |
+| Prototype (`balencia-screens/`) | Next.js 16, React 19, Tailwind CSS 4, Framer Motion, Recharts, Lucide React |
+| Production client (`yhealth-app/client/`) | Next.js 16, React 19, TailwindCSS 4, shadcn/ui, TanStack Query, Redux Toolkit |
 | Production server | Express 5, TypeScript (ESM), PostgreSQL, Redis, BullMQ, LangChain/LangGraph |
 | Creative production | Higgsfield MCP (image/video generation), manual QA pipeline |
 | Deployment | Railway (server), Vercel or Railway (client) |
