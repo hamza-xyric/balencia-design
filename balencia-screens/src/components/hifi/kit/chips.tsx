@@ -22,7 +22,7 @@ export function ConsentRail({ compact = false }: { compact?: boolean }) {
   const controls = ['Source', 'Retention', 'Export', 'Revoke', 'Delete']
   return (
     <div className={cx('flex flex-wrap gap-2', compact ? 'mt-3' : 'mt-4')}>
-      {controls.map(item => <Chip key={item}>{item}</Chip>)}
+      {controls.map(item => <Chip key={item} interactive>{item}</Chip>)}
     </div>
   )
 }

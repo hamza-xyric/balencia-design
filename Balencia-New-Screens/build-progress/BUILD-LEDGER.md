@@ -85,8 +85,8 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 11 | 11-cia-voice-full-screen.md | /voice-assistant, /voice-call | CIA, voice & chat | B2 | complete | screens/cia/S11CiaVoiceFullScreen.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/11.png |  |
 | 12 | 12-home-screen.md | /dashboard, /activity-status | Today & missions | A | complete | screens/today/S12HomeScreen.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 13 | 13-goals-list.md | /goals | Today & missions | A | complete | screens/today/S13MissionBoard.tsx | Batch A gates | 2026-07-08 baseline | — |  |
-| 14 | 14-goal-detail.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
-| 15 | 15-create-edit-goal.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
+| 14 | 14-goal-detail.md | review-route only | Today & missions | B3 | complete | screens/today/S14MissionDetail.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/14.png | review-route only |
+| 15 | 15-create-edit-goal.md | review-route only | Today & missions | B3 | complete | screens/today/S15CreateEditMission.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/15.png | review-route only |
 | 16 | 16-life-areas-overview.md | /life-areas | Life intelligence | A | complete | screens/intelligence/S16LifeAreas.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 17 | 17-me-main.md | /profile | Profile & settings | B4 | todo | — | — | — | — |  |
 | 18 | 18-explore-section.md | review-route only | Profile & settings | B6 | todo | — | — | — | — | review-route only |
@@ -112,11 +112,11 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 38 | 38-habits.md | /wellbeing/habits | Domains & money | B6 | todo | — | — | — | — |  |
 | 39 | 39-leaderboard.md | /leaderboard | Social & community | B7a | todo | — | — | — | — |  |
 | 40 | 40-community-chat-rooms.md | /community, /community/[slug] | Social & community | B7a | todo | — | — | — | — |  |
-| 41 | 41-schedule-calendar.md | /schedule, /wellbeing/schedule, /wellbeing/schedule/[date] | Today & missions | B3 | todo | — | — | — | — |  |
+| 41 | 41-schedule-calendar.md | /schedule, /wellbeing/schedule, /wellbeing/schedule/[date] | Today & missions | B3 | complete | screens/today/S41ScheduleCalendar.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/41.png |  |
 | 42 | 42-celebration-overlay.md | /subscription/success | Profile & settings | B7a | todo | — | — | — | — |  |
 | 43 | 43-paywall-upgrade.md | /subscription, /upgrade, /locked/[pageKey] | Profile & settings | B7b | todo | — | — | — | — |  |
-| 44 | 44-water-intake.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
-| 45 | 45-daily-checkin.md | /wellbeing/emotional-checkin | Today & missions | B3 | todo | — | — | — | — |  |
+| 44 | 44-water-intake.md | review-route only | Today & missions | B3 | complete | screens/today/S44WaterIntake.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/44.png | review-route only |
+| 45 | 45-daily-checkin.md | /wellbeing/emotional-checkin | Today & missions | B3 | complete | screens/today/S45DailyCheckin.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/45.png |  |
 | 46 | 46-accountability.md | review-route only | Social & community | B7a | todo | — | — | — | — | review-route only |
 | 47 | 47-competitions.md | /competitions | Social & community | B7a | todo | — | — | — | — |  |
 | 48 | 48-intelligence-dashboard.md | /wellbeing/insights | Life intelligence | A | complete | screens/intelligence/S48Intelligence.tsx | Batch A gates | 2026-07-08 baseline | — |  |
@@ -130,9 +130,9 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 56 | 56-recipes.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
 | 57 | 57-shopping-list.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
 | 58 | 58-sleep-tracking.md | review-route only | Health & wellbeing | B5b | todo | — | — | — | — | review-route only |
-| 59 | 59-streak-details.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
+| 59 | 59-streak-details.md | review-route only | Today & missions | B3 | complete | screens/today/S59StreakDetails.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/59.png | review-route only |
 | 60 | 60-medication-tracking.md | No live app route; source-only medication surface. | Health & wellbeing | B5b | todo | — | — | — | — |  |
-| 61 | 61-reminders-tasks.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
+| 61 | 61-reminders-tasks.md | review-route only | Today & missions | B3 | complete | screens/today/S61RemindersTasks.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/61.png | review-route only |
 | 62 | 62-quick-notes.md | /quick-notes | Health & wellbeing | B5b | todo | — | — | — | — |  |
 | 63 | 63-energy-tracking.md | /wellbeing/energy | Health & wellbeing | A | complete | screens/health/S63EnergyTracking.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 64 | 64-report-block.md | review-route only | Social & community | B7b | todo | — | — | — | — | review-route only |
@@ -144,7 +144,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 70 | 70-exercise-library.md | /exercises, /exercises/[id] | Health & wellbeing | B5a | todo | — | — | — | — |  |
 | 71 | 71-achievement-gallery.md | /achievements | Profile & settings | B7a | todo | — | — | — | — |  |
 | 72 | 72-knowledge-graph.md | /knowledge-graph | Life intelligence | B4 | todo | — | — | — | — |  |
-| 73 | 73-mission-journal.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
+| 73 | 73-mission-journal.md | review-route only | Today & missions | B3 | complete | screens/today/S73MissionJournal.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/73.png | review-route only |
 | 74 | 74-conversations-hub.md | /chat-history, /chat | CIA, voice & chat | B2 | complete | screens/cia/S74ConversationsHub.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/74.png |  |
 | 75 | 75-direct-chat.md | /messages | CIA, voice & chat | A | complete | screens/cia/S75DirectChat.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 76 | 76-group-chat.md | /chat | CIA, voice & chat | B2 | complete | screens/cia/S76GroupChat.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/76.png |  |
@@ -168,7 +168,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 94 | 94-webinars.md | /webinars, /webinars/[slug] | Social & community | B7a | todo | — | — | — | — |  |
 | 95 | 95-pods-hub.md | /groups | Social & community | B7a | todo | — | — | — | — |  |
 | 96 | 96-health-data-view.md | /whoop | Life intelligence | B4 | todo | — | — | — | — |  |
-| 97 | 97-plans-library.md | /plans | Today & missions | B3 | todo | — | — | — | — |  |
+| 97 | 97-plans-library.md | /plans | Today & missions | B3 | complete | screens/today/S97PlansLibrary.tsx | trust+a11y: 17 findings fixed | 2026-07-08 npm run check | screenshots/B3/97.png |  |
 | 98 | 98-system-states.md | /offline, /maintenance, /forbidden, /unauthorized, /coming-soon | System & media | B7b | todo | — | — | — | — |  |
 | 99 | 99-whatsapp-inbox.md | /whatsapp | CIA, voice & chat | B2 | complete | screens/cia/S99WhatsappInbox.tsx | trust+a11y: 15 findings fixed | 2026-07-08 npm run check | screenshots/B2/99.png |  |
 
@@ -178,6 +178,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 |---|---|---|---|---|---|
 | A | 10 (09,12,13,16,48,63,66,75,89,91) | 2026-07-07 | 2026-07-07 | npm run check PASS (prior session) | Baseline commit ff59f6f |
 | P | 4 (03,07,26,28) | 2026-07-08 | 2026-07-08 | GLM drafts x4 OK; sonnet builds T1 green; trust+a11y reviews -> 10 findings, all fixed; npm run check PASS; console clean; screenshots reviewed | Commit 342af65. Chip gained interactive variant; TopBar title now ReactNode; VolumeBars key bug fixed |
+| B3 | 9 (14,15,41,44,45,59,61,73,97) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 3 sonnet builders; trust 5 (fabricated confidence stat, personalized data behind CSS-only paywall blur, contradictory milestone math, wrong provenance) + a11y 12 (ConsentRail kit-wide interactive, roving tabindex, contrast sweep, color-only calendar states) — all 17 fixed; S59 weekday key bug fixed; npm run check PASS; screenshots clean | Kit: ConsentRail interactive, SafetyCard /55 |
 | B2 | 8 (10,11,51,74,76,77,79,99) | 2026-07-08 | 2026-07-08 | digests + GLM drafts + 2 sonnet builders T1 green; trust 4 (fabricated retention values killed, mic-state honesty, online-count mismatch) + a11y 11 (IconButton kit-wide -> real button, tablist semantics, contrast floors) — all 15 fixed + re-verified; npm run check PASS; 8/8 screenshots clean; 09 kit-regression check benign | Commit pending. Overlays 10/77 composed over dimmed base per plan |
 | B1 | 12 (01,02,03b,03c,03d,03e,04,05,05b,06,08,65) | 2026-07-08 | 2026-07-08 | 12 digests + 12 GLM drafts (1 empty, rebuilt from spec) + 3 sonnet builders T1 green; trust 4 findings (pre-checked consent dark pattern, fabricated confidence, masked-email mismatch, missing provenance) + a11y 12 findings — ALL 16 fixed + re-verified; npm run check PASS; 12/12 screenshots clean consoles | Central registration by orchestrator (single family index). New local components: OTP cells, ConsentCheckbox/Toggle, ConstellationRadar, MilestoneTimeline, PrivacyFooter |
 | B0 | 0 new (architecture) | 2026-07-08 | 2026-07-08 | npm run check PASS ×3; screenshot byte-diff pixel-identical on structural commit; canon-aligned shots reviewed | Commits 8bdc343 (kit+registry decomposition), c4a2aba (canon tokens), 5a06da7 (fonts/atmosphere/nav/glow). Evidence: screenshots/B0-baseline, B0-post-refactor, B0-canon-aligned. verify:copy gained inline-emphasis continuation rule. figma-tokens-map.json regen still owed. |

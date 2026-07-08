@@ -10,7 +10,7 @@ export function SafetyCard() {
         </span>
         <div className="min-w-0 flex-1">
           <h2 className="text-[15px] font-semibold leading-5 text-white">Crisis resources</h2>
-          <p className="mt-1 text-[12px] leading-4 text-white/50">Call, text, or view local support. This stays available offline.</p>
+          <p className="mt-1 text-[12px] leading-4 text-white/55">Call, text, or view local support. This stays available offline.</p>
         </div>
       </div>
     </SolidCard>
