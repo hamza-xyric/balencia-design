@@ -1,2 +1,0 @@
-export { RoutineTemplates } from "./RoutineTemplates";
-

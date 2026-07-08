@@ -1,0 +1,70 @@
+{
+  "id": "97",
+  "name": "Plans library",
+  "route": "/plans",
+  "shell": "dark",
+  "annotation": "Ongoing plan management surface (distinct from the onboarding summary): one Active-plan hero with a milestone spine and honest next step, one opt-in CIA adjustment with evidence, four-way status tabs, and a dense scannable plan shelf with domain, source, and premium-lock honesty. One BtnPrimary commitment CTA in the hero; PaywallLock never dead-ends the locked template.",
+  "italicWord": "right",
+  "hasFab": false,
+  "hasNav": true,
+  "imageSlots": [],
+  "belowFold": [
+    "High motivation tier: filters row (domain, duration) above the plan shelf",
+    "High motivation tier: plan history + evidence chips per PlanCard",
+    "High motivation tier: completed-plan analytics summary card"
+  ],
+  "trustControls": [
+    "ChipProvenance \"via training plan sync\" required beside the active-plan next step; stale completion sync shows low-confidence \"estimated · low confidence\", never a fabricated percentage",
+    "ChipProvenance \"via sleep + training plan\" required beneath every CIA adjustment suggestion — never a hard claim without evidence, and never auto-applied without opt-in",
+    "Every PlanCard row carries a real source (\"via CIA\", \"you saved\", \"imported\") or shows honest-null; missing source never renders blank",
+    "PaywallLock on \"Budget cleanup\" is a blurred real-layout preview + single BtnPrimary \"Unlock with premium\", never a dead end; personalized insight stays hidden until both consent and entitlement are granted",
+    "Honest-null empty state \"No active plan yet — start plan from a mission or ask CIA to draft one\" replaces the hero when no plan is active, never a blank card",
+    "CIA plan memory exposes edit, pause, stop, archive, delete, export, share, and revoke controls; accountability sharing requires explicit audience selection and links to /contracts",
+    "All interactive targets — draft, filter, tabs, PlanCard rows, Resume/Adjust CTAs, and Unlock — are 44px minimum"
+  ],
+  "notes": "Skeleton: hero timeline, tabs, and 3 plan-shelf rows shimmer in final geometry (--surface-3 sweep). Empty (no active plan): hero region replaces with EmptyState — Display-small \"No active plan yet.\" Body-light \"Start plan from a mission or ask CIA to draft one.\" BtnPrimary \"Ask CIA to draft a plan.\" Error: cached active plan and plan-shelf remain visible; OfflineBanner/SyncStatus names the failed source, e.g. \"sync failed — training plan, last synced 2h ago\" with BtnSecondary retry. Success: completing a milestone flashes the ActivePlanPath segment green (glow-done) and the ProgressBar sweeps to the new percentage. Disabled: draft, filter, resume, adjust, tab, and unlock controls dim to 40% opacity when entitlement, consent, or connectivity blocks them — never silently hidden. Motion: ActivePlanPath draws left-to-right from start to current week on load; swipe right on the hero completes the next milestone; swipe left on any PlanCard reveals Edit / Pause / Share / Archive / Delete, destructive actions (Delete, Archive) require confirmation; SegmentedTabs slide 150ms, list crossfades; reduced motion collapses all of the above to instant end-states. Consent/safety: CIA plan drafts expose edit, pause, stop, archive, delete, export, share, and revoke-memory controls; accountability sharing requires explicit audience selection and links to /contracts; health, sleep, social, calendar, and contract evidence can be removed from a single plan without deleting the whole plan; locked previews never reveal personalized health/social insight until both consent and entitlement are granted. Fonts: Hanken Grotesk (UI) + Newsreader Medium Italic (emphasis word), standing in for Neue Montreal/Tiempos per session waiver W-FONT-01. PlanCard (NEW) promotes to catalog per the screen-43 PaywallLock precedent — reusable across any future plan-list surface.",
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar: time left, signal/wifi/battery right, paper-100 icons on #0A0A0F warm-dark shell with top-center orange radial atmosphere (18%) and grain. Fixed 44px, no copy."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar, transparent over atmosphere: H1 \"Plans\" left-aligned. Trailing: draft-plan glyph action (44px target, opens CIA draft sheet) + filter glyph action (44px target, opens plan filters sheet). No back chevron — Goals-tab root screen."
+    },
+    {
+      "region": "hero",
+      "y": 100,
+      "h": 236,
+      "build": "GlassCard.hero (r40, glow-you orange; NEW ActivePlanPath). Overline \"Active plan\", H3 \"Half marathon base\", Caption \"Week 3 of 8\". Milestone spine: start / wk3 current / 5K tempo next / wk8, 8px ProgressBar 37% orange fill. Caption \"Next *right* step\" then \"Tomorrow · 6:30 AM\", ChipProvenance \"via training plan sync\". BtnPrimary \"Resume plan\" + BtnCoach \"Adjust with CIA\"."
+    },
+    {
+      "region": "cia-insight",
+      "y": 344,
+      "h": 100,
+      "build": "CIAInsightCard (glow-cia purple, spark glyph): \"Your sleep suggests moving the hard run one day later.\" ChipProvenance \"via sleep + training plan\" beneath. Opt-in only — no auto-apply. Trailing BtnGhost \"Review\" chevron opens an adjustment sheet naming data used before any change lands on the active plan."
+    },
+    {
+      "region": "tabs",
+      "y": 452,
+      "h": 44,
+      "build": "SegmentedTabs (glass pill track, 44px targets): \"All\" · \"Active\" · \"Completed\" · \"Paused\". Default selected \"All\" (surface-3 fill + orange label). 150ms slide indicator; list content crossfades beneath on switch; reduced motion swaps instantly."
+    },
+    {
+      "region": "plan-shelf",
+      "y": 504,
+      "h": 190,
+      "build": "SolidCard list (--surface-2, scan density), 3x PlanCard/ListRow (NEW, 56px min, hairline dividers): \"Strength reset\" · ChipDomainTag Fitness · \"4 wks\" · ChipProvenance \"via CIA\" · chevron. \"Budget cleanup\" · ChipDomainTag Finance · PaywallLock inline (blurred preview + BtnPrimary \"Unlock with premium\") · \"locked template\". \"Evening wind-down\" · ChipDomainTag Wellbeing · ChipProvenance \"you saved\" · chevron."
+    },
+    {
+      "region": "nav",
+      "y": 728,
+      "h": 64,
+      "build": "GlassNavBar (floating glass pill, fixed, 16px above HomeIndicator): Today · CIA · Goals · Me — active tab \"Goals\" (orange filled icon + label), others outline paper-64%. Content scrolls beneath with fade. HomeIndicator anchors screen base."
+    }
+  ]
+}

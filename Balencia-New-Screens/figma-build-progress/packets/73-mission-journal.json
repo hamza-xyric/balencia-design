@@ -1,0 +1,67 @@
+{
+  "id": "73",
+  "name": "Mission journal",
+  "route": "No live route; stack-pushed retrospective mission journal opened from Mission Board, Life World, or Me quick links.",
+  "shell": "dark",
+  "annotation": "HIFI-73 · no live route · dark shell, top-center orange radial glow. TimelineSpine + mission cards are the singular above-fold focal moment; Safety & Trust footer scrolls in below the fold.",
+  "italicWord": "journal",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar on #0A0A0F: time left, signal/wifi/battery right, paper-100 icons. Fixed 44px, no copy."
+    },
+    {
+      "region": "Header & Filters",
+      "y": 44,
+      "h": 112,
+      "build": "TopBar (h44), 44px back target left, title 'Mission *journal*' (Hanken Grotesk H1 30, Newsreader Medium Italic on 'journal', the screen's one emphasis word), no trailing action. SegmentedTabs below (y88, h44): [All] selected (bg white 16%), [By domain], [By type]; border white 8%, r24."
+    },
+    {
+      "region": "All-time Summary",
+      "y": 156,
+      "h": 104,
+      "build": "GlassStatCard (glass white 4.5%, border white 8%, r28, h104), ChipProvenance 'via missions' anchoring the row. Left: '18' (H1 30) / Overline 'completed'. Mid: '8,420 XP' (H2 24) / Overline 'XP earned'. Right: '4' (H1 30) / Overline 'pivots'. Green #34A853 inner glow, completion context."
+    },
+    {
+      "region": "Month Section Header",
+      "y": 260,
+      "h": 48,
+      "build": "SectionHeader (h48). Copy: 'MAY 2026' (Overline 11px uppercase, white 60%). Thin divider line white 8% across width."
+    },
+    {
+      "region": "Journey Timeline & Cards",
+      "y": 308,
+      "h": 448,
+      "build": "TimelineSpine: orange 1.5px path draws top-down from y308. Node1 (green glow, done): SolidCard h180, 'Finished emergency fund', '12 weeks' '1,200 XP', 'Six weeks of discipline. Your fund is real now.', [Finance], ChipProvenance 'via rewards ledger'. Node2 (orange glow, pivot): SolidCard h200, 'Pivoted recipe challenge', 'partial XP' 'your archive note', 'You explored eight recipes before life shifted focus.', ChipProvenance 'via missions'."
+    },
+    {
+      "region": "Floating Nav Pill",
+      "y": 756,
+      "h": 68,
+      "build": "Floating Nav Pill (glass white 4.5%, border white 8%, r40). Icons: Today, CIA, Goals, Me. 44px targets. Active: 'Me' (orange #FF5E00 glow)."
+    },
+    {
+      "region": "Home Indicator",
+      "y": 828,
+      "h": 16,
+      "build": "iOS Home Indicator bar, white 30%, centered, h5px."
+    }
+  ],
+  "belowFold": [
+    "Continuation of TimelineSpine below APRIL 2026 and MARCH 2026 SectionHeaders: historical completed/pivoted SolidCards following the same layout, honesty, and provenance rules as above the fold. Skeleton state applies during initial load.",
+    "SafetyResourceCard link row ('Privacy & safety resources', shield icon, 44px target, Caption white 60%) is scroll-reachable beneath the timeline for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "ChipProvenance 'via missions' anchors the All-time Summary's completions and pivots counts; honest-null hides the summary card entirely when no entries exist.",
+    "ChipProvenance 'via rewards ledger' backs Node 1's '1,200 XP'; XP honest-null reads '--' with 'No mission rewards yet.'",
+    "CIA narrative blocks are inline CIAInsightCard-pattern text: low-confidence dims with 'draft from partial data'; honest-null reads 'Summary generating...' while non-CIA facts stay visible.",
+    "Archive note honest-null reads 'No note added'; mission duration honest-null reads 'dates unavailable.' — no invented values.",
+    "SafetyResourceCard ('Privacy & safety resources') is scroll-reachable below the timeline; source chips include category, source, scope, freshness, retention, export, revoke, and delete."
+  ],
+  "notes": "Route header stays exactly 'No live route; stack-pushed retrospective mission journal opened from Mission Board, Life World, or Me quick links.' — never invent a live route. TimelineSpine is a drawn layout primitive, not a data chart. The screen's one Newsreader Medium Italic emphasis word is 'journal', set in the TopBar title 'Mission *journal*' — the pivot narrative text is plain ('...before life shifted focus.'), no second italic word. Semantic glow is strictly orange = member effort (incl. pivoted missions), green = completion/healthy arrival, purple = CIA synthesis only, never applied to a non-CIA pivot. No streak spectacle or decorative gradients. Reduced motion renders path and cards instantly, filter row appears without slide, thumbnails open with a fade."
+}

@@ -1,0 +1,80 @@
+{
+  "id": "23",
+  "name": "subscription-billing",
+  "route": "/settings/billing",
+  "shell": "dark",
+  "annotation": "HIFI-23 · /settings/billing · dark shell, top-center orange radial glow, floating nav pill. GlassStatCard current-plan surface is the singular focal moment; WarningBanner, PlanTierCard, CompareGrid, and CreditLedgerRow stay quiet, legible, and solid-surfaced below it.",
+  "italicWord": "billing",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard status bar."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "44px back target. Title: Subscription & billing ('billing' in Newsreader Medium Italic)."
+    },
+    {
+      "region": "WarningBanner",
+      "y": 100,
+      "h": 52,
+      "build": "Solid surface #211008. Orange accent. Copy: 'Payment failed - 3 days to update'. Tap opens update-payment sheet; acts as the screen's single BtnPrimary."
+    },
+    {
+      "region": "GlassStatCard",
+      "y": 156,
+      "h": 160,
+      "build": "Glass card, orange glow. H2: Pro. Caption: $60/mo. Body: renews Jun 15, 2026. Provenance chip: 'via subscription API'. ChargeMeter label: '800 of 1,000 messages this cycle'. Muted text: 'credits 420'."
+    },
+    {
+      "region": "PlanTierCard",
+      "y": 324,
+      "h": 92,
+      "build": "Horizontal swipe rail. Ghost pill text: 'Free · Plus · Pro · Max'. Pro marked active."
+    },
+    {
+      "region": "CompareGrid",
+      "y": 424,
+      "h": 216,
+      "build": "Solid surface #211008. Overline: 'Compare plans'. Headers: 'feature | current | recommended'. Rows: 'CIA coaching | x | x', 'voice | - | x'. Included/excluded features are glyph plus text."
+    },
+    {
+      "region": "CreditLedgerRow",
+      "y": 648,
+      "h": 88,
+      "build": "Solid surface. Overline: 'Credits ledger'. Row 1: '+500 monthly grant' + subtext 'expires Aug 1'. Row 2: '-80 voice call' + subtext 'via usage'."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "Billing history",
+      "y": 740,
+      "h": 80,
+      "build": "ListRow. Solid surface. Title: 'Visa ....4242'. Subtitle: 'Billing history'. 44px tap target."
+    },
+    {
+      "region": "Plan actions",
+      "y": 824,
+      "h": 136,
+      "build": "Ghost buttons. Text: 'Downgrade plan'. Text: 'Cancel subscription'. No false urgency, plain ghost styling."
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "WarningBanner provides direct grace countdown from billing API without false urgency.",
+    "Downgrade and cancel actions are clearly visible as ghost pills below the fold.",
+    "Provenance chip 'via subscription API' explicitly links financial data.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete wherever billing data appears; navigation stays locked to /settings/billing and /settings/billing/credits, no alternate vanity routes (Consent and Safety)."
+  ],
+  "notes": [
+    "Only ONE BtnPrimary is allowed per screen. The WarningBanner's tap-to-update-payment action is that primary CTA; no other primary buttons render on this screen.",
+    "CompareGrid and CreditLedgerRow use solid #211008 surfaces to maintain dense data legibility, while the current-plan GlassStatCard holds the singular orange focal glow.",
+    "Nav pill spans y756-824, intentionally pushing 'Visa ....4242' and the downgrade/cancel actions safely below the fold even though their raw y-offsets sit under 844."
+  ]
+}

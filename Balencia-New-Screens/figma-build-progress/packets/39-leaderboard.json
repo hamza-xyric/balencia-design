@@ -1,0 +1,78 @@
+{
+  "id": "39",
+  "name": "Leaderboard",
+  "route": "/leaderboard",
+  "shell": "dark",
+  "annotation": "Leaderboard as cinematic focal instrument: the podium (GlassCard r40 hero, orange/amber glow) is the singular above-fold focal moment; SegmentedTabs (type + period), the quiet own-rank card, and the solid-surface ranked row list round out the operational layer. Every metric ships real (provenance chip), low-confidence ('last synced'), or honest-null ('ranking unavailable') — no fabricated rivals or streak spectacle. GlassNavBar persists; no FAB.",
+  "italicWord": "leaderboard",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, transparent over dark shell #0A0A0F + top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain. Time 9:41, paper-100 icons. Fixed 44px, no copy."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent TopBar, gains .glass-pill on scroll. Left: 44px back chevron. Center title \"Leaderboard\" — Newsreader Medium Italic on the whole word, the screen's one emphasis moment (*leaderboard*). No trailing action."
+    },
+    {
+      "region": "segmented_tabs",
+      "y": 100,
+      "h": 80,
+      "build": "SegmentedTabs row 1 (type): 'global' (active, orange underline) · 'competitions' · 'country'. Row 2 (period): 'this week' (active) · 'this month' · 'all time'. 44px touch targets; indicator slides on filter change, list crossfades."
+    },
+    {
+      "region": "podium_hero",
+      "y": 184,
+      "h": 200,
+      "build": "GlassCard r40 hero — dominant focal moment. White 4.5% fill, border white 8%, soft orange inner glow. Podium: #2 Ahmed (avatar, 3,210 XP) · #1 Sarah (avatar, 4,150 XP, amber glow) · #3 Lisa (avatar, 2,990 XP). ChipProvenance 'global · synced just now'. Avatars: HIFI-39-01, no brand logos."
+    },
+    {
+      "region": "own_rank_card",
+      "y": 388,
+      "h": 212,
+      "build": "GlassCard r28, quiet — orange border-left accent (#FF5E00 60%), no glow. Row '#12 You · Hamza Lv14 · +3 this week'. MomentumBar 'XP to Lv15' 68% orange fill. ChipDomainTag '21d streak · learning' + 7-day sparkline (solid surface). Tap opens RPG Character [19]."
+    },
+    {
+      "region": "leaderboard_list",
+      "y": 604,
+      "h": 148,
+      "build": "SegmentedTabs 'global' (active) · 'friends'. SolidCard #211008 r24 (dense list), hairline-divided LeaderboardRows: '#4 Omar · 3,410 XP · finance', '#5 Priya · 3,200 XP · wellbeing', '#6 Yara · 2,980 XP · creativity'. Tap opens Sheet: limited profile, report/mute/block."
+    },
+    {
+      "region": "fairness_caption",
+      "y": 752,
+      "h": 64,
+      "build": "Caption, centered, muted: 'fairness: your climb, not a verdict.' Ghost info icon, 44px target, opens fairness Sheet explaining the ranking window and anti-cheat basics."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating pill, fixed overlay: Today · CIA · Goals · Me, 44px targets — overlays last visible content per canon. Standard iOS home indicator docked beneath it."
+    }
+  ],
+  "belowFold": [
+    "Leaderboard rows continue scrolling below the three named entries (#4 Omar, #5 Priya, #6 Yara); further ranked users render with the same LeaderboardRow (rank, avatar, name, level, XP, domain chip, delta) as the list scrolls, per the spec's 'rows rise on scroll' motion note — never cut off, only scrolled."
+  ],
+  "imageSlots": [
+    "HIFI-39-01 — podium and leaderboard avatar placeholders, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "category: leaderboard / social ranking",
+    "source: server rank sync",
+    "scope: global · friends (user-selectable via leaderboard_list SegmentedTabs)",
+    "freshness: 'synced just now' ChipProvenance on podium; low-confidence shows a 'last synced' label; honest-null reads 'ranking unavailable.'",
+    "retention: rolling ranking window (this week / this month / all time)",
+    "export: data export available in profile sheet",
+    "revoke: ranking visibility toggle in profile sheet",
+    "delete: own-content delete available in profile sheet",
+    "row tap opens Sheet: limited profile, report, mute, block"
+  ],
+  "notes": "Data Honesty triples (per spec): Rank — real = server rank + window provenance chip ('global · synced just now'); low-confidence = cached ranking with a 'last synced' label; honest-null = 'ranking unavailable.' XP — real = verified XP total; low-confidence = 'pending sync'; honest-null = hide the MomentumBar entirely rather than fabricate a value. Delta — real = period-over-period rankChange ('+3 this week'); low-confidence = 'last synced' label; honest-null = neutral dash. Friends ('friends' filter on leaderboard_list) — real = accepted social context; low-confidence = partial list; honest-null = no-friends prompt. States: Skeleton — podium plinths, own card, and row bars shimmer. Empty — community-of-one shows the user plus ghosted invite slots, never fake rivals. Error — cached rankings remain visible with retry and source label. Success — switching type/period filters refreshes rows and own-rank card without losing scroll position. Disabled — profile, friends, or report actions dim when privacy or connectivity blocks them. Motion: podium rises on load, own-card MomentumBar draws, rows rise on scroll; SegmentedTabs indicator slides and list crossfades on filter change; own-rank card tap opens RPG Character [19]; row tap opens a limited-profile Sheet (report/mute/block); fairness ghost-icon tap opens an info Sheet explaining the ranking window and anti-cheat basics. Reduced-motion: podium and bars render as final static values, no rise or count-up. Corrections vs. the draft packet: (1) belowFold converted from module-objects (region/y/h/build) to descriptive strings per schema, matching the convention used on 13/19/30/32/48/71/97. (2) imageSlots converted from an id/prompt object to a single descriptive string per schema. (3) notes converted from an array of strings to one string per schema. (4) Added the previously-missing GlassNavBar module (mandatory chrome for hasNav:true, matching every sibling packet) by folding list_scope_tabs into a combined leaderboard_list module, keeping the module count at the 8-module cap. (5) Segmented-tab and row copy lowercased ('Global'->'global', 'Competitions'->'competitions', 'Country'->'country', 'This week'->'this week', 'Friends'->'friends') to match this build's sentence-case tab-label convention (see 13-goals-list, 32-career-work-dashboard). (6) Leaderboard rows re-modeled as one SolidCard #211008 r24 container with hairline-divided LeaderboardRow entries, replacing the draft's ungrounded per-row 'r16' treatment — dense-list solid surfaces in this build use a single r24 container, not per-row rounding. (7) Podium hero corrected from r28 to r40 — canon reserves r40 for the screen's one dominant focal card (per Focal Hierarchy: 'Leaderboard hero; it should be visually singular'), matching the r40 hero precedent on 32-career-work-dashboard; own-rank card stays quiet at r28 with no glow (glow is reserved for the one focal card). (8) Font terminology normalized to 'Newsreader Medium Italic' (this build's stand-in, per session waiver W-FONT-01) in place of the spec's literal 'Tiempos italic', matching every other packet. (9) trustControls expanded to name all eight Consent-and-Safety source-chip fields (category/source/scope/freshness/retention/export/revoke/delete) plus the social controls (report/mute/block/visibility), which the draft only partially listed. Accessibility: paper text on #0A0A0F and #211008 meets AA+; filters, rows, own-rank card, report/block, and profile actions are all 44px minimum; LeaderboardRow announces rank, movement, XP, domain, window, and privacy status to screen readers. Route stays exactly /leaderboard — no alternate vanity route."
+}

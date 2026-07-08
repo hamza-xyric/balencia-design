@@ -1,0 +1,75 @@
+{
+  "id": "85",
+  "name": "Obstacle coach",
+  "route": "/obstacles/[id]",
+  "shell": "dark",
+  "annotation": "HIFI-85 · /obstacles/[id] · dark shell (#0A0A0F) + top-center orange radial glow rgba(255,94,0,.18); GlassCard diagnosis hero is the singular focal moment, DETECTED BLOCKERS run as quiet SolidCard evidence rows below it, CIAInsightCard next-best-timing sits between blockers and the single BtnPrimary; every root cause, blocker, and timing claim carries a provenance chip or honest-null fallback — never fabricated.",
+  "italicWord": "*coach*",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar: [<] back | Title: Obstacle *coach* | [...] overflow menu. Default state."
+    },
+    {
+      "region": "hero_card",
+      "y": 104,
+      "h": 142,
+      "build": "GlassCard r40: Overline 'OBSTACLE DIAGNOSIS'. H1 'CIA found the root cause behind missed workouts: late meetings.' Caption '3 blockers | coach plan ready'. Purple left border glow for CIA synthesis."
+    },
+    {
+      "region": "section_label_blockers",
+      "y": 254,
+      "h": 28,
+      "build": "Overline uppercase 'DETECTED BLOCKERS'."
+    },
+    {
+      "region": "blocker_1",
+      "y": 286,
+      "h": 84,
+      "build": "SolidCard #211008. ChipDomainTag [time] (orange 16% bg). H3 'Late meetings moved runs'. Caption 'evidence: 3 missed after 7 PM'. Caption 'next step: try Tuesday 6 AM'. ChipProvenance [calendar history]. BtnGhost [dismiss]. Orange right accent glow."
+    },
+    {
+      "region": "blocker_2",
+      "y": 378,
+      "h": 84,
+      "build": "SolidCard #211008. ChipDomainTag [food] (orange 16% bg). H3 'Protein target dipped'. Caption 'next step: prepped lunch'. ChipProvenance [nutrition logs]. Orange right accent glow."
+    },
+    {
+      "region": "cia_timing_card",
+      "y": 470,
+      "h": 100,
+      "build": "CIAInsightCard: Overline 'CIA NEXT BEST TIMING'. H3 'Monday 8:10 AM has best odds'. ChipProvenance [schedule confidence · 4 comparable actions]. Purple glow."
+    },
+    {
+      "region": "cta_action",
+      "y": 578,
+      "h": 48,
+      "build": "BtnPrimary full-width: 'Start reconnection'. Orange glow."
+    }
+  ],
+  "belowFold": [
+    "Blocker 3 (~y634): SolidCard #211008. ChipDomainTag [energy] (orange 16% bg). H3 'Afternoon energy dips'. Caption 'next step: 10 min walk'. ChipProvenance [check-ins].",
+    "Safety Resource (~y728): SafetyResourceCard — crisis/harm support surfaces before coach plan when signals appear; solid surface, neutral border, never gamified."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "ChipProvenance opens Sheet: explains category, source, scope, freshness, retention, export, revoke, and delete.",
+    "Low-confidence CIA synthesis rendered in muted text with tag 'estimated · low confidence'.",
+    "[...] overflow menu contains 'Delete recommendation history' action."
+  ],
+  "notes": [
+    "Accessibility: hero announces diagnosis status, root cause confidence, blocker count, and next step.",
+    "Targets: blocker rows, accept/dismiss, schedule, start, and safety links enforce 44px minimum touch areas.",
+    "Disabled state: start/review/schedule dims to 40% opacity with reason when insufficient data, consent missing, offline, or safety escalation blocks plan generation."
+  ]
+}

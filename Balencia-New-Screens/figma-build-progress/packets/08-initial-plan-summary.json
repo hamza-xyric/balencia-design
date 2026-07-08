@@ -1,0 +1,68 @@
+{
+  "id": "08",
+  "name": "Initial Plan Summary",
+  "route": "/onboarding",
+  "shell": "dark",
+  "annotation": "Dark glass onboarding shell (bg #0A0A0F, top-center amber radial): the ConstellationRadar hero is the singular focal moment, Life Power ring nested at its center, with a quiet header-only CIA insight above it and a readiness band, Domain Stats list, and one mission card as source-labeled operational evidence below. Every metric is real, low-confidence, or honest-null — no fabricated numbers. The Figma 'My Plan' warm-light anatomy noted in the spec's Figma Reference Alignment is an alias/evidence note only, not the production shell.",
+  "italicWord": "grows",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar, dark shell: time left, signal/wifi/battery right, paper-100 icons on #0A0A0F."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 44,
+      "build": "Transparent over atmosphere. Back chevron only (44px target). No title."
+    },
+    {
+      "region": "cia_insight_card",
+      "y": 88,
+      "h": 86,
+      "build": ".glass-frost header-only CIAInsightCard (no BtnCoach/BtnGhost row), glow-cia purple aura. Text: 'here's your plan. i've broken down your missions into daily actions across 3 life areas. let's go.'"
+    },
+    {
+      "region": "hero_radar_card",
+      "y": 174,
+      "h": 274,
+      "build": "Hero GlassCard r40, glow-you breathing halo (55→70%, 4s) - the screen's one hero glow. ConstellationRadar: solid-orange baseline shape + dashed-purple 90-day projection vector; unassessed axes ghosted dashed. Center: GlassStatCard ring (ProgressRing orange fill, own glow suppressed): '72' LIFE POWER, ChipProvenance 'via onboarding calc'. Footer: 'day one - this *grows* with you.'"
+    },
+    {
+      "region": "kpi_readiness_band",
+      "y": 448,
+      "h": 60,
+      "build": "SolidCard readiness handoff band, glow-you (static, no breathe - avoids competing with hero's bloom). KPIRow, hairline dividers: 'plan ready' | '3 areas' | 'first action'."
+    },
+    {
+      "region": "domain_stats_list",
+      "y": 510,
+      "h": 104,
+      "build": "SectionHeader overline 'YOUR DOMAIN STATS'. ListRow 'Fitness' '18', ChipProvenance 'via you logged'. ListRow 'Career' '~22', ChipProvenance 'estimated · low confidence', muted 64%."
+    },
+    {
+      "region": "mission_card",
+      "y": 614,
+      "h": 116,
+      "build": "SectionHeader overline 'YOUR MISSIONS'. SolidCard, glow-done green. ChipDomainTag 'Fitness' + 'PRIORITY' badge. Text 'run a half marathon'. Actions: 'run 3x/week', 'stretch nightly', '+ and 2 more actions'. MilestoneTimeline '----o----o----o milestones'. ChipDomainTag link 'connects to Nutrition'."
+    },
+    {
+      "region": "cta_actions",
+      "y": 730,
+      "h": 90,
+      "build": "BtnPrimary 'enter Today' (idle-pulsing opacity only, 3s, no color shift). BtnGhost 'customize'."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "Plan provenance chips open a data-controls sheet: answers used, inferred items, connected sources, scope, freshness, retention, export onboarding answers/plan, revoke source access, delete recommendation history.",
+    "CIA-generated missions are suggestions until accepted; no mission is treated as a diagnosis, prescription, or irreversible commitment.",
+    "Keep navigation targets aligned to /onboarding. Do not add alternate vanity routes."
+  ],
+  "notes": "Default state. Spring entry throughout (stiffness 250/damping 25), never linear. Draw-first choreography: ConstellationRadar spokes draw first -> Life Power counts up (tabular-nums) -> MomentumBar shimmer left-to-right -> Domain Stats rows fade up -> mission cards fade-up staggered 50ms. Hero glow-you breathes 55%->70%->55% (4s ease) to read as living baseline data; readiness band's glow-you stays static so it doesn't compete with the hero bloom; CTA idle pulse is opacity-only (3s, no color shift). Milestone 'you are here' node carries a looping concentric orange ring pulse; reduced motion resolves all draws/pulses to final state instantly, collapses staggered entry to one 150ms crossfade, and the milestone ring to a static solid-fill dot. Readiness band and mission cards use solid --surface-2 (#211008) surfaces (paper-100 text, >12:1 AA+) for legibility over atmosphere. ConstellationRadar exposes a full-sentence screen-reader summary per axis (e.g. 'fitness baseline 18. career estimated 22, low confidence. nutrition not yet assessed.'). MilestoneTimeline nodes carry 44px tap targets and announce 'milestone X of Y, current.' Success: CTA flashes --glow-done (400ms), crossfades to Home 12, Today tab."
+}

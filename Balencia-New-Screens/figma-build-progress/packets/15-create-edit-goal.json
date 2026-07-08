@@ -1,0 +1,62 @@
+{
+  "id": "15",
+  "name": "Create / Edit Mission",
+  "route": "No live route; modal create or edit mission flow launched from Mission Board [13] or Mission Detail [14].",
+  "shell": "dark",
+  "annotation": "HIFI-15 · no live route (modal) · dark shell, top-center amber radial + grain. The natural-language prompt input is the singular Dominant focal moment; CIA type/connections synthesis and operational modules (domains, actions, milestones, tracking, preview) stay quiet and legible below.",
+  "italicWord": "achieve",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Modal Header",
+      "y": 44,
+      "h": 52,
+      "build": "Glass modal grabber, top-center. Close 'x' glyph (top-right), 44px target. Title (H2/H3, sentence case — not an overline): 'New mission'; swaps to 'Edit mission' in edit mode (work/briefs/15.md)."
+    },
+    {
+      "region": "Prompt Input",
+      "y": 96,
+      "h": 180,
+      "build": "GlassPillInput r28 glass, multiline, label hidden. Placeholder: 'What do you want to *achieve*?' (1 italic word). Text: 'Run a half marathon by October'. Ghost BtnCoach 'Let CIA plan this' (disabled, 40% opacity, until text exists). Example chips: 'Save $5,000', 'Meditate daily', '5K'."
+    },
+    {
+      "region": "CIA Type & Connections",
+      "y": 284,
+      "h": 116,
+      "build": "CIAInsightCard purple glow (glow-cia). Connections line: 'Part of: endurance chain'. Overline 'PROMPT SUMMARY'. Body: 'This looks like a main mission'. ChipProvenance 'via prompt'. SegmentedTabs [daily] [weekly] [side] [main], active='main'."
+    },
+    {
+      "region": "Domains",
+      "y": 408,
+      "h": 84,
+      "build": "Overline 'DOMAINS'. ChipDomainTag x2: 'Fitness', 'Nutrition' (16% bg), each paired with ChipProvenance 'via prompt' (auto-detected; dims until user confirms). Ghost add row '+ Add domain'."
+    },
+    {
+      "region": "Actions",
+      "y": 500,
+      "h": 132,
+      "build": "Overline 'ACTIONS'. ListRow drag handle: 'Run 3x weekly' (remove 'x'). ListRow drag handle: 'Strength train 2x' (remove 'x'). Unconfirmed rows carry a 'CIA draft' low-confidence badge until the user edits or confirms them."
+    },
+    {
+      "region": "Milestones",
+      "y": 640,
+      "h": 108,
+      "build": "Overline 'MILESTONES'. ListRow '1. 5K pace check', trailing 'Aug 15'. Ghost row '+ Add milestone'."
+    }
+  ],
+  "belowFold": [
+    "Tracking & Strictness (~y756–876): Overline 'TRACKING SIGNALS'. Toggle row 'Weekly distance' (on). SegmentedTabs 'Strictness' [lenient] [balanced] [strict], active='balanced'.",
+    "Mission Preview (~y884–1052): Glass card r28. ProgressRing draws first, then XP counts up second. Title 'Mission preview'. KPI '~420 XP' with caption 'estimated · low confidence' while the action count is still changing (rule-based estimate, not measured).",
+    "Persistent Action (~y1060–1140): BtnPrimary full-width 'Create mission' (orange #FF5E00), 44px target, safe-area spacing below."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "ChipProvenance 'via prompt' — the CIA-suggested mission type is machine-detected from the prompt, not user-typed (Data Honesty: Mission type).",
+    "ChipProvenance 'via prompt' — auto-detected domain tags (Fitness, Nutrition); low-confidence state dims suggested domains until the user confirms them.",
+    "'CIA draft' badge — Actions/Milestones rows generated from the prompt stay marked as drafts until the user edits or confirms them (Data Honesty: Actions and milestones).",
+    "'estimated · low confidence' caption — Mission preview XP estimate is rule-based, not measured, and stays low-confidence while the action count is still changing (Data Honesty: Estimated XP).",
+    "Create/save CTA holds 40% opacity (disabled) until title, ≥1 action, and ≥1 domain are valid; offline keeps editing enabled but blocks save with explicit copy (States: Disabled, Offline)."
+  ],
+  "notes": "Route header kept verbatim per spec: No live route; modal create or edit mission flow launched from Mission Board [13] or Mission Detail [14]. Disabled state: save/create CTA remains at 40% opacity until title, one action, and at least one domain are valid. Reduced-motion path: processing captions still update as text, but section staggers, ring draws, and XP count-up jump instantly to final states. Edit mode swaps the title to 'Edit mission' and pre-populates fields from the existing mission (work/briefs/15.md); this packet documents the default create-mode composition. Offline copy has no literal source string — spec only requires that editing remains possible while save is blocked with explicit copy. Spec drift flagged (not applied): the Visual System section names 'goal' as the italic emphasis word, a pre-rebrand leftover from before this project renamed Goal to Mission project-wide (RPG terminology) — 'goal' never appears in the visible copy, and unlike sibling screens 13/14 this composition's Final Composition ASCII carries no asterisk-marked word at all, so 'achieve' — the sole word inside the screen's one large natural-language input placeholder, the spec's own stated Dominant focal moment — was used as the emphasis word instead, consistent with the established practice on HIFI-06/07/12/13 of italicizing the word actually rendered in copy over a stale Visual System designation."
+}

@@ -1,0 +1,79 @@
+{
+  "id": "95",
+  "name": "Pods hub",
+  "route": "/groups",
+  "shell": "dark",
+  "annotation": "HIFI-95 · /groups · dark shell #0A0A0F + top-center amber radial glow rgba(255,94,0,.18) + 3-4% grain. Hero GlassStatCard (r40) summarizing pod count, invites, and discovery consent is the singular above-fold focal moment; SegmentedTabs sit as a quiet operational layer. PodCard and Circle rows render as SolidCard #211008 (dense social rows, no glass) per the spec's Visual treatment tiering. CIAInsightCard carries its own purple glow-cia and evidence-led exit, never a second BtnPrimary — [Join pod] stays the screen's one primary CTA. Create action lives in TopBar (no FAB); the floating GlassNavBar pill persists beneath. Route locked to /groups; no vanity alternates.",
+  "italicWord": "pods",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar, 390x844 frame, bg #0A0A0F. Time 9:41 left, icons right. Home indicator sits at y828."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Glass, gains blur backing on scroll. Left 44px back chevron. Center H3 20 'Pods' (no italic here — this screen's one italic emphasis lives in the hero caption below). Right: search + create icons, 44px targets each."
+    },
+    {
+      "region": "GlassStatCard hero",
+      "y": 100,
+      "h": 156,
+      "build": "r40 glass. Display 34 'Your groups'. Caption '2 *pods* · 1 invite · consent on' (Newsreader Medium Italic 'pods' — the screen's one italic emphasis). Overline 'via /groups membership'. Ghost pill [Manage discovery]. One orange glow-you on the invite badge."
+    },
+    {
+      "region": "SegmentedTabs",
+      "y": 256,
+      "h": 48,
+      "build": "Pill segmented, 44px targets: [Pods] [Circles] [Communities] [Partners]. Pods is the active default tab with orange underline shown in this composition; Circles/Communities/Partners render muted text — tab switch crossfades the list below without moving the hero."
+    },
+    {
+      "region": "PodCard — morning runners",
+      "y": 304,
+      "h": 156,
+      "build": "r24 SolidCard #211008 (dense social row, no glass). Title 'morning runners'. Caption 'shared half plan · 8 members'. AvatarStack: Aisha, Omar +5, with alt labels. ChipProvenance 'consented goal overlap' (real state, no invented percentage). BtnPrimary glow-you [Join pod] — this screen's one primary CTA. Ghost [Preview privacy]."
+    },
+    {
+      "region": "PodCard — focus builders (Circle)",
+      "y": 460,
+      "h": 136,
+      "build": "r24 SolidCard #211008 (dense social row, no glass). Title 'focus builders'. Caption 'private · partner invite only'. Neutral muted tag 'Circle' (16% bg — not purple; purple is reserved for glow-cia only). Ghost [Manage]. Ghost [Report]."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 596,
+      "h": 100,
+      "build": "r24-28 glass, purple glow-cia (this screen's one CIA glow — no italic; italic emphasis is reserved for 'pods' above). Overline 'CIA suggests'. Body 'This pod matches your run plan.' ChipProvenance 'goal + consent evidence' (real state; low-confidence shows '1 signal' muted, honest-null hides the card)."
+    },
+    {
+      "region": "Footer + Floating Nav",
+      "y": 696,
+      "h": 148,
+      "build": "Caption muted 'Buddy discovery: revoke anytime.' sits above the floating glass nav pill: Today · CIA · Goals · Me — 44px targets, no forced active tab since Groups sits outside the four primary tabs."
+    }
+  ],
+  "belowFold": [
+    "Circles/Communities/Partners tabs (SegmentedTabs): crossfade the PodCard/Circle list to tab-specific rows without moving the hero — Circles shows private circle rows like 'focus builders'; Communities and Partners render matching row density; unfetched tabs never show a fabricated count.",
+    "Empty (no matches / Day 1): HonestNullState replaces the list — 'No pods match your filters. You can create a private circle or turn off discovery.' with Ghost [Create circle] and Ghost [Broaden filters]/[Manage discovery].",
+    "Sheets: [Join pod] opens a join-preview Sheet; [Create circle] opens setup; [Manage] partners opens permissions; [Report] opens the Report/Block flow — moderation never uses a swipe-only destructive path."
+  ],
+  "imageSlots": [
+    "HIFI-95-01 - avatar or message attachment slot; screen-specific; premium warm-dark product placeholder. Prompt: Pods hub avatar or social proof placeholders, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Membership count honesty triple: real reads server membership + ChipProvenance; low-confidence shows muted cached membership + 'estimated · low confidence'; honest-null reads 'No groups joined yet.'",
+    "Invite state honesty triple: real shows pending/accepted/expired timestamp; low-confidence shows muted 'invite service delayed'; honest-null hides the invite badge entirely.",
+    "Shared goal match honesty triple: real shows ChipProvenance 'consented goal overlap' (no invented percentage); low-confidence shows muted 'topic-only estimate'; honest-null hides the match until consent is given.",
+    "Partner visibility honesty triple: real shows per-domain toggles; low-confidence shows muted 'sync pending'; honest-null shows 'discovery off'.",
+    "CIA suggestion honesty triple: real shows 'goal + consent evidence'; low-confidence shows muted '1 signal'; honest-null hides the CIAInsightCard entirely — never a fabricated match.",
+    "Pods hub exposes audience/visibility preview, report, mute, block, and own-content delete controls before any sharing or social comparison; buddy discovery can be revoked or deleted at any time.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete wherever group/social data appears.",
+    "Route locked to /groups; no alternate vanity routes."
+  ],
+  "notes": "States — Skeleton: PodCards render avatar/title/action geometry shimmer only, no fake member counts. Empty: HonestNullState offers Create circle, Broaden filters, and discovery controls (see belowFold). Error: cached groups stay visible with stale ChipProvenance and a retry action — 'Groups could not refresh. Showing last synced memberships.' Success: join/create/leave updates the row in place with glow-done and a clear undo where safe. Disabled: join, invite, message, and discovery controls dim to 40% opacity with a screen-reader reason string when consent, age gate, moderation, connectivity, or entitlement blocks the action.\nMotion — Load: hero first, tabs second, PodCards in a 40ms stagger. Join: opens a preview Sheet; success collapses to joined state and updates AvatarStack. Search/filter: results crossfade; the empty state does not move footer controls. Moderation: report/block uses an action Sheet, no swipe-only destructive path. Reduced-motion: disables stagger, avatar transitions, and glow breathing.\nAccessibility — Contrast: all text/chips clear AA+ on warm-dark surfaces. Targets: tabs, PodCards, join/manage/report, avatars, and toggles are 44px minimum. Screen readers: PodCards announce name, privacy, member count, shared goal, and join state.\nCorrections made from the draft packet: (1) PodCard and Circle rows were mis-specified as glass — the spec's Visual treatment explicitly assigns hero and CIA card to GlassCard and PodCards/moderation rows to SolidCard #211008; fixed to solid. (2) the 'goal overlap · 92%' provenance chip was a fabricated confidence number not present anywhere in the spec — replaced with the Data Honesty section's actual real-state wording, 'consented goal overlap'. (3) the 'Circle' tag was colored purple, but purple/glow-cia is reserved for CIA synthesis only per canon — recolored to a neutral muted chip. (4) the CIA tag was marked italic, which would create a second italic-emphasis word; the spec allows exactly one ('*pods*'), so the CIA module is now explicit that it carries no italic. (5) italicWord placement: the draft attached the italic mark to 'Your groups', a string that never contains the word 'pods' — moved the italic mark onto the literal 'pods' text that already exists in the hero caption ('2 pods'), and normalized the italicWord field from '*pods*' to the bare word 'pods' per packet convention. (6) module count trimmed from 9 to 8 by merging the trust-footer caption into the floating-nav module. (7) belowFold and imageSlots were reshaped from objects to the required string-array schema, and trustControls was expanded from bare keyword fragments ('report', 'mute', 'block') into full honesty-triple / consent statements covering every Data Honesty and Consent-and-Safety line in the spec."
+}

@@ -1,0 +1,59 @@
+{
+  "id": "63",
+  "name": "Energy tracking",
+  "route": "/wellbeing/energy",
+  "shell": "dark",
+  "annotation": "Energy tracking hero (GlassCard r40 + ArcGaugeDial 240deg open, --glow-you) is the singular focal moment per Focal Hierarchy; Quick Log and Today's Energy timeline sit as the quiet operational layer beneath it. PaywallLock gates Peak Hours/Chronotype/Correlations behind a single orange unlock CTA below the fold. Every metric renders real (provenance chip), low-confidence, or honest-null — never fabricated.",
+  "italicWord": "tracking",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar overlay: time/battery/signal, transparent over TopBar."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 44,
+      "build": "Transparent bg. [< back] [Energy *tracking* (Newsreader italic)] [overflow]. Transitions to .glass-pill at y88 on scroll."
+    },
+    {
+      "region": "GlassCard hero",
+      "y": 96,
+      "h": 260,
+      "build": "Glass white 4.5% fill, border white 8%, r40. Top-center radial orange glow (--glow-you, 4s ease-in-out breathe). Overline 11 'CURRENT ENERGY'. ArcGaugeDial 240deg open (ChargeMeter concept) sweeps 0->7.5 (520ms physical spring). Display 34 '7.5'. Provenance chip 'you logged'."
+    },
+    {
+      "region": "SolidCard quick log",
+      "y": 368,
+      "h": 200,
+      "build": "Solid #211008, r24. Overline 11 'QUICK LOG'. Slider track [==============o=====================], right-aligned value '7.5' tabular-nums. ChipRow single-select domain tags (16% bg): [morning] [post-workout] [post-meal]. GlassPillInput 'how are you feeling. (optional)'. BtnPrimary full-width #FF5E00 'log energy'."
+    },
+    {
+      "region": "SolidCard today timeline",
+      "y": 580,
+      "h": 124,
+      "build": "Solid #211008, r24. Header 'TODAY'S ENERGY', trailing 'avg: 6.2'. TrendChart sparkline draws left-to-right (1200ms). Subtext '5 logs today'. Provenance chip 'synced locally'."
+    },
+    {
+      "region": "PaywallLock gate",
+      "y": 716,
+      "h": 56,
+      "build": "Premium analytics gate, blur, 44px+ tap target. Overline 11 'LOCKED PREMIUM'. Row copy 'Peak hours · Chronotype · Correlations'. Compact orange pill CTA 'unlock' (secondary — 'log energy' stays the screen's one BtnPrimary)."
+    }
+  ],
+  "belowFold": [
+    "FeatureGridDomainCard: compact premium cards for Peak Hours, Chronotype, and Correlations; locked cards stay readable with a lock glyph, 40% opacity, and a clear unlock action rather than a blurred dead zone.",
+    "ImpactBarRow (nested in the locked Correlations card), solid #211008: horizontal bars mapping positive (green #34A853) and negative (orange #FF5E00) impacts, with domain tags and chevrons; renders muted at 40% opacity to match the card's locked state.",
+    "CIAInsightCard: purple-tinted glass r24, --glow-cia #7F24FF. Copy '*golden* window for deep work...'. BtnSecondary ghost pill 'ask CIA more'."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Health category, source, scope, freshness, confidence, retention, export, revoke, and delete chips present before synced values or photo-derived reads are trusted.",
+    "SafetyResourceCard reachable for energy, mood, stress, sleep, and other wellbeing-adjacent moments; privacy-first language throughout."
+  ],
+  "notes": "Skeleton: ArcGauge ghost track pulses, chart lines draw as --surface-3 blocks, CIA copy 'CIA is reading your week - one moment.', shimmer sweep 1.2s. Cold start (Day 1): Hero shows '--' with ghosted track, sparkline is a flat dashed purple line, history/trend sections replaced with constructive EmptyState components with starter CTAs, Quick Log card pulses subtly. Error: ErrorState blocks replace failed chart components ('could not load trends' + retry BtnSecondary); log submission failure flashes red and shows toast 'could not log -- try again'; never blames the user. Success: Log CTA flashes green (BtnSuccess), --glow-done sweeps the Hero Card, ArcGauge re-sweeps to new value (520ms), timeline chart updates with new point. Offline: OfflineBanner under TopBar reads 'offline - showing last sync 2h ago'; Quick Log CTA stays active, logs queue locally with a 'queued' chip. Disabled: rate-limiting disables Log CTA (40% opacity), 'You logged recently. Next log available in Xm.' Reduced motion: all chart draw-ins/scrubbing snap instantly (0ms), glow breathe is static, haptics unchanged."
+}

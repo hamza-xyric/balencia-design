@@ -1,0 +1,71 @@
+{
+  "id": "93",
+  "name": "Mood trends",
+  "route": "/wellbeing/mood",
+  "shell": "dark",
+  "annotation": "HIFI-93 · /wellbeing/mood · dark glass",
+  "italicWord": "steady",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "status",
+      "y": 0,
+      "h": 44,
+      "build": "Status bar"
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 52,
+      "build": "TopBar title 'Mood', actions 'log help'; SegmentedTabs row '[7D] [30D] [90D locked] [1Y locked]'"
+    },
+    {
+      "region": "hero",
+      "y": 96,
+      "h": 140,
+      "build": "GlassStatCard hero r40, `--glow-you` orange glow, Overline 'TODAY FEELS', Display 34 '6 / 10', italic Newsreader 'steady', ChipProvenance 'via check-in · Jul 7'"
+    },
+    {
+      "region": "safety",
+      "y": 240,
+      "h": 76,
+      "build": "SafetyResourceCard solid #211008 no glow, title 'Crisis resources', body 'Call, text, or view local help'"
+    },
+    {
+      "region": "chart",
+      "y": 320,
+      "h": 240,
+      "build": "TrendChart solid #211008 (data-dense, not glass), title 'Mood trend', axes 8/5/2, Mon-Sun; orange line real check-in, dashed purple estimated context, green markers journal; default state"
+    },
+    {
+      "region": "insight",
+      "y": 564,
+      "h": 128,
+      "build": "CIAInsightCard purple-tinted glass (glow-cia), copy 'CIA: mood has been higher on journal days in this window.', ChipProvenance 'Evidence: 4 check-ins, 3 entries', BtnPrimary 'Discuss patterns with CIA'"
+    },
+    {
+      "region": "history",
+      "y": 696,
+      "h": 56,
+      "build": "ListRow 'Recent: Jul 7 steady, Jul 6 low'"
+    }
+  ],
+  "belowFold": [
+    "ConsentCard: mood, journal, voice notes, health context, journal-tone analysis, CIA inference opt-in/opt-out/revoke/export/delete",
+    "SyncStatus"
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Crisis resources from top help and SafetyResourceCard",
+    "Mood, journal, voice notes, health context, journal-tone analysis, and CIA inference expose opt-in, opt-out, revoke, export, and delete in the evidence sheet",
+    "Log sheet includes skip option and support copy without pressure"
+  ],
+  "notes": [
+    "90D, 1Y, advanced correlations, and CIA pattern handoff use PaywallLock; lock cannot obscure crisis access",
+    "Sparse dots render without connecting line until enough data (at least 3 check-ins)",
+    "Reduced motion renders full chart immediately, no draw-in animation",
+    "FABQuickLog (+) floats above nav pill",
+    "CTA routes: mood logging to /wellbeing/emotional-checkin, discussion to /ai-coach, source links to health settings"
+  ]
+}

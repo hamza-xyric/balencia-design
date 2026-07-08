@@ -1,0 +1,80 @@
+{
+  "id": "49",
+  "name": "Progress photos",
+  "route": "No live route; progress photos are a private module inside Progress measurements, Fitness, and Today surfaces.",
+  "shell": "dark",
+  "annotation": "HIFI-49 · no live route (private module) · dark shell, top-center orange radial glow. Consent, CIA insight, weight trend, and current stats sit above the fold; the encrypted PhotoTimelineTrack — the screen's dominant private-media focal card — begins in-fold and continues below with the privacy/export/delete footer.",
+  "italicWord": "sleep",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar on #0A0A0F: time left, signal/wifi/battery right, paper-100 icons. Fixed 44px, no copy."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Sticky glass-pill over atmosphere. Left: 44px back chevron. Center: title 'Progress photos' (H1). Right: 44px trailing badge 'Lv.12' doubling as privacy overflow — opens sheet exposing export, hide, delete, and analysis-off choices."
+    },
+    {
+      "region": "ConsentCard",
+      "y": 100,
+      "h": 84,
+      "build": "GlassCard, shown until analysis + storage scopes accepted. Copy: 'Encrypted storage and AI analysis are separate choices.' Trailing ghost link 'manage privacy' (44px target) opens consent sheet. Hidden once both scopes are explicitly accepted."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 184,
+      "h": 120,
+      "build": "Purple glass note (glow-cia), hidden until evidence threshold met. Label 'CIA'. Copy: 'Weight changed alongside better *sleep* this month.' (Newsreader italic on 'sleep', the screen's one emphasis word). Evidence chips: ChipDomainTag 'sleep', ChipDomainTag 'training', ChipProvenance 'you logged'."
+    },
+    {
+      "region": "Weight Trend",
+      "y": 304,
+      "h": 224,
+      "build": "SectionHeader 'WEIGHT TREND' + SegmentedTabs '[1M][3M][6M][1Y]' (1M selected, 44px targets). SolidCard TrendChart (glow-you orange): '72.0 kg' + 'target 70 kg'. Solid orange history line, dashed purple projection. ChipProvenance 'via wearable + you logged'. Honest-null: 'log your first weigh-in'."
+    },
+    {
+      "region": "Current Stats & Measurements",
+      "y": 528,
+      "h": 180,
+      "build": "KPIRow, 3 SolidCards: 'weight 72.0 kg' via wearable; 'BMI 22.1' calculated; 'body fat est. 18%' via photo AI (muted if low-confidence, sample warning). SectionHeader 'MEASUREMENTS' + ghost 'see all'. ListRows: 'waist 82.0 cm  you logged', 'arms 35.5 cm  you logged'."
+    },
+    {
+      "region": "Progress Photos Timeline",
+      "y": 708,
+      "h": 100,
+      "build": "SectionHeader 'PROGRESS PHOTOS' + ghost 'compare' (enabled, >=2 visible photos). SolidCard PhotoTimelineTrack, encrypted vertical track, thumbnails blurred by default: 'Oct 12  encrypted  analysis ready' (green done dot). Draws top-down 600ms; continues below fold. Image slot HIFI-49-01 (privacy-safe placeholder, no identifiable person)."
+    },
+    {
+      "region": "Floating Nav + FAB",
+      "y": 756,
+      "h": 88,
+      "build": "FABQuickLog '+' (glow-you), opens 'log weight / take photo / add measurements'; hides on scroll-down, reduced-motion keeps fixed. Floating GlassNavBar pill 'Today · CIA · Goals · Me', 44px targets, floats above scroll content. iOS Home Indicator, white 30%."
+    }
+  ],
+  "belowFold": [
+    "PhotoTimelineTrack continuation: 'Sep 15  encrypted  low confidence' (muted orange dot, sample-size warning on tap); 'Aug 18  hidden by user' (ghost placeholder, no thumbnail, labeled not broken). Reveal requires an intentional tap and a screen-reader announcement before any private media shows.",
+    "Privacy notice and controls footer (SolidCard, always available incl. free tier): ghost actions 'export photos', 'delete set' (opens confirmation sheet naming the exact photo and analysis-record count affected), 'analysis off' (revoke — removes AI labels from the timeline immediately; encrypted originals remain until deleted or exported)."
+  ],
+  "imageSlots": [
+    {
+      "id": "HIFI-49-01",
+      "desc": "Progress photos privacy-safe photo placeholders (encrypted thumbnails); screen-specific, privacy-safe, no identifiable person, no brand logos, no readable UI text."
+    }
+  ],
+  "trustControls": [
+    "Weight honesty triple — real: '72.0 kg' + ChipProvenance 'via wearable' or 'you logged'; low-confidence: muted value + 'estimated - low confidence'; honest-null: 'log your first weigh-in', never a fake line.",
+    "BMI: real shows '22.1' + 'calculated'; no low-confidence state exists (computable or missing only); honest-null: 'add height'.",
+    "Body-fat estimate: real shows the estimate + 'via photo AI'; low-confidence shows a muted estimate + sample-size warning; honest-null: 'Take at least two consented photos for analysis.'",
+    "Measurements use 'you logged' provenance only (no low-confidence state for direct manual entries); rows stay collapsed (honest-null) until a measurement exists.",
+    "Photo analysis labels appear only after explicit opt-in and successful processing; low-confidence labels small or inconsistent photo sets; honest-null hides analysis claims while encrypted thumbnails remain available.",
+    "Export, hide, delete, revoke-analysis, and delete-all-photo-data are always available to the account owner, including free tier — PaywallLock applies only to opted-in AI analysis, never to deletion or export.",
+    "Source chips expose category, source, scope, freshness, retention, export, revoke, and delete; reveal actions require an intentional tap and announce that private media is about to be shown before it displays."
+  ],
+  "notes": "Route header stays exactly 'No live route; progress photos are a private module inside Progress measurements, Fitness, and Today surfaces.' — never invent a live route; entry points are Fitness dashboard, Progress measurements photo module, Today action card, CIA Chat artifact, and Explore grid card. Italic word corrected to 'sleep' — the literal asterisked word in the spec's own Final Composition ASCII, Content & Copy section ('Weight changed alongside better *sleep* this month'), and Premium Checklist item 8 ('the evidence word in the CIA note carries the Tiempos/Newsreader italic emphasis') — over the Visual System section's generic '*photos*' label, which never appears as literal on-screen copy anywhere in the spec (same resolution pattern used for HIFI-42's '*consistency*' and HIFI-73's '*journal*'). Selective glass discipline: ConsentCard, CIAInsightCard, and the floating nav/FAB use glass; TrendChart, KPIRow, measurement ListRows, and PhotoTimelineTrack are SolidCard for legibility and privacy calm. Semantic glow stays meaning-bound: orange (glow-you) on the weight card and FAB for user-owned body data, purple (glow-cia) on the CIA note only when >=2 trusted signals exist, green only on completed-save flashes — never on the photo timeline itself, which stays neutral to avoid scoreboarding the body. Private-media treatment: thumbnails are small and blurred by default with an explicit reveal affordance; hidden photos render as labeled placeholders, never broken images; no identifiable face, body, home, document, provider logo, or private text appears without explicit permission. Compare is disabled until >=2 visible photos exist; AI analysis is disabled when consent is off, offline, or entitlement doesn't allow it — PaywallLock gates only the opted-in analysis feature, never deletion or export. Motion: chart long-press opens a crosshair tooltip (date/value/source); comparison slider has haptic ticks at 25/50/75%; PhotoTimelineTrack draws top-to-bottom over 600ms (reduced-motion renders instantly); FAB hides on scroll-down and returns on scroll-up (fixed under reduced-motion); revoking analysis and deleting a photo set both require a plain-language confirmation sheet naming exactly what is affected. Accessibility: 44px targets on back/overflow/FAB/compare/reveal/export/delete/timeline rows; AA+ contrast on paper text over warm-dark and SolidCard surfaces; photo rows announce date, visibility, encryption state, and analysis confidence before any body estimate. No red body feedback or shame styling anywhere on the screen."
+}

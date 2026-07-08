@@ -1,0 +1,68 @@
+{
+  "id": "74",
+  "name": "Conversations",
+  "route": "/chat-history, /chat",
+  "shell": "dark",
+  "annotation": "HIFI-74 · /chat-history, /chat · dark shell (warm base #0A0A0F, top-center amber radial glow), floating nav pill. Conversations hero is the singular focal moment — CIA coach pinned above People/Groups/Rooms — so the coaching relationship stays the anchor, not one thread among many.",
+  "italicWord": "breakfast",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "TopBar",
+      "y": 0,
+      "h": 100,
+      "build": "Standard iOS status bar (44px), then transparent top bar (56px) gaining .glass-pill backdrop on scroll. Title 'Conversations' (H1 30). Trailing: static Voice glyph, 24px rounded 2px outline (nav icon, not a live-recording VoiceMicGlow), 44px target."
+    },
+    {
+      "region": "Hero",
+      "y": 100,
+      "h": 160,
+      "build": "GlassCard hero, radius 40, bottom-anchored glow-cia breathing 4s ease-in-out. Overline 'PINNED COACH'. H2 'CIA coach'. Body: 'Recovery, budget, and *breakfast* timing today.' Meta: '3 live signals · 1 draft plan ready to talk.' ChipProvenance: 'via CIA · synced just now'."
+    },
+    {
+      "region": "SearchInput",
+      "y": 268,
+      "h": 48,
+      "build": "GlassPillInput, sole search entry. Placeholder: 'Search people, rooms, CIA memory'. Idle state; focus routes to SearchOverlay rather than filtering in place (no redundant TopBar search glyph)."
+    },
+    {
+      "region": "FilterTabs",
+      "y": 324,
+      "h": 36,
+      "build": "SegmentedTabs, single-select: ( All )( CIA )( People )( Groups )( Rooms ). 'All' active, 44px hit targets per pill."
+    },
+    {
+      "region": "PinnedSection",
+      "y": 368,
+      "h": 176,
+      "build": "Overline 'PINNED'. ConversationRow1 (SolidCard, press scale 0.98): avatar 'o', H3 'Partner name', preview 'Last message preview text' (paper-64%), caption '18m' + solid orange unread dot. ConversationRow2: AvatarStack 'oo', H3 'Iron Clinic (4)', preview 'Next workout is at', caption '7m' + orange dot '3'."
+    },
+    {
+      "region": "RecentSection",
+      "y": 548,
+      "h": 96,
+      "build": "Overline 'RECENT'. ConversationRow3: RoomGlyphTile tinted 16% Finance domain color (confirmed link), H3 'Run Club', preview \"Who's in this week?\", ChipDomainTag '[Finance]' (16% bg), caption '1h'. Older threads continue below the fold."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating glass nav pill: Today · CIA (active) · Goals · Me, 44px targets, docked above home indicator. FabCompose (56px orange circle, compose glyph) floats above-right, opens management Sheet; dims/disables offline."
+    }
+  ],
+  "belowFold": [
+    "Recent list continues with older ConversationRows (Direct/Group/Room mix) below the fold, same SolidCard + trailing caption/unread pattern, scrolling beneath the floating GlassNavBar."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Export conversation history",
+    "Revoke CIA memory/thread source access",
+    "Delete summaries/media",
+    "Report/mute/block people or groups",
+    "Leave group/room",
+    "Delete local drafts",
+    "Crisis support reachable from the hub info/safety sheet and from flagged thread previews — never only report-flow dependent"
+  ],
+  "notes": "A11y kind labels (spoken since no visible kind chip): 'Partner name, direct message, 18 minutes ago, 1 unread'; 'Iron Clinic, group chat, 4 members, 7 minutes ago, 3 unread'; 'Run Club, room, linked to Finance, 1 hour ago.' Unread indicator: real solid orange dot carries ChipProvenance 'updated live' (surfaced on row detail, not cluttering the list); it is never AI-estimated, so no low-confidence tier applies — absence of a dot is itself the honest zero-unread signal. RoomGlyphTile on the Run Club row is tinted 16% Finance domain color because ChipDomainTag '[Finance]' confirms a real, provenanced cross-domain link; neutral paper-16% wash is reserved for Room rows with no confirmed link. Text contrast: paper-100 #FEFAF3 primary (WCAG AAA), paper-64% Body previews (AA), paper-40% reserved for Caption-scale timestamps only. Glow breathe: glow-cia on the Hero, 4s ease-in-out loop, hero cards only; reduced motion resolves to a static mid-breath glow, never fully off. All interactive targets (filter tabs, rows, TopBar glyph, FabCompose, domain tag) hold 44x44px minimum regardless of visual size. FabCompose sits ~y=724, dims and disables offline (new conversations require a connection)."
+}

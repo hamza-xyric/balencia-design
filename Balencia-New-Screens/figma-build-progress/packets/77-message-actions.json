@@ -1,0 +1,72 @@
+{
+  "id": "77",
+  "name": "Message Actions",
+  "route": "No live route; modal action surface from chat threads (Direct Chat [75] or Group Chat [76]).",
+  "shell": "dark",
+  "annotation": "HIFI-77 · No live route (modal over Direct Chat [75] / Group Chat [76]) · dark shell w/ amber radial glow · selected message preview is the singular focal moment; reactions/actions/media stay quiet and secondary.",
+  "italicWord": "actions",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "TopBar",
+      "y": 0,
+      "h": 100,
+      "build": "Modal push TopBar (44px status bar + 56px bar) | BtnGhost 'Back' 44px target, left | H2 24 title 'Message *actions*' (Newsreader italic on the canon's one emphasis word, 'actions') | no CIA glyph — this surface has no synthesized-read affordance of its own | home indicator present, no bottom nav."
+    },
+    {
+      "region": "Privacy & Status Pills",
+      "y": 100,
+      "h": 56,
+      "build": "Pill row, 44px targets, glass pill r: ChipProvenance 'View-once protected' (lock glyph); privacy pill 'Private' (white/50 text); CIA-scope pill 'CIA can summarize' glow-cia purple #7F24FF. Honest-null: the CIA pill is fully hidden, never disabled, when summarize scope was never granted."
+    },
+    {
+      "region": "Selected Message Preview",
+      "y": 156,
+      "h": 152,
+      "build": "GlassCard r24, CK-T01 top-edge highlight, ink-brown-800. Overline 'SELECTED MESSAGE' + trailing 'Private'. CIAChatBubble/InlineArtifactCard read-only: avatar 'AK', time '9:41', text 'Perfect. I added the hill segment to today's run.' Attachment chip 'Hill segment' + reaction chip 'Useful' (orange, selected). Honest-null: 'Message no longer available.'"
+    },
+    {
+      "region": "Quick Reactions",
+      "y": 308,
+      "h": 96,
+      "build": "Overline 'QUICK REACTIONS'. 2x2 grid, 44px pills: 'Useful', 'Support', 'Done', 'Insight'. Tap sets aria-pressed + orange glow-you fill on the selected pill, single-select toggle. Offline taps queue as low-confidence until synced, never marked sent falsely."
+    },
+    {
+      "region": "Actions — Primary",
+      "y": 404,
+      "h": 264,
+      "build": "Overline 'ACTIONS'. ListRow x6, 44px, ink-brown-800, trailing chevron: 'Pin message', 'Star for mission', 'Copy', 'Forward', 'Open this media' (confirms 'View once, then it is gone' before Image Viewer [67]), 'Delete' (own content only, opens confirmation Sheet)."
+    },
+    {
+      "region": "Actions — Safety",
+      "y": 668,
+      "h": 176,
+      "build": "ListRow x3 continuing ACTIONS, destructive grouped at the bottom: 'Report message', 'Mute or block sender', 'Export message data' — each opens a confirmation Sheet, cancel equal prominence to the destructive action. Overline 'SHARED MEDIA' begins beneath, continuing below the fold."
+    },
+    {
+      "region": "Done CTA",
+      "y": 760,
+      "h": 84,
+      "build": "BtnPrimary full width, fixed above home indicator: label 'Done' + shield glyph, orange #FF5E00, no glow. Always enabled, even on the deleted-message Error card — no destructive surprises. scale(0.96) press, light haptic. Returns to source thread [75]/[76]."
+    }
+  ],
+  "belowFold": [
+    "Actions — Safety continued: ListRow x2, same destructive group: 'Revoke CIA summary access' and 'Delete CIA summary' — hidden entirely (honest-null, not disabled) when CIA summarize scope was never granted; each opens a confirmation Sheet, cancel equal prominence. Crisis-resource handoff surfaces inline inside the Report message Sheet when reported content reads as self-harm/crisis language.",
+    "Shared Media Vault: 3-column grid, small ink-brown-800 cards, domain-tinted icon blocks: tiles 'Hill', 'Pace note', 'Plan'. Tap opens Image Viewer [67] or media preview when permitted. Empty state renders text 'No shared media in this message.', never a fake media tile."
+  ],
+  "imageSlots": [
+    "HIFI-77-01 - avatar or message attachment slot; screen-specific; premium warm-dark product placeholder. Prompt: Message actions avatar or social proof placeholders, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Report message — opens a confirmation Sheet; crisis-resource handoff surfaces inline when reported content reads as self-harm/crisis language.",
+    "Mute or block sender — confirmation Sheet, cancel equal prominence, stops future messages from this sender.",
+    "Export message/thread data — download message and media provenance, offered before any destructive action.",
+    "Revoke CIA summary access — honest-null (hidden, not disabled) when summarize scope was never granted.",
+    "Delete CIA summary — removes the synthesized read itself, distinct from revoking future access.",
+    "Delete (own message/media only) — scoped to the user's own content; confirmation Sheet names the exact message action.",
+    "View-once media gate — 'View once, then it is gone' confirmation before Image Viewer [67]; row disables after one open.",
+    "Honest-null: 'Message no longer available.' error card leaves Done enabled — no destructive surprises when the source message can't load."
+  ],
+  "notes": "GLM draft was unavailable (HTTP 529, two failed retries); this packet was authored directly from hifi-screens/77-message-actions.md, cross-checked against screens/77-message-actions.md (source of the exact copy strings: pills, preview text, reactions, action labels, view-once/empty copy, honest-null strings) and app_design 3/77-message-actions.md (Premium Craft motion/depth detail), per the project's source hierarchy. Motion load order: selected message card fades up 280ms ease-out-soft first, privacy/status pills follow at +80ms, quick reactions at +140ms (40ms/pill stagger), action rows at +200ms (40ms/row stagger), shared media vault last. Reaction tap sets aria-pressed + 120ms scale pop; reduced-motion collapses all of this to instant opacity, no bounce/stagger. Copy shows a green toast; delete opens a confirmation Sheet naming the exact message action. Offline: forward and open-media rows dim 50% with reason copy 'Connect to forward'; cached reactions stay visible but queue low-confidence until reconnect, never marked sent falsely. Destructive actions (Report message, Mute or block sender, Export message data, Revoke CIA summary access, Delete CIA summary, Delete) are grouped at the bottom exactly as named in the spec's own Consent and Safety section — none invented beyond it. No bottom nav or FAB inside the sheet, per Figma Reference Alignment ('No owned bottom nav inside the sheet') — hasNav/hasFab both false. italicWord is 'actions', placed in the TopBar title exactly as the spec's Visual System names it ('one Tiempos italic emphasis moment: *actions*'), rendered as 'Message *actions*'. Accessibility: 44px minimum on reactions, action rows, media cards, Back, and Done; screen reader focus order is back, status pills, selected message, reactions, actions, media, Done, per spec Section 12."
+}

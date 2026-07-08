@@ -1,0 +1,70 @@
+{
+  "id": "68",
+  "name": "Universal Search",
+  "route": "No live route — global SearchOverlay opened over the current route.",
+  "shell": "dark",
+  "annotation": "Global SearchOverlay, no live route — a single fast lane into all nine domains and every screen. Autofocused GlassPillInput leads a chip SegmentedTabs row; one purple-glow CIAInsightCard (full evidence + BtnCoach/BtnGhost pair) is the dominant focal moment above three source-honest ListRow groups (Goals, Habits, Recipes) in SolidCards. No bottom nav — overlay covers the active route; Cancel is the only exit.",
+  "italicWord": "search",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar, dark shell: 9:41 time left, signal/Wi-Fi/battery right, paper-100 icons on #0A0A0F. No back chevron — the overlay's only exits are the Cancel text button and swipe-down dismiss."
+    },
+    {
+      "region": "search input",
+      "y": 56,
+      "h": 56,
+      "build": "GlassPillInput variant=search, .glass-pill, autofocus. Leading search glyph. Placeholder \"search everything\" — Newsreader Medium Italic on \"search,\" the screen's one italic-emphasis word. Trailing 44px clear \"x\" button (labeled \"Clear search\") + \"Cancel\" text button (labeled \"Cancel search\")."
+    },
+    {
+      "region": "category tabs",
+      "y": 120,
+      "h": 36,
+      "build": "SegmentedTabs, chip styling, single-select category scope, horizontal scroll. Items: All (active — --surface-3 bg, orange label), Goals, Habits, Recipes, + (more). Drops to 40% opacity only in the zero-results state (nothing to scope)."
+    },
+    {
+      "region": "cia insight card",
+      "y": 180,
+      "h": 152,
+      "build": "CIAInsightCard .glass-card + glow-cia, purple pool, breathing 4s cycle. Line \"CIA thinks you're looking for.\" [Habit] tag + title \"Morning mobility.\" Subtitle \"your usual Tuesday reset.\" Evidence row: ChipDomainTag [Fitness] + ChipProvenance \"based on 6 Tuesdays.\" BtnCoach \"Open routine\" + BtnGhost \"Not now\" (a11y: \"Dismiss suggestion\")."
+    },
+    {
+      "region": "goals results",
+      "y": 344,
+      "h": 120,
+      "build": "SectionHeader overline \"GOALS · 1 RESULT.\" SolidCard, 1 ListRow (56px min-height): title \"Run a 5k,\" ChipDomainTag [Fitness], metric 60% orange progress fill, ChipProvenance \"via Goals.\" Press: row scales .98, background shifts toward --surface-3, 150ms."
+    },
+    {
+      "region": "habits results",
+      "y": 472,
+      "h": 120,
+      "build": "SectionHeader overline \"HABITS · 1 RESULT.\" SolidCard, 1 ListRow: title \"10k steps,\" ChipDomainTag [Fitness], metric \"12-day streak\" (tabular-nums), ChipProvenance \"via Habits.\" Honest-null fallback (not shown here): \"Not enough data yet\" + chip \"no data yet.\""
+    },
+    {
+      "region": "recipes results",
+      "y": 600,
+      "h": 120,
+      "build": "SectionHeader overline \"RECIPES · 1 RESULT.\" SolidCard, 1 ListRow: title \"Post-run bowl,\" ChipDomainTag [Nutrition] (#84cc16), metric \"450 cal,\" ChipProvenance \"via saved recipes.\""
+    },
+    {
+      "region": "home indicator",
+      "y": 800,
+      "h": 44,
+      "build": "HomeIndicator, system default, dark-shell styling. No floating Today/CIA/Goals/Me pill here — the SearchOverlay covers the active route and suspends the persistent tab nav while open."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "Every result metric carries a ChipProvenance (\"via Goals,\" \"via Habits,\" \"via saved recipes\") or an honest-null/low-confidence label — no fabricated metrics.",
+    "CIAInsightCard evidence row (ChipDomainTag [Fitness] + ChipProvenance \"based on 6 Tuesdays\") explains why the suggestion surfaced; BtnGhost \"Not now\" (announces \"Dismiss suggestion\") lets the person reject it without deleting history.",
+    "Recent-search ChipChoice history (default/empty-query state, not this composed view): tap re-runs a stored query, long-press deletes one — supports the delete-recommendation-history consent rule.",
+    "Offline: server-dependent categories (Recipes, Community) are hidden rather than shown stale; local categories (Goals, Habits, Journal, Notes, Settings, Screens) stay searchable — never a dishonest \"may be outdated\" claim.",
+    "Glyph-only controls carry explicit screen-reader labels: \"Clear search,\" \"Cancel search,\" \"Fitness domain,\" \"Nutrition domain.\""
+  ],
+  "notes": "Composition shown is the spec's \"typing / live suggestions\" full-population state (CIA card + 3 result groups), not the cold-start default (10 recent ChipChoice, or first-use suggested-category chips) or the zero-result/error/offline/skeleton states — those are alternate States-section variants, not part of this composed default render. Route confirmed as no live route, global overlay; no bottom nav rendered because the overlay covers the active route (hasNav=false). Recipe provenance correctly reads \"via saved recipes,\" not \"via server\" (infra language a person wouldn't recognize as a source). Italic word resolved to \"search,\" appearing once inside the GlassPillInput placeholder \"search everything\" — the screen's single Newsreader/Tiempos italic-emphasis word; not fabricated elsewhere and not applied to the draft's mistaken \"*search*\" literal-asterisk form. Dropped the draft's standalone \"divider/spacer\" pseudo-module (not a cataloged component) and used it to add a HomeIndicator module instead, keeping modules at 8 while matching canon's status-bar + home-indicator-on-every-screen rule. Accessibility: paper-100 on --surface-2 #211008 computes to roughly 17.7:1 (AAA); paper-64% over the same surface roughly 7.7:1 (AAA); every ListRow, filter chip, and the clear/Cancel controls meet the 44px minimum touch target."
+}

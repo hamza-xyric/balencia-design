@@ -1,0 +1,85 @@
+{
+  "id": "85",
+  "name": "Obstacle coach",
+  "route": "/obstacles/[id]",
+  "shell": "dark",
+  "annotation": "HIFI-85 · /obstacles/[id] · dark shell with top-center orange radial glow",
+  "italicWord": "*coach*",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar: [<] back | Title: Obstacle *coach* | [...] overflow menu. Default state."
+    },
+    {
+      "region": "hero_card",
+      "y": 104,
+      "h": 142,
+      "build": "GlassCard r40: Overline 'OBSTACLE DIAGNOSIS'. H1 'Late meetings moved runs'. Caption '3 blockers | coach plan ready'. Purple left border glow for CIA synthesis."
+    },
+    {
+      "region": "section_label_blockers",
+      "y": 254,
+      "h": 28,
+      "build": "Overline uppercase 'DETECTED BLOCKERS'."
+    },
+    {
+      "region": "blocker_1",
+      "y": 286,
+      "h": 84,
+      "build": "SolidCard #211008. Chip [time] (orange 16% bg). H3 'Late meetings moved runs'. Caption 'evidence: 3 missed after 7 PM'. ChipProvenance [calendar history]. BtnGhost [dismiss]. Orange right accent glow."
+    },
+    {
+      "region": "blocker_2",
+      "y": 378,
+      "h": 84,
+      "build": "SolidCard #211008. Chip [food] (orange 16% bg). H3 'Protein target dipped'. Caption 'next step: prepped lunch'. ChipProvenance [nutrition logs]. Orange right accent glow."
+    },
+    {
+      "region": "cia_timing_card",
+      "y": 470,
+      "h": 100,
+      "build": "GlassCard. Overline 'CIA NEXT BEST TIMING'. H3 'Monday 8:10 AM has best odds'. ChipProvenance [schedule confidence · 4 comparable actions]. Purple glow."
+    },
+    {
+      "region": "cta_action",
+      "y": 578,
+      "h": 48,
+      "build": "BtnPrimary full-width: 'Start reconnection'. Orange glow."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "blocker_3",
+      "y": 634,
+      "h": 84,
+      "build": "SolidCard #211008. [energy] H3 'Afternoon energy dips'. Caption 'next step: 10 min walk'. ChipProvenance [check-ins]."
+    },
+    {
+      "region": "safety_card",
+      "y": 728,
+      "h": 110,
+      "build": "SafetyResourceCard: crisis/harm support. Never gamified. Solid surface, neutral border."
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "ChipProvenance opens Sheet: explains category, source, scope, freshness, retention, export, revoke, and delete.",
+    "Low-confidence CIA synthesis rendered in muted text with tag 'estimated · low confidence'.",
+    "[...] overflow menu contains 'Delete recommendation history' action."
+  ],
+  "notes": [
+    "Accessibility: hero announces diagnosis status, root cause confidence, blocker count, and next step.",
+    "All list targets and buttons enforce 44px minimum touch areas.",
+    "Disabled CTA state: if consent missing or offline, BtnPrimary dims to 40% opacity with explanatory text."
+  ]
+}

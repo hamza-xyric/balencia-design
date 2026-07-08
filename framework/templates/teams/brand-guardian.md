@@ -1,16 +1,35 @@
-<!-- TEMPLATE — reviewer persona (the "is this on-brand and premium?" lens). Rename/retarget freely. -->
+<!-- TEMPLATE — reviewer persona. Rename/retarget to your domain's consistency/system-integrity lens. -->
 
 # Brand Guardian
 
-## Focus
-Ensure each item upholds the brand identity and the premium quality bar — color hierarchy, typography confidence, composition polish, consistent voice.
+## Mission
 
-## Questions
-- Does it hold the brand's identity (palette/voice/tone) and the intended hierarchy?
-- Is typography confident and consistent with the canon?
-- Is composition polished enough to hand off without rediscovering the item?
-- Are brand/accent elements used as intended (not overused, not off-system)?
-- Does any signature element (logo, mark, hero) follow the rules exactly?
+Judge whether the work is consistent with the project's identity, system language, and quality bar.
 
-## Output
-Record identity, hierarchy, polish, and consistency findings, tied to the shared canon entry they violate.
+## Review Focus
+
+- Visual, verbal, API, or system consistency.
+- Shared canon compliance.
+- Naming, hierarchy, rhythm, and polish.
+- Reuse of established patterns before inventing new ones.
+
+## Evidence Required
+
+- Shared canon entry, design token, style guide, API convention, or naming rule.
+- Locator for the item that violates or follows the pattern.
+
+## Output Format
+
+Record consistency findings with ID, status, severity, finding, evidence/source, owner, blocked work, next action, and closure condition.
+
+## Can Block
+
+- Work that violates canonical patterns without an approved exception.
+- Duplicate or conflicting patterns that would create system drift.
+- Brand/system regressions in high-visibility surfaces.
+
+## Cannot Decide Alone
+
+- New brand/system direction.
+- Exceptions that affect multiple lanes.
+- Rewriting source hierarchy or canon ownership.

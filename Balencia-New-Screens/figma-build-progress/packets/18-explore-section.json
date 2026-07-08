@@ -1,0 +1,85 @@
+{
+  "id": "18",
+  "name": "Explore Section",
+  "route": "No live route; stack-pushed Explore catalog opened from Me Main [17].",
+  "shell": "dark",
+  "annotation": "Explore is Balencia's feature-discovery catalog: search and a suggested-for-you rail lead into a five-plus-domain ConstellationRadar hero, then domain sections and a more-features grid scroll below, all through selective glass with real/low-confidence/honest-null states — never a generic dashboard or a fabricated recommendation.",
+  "italicWord": "domains",
+  "hasFab": false,
+  "hasNav": true,
+  "imageSlots": [],
+  "belowFold": [
+    "Domain sections continuing below the fold: Nutrition and diet, Finance and money, Career and work, Relationships, Spirituality, Learning and growth, Creativity — same ChipDomainTag header + two-ModuleCard row pattern as Fitness and movement/Wellbeing, with locked Plus/Pro modules at 40% opacity plus lock glyph and tier word.",
+    "\"more features\" eyebrow + two-column ModuleCard grid for standalone tools: Journal, Habits, Calendar, Notes, Reminders, and other tools — no domain stat preview, honest-null by default.",
+    "Day 1 empty state: \"Explore what Balencia can help with.\" replaces the suggested rail; no lock icons, no visualizations, eyebrow reads \"Popular with Balencia.\"",
+    "Loading state: \"CIA is reading your domains - one moment.\" shown in place of the suggested rail while recommendations fetch."
+  ],
+  "trustControls": [
+    "ChipProvenance \"via recent activity\" on real suggested modules; low-confidence suggestions render muted with \"early read · low confidence\"; honest-null falls back to static \"Popular with Balencia\" cards — never an invented recommendation.",
+    "ConstellationRadar only draws when at least five domains are actually synced (real); low-confidence ghosts unsynced vertices; honest-null omits the radar and its heading entirely rather than drawing a fake shape.",
+    "Domain stat preview on ModuleCards: real shows 0-99 stat/level/XP progress; low-confidence shows dashed progress while sync is partial; honest-null renders a plain card with no stat preview at all.",
+    "Subscription lock badge (Plus/Pro) is entitlement-driven text-plus-lock-glyph, never color alone, and is fully hidden for users who already hold the required tier.",
+    "Search results: real = instantly filtered local catalog; server-backed rows carry \"may be outdated\"; true empty state reads \"no modules match this search. Try a different search.\" — never a blank screen.",
+    "OfflineBanner keeps the cached catalog navigable and marks server-backed suggestions/community modules stale rather than hiding or faking freshness.",
+    "Locked module tap routes to Paywall [43] with trigger context — never a dead tap, per the no-dead-end rule."
+  ],
+  "notes": [
+    "Route header must stay exactly \"No live route; stack-pushed Explore catalog opened from Me Main [17].\" — never invent a live route or vanity path.",
+    "ModuleCard and the ConstellationRadar mini variant are NEW components per source rationale: no catalog primitive covers a routable feature/domain tile with an optional lock, or a same-moment multi-axis domain recap at rail scale.",
+    "CIAInsightCard styling is reserved for recommendation rationale only — not applied to every suggested card, per source direction.",
+    "Reduced-motion path: no radar draw or stagger; domain sections render static and search changes apply instantly.",
+    "Skeleton: search, rail cards, radar axes, and module cards shimmer in final geometry, never a spinner-only placeholder.",
+    "Error: catalog remains fully navigable; failed suggestions silently fall back to \"Popular with Balencia\" rather than showing a broken rail.",
+    "Bottom tab bar stays visible with Me active — this is a stack push within the Me tab, not a modal takeover."
+  ],
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar, dark shell: time left, signal/wifi/battery right, paper-100 icons on #0A0A0F."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar, 44px back-chevron target, title \"explore\" (Hanken Grotesk, sentence case). No CIA glyph at header level — CIA involvement here is optional and scoped to the CIAInsightCard rationale further down, never a header-level claim."
+    },
+    {
+      "region": "search",
+      "y": 100,
+      "h": 56,
+      "build": "SearchInput glass-pill, placeholder \"search modules...\", trailing clear (x) at 44px target, screen-reader label \"Search modules\". Typing crossfades the catalog to filtered ModuleCards; true empty result reads \"no modules match this search. Try a different search.\""
+    },
+    {
+      "region": "suggested-rail",
+      "y": 156,
+      "h": 172,
+      "build": "Eyebrow \"suggested for you\" (fallback \"Popular with Balencia\" on Day 1 or AI failure). Horizontal ModuleCards: \"Journal\" badge \"start here\", \"Sleep\" badge \"suggested\", ChipProvenance \"via recent activity\". Low-confidence cards mute with \"early read · low confidence\"."
+    },
+    {
+      "region": "active-domains-hero",
+      "y": 328,
+      "h": 190,
+      "build": "GlassCard hero, heading \"Your active *domains*\" above a mini ConstellationRadar — real only when five or more domains are synced; low-confidence ghosts unsynced vertices; honest-null omits the whole card rather than faking a shape."
+    },
+    {
+      "region": "domain-fitness",
+      "y": 518,
+      "h": 172,
+      "build": "ChipDomainTag section header \"Fitness and movement\"; two ModuleCards \"Workouts\" and \"Yoga\" with dashed low-confidence progress, or an honest-null plain card when no stat exists yet."
+    },
+    {
+      "region": "domain-wellbeing",
+      "y": 690,
+      "h": 140,
+      "build": "Section header \"Wellbeing\"; two ModuleCards \"Journal\" and \"Habits\", clipped near the fold — remaining seven domain sections and the \"more features\" grid continue on scroll (see below-fold)."
+    },
+    {
+      "region": "nav-bar",
+      "y": 774,
+      "h": 70,
+      "build": "GlassNavBar, floating, pinned: Today · CIA · Goals · Me, Me segment active, 44px targets, overlaying the last visible catalog row per canon."
+    }
+  ]
+}

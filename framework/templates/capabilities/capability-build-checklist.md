@@ -9,7 +9,8 @@
 - **Trigger that prompted it**: <"did X a 3rd time" | "best practice Y exists, we lack it">
 
 ## Build loop
-- [ ] **Hunt** — 3+ independent best-practice sources gathered; agreements/disagreements noted.
+- [ ] **Find** — existing project skills and Skill Bank entries checked first; `OPS-04 Skill Finder` readiness brief captured when available.
+- [ ] **Hunt** — for any real gap, 3+ independent best-practice sources gathered; agreements/disagreements noted.
 - [ ] **Extract** — invariant steps, decision points, gates, and anti-patterns distilled.
 - [ ] **Templatize** — written from `templates/capabilities/<type>` (under ~500 lines; detail pushed into bundled files).
 - [ ] **Test** — run on a real scenario; worked example captured; under-specified spots fixed.
@@ -22,5 +23,5 @@
 - [ ] **Reusable across projects?** If yes, note it for plugin packaging (§C11.6); if no, make it so or scope it clearly.
 
 ## Record
-- Path: `<.claude/skills|commands|agents/...>`
+- Path: `<.claude/skills|commands|agents/...>` and/or `<.agents/skills/...>` / `<.codex/...>` for Codex
 - Memory fact written (capability learning): <link/id>

@@ -8,6 +8,8 @@
 
 Any **fail** forces `iterate` or `reject` regardless of rubric averages. These are the non-negotiables.
 
+Passing automated checks is necessary but not sufficient: if known drift, waivers, stale docs, or unresolved blockers remain, the handoff status must be `READY WITH WAIVERS` or `BLOCKED`, not clean `READY`.
+
 ## <Category 1 — e.g. Authenticity / brand>
 
 | Gate | FAIL if |
@@ -33,3 +35,5 @@ Any **fail** forces `iterate` or `reject` regardless of rubric averages. These a
 | Gate | FAIL if |
 |------|---------|
 | Element honesty | A visible control/element does nothing, fakes a result, or misrepresents state (must work, be honestly disabled, be clearly decorative, or have documented behavior). |
+| Evidence honesty | Work is marked done without current verification evidence, or old evidence is reused without saying so. |
+| Source honesty | Archived, superseded, or historical docs are treated as active truth. |

@@ -1,0 +1,61 @@
+{
+  "id": "13",
+  "name": "Goals List (Mission Board)",
+  "route": "/goals",
+  "shell": "dark",
+  "annotation": "Mission Board as cinematic focal instrument: the Board Summary Band (3 hero GlassStatCards + MomentumBar) is the singular above-fold focal moment; SegmentedTabs/filter chips and the data-bound ConstellationRadar sit as a quiet operational layer; the PINNED SolidCard mission list rounds out the record below. Every metric ships real (provenance chip), low-confidence (muted + \"estimated · low confidence\"), or honest-null — no fabricated streak spectacle. One FABQuickLog CTA; GlassNavBar persists.",
+  "italicWord": "whole",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, time 9:41, paper-100 icons over dark shell #0A0A0F + top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain. Fixed 44px, no copy."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent backdrop, shifts to .glass-pill on scroll. Left: 'your missions'. Right: ghost pills [journal] [filter], 44px targets. aria-label 'Open mission journal'; aria-label 'Filter by domain'."
+    },
+    {
+      "region": "board-summary-band",
+      "y": 100,
+      "h": 120,
+      "build": "3 GlassStatCards, glass-card hero anchor. Card1 '04' ACTIVE, sub '2h ago · SYNC', MomentumBar [##########] XP, glow-you orange #FF5E00. Card2 '12' DONE, sub '4h ago · you logged', glow-done green #34A853. Card3 '07d' STREAK, sub 'est · low conf', muted 64% opacity, no glow (low-confidence default state)."
+    },
+    {
+      "region": "filter-row",
+      "y": 224,
+      "h": 88,
+      "build": "SegmentedTabs ( active )( done )( all ). Filter Chips ( all )( life )( main )( side ) as ChipDomainTag, 16% bg. 44px targets."
+    },
+    {
+      "region": "constellation-radar",
+      "y": 316,
+      "h": 200,
+      "build": "GlassCard interactive, glow-cia purple #7F24FF (cross-pillar synthesis). Left 60%: ConstellationRadar data-bound polygon mapping domainStats. Right 40%: overline 'LIFE AREAS', caption '*Whole*-life map'."
+    },
+    {
+      "region": "mission-list",
+      "y": 520,
+      "h": 280,
+      "build": "SolidCard #211008, data-dense. Overline 'PINNED': row '[#] Morning Sunlight' ProgressRing; row '[#] Finalize Q3 Report' ProgressRing. Second unlabeled SolidCard: row '[#] Run 5K' ProgressRing; row '[x] Hydrate' ProgressRing complete, green. Body 15."
+    }
+  ],
+  "belowFold": [
+    "Mission list (SolidCard, PINNED + second card) continues scrolling below the four named rows; each additional row keeps ProgressRing + checkbox affordance with 80ms downward cascade stagger, no items cut off — only scrolled."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Active Count ChipProvenance: real reads '2h ago' + 'via missions sync'; low-confidence shows '04' muted 64% + 'estimated · low confidence'; honest-null reads '--' + 'Not enough data yet - 3 more days.'",
+    "Done Today ChipProvenance: real reads '4h ago' + 'you logged'; low-confidence shows '12' muted 64% + 'estimated · low confidence'; honest-null reads '--' + 'Not enough data yet - 3 more days.'",
+    "Streak tile ships its default low-confidence state on this composition: muted 64% opacity, 'est' / 'low conf' labels — no fabricated streak spectacle.",
+    "Source chips for category, source, scope, freshness, retention, export, revoke, and delete surface wherever mission data appears (Consent and Safety).",
+    "Empty (Day 1): 'No missions yet. Start with what matters most to you - CIA can help.' with BtnPrimary + 3 ChoiceCardFrost starters. Empty (Filtered): 'No missions here yet.'",
+    "Error/Offline: cached data kept, quiet ErrorState banner 'Couldn't load your missions - pull to refresh.'; pull-to-refresh disabled if fully offline; FAB and filter buttons drop to 40% opacity and lose glow when offline/syncing."
+  ],
+  "notes": "Motion: Board Summary Band draw-first left-to-right (250ms), radar draws in (250ms), mission cards cascade downward (80ms stagger); reduced-motion bypasses to static end-states, glows freeze at static luminosity. FAB aria-label 'Create new mission'; hides on downward scroll, reappears on upward scroll. Route strictly /goals — no alternate vanity route (Consent and Safety). Fonts: Hanken Grotesk (UI) + Newsreader Medium Italic (emphasis word) stand in for Neue Montreal/Tiempos. Visual System literally names '*board*' as the one italic word, but that never appears in any visible default-state copy string (only inside the 'Mission Board' screen alt-name / 'Board Summary Band' module label) — the Final Composition's own rendered copy carries the asterisks on 'Whole' ('*Whole*-life map'), so 'whole' is used as the actual emphasis word; flagged as spec drift for source correction."
+}

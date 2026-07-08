@@ -1,0 +1,71 @@
+{
+  "id": "90",
+  "name": "Progress measurements",
+  "route": "/progress",
+  "shell": "dark",
+  "annotation": "HIFI-90 · /progress · dark shell with top radial orange glow; TrendStageHero (GlassStatCard.hero) is the singular focal moment merging value + chart + metric tabs, keeping the trend calm and shame-free per canon's dense-content rule.",
+  "italicWord": "pace",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "9:41 status bar icons."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 52,
+      "build": "Title 'Progress' left. Icon add right (opens Add measurement sheet). Icon gear right (settings)."
+    },
+    {
+      "region": "segmented_tabs",
+      "y": 96,
+      "h": 36,
+      "build": "SegmentedTabs: 'Weekly' active, 'Monthly', 'Yearly locked (PaywallLock)'."
+    },
+    {
+      "region": "trend_stage_hero",
+      "y": 140,
+      "h": 366,
+      "build": "GlassStatCard.hero r40 glow-you orange. Overline 'WEIGHT TREND'. Display34 '176.4 lb'. Body15 'down 1.2 this month'. ChipProvenance 'via smart scale · Jul 6'. TrendChart 280h: axis 180/176/172, solid orange real line, dashed purple projection, green milestone dots, x-axis May Jun Jul. Metric tabs: Weight active, BMI, Measurements."
+    },
+    {
+      "region": "kpi_row",
+      "y": 514,
+      "h": 64,
+      "build": "KPIRow: 'BMI 24.8', 'Waist 33.1 in', 'Photos 4'. SyncStatus 'Last sync 2h ago'. Body goals embed text: 'Body goals: waist target 62%'."
+    },
+    {
+      "region": "photo_privacy_card",
+      "y": 586,
+      "h": 84,
+      "build": "ConsentCard SolidCard: 'Photos are private by default'. BtnPrimary 'Open'. BtnGhost 'Privacy'. HIFI-90-01 photo compare stays hidden until consent."
+    },
+    {
+      "region": "cia_insight",
+      "y": 678,
+      "h": 66,
+      "build": "CIAInsightCard glow-cia purple: 'CIA: weight changed alongside sleep. Keep the *pace* steady.'"
+    }
+  ],
+  "belowFold": [
+    "History list, y830 h120: ListRow 'History' title; ledger rows 'Jul 6', 'Jun 29', 'Jun 22' continue below the CIA insight card, no items cut off — only scrolled past the 844 fold."
+  ],
+  "imageSlots": [
+    "HIFI-90-01 progress photo compare placeholder (hidden until consent)"
+  ],
+  "trustControls": [
+    "Weight: real value with ChipProvenance date/source; low-confidence 'estimated · low confidence' for stale/imported data; honest-null 'Not enough data yet - 3 more days.'",
+    "BMI: calculated from height and weight; low-confidence if height or recent weight is missing; honest-null links to profile height.",
+    "Body measurements: manual source only — no fake inferred circumferences.",
+    "Photos: consented private media; upload pending state; no thumbnails shown in honest-null state; retention and backups labeled.",
+    "CIA: no causal claims without multi-signal evidence; premium trend windows and CIA body-pattern analysis use PaywallLock, generic preview unless consent and entitlement both exist.",
+    "Add sheet explains what is stored and how it can be deleted.",
+    "Photo privacy sheet: open, revoke access, delete selected photos, export, retention window, encrypted storage/backups, not used for model training, no human review by default, no default sharing.",
+    "Body language avoids shame, diagnosis, and moral scoring; health source chips link to revoke/delete provider data."
+  ],
+  "notes": "Chart-first focal stage; TrendStageHero merges value, chart, and metric tabs into one focal moment per spec. No revealing thumbnails pre-consent. CIA requires multi-signal evidence before any causal claim. Yearly trend and CIA body-pattern analysis use PaywallLock blur + single orange CTA, generic preview unless consent and entitlement both exist. TopBar add icon (not a FAB — none exists in spec) opens the Add measurement sheet, which locks units/source labels to avoid layout shift. Route stays /progress; /goals/body is not a live route — body goals remain an embed linking to the repaired Goals route later."
+}

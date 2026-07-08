@@ -1,0 +1,81 @@
+{
+  "id": "22",
+  "name": "Connected services",
+  "route": "/auth/whoop/callback, /calendar/connected",
+  "shell": "dark",
+  "annotation": "HIFI-22 · /auth/whoop/callback, /calendar/connected · dark shell with top radial orange glow",
+  "italicWord": "services",
+  "hasFab": false,
+  "hasNav": true,
+  "imageSlots": [],
+  "belowFold": [
+    "Remaining Wearables & Fitness IntegrationCards (4 more, SolidCard, generic 'Not connected' state) with honest 'Will sync: [scope]' copy and BtnSecondary outline 'Connect' pills — never BtnPrimary, preserving the single-primary-CTA rule; no invented service names beyond WHOOP/Apple Health/Fitbit named in source.",
+    "SectionHeader 'NUTRITION'; 3 IntegrationCards (SolidCard, 'Not connected' state) with 'Will sync: [scope]' honest copy and BtnSecondary 'Connect' pills — source specifies count only, no brand names, so none are fabricated.",
+    "SectionHeader 'PRODUCTIVITY'; 1 IntegrationCard 'Calendar', route target `/calendar/connected`, state 'Connected' (green completion glow), chip 'via Calendar', BtnGhost 'Sync' pill.",
+    "SectionHeader 'LIFESTYLE'; 1 IntegrationCard 'Spotify', badge '[ Not connected ]' (white 60%), body 'Will sync: listening context', BtnSecondary outline 'Connect' pill."
+  ],
+  "trustControls": [
+    "Category tag per section (Wearables & Fitness, Nutrition, Productivity, Lifestyle).",
+    "Source/provenance chip 'via [Service]' on every synced metric.",
+    "Scope stated explicitly before connecting, e.g. 'Will sync: steps, workouts'.",
+    "Freshness indicator, e.g. 'via WHOOP · 2m ago', on active syncs.",
+    "Retention, export, revoke, and delete controls reached via the action Sheet from each connected card's manage/disconnect flow — per spec's required category/source/scope/freshness/retention/export/revoke/delete chip set."
+  ],
+  "notes": [
+    "Exactly ONE BtnPrimary on the whole screen: Apple Health 'Connect'. Every other Connect action (remaining wearables, Nutrition, Spotify) renders as a BtnSecondary/outline pill; already-connected services (WHOOP, Calendar) use BtnGhost 'Sync' pills.",
+    "Fitbit's 'Sync pending' state uses this screen's own Data Honesty label 'offline · cached' (Metric 2, low-confidence), not the generic 'estimated · low confidence' wording.",
+    "All IntegrationCards use the SolidCard wrapper per the Components rationale (data-dense, honesty-critical rows) — never GlassCard.",
+    "No fabricated brand names: only WHOOP, Apple Health, Fitbit, Calendar, and Spotify are named in source; remaining wearable and nutrition rows use generic 'Will sync: [scope]' copy.",
+    "Floating GlassNavBar (Active: Me) overlays the bottom 70px throughout scroll; 44px touch targets maintained on all buttons."
+  ],
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar, dark mode, white icons on #0A0A0F."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 44,
+      "build": "Transparent, scroll-aware top bar fading to `.glass-pill` on scroll. Left: glyph-only icon, screen-reader label 'Close'. No title shown — H1 lives in Header below. Right: kept empty to preserve the focal-surface emphasis."
+    },
+    {
+      "region": "Header",
+      "y": 88,
+      "h": 44,
+      "build": "H1 Display 34px: 'Connected *services*' — *services* set in Newsreader Medium Italic, the screen's one emphasis word."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 132,
+      "h": 92,
+      "build": "Glass card. Subtle purple #7F24FF 20% inner glow. Label: 'CIA Coach Note'. Copy: 'Connecting services helps CIA see the fuller picture behind your effort and recovery.' BtnGhost 'Learn more' aligned bottom-right."
+    },
+    {
+      "region": "SectionHeader + IntegrationCard 1 (WHOOP)",
+      "y": 224,
+      "h": 140,
+      "build": "Overline 'WEARABLES & FITNESS' above first card. SolidCard #211008, orange #FF5E00 breathe glow (40%→60%, 4s, active flow). 'WHOOP', badge '[ Connected ]' (green). Body: 'Syncing: sleep, HRV, recovery'. Chip: 'via WHOOP · 2m ago'. BtnGhost 'Sync' pill (44px). SR: 'WHOOP, Connected, syncing sleep, HRV, recovery, last synced 2 minutes ago, double tap to manage'."
+    },
+    {
+      "region": "IntegrationCard 2 (Apple Health)",
+      "y": 364,
+      "h": 116,
+      "build": "SolidCard #211008, no glow (not connected). 'Apple Health', badge '[ Not connected ]' (white 60%). Body: 'Will sync: steps, workouts'. Chip: 'via Apple Health' (scope preview only). Sole BtnPrimary 'Connect' (#FF5E00, 44px) — the one primary CTA on this screen."
+    },
+    {
+      "region": "IntegrationCard 3 (Fitbit)",
+      "y": 480,
+      "h": 294,
+      "build": "SolidCard #211008, muted glow (low-confidence). 'Fitbit', badge '[ Sync pending ]' (white 60%). Body: 'Auto-retrying in background'. Chip: 'offline · cached' (muted) per this screen's Data Honesty spec. No CTA — auto-retry only. Bottom edge fades toward the floating nav, hinting at more wearables below."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 774,
+      "h": 70,
+      "build": "GlassNavBar, floating pill, pinned: Today · CIA · Goals · Me, Me segment active, 44px targets, overlaying the last visible IntegrationCard per canon."
+    }
+  ]
+}

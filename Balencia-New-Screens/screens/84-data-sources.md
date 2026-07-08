@@ -1,0 +1,162 @@
+# 84. Data sources
+
+## 1. Header
+- **Screen ID:** 84
+- **Name:** Data sources
+- **Route(s) covered:** No live route; provider-neutral data sources hub opened from Connected Services, Intelligence, Knowledge Graph, or Me settings.
+- **Tab:** Me
+- **Source:** Balencia integrations layer + CIA correlation engine
+- **Batch:** 12
+
+## 2. Purpose
+Establish trust by exposing connection health and provenance. Visualizes how disparate variables connect to form CIA insights. 
+*Correction on brief:* Replaced "Connect data source" CTA copy with "Connect source" to fit native mobile button width constraints and preserve 1:1 translation with the header.
+
+## 3. Entry & exit
+**Entry:** Me [17] · Connected Services [22] · Intelligence Dashboard [48] · Knowledge Graph [72] · CIA Chat [09].
+**Exit:** Tap "Connect source" → Provider Picker [22] (Sheet). Tap source → Source detail (Sheet). Tap correlation → Correlation detail (Sheet to [72]/[48]). Back chevron → Origin.
+
+## 4. Layout anatomy
+**Top-to-bottom:** 
+1. Atmosphere & Top Bar.
+2. Correlation Engine (Hero glass).
+3. Connected Sources (Solid cards).
+4. Detected Correlations (Solid matrix).
+5. Source Health Note (Glass).
+6. Fixed CTA & Floating Nav.
+
+```text
+[ 390x844 Native Frame ]
+┌─────────────────────────────────────────┐
+│ ░░░░░░░ (Warm Orange Atmosphere) ░░░░░░░ │
+│ ‹ Back                       Data sources│ <- TopBar
+│                                         │
+│ ┌─────────────────────────────────────┐ │
+│ │ Correlation engine                 (│ │ <- Hero GlassCard
+│ │ Every source becomes a *signal*,   (│ │    (Purple CIA Glow)
+│ │ not clutter.                       (│ │
+│ │ │Live sources│ │Patterns detected│ (│ │
+│ │  2 active      3 detected         (│ │
+│ └─────────────────────────────────────┘ │
+│                                         │
+│ CONNECTED SOURCES                       │
+│ ┌─────────────────────────────────────┐ │
+│ │ ▣ WHOOP           Healthy    8m ago  │ │ <- SolidCard
+│ │   Recovery, Strain     [via WHOOP]   │ │    (Orange Glow)
+│ ├─────────────────────────────────────┤ │
+│ │ ▣ Spotify         Needs att... Reconn│ │ <- SolidCard Error
+│ │   Music context        [sync failed] │ │    (Green Recovery Glow)
+│ └─────────────────────────────────────┘ │
+│                                         │
+│ DETECTED CORRELATIONS                   │
+│ ┌─────────────────────────────────────┐ │
+│ │ Sleep affects tempo pace            │ │ <- SolidCard
+│ │ [Sleep] → [Music]                   │ │
+│ │ ▮▮▮▮▮▮░░░░ reinforcing              │ │
+│ │ based on 14 synced days of WHOOP... │ │
+│ ├─────────────────────────────────────┤ │
+│ │ Calendar density stress             │ │
+│ │ [Work] → [Wellbeing]                │ │
+│ │ ▮▮▮▮▮▮▮▮░░ competing                │ │
+│ │ early signal — based on 5 days      │ │
+│ └─────────────────────────────────────┘ │
+│                                         │
+│ ┌─────────────────────────────────────┐ │
+│ │ ⚠ Unhealthy sources are checked...  │ │ <- GlassCard
+│ └─────────────────────────────────────┘ │
+│                                         │
+│        (Connect source BtnPrimary)      │
+│         (Today · CIA · Goals · Me)      │
+└─────────────────────────────────────────┘
+```
+
+## 5. Components
+- **TopBar** (Transparent over atmosphere).
+- **GlassCard** (Hero & Health Note).
+- **SolidCard** (Sources & Correlations - data density beats atmosphere).
+- **KPIRow** (Live sources & patterns detected).
+- **ListRow** (WHOOP & Spotify health rows).
+- **NEW: CorrelationRow** (Wraps domain tags, purple strength bar, and confidence meter into a SolidCard. One-line rationale: standardizes N×N matrix data into a compliant, scrollable mobile format without breaking 44px touch targets).
+- **ChipProvenance** & **ChipDomainTag**.
+- **BtnPrimary** (Connect source).
+- **GlassNavBar**.
+
+## 6. Visual treatment
+- **Hero GlassCard**: `.glass-card` with `--glow-cia` (#7F24FF). Meaning: CIA intelligence and cross-domain AI synthesis.
+- **WHOOP SolidCard**: Solid `--surface-2` with `--glow-you` (#FF5E00). Meaning: User's live, active effort streaming successfully.
+- **Spotify SolidCard**: Solid `--surface-2` with `--glow-done` (#34A853). Meaning: Action needed to *recover* and complete the connection (no red/green moralizing, green represents the fix).
+- **Health Note GlassCard**: `.glass-card` with `--glow-done` (#34A853). Meaning: Safety, stability, and baseline integrity.
+- **Hero type moment**: "*signal*" in Tiempos Medium italic within the Hero H1.
+
+## 7. Content & copy
+- **H1**: Data sources
+- **Hero Overline**: Correlation engine
+- **Hero Body**: Every source becomes a *signal*, not clutter.
+- **ListRow 1 Title**: WHOOP
+- **ListRow 1 Caption**: Synced 8 minutes ago
+- **ListRow 2 Title**: Spotify
+- **ListRow 2 Caption**: Reconnect Spotify to keep music context fresh.
+- **Section 2 Header**: Detected correlations
+- **Health Note**: Unhealthy sources are checked before CIA uses them.
+- **CTA**: Connect source
+
+## 8. Data & honesty states
+Every metric mapped to 3 states:
+- **Metric: Live sources**
+  - *Real:* "2 active" (Provenance: `integrations layer`)
+  - *Low-confidence:* N/A (count is strictly binary/factual)
+  - *Honest-null:* "0 live sources" (`estimated · low confidence` hidden)
+- **Metric: Detected patterns**
+  - *Real:* "3 detected" (Provenance: `LIFE_CORRELATION_MATRIX.md`)
+  - *Low-confidence:* "Early signal" (Provenance: `based on 5 days`)
+  - *Honest-null:* "Connect your first source to begin analyzing patterns."
+- **Metric: Sync timestamp**
+  - *Real:* "Synced 8 minutes ago" (Provenance: `via WHOOP`)
+  - *Low-confidence:* "Showing last synced data — offline." (Value visually muted to 64% opacity).
+  - *Honest-null:* "Needs attention" (Provenance: `sync failed`)
+- **Metric: Correlation strength**
+  - *Real:* "based on 14 synced days of WHOOP + Calendar"
+  - *Low-confidence:* "early signal — based on 5 days"
+  - *Honest-null:* "window pending"
+
+## 9. All states
+- **Default**: Live data rendering with provenance chips.
+- **Skeleton**: Shimmer blocks (`--surface-3` base, 1.2s sweep) match matrix and row geometry. Axes render as ghost lines.
+- **Empty (Cold Start)**: Hero invites connection. Matrix renders as ghosted dashed cells. No purple `glow-cia` present.
+- **Error (Failed Sync)**: Failed source explicitly named. Copy provides action ("Couldn't load Spotify health check — pull to refresh"). Error glyphs are paper-64%, absolutely no red text.
+- **Success**: Brief green flash (BtnSuccess logic) on the refresh icon. Auto-dismiss 2.5s.
+- **Disabled**: CTA locked at 40% opacity if no OAuth providers are available.
+
+## 10. Motion & interaction
+- **Physical easing**: Standard iOS spring `spring(stiffness: 300, damping: 30)`.
+- **Feedback**: Tap scale `.98` on ListRows and Cards (150ms).
+- **Glow behavior**: `--glow-cia` breathes (4s ease) only when patterns are actively displaying. Remains static if 0 patterns exist.
+- **Matrix draw**: Purple correlation strength bars physically rise (transform scaleX) from left to right over 250ms on viewport entry.
+- **Haptics**: Light impact on successful manual refresh.
+- **Reduced motion**: All draws scale to 100% instantly. Glows cease breathing. Matrix cells cross-fade instantly without horizontal scaling.
+
+## 11. Motivation-tier adaptation
+- **Low density**: Only shows the "Correlation engine" Hero and the Connected Sources list. Matrix is hidden behind a BtnGhost ("See patterns").
+- **Medium density**: Hero + Sources + Top 2 strongest Detected Correlations.
+- **High density**: Full N×N matrix rendered as an interactive grid on screen, prioritizing cross-domain visualization over individual source health cards.
+
+## 12. Accessibility
+- **AA+ Contrast**: Text strictly uses paper-100 (#FEFAF3) or paper-64% on dark warm surfaces. No paper-40% for essential copy.
+- **Targets**: All ListRows, matrix cells, and the back button exceed 44x44px minimum touch targets.
+- **Screen-reader**: Glyph-only status icons (Healthy, Needs attention) have `aria-labels` (e.g., "Connection healthy", "Connection requires attention").
+
+## 13. Premium checklist
+1. **Connects**: Yes, physically maps WHOOP + Calendar to CIA intelligence. 
+2. **Honest**: Yes, uses explicit provenance chips and drops to 64% opacity offline. Never fabricates matrix data.
+3. **Premium**: Yes, uses selective glass, signature semantic glows, and Tiempos italic accents.
+4. **One primary CTA**: "Connect source" is the single BtnPrimary.
+5. **60/30/10 color**: Orange for user/live data, Green for completion/recovery, Purple strictly for CIA insights.
+6. **One Tiempos italic**: "*signal*".
+7. **Selective glass**: SolidCards used for dense matrix/lists; GlassCards reserved for hero/notes.
+8. **One hero type moment**: Handled gracefully via italic emphasis over scaling.
+9. **AA+ contrast**: Validated across all dark warm surfaces.
+10. **Glow meaning**: CIA glow = AI synthesis. Orange = user effort. Green = required recovery.
+11. **No flat black**: Base is `#0A0A0F` with warm grain.
+12. **Tab bar**: Present, correctly indexes "Me".
+13. **Safety**: Source health note calms anxiety about bad data.
+14. **Motion**: Draw animations strictly use transforms, respecting `prefers-reduced-motion`.

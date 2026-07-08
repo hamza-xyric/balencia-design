@@ -1,7 +1,11 @@
 <!-- TEMPLATE — How to use (FRAMEWORK.md move A2 · Equip → §C11.2):
-  A Skill teaches the model a reusable METHOD it loads on demand. Place at:
+  A Skill teaches the model a reusable METHOD it loads on demand.
+  Claude Code placement:
     .claude/skills/<name>/SKILL.md   (project, shared via git)   OR
     ~/.claude/skills/<name>/SKILL.md (personal, all projects)
+  Codex placement:
+    .agents/skills/<name>/SKILL.md   (repo, shared via git)      OR
+    ~/.agents/skills/<name>/SKILL.md (personal, all projects)
   The directory may also hold reference.md / examples.md / scripts/ that load ON DEMAND
   (progressive disclosure) — keep SKILL.md under ~500 lines.
   THE `description` IS THE TRIGGER: write WHEN to use it + the words users actually say.
@@ -21,6 +25,8 @@ description: <What it does>. Use when <the situations + the exact phrases users 
 # <Skill Name>
 
 <One line: the expertise/method this skill encodes, and the bar it holds.>
+
+For a dual-harness workflow, keep the detailed workflow in `runbooks/<name>.md` and make both the Claude skill/command and Codex skill point to that file.
 
 ## When to use
 - <trigger situation 1>

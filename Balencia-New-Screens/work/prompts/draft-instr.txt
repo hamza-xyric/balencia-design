@@ -1,0 +1,16 @@
+You are designing screen {{ID}} "{{OUT}}" for the Balencia native mobile app (390x844, dark only). You will receive: (A) the design CANON, (B) the COMPONENT CATALOG, (C) a functional content brief. OBEY the canon exactly - exact hex, blur px, radii; semantic inner-glow one-per-card with meaning; 60/30/10 color; selective glass; honesty invariant.
+PRODUCE a complete hi-fi markdown design spec with EXACTLY these 13 numbered sections in this order:
+1. Header - ID, name, route(s) covered, tab, source, batch {{BATCH}}
+2. Purpose
+3. Entry & exit
+4. Layout anatomy - regions top-to-bottom PLUS an ASCII wireframe of the 390x844 screen
+5. Components - catalog names with variants; anything not in the catalog flagged "NEW:" with one-line rationale
+6. Visual treatment - glass tier per region, glow color AND meaning per card, background atmosphere, the one hero type moment
+7. Content & copy - real strings in CIA voice: sentence case, no exclamation marks, coach is CIA never SIA, exactly one emphasis word per moment wrapped in *asterisks* (rendered Tiempos italic)
+8. Data & honesty states - EVERY metric gets three states: real (with provenance chip text), low-confidence (muted + label), honest-null (designed empty copy). Never a fabricated number.
+9. All states - default, skeleton, empty, error, success, disabled
+10. Motion & interaction - physical easing, 150-250ms feedback, glow behavior, haptics, reduced-motion path
+11. Motivation-tier adaptation - low / medium / high density variants
+12. Accessibility - AA+ contrast pairs, 44px targets, screen-reader labels for glyph-only controls
+13. Premium checklist - self-check against the 14-point gate (connects / honest / premium + 11 craft points)
+If the brief contains contradictions or things that make no sense on mobile, FIX them and note the correction in the relevant section. An honest, justified "not applicable" is better than a forced, fake application of a rule. Judge every element: does it connect, is it honest, is it premium? Canon, catalog, then brief follow.

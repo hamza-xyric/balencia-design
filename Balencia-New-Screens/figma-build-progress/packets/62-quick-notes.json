@@ -1,0 +1,76 @@
+{
+  "id": "62",
+  "name": "Quick notes",
+  "route": "/quick-notes",
+  "shell": "dark",
+  "annotation": "HIFI-62 · /quick-notes · dark shell (#0A0A0F) + top-center amber radial glow; the ChatComposer is the dominant, visually singular focal moment above GlassNavBar — archive summary, domain filters, and day-grouped NoteCards stay quiet, legible, and source-specific beneath it. Every sparkline, tag count, word count, and CIA attribution renders as real, low-confidence, or honest-null; SafetyResourceCard stays reachable and CIA is never labelled SIA.",
+  "italicWord": "notes",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System status bar, dark bg #0A0A0F."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Back target 44px L. Title 'Quick *notes*' (Display/H1, Newsreader Medium Italic on 'notes'). Right: 'ask CIA' ghost action, 44px target, contextual — shown only when CIA holds a synthesized read."
+    },
+    {
+      "region": "Archive Summary",
+      "y": 100,
+      "h": 120,
+      "build": "SolidCard #211008 r28. Overline 'captured this month'. TrendChart: solid orange #FF5E00 sparkline (real). Label '12 this week' (H3 20) + ChipProvenance 'derived locally'; low-confidence dashes the trailing segment 'sync pending'; honest-null hides the sparkline, reads 'your capture activity will appear here'."
+    },
+    {
+      "region": "Filter Row",
+      "y": 220,
+      "h": 44,
+      "build": "Horizontal ChipDomainTag row: '[mood]' (green 16% bg), '[health]' (orange 16% bg), '[workout]' (orange 16% bg), '[idea]' (purple 16% bg); 44px targets; canonical domain colors only."
+    },
+    {
+      "region": "Today Notes",
+      "y": 264,
+      "h": 172,
+      "build": "SectionHeader 'Today'. NoteCard (glass r24, white 4.5%/8%): 'Felt a sharp pain in my left knee...' [health tag], '12 min ago', ChipProvenance 'you logged'. NoteCard (purple #7F24FF breathing glow, CIA-sourced): 'CIA noted: work stress mentioned...' [mood tag], '1 hr ago', ChipProvenance 'derived from chat'."
+    },
+    {
+      "region": "Yesterday Notes",
+      "y": 436,
+      "h": 96,
+      "build": "SectionHeader 'Yesterday'. NoteCard (glass r24): 'Hydrated well after lunch.' [nutrition tag], 'Mon', ChipProvenance 'you logged'; swipe left exposes delete/tag actions at 60% card-width commit threshold."
+    },
+    {
+      "region": "ChatComposer",
+      "y": 692,
+      "h": 56,
+      "build": "ChatComposer fixed above GlassNavBar, glass pill r28, keyboard-safe, fixed height: placeholder 'what's on your mind.'; mic with VoiceMicGlow; circular send scales to .98 for 150ms then spins during save; dims to 40% opacity until text or voice input exists; reads 'Save note'."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 68,
+      "build": "GlassNavBar floating pill (dark glass, white 4.5% fill, border white 8%, r40): 'Today', 'CIA', 'Goals', 'Me' — 44px targets; no tab forced active since the source does not specify an entry context."
+    }
+  ],
+  "belowFold": [
+    "Older days (additional SectionHeaders + NoteCards before Yesterday) continue scrolling beneath, same honesty and provenance rules, loaded behind depth-preserving skeleton shimmer while fetching.",
+    "Search/filter empty state: HonestNullState explains the query or tag has no matching notes without clearing the underlying note archive.",
+    "Sheet (half variant): global quick-capture sheet reachable from elsewhere in the app, feeding new notes directly into this same Today list."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Weekly capture sparkline: real = solid orange line with '12 notes this week' and ChipProvenance 'derived locally'; low-confidence dashes the trailing segment with 'sync pending'; honest-null hides the sparkline and reads 'your capture activity will appear here'.",
+    "Tag distribution chips: real = exact count such as '4 health' with ChipProvenance 'you logged'; low-confidence mutes the count to 'about 4 health' while auto-tagging is pending; honest-null hides the count and the empty filter state explains no notes match.",
+    "Note word count: real = '45 words' surfaced only in high-motivation metadata with ChipProvenance 'parsed locally'; never shown as a fabricated estimate otherwise.",
+    "CIA-sourced NoteCards carry ChipProvenance 'derived from chat' and a breathing purple #7F24FF edge glow (4s loop, static under reduced motion); labelled CIA, never SIA.",
+    "Tapping any ChipProvenance opens a source sheet: category, source, scope, freshness, retention, export, revoke, delete.",
+    "SafetyResourceCard stays reachable for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments; privacy-first language throughout.",
+    "Send (44px), mic (44px), note rows, swipe actions, chips, and the 'ask CIA' action all meet the 44px minimum; screen reader: send reads 'Save note', mic reads 'Record voice note', sparkline summarizes weekly count and direction; offline/cached states carry text labels, never color alone."
+  ],
+  "notes": "Shell: bg #0A0A0F, top-center amber radial glow rgba(255,94,0,.18), grain 3-4%. Skeleton: summary sparkline and note rows use depth-preserving shimmer; composer stays usable. Empty: composer auto-focuses, filters hide, empty prompt centers under the summary area. Search empty: HonestNullState explains the query/tag has no notes without clearing the archive. Error: save error keeps typed text intact, shows a retry affordance. Success: new note slides in from the top of Today over 220ms physical easing, tags shimmer briefly, saved glow resolves to neutral. Offline: notes queue locally behind an orange cloud chip; archive summary labels the data 'cached'. Disabled: send button sits at 40% opacity until text or voice input exists. Reduced motion: card insertions crossfade, sparkline draws instantly, CIA glow stays static. Contrast: paper text on glass and solid surfaces meets AA+; cached/offline states carry text labels, never color alone."
+}

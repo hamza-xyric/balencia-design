@@ -1,2 +1,0 @@
-export { MindfulnessRecommendation } from "./MindfulnessRecommendation";
-

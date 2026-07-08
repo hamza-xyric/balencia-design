@@ -1,0 +1,75 @@
+{
+  "id": "17",
+  "name": "Me Main",
+  "route": "/profile",
+  "shell": "dark",
+  "annotation": "HIFI-17 · /profile · dark shell, top-center amber radial glow + purple CIA accent (discovery card, below fold)",
+  "italicWord": "meditation",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar, 9:41, battery icons."
+    },
+    {
+      "region": "top-bar",
+      "y": 44,
+      "h": 44,
+      "build": "Glass top bar, no page title (floating header). Right-aligned: 44px settings glyph, 44px search glyph. 44px min targets."
+    },
+    {
+      "region": "profile-anchor",
+      "y": 88,
+      "h": 240,
+      "build": "Glass card r28, glow-you (orange) ambient card glow — reflects member progression. Top center: AvatarUploader (avatar image, 44px target, camera glyph). Name: 'Hamza'. Overline: 'level 14'. Caption: 'dedicated explorer'. Below: ProgressBar (orange #FF5E00 glow, left-to-right) '2,450 / 5,809 XP'. Caption: 'member since May 2026'. ChipProvenance: 'via profile'."
+    },
+    {
+      "region": "kpi-row",
+      "y": 328,
+      "h": 80,
+      "build": "Solid #211008 KPIRow, 4 stats. 1: '42' 'day streak'. 2: '12' 'completed'. 3: '487' 'Life Power'. 4: '8,450' 'total XP'. Count-up on load. ChipProvenance: 'synced 2m ago'."
+    },
+    {
+      "region": "life-power-composition",
+      "y": 408,
+      "h": 176,
+      "build": "Solid #211008 card r24. Header: 'Composed of' (body 15) + ghost pill 'see all 10'. Row 1: 'Fitness' ProgressBar orange '74'. Row 2: 'Wellbeing' ProgressBar orange '62'. Row 3: 'Career' ProgressBar orange '55'."
+    },
+    {
+      "region": "quick-links",
+      "y": 584,
+      "h": 172,
+      "build": "Solid QuickLinkCard grid, 2 columns x 3 rows (5 cards, last row single). 1: 'Mission journal' '18 entries'. 2: 'Book of life' 'what CIA knows'. 3: 'Connected apps' '3 connected'. 4: 'Progress photos' '24 photos'. 5: 'Achievements' '31 earned'. Cards scale to .98 on tap, push destination."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating nav pill: 'Today', 'CIA', 'Goals', 'Me' — active 'Me' orange fill, 44px targets. Standard iOS home indicator bar docked beneath it."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "cia-discovery",
+      "y": 756,
+      "h": 180,
+      "build": "Glass CIAInsightCard (purple #7F24FF glow). Header: 'suggested for you'. Text: 'grow your *meditation*' (Newsreader Medium Italic — the screen's one emphasis word). Ghost pill CTA: '->'. ChipProvenance: 'via recent activity'."
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "category: identity & progression data",
+    "via profile",
+    "synced 2m ago",
+    "via recent activity",
+    "scope: identity",
+    "retention: member lifetime",
+    "export: available",
+    "revoke: settings",
+    "delete: account"
+  ],
+  "notes": "Skeleton: avatar, XP bar, stats, ProgressBars, and cards shimmer in final geometry. Empty: level 1, no XP, ghosted domain bars, starter quick-link subtitles (e.g. 'no entries yet'). Success: pull-to-refresh shows 'Stats refreshed.' Disabled: pull-to-refresh and photo upload dim 40% while offline/permission-blocked. Error: scoped ErrorState in failed modules, cached data remains. Offline: OfflineBanner, dimmed photo upload, staleness label on stats. Reduced-motion: stat count-ups snap, progress bars draw instantly, quick links do not stagger, avatar ring does not pulse. Italic word corrected to 'meditation' (in the CIA discovery line 'grow your meditation') — the Visual System section's named word 'main' never appears anywhere in the spec's visible copy or Final Composition (confirmed against source screens/17-me-main.md); 'meditation' is the screen's one real CIA-voice moment, matching the drift-resolution pattern already used in HIFI-06 ('look' over 'preview') and HIFI-42 ('consistency' over 'overlay')."
+}

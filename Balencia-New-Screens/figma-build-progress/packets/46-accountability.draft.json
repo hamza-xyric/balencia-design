@@ -1,0 +1,104 @@
+{
+  "id": "46",
+  "name": "Accountability",
+  "route": "no route · legacy surface",
+  "shell": "dark",
+  "annotation": "HIFI-46 · no route · dark shell with top orange radial glow",
+  "italicWord": "*accountability*",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar, time left, signals right."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 52,
+      "build": "Back chevron left · H1 'Accountability' 30px · subline Body 15 'Consent: configure what partners see'."
+    },
+    {
+      "region": "ConsentCard",
+      "y": 104,
+      "h": 68,
+      "build": "Glass card r28. Caption Overline 11 uppercase 'Privacy gateway'. Body 15 'Master consent pending'. Toggle switch right, default off. Accent: orange #FF5E00 glow on toggle when on."
+    },
+    {
+      "region": "SegmentedTabs",
+      "y": 184,
+      "h": 44,
+      "build": "Pill segmented · 'Partners' active (orange underline) · 'Contracts' · 'Triggers' ghost."
+    },
+    {
+      "region": "ListRow partner 1",
+      "y": 244,
+      "h": 64,
+      "build": "Solid #211008. Label H3 20 'Sarah K' · Body 15 'coach' · Caption 12 muted 'motivation, failure'. Provenance chip: 'category: social · source: accepted · scope: limited'."
+    },
+    {
+      "region": "ListRow partner 2",
+      "y": 316,
+      "h": 64,
+      "build": "Solid #211008. Label H3 20 'Ahmed M' · Body 15 'buddy' · Caption 12 muted 'motivation, failure'. Provenance chip: 'category: social · source: accepted · scope: limited'."
+    },
+    {
+      "region": "ListRow partner 3",
+      "y": 388,
+      "h": 64,
+      "build": "Solid #211008. Label H3 20 'Lisa' · Body 15 'mentor' · Caption 12 muted 'emergency contact'. Provenance chip: 'category: safety · source: accepted · scope: critical'."
+    },
+    {
+      "region": "BtnPrimary add partner",
+      "y": 468,
+      "h": 48,
+      "build": "Glass button r24. Label '+ add partner'. Accent: orange #FF5E00 fill."
+    },
+    {
+      "region": "Contracts header",
+      "y": 528,
+      "h": 28,
+      "build": "Overline 11 uppercase 'Contracts'."
+    },
+    {
+      "region": "ContractCard",
+      "y": 560,
+      "h": 96,
+      "build": "Glass r28. H3 20 'Run 3x/week'. MomentumBar 80% fill, green #34A853 glow. Caption 12 '8 kept · 2 open · CIA nudge ready'. Provenance chip: 'source: signed · freshness: live'."
+    },
+    {
+      "region": "Triggers row",
+      "y": 668,
+      "h": 64,
+      "build": "Solid #211008. Body 15 'missed check-in -> nudge'. Toggle right, on, purple #7F24FF glow. Provenance chip: 'source: active rule'."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "CIAInsightCard",
+      "y": 744,
+      "h": 120,
+      "build": "Glass r28. H3 20 'CIA review'. Body 15 'Suggested contracts and nudge preview available'. Overline 11 purple 'synthesis'."
+    },
+    {
+      "region": "SafetyResourceCard",
+      "y": 872,
+      "h": 100,
+      "build": "Solid #211008. H3 20 'Crisis support'. Body 15 'Emergency contact: Lisa'. Caption 12 'Crisis rules apply · not gamified'."
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "category",
+    "source",
+    "scope",
+    "freshness",
+    "retention",
+    "export",
+    "revoke",
+    "delete"
+  ],
+  "notes": "Partners tab is default active. Contract card taps open detail sheet. Trigger toggle asks consent before partner notify. All metrics use real provenance or honest-null. Emergency surfaces stay flat, no streaks."
+}

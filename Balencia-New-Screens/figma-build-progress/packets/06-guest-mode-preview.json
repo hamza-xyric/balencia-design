@@ -1,0 +1,75 @@
+{
+  "id": "06",
+  "name": "Guest Mode Preview",
+  "route": "No live route; pre-auth guest preview handoff from the account entry flow.",
+  "shell": "dark",
+  "annotation": "HIFI-06 · no route · dark shell + top orange glow & purple CIA mesh",
+  "italicWord": "look",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Status bar (time, signal, battery)."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 52,
+      "build": "Transparent top bar. Back chevron (left), no trailing glyphs. Balencia symbol mark (centered, 28px)."
+    },
+    {
+      "region": "hero_copy",
+      "y": 96,
+      "h": 90,
+      "build": "Display 34: 'take a *look* around' (1 Tiempos italic emphasis word). Body-light 16: 'tell us your name and pick a few areas you care about.'"
+    },
+    {
+      "region": "name_input",
+      "y": 190,
+      "h": 56,
+      "build": "GlassPillInput text variant. Placeholder: 'your name'. Focus = 1px orange border + subtle orange glow. 44px touch target."
+    },
+    {
+      "region": "constellation_radar",
+      "y": 250,
+      "h": 236,
+      "build": "ConstellationRadar in FrostCard r40 (glow-cia purple mesh). Empty state: quiet dot glyph, no nodes, copy 'pick a few areas to see your map.' Once 1+ node lights, persistent ChipProvenance 'demo · illustrative' (never omitted)."
+    },
+    {
+      "region": "chip_grid",
+      "y": 486,
+      "h": 184,
+      "build": "Overline caps: 'life areas' + counter '(0 selected)'. 3x3 grid ChipDomainTag: Fitness, Nutrition, Mental, Finance, Career, Relationships, Spirituality, Learning, Creativity. All unselected (domain 16% tint), 44px touch target wrapping ~36px visual pill."
+    },
+    {
+      "region": "primary_cta",
+      "y": 670,
+      "h": 52,
+      "build": "BtnPrimary: 'Explore'. Disabled (40% opacity) is the default/cold-start state; requires 1+ name char and 1 selected chip to reach full opacity."
+    },
+    {
+      "region": "escape_hatch",
+      "y": 722,
+      "h": 44,
+      "build": "BtnGhost: 'Already have an account? Sign in', orange #FF5E00 label (6.4:1 contrast on --surface-1)."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "Radar carries persistent ChipProvenance 'demo · illustrative' once 1+ node is lit - never omitted, so the preview can't be mistaken for a real Life Power reading.",
+    "Cap-reached error: 4th chip tap triggers 150ms shake on the tapped chip + toast 'pick up to 3 areas.' - the chip doesn't select; the other 3 stay selected.",
+    "Network/init failure: quiet ErrorState banner above the CTA - 'couldn't start your preview - check your connection' + BtnSecondary 'retry.'",
+    "Loading: BtnPrimary label swaps to spinner only (width locked) - no literal 'Loading' text, per the catalog's BtnPrimary loading spec."
+  ],
+  "notes": [
+    "No ConsentCard: screen captures only a display name and non-health category preferences - CANON 8's consent trigger doesn't fire here; justified omission, not an oversight.",
+    "Accessibility: chip touch targets use invisible 44px padding (visual pill stays ~36px) to hit the iOS HIG / WCAG floor without disrupting the dense 3x3 grid.",
+    "Accessibility debt (documented, not silently passed): BtnPrimary's paper-50-on-orange label computes to 3.0:1 - clears the 3:1 large-text/UI floor but misses 4.5:1 for normal-weight text; this is an inherited canon-wide BtnPrimary token issue, not screen-specific.",
+    "Honesty triple: Real and Low-confidence are both not-applicable pre-account/pre-data; Honest-null ('pick a few areas to see your map.') is the only live state, with the ChipProvenance chip as the compensating illustrative-preview guard once nodes light up.",
+    "Spec drift flagged (not applied): the Visual System section names 'preview' as the italic emphasis word, but the actual composition italicizes 'look' in the only heading that appears on screen ('take a *look* around') - 'look' was used since 'preview' appears nowhere in the visible copy."
+  ]
+}

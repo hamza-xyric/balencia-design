@@ -1,0 +1,73 @@
+{
+  "id": "44",
+  "name": "Water intake",
+  "route": "No live route; hydration tracker is a nested Today, Habits, and CIA module.",
+  "shell": "dark",
+  "annotation": "Water intake hero (GlassCard r40 + ProgressRing + MomentumBar, glow-you) is the singular focal moment per Focal Hierarchy — not one tile among many. QuickLogRow, Today's log, and This week form the quiet operational layer beneath it. FABQuickLog is the single persistent action; StatsRow and CIAInsightCard move below the fold so GlassNavBar stays visible inside the 844px frame.",
+  "italicWord": "intake",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System standard, transparent over dark shell atmosphere: #0A0A0F base, warm amber radial glow top-center, 3-4% grain."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent, gains .glass-pill on scroll. BtnGhost [chevron-left] 44px 'Back' | H1 'Water *intake*' (Tiempos Medium italic on 'intake' — the screen's one emphasis word) | BtnGhost [gear] 44px 'Water target settings', opens Sheet."
+    },
+    {
+      "region": "Hero / ProgressRing",
+      "y": 100,
+      "h": 248,
+      "build": "GlassCard r40, glow-you. Overline 'TO TARGET' + trailing Caption '3 to go'. ProgressRing stroke 8px, track rgba(255,255,255,.08), center H1 30 '63%'. Below: tabular-nums Body '5 / 8 glasses', Body-light '1250 ml · 63% of daily goal', ChipProvenance 'via Apple Health'. MomentumBar beneath, orange fill."
+    },
+    {
+      "region": "QuickLogRow",
+      "y": 360,
+      "h": 56,
+      "build": "GlassPillInput x4, 44px targets: '1 glass' · '250 ml' · '500 ml' · 'custom' (opens Sheet, numeric field + unit selector). Tap scales pill, logs amount, flashes green checkmark, re-sweeps ring; light haptic."
+    },
+    {
+      "region": "Today's log",
+      "y": 428,
+      "h": 168,
+      "build": "SectionHeader Overline 'TODAY'S LOG' + trailing Caption '4 entries'. SolidCard, ListRow x3 (56px min-height, hairline dividers): '1 glass · 10:15 AM · synced', '250 ml · 11:30 AM · synced', '500 ml · 1:45 PM · pending'. Swipe left reveals delete; undo toast."
+    },
+    {
+      "region": "This week",
+      "y": 608,
+      "h": 140,
+      "build": "SectionHeader Overline 'THIS WEEK'. SolidCard (data-dense), TrendChart bar variant: solid orange bars = synced days, dashed-outline bars = partial-sync low-confidence, thin target line, gridlines rgba(255,255,255,.05)."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 768,
+      "h": 68,
+      "build": "Floating pill, fixed overlay: Today · CIA · Goals · Me, 44px targets, overlays the trend card's lower edge per canon. FABQuickLog (56px orange circle, plus glyph) sits above-left of nav, expands QuickLogRow on tap."
+    }
+  ],
+  "belowFold": [
+    "StatsRow: KPIRow SolidCard, glow-you, hairline dividers — 'streak 12' Caption 'day streak · all-time', 'avg 6.5' Caption 'daily average · all-time', 'best 9' Caption 'best day · all-time'. Low-confidence marks an estimated-cache Caption; honest-null renders dashes with 'Your hydration streak starts today.'",
+    "CIAInsightCard (optional, hidden entirely on honest-null): purple-tinted glass, glow-cia. Copy 'add 250 ml after today's run.' Evidence ChipProvenance ties to activity, weather, or habit source; low-confidence labels limited context. BtnGhost 'Ask CIA ->'.",
+    "Sheet (gear entry point): daily target controls, unit selector (glasses / ml / oz), Stepper, BtnPrimary 'Save target'.",
+    "Sheet (custom quick-log entry point): GlassPillInput numeric field, unit selector, BtnPrimary 'Log amount'.",
+    "Weekly history honest-null: empty chart frame retained with 'Log water to see your week.'"
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Water consumed/target real: '5 / 8 glasses' + '1250 ml' + ChipProvenance 'via Apple Health' or 'you logged'; low-confidence: muted estimate + 'estimated - low confidence'; honest-null: '0 / 8 - building capacity.'",
+    "Weekly history real: synced bars; low-confidence: dashed bars for partial sync; honest-null: empty chart frame with 'Log water to see your week.'",
+    "Stats real: all-time streak/average/best; low-confidence: estimated-cache label; honest-null: dashes + 'Your hydration streak starts today.'",
+    "XP reward real only when the reward service returns a value; honest-null omits XP copy entirely and uses 'Goal achieved.'",
+    "CIA suggestion real requires activity, weather, or habit evidence; low-confidence labels limited context; honest-null hides the CIAInsightCard entirely (never shown empty).",
+    "Offline/queued entries show a 'pending' sync label and keep the user's entered amount exactly — never silently rounded or dropped.",
+    "Source chips (via gear -> target sheet and via provenance-chip long-press) name category, source, scope, freshness, retention, export, revoke, and delete before synced or photo-derived reads are trusted.",
+    "Documented as a nested Today/Habits/CIA module, not a live route — source-only surface, no invented URL."
+  ],
+  "notes": "Upstream cheap-worker draft was unusable (a GLM HTTP 529 overloaded error with zero packet content) — this packet was built directly from the spec plus COMPACT-CANON.md and COMPONENT-CATALOG.md. Emphasis-word correction: the spec's Visual System names exactly one Tiempos-italic word for the whole screen, '*intake*'; the ASCII mock's '*glasses*' (hero) and '*run*' (CIA card) are draft artifacts and have been de-italicized to honor the one-emphasis-word-per-screen canon rule, with '*intake*' placed in the TopBar title 'Water *intake*'. StatsRow and CIAInsightCard are moved to belowFold (not dropped) so GlassNavBar remains on-screen within the 844px frame per the overflow rule; Today's log and This week keep the above-fold operational layer per Focal Hierarchy. Today's log header reads '4 entries' while only 3 ListRow render above the fold (ASCII width constraint) — the 4th stays live in-list, count is never inflated. Route header kept verbatim per spec: 'No live route; hydration tracker is a nested Today, Habits, and CIA module.' TrendChart uses the bar variant named in Components ('Weekly bars with target line and gaps') rather than the default line variant, per spec's explicit component list. Ring retains its last cached value on Error (never resets to zero); Disabled state dims quick-add buttons only during duplicate-prevention windows or custom-amount save."
+}

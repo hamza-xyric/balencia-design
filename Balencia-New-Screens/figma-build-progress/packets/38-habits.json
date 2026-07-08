@@ -1,0 +1,75 @@
+{
+  "id": "38",
+  "name": "Habits",
+  "route": "/wellbeing/habits",
+  "shell": "dark",
+  "annotation": "HIFI-38 · /wellbeing/habits · dark shell (#0A0A0F) + top-center amber radial glow rgba(255,94,0,.18) + 3-4% grain. Hero Momentum Card (`glow-you`/`glow-done`) is the singular above-fold focal moment; SegmentedTabs, grouped HabitRowCard checklist, CalendarHeatmap, and CIAInsightCard stay quiet — solid where dense, one glow per card. Single FABQuickLog CTA; GlassNavBar persists. No draft packet was available (GLM 429) — this packet is built directly from the spec.",
+  "italicWord": "habits",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar, 390x844 frame, bg #0A0A0F. Time 9:41 left, icons right. Home indicator sits at y828."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent, gains .glass-pill backing after scroll. Left: 44px back target. Center title '*Habits*' (H3 20, Newsreader Medium Italic — the screen's one emphasis word per spec). Right: bell + gear icons, 44px targets."
+    },
+    {
+      "region": "Hero Momentum Card",
+      "y": 100,
+      "h": 156,
+      "build": "GlassStatCard hero r40, `glow-you` while work remains / `glow-done` when complete. Overline 'momentum today'. Row: '5 of 8 habits' left, '21 day streak' right. MomentumBar fixed-height fill 62%, tabular numbers. ChipProvenance 'you logged' + 'synced locally'."
+    },
+    {
+      "region": "SegmentedTabs",
+      "y": 264,
+      "h": 44,
+      "build": "SegmentedTabs, 44px targets: '( today )( week )( month )'. Today is the default active state shown in this composition; week swaps the checklist for WeeklyBarChart, month extends CalendarHeatmap — hero geometry stays fixed across all three."
+    },
+    {
+      "region": "Morning Checklist",
+      "y": 316,
+      "h": 104,
+      "build": "Overline 'Morning'. SolidCard #211008 r24, two HabitRowCard rows: checked 'drink water' · 07:30 · ChipDomainTag '[health]' (mapped to canonical Wellbeing #14B8A6); checked 'stretch' · 08:00 · ChipDomainTag '[fitness]' (#EF4444). Checked rows mute + fill check mark; no per-row green tint."
+    },
+    {
+      "region": "Afternoon Checklist",
+      "y": 428,
+      "h": 104,
+      "build": "Overline 'Afternoon'. SolidCard #211008 r24, two HabitRowCard rows: unchecked 'walk 10 min' · 'due now'; unchecked 'deep work block' · 14:00 · ChipDomainTag '[career]' (#6366F1). Drag handle + skipped-state affordance per HabitRowCard spec."
+    },
+    {
+      "region": "Consistency",
+      "y": 540,
+      "h": 120,
+      "build": "Solid #211008 r24 (dense chart, per canon — no glass, no glow). Overline 'consistency'. CalendarHeatmap: four-week grid, two rows of 7 blocks. Filled = real local completions (green #34A853); muted = missed/future. Tap a day for a tooltip."
+    },
+    {
+      "region": "CIA Insight",
+      "y": 668,
+      "h": 108,
+      "build": "CIAInsightCard purple glass r24-28, `glow-cia`, small diamond marker top-right. Body (source's literal wireframe copy): 'sleep is strongest on stretch…'. ChipDomainTag evidence pair '[Sleep]' (#818CF8), '[Fitness]' (#EF4444). BtnGhost pill 'Ask CIA why'. Honest-null (<3 days joint history): card hidden."
+    }
+  ],
+  "belowFold": [
+    "Week tab (SegmentedTabs 'week'): Morning/Afternoon checklist crossfades to WeeklyBarChart — seven fixed solid bars, one per day, height = habits completed that day. Hero and the Consistency CalendarHeatmap stay in fixed position; only the checklist region swaps content.",
+    "Month tab: checklist region crossfades to an extended CalendarHeatmap history view. No fabricated projection bars — a month with fewer than 2 completed days renders the honest-null 'No habits yet' empty state instead of a blank or interpolated grid."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete wherever habit data appears.",
+    "Completion count honesty triple: real '5 of 8 habits' + 'you logged'; low-confidence 'about 5 of 8 habits' muted + 'estimated · low confidence' when sync is incomplete; honest-null 'No habits yet' + Add habit action.",
+    "Current streak honesty triple: real '21 day streak' + 'calculated locally'; low-confidence '21 day streak' muted + 'sync pending'; honest-null hidden until at least two completed days exist.",
+    "Heatmap ships real-state only in this composition: filled blocks from local completions, no estimated fill.",
+    "Reminder controls and the Add button dim to 40% opacity with a screen-reader reason string when permissions or entitlement block them (Disabled state).",
+    "Offline: local checks queue behind an orange cloud chip and reconcile after sync; no silent data loss.",
+    "Route locked to /wellbeing/habits; no alternate vanity routes."
+  ],
+  "notes": "States — Skeleton: hero count, segmented tabs, and checklist rows use geometry-matched shimmer, no placeholder numbers. Empty: checklist collapses to 'Pick one. That's enough.' with 'Add habit'. Error: cached rows stay interactive when safe; failed sync shows an inline ErrorState above the first group. Success: checked row fills the mark, mutes the row, updates the hero count, and flashes green only if all habits are complete (not per-row). Disabled: reminder controls and add button dim to 40% with a screen-reader reason. Offline: local checks queue with an orange cloud chip and reconcile after sync.\nMotion — Load: hero rises 8px and fades over 200ms; groups cascade at 60ms intervals. Check: stroke draws in 180ms, row shifts to completed styling, single haptic. Reorder: long-press exposes drag handles, rows lift into a glass-pill shadow, fixed row heights preserved. Tabs: today/week/month crossfade charts without moving the hero. Glow: hero breathes while habits remain unchecked; completion flash is one 600ms green pulse. Reduced-motion: checks become instant state changes; cascades and glow breathing disabled.\nAccessibility — Contrast: paper text on dark solid/glass meets AA+; completion shown by check state + text, never color alone. Targets: rows, checkboxes, chips, FAB, and tabs all >=44px. Screen-reader: checkbox rows announce habit name, due time, completion state, and streak impact.\nCorrections/clarifications made building from spec directly (no GLM draft, HTTP 429): (1) hero streak copy uses the Data Honesty section's exact backticked string '21 day streak' rather than the Final Composition ASCII's abbreviated '21 days', for copy fidelity. (2) the ASCII 'health' domain chip is not one of the 10 canonical domains in _shared-patterns.md — mapped to the closest canonical hue, Wellbeing #14B8A6, and flagged rather than invented. (3) CIA Insight body text is kept as the source's literal truncated wireframe copy ('sleep is strongest on stretch…') rather than fabricating a completed sentence not present in the spec."
+}

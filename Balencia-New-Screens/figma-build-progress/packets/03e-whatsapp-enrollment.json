@@ -1,0 +1,85 @@
+{
+  "id": "03e",
+  "name": "whatsapp-enrollment",
+  "route": "/onboarding",
+  "shell": "dark",
+  "annotation": "HIFI-03e · /onboarding · warm dark glass, top-center amber radial glow, subtle grain (spec-declared override of the 03x auth-family warm-light default)",
+  "italicWord": "WhatsApp",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, dark-shell variant over the amber-radial atmosphere."
+    },
+    {
+      "region": "top_action",
+      "y": 56,
+      "h": 24,
+      "build": "BtnGhost text 'skip' top-right, muted, 44px target, persists both phases; TopBar shows back chevron on phase 2 (phase 1 shows only skip)."
+    },
+    {
+      "region": "brand_mark",
+      "y": 88,
+      "h": 32,
+      "build": "Balencia wordmark centered, #EAE3DC text, 14px tracking."
+    },
+    {
+      "region": "value_prop",
+      "y": 136,
+      "h": 80,
+      "build": "H1 'Get CIA on *WhatsApp*' (Newsreader/Tiempos italic on 'WhatsApp'), H3 below 'Reminders and check-ins in chat.'"
+    },
+    {
+      "region": "consent_card",
+      "y": 228,
+      "h": 104,
+      "build": "ConsentCard glass (white 4.5% fill, r28, white 8% border): 'You can turn this off in Settings or reply STOP. [data controls]', inline link 'data controls'; unchecked consent toggle; ChipProvenance 'phone + message channel · user-entered phone + WhatsApp events · reminders, check-ins, CIA tips · until revoke or deletion · export · revoke · delete · STOP'"
+    },
+    {
+      "region": "phone_input_row",
+      "y": 348,
+      "h": 56,
+      "build": "GlassPillInput row: country code BtnGhost '[+1 v]' opens Sheet searchable picker; GlassPillInput 'phone number' placeholder paper #EAE3DC @ 40%; ChipProvenance 'you entered' appears once valid input given."
+    },
+    {
+      "region": "send_code_cta",
+      "y": 416,
+      "h": 52,
+      "build": "BtnPrimary 'send code' full-width, orange #FF5E00 fill, disabled @ 40% opacity until valid phone entered; single primary CTA."
+    },
+    {
+      "region": "value_list",
+      "y": 484,
+      "h": 96,
+      "build": "Three rows Caption text: '· daily reminders' / '· check-in prompts' / '· CIA coaching tips'; muted #EAE3DC @ 70%."
+    }
+  ],
+  "belowFold": [
+    "OTPCluster6 six-cell code entry: auto-advance, backspace, paste six digits, tap-to-focus; screen readers announce 'digit N of 6'; appears on phase 2 crossfade from phone entry",
+    "resend code BtnGhost 'resend code (0:47)' + ChargeMeter draining ring '[######----]'; hidden before first code send (honest-null); disabled during cooldown",
+    "verify code BtnPrimary: flashes --glow-done green #34A853 on success then routes to [07]",
+    "Sheet: country code picker searchable list, glass surface",
+    "OfflineBanner: phone/code values persist; network actions disabled; skip remains active",
+    "ErrorState: invalid phone, send fail, invalid code, expired code, network fail, spam lockout — plain copy",
+    "SkeletonState: SMS delivery and verification preserve input geometry with shimmer; no fake code",
+    "HonestNullState: empty phone field, empty OTP cells"
+  ],
+  "imageSlots": [
+    {
+      "id": "HIFI-03e-01",
+      "prompt": "WhatsApp enrollment provider-neutral WhatsApp status art, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text"
+    }
+  ],
+  "trustControls": [
+    "Required consent unchecked until explicit action",
+    "Optional WhatsApp consent is skippable",
+    "STOP reply instructions visible before phone collection",
+    "Data controls inline link ('data controls') in ConsentCard",
+    "Export, revoke, delete phone visible before collection",
+    "Route handoff limited to /onboarding; no vanity routes added"
+  ],
+  "notes": "Cinematic focal instrument: WhatsApp enrollment command surface is the singular above-fold moment. Phase 1 (default) renders phone entry + value list; phase 2 crossfades to OTPCluster6 + resend cooldown (moved to belowFold — honest-null hidden pre-send, not part of the default render). Removed a fabricated 'phase_indicator / step dots' module from the draft: spec's Components list has no stepper primitive — the composition's '[1][2][3][4][5][6]' notation is the OTPCluster6, not a progress dial; its phase-2 TopBar back-chevron fact is folded into top_action instead. Fixed placeholder text color: draft used warm-light ink #1F1611 on a dark-shell glass input — corrected to paper #EAE3DC per dark shell. Removed an unsupported 'orange accent' claim on the italic word (spec's Visual System names no color for the Tiempos italic moment). Tightened ConsentCard's ChipProvenance to match Data Honesty's literal category/source/retention wording ('phone + message channel', 'user-entered phone + WhatsApp events', 'until revoke or account deletion'). Fixed imageSlot prompt to restore the dropped 'WhatsApp' in 'provider-neutral WhatsApp status art'. Shell confirmed dark (not the 03x auth-family warm-light default): spec's own Visual System explicitly commits to warm dark base #0A0A0F + amber radial glow + grain, which wins per source hierarchy. One BtnPrimary per phase. Skip link top-right persists both phases. Country code opens as searchable Sheet. ChargeMeter countdown is text-only in reduced-motion. Haptics: light on digit entry, medium on verified, none on disabled."
+}

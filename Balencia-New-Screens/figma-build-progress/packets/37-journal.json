@@ -1,0 +1,67 @@
+{
+  "id": "37",
+  "name": "Journal",
+  "route": "/wellbeing/journal",
+  "shell": "dark",
+  "annotation": "HIFI-37 · /wellbeing/journal · dark shell (#0A0A0F) + top-center amber radial glow rgba(255,94,0,.18) + 3-4% grain. CIAInsightCard hero (glow-cia) is the singular above-fold focal moment; SegmentedTabs, the monthly stat, and two SolidCard entry rows stay quiet, one glow per card. Single FABQuickLog CTA; GlassNavBar persists with no forced active tab (nested wellbeing screen).",
+  "italicWord": "journal",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar, 390x844 frame, bg #0A0A0F."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent TopBar. Left: 44x44 settings gear icon ('Journal settings') + 'Journal' title (H1 30; Newsreader Medium Italic *journal* — the screen's one italic emphasis). Right: 44x44 mic icon ('Record voice entry')."
+    },
+    {
+      "region": "CIA Insight Hero",
+      "y": 104,
+      "h": 156,
+      "build": "Glass hero r40 (white 4.5% fill, border white 8%). Slow 4s breathe on --glow-cia (purple #7F24FF). Overline 'CIA reflection'. H2 24: 'What pattern have you noticed between your energy and creativity?'. Ghost pill 'write about this' — secondary action; FABQuickLog remains the screen's one primary CTA."
+    },
+    {
+      "region": "SegmentedTabs + Monthly Stat",
+      "y": 268,
+      "h": 92,
+      "build": "Glass SegmentedTabs: 'entries' (active, orange #FF5E00 underline) / 'check-ins' (inactive, paper-64%). Below: Caption 12 '12 entries this month' + muted chip 'estimated · low confidence' — the Final Composition's literal low-confidence default (local sync pending)."
+    },
+    {
+      "region": "Entry Card — May 20",
+      "y": 368,
+      "h": 112,
+      "build": "SolidCard #211008 r24. Caption 12 'May 20, 2026'. Body 15 '\"The morning session felt...\"'. Row: ChipDomainTag 'Learning' + ChipDomainTag 'Creativity' (16% bg)."
+    },
+    {
+      "region": "Entry Card — May 19",
+      "y": 488,
+      "h": 112,
+      "build": "SolidCard #211008 r24. Caption 12 'May 19, 2026'. Body 15 'voice 2m 14s'. Right-aligned ChipProvenance 'via AssemblyAI' — Data Honesty's real voice-transcription state."
+    },
+    {
+      "region": "FAB + GlassNavBar",
+      "y": 648,
+      "h": 196,
+      "build": "FABQuickLog (y648, orange #FF5E00 circle r20, shadow, '+' glyph): expands to text/voice, haptic tap. GlassNavBar (y756, glass pill r40): Today / CIA / Goals / Me, 44px targets — no forced active tab (nested wellbeing screen, no confirmed parent). Home indicator y828."
+    }
+  ],
+  "belowFold": [
+    "Third entry card (SolidCard #211008 r24, ~y844+): 'May 18, 2026' with ChipDomainTag 'Stress' + ChipDomainTag 'Energy' (16% bg) — illustrative continuation of the chronological entries list scrolled below the fold; the Final Composition explicitly renders only the first two entries (May 20, May 19)."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Privacy-first language retained; SafetyResourceCard reachable for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete wherever journal entry or check-in data appears.",
+    "Monthly reflection count honesty triple: real '12 entries this month' + ChipProvenance 'calculated locally'; low-confidence (shown in this composition) muted 'estimated · low confidence' when local queue sync is pending; honest-null 'Not enough data yet — 2 more days.'",
+    "Voice transcription honesty triple: real 'Transcribed text appears here.' + ChipProvenance 'via AssemblyAI'; low-confidence muted 'estimated · low confidence'; honest-null 'Audio wasn't captured — 0 seconds recorded.'",
+    "Check-in history metrics (view-only): real 'Energy: 4/5, Stress: 2/5' + ChipProvenance 'logged this morning' — no editing surface inside Journal.",
+    "Route locked to /wellbeing/journal; no alternate vanity routes."
+  ],
+  "notes": "States — Default: entries populated, CIA prompt visible, toggle set to 'entries'. Skeleton: prompt card and entry list show SkeletonState blocks; stale/cached entries render at 50% opacity beneath the morphing skeleton overlay. Empty (cold start): mode toggle hidden, EmptyState renders 'Your journal is private and for you alone...'. Error: ErrorState card inserts at top of feed, 'Couldn't load your entries. Try again.' with BtnSecondary retry. Success: entry card materializes at top of list with a brief glow-done (#34A853) inner glow, fading to standard SolidCard styling after 1.5s. Disabled: Sheet's save button renders at 40% opacity (BtnPrimary disabled) and stays non-interactive until the text input contains characters.\nMotion — Bottom sheets slide up from Y=844 over 520ms (ease-out); reduced-motion cross-fades instead. Staggered fade-in (80ms delay per item) for prompt and rows, firing simultaneously under reduced motion. CIAInsightCard breathes glow-cia over a slow 4s cycle (disabled under reduced motion). Haptic tap on FAB expansion.\nAccessibility — AA+ contrast maintained across paper-100/paper-64% text on dark surfaces. All interactive elements meet 44x44pt targets (chips structurally padded). Voice mic glyph reads 'Record voice entry'; settings glyph reads 'Journal settings'; StatusDotMeter reads 'Mood: Calm' rather than 'Dot 2 of 5'.\nCorrections made verifying the draft against spec: (1) 'write about this' was mislabeled 'BtnPrimary ghost pill' — corrected to a plain ghost/secondary pill, since Focal Hierarchy names the FAB as the screen's one persistent CTA and reserves ghost pills for secondary actions (canon: one BtnPrimary per screen). (2) The FAB was mislabeled 'BtnPrimary' — corrected to its spec-named component, FABQuickLog. (3) GlassNavBar's 'CIA' tab was marked active with a purple glow in the draft — purple is CIA/AI-synthesis-only per canon, and sibling nested wellbeing screens (44-water-intake, 58-sleep-tracking) render the nav with no forced active tab since Journal has no confirmed parent tab; corrected to neutral. (4) The draft omitted the Accessibility-mandated settings glyph ('Journal settings') — added as a 44x44 gear icon left of the title, inferred from the Final Composition's unlabeled leading topbar icon glyph. (5) Modules exceeded the 8-module cap (draft had 10) — SegmentedTabs merged with the monthly-stat caption, and FAB/GlassNavBar/home indicator merged into one module, matching the density of sibling packets (44, 58). (6) belowFold and trustControls were array-of-object shapes in the draft — restructured to descriptive strings per schema (the same fix already applied to 58-sleep-tracking). (7) Rebuilt trustControls to include the source-chip requirement, all three Data Honesty triples, and the route lock — all present in spec but absent from the draft's three generic bullets. italicWord normalized to bare 'journal' (no asterisks), matching corpus convention and sibling screen 73-mission-journal."
+}

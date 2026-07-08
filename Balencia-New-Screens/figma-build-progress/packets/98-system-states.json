@@ -1,0 +1,67 @@
+{
+  "id": "98",
+  "name": "System states",
+  "route": "/offline, /maintenance, /forbidden, /unauthorized, /coming-soon",
+  "shell": "dark",
+  "annotation": "System-level full-screen fallback shared by five routes: one singular GlassCard hero (default: /offline) carries the route-specific title, honest message, provenance, and its own recovery CTA — visually singular, not one tile among many. A quiet Last-safe-snapshot card and a reference-only Route-variants list sit below, never competing with the hero. No tab nav, no FAB, no fabricated claims: every value is real, low-confidence, or honest-null.",
+  "italicWord": "*states*",
+  "hasFab": false,
+  "hasNav": false,
+  "imageSlots": [],
+  "belowFold": [],
+  "trustControls": [
+    "Route state: real = exact route + reason rendered in the hero (e.g. 'Offline' + 'via cached dashboard'); low-confidence = unknown router error falls back to plain safe copy; honest-null = no reason known, hero still shows a plain safe message, never a blank screen.",
+    "Cache age: real = timestamp + ChipProvenance ('via cached dashboard', '8:42 AM'); low-confidence = local clock uncertain, caption reads 'estimated · low confidence'; honest-null = Last-safe-snapshot card collapses to 'No safe snapshot saved yet' — never an invented time.",
+    "Maintenance window (/maintenance): real = published window + source chip; low-confidence = 'status endpoint delayed'; honest-null = no ETA promised, ever.",
+    "Permission reason (/forbidden, /unauthorized): real = role, plan, or auth-state chip; low-confidence = 'policy service stale'; honest-null = a plain safe message, never a guessed cause.",
+    "CIA status: real = service status only if the blocked route is CIA-adjacent; low-confidence = 'service check delayed'; honest-null = no AI claim at all on a non-AI route — CIA is never invoked to explain a system-state screen it has no bearing on.",
+    "Source chips — category, source, scope, freshness, retention, export, revoke, delete — appear wherever cached or synced data is shown; ChipProvenance is mandatory beside every real value, never a bare number.",
+    "aria-live='polite' region announces state, route, reason, and stale-data age on load; Retry, View cache, Sign in, Home, and support actions are 44px minimum with VoiceOver/TalkBack labels.",
+    "Disabled: actions dim to 40% opacity with a stated reason (offline, forbidden, maintenance-locked, auth-locked) — never silently hidden or removed."
+  ],
+  "notes": "No GLM draft was available to correct: the worker call failed with HTTP 529 (service overloaded), so this packet was authored directly from the spec and canon digest, following the same fallback used for 31-transaction-budget-detail.json and 82-accountability-contract.json. Key decisions: (1) italicWord is '*states*', taken verbatim from the Visual System line ('one Tiempos italic emphasis moment: `*states*`') and matching the corpus-wide pattern of a spec's own filename supplying the boilerplate italic word; placed in a new supporting Route-variants sentence ('Four more system *states*, each an honest fallback.') since the literal Final-Composition ASCII never contains the bare word 'states' to attach it to directly. (2) The ASCII's 'provenance: cached dashboard' row is a wireframe annotation, not literal UI copy — canon's ChipProvenance renders as 'via X' (COMPONENT-CATALOG.md), so it is built as ChipProvenance 'via cached dashboard', not a literal on-screen 'provenance:' label. (3) The hero card's title is the ASCII's literal 'Offline' (a route-state label), with 'You're offline. Showing last sync from 2 hours ago.' as the body sentence exactly as written — matches canon's own OfflineBanner example copy ('offline — showing last sync 2h ago'). (4) Exact ASCII strings preserved verbatim even where imperfectly punctuated ('Today actions cached at 8:42 AM', lowercase 'support' and 'privacy' labels) rather than silently 'corrected', per the instruction to keep exact copy strings. (5) hasNav is false and hasFab is false: unlike hub routes (/plans, /contracts, /reputation), none of this screen's five routes (/offline, /maintenance, /forbidden, /unauthorized, /coming-soon) sit inside the tab shell — the spec's Components list has no GlassNavBar entry and the ASCII draws no nav row, matching the 65-force-update precedent (system-level full-screen gate, no nav, no FAB). (6) Only /offline renders as the visible default composition (per the spec's single Final Composition ASCII); /maintenance, /forbidden, /unauthorized, and /coming-soon are documented as a reference-only Route-variants list in-frame, with their own hero swaps described here rather than drawn as separate frames — /maintenance swaps to 'Under maintenance' + published window; /forbidden swaps to 'You don't have access' + role/plan reason or a plain safe message; /unauthorized swaps to 'Sign in required' + BtnPrimary 'Sign in'; /coming-soon swaps to 'Not available yet' + honest-null, never a fake date. States: Skeleton — only the Last-safe-snapshot card shimmers (--surface-3 sweep); hero copy renders immediately, never gated behind a spinner. Empty — HonestNullState replaces the snapshot card with 'No safe snapshot saved yet' when no cache exists. Error — fallback keeps route title, support, and home/sign-in action visible even if the state probe itself fails, plain-language toast, no error codes. Success — Retry connection flashes glow-done briefly then performs a normal stack-replace back to the last safe route, never a modal surprise. Disabled — actions dim to 40% with a stated reason. Motion: hero appears immediately; cached panels fade in after the state probe; Retry shows spinner then success/error text, never infinite; external support/status links open only after user action; reduced motion disables fade and spinner flourish, text state changes remain. Consent/safety: SafetyResourceCard is not in the default composition — it only replaces the hero's recovery action when a blocked route was itself a wellbeing/crisis flow, per the spec's Components list ('only when a blocked wellbeing flow needs crisis or urgent support link'). Fonts: Hanken Grotesk (UI) + Newsreader Medium Italic (emphasis word), standing in for Neue Montreal/Tiempos per session waiver W-FONT-01.",
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System standard, transparent over dark shell atmosphere: warm amber radial glow top-center (18%), 3-4% grain, paper-100 icons on #0A0A0F. No back chevron — every system-state route is a standalone full-screen fallback, never a nested tab-shell view."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent over atmosphere. 'Balencia' wordmark left, paper-100 82%. Trailing BtnGhost 'support' (lowercase, exact), 44px target, opens contact/help — the sole persistent exit besides the hero's own recovery action. No back chevron, no bottom nav."
+    },
+    {
+      "region": "Hero (/offline default)",
+      "y": 108,
+      "h": 248,
+      "build": "GlassCard.hero r40, glow-you orange breathe — sole focal moment. Title 'Offline'. Body-light \"You're offline. Showing last sync from 2 hours ago.\" ChipProvenance 'via cached dashboard' beneath. Row: BtnPrimary 'Retry connection' + BtnGhost 'View cache', 44px targets. Retry: spinner then success/error text, never infinite loading."
+    },
+    {
+      "region": "Last Safe Snapshot",
+      "y": 384,
+      "h": 124,
+      "build": "SectionHeader Overline 'Last safe snapshot'. SolidCard #211008 r24, no glow: Body 'Today actions cached at 8:42 AM', Caption paper-64% 'Health data may be stale'. Honest-null fallback: card collapses to 'No safe snapshot saved yet' when no cache exists — never an invented timestamp."
+    },
+    {
+      "region": "Route Variants",
+      "y": 536,
+      "h": 168,
+      "build": "SectionHeader Overline 'Route variants' — Body-light 'Four more system *states*, each an honest fallback.' Caption list, plain-dot rows: '/maintenance: status window', '/forbidden: permission needed', '/unauthorized: sign in required', '/coming-soon: feature not released.' Reference only — each route renders its own live hero when visited."
+    },
+    {
+      "region": "Footer",
+      "y": 728,
+      "h": 36,
+      "build": "Footer row, Caption paper-64%, centered, divider dot: BtnGhost 'Contact support' | BtnGhost 'privacy', 44px targets. Copy names only what the app actually knows about this route — no fabricated service-status claim, no promised resolution time."
+    },
+    {
+      "region": "Home Indicator",
+      "y": 810,
+      "h": 34,
+      "build": "iOS home indicator clearance, 134x5px pill bar centered, paper-100/20 on dark shell, bottom-anchored."
+    }
+  ]
+}

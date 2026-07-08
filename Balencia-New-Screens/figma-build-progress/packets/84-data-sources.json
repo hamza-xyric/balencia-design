@@ -1,0 +1,82 @@
+{
+  "id": "84",
+  "name": "Data sources",
+  "route": "No live route; provider-neutral data sources hub opened from Connected Services, Intelligence, Knowledge Graph, or Me settings.",
+  "shell": "dark",
+  "annotation": "HIFI-84 · No live route; provider-neutral data sources hub opened from Connected Services, Intelligence, Knowledge Graph, or Me settings. · Dark shell — warm base #0A0A0F, top-center orange radial glow, 3-4% grain.",
+  "italicWord": "signal",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent bg; Left: 'Back' (44x44 target); Center/Right: 'Data sources' (H2 24px, paper-100)"
+    },
+    {
+      "region": "HeroGlassCard",
+      "y": 100,
+      "h": 180,
+      "build": "Glass r40; glow-cia purple breathing; H1 'Correlation engine'; Body 'Every source becomes a *signal*, not clutter.'; KPIRow: ['2 active' (caption 'Live sources'), '3 detected' (caption 'Patterns detected')]"
+    },
+    {
+      "region": "SectionHeader",
+      "y": 296,
+      "h": 32,
+      "build": "Overline 11 uppercase paper-64% 'CONNECTED SOURCES'"
+    },
+    {
+      "region": "SourceListRow1",
+      "y": 328,
+      "h": 76,
+      "build": "SolidCard #211008; r24; Left: 'WHOOP' (H3 20px), caption 'Recovery, Strain', ChipProvenance '[via WHOOP]'; Right: status glyph 'Connection healthy' (green glow), timestamp '8m ago'"
+    },
+    {
+      "region": "SourceListRow2",
+      "y": 412,
+      "h": 76,
+      "build": "SolidCard #211008; r24; Left: 'Spotify' (H3 20px), caption 'Music context', ChipProvenance '[sync failed]' (paper-64%); Right: error glyph 'Connection requires attention' (no red text), ghost pill 'Reconnect' (44px target)"
+    },
+    {
+      "region": "SectionHeader",
+      "y": 504,
+      "h": 32,
+      "build": "Overline 11 uppercase paper-64% 'DETECTED CORRELATIONS'"
+    },
+    {
+      "region": "CorrelationRow1",
+      "y": 536,
+      "h": 100,
+      "build": "SolidCard #211008; r24; H3 'Sleep affects tempo pace'; ChipDomainTags '[Sleep]' -> '[Music]'; Correlation strength bar (glow-cia, reinforcing); Caption 'based on 14 synced days of WHOOP...'"
+    },
+    {
+      "region": "CorrelationRow2",
+      "y": 644,
+      "h": 100,
+      "build": "SolidCard #211008; r24; H3 'Calendar density stress'; ChipDomainTags '[Work]' -> '[Wellbeing]'; Correlation strength bar (glow-cia, partial scale, competing); Caption 'Early signal · based on 5 days' (muted)"
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "HealthNoteGlassCard",
+      "y": 860,
+      "h": 120,
+      "build": "Glass r28; Body 'Unhealthy sources are checked before synced values or photo-derived reads are trusted.'"
+    },
+    {
+      "region": "BtnPrimary",
+      "y": 996,
+      "h": 56,
+      "build": "BtnPrimary full width 'Connect source'"
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete.",
+    "Names health category, source, freshness, confidence, retention, export, revoke, and delete before synced values or photo-derived reads are trusted.",
+    "Detected patterns: real ('3 detected'), low-confidence ('Early signal · based on 5 days'), or honest-null ('Connect your first source to begin analyzing patterns.').",
+    "Error state names the failed source explicitly; error glyphs use paper-64% — no red text ever."
+  ],
+  "notes": "Floating GlassNavBar (y756-824) forces the Health Note GlassCard and Connect source BtnPrimary below the fold. Glow-cia breathes 4s ease only while patterns are actively displaying (static at 0 patterns). Error state (Spotify) strictly avoids red text; WHOOP's healthy status carries the green glow per canon (green = completion/healthy arrival)."
+}

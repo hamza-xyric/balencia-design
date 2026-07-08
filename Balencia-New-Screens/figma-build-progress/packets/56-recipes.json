@@ -1,0 +1,79 @@
+{
+  "id": "56",
+  "name": "Recipes",
+  "route": "No live route; recipe library, detail, and create states are nested nutrition modules.",
+  "shell": "dark",
+  "annotation": "HIFI-56 · nested Nutrition/Recipes tab, no standalone route · dark shell, top-center orange radial glow (18%) + grain. CIA Suggestions carousel is the singular above-fold focal moment; Favorites and All Recipes BentoGrid are quiet operational layers beneath it, FABQuickLog the sole persistent action. Figma's warm-light recipe-tab anatomy (category chips, green illustration, orange CTA) is honored only as the Day-1 empty-state reference — a documented Tier B/C scoped exception, not a shell swap — so the default browse composition here stays glass-dark v1 canon.",
+  "italicWord": "recipes",
+  "hasNav": true,
+  "hasFab": true,
+  "imageSlots": [
+    "HIFI-56-01 — recipe/instructional media thumbnails inside CIA Suggestions carousel, Favorites, and All Recipes BentoGrid tiles; premium warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "belowFold": [
+    "Continuation of ALL RECIPES BentoGrid masonry: additional RecipeTiles (Name + Calories + ChipProvenance or HonestNullState), identical honesty and PaywallLock rules as above the fold.",
+    "CIA Suggestions horizontal scroll reveals 2 more recipe tiles past the initial 3, each with an allergy/diet-fit ChipDomainTag: real (matched restrictions), low-confidence ('possible conflict — confirm'), or honest-null ('No restrictions added').",
+    "Recipe Rating (5-star) row per tile, scroll-reachable: real = synced rating + source + count; low-confidence = hidden/muted 'rating pending'; honest-null = optional 'Be first to rate' action — never inferred from saves."
+  ],
+  "trustControls": [
+    "ChipProvenance 'via food log + recipe DB' anchors the CIA protein-shortfall insight — opt-in only, never auto-applied to a recipe swap.",
+    "Every RecipeTile's Caloric Load carries a real source ('Recipe DB'), muted 64% low-confidence ('estimated · low confidence'), or HonestNullState ('Macros unavailable. Add them to help others.') — never a fabricated number.",
+    "PaywallLock on locked recipe tiles (e.g. 'Protein power bowl') is a blurred real-layout preview + single BtnPrimary 'Unlock with premium', never a dead end.",
+    "Recipe Rating never infers from saves: real shows synced rating + source + count; low-confidence hides/mutes to 'rating pending'; honest-null omits the row with an optional 'Be first to rate' action.",
+    "Allergy/diet fit reads real (matched against stored restrictions), low-confidence ('possible conflict awaiting confirmation'), or honest-null ('No restrictions added') — checked before any CIA personalization.",
+    "ChipProvenance chips open source controls: recipe source, nutrition database, freshness, retention, export saved recipes, revoke imported source, delete recipe/media.",
+    "Offline disables Search (GlassPillInput to 40% opacity) and hides FABQuickLog; OfflineBanner reads 'offline - showing last sync 2h ago' — no live-claim results served while stale.",
+    "All interactive targets (filter chips, favorite hearts, FilterTrigger, FAB) enforce a 44x44px minimum touch target via invisible padding bounds."
+  ],
+  "notes": "Route header stays exactly 'No live route; recipe library, detail, and create states are nested nutrition modules.' — never invent a live route; this packet renders 'Default: Browse view loaded with CIA carousel, favorites, and main grid.' Empty (Day 1): content beneath the category chips replaces with HonestNullState 'Not enough data yet - save a recipe or create your own.' + BtnPrimary 'Create recipe' — matching the Figma anatomy's green illustration + 'No Recipes Yet' body + orange 'Create First Recipe' CTA, kept as anatomy only on the dark canon shell (the spec calls the warm-light tab 'a scoped exception, not a replacement for glass-dark v1 canon'). Empty (No Search Match): grid replaced by SolidCard 'No recipes match your search. Try \\'Chicken\\' or \\'Vegan\\'.' + BtnGhost clear filters. Skeleton: cards keep solid silhouette, images --surface-3 with 1.2s sweep, macro rings render as axis outlines. Error: quiet ErrorState card 'Couldn't search. Pull to refresh.'; failing images degrade to warm-gradient placeholders, never a red screen. Success: favoriting bounces heart 0.8→1.2 scale; XPToast on logging only if reward feedback is enabled, copy never pressures streaks, restriction adherence, or compulsive logging. Disabled/Offline: Search drops to 40% opacity, FABQuickLog hides, OfflineBanner 'offline - showing last sync 2h ago'. Motion: 150-250ms feedback window, strict physical easing (never linear); glow-cia breathes 4s on the CIA suggestions header, glow-you breathes softly on 'In Plan' tiles, browse grid stays static at rest; cards stagger fade-in/rise on mount (20ms/item); FABQuickLog translates out on scroll-down, returns on scroll-up. Haptics: light on taps/favorite/checkbox toggles, medium on FAB deploy/'Log as Meal' confirm, success notification on save/log. Reduced motion: glow breathing becomes static alpha blend, staggered mount becomes a single 200ms cross-fade, macro donut arcs render fully drawn (no 1200ms sweep). Consent/safety: media is consent-gated — no identifiable face, body, home, document, provider logo, or private text without explicit permission; ChipProvenance opens recipe source, nutrition DB, freshness, retention, export, revoke, and delete controls; CIA suggestions respect allergies/restrictions before personalization; copy is coaching support, not medical nutrition advice. Global floating nav (Today · CIA · Goals · Me, 'Today' active) is the canon-mandated pill present on every screen; the Figma-derived Nutrition sub-tab rail ('Analytics / Plan / Recipes / History / Today') named in Figma Reference Alignment is documented as a Tier B/C scoped-exception anatomy reference for the Nutrition parent shell, not rebuilt as a second nav construct here, per the spec's own 'Parent navigation state: no standalone bottom-nav ownership.' Italic word 'recipes' is set once, in the TopBar title 'Your *recipes*' (Visual System names '*recipes*' as the one Tiempos/Newsreader emphasis moment; no second italic word appears elsewhere in this composition). Category chip labels corrected to the Figma-anatomy set 'All / Breakfast / Lunch / Dinner / Snack' (singular) over the Final Composition ASCII's approximate 'Breakfast/Lunch/Dinner/Snacks' — the Figma Reference Alignment section is the more specific, authoritative source for that exact label set. Fonts: Hanken Grotesk (UI) + Newsreader Medium Italic (emphasis word), standing in for Neue Montreal/Tiempos per session waiver. RecipeTile (NEW) promotes to catalog per the spec's own Components section — a specialized SolidCard with image header, domain tags, title, macro KPIRow, and favorite toggle, reusable across future recipe-adjacent surfaces.",
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar: time left, signal/wifi/battery right, paper-100 icons on #0A0A0F warm-dark shell with top-center orange radial atmosphere (18%) and 3-4% grain. Fixed 44px, no copy."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar, transparent over atmosphere, gains .glass-pill on scroll: back chevron (44px target, returns to Nutrition). H1 'Your *recipes*' (Hanken Grotesk 30, Newsreader Medium Italic on 'recipes' — the screen's one emphasis word). No trailing badge — level indicator dropped, unsupported by source Components/Data Honesty."
+    },
+    {
+      "region": "search-filter",
+      "y": 100,
+      "h": 56,
+      "build": "GlassPillInput (glass, r24): leading search glyph, placeholder 'Search recipes', trailing FilterTrigger glyph (44px target) opens advanced filter sheet (allergy, macro range, prep time). Offline: input drops to 40% opacity and disables per Disabled state."
+    },
+    {
+      "region": "category-attribute-chips",
+      "y": 156,
+      "h": 96,
+      "build": "SegmentedTabs (44px targets, glass pill track): 'All' (selected, surface-3 fill) · 'Breakfast' · 'Lunch' · 'Dinner' · 'Snack' — Figma-anatomy category labels. Below: ChipDomainTag row (16% bg, multi-select): 'Vegan' · 'Keto' · 'High-Protein' · overflow chevron opens full attribute sheet."
+    },
+    {
+      "region": "cia-suggestions",
+      "y": 252,
+      "h": 208,
+      "build": "SectionHeader overline 'CIA SUGGESTIONS'. CIAInsightCard (glow-cia purple, breathes 4s): \"You're short on protein this week.\" ChipProvenance 'via food log + recipe DB' beneath, opt-in tap only. Horizontal scroll, 3x RecipeTile/SolidCard: 'Grilled chicken bowl' 420 cal ChipProvenance 'Recipe DB'; 'Salmon quinoa plate' 480 cal ChipProvenance 'Recipe DB'; 'Protein power bowl' PaywallLock (blurred preview + BtnPrimary 'Unlock with premium')."
+    },
+    {
+      "region": "favorites",
+      "y": 460,
+      "h": 164,
+      "build": "SectionHeader overline 'FAVORITES' (hidden entirely when null — never a blank card). 2x RecipeTile/SolidCard, favorite heart filled (0.8→1.2 bounce on toggle): 'Turkey chili' 390 cal ChipProvenance 'Recipe DB'; 'Overnight oats' 310 cal (muted 64%) ChipProvenance 'estimated · low confidence'."
+    },
+    {
+      "region": "all-recipes-grid",
+      "y": 624,
+      "h": 132,
+      "build": "SectionHeader overline 'ALL RECIPES'. BentoGrid masonry, 2x visible RecipeTile/SolidCard: 'Veggie stir-fry' 340 cal ChipProvenance 'Recipe DB'; 'Community lentil soup' HonestNullState 'Macros unavailable. Add them to help others.' Skeleton: --surface-3 image blocks, 1.2s sweep, macro rings as axis outlines."
+    },
+    {
+      "region": "fab-nav",
+      "y": 756,
+      "h": 88,
+      "build": "FABQuickLog (56px, orange #FF5E00, glow-you), '+' glyph, aria-label 'Quick log meal', opens Log-as-Meal sheet (medium haptic). Hides when Offline. GlassNavBar floating pill beneath: Today · CIA · Goals · Me, 'Today' active, 44px targets, overlaying last grid row; HomeIndicator anchors screen base."
+    }
+  ]
+}

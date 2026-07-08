@@ -1,0 +1,79 @@
+{
+  "id": "04",
+  "name": "Sign in",
+  "route": "/auth/signin",
+  "shell": "light",
+  "annotation": "HIFI-04 · /auth/signin · warm-light auth shell (paper base, peach blush, ink text)",
+  "italicWord": "momentum",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar '9:41' + signal/wifi/battery glyphs, ink-on-white, transparent over the warm-light paper shell."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 52,
+      "build": "TopBar transparent over atmosphere: back chevron only, no title, aria-label 'return to welcome screen'; OfflineBanner .glass-pill 'you're offline - we'll sync when back' slots in beneath when offline, non-blocking, form stays interactive."
+    },
+    {
+      "region": "heading",
+      "y": 104,
+      "h": 116,
+      "build": "Balencia wordmark centered (brand fade-in 0ms), ink #1F1611; below, Hanken H1 30 #1F1611 'Welcome back. Let's pick up your' + Newsreader Medium Italic 'momentum.' - heading/form mount stagger at 100ms."
+    },
+    {
+      "region": "form",
+      "y": 228,
+      "h": 180,
+      "build": "GlassPillInput 'email address' (leading mail glyph, aria-label 'email address') + GlassPillInput 'password' (leading lock glyph, eye toggle aria-label 'show password'/'hide password', aria-label 'password'); white fill r16 1px #EAE3DC border h52, focus 1px orange. Below: Toggle #FF5E00 'Remember me' (unchecked default) + BtnGhost 'Forgot password?' right-aligned."
+    },
+    {
+      "region": "cta",
+      "y": 416,
+      "h": 52,
+      "build": "BtnPrimary full-width 'Sign in', #FF5E00 fill; disabled 40% opacity/no glow (empty, invalid, or 429-cooldown); valid = full opacity + static glow-you halo (non-breathing); loading: label crossfades to spinner (width locked), caption 'signing you in - one moment.' below, toast-free."
+    },
+    {
+      "region": "oauth",
+      "y": 476,
+      "h": 144,
+      "build": "Caption 'or continue with' divider; BtnSecondary equal-width pills 'Sign in with Google' + 'Sign in with Apple', warm-light rounded, icon + label, 44px min targets."
+    },
+    {
+      "region": "biometric",
+      "y": 628,
+      "h": 56,
+      "build": "BtnSecondary icon-only, 56px circular .glass-pill, aria-label 'sign in with Face ID', shown only when device biometrics already enrolled; 429 cooldown: icon disabled/dimmed + SyncStatus glass-pill 'retry in 4:32' tabular-nums + ChipProvenance 'system rate-limit', or honest-null 'too many attempts. try again later.'"
+    },
+    {
+      "region": "footer",
+      "y": 692,
+      "h": 64,
+      "build": "BtnGhost 'support and safety resources' (opens SafetyResourceCard Sheet, variant half); below, Body ink 'Don't have an account? Sign up', centered."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "Remember me defaults unchecked unless an existing saved device preference exists; helper copy names session/device duration and where to revoke saved sessions.",
+    "Biometric enrollment is offered only after successful sign-in, via Sheet (variant half) with accept/decline parity - never pre-consented on the login form.",
+    "Safety/support stays a quiet footer link opening the full SafetyResourceCard Sheet (variant half); no lifestyle source chips, export, revoke, or delete controls belong on this routine login gate.",
+    "429 cooldown timer is real/server-issued only - no low-confidence variant exists for an exact server window; honest-null fallback 'too many attempts. try again later.' if the retry-after value fails to arrive.",
+    "Navigation stays limited to /auth/signin; do not add alternate vanity routes."
+  ],
+  "notes": [
+    "Shell is warm-light auth (white bg, blush corner atmosphere, ink #1F1611 text, #EAE3DC borders), overriding the dark default.",
+    "Spec drift flagged (not applied): the Visual System section names 'sign' (Tiempos italic) as the emphasis word, but that references a stale pre-Hanken/Newsreader pass - the actual Final Composition heading italicizes 'momentum' ('Let's pick up your *momentum*.'), which is what's used here.",
+    "Rate-limit (429) state uses a SyncStatus-style glass-pill with tabular-nums live countdown ('retry in 4:32') and ChipProvenance 'system rate-limit', ticking every second from the server retry-after value.",
+    "No decorative gradients; the CTA's glow-you halo is static (never breathes) once valid - breathing is reserved for hero/celebration cards only.",
+    "Error, wrong credentials: both fields' border lifts to rgba(255,255,255,.16), paper-100 warning glyph appears, single 150ms low-amplitude shake, caption 'that email or password doesn't match.' announced via aria-live=\"polite\" - no invented red hex per the spec's explicit correction (an orange #FF5E00 error border would be wrong: orange is the CTA/effort color, not an error color).",
+    "Error, network: OfflineBanner (.glass-pill, rgba(10,10,15,.55)) slots in under the top bar; form remains fully visible/interactive, local validation still works offline.",
+    "Loading: CTA label crossfades to a spinner (width locked); inline caption 'signing you in - one moment.' beneath the form, no toast.",
+    "Reduced motion: mount stagger snaps instantly, press feedback becomes an opacity dip only, error shake is replaced by an instant border/glyph change, biometric dim/reveal snaps at 0ms."
+  ]
+}

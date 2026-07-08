@@ -1,0 +1,76 @@
+{
+  "id": "59",
+  "name": "Streak Details",
+  "route": "No live route; stack-pushed streak detail opened from Life World, Home, Habits, Celebration, or CIA Chat.",
+  "shell": "dark",
+  "annotation": "HIFI-59 · no live route (stack-pushed) · warm-dark shell. Streak hero is the singular focal moment; calendar, gauges, freezes, milestones, and history stay quiet and mostly solid below, per canon's dense-content rule.",
+  "italicWord": "*details*",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar, 390x844 frame. Time 9:41 left, icons right; home indicator sits at y828."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Dark bg #0A0A0F. Left: 44px back target. Center Title: 'streak *details*' (H3 20 Hanken Grotesk Medium, white) — 'details' is the screen's one Newsreader Medium Italic emphasis word per canon."
+    },
+    {
+      "region": "StreakCard (Hero)",
+      "y": 100,
+      "h": 150,
+      "build": "Glass hero r40, glow-you top-center amber radial glow. H1 '42 days strong' (30px, white, plain — no italic here). Caption: 'longest: 67 · 63% of best'. ChipProvenance 'via streaks' (orange tint)."
+    },
+    {
+      "region": "CalendarHeatmap",
+      "y": 250,
+      "h": 150,
+      "build": "Solid #211008 r24 (dense chart, not glass, per canon). Overline 'May 2026'. Grid: o o o o o o o / o o o (green, completed) freeze (muted, non-glow) missed (muted) future (empty). Tap day -> tooltip. Real state."
+    },
+    {
+      "region": "XP Multiplier Dial",
+      "y": 400,
+      "h": 110,
+      "build": "Solid #211008 r24. GaugeRing orange glow (glow-you). Label: 'XP multiplier'. Value: '1.5x'. Caption: 'next: 2.0x at 30 days'."
+    },
+    {
+      "region": "Recovery Multiplier Dial",
+      "y": 510,
+      "h": 90,
+      "build": "Solid #211008 r24. ArcGauge green glow (healthy/rest — purple is CIA/AI-only per canon, not used here). Label: 'recovery multiplier'. Value: 'rest bonus next'."
+    },
+    {
+      "region": "Freezes",
+      "y": 600,
+      "h": 120,
+      "build": "Solid #211008 r24. Label: 'streak freezes'. Caption: '2 available'. BtnPrimary (only primary CTA): 'Use freeze' (orange #FF5E00, glow-you)."
+    },
+    {
+      "region": "Home Indicator",
+      "y": 828,
+      "h": 16,
+      "build": "Dark bg #0A0A0F. Home indicator bar."
+    }
+  ],
+  "belowFold": [
+    "TimelineAgenda (Milestones), y844 h100: Solid #211008 r24 (history-density per canon, not glass). Overline 'milestones'. Row: '7 (green check) · 14 (green check) · 30 (green check) · 60 (muted, locked)'. Broken-streak state keeps earned milestones green — no punishment color.",
+    "SolidCard (Streak history), y944 h100: Solid #211008 r24. Overline 'streak history'. Row: '67 days' left, 'ended: travel - life happens' right."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "category: streaks",
+    "source: streaks api",
+    "scope: private",
+    "freshness: live",
+    "retention: standard",
+    "export: available",
+    "revoke: available",
+    "delete: available"
+  ],
+  "notes": "No live route; opened via stack push from Life World, Home, Habits, Celebration, or CIA Chat. Back target, day cells, freeze CTA, and milestone rows meet 44px accessibility targets (leaderboard component not present in this composition). Calendar day status is announced as active, freeze, missed, or future. Multipliers announce numeric values and unlock thresholds. Corrected from draft: the italic emphasis word was misapplied to 'strong' in the hero — the spec's Visual System names 'details' as the one Newsreader/Tiempos italic moment, now applied to the TopBar title instead. CalendarHeatmap and the Milestones TimelineAgenda were built Glass; canon reserves glass for focal surfaces/CIA/sheets/nav/floating controls and puts dense charts, histories, and tables on Solid #211008 — both corrected to Solid r24. The Recovery multiplier's ArcGauge was purple, but purple is CIA/AI-only per canon; recolored to green for healthy/rest-arrival semantics."
+}

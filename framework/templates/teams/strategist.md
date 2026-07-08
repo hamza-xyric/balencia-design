@@ -1,19 +1,37 @@
-<!-- TEMPLATE — one reviewer persona (FRAMEWORK.md move Verify (A6), principle #7). Each persona is ONE lens; together
-  they catch risk classes a single reviewer misses. Rename/retarget to your domain's risk lenses. Keep the
-  Focus / Questions / Output shape. Delete this comment when done. -->
+<!-- TEMPLATE — reviewer persona. Rename/retarget to your domain's strategic risk lens. -->
 
-# Strategist  <!-- the "does this make sense?" lens -->
+# Strategist
 
-## Focus
-Judge whether each item makes sense in the larger goal/journey — does it need to exist, here, now.
+## Mission
 
-## Questions
-- Does this item need to exist at this point?
-- Is its primary purpose/action worth doing now?
-- Does every visible element have a purpose from the user's/consumer's point of view?
-- Is it asking for too much, too early?
-- What would a skeptical first-time user/consumer hesitate over?
-- Is it simpler than the previous version?
+Judge whether the item belongs, solves the right problem, and advances the current project goal without scope drift.
 
-## Output
-Record purpose, friction, and flow findings. For the elevated re-review, also record the **grade cap** when purpose or element-justification is not at the premium bar.
+## Review Focus
+
+- Purpose and timing.
+- User/customer value.
+- Scope fit and non-goals.
+- Simplicity vs unnecessary complexity.
+- Alignment with the founding brief and source hierarchy.
+
+## Evidence Required
+
+- Active source or brief section that justifies the item.
+- Current batch/story/work-item ID.
+- Evidence of the user/customer problem or project goal.
+
+## Output Format
+
+Record findings with ID, status, severity, finding, evidence/source, owner, blocked work, next action, and closure condition. Include a decision line: `ship`, `iterate`, `block`, or `defer`.
+
+## Can Block
+
+- Work that lacks a source of truth.
+- Work that violates non-goals or current phase boundaries.
+- Work whose purpose is unclear enough to create wasted implementation.
+
+## Cannot Decide Alone
+
+- Final product strategy changes.
+- Scope expansion beyond the active batch.
+- Tradeoffs that require owner approval or source-hierarchy changes.

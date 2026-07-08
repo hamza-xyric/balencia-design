@@ -1,0 +1,73 @@
+{
+  "id": "55",
+  "name": "Yoga Sessions",
+  "route": "/yoga",
+  "shell": "dark",
+  "annotation": "HIFI-55 · /yoga · dark shell (#0A0A0F) + top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain. Practice-streak GlassCard hero (flame + CalendarHeatmap) is the singular focal moment; the CIA coaching note, difficulty filter, and the two guided SessionCards sit as a quiet operational layer below. Pose library, weekly practice trend, and stats scroll below the fold. Every streak, mastery, weekly-practice, and XP value ships real (ChipProvenance), low-confidence (muted 'estimated · low confidence'), or honest-null — no fabricated streak spectacle.",
+  "italicWord": "tone",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, dark mode, light icons over the warm shell with top-center amber radial glow and 3-4% grain. Fixed 44px, no copy."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent header, shifts to .glass-pill on scroll. Left: 44px back chevron. Center: 'Yoga sessions' (H2). Right: RPGBadge 'Lv.8', ChipProvenance 'via RPG profile' on tap; honest-null hides the badge or reads 'level pending.'"
+    },
+    {
+      "region": "Hero - Practice Streak",
+      "y": 100,
+      "h": 190,
+      "build": "GlassCard hero r40, glow-you (orange breathing shadow). Flame glyph + '12-day streak', caption 'longest 18'. ChipProvenance 'via yoga logs'. CalendarHeatmap 'M T W T F S S' cells, true-zero and skipped-day states. Low-confidence: muted approximate value; honest-null: 'your practice starts today,' no streak shown."
+    },
+    {
+      "region": "CIA Coaching Note",
+      "y": 290,
+      "h": 150,
+      "build": "CIAInsightCard, purple glass, glow-cia. Body 'Morning yoga sets the *tone*.' (only 'tone' in Newsreader Medium Italic). ChipDomainTag pair '[Fitness]' (#EF4444), '[Wellbeing]' (#14B8A6), 16% bg. BtnCoach pill 'Start session' (purple, CIA-initiated) deep-links to Morning flow below."
+    },
+    {
+      "region": "Difficulty Filter",
+      "y": 440,
+      "h": 56,
+      "build": "SegmentedTabs, 44px targets: 'All' / 'Beginner' / 'Intermediate' / 'Advanced'. Default state selects 'Beginner' per source. Filtering re-sorts the guided-session list below; disabled only while sessions are loading."
+    },
+    {
+      "region": "SessionCard - Morning Flow",
+      "y": 496,
+      "h": 112,
+      "build": "SolidCard #211008 SessionCard variant. Media thumbnail (HIFI-55-01, privacy-safe, no identifiable person). Title 'Morning flow', meta '30 min · 12 poses'. BtnPrimary pill 'Start session' (orange #FF5E00) - the screen's single BtnPrimary; 40% opacity only while content loads."
+    },
+    {
+      "region": "SessionCard - Evening Wind-down",
+      "y": 608,
+      "h": 112,
+      "build": "SolidCard #211008 SessionCard variant. Media thumbnail; if video is unavailable, instructions stay visible and the slot reads 'tutorial unavailable.' Title 'Evening wind-down', meta '15 min · 8 poses'. Completion badge (green, glow-done) reads 'Completed' in place of a Start action."
+    }
+  ],
+  "belowFold": [
+    "Pose library (~y720-880): SectionHeader 'Pose library' + BtnGhost 'see all'. Row of 3 PoseCards (image or safe illustration), each labeled with difficulty and target area; illustrations only, never an identifiable person.",
+    "Weekly practice (~y880-1020): SectionHeader 'Weekly practice'. SolidCard containing TrendChart: solid orange line built from practice minutes, ChipProvenance 'via session history'. Low-confidence labels partial sync; honest-null keeps only axes plus a prompt to practice a few days.",
+    "Your stats (~y1020-1160): SectionHeader 'Your stats'. ProgressRing 'Poses mastered' '42 of 50' + ChipProvenance 'you logged'; honest-null reads 'Log a session to begin mastery tracking.' KPIRow 'Sessions / hours' '12 / 4.5', same provenance."
+  ],
+  "imageSlots": [
+    "HIFI-55-01 - content proof or instructional media slot; screen-specific; privacy-safe, non-diagnostic, no identifiable person. Prompt: Yoga sessions instructional media thumbnails, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Practice streak honesty triple - real: '12-day streak' + ChipProvenance 'via yoga logs'; low-confidence: muted approximate value when logs are partially synced; honest-null: 'your practice starts today,' no fake streak.",
+    "RPG level honesty triple - real: RPGBadge 'Lv.8' + ChipProvenance 'via RPG profile'; low-confidence: muted 'estimated · low confidence'; honest-null: badge hidden or reads 'level pending.'",
+    "Poses mastered honesty triple - real: '42 of 50' + ChipProvenance 'you logged'; low-confidence: muted count after partial sync; honest-null: 'Log a session to begin mastery tracking.'",
+    "Weekly practice honesty triple - real: solid orange TrendChart line + ChipProvenance 'via session history'; low-confidence: partial-sync label; honest-null: axes only plus a prompt to practice a few days.",
+    "Session completion updates streak and XP only on a genuine save; the summary omits XP entirely if the reward service returns no value - never a fabricated XP number.",
+    "Video media is consent-gated and privacy-safe: no identifiable face, body, home, document, provider logo, or private text; unavailable pose video keeps instructions visible and reads 'tutorial unavailable.'",
+    "Source chips expose category, source, scope, freshness, retention, export, revoke, and delete; reachable via ChipProvenance taps on streak, mastery, weekly-practice, and XP values.",
+    "Route locked to /yoga; no alternate vanity routes."
+  ],
+  "notes": "Italic-word spec drift: the Visual System line names '*sessions*' as the one Tiempos/Newsreader italic word, but that word never appears in any rendered default-state copy string; the Final Composition's own rendered CIA line carries the asterisks on 'tone' ('Morning yoga sets the *tone*.'), so 'tone' is used as the actual emphasis word here, matching the precedent set on screen 13 (flagged for source correction, not fabricated). States beyond the browse default: Skeleton - streak cells, session cards, pose cards, and stat rings shimmer in place with no fake values. Empty - three beginner sessions and six foundational poses stay available; stats show true zero with non-shaming copy. Error - each section fails independently; an active timer stays local and usable. Success - completing a pose flashes green on the timer; finishing a session opens a Summary sheet and updates the streak only after save. Disabled - the summary's Done button stays 40% opacity until a rating is picked; Start session is disabled only while content loads. Paused - the active full-screen practice dims, PoseTimerRing freezes, and Pause relabels to Resume. Active full-screen practice (reached by tapping Start session, not part of this browse composition): large PoseTimerRing countdown, 280ms pose crossfades, CIA cues rotate no more than every 30 seconds; Summary sheet closes the loop with XP badge and streak update. Motion: streak cells populate sequentially, SessionCards rise 12px, and the weekly-practice chart line draws left-to-right on browse entry; reduced motion turns crossfades into instant cuts, snaps rings to final states, stops glow breathing, and skips count-ups. Tier context: per _tier-matrix.md, the CIA coaching note, personalized difficulty, and streak tracking are premium features while the session library, pose library, and timer stay free, and session analytics/flexibility trend sit at a higher tier - this hifi spec's own States section names no explicit Paywall state, so no PaywallLock is fabricated here; flagged as a spec gap for source follow-up rather than invented. Accessibility: paper text on the warm-dark and SolidCard surfaces meets AA+, orange is reserved for non-text progress/large controls; filters, session actions, pose cards, close, skip, pause, and Done all keep 44px minimum hit targets; flame, level badge, pose timer, rating circles, and completion badges carry explicit screen-reader labels and selected states."
+}

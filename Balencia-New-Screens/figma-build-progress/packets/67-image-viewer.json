@@ -1,0 +1,71 @@
+{
+  "id": "67",
+  "name": "Image viewer",
+  "route": "No live route; full-screen image viewer overlay launched from Progress Photos [49], Journal [37], chat attachments, and try-on history [87].",
+  "shell": "dark",
+  "annotation": "HIFI-67 · no live route (z-50 full-screen overlay) · dark shell, top-center amber glow scrim over edge-to-edge photo. ImageCanvas is the sole focal moment; gradient chrome (close/counter/share) auto-hides after 3s; no floating nav pill or FAB — consent-gated private media exits via close, swipe-down, or comparison 'Done'.",
+  "italicWord": "unencrypted",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar over the dark scrim (#0A0A0F), time left, signal/wifi/battery right, paper-100 icons. Fixed 44px, no copy; present per canon even though this overlay has no nav pill or FAB."
+    },
+    {
+      "region": "Chrome scrim + TopBar",
+      "y": 44,
+      "h": 96,
+      "build": "Gradient chrome scrim rgba(10,10,15,.55)->transparent over photo; tap toggles, auto-hides after 3s, fade + translateY 200ms. BtnGhost close 'x' 44px (label 'Close image viewer'). Counter chip '2 of 7' (honest-null hides for a single-image viewer). BtnGhost share glyph 44px (label 'Share photo'). ChipProvenance: source (encrypted/local/CDN), upload date, confidence — omitted when source context is missing."
+    },
+    {
+      "region": "ImageCanvas",
+      "y": 140,
+      "h": 436,
+      "build": "NEW ImageCanvas: full-viewport pinch 1x-5x, pan-when-zoomed, double-tap 1x/2x, swipe-down dismiss, swipe left/right at 1x. Image slot HIFI-67-01. Caption 'pinch 1x-5x | pan | zoom' fades with chrome. SkeletonState: blurred thumbnail fills exact bounds while high-res loads. ErrorState: close stays available, share/download disabled, retry shown. HonestNullState: close + source retry instruction, no fabricated photo."
+    },
+    {
+      "region": "Gallery Dots",
+      "y": 576,
+      "h": 32,
+      "build": "Dot pagination 'o o O o o o o' (current index filled orange #FF5E00, rest 40% paper). Real: shows current position + total. Low-confidence: dims while gallery total still syncing. Honest-null: row hidden entirely for a single-image viewer — never a fake single dot."
+    },
+    {
+      "region": "ComparisonSlider (alt mode)",
+      "y": 140,
+      "h": 436,
+      "build": "NEW ComparisonSlider (alt mode, entered from Progress Photos [49]): before/after divider follows finger drag; horizontal date-pill selector scrolls, active pill gets border + label. Low-confidence: missing dates dim the pill. Honest-null: hidden if fewer than two photos exist. BtnGhost 'Done' (44px) exits to the normal single-image viewer."
+    },
+    {
+      "region": "Privacy Toast",
+      "y": 660,
+      "h": 56,
+      "build": "Toast copy: 'Photo shares *unencrypted*.' (Newsreader italic on 'unencrypted', the screen's one emphasis word). Appears above the safe area, auto-dismisses after the native share sheet opens or after 3s; a factual completion toast replaces it on successful share/download."
+    },
+    {
+      "region": "Home Indicator",
+      "y": 804,
+      "h": 40,
+      "build": "iOS home indicator, white 30%, safe-area padding at the base of the immersive z-50 overlay. No floating GlassNavBar pill and no FAB — exits only via close 'x', swipe-down dismiss, or (in comparison mode) the 'Done' ghost button."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [
+    {
+      "id": "HIFI-67-01",
+      "desc": "Image viewer privacy-safe photo placeholders; screen-specific, premium warm-dark product placeholder, privacy-safe, no brand logos, no readable UI text, no identifiable person."
+    }
+  ],
+  "trustControls": [
+    "Image source honesty triple — real: URL or encrypted local key + ChipProvenance; low-confidence: source context missing (muted chip); honest-null: no image payload shows a stated missing-image message, never a broken or fake photo.",
+    "Gallery index honesty triple — real: '2 of 7' counter + dot row; low-confidence: dims while gallery count still syncing; honest-null: counter and dots hidden entirely for a single-image viewer.",
+    "Zoom/comparison honesty triple — real: local gesture state persists; low-confidence: comparison dates missing dims the date pill; honest-null: comparison controls hidden when fewer than two photos exist.",
+    "Download/share honesty triple — real: native share/download completion reported when available; low-confidence: OS handoff opened but completion unknown; honest-null: share/download disabled until the image has loaded.",
+    "Delete/report honesty triple — real: shown only when the owning surface supports the action; low-confidence: owner unavailable (disabled with reason); honest-null: no delete/report control shown rather than pretending control exists.",
+    "Consent-gated media: no identifiable face, body, home, document, provider logo, or private text appears without explicit permission; source chips expose category, source, scope, freshness, retention, export, revoke, and delete.",
+    "Sheet handoffs (share warning, delete/report, decrypt-failure help) are BtnGhost-triggered, never auto-opened, and always name the exact photo/action affected before confirming."
+  ],
+  "notes": "Route header stays exactly 'No live route; full-screen image viewer overlay launched from Progress Photos [49], Journal [37], chat attachments, and try-on history [87].' — never invent a live route; this is a z-50 ModalOverlay above app chrome, not a stack push. Italic word corrected to 'unencrypted' — the Visual System's own '*viewer*' is filename-derived (from 'Image viewer') and never appears as literal on-screen copy anywhere in the spec (no Content & Copy section exists here, unlike richer specs); 'unencrypted' is the one real quoted on-screen string with clear emphasis value, drawn from the privacy toast 'Photo shares unencrypted' and matching the Trust and Safety Reviewer's stated focus for this screen (same resolution pattern used for HIFI-42's 'consistency' vs 'overlay' and HIFI-49's 'sleep' vs 'photos'). Glass discipline: only the chrome scrim, ChipProvenance, and Sheet surfaces use glass; ImageCanvas stays edge-to-edge with no card surface so the photo reads as the singular focal moment. Semantic glow is intentionally near-absent here — this is consent-gated private media, not a scored surface; no orange/green/purple glow is applied to the photo itself. States: Default shows chrome for 3s then auto-hides; Skeleton fills exact image bounds with a blurred thumbnail or neutral canvas (never a generic spinner); Empty is HonestNullState with close + retry instruction; Error keeps close available, disables share/download, shows retry for load failures, and shows a no-retry decrypt-failure message when appropriate; Success shows a factual share/download toast and comparison 'Done' returns to the normal viewer; Disabled dims share/download/delete/report to 40% opacity with a stated reason (missing image, consent, ownership, or platform support) rather than hiding the control silently. Motion: chrome toggles on tap and auto-hides after 3s (fade + translateY 200ms); gestures are pinch 1x-5x, double-tap 1x/2x, pan-when-zoomed, swipe-down dismiss, swipe left/right at 1x; the comparison slider follows the finger with a horizontally scrolling date-pill selector; toasts sit above the safe area and auto-dismiss after the share sheet opens or after 3s; reduced-motion disables chrome translation, image crossfade, and the slider handle flourish while all gestures remain functional and every gesture has an alternate 44px button for screen-reader users. Accessibility: chrome/toast text clears AA+ over the dark scrim and #211008; close, share, Done, retry, delete, report, and the slider handle all keep 44px hit areas; on mount, screen readers announce image source, gallery position, gesture instructions, and privacy context before anything else. Consent and safety: no identifiable face, body, home, document, provider logo, or private text appears without explicit permission; delete/report only ever appear when the owning surface genuinely supports them."
+}

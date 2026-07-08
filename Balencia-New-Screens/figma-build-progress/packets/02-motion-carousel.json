@@ -1,0 +1,66 @@
+{
+  "id": "02",
+  "name": "Motion carousel",
+  "route": "No live route — pre-auth brand carousel between Splash [01] and Welcome sign-up [03].",
+  "shell": "dark",
+  "annotation": "HIFI-02 · no live route · dark shell (Splash-matching cinematic ground) + top-center amber radial glow, full-bleed MotionStage hero, single Tiempos italic emphasis on \"life\".",
+  "italicWord": "life",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "statusBar",
+      "y": 0,
+      "h": 44,
+      "build": "StatusBar default — time/signal/battery, dark-shell ink styling over the amber-radial atmosphere. No CIA badge: pre-auth brand carousel has no personalized read to surface."
+    },
+    {
+      "region": "skipControl",
+      "y": 44,
+      "h": 56,
+      "build": "BtnGhost \"skip\" top-right, 44px hit area + visible focus ring. No back arrow — first pre-auth screen after Splash [01]; skip exits straight to Welcome sign-up [03]."
+    },
+    {
+      "region": "motionStage",
+      "y": 100,
+      "h": 420,
+      "build": "MotionStage, full-bleed panel-1 viewport, no card frame: continuous stroke draws through nine domain dots over 1200ms, then rests with a subtle pulse. ChipProvenance shows the bundled Rive/Lottie asset-version; ChipDomainTag marks each life-domain dot as an identity mark, not chrome. Skeleton: warm shimmer geometry, not blank gray."
+    },
+    {
+      "region": "panelCopy",
+      "y": 530,
+      "h": 90,
+      "build": "Centered copy, 2 lines max: \"One life, not modules.\" (Display, Tiempos italic on \"life\") / \"Everything connects. Finally.\" (Body subtext). Current slide announced to screen readers as \"Slide 1 of 4.\""
+    },
+    {
+      "region": "pager",
+      "y": 630,
+      "h": 50,
+      "build": "Progress bar + 3 dots below copy, index 1 of 4 active, native paging physics. Pagination is decorative and paired with the screen-reader slide announcement, not a separate visible caption."
+    },
+    {
+      "region": "ctaPrimary",
+      "y": 696,
+      "h": 56,
+      "build": "BtnPrimary \"next\", orange fill, locked width, spinner if navigation exceeds 400ms. On panel 4 label swaps to \"Get started\"; press crossfades CTA glow to --glow-done before pushing [03]. Disabled only during handoff, screen-reader reason \"Opening sign-up.\""
+    },
+    {
+      "region": "homeIndicator",
+      "y": 800,
+      "h": 44,
+      "build": "HomeIndicator, system default, dark-shell styling. No floating tab nav — pre-auth brand carousel has no Today/CIA/Goals/Me tabs; the single BtnPrimary plus \"skip\" ghost are the only actions."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [
+    "HIFI-02-01 — above-fold brand-motion viewport; privacy-safe, no brand logos, no readable UI text, no identifiable face/body/home/document."
+  ],
+  "trustControls": [
+    "ChipProvenance — bundled Rive/Lottie asset-version shown on the motion stage; real, not decorative.",
+    "Panel 3 CIAInsightCard — demo-provenance chip labeled \"demo\"; never shown as personal data; omitted entirely (honest-null) rather than inventing a personalized correlation.",
+    "Panel 4 quest card honest-null — \"XP unlocks after sign-up.\" when no demo count-up runs; XP counter otherwise labeled \"sample\", with no count-up if playback support is uncertain.",
+    "Consent-gated media — no identifiable face, body, home, document, or provider logo appears without explicit permission.",
+    "ErrorState — appears only after repeated asset failure; \"skip\" and \"Get started\" remain usable throughout."
+  ],
+  "notes": "Shell corrected to DARK: though 02 sits in the auth-family numbering (default assumption warm-light per batch convention), this spec's own Visual System section explicitly commits to \"Warm dark base #0A0A0F, top-center amber radial glow, and 3-4 percent grain\" — identical wording to Splash [01]'s spec — the spec-declared override wins per source hierarchy; 02, like 01, 03c (consent), 06 (guest preview), and 65 (force update), is a cinematic/system brand moment rather than an input form, so the warm-light auth default doesn't apply. Italic word resolved to \"life\" (from the primary Panel-1 headline \"One life, not modules.\") rather than the Visual System's generic \"*carousel*\" placeholder, which is just the screen's file-slug and never appears as literal rendered copy anywhere in the spec — consistent with how sibling packets resolved \"look\" over \"preview\" (06) and \"begin\" over \"consent\" (03c). Off-canvas panels are native horizontal paging, not vertical overflow, so they are documented here rather than modularized as separate build slots (keeping the 8-module cap on the default/current-slide render): Panel 2 \"Meet CIA, your coach.\" (purple CIA presence bloom); Panel 3 \"Everything connects.\" (correlation-line pulse once, then CIAInsightCard fades up with evidence chips, demo-provenance, honest-null omission if no example pattern exists); Panel 4 \"Your life, gamified.\" (XP ProgressRing fills to sample progress, then quest card settles, honest-null \"XP unlocks after sign-up.\" when no count-up runs). Reduced-motion: disables stroke draw, CIA bloom, correlation pulse, and XP count-up — every panel loads as a final still with opacity-only transitions. Accessibility: paper text on #0A0A0F/#211008 meets AA+; inactive pagination dots are decorative, paired with the SR slide announcement, not a separate caption; \"skip\", CTA, and pager affordances hold 44px touch targets. No overflow past y844 — belowFold=[]. imageSlots=[HIFI-02-01] per spec's Image Slots section."
+}

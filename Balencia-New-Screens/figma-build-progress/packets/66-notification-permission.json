@@ -1,0 +1,71 @@
+{
+  "id": "66",
+  "name": "Notification Permission",
+  "route": "No live route; onboarding stack step and system-permission modal overlay.",
+  "shell": "light",
+  "annotation": "HIFI-66 · No live route · warm-light onboarding shell (peach blush corners, white cards, ink text)",
+  "italicWord": "track",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "9:41 time; signal/wifi/battery icons. ink-900 icons over warm-light shell (white bg + peach blush corner atmosphere). Fixed 44px, no copy."
+    },
+    {
+      "region": "Top Spacer",
+      "y": 44,
+      "h": 40,
+      "build": "Empty 40px spacer above the hero card; no copy, no controls."
+    },
+    {
+      "region": "LightPreferenceCard (shell + illustration)",
+      "y": 84,
+      "h": 176,
+      "build": "Light-shell hero card: white fill, r40, 1px #EAE3DC border, peach blush pool, --glow-cia purple bleed (bottom-anchored, 62% card height, breathes). NotificationIllustration: 96px glass-frost bell disc, 8px --glow-you unread dot on rim, flame + two-avatar glass-pill micro-chips floating, all aria-hidden (decorative only)."
+    },
+    {
+      "region": "LightPreferenceCard (title/subtitle)",
+      "y": 260,
+      "h": 110,
+      "build": "Title (Display 34, ink-900): 'Stay on *track*.' Subtitle (Body-light 15, muted ink-700): 'CIA uses notifications to help you build habits.' One Newsreader Medium Italic emphasis word: 'track.'"
+    },
+    {
+      "region": "LightPreferenceCard (benefit rows)",
+      "y": 370,
+      "h": 294,
+      "build": "3 rows, no trailing control, no domain tint, ink-700 icon / ink-900 title / muted ink-500 description: 1) 'CIA coaching nudges' - 'Stay focused with advice'. 2) 'Helpful reminders' - 'Choose which nudges you want'. 3) 'Squad updates' - 'Only for groups you opt into'."
+    },
+    {
+      "region": "BtnPrimary",
+      "y": 684,
+      "h": 52,
+      "build": "Default state, full width minus 24px margins, height 52. Glow --glow-you (#FF5E00). Copy: 'Enable notifications.' Medium impact haptic. Loading: spinner replaces label (OS-latency cover). Success: crossfades to BtnSuccess green ~1.5s. Error: becomes BtnSecondary 'Try again'."
+    },
+    {
+      "region": "BtnGhost",
+      "y": 744,
+      "h": 44,
+      "build": "Copy: 'Not now.' Light impact haptic. Equal reach with BtnPrimary - never threatens streak loss, missed progress, or social penalty. First-ask denial dims CTA to 'Got it' at 40% before transition; re-entry after OS denial swaps CTA permanently to 'Open settings.'"
+    },
+    {
+      "region": "Home Indicator",
+      "y": 828,
+      "h": 16,
+      "build": "Standard home indicator, ink-900 bar on warm-light shell. Final element, no copy, no controls."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "Benefits strictly scoped to CIA coaching nudges, selected reminders, and opted-in Squad/Community updates - no contact/social notifications without explicit consent",
+    "'Not now' stays equal-reach with 'Enable notifications' - no loss-aversion, streak-threat, or social-penalty framing",
+    "Permission status read directly from the OS API (notDetermined/denied/authorized) - never fabricated client-side",
+    "System-denied re-entry deep-links to OS settings via 'Open settings' copy; the OS will not re-show its own dialog a second time",
+    "Offline: the OS permission request works with zero connectivity and the CTA stays fully active/glowing; only a failed post-grant device-token sync surfaces a non-blocking OfflineBanner ('offline - your choice is saved, we'll sync when you're back online')",
+    "Honest-null: no pre-permission-skip or system-denied timestamp renders until the corresponding local/OS event actually occurs ('No skip recorded yet - OS prompt still preserved')"
+  ],
+  "notes": "Corrections vs. the draft packet: (1) Shell confirmed LIGHT - this spec's own Visual System + Figma Reference Alignment sections explicitly override the older dark-only compact canon note for this screen ('screenshot-derived Preferences-family inference overrides the older compact canon's dark-only note here'); the spec-declared override wins per source hierarchy, same as 66's row in the auth-family list. (2) Card renamed from 'FrostCard' to 'LightPreferenceCard' - the Components section's own resolution states 'default Figma mode uses light preference cards... FrostCard is reserved for overlay re-entry contexts where the permission prompt sits over an existing app screen'; this default composition is not that overlay case. (3) Card radius corrected to r40 (hero card, per the Final Composition's explicit 'FrostCard, r40' annotation) - distinct from the separate 12-16px radius used only for the inner benefit-row icon squares (Figma Reference Alignment's 'Permission card style' note), which is not a contradiction once read as two different surfaces. (4) --glow-cia bottom bleed (62% card height, breathing per Motion) restored - present in the Final Composition and Motion sections but missing from the draft's card module. (5) Text tokens corrected from residual dark-shell paper-100/paper-64% (leftover in the Components section's ListRow-benefit description, written before the screen's light-shell pivot) to light-shell ink-900/muted ink-700/muted ink-500, consistent with sibling light-shell packets (03b, 05b). (6) Title typography corrected from 'H1 30' to 'Display 34' per the Final Composition's own 'Display, 1 emphasis' annotation and canon type scale; subtitle corrected from 'Body 15' to 'Body-light' per the same annotation. (7) italicWord resolved to the literal Final Composition/title copy 'track' ('Stay on *track*.') over the Visual System section's generic placeholder '*permission*', which never appears as literal rendered copy anywhere in the spec - the same resolution precedent used for screen 03c ('begin' over 'consent'). (8) Home Indicator modularized as its own region (y828-844) since the layout fits within the 844 frame with no overflow; belowFold stays empty. Not modularized as separate build slots (still spec-true, off the primary default composition, kept within the 8-module cap): SkeletonState (~150-300ms, illustration + benefit rows ghost-shimmer at --surface-3, CTA spinner, width locked), Success (~1.5s BtnSuccess green crossfade + checkmark, auto-navigates), System-denied-first-ask (CTA dims to 'Got it' at 40% then transitions out), System-denied-re-entry (CTA permanently 'Open settings'), Error (BtnSecondary 'Try again', quiet failure copy, no red glyphs), Offline (CTA remains fully active - the OS permission call is local/on-device with zero connectivity dependency; only a failed post-grant device-token sync shows the non-blocking OfflineBanner). Data Honesty: the spec's 'one true numeric metric (high-density streak-count chip)' reference does not appear anywhere in the Final Composition or its literal annotations for this screen and is treated as inherited boilerplate, not a rendered element; the only honesty-bearing state actually depicted is the boolean OS permission read plus the two locally-logged, honest-null-gated timestamps (pre-permission-skip, system-denied), both covered under trustControls. Disabled state is not applicable - the screen always resolves to a tap or the 'Not now' ghost exit."
+}

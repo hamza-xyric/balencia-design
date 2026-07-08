@@ -1,0 +1,77 @@
+{
+  "id": "76",
+  "name": "Group chat",
+  "route": "/chat",
+  "shell": "dark",
+  "annotation": "HIFI-76 · /chat · dark shell (#0A0A0F, top-center amber radial glow rgba(255,94,0,.18)); PodCard room-mission summary and AvatarStack presence sit above a solid message thread; ChatComposer is the dominant focal moment, pinned directly above GlassNavBar and kept visually singular, not one tile among many.",
+  "italicWord": "chat",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar (time, signal, battery) over bg #0A0A0F + top radial orange rgba(255,94,0,.18)."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 52,
+      "build": "Native top bar: [< Back] 'Morning crew' [+ add member] [i info]. 44px targets."
+    },
+    {
+      "region": "pod_card",
+      "y": 100,
+      "h": 134,
+      "build": "GlassCard r24, border white 8%. Overline 'ROOM MISSION'. Body 'Tempo run together'. MomentumBar 'members joining 4/5' (green #34A853) + ChipProvenance 'synced live'. Chips '[120 group XP]' '[CIA pacing]'. One purple #7F24FF glow."
+    },
+    {
+      "region": "avatar_rail",
+      "y": 242,
+      "h": 46,
+      "build": "AvatarStack (5 avatars, 3 online with green presence dots). Right caption '3 online'. 44px target opens members sheet."
+    },
+    {
+      "region": "divider",
+      "y": 290,
+      "h": 28,
+      "build": "Date divider line. Centered text 'Today'."
+    },
+    {
+      "region": "message_thread",
+      "y": 322,
+      "h": 362,
+      "build": "SolidCard list, not glass. Left bubble solid #211008: 'Kenji: Tomorrow is tempo day.' Left bubble purple #7F24FF border (estimated · low confidence): 'CIA recap: three members share pace.' InlineArtifactCard ghost pill '[Group tempo mission]' + reply chip '[I can lead]'. Right bubble orange #FF5E00 outline: 'You: I can lead the easy group.' Caption 'CIA is preparing pace...'"
+    },
+    {
+      "region": "chat_composer",
+      "y": 692,
+      "h": 64,
+      "build": "GlassCard focal surface r28, orange #FF5E00 glow. Input text placeholder 'Message Morning crew'. 44px targets for [+ attach] and [send ->]."
+    },
+    {
+      "region": "glass_nav",
+      "y": 756,
+      "h": 88,
+      "build": "GlassNavBar floating pill (r40): Today · CIA · Goals · Me, 44px targets; no forced active tab, since group chat sits outside the four primary tabs. Home indicator ~y828."
+    }
+  ],
+  "belowFold": [
+    "Sheet overlays: members info, add member, message actions (long press opens route [77]), revoke CIA recap, report/mute/block, leave group.",
+    "SafetyResourceCard and ConsentCard for crisis handoff and shared health/recovery consent, reachable from the group info sheet and the report flow."
+  ],
+  "imageSlots": [
+    "HIFI-76-01 - Group chat avatar or social proof placeholders, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Group info sheet exposes audience, visibility, membership, export *chat* transcript",
+    "Revoke CIA recap",
+    "Delete own content/media",
+    "Report / mute / block",
+    "Leave group",
+    "Crisis-resource handoff in report flow",
+    "Group XP/progress optional, never attached to health/nutrition/sleep compliance; members can hide social comparison from this thread"
+  ],
+  "notes": "Dominant focal moment: ChatComposer sits directly above GlassNavBar, visually singular, not one tile among many.\nData Honesty: messages and the CIA recap bubble carry explicit provenance or 'estimated · low confidence' tags; the room-mission MomentumBar carries ChipProvenance 'synced live'; an empty thread shows an honest-null first-message prompt instead of a fabricated history.\nItalic word 'chat' (declared in Visual System) doesn't appear literally in the primary ASCII composition; applied instead to the trust-controls export line ('export *chat* transcript'), the same resolution used in sibling screen 10 (CIA Voice in Chat).\nLayout fix: draft left an unaccounted ~176px blank gap between the message thread and composer and omitted the nav bar entirely; extended the message thread through y684 and added an explicit GlassNavBar module (y756-844, matching sibling packets 09/40/74) so the frame fully accounts for 844px with no orphaned whitespace.\nStructure fix: draft's belowFold/imageSlots were object arrays and notes was a string array, which do not match this corpus's schema (belowFold/imageSlots are string arrays, notes is a single string) — normalized here.\nAccessibility: paper text on #0A0A0F and #211008 meets AA+; all interactive elements are 44px minimum; screen readers announce author, time, delivery, text, attachment, and report options per message."
+}

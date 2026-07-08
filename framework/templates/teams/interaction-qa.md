@@ -1,17 +1,35 @@
-<!-- TEMPLATE — reviewer persona (the "does it work ergonomically / mechanically?" lens). For non-UI work this
-  becomes your "operability/correctness QA" lens. Rename/retarget freely. -->
+<!-- TEMPLATE — reviewer persona. For non-UI work, retarget as correctness or operability QA. -->
 
 # Interaction QA
 
-## Focus
-Validate the mechanical correctness and ergonomics of each item — does every control work, behave honestly, and meet the platform's hard constraints.
+## Mission
 
-## Questions
-- Does every interactive element work, or is it honestly disabled / clearly decorative / documented?
-- Are platform constraints met (targets ≥ minimum size, safe areas, keyboard/focus, no overlap)?
-- Are states honest (loading, error, empty, success) and reachable?
-- Are gestures/shortcuts discoverable and safe (no destructive action without confirm)?
-- (Non-UI) Do contracts/inputs/outputs behave as specified under edge cases?
+Validate that the item works mechanically, behaves honestly, handles edge cases, and meets platform constraints.
 
-## Output
-Record correctness, state-honesty, and ergonomic findings with the exact element and the expected behavior.
+## Review Focus
+
+- Reachable states: loading, error, empty, success, disabled, degraded.
+- Controls, contracts, inputs, outputs, and side effects.
+- Accessibility, keyboard/focus, safe areas, layout, or equivalent platform constraints.
+- Destructive actions and recovery paths.
+
+## Evidence Required
+
+- Running UI, test output, contract example, command result, trace, or screenshot.
+- Edge-case evidence for high-risk states.
+
+## Output Format
+
+Record correctness findings with ID, status, severity, finding, evidence/source, owner, blocked work, next action, and closure condition.
+
+## Can Block
+
+- Broken or fake controls.
+- Unreachable or dishonest states.
+- Contract, accessibility, or operability failures.
+
+## Cannot Decide Alone
+
+- Product tradeoffs around intentionally omitted states.
+- Security or legal acceptance.
+- Reprioritizing unimplemented behavior without owner approval.

@@ -1,0 +1,80 @@
+{
+  "id": "19",
+  "name": "RPG Character",
+  "route": "/life-world",
+  "shell": "dark",
+  "annotation": "Read-only, celebratory character sheet reached from Me Main: the constellation radar is the singular focal hero (Life Power in the sun hub, one CIA read), the character card and domain skills stay quiet and source-labeled, and ranked magnitude / streak & rewards / mission history round out the record. Every metric is real, low-confidence, or honest-null — no fabricated stats, no shame language for low domains. Deeper cross-domain comparison is the only premium gate.",
+  "italicWord": "character",
+  "hasNav": false,
+  "hasFab": false,
+  "imageSlots": [],
+  "belowFold": [
+    "Remaining DomainSkillCard entries continue the grid below the visible six, each honest-null \"--\" plus \"log one entry to begin.\" until logged",
+    "GroupedBarChart continues past Fitness/Wellbeing to rank every active domain; unstarted domains ghost, never rendered as a failing bar",
+    "BadgeWall shows further recent unlocks beyond the KPIRow strip; rarity is communicated by icon shape and label, never color alone",
+    "Mission history ListRow items (recent completed missions, most-recent first) scroll below the \"view all\" header; empty state reads \"Complete a goal to see your journey here. Start with one small mission.\"",
+    "Sheet (domain sub-stats): opens on a domain-card or radar-axis tap; shows the domain trend, a log-entry CTA, and its own ChipProvenance",
+    "CelebrationOverlay and the green arrival line render only on a live level-up event, never on cold load"
+  ],
+  "trustControls": [
+    "ChipProvenance \"via RPG stats\" on the Life Power sun-hub value; honest-null reads \"Building your balance - add your first domain to get started.\" — never a fabricated aggregate",
+    "Level/XP low-confidence shows \"estimated · low confidence\" (muted) while a domain re-syncs; honest-null renders level 1 beginner with a ghosted XP track, never a guessed number",
+    "Domain stat score honest-null renders \"--\" plus \"log one entry to begin.\" on tap; low-confidence shows a dashed bar while the source is partial",
+    "Streak/rewards honest-null: \"No active streak - start a new one today.\"; low-confidence caches the last synced value with a sync label",
+    "Mission history honest-null: \"Complete a goal to see your journey here. Start with one small mission.\"; low-confidence dims cached rows",
+    "OfflineBanner keeps cached stats visible with a staleness label; pull-to-refresh and dashboard links dim (Disabled) and no refresh haptic fires while offline",
+    "Radar has a list alternative ordered by domain score; level and XP always read as text, not just a progress fill; badge rarity never relies on color alone",
+    "Deeper cross-domain/user comparison beyond the screen's own Ranked chart is the only premium gate (PaywallLock blur + single orange CTA) — the character record itself is never paywalled"
+  ],
+  "modules": [
+    {
+      "region": "statusbar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar: time left, signal/wifi/battery right, paper-100 icons on dark shell (#0A0A0F + top-center amber radial glow, 3-4% grain). Fixed 44px, no copy."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent TopBar: back chevron, 44px target, left, returns to Me Main. Centered title \"your *character*\" — Newsreader Medium Italic on \"character,\" the screen's one emphasis word. No trailing action."
+    },
+    {
+      "region": "charactercard",
+      "y": 108,
+      "h": 132,
+      "build": "GlassCard r28: circular Avatar (tap opens Profile Edit), name \"Hamza,\" level badge \"level 14,\" rank line \"dedicated explorer,\" XP ProgressBar \"2,450 / 5,809 XP to level 16\" drawn as a continuous orange line. Low-confidence: \"estimated · low confidence\" muted; honest-null: level 1 beginner, ghosted track."
+    },
+    {
+      "region": "radar",
+      "y": 248,
+      "h": 260,
+      "build": "ConstellationRadar hero, glass-card, full 10-domain shape; sun hub reads \"Life Power 487\" with ChipProvenance \"via RPG stats\" (glow-you). One CIA line below, glow-cia: \"Strongest in Fitness; Meditation has room to grow.\" Honest-null: \"Building your balance - add your first domain to get started.\" Polygon draws sequentially; list alt ordered by score."
+    },
+    {
+      "region": "domainskills",
+      "y": 516,
+      "h": 100,
+      "build": "DOMAIN SKILLS overline. SolidCard grid, ChipDomainTag + DomainSkillCard each: \"Fitness 74,\" \"Wellbeing 62,\" \"Career 55,\" \"Nutrition 51,\" \"Finance 48,\" \"Learning --\" (honest-null dash, tap opens Sheet: \"log one entry to begin.\"). Low-confidence: dashed bar while source is partial."
+    },
+    {
+      "region": "ranked",
+      "y": 624,
+      "h": 84,
+      "build": "RANKED overline. GroupedBarChart, SolidCard, magnitude bars: \"Fitness\" and \"Wellbeing\" rows visible, gauges fill on scroll. Unstarted domains ghost, never shown as failing. Deeper cross-domain comparison beyond own ranking sits behind PaywallLock, single orange CTA."
+    },
+    {
+      "region": "streakrewards",
+      "y": 716,
+      "h": 76,
+      "build": "STREAK & REWARDS overline. KPIRow: \"42 days · 2.5x XP · 2 freezes.\" BadgeWall row of recent unlocks beside it, rarity shown by icon/label not color. Honest-null: \"No active streak - start a new one today.\" Low-confidence: cached values with sync label."
+    },
+    {
+      "region": "missionhistory",
+      "y": 800,
+      "h": 44,
+      "build": "MISSION HISTORY overline with trailing \"view all\" ghost link (44px target) pushing Mission Journal. ListRow items scroll below (belowFold). Honest-null: \"Complete a goal to see your journey here. Start with one small mission.\" HomeIndicator anchors screen base."
+    }
+  ],
+  "notes": "Route strictly /life-world — no alternate vanity route (per Consent and Safety). Level-up: green arrival line + restrained CelebrationOverlay + brief haptic, never a reward storm; reduced motion collapses radar, gauges, bars, and celebration to instant end-state. Motivation-tier: Low shows character card + radar + top-3 domains + one history prompt; Medium is default (this composition); High expands the full domain grid, sub-stats, deltas, rewards metadata, and history. Cross-links preserved: avatar -> Profile Edit [50]; domain cards/radar axes -> sub-stats Sheet with \"view dashboard\"; long-press a radar spoke scrubs that domain; mission rows -> Mission Detail [14]; badges -> Celebration [42] or Achievements [71]; \"view all\" -> Mission Journal [73]. Error: failed sections show ErrorState, cached data kept where possible (\"Couldn't refresh - pull again\"). Loading: \"Building your character - one moment.\" Fonts: Hanken Grotesk (UI) + Newsreader Medium Italic (emphasis word) stand in for Neue Montreal/Tiempos per session waiver W-FONT-01. No manipulative scarcity or shame language for low domain scores — unstarted domains ghost, never render red/failing."
+}

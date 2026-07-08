@@ -1,0 +1,71 @@
+{
+  "id": "41",
+  "name": "Schedule / Calendar",
+  "route": "/schedule",
+  "shell": "dark",
+  "annotation": "HIFI-41 · /schedule · dark shell, timeline is the singular focal moment, floating nav pill",
+  "italicWord": "calendar",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar, dark shell: time left, signal/wifi/battery right, paper-100 icons on #0A0A0F."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent (gains .glass-pill on scroll); no back chevron on this top-level /schedule header per Figma Reference Alignment. H1 'Schedule'. Right: ChipProvenance 'synced 2m ago' opens manage connection. Single '+' (44px) opens Sheet: 'Add event', 'Add unscheduled task' — sole add-entry point, replaces FABQuickLog."
+    },
+    {
+      "region": "view-switcher",
+      "y": 100,
+      "h": 104,
+      "build": "SegmentedTabs (default): 'day' active, --surface-3 fill; 'week', 'month' inactive. Below: CalendarStrip, horizontal 7-day scroller (M T W T F S S), today ringed orange (--glow-you), days with completed actions carry a green dot (#34A853)."
+    },
+    {
+      "region": "domain-charge",
+      "y": 204,
+      "h": 100,
+      "build": "SolidCard (--surface-solid, no glow), one instance holding two widgets. Left: ScheduleDonut, real — 'Career 1h 30m' (indigo tag), 'Fitness 45m' (red tag), ChipProvenance 'via Google Calendar'. Right: ChargeMeter, real — '4h 30m of 16h waking window', ChipProvenance 'via sleep schedule'."
+    },
+    {
+      "region": "cia-insight",
+      "y": 308,
+      "h": 92,
+      "build": "CIAInsightCard (default): purple-tinted glass, purple border/glow, spark glyph. Copy: 'some open time this afternoon on your *calendar* for a short walk - see below' (Tiempos italic on 'calendar', the screen's one emphasis word). BtnCoach 'see it' (scrolls to the dashed 1 PM slot) + BtnGhost 'dismiss'."
+    },
+    {
+      "region": "unscheduled",
+      "y": 404,
+      "h": 84,
+      "build": "Caption 'unscheduled (2)'. ListRow (interactive, 44px targets, drag handles): 'Deep work block', 'Read 10 pages'. Solid surface, no glow — dense list per canon."
+    },
+    {
+      "region": "timeline",
+      "y": 488,
+      "h": 264,
+      "build": "TimelineGrid, hairline gridlines rgba(255,255,255,.05). Absolute-positioned EventCards, r16. 9 AM empty. 10 AM: 'Team Sync', solid border (synced), indigo accent bar, ChipProvenance 'via Google Calendar'. 11 AM, 12 PM empty. 1 PM: 'Lunch walk', dashed purple border (CIA-suggested). 2 PM empty."
+    },
+    {
+      "region": "nav-bar",
+      "y": 756,
+      "h": 68,
+      "build": "GlassNavBar, floating, pinned: Today · CIA · Goals · Me, 44px targets, overlaying the last visible timeline row per canon; parent-tab highlight follows entry point (not specified in source)."
+    }
+  ],
+  "belowFold": [
+    "TimelineGrid continues from 3 PM through the rest of the waking window (afternoon into evening), same hairline gridlines and absolute-positioned EventCards pattern as above the fold, each hour honestly rendered as empty, synced, CIA-suggested, or missed."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "The visible ChipProvenance 'synced 2m ago' opens calendar controls: provider, categories read, event scope, last sync, wake-window source, retention, export calendar-derived plan data, revoke provider access, and delete cached calendar data.",
+    "CIA suggestions name whether they came from calendar, wake-window, manual tasks, or no source.",
+    "If wake-window consent is missing, day fullness renders honest-null instead of derived.",
+    "Long-press on the sync/source chip is optional redundancy to Manage calendar connection, not the primary path."
+  ],
+  "notes": "No back chevron on the /schedule top-level header — per Figma Reference Alignment, the back chevron belongs only to the /wellbeing/schedule/[date] stack/detail state, not this top-level route. No FAB: the TopBar '+' is the sole entry point for adding events/tasks, replacing the removed FABQuickLog. ChargeMeter honesty is either real ('4h 30m of 16h waking window' + wake-window ChipProvenance, e.g. 'via sleep schedule') or honest-null ('room to breathe today') — never low-confidence/estimated, since a time total has no fuzzy midpoint between known and unknown. Radius override: EventCard uses radius 16 (between standard input 14 and card 28) to fit compact hour-height blocks — flagged, not silently invented. Overpacked state triggers at ~85% of the waking window: copy switches to 'a full one - protect some recovery,' and any CIA suggestion prioritizes a recovery nudge over a task nudge. Current-time EventCard (if visible) gets a breathing --glow-you (55%->80%->55%, 4s loop); reduced motion locks the glow to a static 65% opacity. No direct Schedule/Calendar Figma frame exists; the warm-light dashboard/calendar language from Home and Workouts Calendar is used only as derived component-anatomy direction — the Visual System section is authoritative and specifies the dark shell as default."
+}

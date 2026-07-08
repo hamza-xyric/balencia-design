@@ -1,0 +1,71 @@
+{
+  "id": "32",
+  "name": "Career & Work Dashboard",
+  "route": "/career",
+  "shell": "dark",
+  "annotation": "HIFI-32 · /career · dark shell #0A0A0F, top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain. Lead Mission ('Get promoted to senior', glow-you hero ProgressRing) is the singular focal moment beneath a purple-glow CIAInsightCard; Secondary Missions, Today's Actions, and Growth Trajectory stay quiet on glass/solid surfaces per the spec's Components list. Every metric is real (provenance chip), low-confidence, or honest-null — never fabricated. Consistency Heatmap sits behind a PaywallLock.",
+  "italicWord": "mission",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "System status bar, transparent over dark base #0A0A0F, light icons, 9:41."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent glass, gains .glass-pill on scroll. Left: 44px back chevron. Center: Display/H1 'career & work'. Right: Overline 'Lvl 5' in a 16% Career-indigo (#6366F1) domain tag, 44px hit-slop — indigo per canon domain palette, not purple (purple is CIA/AI-only)."
+    },
+    {
+      "region": "cia_insight_card",
+      "y": 108,
+      "h": 108,
+      "build": "GlassCard r28, glow-cia (purple) breathing 4s ease-in-out. Copy: 'Productivity peaks after morning workouts. Schedule deep work for 10am?' ChipProvenance 'derived · CIA engine'."
+    },
+    {
+      "region": "active_missions",
+      "y": 228,
+      "h": 264,
+      "build": "Overline 'active missions'. GlassStatCard r40 hero, glow-you (singular focal moment). Title 'Get promoted to senior'. ProgressRing 96px orange, 64%. Caption 'Next: refresh portfolio'. ChipProvenance 'via Goals API'. Below: BentoGrid 2-col, quiet (no glow) GlassStatCard tiles — Card 1: ProgressRing 48px orange, 'Learn Python'. Card 2: ProgressRing 48px orange, 'Reach mentor'."
+    },
+    {
+      "region": "todays_actions",
+      "y": 500,
+      "h": 164,
+      "build": "Overline 'today's actions'. SolidCard #211008 r24 (dense list, per Components). ListRow 1: Toggle checked, green sweep, strikethrough — 'Review quarterly goals', trailing '+10 XP'. Hairline divider. ListRow 2: Toggle unchecked — \"Read 1 chapter of 'Deep Work'\", trailing '+15 XP'."
+    },
+    {
+      "region": "growth_trajectory",
+      "y": 672,
+      "h": 160,
+      "build": "Overline 'growth trajectory'. SolidCard #211008 r24 (dense data, per Components). SkillStatBar 1 'Communication' 8 / 10, track 80% filled orange, target marker at end, ChipProvenance right 'you logged'. SkillStatBar 2 'System Design' 6 / 10, track 60% filled orange, target marker at end, ChipProvenance right 'you logged'."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating pill, fixed overlay: Today · CIA · Goals · Me, 44px targets — overlays last visible content per canon. Standard iOS home indicator docked beneath it."
+    }
+  ],
+  "belowFold": [
+    "Momentum trend chart (~y840-1020): SolidCard #211008 r24. TrendChart (6-week momentum) drawing left-to-right, solid orange line. Copy '+14 pts'. ChipProvenance 'derived · CIA engine'.",
+    "Upcoming (~y1032-1174): Overline 'upcoming'. BentoGrid 2-col, DeadlineTile (glass, per GlassStatCard component assignment): Tile 1 KPI '26 days', label 'Review', glyph '!'. Tile 2 KPI '2 days', label 'Project deadline', glyph '!'.",
+    "High motivation (~y1186-1378): Overline 'high motivation'. PaywallLock — 20px-blurred preview over the Consistency Heatmap visual, single orange BtnPrimary 'Unlock with premium' centered, never a dead end."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "category: career",
+    "source: Goals API",
+    "scope: private",
+    "freshness: synced 2m ago",
+    "retention: ongoing",
+    "export: available",
+    "revoke: settings",
+    "delete: settings"
+  ],
+  "notes": "Honesty triples (Data Honesty section): Lead Mission progress — real '64%' + ChipProvenance 'via Goals API'; low-confidence — 64% muted + 'estimated · low confidence'; honest-null — 'Not enough data yet - add your next steps.' Skill level — real '8' target 10 + ChipProvenance 'you logged'; low-confidence — muted + 'estimated · low confidence'; honest-null — 'Not enough data yet - rate your current skills.' 6-week momentum — real '+14 pts' + ChipProvenance 'derived · CIA engine'; low-confidence — muted + 'calibrating - building your trend'; honest-null — 'Not enough data yet - 3 more weeks.' (flat baseline drawn on chart). States: Skeleton — depth-preserving arcs/block tracks/axis lines, copy 'CIA is preparing your career actions - one moment.' Cold-start/Day-1 — ghosted dashed rings (no fake 0% disc), ghosted skill bars, flat momentum line; actions list replaced with EmptyState 'Add a career *mission*.' + BtnPrimary 'Create goal' (source of this screen's one italic word, see below). Established zero-state — EmptyState, green checkmark glyph, 'All caught up. CIA will suggest new actions tomorrow.' Error/partial failure — OfflineBanner 'You're offline - showing your last sync.'; action checkbox fails by flashing orange outline and reverting to unchecked; error SolidCard copy 'Could not load goals - pull to refresh.' Success — checkbox fills orange, text strikes through, XPToast '+15 XP · Career'. Disabled — past-due goal 'Skip' renders 40% opacity, unclickable, replaced by 'reschedule?' text. Motion: all entrance/feedback springs at 250ms, never linear; checkbox tap scales to .98 with a BtnSuccess green sweep before locking; glow-you on Lead Mission breathes 4s ease-in-out, glow-cia on the coaching note pulses subtly; light haptic on action completion, medium on level-up/goal completion; swipe-left on an Action row reveals orange 'Skip', swipe-right on TrendChart scrubs a crosshair, edge-swipe goes back; choreography draws the hero 96px gauge first, then secondary gauges, then rising skill bars, then the TrendChart line left-to-right; reduced motion snaps all gauges/bars/charts to final static values and freezes glows to static. Corrections vs. the draft packet: (1) TopBar domain tag recolored from purple to Career-indigo #6366F1 (16% bg) — purple is CIA/AI-only per canon, never used for level/domain tags. (2) Secondary Missions grid surface corrected from SolidCard to GlassStatCard (glass, no glow) — the spec's Components section explicitly assigns 'GlassStatCard: Core component for Lead Mission, Secondary Missions, and Deadlines,' reserving SolidCard for 'Actions, Skills, and TrendChart' only. (3) CIA Insight Card copy corrected — the draft fabricated the word 'dashboard' into the middle of the line ('Schedule deep *dashboard* work for 10am?'), which is not the spec's literal copy; restored verbatim to 'Productivity peaks after morning workouts. Schedule deep work for 10am?' (4) Italic word resolved to 'mission' — the Visual System's '*dashboard*' is the generic file-slug placeholder (identical boilerplate confirmed verbatim on sibling dashboard specs 26, 28, and 48, none of which render 'dashboard' as literal on-screen copy); 'mission' is the only other literal asterisk-marked word anywhere in this spec (Cold-start state: 'Add a career *mission*.'), matching the drift-resolution precedent used on 02/03d/06/11/17/30/42/55. (5) Growth Trajectory skill-bar fill corrected: Communication is 8/10 (80% filled) — the draft mistakenly copied System Design's 60% fill onto the Communication row too. (6) Today's Actions book title restored: \"Read 1 chapter of 'Deep Work'\" (the wireframe truncates the quoted title to \"'Deep W'\" for width) — the draft dropped the quotes and lowercased it to generic 'deep work'. (7) XP capitalization fixed throughout: '+10 xp'/'+15 xp' -> '+10 XP'/'+15 XP' (XP is always capitalized, matching every sibling packet in this build). (8) Provenance-chip capitalization fixed: 'via goals api' -> 'via Goals API'; 'derived · cia engine' -> 'derived · CIA engine' (CIA is always capitalized, never lowercased — never SIA, always CIA). (9) PaywallLock CTA corrected to the canon-established copy 'Unlock with premium' — the draft's invented 'Unlock heatmap' doesn't match the single standard phrase used on every other PaywallLock in this build (48, 96, 97). (10) Module count reduced from the draft's 10 (over the 8-module cap) to 7 by folding each SectionHeader into its adjacent content module (active_missions, todays_actions, growth_trajectory) and adding the previously-missing GlassNavBar module, matching the fold-merge precedent used on 03d/71. (11) Both Growth Trajectory SkillStatBar rows fit above the 844px fold (module ends at y832); the draft incorrectly pushed the System Design row to belowFold. Only the momentum TrendChart (starting ~y840) and everything after it genuinely overflows the fold. (12) belowFold converted from module-objects (region/y/h/build) to descriptive strings per schema, matching the convention used on 30/48/71/97. Accessibility: Paper-100 (#FEFAF3) on --surface-2 (#211008) far exceeds WCAG AA; deadlines use glyphs ('!' for soon, strikethrough for past-due) and explicit text rather than color alone; all interactive elements (checkboxes, goal gauges, skill bars, nav tabs) meet the 44x44px minimum, with 44px invisible padding on inline action checkboxes. Route stays exactly /career — no alternate vanity route."
+}

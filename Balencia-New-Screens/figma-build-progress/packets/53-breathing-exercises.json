@@ -1,0 +1,82 @@
+{
+  "id": "53",
+  "name": "Breathing exercises",
+  "route": "/wellbeing/breathing",
+  "shell": "dark",
+  "annotation": "HIFI-53 · /wellbeing/breathing · dark shell #0A0A0F + top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain. GlassStatCard practice-summary hero (r40, glow-you, expandable) is the singular focal moment; filter chips and the SolidCard exercise list form the quiet operational layer beneath it. Sessions, minutes, and consistency ship real (ChipProvenance), low-confidence, or honest-null - never a fabricated streak. FABQuickLog + GlassNavBar stay fixed within the 844px frame; BreathingPacer's full immersive session lives one tap deeper.",
+  "italicWord": "exercises",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System standard, transparent over dark shell atmosphere: #0A0A0F base, warm amber radial glow top-center, 3-4% grain."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent variant, gains .glass-pill on scroll. BtnGhost [chevron-left] 44px 'Back' | H1 'Breathing *exercises*' (Hanken Grotesk; 'exercises' in Newsreader Medium Italic - the screen's one emphasis word) | BtnGhost [X] 44px close."
+    },
+    {
+      "region": "Hero Summary (GlassStatCard)",
+      "y": 100,
+      "h": 190,
+      "build": "GlassCard hero r40, glow-you, expandable. Overline 'PRACTICE SUMMARY'. 4 stat cols: '42' Sessions + ChipProvenance 'via local app'; '210' Minutes + ChipProvenance 'you logged'; '8' Day streak; 'Box' Most used. Chevron expands to the consistency grid below."
+    },
+    {
+      "region": "Filter chips",
+      "y": 298,
+      "h": 40,
+      "build": "ChipChoice horizontal, SectionHeader Overline 'EXERCISES' above. 44px min hit-zones (32px visual height). Active '( all )' solid #FF5E00; inert '( sleep )' '( stress )' '( energy )' border white 8%, scroll arrow ->."
+    },
+    {
+      "region": "Exercise Card - Box breathing",
+      "y": 346,
+      "h": 110,
+      "build": "SolidCard #211008 r24, no glow (dense-data rule). [Icon] 'Box breathing' (H3). Caption '4-4-4-4 pattern · 5 min'. 'Good for acute focus'. Chip 'CIA recommended' purple, glow-cia - the screen's only CIA badge, on the top-most technique per Default state."
+    },
+    {
+      "region": "Exercise Card - 4-7-8 breathing",
+      "y": 464,
+      "h": 110,
+      "build": "SolidCard #211008 r24, no glow. [Icon] '4-7-8 breathing' (H3). Caption '4-7-8 pattern · 5 min'. 'Good for falling asleep'."
+    },
+    {
+      "region": "Exercise Card - Wim Hof",
+      "y": 582,
+      "h": 110,
+      "build": "SolidCard #211008 r24, no glow. [Icon] 'Wim Hof' (H3). Caption '30 quick breaths · 5 min'. 'Energy & stress relief' - spec ASCII shows an ellipsis here; filled with catalog-consistent copy, not user data."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 68,
+      "build": "Floating pill, fixed overlay: Today · CIA · Goals · Me, 44px targets, active 'Today' orange. FABQuickLog 56px orange circle sits above-left of nav; icon + 'Quick log' label opens the quick-log entry."
+    }
+  ],
+  "belowFold": [
+    "Two remaining base techniques complete the source's 5-item default list: SolidCard 'Coherent breathing', Caption '5-5 pattern · 10 min', 'Balance nervous system'; SolidCard 'Alternate nostril', Caption '4-4-4-4 hold · 6 min', 'Center yourself'.",
+    "Consistency chart (expand target from the hero): real state renders solid orange grid blocks built from local logs. Honest-null: HonestNullState 'Not enough data yet - start a session' rests in the chart area - no fabricated streaks.",
+    "BreathingPacer full-screen session view (reached by tapping an exercise card, not part of this browse composition): 160px-240px orb scaling on custom lung-capacity easing (ease-in to hold, ease-out to release), glow-cia halo expands/contracts with scale, 150ms haptic taps on phase change. Reduced motion halts scaling, rests at mid-scale 200px, phases communicated via high-contrast text swaps ('INHALE' -> 'HOLD') and haptics. VoiceOver treats the orb as one element: 'Breathing pacer. Tap to pause. Current phase: Inhale. 4 seconds remaining.'",
+    "Sheet (half variant, post-session rating): GlassPillInput for notes, BtnPrimary to save. Success: BreathingPacer flashes --glow-done green three times, modal auto-presents. Error: soft shake on save, 'couldn't save rating. try again.'",
+    "Disabled: 10-minute duration selector shows .glass-pill at 40% opacity + lock glyph + PaywallLock sub-copy '10 min available in Plus'.",
+    "Error (Library): stats blur gently with ErrorState 'Couldn't load your stats - pull to retry. Exercises available.' - list stays fully interactive."
+  ],
+  "imageSlots": [
+    "HIFI-53-01 - content proof or instructional media slot; screen-specific; privacy-safe, non-diagnostic, no identifiable person. Prompt: Breathing exercises instructional media thumbnails, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Total sessions honesty triple - real: '42' + ChipProvenance 'via local app'; low-confidence: muted '~40 estimated · low confidence'; honest-null: '0' + 'Not enough data yet - start a session' (no fabricated streaks).",
+    "Total minutes honesty triple - real: '210' + ChipProvenance 'you logged'; low-confidence: muted '~200 estimated · low confidence'; honest-null: '--' + 'choose a technique'.",
+    "Consistency (expanded view) honesty triple - real: solid orange grid blocks built from local logs; honest-null: HonestNullState 'Not enough data yet - start a session' rests in the chart area.",
+    "Breathing exercises names health category, source, freshness, confidence, retention, export, revoke, and delete before synced values or photo-derived reads are trusted.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete.",
+    "SafetyResourceCard reachable for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments.",
+    "Media is consent-gated: no identifiable face, body, home, document, provider logo, or private text appears without explicit permission.",
+    "Route locked to /wellbeing/breathing; no alternate vanity routes."
+  ],
+  "notes": "Corrections to the cheap-worker draft: (1) restored the Hero Summary's 4th stat column 'Most used: Box' and its 'PRACTICE SUMMARY' overline, both dropped by the draft; (2) removed the Hero card's second claimed italic word ('Tiempos italic emphasis') - canon and the spec's Visual System name exactly one italic word per screen, already used on 'exercises' in the TopBar title; (3) corrected FAB copy from the ASCII-literal '(o) quick log' to an icon + sentence-case 'Quick log' label; (4) restored the full consent/trust line (category, source, freshness, confidence, retention, export, revoke, delete, and 'or photo-derived reads') that the draft had truncated; (5) draft exceeded the 8-module cap at 9 modules - BreathingPacer's full-screen session view and the two remaining base techniques (Coherent breathing, Alternate nostril) move to belowFold, matching the ASCII composition, which shows the pacer reachable only via tap-through and never rendered in this browse list; (6) draft's imageSlots/belowFold used objects, non-conformant with the packet schema - normalized to descriptive strings; (7) reduced-motion note now carries the spec's exact text-swap example ('INHALE' -> 'HOLD'). Fonts: Hanken Grotesk (UI) + Newsreader Medium Italic (emphasis) stand in for Neue Montreal/Tiempos per session waiver W-FONT-01. Accessibility: Paper-100 on --surface-2 (#211008) yields >16:1 (AAA); Overline Paper-50 at 64% opacity yields ~7:1 (AAA); filter chips and list cards keep 44px minimum hit-zones despite smaller visual height; the pacer orb is a single VoiceOver-focusable element carrying full phase/timing state."
+}

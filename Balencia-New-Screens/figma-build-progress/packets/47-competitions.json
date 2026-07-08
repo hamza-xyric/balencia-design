@@ -1,0 +1,75 @@
+{
+  "id": "47",
+  "name": "Competitions",
+  "route": "/competitions",
+  "shell": "dark",
+  "annotation": "Competitions as cinematic focal instrument: the featured GlassCard hero (r40, orange inner glow, single BtnPrimary 'join now') is the singular above-fold focal moment; filter chips, the invitation card, and CIA suggested challenge cards form a quiet operational layer; the solid-surface competition list rounds out the record below. Every metric ships real (ChipProvenance), low-confidence, or honest-null — no fabricated streak spectacle or invented past challenges. GlassNavBar persists; no FAB.",
+  "italicWord": "competitions",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, transparent over dark shell #0A0A0F + top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain. Time 9:41, paper-100 icons. Fixed 44px, no copy."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent TopBar, gains .glass-pill on scroll. Left: 44px back chevron. Center title \"Competitions\" — Newsreader Medium Italic on the whole word, the screen's one emphasis moment (*competitions*). No trailing action."
+    },
+    {
+      "region": "featured-hero",
+      "y": 100,
+      "h": 256,
+      "build": "GlassCard r40 hero, dominant focal moment. White 4.5% fill, border white 8%, orange inner glow. Tag 'active'. Title 'Step Challenge'. Sub 'May 25-Jun 8 · 234 participants'. MomentumBar 'time elapsed' 68% orange fill. KPIRow prize '500 XP + Gold Badge'. ChipProvenance 'admin · live'. Single BtnPrimary 'join now'."
+    },
+    {
+      "region": "filter-chips",
+      "y": 356,
+      "h": 44,
+      "build": "ChipDomainTag row, horizontal, 16% bg. Chips: 'all' (selected, orange bg), 'active', 'upcoming', 'past', 'my'. 44px tap targets each."
+    },
+    {
+      "region": "invitation-card",
+      "y": 400,
+      "h": 56,
+      "build": "Glass surface r24. Copy: '2 invitations from Sarah, Ahmed'. ChipProvenance 'social · invite'. Ghost pill CTA 'view' opens invitation Sheet with accept/decline, report, mute, block, and revoke."
+    },
+    {
+      "region": "suggested-cards",
+      "y": 456,
+      "h": 112,
+      "build": "Overline 11 uppercase 'suggested'. Horizontal-scroll CIA suggested challenge cards: '7-Day Mindful' (ChipProvenance 'cia · evidence match', CTA 'join'); 'Fit Feb' (ChipProvenance 'admin', CTA 'join')."
+    },
+    {
+      "region": "list-items",
+      "y": 568,
+      "h": 168,
+      "build": "SolidCard #211008 r24, dense list, hairline-divided rows, 56px each. 'Step Challenge #12' ChipProvenance 'admin · active', CTA 'view details'. 'Meditation Marathon' ChipDomainTag 'upcoming', CTA 'join'. 'Nutrition Challenge #5' ChipProvenance 'admin · ended', CTA 'view results'."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating pill, fixed overlay: Today · CIA · Goals · Me, 44px targets — overlays last visible content per canon. Standard iOS home indicator docked beneath it."
+    }
+  ],
+  "belowFold": [
+    "Competition list continues scrolling below the three named rows (Step Challenge #12, Meditation Marathon, Nutrition Challenge #5); further competitions render with the same status chip + ChipProvenance + action-verb pattern, filtered by the selected chip, never cut off — only scrolled."
+  ],
+  "imageSlots": [
+    "HIFI-47-01 — competition avatar and social-proof placeholders for the featured hero and suggested cards, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Audience, visibility, report, mute, block, and own-content delete controls exposed before sharing or social comparison (hero, invitation, and list tiles).",
+    "Invitation Sheet (opened via 'view' CTA) surfaces accept/decline, report, mute, block, and revoke — not just accept.",
+    "Join Sheet explicitly handles health proof and third-party data consent, plus rules, before confirming a join.",
+    "Source chips carry category, source, scope, freshness, retention, export, revoke, and delete wherever competition data appears.",
+    "Join/view CTA dims to PaywallLock blur when premium, rules, consent, or connectivity blocks it — never fakes availability.",
+    "Route stays exactly /competitions — no alternate vanity route."
+  ],
+  "notes": "Data Honesty (per spec): Competition — real = date range, participants, rules, status; low-confidence = cached list; honest-null = empty filter state. Countdown — real = server time window; low-confidence = offline cached remaining; honest-null = hide countdown entirely. Rank — real = joined score and rank; low-confidence = pending sync; honest-null = no rank shown until joined (hero intentionally omits a rank chip pre-join). CIA suggestion — real = evidence-backed challenge match ('7-Day Mindful'); low-confidence = starter suggestion; honest-null = hide the suggestions module. States: Skeleton — hero, chips, invite card, suggestions, and rows shimmer. Empty — filter empty state suggests another filter without shame. Error — cached competitions remain with source-specific retry. Success — join adds the challenge to the 'my' filter and swaps the CTA to 'view details' with a green confirmation. Disabled — join/view dims to PaywallLock blur when premium, rules, consent, or connectivity blocks it. Motion: hero appears first and the time bar draws, rows fade in; filter-chip selection crossfades the list; join opens a confirmation Sheet with rules and data used; card tap opens competition detail with leaderboard and progress; invite badge opens an invitation Sheet. Reduced-motion: no bar fill or row stagger, content appears at final state. Accessibility: paper text on #0A0A0F and #211008 meets AA+; filters, hero CTA, rows, invitation badge, and join buttons are 44px minimum; cards announce challenge name, status, dates, participants, rank, source, and action. Corrections vs. the draft packet: (1) TopBar title corrected from lowercase 'competitions' to sentence-case 'Competitions' (the italicWord field itself stays lowercase 'competitions' per this build's convention). (2) Filter chip labels lowercased ('All'->'all', 'Active'->'active', 'Upcoming'->'upcoming', 'Past'->'past', 'My'->'my') to match this build's sentence-case tab-label convention (see 13-goals-list, 39-leaderboard). (3) Added the missing ChipProvenance 'admin · live' to the featured hero — the draft's hero had no source chip at all. (4) Restored the missing 'suggested' CIA-card module (7-Day Mindful / Fit Feb as suggestion cards with join CTAs), which the draft had wrongly conflated into the List Items rows instead of leaving as its own operational-layer module per the Focal Hierarchy. (5) Restored 'Step Challenge #12 [view details]', which the draft's List Items omitted entirely. (6) Fixed 'Meditation Marathon' action from the draft's invented 'view details' back to the spec's 'join', with an 'upcoming' status chip. (7) Removed the draft's fabricated 'Step Challenge #11 [view results]' belowFold row — no such item exists anywhere in the spec; 'Nutrition Challenge #5' is the screen's only past/ended item and now sits in the main List Items module (it fits above the 844 fold at this layout, so nothing needed to move belowFold). (8) trustControls source-chip line expanded from the draft's 5 fields to the spec's full 8 (category, source, scope, freshness, retention, export, revoke, delete). (9) GlassNavBar corrected from the draft's 'Bottom Nav' region name and h68 to the canon h88 fixed-overlay treatment used on every sibling packet, with the standard 'overlays last visible content' + home-indicator language. (10) belowFold, imageSlots, and notes reshaped from the draft's object/array forms into this schema's plain-string forms; module count kept at 8. Route stays exactly /competitions — no alternate vanity route."
+}

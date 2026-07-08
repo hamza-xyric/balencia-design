@@ -1,0 +1,66 @@
+{
+  "id": "89",
+  "name": "Wellbeing hub",
+  "route": "/wellbeing",
+  "shell": "dark",
+  "annotation": "HIFI-89 · /wellbeing · dark shell (#0A0A0F) + top-center orange radial glow. SystemFieldHero (GlassCard.hero, glow-you) is the singular above-fold focal moment; SafetyResourceCard sits second, always visible, never gamified; one CIAInsightCard carries the purple glow-cia self-care nudge. Module Grid (6 core tiles + Insights/Vision/Pulse) is solid, not glassy. FABQuickLog is the screen's one persistent CTA; GlassNavBar floats beneath.",
+  "italicWord": "whole",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System status bar, dark mode. Time 9:41. Battery, wifi, reception icons white 100%, transparent bg."
+    },
+    {
+      "region": "Header",
+      "y": 44,
+      "h": 88,
+      "build": "Padding x20. Top row: H1 30 'Wellbeing' white 100%, spacer, icons help(24) + gear(24) white 60%. Bottom row: Overline 11 'TUESDAY, JUL 7' white 40%. Below: Body 15 white 100% \"Your daily 'whole' state\" — 'whole' in Newsreader Medium Italic, the screen's one emphasis word."
+    },
+    {
+      "region": "System Field Hero",
+      "y": 144,
+      "h": 226,
+      "build": "GlassCard.hero r40, padding 24, glow-you orange radial top-right. Overline 11 'HOW YOUR SYSTEM FEELS' white 40%. Center Display 34 'steady' white 100%. 2x2 grid: mood 6, stress 4, sleep 7h, energy 5. ChipProvenance 'via check-in + wearable'. Body 15 'One breath session helped twice'."
+    },
+    {
+      "region": "Safety Resource Card",
+      "y": 378,
+      "h": 66,
+      "build": "SolidCard #211008 r24, padding 16, teal-free. Left icon shield white 100%. H3 20 'Crisis resources' white 100%. Caption 12 'Call, text, or view local help' white 60%. Right chevron white 60% (one-tap entry). NO GLOW, NO GAMIFICATION; safety never disables."
+    },
+    {
+      "region": "CIA Insight Card",
+      "y": 456,
+      "h": 108,
+      "build": "GlassCard r24-28, glow-cia purple #7F24FF. Chip 'CIA' purple 16% bg. Body 15 'Stress eased after two breathing sessions this week.' BtnCoach 'Start breathing' (purple/orange accent — CIAInsightCard actions are always BtnCoach + BtnGhost, never BtnPrimary). BtnGhost 'View sources' white 60%."
+    },
+    {
+      "region": "Module Grid",
+      "y": 576,
+      "h": 164,
+      "build": "2 cols x 3 rows core tiles: Journal, Mood, Breathing, Stress, Habits, Energy — SolidCard #211008 r16, Body 15 title white, ChipDomainTag teal 16% bg. Secondary row: Insights · Vision · Pulse, same tile style. Below: Body 15 'Today: 5:30 walk, 1 quick note'. FAB (+) #FF5E00 floats bottom-right over the grid's corner."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 68,
+      "build": "Floating glass nav pill, fixed overlay: Today · CIA · Goals · Me, 44px hit targets, overlapping the Module Grid's bottom-right corner. Home indicator bar at y824, dark transparent."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "Crisis resources resolve to local emergency, local crisis line when locale is known, national fallback, and non-emergency support; unknown locale never hides SafetyResourceCard, which stays visible above the fold and is never gamified (no glow, XP, or streak language).",
+    "Mood: real reads the check-in value + ChipProvenance; low-confidence shows a muted value + 'estimated · low confidence' from journal inference; honest-null reads 'No mood check-in yet.'",
+    "Stress: real reads wearable/user input + ChipProvenance; low-confidence shows a muted value + 'estimated · low confidence'; honest-null reads 'Not enough data yet - 3 more days.'",
+    "Sleep and energy: real reads the provider/log source + ChipProvenance; a stale chip appears when the source is older than 12 hours.",
+    "CIA only cites dated breathing, mood, sleep, or journal evidence; premium CIA correlations render as a locked preview only after the non-premium self-care path is shown, with no sensitive inferred detail behind the lock.",
+    "Mood, journal, voice note, health, photo-related exits, social context, third-party sources, and CIA inference open a Data and privacy sheet with category, source, scope, retention, export, revoke, and delete.",
+    "Long-press module shortcuts show a 'what this logs' micro-sheet before saving sensitive signals."
+  ],
+  "notes": "Corrected the draft's schema and copy errors. Reduced modules from 10 to 7 by folding the Home Indicator into GlassNavBar's build text and removing separate FAB/Nav Pill module entries — hasFab/hasNav flags already carry the FAB and nav pill per sibling-packet convention (13-goals-list, 33-relationships-dashboard), keeping modules at the 8-module cap. Recomputed y/h so Status Bar -> Header -> System Field Hero -> Safety Resource Card -> CIA Insight Card -> Module Grid -> GlassNavBar sum exactly to the 844px frame with no overflow. The draft's belowFold 'Secondary Module Grid' was unsupported by the spec (the Final Composition's ASCII box is fully self-contained; nothing indicates scroll-below content) and it also fabricated swapping the literal 'Pulse' tile for 'Schedule'/'Virtual Try-On' — restored the literal ASCII copy 'Insights · Vision · Pulse' as a secondary row folded into the in-frame Module Grid, and removed the invented belowFold section (now empty). Fixed CIA Insight Card's action pair: draft had 'Start breathing' as BtnPrimary, also mis-colored 'transparent (teal)'; per COMPONENT-CATALOG.md ('CIAInsightCard ... actions: BtnCoach + BtnGhost') this component never carries BtnPrimary — corrected to BtnCoach 'Start breathing' + BtnGhost 'View sources'. Added missing hasNav: true (draft omitted it despite the Nav Pill row appearing in the Final Composition). Rebuilt trustControls from the spec's Data Honesty and Consent and Safety sections — the draft's 3 generic bullets are replaced with the full crisis-resource fallback chain, per-metric honesty triples for mood/stress/sleep/energy, the CIA evidence and premium-lock rule, the Data and privacy sheet trigger list, and the long-press 'what this logs' micro-sheet. Converted notes from the draft's array form to the required string, and belowFold from nested region/y/h/build objects to the required string array (empty, per above). Kept italicWord 'whole' (matches the Final Composition's literal '*whole*' in 'Your daily *whole* state', mapped to Newsreader Medium Italic per the Tiempos-italic convention used across sibling packets). Flagged as spec ambiguity, not a draft error: the Reviewer Synthesis and Implementation Notes deep-links list name 'schedule' and 'virtual-tryon' as destinations, but the Final Composition's visible grid only ever draws 'Insights · Vision · Pulse' as the secondary row — Schedule is reachable via the 'Today: 5:30 walk, 1 quick note' row tap, and Virtual Try-On is presumably nested inside Vision; no dedicated tile for either is drawn in the ASCII, so none was added here. States/Motion retained from spec: hero signal dots settle softly; SafetyResourceCard appears immediately with no glow; module taps use a shared-title transition into the deep route; the safety sheet opens without flourish; reduced motion disables glow breathing and tile stagger."
+}

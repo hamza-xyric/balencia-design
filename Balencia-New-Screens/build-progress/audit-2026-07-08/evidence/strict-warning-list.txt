@@ -1,0 +1,21 @@
+03c: Visible non-native interactive roles: div role=checkbox for I accept the Terms of Service; div role=checkbox for I accept the Privacy Policy; span role=switch for Marketing updates
+04: Visible non-native interactive roles: span role=switch for Remember me
+15: Visible small touch targets: Add domain 107x36
+22: Visible small touch targets: Force sync 90x36
+23: Visible small touch targets: Update 63x36; Buy credits 36x36; Credits ledger 36x36
+30: Visible small touch targets: Ask CIA 42x16
+34: Visible small touch targets: Read more 68x20
+39: Visible small touch targets: Global 113x36; Competitions 113x36; Country 113x36; This week 113x28; This month 113x28; All time 113x28
+40: Potential visible text overflow: 5 members · Sarah: Great workout this morning. scrollWidth 279 > clientWidth 234; 3 members · Aisha: Reviewed chapter four notes. scrollWidth 284 > clientWidth 234; 4 members · Marcus: Saved another fifty this week. scrollWidth 297 > clientWidth 234
+41: Visible small touch targets: Day 113x34; Week 113x34; Month 113x34
+45: Visible small touch targets: Career domain, selected 61x32; Fitness domain, not selected 61x32
+49: Visible small touch targets: 1M 35x44; 3M 35x44; 6M 35x44; 1Y 33x44
+51: Visible small touch targets: History 171x34; Action items 171x34
+57: Visible non-native interactive roles: span role=checkbox for Avocados, quantity 2, purchased. Double-tap to mark purchased.; span role=checkbox for Spinach, quantity 200g, unchecked. Double-tap to mark purchased.
+60: Visible small touch targets: Learn how CIA helps 124x16
+61: Visible non-native interactive roles: span role=checkbox for 9:30, Take medication, not done; span role=checkbox for 12:45, Walk after lunch, not done; span role=checkbox for 8:00, Check resting HRV, done
+80: Potential visible text overflow: CIA matched to your planned pace window scrollWidth 246 > clientWidth 218
+81: Visible small touch targets: See all 36x16; Bookmark 5-minute hip reset 32x44
+90: Visible small touch targets: Weekly 113x34; Monthly 113x34; Yearly 113x34; Weight 99x34; BMI 99x34; Measurements 99x34
+93: Visible small touch targets: 7D 84x34; 30D 84x34; 90D 84x34; 1Y 84x34
+97: Visible small touch targets: All 84x34; Active 84x34; Completed 84x34; Paused 84x34

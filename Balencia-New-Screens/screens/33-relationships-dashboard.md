@@ -1,0 +1,180 @@
+# 33-relationships-dashboard
+
+## 1. Header
+- **Screen ID:** 33
+- **Name:** Relationships Dashboard
+- **Route(s) covered:** `/people`
+- **Tab:** Me (Root: Today)
+- **Source:** Batch 14
+- **Correction Note:** Applied `radial-gradient` for the screen's warm atmosphere to match Canon §1 exactly. Corrected AI voice persona to "CIA" (from "CIA"). All tabular metrics now routed through the 3-state honesty invariant.
+
+## 2. Purpose
+The Relationships Dashboard helps users intentionally nurture personal connections by tracking quality time, cadence, and connection health. CIA acts as a relationship guide—offering warm, non-shaming nudges, activity suggestions, and cross-domain insights to foster human connection rather than metric-heavy guilt.
+
+## 3. Entry & exit
+- **Entry Paths:**
+  - `Me` tab → Explore (Screen 18) → Relationships Dashboard (Stack push).
+  - CIA Chat deep-link (Screen 09) (Stack push).
+- **Exit Paths:**
+  - CIA Tab (Tap CIA Coaching Note).
+  - Goal Detail (Screen 14) (Via relationship-tagged goals).
+  - RPG Character Screen (Screen 19) (Tap Level badge).
+  - Modals: `Sheet` (Add Person), `Sheet` (Log Quality Time).
+
+## 4. Layout anatomy
+**Regions top-to-bottom:**
+1. **TopBar:** Back chevron, "Relationships" title, Level 6 Badge, Domain Accent Line.
+2. **CIA Coaching Note:** Purple-tinted insight card.
+3. **Weekly KPI Strip:** 3 `SolidCard` metrics.
+4. **Connection Strength Hero Gauge:** Glass focal point (96px) showing focused person's score.
+5. **Check In (Reminders):** Swipeable AI nudges.
+6. **Key People:** Donut chart header, list of person rows (48px satellite gauge + details).
+7. **Recent Quality Time:** Logged interactions.
+8. **CIA Suggests:** AI activity recommendation.
+9. **Upcoming Dates:** Countdown list.
+10. **Floating Action Button (FAB):** Persistent log action.
+
+**ASCII Wireframe (390x844):**
+```text
+┌─────────────────────────────────────┐ 4px
+│  ◀  Relationships           [Lv 6]  │  TopBar (Transparent)
+├─────────────────────────────────────┤
+│ ▓▓▓▓▓▓▓ Pink Domain Accent Line ▓▓▓ │
+│                                     │
+│ ┌─────────────────────────────────┐ │
+│ │ ◉ CIA                   ask CIA │ │  CIAInsightCard
+│ │ You feel more *energized*...    │ │
+│ └─────────────────────────────────┘ │
+│                                     │
+│ ┌────────┐ ┌────────┐ ┌────────┐    │
+│ │ TIME   │ │SESSIO… │ │ PEOPLE │    │  KPI Strip
+│ │ 4.5h   │ │   5    │ │   3    │    │
+│ └────────┘ └────────┘ └────────┘    │
+│                                     │
+│ ┌─────────────────────────────────┐ │
+│ │      ◜       ◞                   │ │  GlassStatCard
+│ │    ◞    84   ◜                   │ │  (Hero Gauge)
+│ │      ◞       ◜    in touch       │ │
+│ └─────────────────────────────────┘ │
+│                                     │
+│ CHECK IN                            │
+│ ┌─────────────────────────────────┐ │
+│ │ Ahmed on your mind? 2 weeks…  ◁ │ │  ListRow
+│ └─────────────────────────────────┘ │
+│                                     │
+│ KEY PEOPLE                  view all│
+│ ┌─────────────────────────────────┐ │
+│ │ ◍ Portfolio Donut               │ │
+│ │ ──────────────────────────────  │ │
+│ │ ○ Ahmed      [gauge] in touch   │ │  ListRow
+│ │ ○ Mom        [gauge] today      │ │  ListRow
+│ │ ○ Sarah      [gauge] reach out  │ │  ListRow
+│ └─────────────────────────────────┘ │
+│                                     │
+│ RECENT QUALITY TIME                 │
+│ ┌─────────────────────────────────┐ │
+│ │  Dinner with Mom      2h ago    │ │
+│ └─────────────────────────────────┘ │
+│                                     │
+│ ┌─────────────────────────────────┐ │
+│ │ ◉ CIA suggests                  │ │  CIAInsightCard
+│ │ Exercising with Ahmed...        │ │
+│ │              [skip]   [do it]   │ │
+│ └─────────────────────────────────┘ │
+│                                     │
+├─────────────────────────────────────┤
+│              [ + ]                  │ FABQuickLog
+│  Today    CIA    Goals    Me        │ GlassNavBar
+└─────────────────────────────────────┘
+```
+
+## 5. Components
+- **TopBar**: Transparent over atmosphere; right action uses `NEW: BadgeRPGTile` (a compact 32x32 pill showing "Lv 6" in tabular-nums, tapping routes to Screen 19).
+- **CIAInsightCard**: Used for the coaching note and CIA Suggests sections.
+- **SolidCard**: Wrapper for Key People list and Weekly KPI strip (prioritizes legibility over atmosphere).
+- **KPIRow**: Shares one SolidCard for time, sessions, and people.
+- **GlassStatCard**: Hero focal point for the 96px connection gauge (`variant: ring`).
+- **ProgressRing**: 96px hero ring and 48px satellite rings in person rows.
+- **ListRow**: Base component for reminders, people, recent quality time, and dates.
+- **FABQuickLog**: Opens a `Sheet` (variant: `action`) to choose person/activity.
+- **GlassNavBar**: Bottom floating navigation.
+- **NEW: CadenceHeatmap**: A 6x4 grid representing weekly touchpoints (replaces generic charts for dense mobile rows). Rationale: A heatmap natively fits the 8pt grid inside a `ListRow` without breaking horizontal scroll constraints.
+- **NEW: DomainAccentLine**: A 2px high `--surface-3` background with a 60% width `#ec4899` fill directly under the TopBar. Rationale: Maintains premium minimalism while permanently anchoring the screen's domain context.
+
+## 6. Visual treatment
+- **Atmosphere:** Mandatory `radial-gradient(90% 60% at 50% -10%, rgba(255,94,0,.18), transparent 60%)` over `--bg-base`, plus the CIA purple pool (`rgba(127,36,255,.12)`) rendered behind the hero gauge to emphasize the AI-derived score.
+- **Hero Type Moment:** The "0-99" score inside the 96px gauge uses NM Medium `tabular-nums` at size 40.
+- **Selective Glass & Glow Mapping:**
+  - **Hero Gauge (`.glass-card`):** `glow-cia` (Royal Purple) — Validates that the composite score is an AI-projected intelligence.
+  - **CIA Coaching Note (`.glass-card`):** `glow-cia` — Signals CIA cross-domain voice.
+  - **Hero Gauge alternative (If purely user-logged streak):** `glow-you` (Burnt Orange).
+  - **Upcoming Date Card (`--surface-2`):** `glow-you` — Highlights active, user-tracked effort.
+  - **Data Lists (KPIs, Key People):** Solid cards, no blur, no glow (preserves data legibility per Canon §2).
+
+## 7. Content & copy
+- **CIA Note:** "You feel more *energized* after time with friends. You haven't seen anyone socially in 10 days."
+- **Hero Gauge:** "in touch" (paper-50%, NM Medium).
+- **Reminder:** "Ahmed on your mind? 2 weeks since you last connected"
+- **Date Reminder:** "Mom's birthday is in 3 days"
+- **CIA Suggests:** "Exercising with Ahmed could boost both fitness and friendship."
+- **Empty State (No People):** "Relationships shape *everything*. Let's start by adding the people who matter most to you."
+- **Honest Null (Cadence Heatmap):** "your rhythm with [name] starts here"
+
+## 8. Data & honesty states
+*Every metric ships 3 states. No fabricated numbers.*
+
+- **Connection Strength Score (Hero Gauge)**
+  - **Real:** "84" (paper-100) + ChipProvenance: `CIA sync`.
+  - **Low-confidence:** "84" (paper-64%) + ChipProvenance: `estimated · low confidence`.
+  - **Honest-null:** Dashed ghost arc track + Copy: "getting to know this connection".
+- **Weekly Time/Session/People (KPI Strip)**
+  - **Real:** "4.5h" + ChipProvenance: `you logged`.
+  - **Low-confidence:** "4.5h" (paper-64%) + `estimated`.
+  - **Honest-null:** "0" (paper-40%) + Copy: "calibrating — building your connection rhythm".
+- **Outreach Cadence (Heatmap)**
+  - **Real:** Color-scaled boxes (pink domain tags) + `you logged`.
+  - **Low-confidence:** Muted boxes + `estimated`.
+  - **Honest-null:** Empty dotted grid + Copy: "your rhythm with [name] starts here".
+
+## 9. All states
+- **Default:** Full dashboard rendered, gauge drawn.
+- **Skeleton:** Depth-preserving shimmer blocks. Gauge track visible with radial sweep (`SkeletonState`). Copy: "CIA is reading your relationships — one moment."
+- **Empty:** `EmptyState` card replaces Key People list. Focus shifts to `BtnPrimary` ("+ add person").
+- **Error:** `ErrorState` inline replaces Check In list. Copy: "Couldn't load your reminders — pull to refresh." KPIs remain if cached.
+- **Success:** After logging via FAB, `StreakCard` logic applies a brief green glow (`glow-done`) on the FAB. "Skip" success dims CIA Suggests card to 40% opacity.
+- **Disabled:** FAB and swipe gestures disabled offline; `OfflineBanner` appears.
+
+## 10. Motion & interaction
+- **Physical Easing:** `cubic-bezier(0.32, 0.72, 0, 1)` standard UI easing (250ms).
+- **Draw-first Hierarchy:** Hero gauge fills clockwise (520ms) → KPI counts up (280ms) → Person rows stagger in bottom-up (40ms offset per row).
+- **Living Line Draw:** The projected cadence trend line (if sparkline is toggled) draws left-to-right (1200ms) followed by the dashed CIA projection.
+- **Expand/Collapse:** Tapping a person row smoothly expands height (280ms) to reveal the `CadenceHeatmap`, simultaneously retargeting the 96px hero gauge with a radial number roll animation.
+- **Gestures:** Swipe Left (Dismiss / Skip), Swipe Right (Mark Done / Log). Long-press for an accessible `Sheet` menu.
+- **Haptics:** Light impact on gauge retarget; medium impact on successful log.
+- **Reduced Motion:** All draws and staggers bypass to simple opacity fades (150ms). Gauge renders final state instantly.
+
+## 11. Motivation-tier adaptation
+- **Low Density:** Limits screen to top 2 people. Hides `CadenceHeatmap` entirely. KPI strip displays only "Time".
+- **Medium Density (Default):** Cap of 5 people. KPIs show Time, Sessions, People. Upcoming dates limited to 3.
+- **High Density:** Reveals inline sparklines per person row. Unlocks duration analytics and full historical lists without pagination limits.
+
+## 12. Accessibility
+- **AA+ Contrast:** All primary text (`#FEFAF3`) on `--bg-base` and `--surface-2` exceeds 16:1. Secondary text (`#FEFAF3` at 64%) meets AA for normal text.
+- **Targets:** All interactive elements (chevrons, add person, FAB, list rows) enforce a strict 44x44px minimum touch target, maintaining the 8pt grid.
+- **Screen Reader:** Glyph-only FAB and gauge controls provide explicit `aria-labels` (e.g., "Log quality time", "Connection score: 84 out of 99"). Cadence heatmaps expose data as an aria-list array rather than a raw graphic.
+
+## 13. Premium checklist
+- [x] **Connects:** Cross-domain CIA insight correlates energy (Wellbeing) with Relationships.
+- [x] **Honest:** 3-state data invariant applied to all metrics; no fabricated mock numbers in the final spec.
+- [x] **Premium:** Warm dark aesthetic with selective glass, semantic glows, and 1 hero typography moment.
+- [x] **Craft (Color):** Strict adherence to 60/30/10 rule (Orange effort, Green completion, Purple AI).
+- [x] **Craft (Type):** Tiempos italic emphasis used exactly once per CIA moment.
+- [x] **Craft (Spacing):** 8pt grid respected; generous 24/32px section rhythm.
+- [x] **Craft (Radii):** Cards 28px, inputs 14px, FAB/Pills 999px.
+- [x] **Craft (Icons):** Rounded 2px outline glyphs, filled when active.
+- [x] **Data Viz:** Ghost dashed arcs for newly added users (honest null) instead of fake 0 scores.
+- [x] **Component Reuse:** High catalog reuse (`SolidCard`, `GlassStatCard`, `ListRow`).
+- [x] **Privacy/Control:** Bottom sheet flow for logging avoids silent background tracking.
+- [x] **Cross-Domain:** RPG Level badge integrated into TopBar cleanly.
+- [x] **Motion Invariance:** Standard physical easings (never linear) with explicit reduced-motion path.
+- [x] **CIA Voice:** Coach tone maintained without CIA references, leading with meaning over metrics.

@@ -1,16 +1,36 @@
-<!-- TEMPLATE — reviewer persona (the "is the build TRUE?" lens). Owns the verification sign-off. Rename freely. -->
+<!-- TEMPLATE — reviewer persona. Owns evidence and verification sign-off. -->
 
 # Release Readiness Verifier
 
-## Focus
-Verify that the build is true: the gates actually pass, the docs match reality, and evidence is fresh — not asserted.
+## Mission
 
-## Questions
-- Do the automated gates pass right now? Are the actual command results recorded?
-- Was the full build gate run at the required cadence (every 3rd batch + foundation)?
-- Does the documentation/ledger match the live implementation? Any stale/superseded notes?
-- For the elevated re-review: is the evidence FRESH (captured this pass), not carried over from an earlier batch?
-- Are any accepted warnings intentional and noted?
+Verify that the build is true: required gates pass now, docs match reality, evidence is fresh, and known drift is recorded.
 
-## Output
-Record the verification log (commands + results), flag stale docs/evidence, and own the "is the build true" sign-off. A batch is not closed until this passes.
+## Review Focus
+
+- Deterministic verify commands and results.
+- Hard gates and rubric thresholds.
+- Freshness of evidence.
+- Stale docs, missing links, unresolved blockers, dirty-worktree cautions, and waiver status.
+
+## Evidence Required
+
+- Exact commands and results.
+- Links to evidence files, logs, screenshots, reports, or CI runs.
+- Current handoff status: `READY`, `READY WITH WAIVERS`, or `BLOCKED`.
+
+## Output Format
+
+Record verification findings with ID, status, severity, finding, evidence/source, owner, blocked work, next action, and closure condition. Include a sign-off line: `ready`, `ready with waivers`, or `blocked`.
+
+## Can Block
+
+- Batch closeout with failed, skipped, or stale hard gates.
+- Clean `READY` status when known drift or waivers remain.
+- Release/readiness claims without current evidence.
+
+## Cannot Decide Alone
+
+- Accepting waivers without the named owner.
+- Changing the quality bar.
+- Declaring product or business risk acceptable without the owning role.

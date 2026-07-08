@@ -1,0 +1,69 @@
+{
+  "id": "65",
+  "name": "Force Update",
+  "route": "No live route — system-level full-screen gate above every authorized/unauthorized route, incl. the tab shell",
+  "shell": "dark",
+  "annotation": "A single, unskippable system gate: one hero moment (icon cluster + title) forces the update, with quiet What's-new evidence and honest version metadata below, and one glowing CTA. No nav, no exit, no negotiation.",
+  "italicWord": "safe",
+  "hasFab": false,
+  "hasNav": false,
+  "imageSlots": [],
+  "belowFold": [],
+  "trustControls": [
+    "ChipProvenance: \"via server release notes\" under the What's new list",
+    "ChipProvenance: \"via device build config\" beside the version string",
+    "VoiceOver/TalkBack label \"Update required\" on the badge glyph (app icon marked decorative)",
+    "aria-live=\"polite\" region announces Error / Loading / Offline / Android-back-press toasts"
+  ],
+  "notes": "Conditional states not shown as default modules: OfflineBanner (glass-pill strip under the status bar, no back chevron) reads \"You're offline - update when you reconnect,\" CTA stays tappable. SystemGateOverlay wrapper: full-bleed, opaque, no scrim, mounts above the tab shell, consumes edge-swipe-back (iOS) and hardware back (Android); repeated Android back-press resurfaces the supportive toast rather than doing nothing. Entrance: staggered ~1.0s — screen fade, then wordmark, then icon scale-in, then badge spring-in, then title/subtitle cascade; nothing animates before the screen is legible. Reduced motion: entrance choreography and the CTA glow-breathe collapse to end state instantly (CANON 6). Disabled state is N/A by design — CTA always accepts retry (CANON 8 no-dead-end rule for a mandatory gate). Success: app backgrounds when the store opens; if the user returns without updating, CTA silently resets to its default label, no lecture, no re-triggered animation. Haptics: medium impact on CTA tap; triple-pulse error haptic on failed store hand-off.",
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar, dark shell: time left, signal/wifi/battery right, paper-100 icons on #0A0A0F. No notch overlay, no back chevron — this screen has no secondary exit."
+    },
+    {
+      "region": "wordmark",
+      "y": 56,
+      "h": 28,
+      "build": "\"Balencia.\" wordmark, static Chillax brand asset (not Neue Montreal), 20px, +0.02em tracking, paper-100 at 82% opacity, centered. Deliberately small — the Display title below is the one hero moment; wordmark must not compete."
+    },
+    {
+      "region": "hero-icon",
+      "y": 100,
+      "h": 112,
+      "build": "NEW LockShieldCluster: native app icon 96x96 (OS squircle mask, unstyled product asset) centered, with a 32px .glass-pill badge overlapping bottom-right (6/6 offset) holding a 20px rounded-2px-outline update-arrow glyph, orange #FF5E00 tint only, no glow/blur. VoiceOver label: \"Update required.\""
+    },
+    {
+      "region": "hero-title",
+      "y": 232,
+      "h": 84,
+      "build": "Display 34, NM Medium, centered, paper-100: \"An important security update is available.\" The screen's single Display moment — visually singular, dominant focal point, not one tile among many."
+    },
+    {
+      "region": "body-subtitle",
+      "y": 326,
+      "h": 72,
+      "build": "Body-light, paper-64%, centered, max-width 327px, 2-line: \"This update includes important security improvements to keep your data *safe*.\" One Newsreader Medium Italic emphasis word: \"safe\" — the screen's only italic moment."
+    },
+    {
+      "region": "whats-new-card",
+      "y": 414,
+      "h": 180,
+      "build": "GlassCard (default, non-interactive, r28, 24px pad). Overline stored as \"What's new\" (rendered uppercase). Plain outline-dot bullets: \"Faster CIA coaching responses\", \"New workout plans and exercises\", \"Bug fixes and performance improvements.\" ChipProvenance caption: \"via server release notes.\" Fetch: SkeletonState shimmer over real geometry. Empty: card collapses to 0pt, no filler text."
+    },
+    {
+      "region": "cta",
+      "y": 746,
+      "h": 52,
+      "build": "BtnPrimary \"Update now\" — solid #FF5E00 fill (never glass-pill), r999, h52, full-width, external --glow-you halo (32px radial blur) breathing behind it, the screen's sole focal lantern. Error: label becomes \"Try again\" + glass-pill toast above reads \"Couldn't open the store - check your connection.\" Deep-link tap: width locks, spinner replaces label, toast \"Opening the store.\""
+    },
+    {
+      "region": "version-caption",
+      "y": 806,
+      "h": 16,
+      "build": "Caption, tabular-nums, centered: \"v2.1.0 -> v3.0.0 required\" beside ChipProvenance \"via device build config.\" Honest-null fallback if remote config fails to parse a minimum version before timeout: unversioned string \"Update required\" — never a broken half-populated comparison."
+    }
+  ]
+}

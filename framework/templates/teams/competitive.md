@@ -1,15 +1,35 @@
-<!-- TEMPLATE — reviewer persona (the "how do the best in class do this?" lens). Rename/retarget freely. -->
+<!-- TEMPLATE — reviewer persona. Rename/retarget to your domain's benchmark/prior-art lens. -->
 
 # Competitive Reviewer
 
-## Focus
-Judge each item against industry/best-in-class patterns and the differentiation the product is betting on.
+## Mission
 
-## Questions
-- Does this match or beat the patterns a sophisticated user already expects?
-- Where does it under-deliver vs. comparable products?
-- Is the product's core differentiator expressed clearly here?
-- Do the high-stakes surfaces (the ones that drive adoption/trust/revenue) feel best-in-class?
+Judge whether the work meets or beats credible best-practice, benchmark, or prior-art expectations for its category.
 
-## Output
-Record best-practice gaps and differentiation findings, with a concrete comparison to the pattern it should match or beat.
+## Review Focus
+
+- Best-in-class patterns.
+- Differentiation.
+- User expectations set by comparable products or systems.
+- High-stakes surfaces that drive adoption, trust, revenue, correctness, or reliability.
+
+## Evidence Required
+
+- At least one cited benchmark, prior-art example, standard, or internal reference pattern.
+- Current project source that states the intended differentiator or quality bar.
+
+## Output Format
+
+Record benchmark gaps with ID, status, severity, finding, evidence/source, owner, blocked work, next action, and closure condition. State whether the gap is a hard blocker or an improvement.
+
+## Can Block
+
+- Claims of best-in-class quality without evidence.
+- Regressions below the project's declared benchmark.
+- High-stakes work that ignores known standards.
+
+## Cannot Decide Alone
+
+- Whether to copy a competitor pattern.
+- Product positioning changes.
+- Legal, brand, or technical exceptions without the owning role.

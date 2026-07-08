@@ -1,0 +1,51 @@
+{
+  "id": "11",
+  "name": "CIA Voice Full Screen",
+  "route": "/voice-assistant, /voice-call",
+  "shell": "dark",
+  "annotation": "HIFI-11 · /voice-assistant, /voice-call · dark shell · full-screen CIA presence, no nav/FAB, orb + waveform hero",
+  "italicWord": "anything",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "StatusBar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard status bar over dark atmosphere (#0A0A0F), transparent, paper-100 time/signal/battery icons. No notch overlay."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 44,
+      "build": "Transparent modal-close variant; leading quiet support glyph labeled 'Get support'; trailing x labeled 'Close voice mode'. No back chevron, no title (full-screen exit, not a stack push). 44px targets."
+    },
+    {
+      "region": "CIAPresenceOrb",
+      "y": 128,
+      "h": 200,
+      "build": "Default 'breathing' 4s ease, 200px centered focal point. Purple-core orb reacts to voice amplitude. Semantic purple glow #7F24FF. Listening/thinking/speaking/success/muted/error state treatments in notes."
+    },
+    {
+      "region": "GlassCard",
+      "y": 344,
+      "h": 112,
+      "build": "Default greeting line. Glass variant rgba(255,255,255,.045) blur 28, 280pt max width. Text: \"Hey. I'm here. You can talk to me about *anything* - or just think out loud.\""
+    },
+    {
+      "region": "VoiceControlDock",
+      "y": 480,
+      "h": 364,
+      "build": "Glass-frost persistent bottom panel, top-radius 28. Contains: WaveformAmplitude 280pt (dual-color: solid orange #FF5E00 for user input, dashed purple #7F24FF for CIA output). VoiceMicGlow 64px glass-pill center (orange core glow, tap-to-toggle, label 'Toggle microphone'). BtnGhost leading (keyboard icon, label 'Switch to keyboard'). BtnGhost trailing (speaker icon, label 'Mute CIA's voice')."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "ConsentCard (first-run only, blocks mic until accept/decline)",
+    "SafetyResourceCard (reachable via quiet support glyph; auto-surfaces as ModalOverlay if CIA detects crisis language mid-conversation; privacy-first language throughout)",
+    "SyncStatus glass-pill banner (offline only: 'offline - will sync when reconnected'; mid-write: 'saving')",
+    "Source/evidence chips wherever they render (e.g. CIA Chat [09] history once this turn lands there) include category, source, scope, freshness, retention, export, revoke, and delete"
+  ],
+  "notes": "No FAB or floating nav pill by design (full-screen distraction-free presence). Skeleton (<500ms): shimmer on orb container and transcript area while the audio engine boots. Listening: orange ring pulse on orb; WaveformAmplitude orange bars react to input; transcript fills in live. Thinking: purple rotation shimmer on orb; waveform quiets; Caption 'connecting to CIA' if it runs past 3s. Speaking: orb core pulses --glow-cia (purple); waveform purple bars react to CIA's output. Success: orb flashes --glow-done (#34A853) for 250ms, then returns to idle breathing. Muted (user-initiated toggle): VoiceMicGlow loses core glow, drops to 40% opacity. Permission denied: HonestNullState, calm register, no red; BtnPrimary 'Open settings.' Error (network/API): ErrorState; orb freezes mid-breath, waveform dims to 20% opacity; BtnSecondary 'Try again.' Speech-capture low-confidence: transcript at 64% opacity + Caption 'estimated · low confidence'. Honest null (no audio): 'Not enough audio yet.' Action: 'Speak a little louder.' ChipProvenance deliberately NOT shown inline on the live transcript (would break the 'just talk' intimacy); disclosed once in ConsentCard, resurfaces as a standard chip in CIA Chat [09]'s history view. Reduced motion: breathing disabled (static orb), particles frozen, transcript appears as whole-line fades, swipe-to-dismiss replaced entirely by the x tap target. Italic word 'anything' chosen over the Visual System line's literal `*screen*` (a generic filename-derived placeholder absent from any actual on-screen copy on this spec); applied instead to the GlassCard greeting, the only Display/hero-level quoted copy on this screen: 'talk to me about *anything*.'"
+}

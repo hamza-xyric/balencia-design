@@ -1,0 +1,70 @@
+{
+  "id": "54",
+  "name": "Meditation & mindfulness",
+  "route": "No live app route; source-only mindfulness surface.",
+  "shell": "dark",
+  "annotation": "HIFI-54 · no live route (source-only mindfulness surface) · dark shell (#0A0A0F) + top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain. CIAInsightCard (glow-cia purple synthesis, steady) is the screen's one glowing, dominant focal moment; SegmentedTabs and the two-row PracticeListCard form a quiet solid-surface operational layer beneath it; StreakCard, KPIRow, active session, and post-session feedback continue the same no-glow dense-data treatment below. Practice minutes and streak ship real (ChipProvenance 'app log'), low-confidence, or honest-null — never a fabricated streak.",
+  "italicWord": "baseline",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, dark mode, light icons over warm shell #0A0A0F + top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain. Fixed 44px, no copy."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent over atmosphere, glass-pill backing on scroll. Left: 44px back chevron. Center: 'Meditation' (H2). Right: domain stat badge 'Mental 4' (Mental domain score, 0-99 scale, right-aligned per screen-19 Domain Stat Score header pattern). 44px targets."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 100,
+      "h": 116,
+      "build": "Purple-tinted glass, r28, single steady purple glow (glow-cia; the screen's only glow). Copy: 'Your stress is elevated. A 5-minute body scan can shift your *baseline*.' ('baseline' in Newsreader Medium Italic — the screen's one emphasis word). Ghost pill '[ ask CIA ]'."
+    },
+    {
+      "region": "SegmentedTabs",
+      "y": 224,
+      "h": 44,
+      "build": "Scroll-chip variant for practice filters, 44px touch targets. Tabs: [ all ] [ meditation ] [ quick ] [ move ]. Active tab (default 'all'): orange fill/border #FF5E00. Inactive: white-8% border, muted text."
+    },
+    {
+      "region": "PracticeListCard",
+      "y": 276,
+      "h": 170,
+      "build": "Solid surface #211008, r24, no glow (dense-data rule). SectionHeader 'Practices' above two rows. Row 1: icon, title 'Body scan meditation', duration '10 min', benefit 'Reduces tension', context chip 'before sleep'. Row 2: icon, title 'Deep breathing', duration '3 min', benefit 'Anchors focus', context chip 'anytime'. Tap scales .98/150ms, opens full session sheet."
+    },
+    {
+      "region": "StreakCard",
+      "y": 454,
+      "h": 96,
+      "build": "Solid surface #211008, r24, no glow (dense-data rule). Copy 'mindfulness streak'. Seven-day strip (O O O O O O O) + '12 days'. Heatmap blocks (# # # # # # #) + 'last 4 weeks'. ChipProvenance 'app log' (exact local count, never estimated)."
+    },
+    {
+      "region": "KPIRow",
+      "y": 558,
+      "h": 64,
+      "build": "Shared solid metric row, r20, no glow (dense-data rule). Three metrics: '24 sess.' / '145 min.' / 'longest 12'. ChipProvenance 'app log' on minutes only, per Data Honesty; the other two carry no honesty tier defined in source."
+    }
+  ],
+  "belowFold": [
+    "ActiveSessionSheet (full variant, reached by tapping a practice row): breathing visual (VoiceMicGlow repurposed, decorative) scales continuously on an 8s loop while ProgressRing sweeps the timer; pause control; duration selector. Double tap toggles pause. Reduced motion freezes the breathing loop at its current state; the session container announces remaining time and phase to screen readers.",
+    "PostSessionFeedbackSheet (half variant): asks for rating and note; rating circles fill left-to-right; saving emits one light haptic. Success: 250ms green flash, updates streak/KPI values, dismisses sheet. Disabled: premium-only feedback analysis and advanced CIA recommendations blur behind PaywallLock with a single orange CTA.",
+    "Error (Practice list): ErrorState with retry; cached practices remain tappable when safe to do so.",
+    "Empty: library stays fully populated; CIA card recommends the 3-minute breathing exercise. Streak/heatmap honest-null reads '0 days' with muted dots and a first-session CTA."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Practice minutes honesty triple — real: orange sparkline + ChipProvenance 'app log'; low-confidence: dashed tail + 'estimated · low confidence'; honest-null: empty chart frame + 'Not enough data yet - 3 more days for a trend.'",
+    "Current streak honesty triple — real: '12 day streak' + heatmap blocks + ChipProvenance 'app log' (streaks are exact local counts, never estimated); honest-null: '0 days' with muted dots and a first-session CTA.",
+    "Consistency heatmap — real: filled intensity squares built from completed sessions; source defines no separate low-confidence or honest-null variant beyond the streak card's own null state.",
+    "Privacy-first language maintained; SafetyResourceCard reachable for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete.",
+    "Crisis/safety surfaces never gamified."
+  ],
+  "notes": "Corrections to the cheap-worker draft: (1) added the missing Status Bar module (y0-44) as its own region separate from TopBar, matching every other packet in this build; (2) restored the TopBar's dropped domain-stat digit — the draft's ghost text 'Mental' is actually 'Mental 4' verbatim in the Final Composition, the Domain Stat Score header pattern (established screen 19) showing the real Mental domain score (0-99 scale), not decorative ghost text; (3) removed the fabricated ChipProvenance 'synthesized · CIA' on the CIAInsightCard — the spec's Components list notes a confidence chip beside the recommendation, but Data Honesty defines no literal copy for it and the Final Composition shows none; flagged as a source gap rather than invented, consistent with the precedent set on sibling screen 53; (4) confirmed italicWord 'baseline' — the literal asterisk-marked word in the Final Composition's CIA copy — over the Visual System section's generic '*mindfulness*' placeholder, matching the same drift pattern already resolved on sibling screens 52 ('management'), 53 ('exercises'), and 55 ('tone'); (5) draft's belowFold used {region,y,h,build} objects, non-conformant with the packet schema — normalized to descriptive strings; (6) restored the 'Practices' SectionHeader label (Final Composition line 33) dropped from PracticeListCard; (7) restored 'advanced CIA recommendations' to the post-session Disabled/PaywallLock description — the draft only blurred feedback analysis, but the spec's Disabled state blurs both; (8) removed an unwarranted orange glow the draft added to the StreakCard — canon's dense-data rule (explicit on sibling screen 53: solid cards read 'no glow') reserves this screen's one glow for the CIAInsightCard, keeping the focal moment singular per this screen's own Focal Hierarchy guidance; (9) enriched the annotation to match this build's established format (hex tokens, focal-moment description, honesty statement) instead of the draft's one-line stub; (10) recomputed module y/h so nothing overlaps and all seven above-fold modules resolve above y=622, well inside the 844px frame; (11) normalized id from the draft's full-slug '54-meditation-mindfulness' to plain '54', matching this build's dominant id convention (see 52, 53, 55, 34). Layout: GlassNavBar floating pill fixed at y756-824 (Today · CIA · Goals · Me, 44px targets, active 'Today' orange, per screen 53's precedent); FABQuickLog 56px orange circle sits above-left of nav (~y694-750); home indicator at y828. Skeleton: practice rows, heatmap, KPI row, and CIA card use geometry-matched shimmer, no fake values. Reduced motion: breathing loop freezes, sheets crossfade instead of sliding, and heatmap/sparkline render at their final state. Accessibility: breathing visual is decorative; the session container announces remaining time and current phase to screen readers; filters, practice rows, session controls, and rating options keep 44px minimum touch targets; paper text on --bg-base/--surface-2 exceeds AA+; purple CIA text never carries meaning by color alone."
+}

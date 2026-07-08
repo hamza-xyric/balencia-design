@@ -1,0 +1,86 @@
+{
+  "id": "33",
+  "name": "Relationships Dashboard",
+  "route": "/people",
+  "shell": "dark",
+  "annotation": "HIFI-33 · /people · dark shell #0A0A0F + top-center amber radial glow + domain accent pink #ec4899 line under the TopBar. Connection-score hero gauge (GlassStatCard r40, orange glow-you) is the singular focal moment; the CIA coaching note and CIA Suggests each carry one purple glow-cia and their own exit (BtnGhost 'ask CIA' / BtnCoach 'do it') — never a second BtnPrimary. FABQuickLog is the screen's one persistent CTA; GlassNavBar floats beneath.",
+  "italicWord": "energized",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 44,
+      "build": "Transparent top bar; L: 'Relationships' (H1 30); R: BadgeRPGTile 'Lv 6' (32x32 pill, tabular-nums, routes to Screen 19)."
+    },
+    {
+      "region": "DomainAccentLine",
+      "y": 88,
+      "h": 2,
+      "build": "DomainAccentLine: 2px high, 100% width --surface-3 track, 60% width filled with domain accent #ec4899, directly under the TopBar."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 98,
+      "h": 84,
+      "build": "Glass card r28, purple 7F24FF glow, leading spark glyph (no header label, per catalog). Body: 'You feel more *energized* after time with Ahmed.' (energized in Newsreader Medium Italic). Right: 'ask CIA' BtnGhost pill → opens CIA Chat."
+    },
+    {
+      "region": "KPI Strip",
+      "y": 190,
+      "h": 76,
+      "build": "SolidCard #211008. 3 KPIs: 'TIME 4.5h' [you logged], 'SESSIONS 5' [you logged], 'PEOPLE 3' [you logged]. Tabular-nums, overline labels."
+    },
+    {
+      "region": "GlassStatCard (Hero Gauge)",
+      "y": 274,
+      "h": 164,
+      "build": "Glass focal surface, r40, orange effort glow (glow-you — member's own relationship effort). ProgressRing (96px) drawn clockwise. Center '84' (Display 34) + 'in touch' (Overline 11). Provenance chip: 'CIA sync'. aria-label: 'Connection score: 84 out of 99'."
+    },
+    {
+      "region": "Check In",
+      "y": 446,
+      "h": 68,
+      "build": "Overline 'CHECK IN'. ListRow: 'Ahmed on your mind?' Right aligned text '2 weeks'. Min 44px height touch target."
+    },
+    {
+      "region": "Key People",
+      "y": 522,
+      "h": 232,
+      "build": "SolidCard. Header 'KEY PEOPLE' [view all]. Portfolio Donut chart top-left. ListRow 1: 'Ahmed' [gauge] 'in touch'. ListRow 2: 'Mom' [gauge] 'today'. ListRow 3: 'Sarah' [gauge] 'reach out'. Stagger entry bottom-up 40ms offset."
+    },
+    {
+      "region": "FABQuickLog",
+      "y": 762,
+      "h": 56,
+      "build": "FloatingActionButton centered horizontally above nav. Glyph: '+'. aria-label: 'Log quality time'. Glow: orange #FF5E00. Routes to action Sheet."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "Recent Quality Time",
+      "y": 756,
+      "h": 68,
+      "build": "Overline 'RECENT QUALITY TIME'. ListRow: 'Dinner with Mom'. Right text: '2h ago'."
+    },
+    {
+      "region": "CIAInsightCard (Suggests)",
+      "y": 832,
+      "h": 120,
+      "build": "Glass card, purple glow. Overline 'CIA suggests'. Body: 'Exercising with Ahmed will boost your connection.' BtnGhost 'skip' (dims card to 40% opacity on success). BtnCoach 'do it'."
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Category: Personal connections",
+    "Source: CIA sync, you logged",
+    "Scope: Private to you",
+    "Freshness: CIA sync timestamp; last-synced time shown when offline",
+    "Retention: 90 days",
+    "Export: Export to CSV",
+    "Revoke: Disconnect CIA",
+    "Delete: Remove all relationship data"
+  ],
+  "notes": "Draw-first hierarchy: Hero gauge fills clockwise (520ms) -> KPI counts up (280ms) -> Key People rows stagger in bottom-up (40ms/row). Tap (not long-press) a person row to expand CadenceHeatmap and retarget the Hero Gauge via radial number roll (light haptic); long-press instead opens an accessible Sheet menu. Swipe left = dismiss/skip, swipe right = mark done/log (medium haptic on successful log). Honesty triples — Hero Gauge: real '84' + 'CIA sync'; low-confidence '84' muted (paper-64%) + 'estimated · low confidence'; honest-null dashed ghost arc + 'getting to know this connection'. KPI Strip: real value + 'you logged'; low-confidence muted + 'estimated'; honest-null '0' (paper-40%) + 'calibrating - building your connection rhythm'. Skeleton copy: 'CIA is reading your relationships - one moment.' Error (Check In): 'Couldn't load your reminders - pull to refresh' (KPIs remain if cached). Success: FAB briefly glows green (glow-done) after logging; 'skip' on CIA Suggests dims that card to 40% opacity. Disabled/offline: FAB and swipe gestures disabled, OfflineBanner appears. Empty: EmptyState card replaces Key People list, focus shifts to BtnPrimary '+ add person'. Reduced motion: all draws/staggers become 150ms opacity fades; gauge renders final state instantly. italicWord confirmed 'energized' — the word actually italicized in the Final Composition's coaching-note body; the Visual System line's '*dashboard*' is boilerplate pulled from the filename (same pattern already confirmed on sibling specs: 26/28 also read '*dashboard*', 07 reads '*conversation*', 30 reads '*money*'). Corrections applied to the draft packet: (1) CIAInsightCard coaching-note copy fixed — the draft invented an 'ASK CIA' overline plus an unevidenced 'estimated' provenance chip; per the catalog (CIAInsightCard = spark glyph + insight copy + optional evidence row + BtnCoach/BtnGhost actions, no header label) and the Final Composition ASCII, 'CIA' is just the glyph identity and 'ask CIA' is the card's own BtnGhost chat exit, not an overline string. (2) CIA Suggests' 'do it' action corrected from BtnPrimary to BtnCoach — the catalog fixes CIAInsightCard's action pair to BtnCoach + BtnGhost, never BtnPrimary, so the screen keeps exactly one true BtnPrimary (FABQuickLog / its Empty-state equivalent). (3) FABQuickLog repositioned from y668 (overlapping the Key People card's y522-754 span) to y762, its real fixed position above the nav bar. (4) Added the missing 'Freshness' trust control — the spec's Consent and Safety section requires all eight (category, source, scope, freshness, retention, export, revoke, delete); the draft only carried seven. (5) Motion note corrected: tapping (not long-pressing) a person row triggers the CadenceHeatmap expand + gauge retarget, at light (not medium) haptic intensity — long-press is reserved for the accessible Sheet menu per the spec's Gestures line."
+}

@@ -1,53 +1,110 @@
 <!-- TEMPLATE — How to use:
-  The session-handoff skeleton (FRAMEWORK.md move Persist (A7) / operating system C11). Write this at the END of every
-  meaningful session, before /clear, so the next session cold-starts correctly. Overwrite the same
-  predictable path each time. The survivability contract: state lives in exactly three places — git
-  commits, machine-readable metadata, and this doc + ledgers. No "we decided X earlier" floating in chat.
+  The session-handoff skeleton (FRAMEWORK.md move Persist (A7)). Write this at the end of every
+  meaningful session so the next Claude or Codex session can continue without chat history. The canonical
+  path is plans/next-session-handoff.md. Legacy .claude/plans/next-session-handoff.md may be read only as a fallback.
   Delete this comment when done. -->
 
 # <PROJECT_NAME> — Next-Session Handoff
 
-One-line goal for the next session: **<the single next unit of work>**. Stop for a ✋ checkpoint after it.
+- Last updated: <YYYY-MM-DD HH:MM TZ>
+- Status: <READY | READY WITH WAIVERS | BLOCKED>
+- Current lane: <lane name>
+- Active implementation root: `<path>`
+- Exact next recommended slice: <one bounded unit of work>
 
-## ⚠️ READ FIRST — what changed last session
-<the big picture: what got done, and any NEW durable gotcha discovered (give it a stable ID and explain when it bites).>
+## Read-First Order
 
-**Decisions already locked (do NOT re-litigate):** <list FINAL decisions relevant to this work>.
+1. `<root AGENTS.md or CLAUDE.md>`
+2. `<memory/MEMORY.md + relevant memory facts>`
+3. `<founding brief / source hierarchy>`
+4. `<active lane AGENTS.md>`
+5. `<active batch / story / work item>`
+6. `<progress + findings + deferred decisions + accepted improvements>`
 
-## 🚦 START BY — verify clean state on entry
+## Start By
+
 ```bash
 cd <repo>
-git log --oneline -3        # expect <SHA> (top), <SHA>, <SHA>
-git status --short <key files>   # expect <clean / intentionally-dirty: explain>
-<command to confirm machine-readable state, e.g. print registry keys>
+git log --oneline -3
+git status --short
+<verify or state-inspection command>
 ```
-Then load `<required skills/tools>` and read `<the sources for this unit>` before acting.
 
-## ⏭️ THE NEXT UNIT OF WORK
-<concrete, bounded description of the one thing to do — inputs, where output goes, how to verify.>
+Expected state:
+- HEAD: `<sha>` — <message>
+- Worktree: <clean | intentionally dirty; explain every dirty file below>
+- Verification baseline: <last command and result>
 
-Then: record state in `<registry/metadata>`, append findings to `<findings-ledger>`, **commit by explicit path** (message: "<convention>"), then ✋ checkpoint.
+## Current State
 
-## ❓ DECISIONS TO FLAG (via AskUserQuestion, before irreversible writes)
-1. <decision> — Recommended: <option>. Alt: <option>. Reason: <why>.
+- Phase: <current phase>
+- Active batch / story / work item: <ID + title>
+- Source hierarchy status: <current / drift suspected / blocked>
+- One active next step: <yes/no, explain if no>
 
-## 🔒 RULES STILL IN FORCE (do not re-litigate)
-- <durable rule, e.g. source-of-truth direction>
-- Repo discipline: <branching / staging-by-path / dirty-tree notes>
-- Plan-then-apply for anything hard to reverse.
+## Completed Last Session
 
-## 🗺️ STATE AT END OF LAST SESSION
-- HEAD = `<SHA>` "<message>". Prior: `<SHA>`, `<SHA>`.
-- `<key files>` are <committed/clean | intentionally dirty>.
-- Open follow-ups: <ledger IDs still open>.
+| ID | Work completed | Evidence/source | Files/areas touched |
+|----|----------------|-----------------|---------------------|
+| <ID> | <what changed> | `<path or command output summary>` | `<paths>` |
 
-## 🧭 Rehydrate (absolute paths)
-1. Memory ledger: `<path>`
-2. Master plan: `<path>`
-3. Registry / ID map: `<path>`
-4. This unit's sources: `<spec + impl paths>`
-5. Findings ledger: `<path>`
+## Recently Touched Files / Dirty-Worktree Cautions
 
-## 🛑 STOP CONDITIONS
-- <unit> done + verified → record + commit → STOP, ✋ checkpoint, then <next unit>.
-- Any <new gap / irreversible decision> → STOP + AskUserQuestion. Do NOT improvise.
+| File/area | State | Caution |
+|-----------|-------|---------|
+| `<path>` | <committed/dirty/generated/user-owned> | <keep/review/do not touch/verify before edit> |
+
+## Open Blockers
+
+| ID | Severity | Owner | Blocked work | Next action | Closure condition |
+|----|----------|-------|--------------|-------------|-------------------|
+| <B-001> | <critical/major/minor> | <person/role> | <what cannot proceed> | <concrete next step> | <how this is unblocked> |
+
+## Known Drift
+
+| ID | Drift | Source of truth | Action |
+|----|-------|-----------------|--------|
+| <D-001> | <doc/code/memory mismatch> | `<winning source>` | <fix/log/waive> |
+
+## Waivers
+
+| ID | Waiver | Owner | Expiry / revisit trigger |
+|----|--------|-------|--------------------------|
+| <W-001> | <what is allowed despite a gap> | <owner> | <date/event> |
+
+## Verification Log
+
+| Command / check | Result | Evidence | Notes |
+|-----------------|--------|----------|-------|
+| `<command>` | <pass/fail/skipped> | `<path or summary>` | <if skipped, why and owner> |
+
+> Passing verification is not enough if known drift exists. Use `READY WITH WAIVERS` or `BLOCKED` when drift, unresolved blockers, or skipped hard gates remain.
+
+## Do Not Do Yet
+
+- <constraint: work that must not start until a source, decision, owner, or verification gap is resolved>
+- <constraint>
+
+## Next Slice
+
+Goal: <single concrete work unit>.
+
+Inputs:
+- `<path/source>`
+- `<path/source>`
+
+Expected outputs:
+- `<path/artifact>`
+- `<path/artifact>`
+
+Done when:
+- <observable acceptance criterion>
+- <verification command/result required>
+- <ledger/progress/handoff updates complete>
+
+## Maintenance Contract
+
+- Update this handoff whenever the active lane, active root, next slice, blocker status, waiver status, or verification baseline changes.
+- Keep exactly one active next slice. Move alternatives into deferred decisions.
+- Do not preserve chat-only claims. Convert durable facts into memory, ledgers, metadata, or commits.
+- If this file conflicts with live state, trust live state, log drift, and update the handoff before continuing.

@@ -1,0 +1,86 @@
+{
+  "id": "88-vision-suite",
+  "name": "Vision suite",
+  "route": "/wellbeing/vision",
+  "shell": "dark",
+  "annotation": "HIFI-88 · /wellbeing/vision · warm-dark default, no parity",
+  "italicWord": "suite",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark mode status bar, time 9:41 left, battery/signal right."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Back icon (<), Title 'Vision *suite*' (Newsreader Medium Italic on 'suite'), Right actions: bell icon, info icon. Target 44px."
+    },
+    {
+      "region": "GlassStatCard",
+      "y": 112,
+      "h": 168,
+      "build": "Glass surface, r28, orange glow top center. Overline 'EYE CARE TODAY'. Body: 'Exercise: 2 min remaining'. Caption muted: 'Last eye test: non-diagnostic'. ChipProvenance: 'via wellbeing log'. State: default."
+    },
+    {
+      "region": "SegmentedTabs",
+      "y": 296,
+      "h": 44,
+      "build": "Pills: Eye test | Exercises | Strain | Progress. Underline active 'Exercises' with accent #FF5E00. Solid #211008 bg, radius 16. 44px targets."
+    },
+    {
+      "region": "Card: 20-20-20 reset",
+      "y": 352,
+      "h": 140,
+      "build": "Solid surface, r24. H3 '20-20-20 reset'. Body: 'Look 20 feet away for 20 sec'. ProgressRing (orange, member-effort) to left. BtnPrimary 'Start eye exercise' #FF5E00 right."
+    },
+    {
+      "region": "TrendChart",
+      "y": 504,
+      "h": 124,
+      "build": "Solid #211008. Overline 'TREND'. Caption: 'Mon low | Tue medium | Wed low'. ChipProvenance: 'via strain log · 3 entries' (real: not fewer than three logged entries)."
+    },
+    {
+      "region": "SafetyResourceCard",
+      "y": 644,
+      "h": 100,
+      "build": "Glass surface. Bold text: 'Not a diagnosis. Sudden vision changes need a clinician.' BtnSecondary border only: 'Find urgent guidance'."
+    },
+    {
+      "region": "Floating Nav Pill",
+      "y": 756,
+      "h": 68,
+      "build": "Pill nav with icons: Today | CIA | Goals | Me. Transparent glass background. CIA tab label uses accent #7F24FF."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "ConsentCard",
+      "y": 756,
+      "h": 200,
+      "build": "Solid #211008. Overline 'DATA CONTROLS'. ChipProvenance: 'category: health · source: device · scope: screen time · freshness: today · retention: 30d · export · revoke · delete'. Body text explaining consent and non-diagnostic nature."
+    }
+  ],
+  "imageSlots": [
+    {
+      "slot": "HIFI-88-01",
+      "prompt": "Vision suite eye-test and exercise visuals, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+    }
+  ],
+  "trustControls": [
+    "Names health category, source, freshness, confidence, retention, export, revoke, and delete before synced values or photo-derived reads are trusted.",
+    "Media is consent-gated: no identifiable face, body, home, document, provider logo, or private text appears without explicit permission.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete.",
+    "Non-diagnostic disclaimer and urgent guidance stay visible on default and error states, reachable without gamification.",
+    "Provenance chips attached to all stats, trends, and cross-signal recommendations; no fabricated eye test scores or strain values."
+  ],
+  "notes": [
+    "Route header strictly enforced as /wellbeing/vision.",
+    "Reduced-motion: disable ProgressRing sweep, TrendChart draw, and glow breathing; show static elapsed time text.",
+    "Accessibility: AA+ contrast on #0A0A0F and #211008 backgrounds; tabs, timer controls, guidance links, and delete controls are at least 44px targets. Screen readers announce non-diagnostic status before any test result."
+  ]
+}

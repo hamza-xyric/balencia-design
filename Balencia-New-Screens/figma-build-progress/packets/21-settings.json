@@ -1,0 +1,62 @@
+{
+  "id": "21",
+  "name": "Settings",
+  "route": "/settings, /preferences",
+  "shell": "dark",
+  "annotation": "HIFI-21 · /settings, /preferences · Dark shell, top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain; SolidCard #211008 throughout for dense list legibility, with a quiet glow-cia purple wash on CIA Preferences only. Single Tiempos Medium Italic emphasis word 'Settings' carries the H1 itself — no other italic moment on this screen.",
+  "italicWord": "settings",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Native iOS status bar, paper-100 glyphs over #0A0A0F + top-center amber radial glow + grain. 44px fixed, no default copy. Reserves the OfflineBanner slot (hidden by default; slides in only when connectivity drops)."
+    },
+    {
+      "region": "Page Header",
+      "y": 44,
+      "h": 64,
+      "build": "TopBar, left-aligned, no back chevron (root of the Me tab, not a pushed sub-screen). H1 30 'Settings' — the entire title set in Tiempos Medium Italic, the screen's single emphasis word per canon; no separate subcopy exists in the spec."
+    },
+    {
+      "region": "Account SolidCard",
+      "y": 108,
+      "h": 280,
+      "build": "SolidCard #211008 r28, no blur, hairline dividers. Overline 'ACCOUNT'. ListRow (leading avatar, trailing chevron) 'your@email.com'. ListRow 'Change password' chevron. ListRow 'Subscription & billing' chevron. ListRow 'Connected services' chevron — drill-in surfaces export/revoke/delete chips per linked service. 56px row min-height."
+    },
+    {
+      "region": "CIA Preferences SolidCard",
+      "y": 388,
+      "h": 268,
+      "build": "SolidCard #211008 r28, quiet glow-cia purple wash (one glow per card). Overline 'CIA PREFERENCES'. ListRow 'Coaching style' → 'Supportive'. ListRow 'Formality' → '4 / 10', ChipProvenance 'Set during onboarding'. ListRow 'Check-in times' → '8:00, 20:00'. Voice note (Tiempos Light italic, distinct from the screen's one emphasis word): 'Your coaching is built on what CIA learns from our conversations.'"
+    },
+    {
+      "region": "Appearance & Locale SolidCard",
+      "y": 656,
+      "h": 160,
+      "build": "SolidCard #211008 r28. Overline 'APPEARANCE & LOCALE'. DisplayListRow (non-interactive) 'Theme' → 'Dark', badge 'coming soon' — honestly signals deferred, not broken. ListRow 'Language' → 'English (US)'. ListRow 'Units' → 'Metric'."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating glass pill nav, 4 tabs Today · CIA · Goals · Me — active 'Me' orange-filled icon + label, 44px targets. Docked 16px above home indicator; underlying content (Appearance & Locale, Emergency, Sign out) scrolls beneath it with fade."
+    }
+  ],
+  "belowFold": [
+    "Emergency SolidCard (overline 'EMERGENCY') holds the SafetyResourceCard: 'Resources that help' — crisis/safety layer per canon: calm surface-2, teal-free, no gamification, one-tap call/text actions on drill-in, reachable regardless of account state.",
+    "'Sign out' BtnSecondary, full-width, centered label, neutral system border (no red — canon has no red channel). A session action, not a data-destructive one; account deletion instead sits behind the ModalOverlay reached via Account > Change password (per Components: 'used for password changes and delete account confirmation')."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "CIA Preferences > Formality ships the full honesty triple: real '4 / 10' + ChipProvenance 'Set during onboarding'; low-confidence muted 64% + 'estimated · low confidence'; honest-null 'Not configured yet. Set a baseline.' (Data Honesty).",
+    "Consent and Safety chip taxonomy (category, source, scope, freshness, retention, export, revoke, delete) surfaces wherever synced/third-party data appears — principally Account > Connected services, where each linked service exposes export, revoke, and delete on drill-in.",
+    "Emergency > Resources that help (SafetyResourceCard) stays reachable at all times — no gamification, no gating, one-tap call/text crisis actions.",
+    "Account deletion is never a direct destructive tap on this screen: it requires the ModalOverlay confirmation reached via Account > Change password (per Components).",
+    "Theme 'coming soon' renders as a non-interactive DisplayListRow, not a disabled/broken toggle — honestly communicates deferred status rather than implying malfunction.",
+    "Navigation stays limited to /settings and /preferences — no alternate vanity routes added (Consent and Safety)."
+  ],
+  "notes": "Corrected against draft: (1) removed a fabricated header subcopy ('Manage your account and CIA communication settings.') that does not exist anywhere in the spec — the spec's single italic moment ('one Tiempos italic emphasis moment: *settings*') is the H1 'Settings' itself, not a manufactured sentence; italicWord stays 'settings' but is now correctly anchored to the title. (2) Restored the CIA Preferences card's dropped voice-note copy, 'Your coaching is built on what CIA learns from our conversations.', reading it as a Tiempos Light italic quoted-CIA-voice treatment distinct from the screen's one Medium-italic emphasis word (avoids a second competing italic moment). (3) Resized Account (h200→h280) and CIA Preferences (h200→h268) SolidCards to fit their actual row counts at the catalog's 56px ListRow min-height plus overline/padding — the draft's heights were too small for 4 and 3 rows respectively. (4) Rebuilt trustControls from the draft's object-with-fabricated-location shape (e.g. 'Export data' pinned to Subscription & billing, 'Delete account' pinned to '(menu bottom)' of Change password) into spec-grounded statements: export/revoke/delete are scoped to Connected services' drill-in per Consent and Safety ('where data appears'), and account deletion is only confirmed to exist via the ModalOverlay noted in Components, not asserted at an invented sub-location. (5) Fixed overflow: contiguous above-fold modules now total 844px with the floating GlassNavBar as the final persistent module (matches other packets' overlay convention); Emergency SolidCard and the Sign out BtnSecondary — which do not fit above the fold — moved to belowFold. (6) Preserved shell=dark, hasNav=true, hasFab=false, and routes limited to /settings, /preferences — all correct in the draft. (7) Corrected badge copy casing to the spec's literal lowercase 'coming soon'."
+}

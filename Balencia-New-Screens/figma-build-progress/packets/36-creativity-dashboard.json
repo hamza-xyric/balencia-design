@@ -1,0 +1,76 @@
+{
+  "id": "36",
+  "name": "Creativity Dashboard",
+  "route": "No live route; legacy Explore domain dashboard.",
+  "shell": "dark",
+  "annotation": "HIFI-36 · No live route; legacy Explore domain dashboard · dark shell #0A0A0F + top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain. CIAInsightCard (glow-cia purple synthesis) is a quiet coaching preamble; the CREATIVE PRACTICE CalendarHeatmap + KPI row is the singular focal hero beneath Active Projects and the Inspiration Prompt. Creativity-amber #F59E0B is domain identity only (header line, heatmap intensity) — never the CTA or data-ink color, which stays orange. Every metric ships real (provenance chip), low-confidence, or honest-null.",
+  "italicWord": "morning",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, dark mode, light icons, time 9:41, transparent over #0A0A0F."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Left: 44px back chevron. Center: 'Creativity' (H1 30). Right: overflow '···' (44px target). Amber identity accent line at y100, #F59E0B 2-3px (creativity domain identity — distinct from CIA-reserved purple and orange effort). Background transparent over dark shell."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 108,
+      "h": 108,
+      "build": "Glass card r28, glow-cia (#7F24FF) purple synthesis glow. Leading spark glyph + label 'CIA'. Body: 'Three creative sessions this week. Your best work happens in the *morning*.' (italicize 'morning', Newsreader Medium Italic). Tap navigates to CIA Chat [09]."
+    },
+    {
+      "region": "GlassCard Projects",
+      "y": 232,
+      "h": 160,
+      "build": "Overline 'ACTIVE PROJECTS'. Glass card (ink-brown-800, white 8% border), r20. Row 1 'Short film script', milestone '▸ Recording demo tracks', MomentumBar 45% orange fill, chip 'project update' (real). Row 2 'Photography portfolio', milestone '▸ Editing final selections', MomentumBar 72% orange fill, chip 'estimated · low confidence' (stale import). 'see all' orange link, centered."
+    },
+    {
+      "region": "GlassCard Prompt",
+      "y": 408,
+      "h": 100,
+      "build": "Glass card, subtle 5%-amber top-edge bleed. Leading '✦' glyph purple #7F24FF (CIA-generated). Body: 'Try creating something using only materials within arm's reach.' Ghost pill 'start creating' (amber identity chip). Ghost pill 'reflect' -> Journal [37]. Chip: 'journal prompt'. Swipe right dismisses for the day."
+    },
+    {
+      "region": "SolidCard Practice Hero",
+      "y": 524,
+      "h": 180,
+      "build": "Solid #211008, r24 (dense chart, per canon). Overline 'THIS WEEK': one-row 7-cell strip (empty, filled, filled, empty, filled, empty, empty). Overline 'CREATIVE PRACTICE': CalendarHeatmap, same weekly pattern, amber intensity (identity only), no per-cell glow. KPI row: 'SESSIONS 3', 'HOURS 4.5', 'STREAK 8'. Chip: 'you logged'."
+    },
+    {
+      "region": "Goals Bar",
+      "y": 720,
+      "h": 84,
+      "build": "Overline 'ACTIVE GOALS'. Three ProgressRing dials, 48px, orange arc data ink (glow-orange-md ~20px) — never amber: 'Film' 55%, 'Photo' 80%, 'Write' 30%. Tap a dial opens Goal Detail [14]."
+    },
+    {
+      "region": "FAB",
+      "y": 784,
+      "h": 56,
+      "build": "Orange #FF5E00 pill, 48pt tall, bottom-right, fixed above GlassNavBar. '+' icon + label 'log session'. aria-label 'Log creative session'. Tap opens session-logging Sheet (writing, sketch, recording, editing, other)."
+    }
+  ],
+  "belowFold": [
+    "Portfolio Timeline (~y860-1000): Overline 'GALLERY'. NEW PortfolioTimeline, horizontal scroll, Living Line milestones: 'first draft' -> 'demo' -> 'film'. HonestNullState hides the whole timeline until the first milestone exists (never an orphan line).",
+    "Recent Activity (~y1010-1130): SolidCard #211008. ListRow examples: 'today · 90 min writing', 'yesterday · 45 min sketch', 'May 18 · 120 min recording'. Chip 'you logged' on each row."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Category: Creative practice (projects, prompts, heatmap, gallery, activity)",
+    "Source: you logged, CIA pattern read, project update, journal prompt",
+    "Scope: Private to you",
+    "Freshness: last-logged session timestamp; cached state shown offline",
+    "Retention: session and project history retained until deleted",
+    "Export: export creative practice history",
+    "Revoke: disable CIA inspiration prompts / pattern reads",
+    "Delete: remove project, journal, and session data"
+  ],
+  "notes": "Honesty triples — Projects: real chip 'project update' (Short film script, 45%); low-confidence chip 'estimated · low confidence' (Photography portfolio, stale import, 72%); honest-null = 'start your first creative project' + action chip. Prompt: real = CIA-generated, chip 'journal prompt'; low-confidence = starter prompt (no chip); honest-null = static prompt labeled starter. Heatmap: real = logged sessions, chip 'you logged'; low-confidence = local unsynced session, muted; honest-null = empty white-05 grid, never a guilt wall. Gallery: honest-null hides the PortfolioTimeline entirely until the first milestone. States: Skeleton — project rows, heatmap cells, KPI row, timeline, and activity rows shimmer (depth-preserving, never blank->full swap). Empty — welcome note, prompt extra-prominent, empty heatmap, start-project CTA. Error — failed import/upload names the source, cached project rows stay visible. Success — logging a session updates heatmap/KPIs/streak/activity with a green glow-done confirmation. Disabled — gallery upload, prompt saving, and CIA suggestions dim when consent blocks them. Motion — project bars draw, prompt fades in, heatmap cells stagger left-to-right 40ms, the portfolio Living Line draws itself; reduced-motion snaps all of the above to their settled end-state. Accessibility — the heatmap announces 'sessions 3, hours 4.5, streak 8, you logged' before exposing individual cells to screen readers; all rows, cells, gallery items, and the FAB keep 44px minimum targets. Corrections vs. the draft packet: (1) TopBar's amber identity line was drawn in #FF5E00 (brand orange) — recolored to the spec's actual creativity-identity amber #F59E0B; orange stays reserved for effort/CTA data ink, never domain identity. (2) CIAInsightCard copy was fabricated ('Your best creative *dashboard* work happens in the morning,' forcing the filename-slug boilerplate word into invented filler) — restored to the spec's literal copy 'Three creative sessions this week. Your best work happens in the morning.' (3) Italic word resolved to 'morning' — the Visual System line's '*dashboard*' is the generic file-slug placeholder (identical boilerplate confirmed verbatim on sibling dashboard specs 26/28/32/34/48, none of which render 'dashboard' as literal on-screen copy); no other literal asterisk-marked word exists anywhere in this screen's evidence chain (hifi spec, screens spec, ascii wireframe, or app_design 3 draft), so 'morning' was chosen as the word actually present in the real CIA copy and the substance of its insight, matching the drift-resolution precedent used on 02/03d/06/11/17/30/32/42/55. (4) Active Projects was labeled 'GlassCard' but built with 'Solid surface #211008' — corrected to an actual glass surface; the spec states 'project and prompt glass; activity and timeline solid #211008,' so Projects must be glass, not solid. (5) Project row 2 (Photography portfolio, 72%) was recolored green in the draft — corrected to orange; per canon and this screen's own resolved decision ('mission/goal gauge arcs, project bars ... are orange ... green at 100%/arrival'), 72% is not complete and must stay orange data ink. (6) Removed an invented orange glow from the Active Projects card — this screen's resolved decision states the CalendarHeatmap hero carries no glow and 'no other element is promoted to a 32px glow' beyond the CIA card's glow-cia and the 48px ProgressRing dials' glow-orange-md (~20px); Active Projects is a quiet secondary layer per the Focal Hierarchy and should not compete with the hero. (7) The 'estimated · low confidence' chip moved off the CIA card (which has no defined honesty tier in Data Honesty and, per sibling CIA cards on 33/34, carries no ChipProvenance) onto Active Projects row 2, matching this screen's own honesty definition ('low-confidence = imported or stale update'). (8) FAB corrected from a 56x56 circular icon button to the spec's actual 48pt-tall labeled pill ('[ + log session ]' per the Final Composition ASCII and the layout anatomy's 'Floating Action Button — 48pt (fixed)'); aria-label set to 'Log creative session' per the spec's accessibility notes. (9) The Practice Hero's overline/subhead were inverted and mis-cased ('Creative practice' overline / 'This week' subhead) — corrected to the spec's literal order and case: 'THIS WEEK' one-row strip first, then 'CREATIVE PRACTICE' hero heatmap, matching the Final Composition and layout anatomy ordering. (10) Goals dials corrected from MomentumBar (linear bar) segments to ProgressRing dials — Active Goals uses the ring/gauge family per Components and this screen's own resolved decision ('one ring family across the screen'); MomentumBar is reserved for continuous project/activity progress, not goal dials. (11) Route corrected from the vague 'no route' to the spec's literal header string 'No live route; legacy Explore domain dashboard.' (12) Module count reduced from the draft's 11 (over the 8-module cap) to 8 by folding both standalone 'Section Label' rows into their adjacent cards (Active Projects, Practice Hero) and dropping the separate Nav Pill module in favor of the hasNav flag, matching the fold-merge precedent used on 03d/32/71. (13) trustControls and belowFold reshaped from object arrays to descriptive strings to match schema; belowFold entries enriched with the spec's literal gallery milestone sequence ('first draft' -> 'demo' -> 'film') and activity-log example rows ('90 min writing', '45 min sketch', '120 min recording') pulled from the screen's Content & copy section."
+}

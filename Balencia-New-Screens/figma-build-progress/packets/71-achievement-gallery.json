@@ -1,0 +1,70 @@
+{
+  "id": "71",
+  "name": "Achievement Gallery",
+  "route": "/achievements",
+  "shell": "dark",
+  "annotation": "Achievement Gallery is a read-only trophy room reached from Me Main, RPG Character, or Celebration Overlay (Tab: Me) — the hero completion ring, Earned-This-Month stat, and streak status form the singular focal moment, with the domain coverage strip, filter chips, and BadgeTile grid as a quiet operational layer beneath. Every metric is real ('balencia summary' / 'synced today' / 'global metrics' chips), low-confidence, or honest-null — never fabricated, including domain-coverage arcs and rarity percentages. No purple CIA UI appears anywhere on this pure-gamification 60/30/10 screen — the drafted 'Ask CIA' button is omitted entirely from the achievement-detail sheet per the source correction. Locked achievements render as ghosted rarity-outlined silhouettes sorted by closeness-to-unlock, never padlocks or shame language.",
+  "italicWord": "gallery",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar: time left, signal/wifi/battery right, paper-100 icons on #0A0A0F warm-dark shell with top-center orange radial atmosphere (18%) and grain. Fixed 44px, no copy."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent TopBar, gains glass-pill on scroll: BtnGhost back chevron (44px, returns to Me Main/RPG Character/Celebration entry point) left; H1 'Achievement *gallery*' (Newsreader Medium Italic on 'gallery', the screen's one emphasis word). No search or filter icon — not evidenced in source."
+    },
+    {
+      "region": "hero",
+      "y": 100,
+      "h": 220,
+      "build": "GlassCard hero r40, glow-you. Left: ProgressRing, Display-34 '39%' center, ghost track, ChipProvenance 'balencia summary' below, caption '47/120'. Right: GlassStatCard '12' + green '+3' delta, caption 'earned this mo.'; below it MomentumBar (gray track) reads 'Your streak starts today - 0'. Ring sweeps + count-up on mount."
+    },
+    {
+      "region": "domain-coverage-strip",
+      "y": 320,
+      "h": 64,
+      "build": "SolidCard #211008 r24, horizontal scroll (NEW CoverageStripRow). ChipDomainTag pills (domain-bg 16%, white text), each with a 2px orange micro-arc tracking that domain's earned density: 'Fitness [12]', 'Nutrition [8]', trailing '+More ›' opens the full domain list. ChipProvenance 'balencia summary'."
+    },
+    {
+      "region": "filter-chips",
+      "y": 384,
+      "h": 48,
+      "build": "ChipDomainTag row, 44px targets: 'All' active (orange border + 16% bg), 'Fit', 'Nutri', '$$$' inactive. Selecting a chip crossfades the grid 150ms (reduced motion: instant swap); no-match state replaces grid with a centered domain icon + 'No [domain] achievements yet'."
+    },
+    {
+      "region": "grid",
+      "y": 432,
+      "h": 324,
+      "build": "'ALL ACHIEVEMENTS' overline (SectionHeader). 2-col BadgeTile grid, r24, 44px+ cells: 'Consistency' earned, domain-colored badge, steady glow-done; 'Volume' in-progress '15 of 30', silhouette badge, glow-you micro-arc; 'Form' earned; 'Fuel' earned, glow-done. Tiles cascade fade-up on mount; arcs fill after landing."
+    },
+    {
+      "region": "bottom-nav",
+      "y": 756,
+      "h": 88,
+      "build": "GlassNavBar floating pill: Today, CIA, Goals, Me — active 'Me' (orange icon/label), this screen's home tab. 44px targets, light haptic on press. HomeIndicator anchors screen base."
+    }
+  ],
+  "belowFold": [
+    "Grid continues in the same 2-col layout past the four visible BadgeTiles; earned tiles keep the steady glow-done breathe, in-progress tiles keep the glow-you micro-arc, and undiscovered badges render as ghosted rarity-outlined silhouettes — never padlocks — sorted by closeness-to-unlock in the first-use empty state.",
+    "Sheet (achievement detail): opens on a BadgeTile tap. Earned reads 'Earned on [date]'; in-progress reads '[Z] more days to go'; to-discover reads 'To unlock:' + requirement ListRow. Trailing 'go to [domain]' CTA (medium haptic) and native OS 'Share this achievement' exit when earned. No 'Ask CIA' entry — purple stays out of this pure-gamification sheet."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "ChipProvenance 'balencia summary' required beside the completion ring (47/120, 39%) and the Earned-This-Month KPI (12, +3 earned this mo.); low-confidence dims both to 64% opacity + 'estimated · low confidence'; honest-null shows a ghosted ring + '0' + 'Not enough data yet' and '—' + 'Not enough data yet' respectively.",
+    "Streak: real reads '[X] days to the 60-day legend' + ChipProvenance 'synced today'; low-confidence dims to 64% opacity + 'estimated · low confidence'; honest-null/first-use reads 'Your streak starts today' — never a fabricated history.",
+    "Domain Coverage Strip arcs, individual badge progress ('15 of 30'), and Detail Sheet rarity ('[X]% of users have earned this') each carry a source chip ('balencia summary' / 'synced today' / 'global metrics') or an honest-null fallback ('Not enough data yet' / 'to discover' / 'Rarity not calculated yet') — never a fabricated number.",
+    "Empty (filtered): centered domain icon + 'No [domain] achievements yet' replaces the grid when a domain filter has no matches.",
+    "Error: graceful degradation to cached data; warm non-alarming toasts 'Couldn't load summary.' and 'Check your connection and try again'; failed badge images fall back to a domain-colored circle.",
+    "Offline: OfflineBanner (glass-pill) below the filter chips reads 'You're offline - showing cached achievements'; pull-to-refresh is visibly disabled while offline.",
+    "Undiscovered/locked achievements render as ghosted rarity-outlined silhouettes sorted by closeness-to-unlock — never padlocks, never shame language for low progress.",
+    "Consent/Safety source chips for category, source, scope, freshness, retention, export, revoke, and delete wherever data appears; 44px minimum tap targets on every ChipDomainTag and BadgeTile; Hero ring % and rarity micro-arc carry explicit aria-labels (e.g., '47 out of 120 achievements earned. 39 percent complete.') for VoiceOver/TalkBack."
+  ],
+  "notes": "Corrects five draft errors against the source (screens/71-achievement-gallery.md + hifi-screens/71-achievement-gallery.md): (1) GlassNavBar active tab restored to 'Me' — the source Header states 'Tab: Me' and Entry Paths list 'Me Main screen via Achievements quick link card'; the draft wrongly highlighted 'Today'. (2) TopBar back chevron restored — Layout anatomy #1 explicitly specifies 'Transparent header with back chevron and H1 title' and Exit Paths confirm 'standard stack pop/back button'; the draft's fabricated trailing search icon is dropped instead since no source evidence supports it. (3) belowFold converted from module-objects (region/y/h/build) to descriptive strings, and notes converted from an array to a single string, to match schema. (4) Grid SectionHeader and HomeIndicator folded into the 'grid' and 'bottom-nav' modules respectively and the standalone home-indicator module removed, keeping the module count at 7 (within the 8-module cap) while the frame sums exactly to 844px with no unaccounted overflow. (5) Added the source's domain-coverage-arc, individual-badge, and rarity-percentage honesty fallbacks ('Not enough data yet' / 'to discover' / 'Rarity not calculated yet') and the full consent source-chip suite (category, source, scope, freshness, retention, export, revoke, delete) — present in the source but missing from the draft's trustControls. Per-string italics from the original content draft (*earned*, *legend*, *streak*, *unlock*, *yet*) are superseded by the repaired spec's single-emphasis-word rule — only 'gallery' renders in Newsreader Medium Italic on this screen (font stand-in: Hanken Grotesk UI + Newsreader Medium Italic emphasis, per session waiver W-FONT-01, standing in for Neue Montreal/Tiempos). Motivation-tier: Low hides undiscovered/locked badges and surfaces near-complete (>75%) in-progress badges first; Medium (default, this composition) shows Earned + In-progress only; High shows Earned + In-progress + To-discover, sorted by closeness-to-unlock. Motion: physical ease cubic-bezier(0.32,0.72,0,1); ring draws 0->39% with count-up and grid cascades fade-up on mount; reduced motion disables count-ups/particle bursts and renders glow breathe static. Route kept verbatim: /achievements, no alternate vanity route."
+}

@@ -1,0 +1,61 @@
+{
+  "id": "60",
+  "name": "Medication tracking",
+  "route": "No live app route; source-only medication surface.",
+  "shell": "dark",
+  "annotation": "HIFI-60 · no live route (source-only medication surface) · warm dark shell #0A0A0F + top-center amber radial glow rgba(255,94,0,.18) + 3-4% grain. Hero ProgressRing (75% daily adherence) is the singular focal moment; CIAInsightCard, safety ListRow, and TimelineAgenda stay quiet and source-specific beneath it. FABQuickLog (+) is the single persistent CTA; GlassNavBar persists as floating overlay chrome.",
+  "italicWord": "fresh",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "System status bar (9:41, signal, wifi, battery), transparent over dark base #0A0A0F."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "Glass TopBar, transparent until scroll. Left: BtnGhost back chevron, 44px target. Center: title 'Medication tracking'. Right: 1 trailing glyph (unspecified in source; not a duplicate of the FAB's + Add-medication action)."
+    },
+    {
+      "region": "hero_card",
+      "y": 104,
+      "h": 220,
+      "build": "GlassStatCard (Hero variant, r40, single orange #FF5E00 glow). Center: 96px ProgressRing at 75%. Inside ring: '75%' (Display 34); below: '3 of 4 doses today' (Caption 12). ChipProvenance 'you logged' beneath ring."
+    },
+    {
+      "region": "cia_insight_card",
+      "y": 336,
+      "h": 104,
+      "build": "CIAInsightCard (Glass r24, purple #7F24FF glow). Icon: CIA Coach. Body: 'today's a *fresh* start.' ('fresh' in Newsreader Medium Italic — the screen's one emphasis word). CTA: '[Learn how CIA helps] >'. Wrapped in PaywallLock for free tier."
+    },
+    {
+      "region": "safety_warning",
+      "y": 452,
+      "h": 48,
+      "build": "ListRow (r16, solid #211008). Icon: alert/shield glyph. Text: 'consult your doctor before changing dosages' (Caption 12, muted)."
+    },
+    {
+      "region": "timeline_agenda",
+      "y": 512,
+      "h": 244,
+      "build": "TimelineAgenda: vertical stroke drawn top-to-bottom (draw, don't fade). Overline 'MORNING'. Row 1 checked: 'Vitamin D' '500mg', 'taken at 08:12 AM' (green #34A853). Row 2 checked: 'Magnesium' '250mg', 'taken at 08:12 AM' (green). Overline 'AFTERNOON'. Row 3 unchecked: 'Adderall XR' '10mg', 'overdue' (orange #FF5E00). 44px min target on all checkboxes."
+    }
+  ],
+  "belowFold": [
+    "timeline_evening, y756 h48: TimelineAgenda continued. Overline 'EVENING'. Row 4 unchecked: 'Melatonin' '3mg' — source ASCII shows no additional status text for this row, unlike the taken/overdue rows above it.",
+    "all_medications_card, y816 h180: SolidCard (r24, #211008, no glow). H3 'All medications'. Inline TrendChart sparklines with ChipProvenance 'you logged': 'Vitamin D' 92%, 'Magnesium' 88%, 'Adderall XR' 95%.",
+    "adherence_history_card, y1004 h220: SolidCard (r24, #211008). H3 'Adherence history'. AdherenceHeatmap (4x7 grid of rounded squares, varying fill mapping daily completion). Footer: 'start tracking to build...'. Error state: 'couldn't load - tap to retry' inside the card without breaking the rest of the screen.",
+    "privacy_footer, y1236 h40: Centered text 'your medication data is encrypted locally' (Caption 12, muted)."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Medication tracking names health category, source, freshness, confidence, retention, export, revoke, and delete before synced values or photo-derived reads are trusted.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete.",
+    "Documented as a modal, overlay, utility, or source-only surface; do not invent a live route."
+  ],
+  "notes": "States — Skeleton: depth-preserving layout (ghost ring, cell outlines); charts load as axes + ghost lines that draw into place, never blank discs. Empty (cold-start): FAB-led; hero ring 0% reads 'no medications tracked yet. add your first one below.'; CIA note 'tracking medications helps CIA understand your wellbeing better.'; schedule/roster/heatmap hidden; privacy notice remains. Error (partial failure): cached data shown; heatmap failure reads 'couldn't load - tap to retry' inside its SolidCard without breaking the rest of the screen. Success (100%): hero ring crossfades orange to green (--glow-done) over 400ms; continuous-stroke timeline completes; CIA shifts to success copy. Disabled: BtnPrimary 'Save' inside the Add Medication modal stays disabled until required fields are met. Motion: physical spring/cubic-bezier easing, 150-250ms feedback range; timeline 'draws' downward as doses are taken; light haptic on toggle. Reduced motion: timeline draws instantly, glows breathe statically, continuous strokes fade in without path-drawing. Glass is selective: Hero card, CIA card, TopBar, FABQuickLog, and GlassNavBar use glass; safety ListRow, timeline background, medication roster list, and heatmap use solid #211008 (dense-surface rule). FABQuickLog (+) is the single persistent CTA (Add Medication); GlassNavBar floats as fixed overlay chrome — neither is a scrolling module. Corrections from the draft packet: (1) italicWord confirmed as 'fresh' — the word actually italicized inline in the Final Composition's CIA copy ('today's a *fresh* start.') — not 'tracking', which is the Visual System section's filename-derived boilerplate placeholder (same pattern confirmed in sibling specs, e.g. 31-transaction-budget-detail names '*detail*' in Visual System yet its built packet correctly used 'sleep', the word actually embedded in that screen's composition). (2) belowFold reformatted from object-shaped entries to plain description strings to match schema. (3) TopBar right glyph changed from an invented '+' Add-medication duplicate to 'unspecified in source', since the FAB already owns the single + Add-medication action and Focal Hierarchy requires one persistent CTA. (4) Removed a fabricated 'due 10:00 PM' time on the Melatonin row — the source ASCII shows no status text for that row, unlike the taken/overdue rows above it. (5) Added ChipProvenance 'you logged' to the medication-roster sparkline rows per Data Honesty Metric 2's Real-state provenance requirement."
+}

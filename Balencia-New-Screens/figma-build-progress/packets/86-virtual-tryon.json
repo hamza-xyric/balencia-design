@@ -1,0 +1,83 @@
+{
+  "id": "86",
+  "name": "Virtual try-on",
+  "route": "/wellbeing/virtual-tryon",
+  "shell": "dark",
+  "annotation": "HIFI-86 · /wellbeing/virtual-tryon · dark shell (#0A0A0F, top-center amber radial glow, 3-4% grain). Photo-consent surface first, styling tool second: ConsentCard renders before the TryOnPreviewCanvas focal stage. hasNav/hasFab are false — layout anatomy calls for 'no bottom-tab chrome while generation is active' and the Final Composition never draws a GlassNavBar row; this is a stack-pushed consent+capture flow, not a tab destination. Status bar and home indicator still persist per canon.",
+  "italicWord": "virtual",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark mode status bar, time left, battery and signal right."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Back affordance left, 44px target. H1 'Virtual try-on' (Tiempos italic on 'virtual'). History glyph and privacy overflow icons right, 44px targets."
+    },
+    {
+      "region": "ConsentCard",
+      "y": 100,
+      "h": 116,
+      "build": "Glass card r24, subtle white 8% border. H3 'Consent for photos'. Body 15: 'Photo use: preview only' and 'Retention: 30 days unless saved'. Ghost pills [Revoke access] and [Delete all] at bottom."
+    },
+    {
+      "region": "FrostCard",
+      "y": 224,
+      "h": 260,
+      "build": "Focal media stage (TryOnPreviewCanvas), glass surface r28. Labels: 'SOURCE PHOTO' and 'GENERATED LOOK'. Two square image panes side-by-side with a central scrubber handle. ChipProvenance below: 'via upload' (left), 'AI render' (right). Caption 'low-confidence if scan unclear' beneath chips."
+    },
+    {
+      "region": "Stepper",
+      "y": 492,
+      "h": 44,
+      "build": "Solid surface. Caption 'Upload -> safety scan -> render'. Progress bar partial fill, orange #FF5E00 (you/effort), reflecting caption 'step 2 of 4'."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 544,
+      "h": 112,
+      "build": "Glass card r24, purple #7F24FF (CIA/AI only) semantic glow. Overline 'CIA'. Body 15 'this works with your saved color notes.' ChipProvenance at bottom: 'Provenance: profile'."
+    },
+    {
+      "region": "Actions",
+      "y": 664,
+      "h": 88,
+      "build": "Row 1: [Use camera] [Choose photo] (BtnSecondary, outlined). Row 2: [Generate preview] (BtnPrimary, orange #FF5E00). Row 3: [Delete source photo] (BtnGhost, left-aligned, muted text)."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "HonestNullState / ErrorState",
+      "y": 752,
+      "h": 200,
+      "build": "Hidden below fold. If empty/error: text 'Not enough data yet — upload a photo to begin.' and 'failed render, keep photo visible if safe, retry step'."
+    }
+  ],
+  "imageSlots": [
+    {
+      "id": "HIFI-86-01",
+      "y": 224,
+      "w": 150,
+      "h": 150,
+      "prompt": "Virtual try-on privacy-safe try-on imagery, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+    }
+  ],
+  "trustControls": [
+    "Photo use: preview only",
+    "Retention: 30 days unless saved",
+    "Revoke access",
+    "Delete all",
+    "via upload",
+    "AI render",
+    "low-confidence if scan unclear",
+    "Provenance: profile",
+    "Delete source photo"
+  ],
+  "notes": "TryOnPreviewCanvas (NEW component; catalog has image states but no AI before/after control) is the dominant focal moment. Keep preview panes singular and visually quiet. No decorative gradients. Before/after scrubber tracks finger position; disabled flourish on reduced-motion. hasNav/hasFab are false — this is a stack-pushed consent+capture flow (not a tab destination); layout anatomy calls for no bottom-tab chrome while generation is active and the Final Composition never draws a GlassNavBar row. Status bar and home indicator still persist per canon."
+}

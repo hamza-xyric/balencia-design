@@ -1,0 +1,61 @@
+{
+  "id": "57",
+  "name": "Shopping list",
+  "route": "No live route; shopping list is a nested nutrition execution module launched from Nutrition, recipes, or CIA chat.",
+  "shell": "dark",
+  "annotation": "HIFI-57 · no live route — nested nutrition-execution module launched from Nutrition, recipes, or CIA chat (never a vanity route) · warm-dark shell #0A0A0F, top-center amber radial glow rgba(255,94,0,.18), 3-4% grain. The Solid Summary Bar (item/purchased counts + completion hairline) is the singular focal moment, not one tile among many; Add Input and the categorized List Body form the quiet operational layer beneath it. Single FAB (scrolls-to-top + focuses Add input) and GlassNavBar persist; Bulk Action Bar keeps Clear/Share as secondary actions.",
+  "italicWord": "done",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System status bar over dark shell #0A0A0F + top-center amber radial glow (rgba(255,94,0,.18)) + 3-4% grain; time 9:41, paper-100 icons."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 52,
+      "build": "Transparent over atmosphere. Left: 44px back chevron. Center: Title 'Shopping list' (H2 24, Hanken Grotesk, plain — no italic; the screen's one italic word is 'done', used only in the Success overlay). Right: 44px overflow '...' icon target."
+    },
+    {
+      "region": "GlassPillInput",
+      "y": 104,
+      "h": 56,
+      "build": "Glass search/text variant, r20. Placeholder 'Add an item...'. Trailing BtnSecondary 'Add' (44px target) — per Components, this trailing control is BtnSecondary, not BtnPrimary."
+    },
+    {
+      "region": "Solid Summary Bar",
+      "y": 168,
+      "h": 84,
+      "build": "SolidCard #211008 r24. Left '8 items' Body 15. Center '2 purchased' Body 15 + ChipProvenance 'computed locally'. Right BtnGhost '[ Hide purchased ⌄ ]'. Hairline progress draws to 25% (white 8% track), glow-you breathes 4s ease on increase."
+    },
+    {
+      "region": "List Body",
+      "y": 260,
+      "h": 420,
+      "build": "Scrollable, solid surfaces. Overline 'PRODUCE' + hairline + 44px collapse chevron. ShoppingItemRow (swipeable, 44px targets): '[x] Avocados (2)' ChipDomainTag 'Meal plan' — checked, strikethrough, paper-40%; '[ ] Spinach (200g)' ChipDomainTag 'Recipe: X'. Overline 'PROTEIN'. ShoppingItemRow '[ ] Chicken thigh (1kg)'."
+    },
+    {
+      "region": "Bulk Action Bar",
+      "y": 688,
+      "h": 56,
+      "build": "SolidCard inline. Left BtnSecondary '[ Clear purchased ]'. Right BtnSecondary '[ Share ]'. Both 44px targets; drop to 40% opacity while the list is syncing."
+    }
+  ],
+  "belowFold": [
+    "Purchased section (collapsed by default, ~y748 h120+): Overline 'PURCHASED'; expands beneath the active list to reveal checked-off rows (muted, green check, strikethrough) once 'Hide purchased' is toggled off — count matches the Summary Bar ratio."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "List Completion Metric: real = 'X purchased' + hairline percent with ChipProvenance 'computed locally'; low-confidence mutes the value to paper-64% + 'estimated · sync pending' during offline/local-cache mode; honest-null shows '—' when the list has no items yet.",
+    "Source chips (category, source, scope, freshness, retention, export, revoke, delete) surface wherever list-item provenance appears (Consent and Safety).",
+    "Offline cache enabled: list stays interactive with cached data; Error state keeps the last cached list visible beneath an inline 'Couldn't load your list' banner — honest staleness, never a blank screen.",
+    "ShoppingItemRow checkbox is a 44x44 invisible hit-area; screen-reader announces 'Avocados, quantity 2, unchecked. Double tap to mark purchased.' SectionHeader collapse chevron is also 44px.",
+    "Motor-impaired fallback: long-press a row opens a Sheet with explicit BtnPrimary 'Mark as purchased' and BtnSecondary 'Edit', bypassing swipe gestures entirely.",
+    "Disabled: while the list is syncing, swipe/edit actions on ShoppingItemRow drop to 40% opacity rather than silently failing."
+  ],
+  "notes": "States — Skeleton: axis + ghost lines for categories; Input and TopBar render immediately. Empty: centered HonestNullState 'Your shopping list is empty.' with BtnGhost 'Talk to CIA' and BtnPrimary 'Import from diet plan' (this screen's only BtnPrimary). Error: ErrorState banner inline at top 'Couldn't load your list', retaining the last cached list beneath (honest staleness). Success (all items purchased): CelebrationOverlay (fade-only under reduced motion), text 'All *done*. You've got everything.', dismissed by tapping anywhere — 'done' is this screen's single Newsreader Medium Italic emphasis word; the Visual System's generic '*list*' label never appears as literal on-screen copy anywhere in the spec, so 'done' is used instead (same resolution pattern as HIFI-13/42). Motion: checkbox tap scales .98, item strikethroughs + fades to paper-40%, pauses 1.5s with an Undo toast before dropping to Purchased (reduced motion: 0s, instant move via native toast, glow-breathe static). Swipe actions use spring(stiffness:300, damping:30); full swipe executes Delete. Tapping FAB scrolls the list to top (150ms ease-out) and focuses the GlassPillInput keyboard — the FAB here means 'jump to add', not a separate quick-log sheet. Haptics: light on check-off, medium on list clear/generation. High-motivation tier alt: GlassStatCard (ring variant) may replace the Summary Bar's hairline with a radial ring for the same completion data — same route, no separate build. Corrected from draft: GlassPillInput's trailing control is BtnSecondary 'Add' per Components (draft had it as BtnPrimary, which would have created a second primary button alongside the Empty state's 'Import from diet plan'); italicWord corrected to the literal on-screen 'done' (draft already had this right, but annotation's stray 'warm-light parity' phrase was removed — this screen is warm-dark only, no light-shell parity is declared anywhere in the spec); belowFold converted from nested y/h/build objects to plain strings to match schema."
+}

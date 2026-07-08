@@ -1,0 +1,68 @@
+{
+  "id": "10",
+  "name": "CIA Voice in Chat",
+  "route": "No live route; in-chat voice state inside CIA Chat [09].",
+  "shell": "dark",
+  "annotation": "HIFI-10 · no route · dark shell, top radial orange glow + glass voice panel",
+  "italicWord": "chat",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Back icon; title 'CIA.'; top-right 'voice on' status label with mic icon lit active orange #FF5E00 (TopBar otherwise unchanged from CIA Chat [09])."
+    },
+    {
+      "region": "ChatHistory",
+      "y": 100,
+      "h": 196,
+      "build": "Compressed chat history. CIA bubble: 'What would help right now?'. User DraftTranscriptionBubble (glass-frost) streams draft text: '[draft voice transcript...]', paired with ChipProvenance 'via OS speech-to-text'."
+    },
+    {
+      "region": "VoiceInterfacePanel",
+      "y": 296,
+      "h": 460,
+      "build": "Glass-frost keyboard-replacement panel (white 4.5% fill, border white 8%, r24-28). Overline: 'listening.'. VoiceMicGlow active-mic indicator + WaveformAmplitude orange #FF5E00 bars, idle/default state. BtnGhost 'cancel'. BtnPrimary 'send' (disabled, transcript empty). Footer caption: 'voice becomes text  delete later'."
+    },
+    {
+      "region": "FloatingNav",
+      "y": 756,
+      "h": 68,
+      "build": "Floating glass pill nav. Tabs: Today · CIA · Goals · Me. Tab tap exits voice mode before switching tabs. 44px targets."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "ConsentCard",
+      "y": 844,
+      "h": 200,
+      "build": "First-use voice permission and transcript-handling modal. Data category: microphone and transcript. Source: device microphone/OS speech-to-text. Scope: sending text to CIA. Retention: transcript in *chat* history until deletion. Exposes export, revoke mic, and delete transcript. Notes raw audio is not stored."
+    }
+  ],
+  "imageSlots": [
+    {
+      "slot": "HIFI-10-01",
+      "prompt": "CIA voice in chat avatar or social proof placeholders, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+    }
+  ],
+  "trustControls": [
+    "CIA voice in chat keeps privacy-first language and SafetyResourceCard reachable for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments.",
+    "Audience, visibility, report, mute, block, and own-content delete controls exposed before sharing or social comparison.",
+    "Every CIA evidence chip explains why the source was used, marks low-confidence synthesis, and deletes recommendation history.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete."
+  ],
+  "notes": [
+    "Default: panel slides up, waveform idle, status says 'listening.'",
+    "Skeleton: audio-engine boot shows panel geometry and static waveform placeholders for under 500ms.",
+    "Empty: no speech after 8 seconds auto-cancels and shows a silence toast.",
+    "Error: permission denied, transcription failed, network lost, and max-duration reached are separate states with retry/cancel.",
+    "Success: transcript solidifies into a sent user bubble, --glow-done flashes, CIA thinking indicator appears.",
+    "Disabled: BtnPrimary 'send' dimmed when transcript is empty, offline, or permission-blocked.",
+    "Offline: partial transcript stays local; send disabled until connection returns or text can be copied.",
+    "Reduced-motion: panel appears instantly, waveform becomes static level bars, draft updates by whole phrases.",
+    "Accessibility: status, draft, and controls clear AA+ against panel frost and warm dark; transcript updates in a polite live region.",
+    "Italic word 'chat' (declared in Visual System) doesn't appear literally in the primary ASCII composition; applied instead to the ConsentCard's retention line ('transcript in *chat* history until deletion'), sourced from Data Honesty — no other on-screen literal copy contains the word."
+  ]
+}

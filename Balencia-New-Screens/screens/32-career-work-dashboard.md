@@ -1,0 +1,181 @@
+### 1. Header
+- **Screen ID:** 32
+- **Name:** Career & Work Dashboard
+- **Route(s) covered:** `/career`
+- **Tab:** Goals (Active Context)
+- **Source:** Functional Content Brief: Career & Work Dashboard
+- **Batch:** 14
+
+### 2. Purpose
+A centralized, action-oriented hub for professional growth. This screen translates overarching career missions into actionable daily steps, tracking momentum and skill development without overwhelming the user with dense, shame-inducing data. It bridges the gap between long-term professional goals and today's execution.
+
+### 3. Entry & exit
+- **Arrives from:**
+  - Explore Section (Screen 18) via standard stack push.
+  - CIA Chat (Screen 09) via deep-link.
+- **Exits to:**
+  - Goal Detail (Screen 14) via tapping a goal card, gauge, or deadline tile.
+  - CIA Chat (Screen 09) via tapping the CIA insight card or "ask CIA" links.
+  - Create/Edit Goal (Screen 15) via the "add a career mission" affordance.
+  - RPG Character Screen (Screen 19) via tapping the Level Badge in the header.
+
+### 4. Layout anatomy
+**Regions (Top-to-Bottom):**
+1. **TopBar:** Transparent header with back chevron, H1 title, and domain level badge.
+2. **CIA Coaching Preamble:** Quiet, purple-tinted glass card bridging health and career.
+3. **Lead Mission (Hero):** 2x2 BentoGrid tile. Solid surface, large 96px progress ring, next action prompt.
+4. **Secondary Missions:** 1x1 BentoGrid tiles. Solid surface, 48px progress rings.
+5. **Suggested Actions:** SolidCard list of semantic action rows with inline checkboxes and swipe affordances.
+6. **Growth Trajectory:** SolidCard containing Skill StatBars and the 6-week warm-glow TrendChart.
+7. **Upcoming Deadlines:** KPIRow of deadline tiles with non-shaming, clear typography.
+8. **Locked Premium Module:** Blurred heat-map preview with single orange CTA.
+9. **Global Navigation:** Floating glass bottom nav.
+
+**ASCII Wireframe (390x844):**
+```text
+      ┌─────────────────────────────────────┐ --10│
+      │  <    career & work         [Lvl 5] │   0 │
+      └─────────────────────────────────────┘
+      ╭─────────────────────────────────────╮
+      │ ◍  Productivity peaks after         │
+      │    morning workouts. Schedule       │
+      │    deep work for 10am?              │
+      ╰─────────────────────────────────────╯
+      ╭─ ACTIVE MISSIONS ───────────────────╮
+      │ ╭───────────────────────────────────╮   │
+      │ │ ⊙ Get promoted to senior          │   │
+      │ │   Next: refresh portfolio         │   │
+      │ ╰───────────────────────────────────╯   │
+      │ ╭───────────────╮ ╭───────────────╮     │
+      │ │ ○ Learn Python│ ○ Reach mentor  │     │
+      │ ╰───────────────╯ ╰───────────────╯     │
+      ╰────────────────────────────────────╯
+      ╭─ TODAY'S ACTIONS ───────────────────╮
+      │ [✓] Review quarterly goals    +10 XP│
+      │ ────────────────────────────────────│
+      │ [ ] Read 1 chapter of 'Deep W' +15XP│
+      ╰─────────────────────────────────────╯
+      ╭─ GROWTH TRAJECTORY ─────────────────╮
+      │ Communication        8 / 10         │
+      │ ██████████░░░░░░░░░░                │
+      │ System Design        6 / 10         │
+      │ ████████░░░░░░░░░░░░                │
+      │                                      │
+      │   .─.       ┄┄┄┄                     │
+      │  ╱   ╲     ╱     ╲ (Projected)      │
+      │ ●     ●──●         (Milestones)     │
+      ╰─────────────────────────────────────╯
+      ╭─ UPCOMING ──────────────────────────╮
+      │ │ 26 DAYS     │ │ 2 DAYS          │ │
+      │ │ Review      │ │ Project deadline│ │
+      ╰─────────────────────────────────────╯
+      ╭─ HIGH MOTIVATION ───────────────────╮
+      │ [Blur] Consistency Heatmap    [🔒]  │
+      ╰─────────────────────────────────────╯
+      
+      ╭─────────────────────────────────────╮
+      │    ◉       ◯       ◯       ◯        │
+      └─────────────────────────────────────┘
+```
+
+### 5. Components
+- **TopBar:** Transparent over atmosphere.
+- **GlassCard:** Used for the CIA Coaching preamble (`CIAInsightCard` variant).
+- **BentoGrid:** Layout for Active Missions and Upcoming Deadlines.
+- **GlassStatCard:** Core component for Lead Mission, Secondary Missions, and Deadlines. 
+- **ProgressRing:** 96px hero gauge for Lead Mission; 48px compact gauges for Secondary Missions.
+- **ListRow:** Actionable rows for Today's Actions.
+- **Toggle:** Used as the inline checkbox for Today's Actions.
+- **SolidCard:** Containers for Actions, Skills, and TrendChart to ensure data legibility.
+- **TrendChart:** Workhouse 6-week momentum visualizer.
+- **PaywallLock:** Blurred preview gate for the Action Consistency Heatmap.
+- **GlassNavBar:** Floating bottom pill.
+- **NEW: SkillStatBar:** Horizontal track displaying a 1-10 metric against a target. *Rationale: Standard ProgressBars are percentage-based; this domain metric needs a defined start/end value (0-10) with a specific target marker.*
+- **NEW: DeadlineTile:** A date-specific KPI stat block. *Rationale: KPIRow is too horizontally dense for the required day-countdowns and status labels; this provides better visual hierarchy on a 390px mobile screen.*
+
+### 6. Visual treatment
+- **Glass tiers:** 
+  - `GlassCard` (frost) is used exclusively for the CIA preamble to signify dynamic AI presence. 
+  - `SolidCard` is used for all data-dense regions (Missions, Actions, Skills, Trends, Deadlines) to maintain strict legibility against the dark background.
+  - `GlassPill` forms the bottom navigation.
+- **Semantic glow (one per card):**
+  - CIA Preamble: `--glow-cia` (purple) — signifies dynamic AI intelligence.
+  - Lead Mission: `--glow-you` (orange) — signifies your active, primary focus and effort.
+  - Secondary Mission (Learn Python): `--glow-done` (green) — signifies >80% completion status.
+  - Secondary Mission (Reach mentor): `--glow-you` (orange) — signifies active effort tracking.
+- **Background atmosphere:** Base `--bg-base` (#0A0A0F) with a top-center radial warm glow `radial-gradient(90% 60% at 50% -10%, rgba(255,94,0,.18), transparent 60%)`. A localized purple pool sits beneath the CIA Coaching card.
+- **Hero type moment:** "career & *work*" in the H1 page title, using Tiempos italic to anchor the screen's identity warmly.
+
+### 7. Content & copy
+All copy adheres to CIA voice: sentence case, no exclamations, warm, honest, and direct. 
+- **CIA Coaching Note:** "Your productivity peaks after *morning* workouts. Schedule deep work for 10am?" (Action: "Ask CIA")
+- **Lead Mission Card:** Overline: "Active Mission". KPI: "64%". Label: "Get promoted to senior". Sub: "Next: refresh your portfolio with 3 recent wins."
+- **Action Card 1:** "Review quarterly goals". Chip: "+10 XP".
+- **Action Card 2:** "Read 1 chapter of '*Deep Work*'". Chip: "+15 XP".
+- **Skill Section:** Overline: "Skill inventory". Label: "Communication is your *strongest* area."
+- **Deadline Tile 1:** KPI: "26". Label: "Performance review". Sub: "approaching".
+- **Deadline Tile 2:** KPI: "2". Label: "Project deadline". Sub: "soon".
+- **Deadline Tile 3 (Past Due):** KPI: "0". Label: "Training deadline". Sub: "passed — reschedule?".
+- **PaywallLock Copy:** "Unlock action *consistency*". Button: "Unlock with premium".
+
+### 8. Data & honesty states
+Every metric ships with three distinct states to enforce the honesty invariant.
+- **Lead Mission Progress (Real):** 64%. Chip: `via Goals API`. 
+  - *Low-confidence:* 64% muted + `estimated · low confidence`.
+  - *Honest-null:* "Not enough data yet — add your next steps."
+- **Skill Level (Real):** 8. Target 10. Chip: `you logged`.
+  - *Low-confidence:* 8 muted + `estimated · low confidence`.
+  - *Honest-null:* "Not enough data yet — rate your current skills."
+- **6-Week Momentum (Real):** +14 pts. Chip: `derived (CIA engine)`.
+  - *Low-confidence:* +14 pts muted + `calibrating — building your trend`.
+  - *Honest-null:* "Not enough data yet — 3 more weeks." (Flat baseline drawn on chart).
+- **Action Completion (Real):** 3 of 8. Chip: `via Goals API`.
+  - *Low-confidence:* N/A (hard count).
+  - *Honest-null:* "All caught up. CIA will suggest new actions tomorrow."
+
+### 9. All states
+- **Default:** Rich, populated dashboard as defined in the wireframe.
+- **Skeleton:** Depth-preserving arcs for progress rings, block tracks for skill bars, and axis lines for the trend chart. Copy above: "CIA is preparing your career actions — one moment."
+- **Cold-start / Day-1:** Ghosted dashed rings (no fake 0% disc), ghosted skill bars, flat momentum line. Action list replaced with `EmptyState`: "Add a career *mission*." + BtnPrimary "Create goal".
+- **Established Zero-State (All Done):** `EmptyState` with a green checkmark glyph. Copy: "All caught up. CIA will suggest new actions tomorrow."
+- **Error / Partial Failure:** `OfflineBanner` at top: "You're offline — showing your last sync." Action checkbox fails: flashes orange outline and reverts to unchecked. Error `SolidCard` copy: "Could not load goals — pull to refresh."
+- **Success:** Action checkbox fills orange, text strikes through, `XPToast` drops down: "+15 XP · Career".
+- **Disabled:** Past-due goal "Skip" button renders at 40% opacity, unclickable, replaced by "reschedule?" text.
+
+- **Gate coverage lock:** Default, Skeleton, Empty, Error, Success, and Disabled states are explicitly covered for implementation; any state with no visible UI is marked not applicable with rationale rather than omitted.
+
+### 10. Motion & interaction
+- **Physical easing:** All entrance and feedback animations use spring physics (250ms), never linear.
+- **Feedback loop:** Tapping an action checkbox scales to .98 and fires `BtnSuccess` green sweep over the checkbox before locking.
+- **Glow behavior:** The `glow-you` on the Lead Mission breathes (4s ease-in-out). The `glow-cia` on the coaching note pulses subtly.
+- **Haptics:** Light impact tap on action completion. Medium impact on level-up or goal completion.
+- **Gestures:** Swipe-left on Action Card to reveal orange "Skip" layer. Swipe right on TrendChart to scrub crosshair. Edge-swipe to go back.
+- **Choreography:** Hero 96px gauge draws first (arc sweep + count up), followed by secondary gauges, rising skill bars, and finally the TrendChart line drawing left-to-right.
+- **Reduced-motion path:** All gauges, bars, and charts instantly snap to their final static values. Glows become static.
+
+### 11. Motivation-tier adaptation
+- **Low Motivation Tier:** Hides the 6-Week TrendChart and Skill Inventory entirely. Focuses strictly on Today's Actions and the Lead Mission to prevent overwhelm. 
+- **Medium Motivation Tier (Default):** Displays Actions, Lead/Secondary Missions, Skills, and Deadlines. Hides complex data history.
+- **High Motivation Tier:** Expands the Growth Trajectory to include the Selected Skill Sparkline. Unlocks the Action Consistency Heatmap (Action History) and Action-Type Mix Composition Bar via premium unlock or high-tier status.
+
+### 12. Accessibility
+- **AA+ contrast:** Paper-100 (#FEFAF3) on --surface-2 (#211008) ensures text legibility far exceeds WCAG AA.
+- **Colorblind safety:** No red/green color reliance for status. Deadlines use glyphs ("!" for soon, strikethrough for past-due) and explicit text ("approaching", "passed"). 
+- **Targets:** All interactive elements (checkboxes, goal gauges, skill bars, nav tabs) meet the 44x44px minimum touch target. Inline action checkboxes have 44px invisible padding bounding boxes.
+- **Screen-reader labels:** The circular progress gauges announce as "Mission progress, 64 percent." Glyph-only buttons in the TopBar have `aria-labels` (e.g., "Open RPG character profile").
+
+### 13. Premium checklist
+1. **Connects (Cross-pillar):** Yes. CIA explicitly bridges Health and Career domains in the coaching note.
+2. **Honest (Real source/null):** Yes. Every metric ships with a provenance chip and three honesty states. No fabricated zeroes.
+3. **Premium (Funded, not template):** Yes. Uses selective glass, deep solid surfaces, warm atmospheres, and physical motions rather than flat OS defaults.
+4. **Selective glass:** `GlassCard` used only for CIA insight; `SolidCard` used for data density. Rule obeyed.
+5. **Semantic inner-glow:** One glow per card, strictly mapped (Purple=CIA, Orange=Effort, Green=Near done).
+6. **60/30/10 color:** Burnt orange drives 60% of accents/CTAs, green handles 30% of positive/growth metrics, purple isolates 10% for AI elements.
+7. **Honesty invariant:** Fully implemented in Section 8.
+8. **Tiempos italic emphasis:** One per moment. "career & *work*", "*morning* workouts", "*strongest* area".
+9. **No exclamation marks:** Copy is calm, grounded, and chillax-compliant.
+10. **Sentence case:** Applied across all strings.
+11. **Radii (28/40/14/999):** Strictly adhered to. Hero/Solid cards at 28, inputs/pills at 999.
+12. **Dark mode base:** Starts with #0A0A0F, uses warm zones, no flat black.
+13. **Bottom Nav:** Floating glass pill pattern matched.
+14. **Motivation tiers:** Defined for low/medium/high scalability.

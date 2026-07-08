@@ -1,0 +1,67 @@
+{
+  "id": "30",
+  "name": "Finance / Money Map",
+  "route": "/money-map",
+  "shell": "dark",
+  "annotation": "HIFI-30 · /money-map · dark shell #0A0A0F + top-center amber radial glow rgba(255,94,0,.18) + 3-4% grain. Spend-by-category donut is the singular focal moment beneath a purple-glow CIAInsightCard; budgets/transactions/savings stay quiet on SolidCard surfaces (solid where dense, one glow per card). Single FABQuickLog CTA (add transaction / scan receipt); 'ask CIA' is a BtnGhost pill, not a second primary. GlassNavBar persists.",
+  "italicWord": "stress",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "System status bar, transparent over dark base."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent glass, left: '← Finance', right: 'Lv.8'."
+    },
+    {
+      "region": "cia_card",
+      "y": 108,
+      "h": 118,
+      "build": "GlassCard r28, purple 7F24FF left border glow. Headline: 'Dining spend rose during high *stress*.' (stress in Newsreader Medium Italic). Tags: '[finance]' '[stress]' (domain chips 16% bg). Right: 'ask CIA' BtnGhost pill. Long-press opens insight sources."
+    },
+    {
+      "region": "spend_donut",
+      "y": 238,
+      "h": 210,
+      "build": "SolidCard #211008 r28 (dense chart, no glass). Header: 'Spend by category'. Center donut: '$2,150 total'. Legend below: '1 Dining $650', '2 Transit $400'. ChipProvenance 'via Finance API'. Real state. Tapping a slice cross-highlights the matching budget row."
+    },
+    {
+      "region": "kpi_row",
+      "y": 456,
+      "h": 74,
+      "build": "Three KPI tiles, solid surfaces: 'income' '$5,000', 'spent' '$2,150', 'saved' '$1,000'. Subtext: 'Net change this month: +$2,850' (green semantic). 44px tap targets."
+    },
+    {
+      "region": "budgets",
+      "y": 538,
+      "h": 124,
+      "build": "SolidCard #211008 r28 (dense list, per Components: SolidCard covers budgets). Header: 'BUDGETS' (Overline 11), right: 'view all'. Row 1: 'groceries', '$300 / $400', ProgressBar orange 75% full. Row 2: 'dining', 'over by $50', ProgressBar capped 100% red/orange over state, right text: 'adjust or roll'."
+    },
+    {
+      "region": "transactions",
+      "y": 670,
+      "h": 84,
+      "build": "SolidCard #211008 r28. Header: 'TRANSACTIONS' (Overline 11), right: 'view all'. ListRow: 'Trader Joe's', 'Apr 12', '-$42.10'. ListRow: 'Uber', 'Apr 11', '-$18.50'. Swipe left reveals delete (requires confirmation sheet)."
+    }
+  ],
+  "belowFold": [
+    "Savings, y760 h110: SolidCard #211008 r28 'Emergency fund', '$6k / $10k', ProgressBar green glow 60% filled, ChipProvenance 'via Finance API'. Ends at y870, past the 844 fold — reached by scroll, not cut off."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "ChipProvenance 'via Finance API' on all real monetary metrics (donut total, savings goal).",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete on money or billing data.",
+    "Long-press CIA card opens source and confidence sheet.",
+    "Delete transaction requires explicit confirmation.",
+    "Receipt OCR suggestion requires user confirm of merchant, category, and amount before logging.",
+    "Route locked to /money-map; no alternate vanity routes."
+  ],
+  "notes": "States — Skeleton: donut ring, KPI blocks, row silhouettes, and chart axes shimmer without values. Empty: KPIs read $0 with dash deltas, donut renders a ghost outline, budget-creation chips visible. Error: section-level failure with cached safe content underneath, never a full-screen finance error. Success: transaction/budget save triggers a quiet green sweep and optional '+40 XP · Finance' toast. Disabled: swipe-to-delete and receipt scan disabled offline unless a local queue exists. Motion — Donut draws largest-to-smallest on load (reduced motion renders instant); tapping a slice cross-highlights the matching budget row. Trend scrub (long-press) shows exact day amount and source. FAB tap opens action sheet; long-press expands add/scan mini-actions. Pending/low-confidence rows reduce opacity and label 'pending' or 'estimated · low confidence'. Corrections from the draft packet: (1) Budgets card surface corrected from GlassCard to SolidCard #211008 per the spec's Components list ('SolidCard: Budgets, transactions, savings, and trend chart.') and the glass-selective rule (dense lists use solid surfaces). (2) 'ask CIA' corrected from 'BtnPrimary ghost' to BtnGhost pill so the FAB remains the screen's one primary CTA, per Focal Hierarchy ('secondary actions stay as ghost pills or row actions'). (3) Confirmed italicWord is 'stress' (the word actually italicized in the Final Composition CIA headline), not 'money' — the Visual System line's '*money*' is boilerplate pulled from the filename (same pattern confirmed in sibling specs, e.g. 26/28 read '*dashboard*', 07 reads '*conversation*')."
+}

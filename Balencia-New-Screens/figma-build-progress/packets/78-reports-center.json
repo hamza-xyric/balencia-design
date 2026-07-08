@@ -1,0 +1,83 @@
+{
+  "id": "78",
+  "name": "Reports Center",
+  "route": "No live route; reports are an export module opened from Me, Intelligence, Help, and CIA contexts.",
+  "shell": "dark",
+  "annotation": "HIFI-78 · no live route · dark warm shell w/ top radial orange · one Newsreader italic on 'CIA' in the hero H1.",
+  "italicWord": "CIA",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, time 9:41 left, battery/wifi right, white text on dark bg."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Sticky header, transparent/glass bg. Left: back chevron + 'Reports' title (white). White 8% 1px bottom border on scroll. No right-side glyph — spec's ASCII shows title only."
+    },
+    {
+      "region": "ReportBuilderHero",
+      "y": 100,
+      "h": 148,
+      "build": "Glass card (white 4.5% fill, border white 8%, r40, purple #7F24FF glow top-center). Overline 11 uppercase white 60% 'REPORT BUILDER'. H1 30 white 'Build reports *CIA* helps you understand.' (CIA italic). Body 15 white 70% 'Review your data with CIA, choose what to share.' Row of 3 GhostPills (r16, 44px target): 'CIA summary', 'Private by default', 'Ready'."
+    },
+    {
+      "region": "Recent Reports",
+      "y": 258,
+      "h": 224,
+      "build": "SectionHeader 'RECENT REPORTS' (overline) + BtnGhost 'New' (orange #FF5E00 text, 44px target). Two GlassCard rows (r24, white 8% border): 'Weekly life report' / Caption green 'status: Ready' / ProgressRing 40x40 86% green / '6 of 7 synced'. 'Doctor summary' / Caption orange 'status: Draft' / ProgressRing 40x40 43% orange / '3 of 7 synced'."
+    },
+    {
+      "region": "This Week",
+      "y": 482,
+      "h": 236,
+      "build": "SectionHeader 'THIS WEEK' (overline). 2-col BentoGrid gap 12: left tile (r24, solid #211008) 'sleep 82%' H3 white + ChipProvenance 'via wearable'; right tile 'work 64%' H3 white + ChipProvenance 'you logged'. Below, CIAInsightCard (glass, r24, purple #7F24FF glow left): CIA icon + Body 15 white 'CIA: Sleep firmed up most this week.'"
+    },
+    {
+      "region": "Persistent Actions",
+      "y": 726,
+      "h": 54,
+      "build": "Fixed footer row, right-aligned, gap 12px, pinned above home indicator. BtnPrimary 54h 'Share' (orange #FF5E00) — sole BtnPrimary on screen. BtnGhost text 'Screenshot guide' (white 70%)."
+    },
+    {
+      "region": "Home Indicator",
+      "y": 828,
+      "h": 16,
+      "build": "Dark base #0A0A0F with standard iOS home indicator bar (white 30%)."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "ModalOverlay (Preview Sheet)",
+      "y": 0,
+      "h": 844,
+      "build": "Preview Sheet state, stacked-card transition, solid bg #211008. TrendChart (solid line = real, dashed 'estimated · low confidence' = projection), KPIRow settling counts, ProgressRing sweep, correlation rows ('early signal' low-confidence, ghost cells 'Correlations appear after 1-2 weeks' honest-null). Privacy line: 'Private notes, raw journal entries, and hidden photos are excluded by default.'"
+    },
+    {
+      "region": "TrustControlsSheet",
+      "y": 400,
+      "h": 444,
+      "build": "Consent sheet reachable from Preview before Share, with ChipProvenance source labels: 'category', 'source', 'scope', 'freshness', 'retention', 'export', 'revoke', 'delete'. Satisfies per-field consent/export/revoke/delete requirement."
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Private notes, raw journal entries, and hidden photos are excluded by default and named in the review block.",
+    "Reports Center uses source chips for category, source, scope, freshness, retention, export, revoke, and delete where data appears.",
+    "This is documented as a modal, overlay, utility, or source-only surface; do not invent a live route."
+  ],
+  "notes": [
+    "Italic word resolved to 'CIA' (literal hero H1: 'Build reports *CIA* helps you understand.') over the Visual System's generic '*center*' placeholder, which never appears as literal rendered copy — same resolution pattern used on 79-call-summary ('recovery' over '*summary*') and 03c-consent ('begin' over '*consent*'). CIAInsightCard's spec-marked '*week*' is de-italicized in build (rendered plain) to hold canon's one-italic-word-per-screen rule.",
+    "Modules consolidated to 7 (≤8 cap): 'Recent Reports' merges the SectionHeader with both ReportCards; 'This Week' merges its SectionHeader with the BentoGrid and CIAInsightCard. Status Bar and Home Indicator kept as explicit modules per canon ('status bar + home indicator on every screen').",
+    "'New' corrected from a primary button to BtnGhost (orange text, 44px target) — canon allows only one BtnPrimary per screen, held here by the footer 'Share' button.",
+    "ChipProvenance chips ('via wearable', 'you logged') rendered neutral, not orange-tinted — orange is reserved for member-effort/CTA semantics, not provenance labeling.",
+    "TopBar kept minimal (back chevron + 'Reports' title only), matching the spec's literal ASCII. The Focal Hierarchy's 'TopBar with CIA' line is boilerplate reviewer phrasing repeated across many screens' specs, not a literal instruction — no CIA glyph appears in this screen's Final Composition.",
+    "ProgressRings on Recent Reports represent report sync completeness (6 of 7 / 3 of 7 days synced) per Data Honesty, not fake streaks or arbitrary progress.",
+    "Preview Sheet (ModalOverlay) and TrustControlsSheet held in belowFold as alternate states/sheets, not scroll overflow — default flow fits 0–844 exactly with no overflow."
+  ]
+}

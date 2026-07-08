@@ -1,4 +1,4 @@
-# The Production Framework
+# Forgeflow
 
 **A reusable, domain-agnostic method for getting the most out of AI models on serious work — and the Balencia UI/UX build that proves it.**
 
@@ -12,10 +12,10 @@ This document has three parts:
 
 Beside this guide sit two folders and a self-check:
 - **`framework/templates/`** — copy-paste **blank** scaffolds (with `<PLACEHOLDER>` tokens) for every artifact named here.
-- **`framework/starter/`** — a **working**, ready-to-drop payload: a self-activating `CLAUDE.md`, the `research-first` skill, the `/handoff` · `/start-handoff` · `/onboard` commands, and a committed `memory/` scaffold.
-- **`framework/verify/portability-check.mjs`** — scans a project for any reference this framework names but doesn't carry.
+- **`framework/starter/`** — a **working**, ready-to-drop dual-harness payload: self-activating `CLAUDE.md` and `AGENTS.md`, Claude commands, Codex skills, shared `runbooks/`, the `research-first` skill, adoption/upgrade workflows, worker task packets, optional worker/router policy runbooks, and committed `memory/`.
+- **`framework/verify/portability-check.mjs`** — scans a project for required Claude/Codex files, runbooks, handoff sections, stale handoff paths, and placeholders.
 
-To start a new project, copy the whole folder as one unit and run the guided on-ramp: `cp -r framework <new-project>/`, activate the `starter/` payload at the project root, then `/onboard`. See `framework/START-HERE.md` (one screen) and `framework/README.md` for the quickstart.
+To start a new project, copy the whole folder as one unit and run the guided on-ramp: `cp -r framework <new-project>/`, activate the `starter/` payload at the project root, then `/onboard` in Claude or `forgeflow-onboard` in Codex. For a mature project that already has root guidance, use `/adopt-existing-project` or `forgeflow-adopt-existing-project` so local rules are merged, not overwritten. See `framework/START-HERE.md` (one screen) and `framework/README.md` for the quickstart.
 
 ## What this folder assumes, ships, and expects you to build
 
@@ -23,9 +23,9 @@ The framework is a *method that now carries its own starting tools*. Concretely:
 
 | | What |
 |---|---|
-| **Assumes** (you already have) | Claude Code (or an equivalent agent harness) + git. Nothing else. |
-| **Ships** (travels in this folder, ready to use) | this guide (`FRAMEWORK.md`); the blank artifact **templates** (`templates/`); a **working capability payload** (`starter/` — the `research-first` skill, `/handoff`, `/start-handoff`, `/onboard`, a self-activating `CLAUDE.md`, and a committed `memory/` scaffold); the **portability self-check** (`verify/`). |
-| **You build** (per project, via `/onboard`) | your workspace map + source hierarchy (`CLAUDE.md`); your founding brief; your domain models; your project-specific skills/commands/teams; your ledgers, rubric, and batch plan. |
+| **Assumes** (you already have) | Claude Code and/or Codex + git. Nothing else. |
+| **Ships** (travels in this folder, ready to use) | this guide (`FRAMEWORK.md`); blank artifact **templates** (`templates/`), including worker packet and bounded workflow examples; a **working dual-harness payload** (`starter/` — `CLAUDE.md`, `AGENTS.md`, Claude commands, Codex skills, shared `runbooks/`, `research-first`, committed `memory/`); the **portability self-check** (`verify/`). |
+| **You build** (per project, via `/onboard`, `/adopt-existing-project`, `forgeflow-onboard`, or `forgeflow-adopt-existing-project`) | your workspace map + source hierarchy (`CLAUDE.md` and `AGENTS.md`); your founding brief; your domain models; your project-specific skills/commands/teams; your ledgers, rubric, verification matrix, and batch plan. |
 
 So every capability this guide names is either **shipped** in `starter/` (pointed to inline below as "→ *Ships…*") or is something **you build** during the on-ramp — nothing dangles. The Balencia paths in Part B are **illustrative evidence** from the origin project; *your* project won't have them.
 
@@ -47,7 +47,7 @@ The moves map to a single spine you can say out loud:
 
 **Why it works.** AI models confidently pattern-match to plausible-but-wrong defaults. Forcing 3+ independent, recent, credibility-rated sources per major claim converts a guess into a defensible decision and exposes contradictions early, when they're cheap.
 
-**Balencia evidence.** The curated `research-first-workflow` skill (`.claude/skills/research-first-workflow.md`, internally "CORE-02 v2.1 | Adapted for Balencia") codifies a Query → Execute → Synthesize → Apply loop with a source-quality table and a "3+ sources, prefer <12 months, state limitations" rule. `app_design 3/competitor-analysis.md` is the artifact this produced for the product. → *Ships generalized as* `framework/starter/.claude/skills/research-first/SKILL.md` — drop it into your project and move A0 has a tool from day one.
+**Balencia evidence.** The curated `research-first-workflow` skill (`.claude/skills/research-first-workflow.md`, internally "CORE-02 v2.1 | Adapted for Balencia") codifies a Query → Execute → Synthesize → Apply loop with a source-quality table and a "3+ sources, prefer <12 months, state limitations" rule. `app_design 3/competitor-analysis.md` is the artifact this produced for the product. → *Ships generalized as* `framework/starter/.claude/skills/research-first/SKILL.md` for Claude and `framework/starter/.agents/skills/research-first/SKILL.md` for Codex.
 
 **Apply outside UI/UX.** Before an architecture decision record (ADR), research how comparable systems solved it and cite the sources in the ADR. Before a pricing model, research the market. Before a research report, run the source-sweep first. The deliverable of A0 is always *a cited findings doc*, not a conclusion pulled from the air.
 
@@ -71,11 +71,11 @@ The moves map to a single spine you can say out loud:
 
 **Why it works.** A capability pays back its research-and-templatization cost over every later use, and it raises the floor of the whole system: the model stops re-deriving the same method and starts executing a *tested* one with a reliable trigger. Curating from real-world best practice (instead of improvising) means each skill encodes what actually works; an explicit trigger means it fires when relevant without being asked. This is the "sharpen the axe" move — an hour spent building a `/research` skill saves that same hour on every future decision, and the quality is consistent instead of mood-dependent.
 
-**The build loop — research → extract → templatize → test → wire.** (1) **Hunt** 3+ independent best-practice sources for the recurring problem (this is move A0 applied to your own tooling). (2) **Extract** the invariant steps, decision points, and gates. (3) **Templatize** into a `SKILL.md` (or command / subagent) with the method, variants, and gotchas. (4) **Test** on a real scenario and capture a worked example. (5) **Wire** the trigger — write the `description` so the model knows *when* to invoke it (**the description IS the trigger**), and add it to the project's capability index. The decision table (Skill vs Command vs Subagent vs Hook vs MCP), the wiring diagram, and the templates live in Part C → *Capability Engineering*.
+**The build loop — find → research → extract → templatize → test → wire.** (1) **Find** existing skills first; when a Skill Bank is available, run `OPS-04 Skill Finder` and capture the readiness brief. (2) **Hunt** 3+ independent best-practice sources for any remaining recurring problem (this is move A0 applied to your own tooling). (3) **Extract** the invariant steps, decision points, and gates. (4) **Templatize** into a `SKILL.md` (or command / subagent) with the method, variants, and gotchas. (5) **Test** on a real scenario and capture a worked example. (6) **Wire** the trigger — write the `description` so the model knows *when* to invoke it (**the description IS the trigger**), and add it to the project's capability index. The decision table (Skill vs Command vs Subagent vs Hook vs MCP), the wiring diagram, and the templates live in Part C → *Capability Engineering*.
 
-**Balencia evidence.** Skills curated from external best-practice and *adapted*: `research-first-workflow` ("CORE-02 v2.1 | Adapted for Balencia"), `product-manager` ("EXPERT-10"), plus `senior-frontend`, `software-architect`, `ux-ui-designer`, `design-auditor`. Custom skills that encode this project's *own* methods: `figma-build-auditor` (read-only grading, with a `--deep` multi-agent fan-out + completeness critic) and `figma-build-fixer` (plan-then-apply). Commands encode the lane lifecycles (`start-session → write-briefs → preflight → generate → close-session`) and the continuity ritual (`/handoff → /clear → /start-handoff`). Teams are the six reviewer personas in `balencia-screens-reviewed/teams/*.md`. → *Ships ready-to-use:* the `research-first` skill and the `/handoff` · `/start-handoff` continuity commands in `framework/starter/`; the six reviewer personas as blank briefs in `framework/templates/teams/`. *Untapped headroom this project has not yet exploited:* hooks, custom subagents (`.claude/agents/`), and packaging it all as a distributable plugin — see Part B → Stage 7.
+**Balencia evidence.** Skills curated from external best-practice and *adapted*: `research-first-workflow` ("CORE-02 v2.1 | Adapted for Balencia"), `product-manager` ("EXPERT-10"), plus `senior-frontend`, `software-architect`, `ux-ui-designer`, `design-auditor`. Custom skills that encode this project's *own* methods: `figma-build-auditor` (read-only grading, with a `--deep` multi-agent fan-out + completeness critic) and `figma-build-fixer` (plan-then-apply). Commands encode the lane lifecycles (`start-session → write-briefs → preflight → generate → close-session`) and the continuity ritual (`/handoff → /clear → /start-handoff`). Teams are the six reviewer personas in `balencia-screens-reviewed/teams/*.md`. → *Ships ready-to-use:* `research-first`, shared `runbooks/`, Claude `/handoff` · `/start-handoff` · `/onboard` command wrappers, and Codex `forgeflow-*` workflow skills in `framework/starter/`; the six reviewer personas as blank briefs in `framework/templates/teams/`.
 
-**Apply outside UI/UX.** A backend team builds a `/new-endpoint` command (contract → validation → handler → tests → docs), a read-only `security-reviewer` subagent, a `PostToolUse` hook that runs the formatter on every edit, and an MCP connection to the issue tracker. A research team builds a `source-vet` skill (the credibility rubric) and a `/synthesize` command. Templates: `templates/capabilities/` (`SKILL.md`, `slash-command.md`, `subagent.md`, `hooks.settings.json`, `.mcp.json`, `capability-build-checklist.md`, `plugin.json`).
+**Apply outside UI/UX.** A backend team builds a `/new-endpoint` command for Claude and a Codex skill wrapper that both point to `runbooks/new-endpoint.md` (contract → validation → handler → tests → docs), a read-only `security-reviewer` subagent/reviewer, a hook that runs the formatter on edits, and an MCP connection to the issue tracker. A research team builds a `source-vet` skill and a `/synthesize`/skill workflow. Templates: `templates/capabilities/`.
 
 ---
 
@@ -90,7 +90,7 @@ The moves map to a single spine you can say out loud:
 
 **Balencia evidence.** Root `CLAUDE.md` declares the workspace map *and* a numbered Source Hierarchy with the tie-breaker rule. `app_design 3/_shared-patterns.md` (4,305 lines, 27 sections) is the shared canon for components/tokens/motion. In the Figma lane, `figma-build-audit/RUBRIC.md` names the authority per layer and states "**Live truth always wins ties**" — the DS Figma file is reality, a doc that disagrees is itself a finding.
 
-**Apply outside UI/UX.** For an API: the OpenAPI spec is canon; generated clients link to it. For data work: one schema/dictionary is canon. Always answer in writing: "If two sources disagree, which one is reality?" Templates: `templates/CLAUDE.md` (hierarchy section), `templates/_shared-canon.md`.
+**Apply outside UI/UX.** For an API: the OpenAPI spec is canon; generated clients link to it. For data work: one schema/dictionary is canon. Always answer in writing: "If two sources disagree, which one is reality?" Templates: `templates/CLAUDE.md`, `templates/AGENTS.md`, `templates/_shared-canon.md`.
 
 ---
 
@@ -100,7 +100,7 @@ The moves map to a single spine you can say out loud:
 
 **Why it works — and *why large tasks break*.** A single huge task accumulates undetected inconsistency, exceeds the window of serious attention, and produces thin, rushed output where the last items are worse than the first. Small batches force decision quality per item, allow a confirmation gate at each boundary, keep each unit inside a reliable context budget, and make progress legible. **The empirical lesson of this whole project: when you hand the model everything at once, quality collapses; when you slice it, quality compounds.**
 
-**Balencia evidence.** Every lane is batched: spec authoring in batches of 5–6 (`app_design 3/_session-prompt.md` batch table), UX audit in `B01–B18`, remediation in `U01–U09`, polish in `P00–P18`, the elevated re-review in `R01–R18`, wireframes in 17 batches, creatives in `CP-00…CP-10`, Figma conversion in pilot phases. The audit rule is explicit: "**Do not batch-review all 90 screens in one pass.**" Plans live in `~/.claude/plans/` and are written/approved before execution. → *Ships:* the `/handoff` command writes the next-session plan to a repo-relative `.claude/plans/next-session-handoff.md`, so it travels with the project.
+**Balencia evidence.** Every lane is batched: spec authoring in batches of 5–6 (`app_design 3/_session-prompt.md` batch table), UX audit in `B01–B18`, remediation in `U01–U09`, polish in `P00–P18`, the elevated re-review in `R01–R18`, wireframes in 17 batches, creatives in `CP-00…CP-10`, Figma conversion in pilot phases. The audit rule is explicit: "**Do not batch-review all 90 screens in one pass.**" Plans were written/approved before execution. → *Ships:* the handoff workflow writes the next-session plan to repo-relative `plans/next-session-handoff.md`, so it travels with the project and works for Claude or Codex.
 
 **Apply outside UI/UX.** A 200-endpoint API migration → batch by resource group. A large refactor → batch by module with a green build between each. A literature review → batch by sub-question. Templates: `templates/batch-template.md`, `templates/_progress.md`. Sizing heuristics: Part C → *Batch-Sizing*.
 
@@ -123,7 +123,7 @@ The moves map to a single spine you can say out loud:
 ## A6 · Verify — automated gates + multi-role adversarial audit + elevated re-review
 
 **Principle.** Nothing is "done" on assertion. Three layers of verification:
-1. **Automated gates** — fast (<15s), deterministic, fail-fast scripts that enforce structure, copy, and token/constant purity.
+1. **Automated gates** — fast, deterministic, fail-fast scripts that enforce structure, copy, source consistency, traceability, placeholders, archived-source rules, hard gates, and verification evidence.
 2. **Multi-role adversarial audit** — a *team* of specialized reviewer personas, each viewing the work through one lens, producing evidence-backed findings (severity + category + evidence + impact + recommendation + decision status).
 3. **Elevated re-review** — after the first pass and remediation, a stricter second pass against a premium bar (every dimension maxed, no finding above the smallest severity, every visible element justified).
 All of it rolls up into a **living, weighted-rubric grade report** with anti-inflation **grade caps**. *Truth is the deliverable* — never inflate a grade to show progress.
@@ -132,7 +132,9 @@ All of it rolls up into a **living, weighted-rubric grade report** with anti-inf
 
 **Balencia evidence.** Automated gates: `balencia-screens/scripts/verify-{routes,assets,copy,brand,visual}.mjs` run by `npm run check`; `figma-build-audit/scripts/consistency-check.mjs`. Multi-role audit: six personas in `balencia-screens-reviewed/teams/*.md` (UX Strategist, Competitive Reviewer, Content/Trust, Brand Guardian, Mobile Interaction QA, Release Readiness Verifier) with a shared finding format and 8-dimension 1–5 rubric (`AGENTS.md`). Elevated re-review: the `a-plus-plus-review/` `R01–R18` pass — "Do not award A++ unless all eight rubric dimensions score 5, fresh evidence exists, every visible control has a clear purpose, and no unresolved finding above nit remains." Living grade: `figma-build-audit/REPORT.md` + `RUBRIC.md` (9 weighted dimensions) + dated `history/` snapshots, with grade caps ("no A− with an open High; no above-B+ with an open Critical").
 
-**Apply outside UI/UX.** Backend: `lint + typecheck + tests + contract-verify` as the gate; reviewer personas = Security, Performance, API-contract, Operability. Research: reviewer personas = Methodologist, Skeptic (tries to refute each claim), Source-checker. Always: findings are evidence-backed and have a decision status. Templates: `templates/rubric.md`, `templates/hard-gates.md`, `templates/findings-ledger.md`, `templates/teams/`, `templates/verify/`.
+**Verifier philosophy.** A useful verifier checks project truth, not just file existence. Where possible, verify: active root consistency, no archived-source references in active docs, exactly one active next step, required story/work-item links, placeholders, forbidden language, missing evidence, missing handoff sections, stale/conflicting active docs, and current hard-gate results. Passing a verifier is not enough if known drift exists; the handoff must say `READY`, `READY WITH WAIVERS`, or `BLOCKED`.
+
+**Apply outside UI/UX.** Backend: `lint + typecheck + tests + contract-verify` as the gate; reviewer personas = Security, Performance, API-contract, Operability. Research: reviewer personas = Methodologist, Skeptic (tries to refute each claim), Source-checker. Always: findings are evidence-backed and have owner, blocked work, next action, and closure condition. Start from `templates/verification-matrix.md` to choose gates by change type, then add generic personas or optional domain packs from `templates/teams/packs/`. Templates: `templates/rubric.md`, `templates/hard-gates.md`, `templates/verification-matrix.md`, `templates/findings-ledger.md`, `templates/deferred-decisions.md`, `templates/accepted-improvements.md`, `templates/teams/`, `templates/verify/`.
 
 ---
 
@@ -141,14 +143,14 @@ All of it rolls up into a **living, weighted-rubric grade report** with anti-inf
 **Principle.** Multi-session work must survive context loss. Persist state in exactly **three places** and nowhere else:
 1. **Version control** — commits record *what changed and when* (decisions, by explicit path).
 2. **Machine-readable metadata/registries** — the durable index of "what exists" (route registries, ID maps, asset metadata sidecars).
-3. **Plan / ledger / memory docs** — append-only **ledgers** (findings, generation, progress) as durable memory; **memory facts** for what the project *is*; a **handoff** doc for the next session.
+3. **Plan / ledger / memory docs** — append-only **ledgers** (findings, deferred decisions, accepted improvements, progress) as durable memory; **memory facts** for what the project *is*; a **handoff** doc for the next session.
 Changes that are hard to reverse go **plan-then-apply**: a dry-run plan (zero writes) verified against live state, human-approved, then executed with before/after evidence and a re-audit. End every meaningful session with a handoff ritual.
 
 **Why it works.** "We decided X earlier" is not recoverable across a context reset — but a git commit, a JSON entry, or a ledger row is. Append-only ledgers prevent re-discovering the same issue and enable delta queries ("what's new since last pass?"). Plan-then-apply catches false-positives in the cheap phase (a planned fix that turns out unnecessary is dropped, not executed). The handoff ritual lets the next session start cold and correct.
 
-**Balencia evidence.** Ledgers: `findings-ledger.md` (both audit lanes, append-only with stable IDs `B01-F01`, `X-013`, `C-032`), `balencia-creatives-production/ledger/{generation-ledger,accepted-assets}.md`, `app_design 3/_progress.md` (90/90 with status + batch + date), `app_design 3/_inconsistency-report.md`. Metadata/registries: `figma-mapping.json` (`screens_frames`), `balencia-screens/src/data/screens.ts`, per-asset `metadata.json`. Plan-then-apply: the `figma-build-fixer` skill (`FIX-PLAN.md` dry run → approval → `FIX-LOG.md` with before/after + re-audit). Handoffs: `~/.claude/plans/next-session-handoff.md` (START BY git-verify / NEXT UNIT OF WORK / DECISIONS TO FLAG / STATE AT END (SHAs) / RULES STILL IN FORCE / STOP CONDITIONS) and the `/handoff → /clear → /start-handoff` commands; memory facts in `~/.claude/.../memory/*.md` with a `MEMORY.md` index. Memory rule: facts are point-in-time; **when memory contradicts live code, trust the code and log the drift.** → *Ships:* the `/handoff` · `/start-handoff` commands and a committed `memory/` scaffold (a `MEMORY.md` index + the frontmatter schema + the four fact types) in `framework/starter/` — committed memory travels with the repo; machine-local `~/.claude/.../memory/` does not.
+**Balencia evidence.** Ledgers: `findings-ledger.md` (both audit lanes, append-only with stable IDs `B01-F01`, `X-013`, `C-032`), `balencia-creatives-production/ledger/{generation-ledger,accepted-assets}.md`, `app_design 3/_progress.md` (90/90 with status + batch + date), `app_design 3/_inconsistency-report.md`. Metadata/registries: `figma-mapping.json` (`screens_frames`), `balencia-screens/src/data/screens.ts`, per-asset `metadata.json`. Plan-then-apply: the `figma-build-fixer` skill (`FIX-PLAN.md` dry run → approval → `FIX-LOG.md` with before/after + re-audit). Handoffs: the continuity ritual captured START BY verification, next work, decisions, state, rules, and stop conditions. → *Ships:* shared `runbooks/handoff.md`, Claude `/handoff` and `/start-handoff`, Codex `forgeflow-handoff` and `forgeflow-start-handoff`, a committed `memory/` scaffold, and canonical `plans/next-session-handoff.md` guidance. Memory rule: facts are point-in-time; **when memory contradicts live code, trust the code and log the drift.**
 
-**Apply outside UI/UX.** Any long migration: a `_progress.md` ledger + a `next-session-handoff.md` + commits by path. Any irreversible op (data migration, prod deploy, bulk delete): dry-run plan → approve → apply → verify. Templates: `templates/findings-ledger.md`, `templates/_progress.md`, `templates/next-session-handoff.md`.
+**Apply outside UI/UX.** Any long migration: `_progress.md`, `findings-ledger.md`, `deferred-decisions.md`, `accepted-improvements.md`, `plans/next-session-handoff.md`, and commits by path. Any irreversible op (data migration, prod deploy, bulk delete): dry-run plan → approve → apply → verify. Templates: `templates/findings-ledger.md`, `templates/deferred-decisions.md`, `templates/accepted-improvements.md`, `templates/_progress.md`, `templates/next-session-handoff.md`.
 
 ---
 
@@ -267,19 +269,42 @@ The mechanics that make Part A executable on a new project. This is where the fr
 
 Do these **in order** before any production work. This is the single most important section for reuse — it is the start sequence the Balencia origin proves was decisive (the domain models were built *before* screens).
 
-1. **Write the workspace map first.** Create `CLAUDE.md` at the repo root: what each directory is for, the **Source-of-Truth Hierarchy** (ordered authorities + the explicit tie-breaker — decide *now* which file is "reality"), and the cross-cutting agent rules. Template: `templates/CLAUDE.md`.
+1. **Write the workspace map first.** For greenfield work, create both `CLAUDE.md` and `AGENTS.md` at the repo root. For existing projects, merge Forgeflow into the current files and preserve mature local rules. Capture what each directory is for, the active implementation root, active vs archived sources, the **Source-of-Truth Hierarchy** (ordered authorities + the explicit tie-breaker — decide *now* which file is "reality"), verification commands, closeout rules, and cross-cutting agent rules. Templates: `templates/CLAUDE.md`, `templates/AGENTS.md`; mature-project workflow: `starter/runbooks/adopt-existing-project.md`.
 2. **Ground (A0).** Run the research-first loop for the strategic questions; produce a cited findings doc. Don't skip this for "obvious" decisions.
 3. **Capture (A1).** Author the founding brief via the questionnaire; mark every decision **FINAL** or **OPEN**. Templates: `templates/FOUNDING-BRIEF.md`, `templates/VISION-QUESTIONNAIRE.md`.
-4. **Audit capability gaps & Equip (A2).** Now that you know the work, ask: *what will this project do repeatedly, and which proven practices do we lack?* Produce a short **capability-gaps list** (Skills / Commands / Teams / Hooks / MCP to build), and build the highest-leverage ones *before* production — don't start with an empty `.claude/`. At minimum: a research skill, the per-item method skill, the reviewer-team personas, and the `/handoff` command. (The `research-first` skill and the `/handoff` · `/start-handoff` commands **already ship** in `framework/starter/`; you build the per-item method skill and the reviewer-team personas from `framework/templates/`.) Use the build loop (research → extract → templatize → test → wire). Templates: `templates/capabilities/` + `capability-build-checklist.md`. (See Part C → *Capability Engineering*.)
+4. **Audit capability gaps & Equip (A2).** Now that you know the work, ask: *what will this project do repeatedly, and which proven practices do we lack?* If a Skill Bank is available, run `OPS-04 Skill Finder` before installing or creating skills; the output becomes the capability readiness brief. Produce a short **capability-gaps list** (Skills / Commands / Teams / Hooks / MCP to build), and build the highest-leverage ones *before* production. At minimum: a research skill, the per-item method skill, reviewer-team personas, and handoff/start-batch/close-batch/verify workflows. (The starter already ships `research-first`, shared `runbooks/`, Claude command wrappers, and Codex `forgeflow-*` skill wrappers.) Use the build loop (find → research → extract → templatize → test → wire). Templates: `templates/capabilities/` + `capability-build-checklist.md`.
 5. **Build the foundational domain models** that downstream work depends on (Balencia built the RPG system + correlation matrix + feature inventory before screens). Name them in the source hierarchy.
-6. **Stand up empty infrastructure.** Create the empty ledgers (`_progress.md`, `findings-ledger.md`), the per-lane `AGENTS.md` files, the rubric and hard-gates, and the batch plan/index. Templates: the `templates/` folder, copied wholesale.
+6. **Stand up empty infrastructure.** Create the empty ledgers (`_progress.md`, `findings-ledger.md`, `deferred-decisions.md`, `accepted-improvements.md`), the per-lane `AGENTS.md` files, the rubric, hard-gates, verification matrix, and the batch plan/index. Templates: the `templates/` folder, copied wholesale.
 7. **Define the lanes and their order** (see C5). Only now begin Stage 1.
 
-**Discovery → first-build handoff contract.** Stage 1 may not begin until the handoff payload is complete: (a) the self-contained founding brief, (b) the list of FINAL decisions, (c) the source hierarchy with tie-breaker, (d) the initial batch table (which items in which batch), (e) the anti-pattern list. **Acceptance check:** every decision that blocks the first build is FINAL; all OPEN decisions are enumerated as explicit risks.
+**Discovery → first-build handoff contract.** Stage 1 may not begin until the handoff payload is complete and the pre-development check can pass: (a) the self-contained founding brief, (b) the list of FINAL decisions, (c) the source hierarchy with tie-breaker, (d) the active implementation root and active vs archived sources, (e) the initial batch table, (f) the anti-pattern list, (g) verification commands, and (h) `plans/next-session-handoff.md` with exactly one next slice. **Acceptance check:** every decision that blocks the first build is FINAL; all OPEN decisions are enumerated with owner, blocked work, next action, and closure condition. Use `starter/runbooks/pre-development-check.md` before implementation or worker delegation begins.
 
 ## C2 · Feedback Loops (make them first-class)
 
 Findings don't just get recorded — they re-enter the pipeline. Three loops, each with a **trigger → artifact → re-entry → re-verify** shape. *A loop is not closed until the fix is re-verified.*
+
+**Loop and runtime overlay (built in).** Every batch start records a loop
+primitive and a runtime profile before work begins. Use
+`starter/runbooks/runtime-profiles.md` to infer the primitive, stop condition,
+verification, worker backend, usage guard, and closeout from Blueprint and
+Forgeflow evidence. The user should answer only true personalization questions,
+unavailable credential questions, safety-blocking choices, or approvals for
+destructive/irreversible work. Default to `none` or `/goal` with native
+orchestration (`codex-native` in Codex or `claude-native` in Claude Code); use
+`/loop` only for open-session polling; reserve `ultracode:` for bounded
+audit/migration/research slices after a small first run. GLM,
+DeepSeek, and local LLMs are explicit worker profiles, not implicit automatic
+routing: GLM through the Z.ai Coding Plan, DeepSeek through its direct API, and
+local workers through an explicitly named runner or endpoint. Any worker
+delegation uses a filled worker task packet from
+`starter/runbooks/worker-task-packets.md`, and worker output remains evidence
+until the active Codex or Claude orchestrator verifies it. OpenCode is an
+optional worker harness only. Saved Claude workflows and `ultracode:` follow
+`starter/runbooks/saved-workflows.md`; gateway or router automation follows
+`starter/runbooks/gateway-router.md` and stays future-only until budgets, logs,
+fallback behavior, and model provenance are governed. The overlay is closed only
+when the normal Forgeflow batch files, ledgers, progress, verification evidence,
+and handoff are updated.
 
 | Loop | Trigger | Artifact | Re-entry point | Close condition |
 |------|---------|----------|----------------|-----------------|
@@ -404,29 +429,31 @@ This is move **A2 · Equip** made operational. The capability layer is what make
 
 ### C11.1 — Which capability to build (decision table)
 
-Pick the *smallest* capability that solves the problem. (Anatomy/locations are for Claude Code; the *ideas* port to any agent platform.)
+Pick the *smallest* capability that solves the problem. For shared workflows, keep canonical instructions in `runbooks/<workflow>.md`, then point the harness-specific wrapper at that runbook.
 
-| Capability | Use it for | Reach for it when | Lives at |
-|------------|-----------|-------------------|----------|
-| **CLAUDE.md memory** | Always-on facts: build commands, conventions, source hierarchy, workspace map | Every session must know it without loading anything | `CLAUDE.md` + committed `memory/` via `@import` (project) / `~/.claude/CLAUDE.md` (personal) |
-| **Skill** | A multi-step *method* or expertise loaded on demand (with supporting files/scripts) | A procedure recurs, or you want to encode a best practice with a trigger | `.claude/skills/<name>/SKILL.md` |
-| **Slash command** | A quick, single repeatable action | Like a skill but no supporting files needed | `.claude/commands/<name>.md` |
-| **Subagent** | An isolated task with its own context + restricted tools | A pass would pollute the main thread, or needs a different tool-set/system-prompt (e.g. read-only auditor) | `.claude/agents/<name>.md` |
-| **Hook** | Deterministic automation at a fixed lifecycle event | "*Always* do X on event Y" regardless of what the model decides (lint on every edit, write memory on session end) | `settings.json` → `hooks` |
-| **MCP server** | A connection to an outside system (Figma, image-gen, GitHub, DB, issue tracker) | The workflow must read/write an external service | `.mcp.json` (project) / `claude mcp add` |
-| **Plugin** | A *bundle* of the above for distribution | You want to reuse the whole capability layer across projects/teams | `<plugin>/.claude-plugin/plugin.json` |
+| Capability | Use it for | Claude Code | Codex |
+|------------|-----------|-------------|-------|
+| **Repo guidance** | Always-on facts: commands, conventions, source hierarchy, workspace map | `CLAUDE.md` + committed `memory/` via `@import` | `AGENTS.md` + explicit instruction to read `memory/MEMORY.md` |
+| **Skill** | A multi-step method or expertise loaded on demand | `.claude/skills/<name>/SKILL.md` | `.agents/skills/<name>/SKILL.md` |
+| **Workflow shortcut** | A quick repeatable operation | `.claude/commands/<name>.md` pointing to `runbooks/<name>.md` | `.agents/skills/forgeflow-<name>/SKILL.md` pointing to `runbooks/<name>.md` |
+| **Worker task packet** | A bounded delegation contract for worker models or harnesses | `/worker-task-packet` plus `templates/worker-task-packet.md` | `forgeflow-worker-task-packet` plus `templates/worker-task-packet.md` |
+| **Subagent / reviewer** | An isolated or specialized pass | `.claude/agents/<name>.md` or team persona | Codex subagent workflow or repo skill-backed reviewer |
+| **Hook** | Deterministic automation at a fixed lifecycle event | `.claude/settings.json` hooks | `.codex/hooks.json` or `.codex/config.toml` hooks |
+| **MCP server** | A connection to an outside system | `.mcp.json` / Claude MCP config | `.codex/config.toml` MCP or installed plugin |
+| **Plugin** | A bundle for distribution | `<plugin>/.claude-plugin/plugin.json` | `<plugin>/.codex-plugin/plugin.json` plus marketplace entry |
 
-One-liner: *memory = always-on facts · skill = a method · command = a quick action · subagent = an isolated pass · hook = automatic-on-event · MCP = reach outside · plugin = ship the bundle.*
+One-liner: *memory = always-on facts · skill = a method · command = a quick action · packet = bounded worker contract · subagent = an isolated pass · hook = automatic-on-event · MCP = reach outside · plugin = ship the bundle.*
 
-### C11.2 — The Skill-Creation Loop (research → extract → templatize → test → wire)
+### C11.2 — The Skill-Creation Loop (find → research → extract → templatize → test → wire)
 
 How you turn "best practice X" or "we keep doing Y" into a durable Skill:
 
-1. **Hunt** — describe the recurring problem; gather **3+ independent best-practice sources** (this is move A0 applied to your own tooling). Note where they agree and disagree.
-2. **Extract** — distill the *invariant* steps, the decision points, the gates, and the anti-patterns. Drop the source-specific fluff.
-3. **Templatize** — write `SKILL.md`: frontmatter (`name`, `description`, optional `allowed-tools`/`argument-hint`) + the method as ordered steps + variants + gotchas. Keep it under ~500 lines and push detail into bundled reference files that load on demand (**progressive disclosure**).
-4. **Test** — run it on a real scenario in the project; capture a worked example; refine where it under-specifies.
-5. **Wire** — **the `description` IS the trigger.** Write it as *"\<what it does\>. Use when \<the situations + the words users actually say\>."* so the model auto-invokes it at the right moment. Add it to the capability index (and `/help`).
+1. **Find** — search existing project skills and the Skill Bank before creating a new one. When available, use `OPS-04 Skill Finder` to produce a readiness brief with required skills, useful optional skills, already-installed skills, missing gaps, and install commands.
+2. **Hunt** — for real gaps, describe the recurring problem; gather **3+ independent best-practice sources** (this is move A0 applied to your own tooling). Note where they agree and disagree.
+3. **Extract** — distill the *invariant* steps, the decision points, the gates, and the anti-patterns. Drop the source-specific fluff.
+4. **Templatize** — write `SKILL.md`: frontmatter (`name`, `description`, optional tool/argument metadata) + the method as ordered steps + variants + gotchas. Keep it focused and push detail into bundled reference files or `runbooks/` that load on demand (**progressive disclosure**).
+5. **Test** — run it on a real scenario in the project; capture a worked example; refine where it under-specifies.
+6. **Wire** — **the `description` IS the trigger.** Write it as *"\<what it does\>. Use when \<the situations + the words users actually say\>."* so the model auto-invokes it at the right moment. Add it to the capability index. For dual-harness workflows, add both the Claude wrapper and Codex skill wrapper.
 
 > Bad description (won't trigger): *"Summarizes code changes."*
 > Good description (triggers reliably): *"Summarize uncommitted changes and flag risky patterns. Use when asked what changed, for a commit message, or to review the diff."*
@@ -455,38 +482,56 @@ The capabilities are not alternatives — they *layer*:
 | **MCP** | extends reach to an external system | Figma MCP, image-gen MCP |
 | **Memory / Plans** | persist what was learned / what's next | `memory/*.md`, `next-session-handoff.md` |
 
-Worked row: the **`research-first` skill** (the method) is wielded by the **Strategist persona** (the lens that knows *when* grounding is needed), deployed via a **`/research` command or recalled in the founding brief** (the trigger), and its output is persisted as a **cited findings doc + memory fact**.
+Worked row: the **`research-first` skill** (the method) is wielded by the **Strategist persona** (the lens that knows *when* grounding is needed), deployed via a Claude command or Codex skill wrapper when useful, and its output is persisted as a **cited findings doc + memory fact**.
 
 ### C11.4 — Team-persona vs Subagent vs Workflow fan-out (decision checklist)
 
 - **Use a Team persona** (a `teams/*.md` brief) when the role is a *supervisory review lens*, runs inline, and completeness is human-checked. Cheap; many per batch.
-- **Use a Subagent** (`.claude/agents/<name>.md`) when the task is *self-contained*, benefits from an **isolated context** (so its search noise doesn't pollute the main thread), or needs a **restricted tool-set** (e.g. a read-only auditor that must never write).
+- **Use a Subagent** (`.claude/agents/<name>.md` in Claude; explicit Codex subagent workflows or skill-backed reviewers in Codex) when the task is *self-contained*, benefits from an **isolated context**, or needs a **restricted tool-set** (e.g. a read-only auditor that must never write).
 - **Use a Workflow fan-out** when you need a *deterministic parallel pass* over many items with a verify/critic stage — e.g. `figma-build-auditor --deep` audits every component in parallel, then a completeness critic confirms none was skipped.
+- **Use a Loop/runtime overlay** when one already-scoped batch needs Claude Code
+  or Codex to keep working, poll until a named proof condition holds, or
+  delegate a bounded slice to an explicit worker backend. Build it with
+  `starter/runbooks/runtime-profiles.md`; it must infer execution-control
+  details from the docs, keep the active harness as orchestrator, select
+  `codex-native`, `claude-native`, `glm-coding-backend`,
+  `deepseek-coding-backend`, `local-qwen-mlx`, or future `gateway-router`
+  intentionally, and write back to the normal Forgeflow artifacts.
+- **Use a Worker task packet** when delegation leaves the orchestrator session:
+  GLM, DeepSeek, local LLMs, OpenCode, or a mock worker receives exact scope,
+  allowed files, denied actions, verify command, evidence path, timeout/stop
+  condition, output format, and orchestrator review checklist. Worker output is
+  evidence only until verified.
+- **Use saved Claude workflows or `ultracode:`** only after a small first run
+  succeeds and the template records source review, scope cap, verify command,
+  evidence path, usage guard, stop condition, and closeout writes. Do not make
+  `/effort ultracode` a default.
 
 ### C11.5 — Hooks & MCP as first-class capabilities
 
-- **Hooks** = automation at fixed lifecycle events: `SessionStart`/`SessionEnd`, `UserPromptSubmit`, `PreToolUse`/`PostToolUse`, `Stop`, `SubagentStop`, `PreCompact`, … Each has a `matcher` (e.g. `Write|Edit`) and a `command`/`http`/`mcp_tool` handler. Use them to enforce gates mechanically (block `rm -rf`, run the formatter on every edit, write a memory fact on `SessionEnd`). Template: `templates/capabilities/hooks.settings.json`.
-- **MCP servers** = typed connections to external systems. Project scope lives in a committable `.mcp.json` (shareable with the team) with `${ENV}` expansion for secrets. Wrap MCP calls *inside skills* (with guardrails) rather than calling them ad-hoc — Balencia's Figma skills require `fileKey` on every call and separate read-only (auditor) from write (fixer). Template: `templates/capabilities/.mcp.json`.
+- **Hooks** = automation at fixed lifecycle events. Use them to enforce gates mechanically (block destructive commands, run a formatter on edits, write memory candidates, or check handoff completeness). Claude uses `.claude/settings.json`; Codex uses `.codex/hooks.json` or `.codex/config.toml` hooks after the project config is trusted. Template: `templates/capabilities/hooks.settings.json`.
+- **MCP servers** = typed connections to external systems. Project scope should be committable where safe, with secrets supplied by environment/config. Wrap MCP calls *inside skills* (with guardrails) rather than calling them ad-hoc. Template: `templates/capabilities/.mcp.json`.
 
 ### C11.6 — Package it as a Plugin (cross-project reuse)
 
-A **plugin** bundles skills + commands + agents + hooks + MCP configs behind one manifest (`.claude-plugin/plugin.json`), namespaced and versioned, installable across projects. This is the literal mechanism for *"make this framework repeatable for other projects"* — once your capability layer stabilizes, package it. Template: `templates/capabilities/plugin.json`.
+A **plugin** bundles skills, workflow wrappers, agents, hooks, MCP config, and optional app integrations behind a manifest. Claude uses `.claude-plugin/plugin.json`; Codex uses `.codex-plugin/plugin.json` plus a marketplace entry. This remains optional/deferred for Forgeflow because the primary distribution model is copy-the-folder. Template: `templates/capabilities/plugin.json`.
 
 ### C11.7 — Memory taxonomy (what's worth persisting, and how)
 
-Memory facts are point-in-time truths about *what the project is* — distinct from findings (about *what's wrong*). Keep a `MEMORY.md` index + one fact file per topic, with frontmatter (`name`, `description`, `metadata.type: user|feedback|project|reference`). Three high-value fact types:
+Memory facts are point-in-time truths about *what the project is* — distinct from findings (about *what's wrong*). Keep a `MEMORY.md` index + one fact file per topic, with frontmatter (`name`, `description`, `metadata.type: user|feedback|project|reference`, status, last verified). High-value fact types:
 
 - **Decision facts** — "we chose X over Y because \<reason/source\>; reversible? \<y/n\>." Stops re-litigation.
 - **Integration gotchas** — "tool Z does W under condition C; workaround is …" (e.g. a variable-rebind that doesn't propagate to pre-placed instances). Stops re-discovery.
-- **Capability learnings** — "the `/research` loop surfaced 3 approaches; we standardized on X."
+- **Active-state facts** — active root, current phase constraints, source hierarchy, and "future agents must not assume" warnings.
+- **Capability learnings** — "the research loop surfaced 3 approaches; we standardized on X."
 
-Rule: facts are point-in-time; **when memory contradicts live code/state, trust the live state and log the drift.**
+Rule: facts are point-in-time; **when memory contradicts live code/state, trust the live state and log the drift.** Mark facts that future agents must not violate with `risk_level: critical` or `critical_invariant: true`, especially auth identity fields, provenance boundaries, canonical verification commands, DB/security/privacy constraints, and health/safety rules. Critical memory still loses to verified live truth, but the contradiction must be logged as drift.
 
-→ *Ships:* `framework/starter/memory/` — the `MEMORY.md` index, the per-fact frontmatter schema, the `[[name]]` linking convention, and one worked example per fact type — wired into the project `CLAUDE.md` via `@memory/MEMORY.md`. **Prefer this committed memory over machine-local auto-memory** (`~/.claude/projects/<id>/memory/`), which does not travel with the repo.
+→ *Ships:* `framework/starter/memory/` — the `MEMORY.md` index, the per-fact frontmatter schema, the `[[name]]` linking convention, and one worked example per fact type — wired into `CLAUDE.md` and read by Codex through `AGENTS.md`. Prefer this committed memory over machine-local memories, which do not travel with the repo.
 
 ### C11.8 — The survivability contract (with a worked example)
 
-State lives in **exactly three places** — git commits, machine-readable metadata/registries, and plan/ledger/memory docs. No "we decided X earlier" floating in chat. Each micro-session = *do one bounded unit → verify → commit by path → ledger-append → ✋ checkpoint → handoff.*
+State lives in **exactly three places** — git commits, machine-readable metadata/registries, and plan/ledger/memory docs. No "we decided X earlier" floating in chat. Each micro-session = *do one bounded unit → verify → update ledgers/progress/memory → write `plans/next-session-handoff.md` → checkpoint.*
 
 **Worked example — one decision surviving a context reset:**
 1. *Found:* a reviewer (Brand Guardian persona) flags "purple accent words should be ≤2 per screen" → recorded as finding `B-047` in `findings-ledger.md`.
@@ -494,7 +539,7 @@ State lives in **exactly three places** — git commits, machine-readable metada
 3. *Encoded:* the rule is added to the shared canon (`_shared-patterns.md` Color Map) so all future screens inherit it.
 4. *Committed:* `git commit` "Accept B-047: purple-word cap ≤2/screen" (by explicit path).
 5. *Remembered:* a memory fact (`project_brand-rules.md`) records the rule + the *why*.
-6. *Handed off:* `next-session-handoff.md` lists it under RULES STILL IN FORCE.
+6. *Handed off:* `plans/next-session-handoff.md` lists it under current state, verification, and do-not-do-yet constraints.
 7. *Next session* (cold start): reads the rule from memory, finds the evidence at the ledger ID, sees it enforced in the canon — **zero re-discovery, zero re-debate.**
 
 ## C12 · Making it project-agnostic — the swap checklist
@@ -530,4 +575,4 @@ This framework was reverse-engineered from the full workspace (8 production lane
   - On-ramp + Discovery→Spec contract + capability-gap step → **C1** · Feedback loops → **C2** · Failure-mode playbook → **C3** · Batch-sizing + split triggers + gate cadence → **C4** · Cross-lane ordering/parallelism → **C5** · RACI ownership → **C6** · Traceability chain → **C7** · 8-phase method verbatim → **Part B** · Canon governance + status/DoD lifecycle → **C9** · Grade-distribution action → **C8** · Memory taxonomy + survivability worked example + handoff template → **C11** + `templates/next-session-handoff.md` · Glossary/agnostic checklist → **C12**. ✔
 - **Templates** for every artifact type (C10) → `framework/templates/` (+ `templates/capabilities/` for the Equip layer). ✔
 
-> Built from (origin-repo sources — illustrative, not shipped): `app_design 3/_session-prompt.md`, `_shared-patterns.md`, `_progress.md`; `balencia-screens-reviewed/{AGENTS.md,teams/*,findings/*,a-plus-plus-review/*}`; `Wireframes/WIREFRAME-PROMPT.md`; `balencia-screens/scripts/verify-*.mjs`; `balencia-creatives-production/{commands,qa,briefs,batches,ledger}/*`; `figma-build-audit/{RUBRIC,REPORT,methodology,findings-ledger}.md` + `.claude/skills/figma-build-{auditor,fixer}/SKILL.md`; `~/.claude/plans/next-session-handoff.md`; root `CLAUDE.md`.
+> Built from (origin-repo sources — illustrative, not shipped): `app_design 3/_session-prompt.md`, `_shared-patterns.md`, `_progress.md`; `balencia-screens-reviewed/{AGENTS.md,teams/*,findings/*,a-plus-plus-review/*}`; `Wireframes/WIREFRAME-PROMPT.md`; `balencia-screens/scripts/verify-*.mjs`; `balencia-creatives-production/{commands,qa,briefs,batches,ledger}/*`; `figma-build-audit/{RUBRIC,REPORT,methodology,findings-ledger}.md` + `.claude/skills/figma-build-{auditor,fixer}/SKILL.md`; legacy origin handoff at `~/.claude/plans/next-session-handoff.md` (Forgeflow now uses `plans/next-session-handoff.md`); root `CLAUDE.md`.

@@ -1,0 +1,89 @@
+{
+  "id": "99",
+  "name": "WhatsApp inbox",
+  "route": "/whatsapp",
+  "shell": "dark",
+  "annotation": "HIFI-99 · /whatsapp · warm dark glass shell per the spec's own Visual System (#0A0A0F base, top-center amber radial glow, 3-4% grain) — Figma Reference Alignment only flags missing screenshot evidence for this pass, it makes no warm-light claim, so no override applies. The linked-number GlassStatCard hero is the singular dominant focal moment; inbox preview, action row, ConsentCard, and the CIA continuity note stay quiet operational evidence below.",
+  "italicWord": "inbox",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Status bar, bg #0A0A0F, warm amber radial glow beneath, white/ink icons over the dark shell."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "Back chevron (a11y 'Go back', 44px). H1 'WhatsApp *inbox*' (Newsreader Medium Italic on 'inbox', the screen's one emphasis word). Compact sync-status label mirrors the hero's 'Last sync: 12 min ago'. Settings overflow glyph '⋯' (44px) opens Sheet."
+    },
+    {
+      "region": "hero_stat_card",
+      "y": 100,
+      "h": 176,
+      "build": "GlassStatCard, glass r28, no color glow (no source-backed effort/completion/CIA claim to spend one). 'Linked number: +92 *** 4821' (masked, announced as masked to screen readers, ChipProvenance 'you entered'). 'Enrollment: active via 03e' (ChipProvenance 'enrollment [03e]'). 'Last sync: 12 min ago' (ChipProvenance 'via WhatsApp'). BtnSecondary '[Manage WhatsApp]' opens settings Sheet, 44px target."
+    },
+    {
+      "region": "inbox_preview",
+      "y": 276,
+      "h": 164,
+      "build": "Section header 'Inbox preview'. SolidCard rows (dense list, 56px min-height): 'inbound: meal photo received' (ChipProvenance 'via WhatsApp'); 'outbound: plan nudge delivered' (delivery-receipt chip); 'template: evening check-in' (ChipProvenance 'template source'). Rows announce direction, timestamp, delivery, and template to screen readers per source a11y."
+    },
+    {
+      "region": "action_row",
+      "y": 440,
+      "h": 56,
+      "build": "BtnPrimary 'Open WhatsApp thread' (orange #FF5E00, sole primary CTA; external handoff — Motion's leave-app warning Sheet fires before navigating out). BtnGhost 'Resume CIA' pill. Both dim to 40% opacity with a stated reason when revoked, outside the 24-hour reply window, offline, or unverified."
+    },
+    {
+      "region": "consent_cia",
+      "y": 496,
+      "h": 152,
+      "build": "ConsentCard, glass: heading 'WhatsApp data use', body states export, retention/deletion window, and the 24-hour reply-window. Row actions 'Revoke access' / 'Delete history' (BtnGhost, open confirmation Sheet naming exactly what data is affected, cancel equal prominence). Below, quiet CIAInsightCard (purple #7F24FF, low tint): 'CIA keeps context only while linked'."
+    },
+    {
+      "region": "nav_bar",
+      "y": 764,
+      "h": 64,
+      "build": "GlassNavBar, floating pill r28, pinned: Today · CIA · Goals · Me (Me active — reached via Settings/Me), 44px targets, overlays trailing content per canon."
+    },
+    {
+      "region": "home_indicator",
+      "y": 828,
+      "h": 16,
+      "build": "System home indicator, bg #0A0A0F, final element, no copy/controls."
+    }
+  ],
+  "belowFold": [
+    "ChatComposer (optional, channel-policy gated): in-app reply entry mirrors the WhatsApp thread only when Balencia-side replies are permitted; disabled 40% with a stated reason outside policy.",
+    "Sheet: settings/quiet hours — mute windows, notification cadence, linked-number disconnect.",
+    "Sheet: revoke access confirmation — names exactly what access is removed (message read, template send); cancel holds equal prominence.",
+    "Sheet: delete history confirmation — names exactly what is deleted (imported messages/media/templates); cancel holds equal prominence; irreversibility stated plainly.",
+    "Sheet: template detail — one template's full copy, delivery receipt, and ChipProvenance 'template source'.",
+    "Older inbox rows beyond the 3 shown, same SolidCard treatment, scroll continuation before the GlassNavBar overlay.",
+    "ErrorState: sync failure — linked status, revoke, and delete controls stay usable; retry labeled 'Retry sync'.",
+    "SkeletonState: masked number, sync label, and message rows shimmer at --surface-3 without fake content.",
+    "HonestNullState (Empty): 'Not enough data yet — no WhatsApp messages imported.' offers an enrollment handoff [03e] and an in-app chat alternative.",
+    "Success: manage/revoke/delete confirmations flash --glow-done green #34A853 on the hero card and ConsentCard.",
+    "Disabled reasons (40% opacity) on open-thread, composer, template rows, and Resume CIA: 'revoked', 'outside 24-hour reply window', 'offline', 'unverified number'.",
+    "Crisis handling: inbound crisis language routes to private in-app crisis resources; nothing is sent back to WhatsApp unless the user chooses to write it."
+  ],
+  "imageSlots": [
+    "HIFI-99-01 — WhatsApp inbox provider-neutral WhatsApp status art, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Masked linked number ('+92 *** 4821') is announced to screen readers as masked, never the full number.",
+    "Enrollment, last sync, template, and confidence all carry a ChipProvenance source pointer (WhatsApp, enrollment [03e], last sync, template source, confidence).",
+    "Export imported history, revoke access, and delete imported messages/media/templates are reachable from the ConsentCard/Sheet before any sharing occurs.",
+    "Pause/resume CIA continuity and disconnect linked number are explicit, reversible controls.",
+    "Retention/deletion window and 24-hour reply-window state are stated, not hidden.",
+    "Revoke/delete confirmation Sheet names exactly what data is affected; cancel holds equal visual prominence to the destructive action.",
+    "External open (leaving the app for the WhatsApp thread) shows a handoff warning before navigating out.",
+    "Inbound crisis language is handled privately inside Balencia; no support content is sent back to WhatsApp unless the user writes it.",
+    "Route stays locked to /whatsapp; no alternate vanity routes."
+  ],
+  "notes": "Draft worker packet failed (GLM HTTP 529 overloaded, no content returned) — this packet was authored directly from the spec plus canon digest, not corrected from a draft. Shell confirmed dark: spec's Visual System commits unambiguously to '#0A0A0F' + amber radial glow + grain; Figma Reference Alignment only flags missing screenshot evidence and makes no warm-light claim, so no override applies. Single-BtnPrimary rule: chose 'Open WhatsApp thread' as the sole primary CTA (the hero action of an integration-hub screen); 'Manage WhatsApp' renders BtnSecondary, 'Resume CIA' and the ConsentCard's 'Revoke access'/'Delete history' render as BtnGhost — the spec's Components line lists all four actions across the three button tiers without pinning which is which, so this follows the Focal Hierarchy's 'a single source-appropriate CTA... secondary actions stay as ghost pills or row actions' rule. Hero GlassStatCard carries no color glow: none of the three semantic glow colors (orange/effort, green/completion, purple/CIA) is source-backed for a link/enrollment-status card, and Visual System explicitly warns against 'any visual claim not backed by source data.' ConsentCard and the CIAInsightCard footer note are combined into one module (consent_cia) to stay within the 8-module cap; the composition stacks them with no separator between. ChatComposer is optional per Components ('when allowed by channel policy') and absent from the source composition, so it is a belowFold conditional, not an above-fold module. hasNav: true — treated as a Settings-reachable integration-hub screen (same pattern as 22-connected-services / 24-notification-history / 25-help-center), unlike the onboarding-flow 03e-whatsapp-enrollment which is hasNav: false. Italic word 'inbox' per Visual System's explicit `*inbox*` designation, rendered inside H1 'WhatsApp *inbox*' in the single title row the source composition draws. ChipProvenance labels are drawn literally from the Components catalog list ('WhatsApp, enrollment [03e], last sync, template source, confidence') rather than invented phrasing. All modules fit within the 844px frame; no content pushed past frame bounds."
+}

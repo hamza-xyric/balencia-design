@@ -1,0 +1,71 @@
+{
+  "id": "03c-consent",
+  "name": "Consent",
+  "route": "/onboarding",
+  "shell": "dark",
+  "annotation": "Legal consent gate (pre-auth onboarding). Cinematic focal moment: two required checkbox rows (Terms of Service, Privacy Policy) gate a single full-width BtnPrimary CTA; an optional marketing toggle sits below in its own card; a derived local acceptance counter (never provenance-chipped) tracks 0 of 2 -> 2 of 2 ready in forest green. No fake metrics, no pre-checked boxes, no bottom nav (pre-auth, single CTA only).",
+  "italicWord": "begin",
+  "modules": [
+    {
+      "region": "statusBar",
+      "y": 0,
+      "h": 44,
+      "build": "StatusBar, default state — time/signal/battery, dark-shell ink styling over the amber-radial atmosphere. No CIA synthesis badge: pre-auth legal gate has no personalized read to surface."
+    },
+    {
+      "region": "brandAnchor",
+      "y": 96,
+      "h": 88,
+      "build": "Centered Balencia wordmark + 48x48pt mark, no tagline. First element in the entrance stagger (0ms fade-in, downward drift), establishing the pre-auth brand moment before the legal ask."
+    },
+    {
+      "region": "header",
+      "y": 190,
+      "h": 70,
+      "build": "Display 34 \"Before we *begin*\" (Tiempos italic on \"begin\"), centered; Body-light 16 \"Review and accept our policies to continue\" beneath, centered. Enters at 50ms stagger, after the wordmark."
+    },
+    {
+      "region": "requiredCard",
+      "y": 300,
+      "h": 156,
+      "build": "SolidCard #211008, radius 28, no blur. Overline \"REQUIRED\". Row 1: ConsentCheckbox (unchecked) + \"I accept the Terms of Service\" + chevron -> opens ToS Sheet. Hairline divider rgba(255,255,255,.06). Row 2: ConsentCheckbox (unchecked) + \"I accept the Privacy Policy\" + chevron -> opens Privacy Sheet. Row tap toggles box; label tap opens Sheet."
+    },
+    {
+      "region": "optionalCard",
+      "y": 484,
+      "h": 104,
+      "build": "GlassCard default, radius 28, --glow-you (orange) bleed — brightens 10% when toggled on. Overline \"OPTIONAL\". Row: \"Send me tips and updates\" + Toggle (off), track --surface-3, active fill #FF5E00, thumb paper-50."
+    },
+    {
+      "region": "acceptanceRead",
+      "y": 624,
+      "h": 32,
+      "build": "Body-light 15, tabular-nums, centered. Cold start \"0 of 2 required\"; partial \"1 of 2 required\"; gate-ready \"2 of 2  ready\" turns forest green #34A853. Derived local state — no provenance chip (same-frame user taps, zero source ambiguity)."
+    },
+    {
+      "region": "ctaPrimary",
+      "y": 712,
+      "h": 52,
+      "build": "BtnPrimary full-width \"Continue\", h52 r999 #FF5E00 fill, paper-50 label. Disabled 40% until 2-of-2 gate-ready. Loading: label->spinner, width locked. Success: 250ms forest-green flash -> push CIA Onboarding [07]. Offline: label -> \"You need a *connection* to continue\", disabled; OfflineBanner shows."
+    },
+    {
+      "region": "homeIndicator",
+      "y": 800,
+      "h": 44,
+      "build": "HomeIndicator, system default, dark-shell styling. No floating tab nav — pre-auth onboarding gate has no Today/CIA/Goals/Me tabs; the single BtnPrimary is the only persistent action per canon."
+    }
+  ],
+  "notes": "Shell corrected to DARK: though 03c sits in the auth-family numbering (default assumption warm-light), this spec's own Visual System section explicitly commits to warm dark base #0A0A0F + top-center amber radial glow + grain — the spec-declared override wins per source hierarchy. Italic word resolved to \"begin\" (literal Final Composition header copy, positioned/sized at Display 34) over the Visual System's generic \"*consent*\" label, which does not appear as literal rendered copy anywhere in the spec; \"connection\" is a separate, state-scoped italic word used only in the Offline CTA variant, not the cold-start default render — canon's one-italic-word rule is read as per default composition. hasNav=false / hasFab=false: pre-auth onboarding screen, no Today/CIA/Goals/Me pill, single CTA only. imageSlots=[] per spec (\"None required\"). No overflow past y844 — belowFold=[]. Not modularized as separate build slots (still spec-true, just off the primary composition, ≤8-module cap): Sheet (full variant, houses ToS/Privacy doc text, TopBar back+title, grabber pill, scrim rgba(10,10,15,.6), 250ms spring-in, one instance per document) with in-sheet ErrorState (glyph + \"Could not load the page. Check your connection.\" + BtnSecondary retry); inline-error state (\"Accept both to continue\", CTA shakes 10px transform-only, only reachable if gate logic is bypassed); density-variant ghost links (\"Email preferences\" low density / \"Data control\" high density, referenced section 11, density not resolvable from given evidence). Accessibility: paper-100 (#FEFAF3) on #211008 = 17.6:1 (AAA); paper-100 @64% on #211008 = 7.7:1 (AAA, corrects draft's under-claimed 16.5:1/AA-only); ConsentCheckbox is a NEW primitive, 24px visual box with an independent 44x44pt tap target, distinct from the ListRow's own 56px min-height band (catalog value, corrects draft's 52px); Toggle thumb tap target padded to 44px. ConsentCard/.glass-card naming contradiction in draft resolved to plain GlassCard (default) per spec correction. OfflineBanner/SyncStatus copy adapted honestly (no fabricated \"last sync\" timestamp — this is a one-time pre-auth screen with no prior sync history).",
+  "hasNav": false,
+  "hasFab": false,
+  "imageSlots": [],
+  "trustControls": [
+    "Required checkbox — \"I accept the Terms of Service\" (unchecked by default, opens ToS Sheet)",
+    "Required checkbox — \"I accept the Privacy Policy\" (unchecked by default, opens Privacy Sheet)",
+    "Optional toggle — \"Send me tips and updates\" (off by default, fully skippable, no dark-pattern default-on)",
+    "Acceptance counter — honest-null \"0 of 2 required\" -> \"2 of 2  ready\" (derived local state, no fabricated provenance chip)",
+    "CTA gate — BtnPrimary disabled 40% opacity until both required boxes checked; never pre-checked, no nagging re-prompts",
+    "Offline honesty — CTA label swaps to \"You need a *connection* to continue\" + OfflineBanner \"No connection right now - you can review, but continue needs you online\"; checkbox/toggle state preserved untouched"
+  ],
+  "belowFold": []
+}

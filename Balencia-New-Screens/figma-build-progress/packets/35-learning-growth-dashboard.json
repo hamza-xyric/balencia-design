@@ -1,0 +1,75 @@
+{
+  "id": "35",
+  "name": "Learning & Growth Dashboard",
+  "route": "no live route; legacy Explore domain dashboard.",
+  "shell": "dark",
+  "annotation": "HIFI-35 · no live route (legacy Explore domain dashboard) · dark shell #0A0A0F + top-center amber radial glow. The Current Book/Course hero (GlassCard r40, orange ProgressRing 62%) is the singular focal moment beneath a quiet purple-glow CIA coaching note; CIA Suggests, Active Goals/Skill Mastery/Study Time, Consistency, and Library stay quiet operational evidence below. Cyan #06b6d4 is identity-only (header line, streak fill) — never data ink outside this domain's own accent. Every metric ships real (provenance chip), low-confidence, or honest-null; FABQuickLog 'log session' is the one persistent CTA.",
+  "italicWord": "counterintuitive",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "status",
+      "y": 0,
+      "h": 44,
+      "build": "Status bar: time, signal, battery icons, light mode, over dark bg #0A0A0F."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar: back chevron, H1 'Learning & growth', overflow '...'. Cyan #06b6d4 identity accent line beneath title — identity only, never data ink."
+    },
+    {
+      "region": "cia_note",
+      "y": 104,
+      "h": 84,
+      "build": "CIAInsightCard, glass, purple #7F24FF glow, no header label (leading glyph only). Copy: 'You've read 45 pages this week across 2 books.' Tap opens CIA Chat [09]."
+    },
+    {
+      "region": "hero",
+      "y": 192,
+      "h": 180,
+      "build": "GlassCard hero r40, orange glow (member effort). Title: 'Thinking, Fast and Slow'. ProgressRing 62%. KPIRow: 'pages 45', 'minutes 135', 'streak 12'. MomentumBar: 'today goal 9/15'. ChipProvenance 'you logged'."
+    },
+    {
+      "region": "cia_suggests",
+      "y": 376,
+      "h": 84,
+      "build": "CIAInsightCard, glass, purple glow. Overline 'CIA suggests'. Checklist: 'Read chapter 7', 'Review yesterday's notes', 'Start module 3.' Checkable rows animate to green on complete; undoable."
+    },
+    {
+      "region": "goals_skills_chart",
+      "y": 464,
+      "h": 188,
+      "build": "Active goals GlassStatCard rings: 'Read 68%', 'Course 42%', orange. Skill mastery StatBars: 'Critical thinking 78', 'Data fluency 54', orange fill on 0-99 scale. TrendChart 'study time': orange actual line, purple dashed 'plan' projection; scrub shows detail."
+    },
+    {
+      "region": "streak",
+      "y": 656,
+      "h": 64,
+      "build": "Consistency: '12-day streak'. 7-dot weekly strip (M-S), cyan #06b6d4 fill + white check for logged days (identity color, not data); dashed outline on today. No fake streak spectacle."
+    },
+    {
+      "region": "prompt_fab",
+      "y": 724,
+      "h": 64,
+      "build": "Daily reflection prompt (dashed border, not a card): \"What was the most *counterintuitive* idea from your reading today?\" (Newsreader Medium Italic on 'counterintuitive'). 'reflect' chip opens Journal [37]. FABQuickLog 'log session', orange, fixed above nav."
+    }
+  ],
+  "belowFold": [
+    "Library (~y800-1020): Overline 'Library'. Filter chips 'book', 'course', 'completed'. ListRow 1 'Thinking, Fast and Slow' · 62% in progress (current hero book). ListRow 2 'Data Science (Coursera)' · 30% in progress. ListRow 3 'Atomic Habits' · 100% completed, green check. 44px touch targets, ChipProvenance per row."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "category: learning",
+    "source: you logged, course import",
+    "scope: private to you",
+    "freshness: session logged just now",
+    "retention: ongoing while account active",
+    "export: export study history to CSV",
+    "revoke: disconnect course import or third-party sync",
+    "delete: remove a session log or journal entry"
+  ],
+  "notes": "Honesty triples (Data Honesty section): Study sessions — real = logged minutes/pages + 'you logged'; low-confidence = imported partial session + 'estimated · low confidence'; honest-null = no session prompt, 'Add your first book or course to start tracking.' Course/book progress — real = user/provider progress; low-confidence = stale import; honest-null = empty library. Skill mastery — real = enough sessions/goals; low-confidence = inferred label; honest-null = 'complete a few sessions to map skills.' CIA suggestions — real = current learning plan; low-confidence = draft suggestion; honest-null = hidden until context exists. States: Skeleton — hero ring, KPI row, bars, chart axis, and library rows shimmer in place. Empty — welcome note, ghosted progress ring, add book/course CTA, no fake study data. Error — failed import names the provider and keeps manual logs. Success — logged session updates progress/streak/study time with a green confirmation. Disabled — imports, projections, or journal handoff dim when consent/connectivity block them. Motion: hero ring fills, KPIs count, bars rise, chart draws actual then projection on load; FAB opens a Sheet for reading/lesson/course/reflection; suggestion rows animate to green and can undo; chart scrub shows date, minutes, source, confidence; the reflect chip opens Journal [37] with the prompt prefilled; reduced-motion renders all charts/count-ups at final state. Never SIA, always CIA. Sentence case, no exclamation marks. Nav pill 'Today · CIA · Goals · Me' floats fixed near y756-824, overlaying scrollable content; FABQuickLog sits fixed just above it. Accessibility: charts summarize value/source/confidence before points; rows, FAB, chart points, suggestions, and tabs are 44px minimum; paper text on #0A0A0F/#211008 meets AA+. Corrections applied to the draft packet: (1) Removed the fabricated title copy 'Learning & *dashboard*' — the header title is literally 'Learning & growth' per the Final Composition; no 'dashboard' word appears in any rendered copy on this screen. (2) Italic word resolved to 'counterintuitive' — the Visual System line's generic '*dashboard*' is the boilerplate file-slug placeholder (same pattern confirmed on sibling dashboard specs 26/28/30/32/33/34, none of which render 'dashboard' as literal on-screen copy); this screen's own Visual treatment section explicitly places the one Tiempos/Newsreader italic word 'in prompt' (e.g. \"what felt *new*?\"), and the literal daily-reflection-prompt copy is 'What was the most counterintuitive idea from your reading today?' — 'counterintuitive' is the only candidate matching that instruction. (3) Split the draft's single merged 'hero' module (which incorrectly folded the CIA coaching-note copy 'You've read 45 pages this week across 2 books' into the hero GlassCard's headline) into two modules — cia_note (CIAInsightCard, purple glow) and hero (GlassCard, orange glow, book title 'Thinking, Fast and Slow') — matching the spec's Layout anatomy regions 2 and 3, distinct components with distinct semantic glows. (4) Removed a fabricated statistic from the CIA Suggests module — 'You read 22% slower on non-fiction mornings' appears nowhere in the spec, the ascii wireframe, or the pre-repair screen source; the module now carries only the spec's literal checklist copy. (5) Consistency streak fill corrected from green to cyan #06b6d4 — the ascii wireframe evidence explicitly assigns 'cyan fill + white check (identity)' to the streak strip, and cyan is this domain's identity-only color; green is reserved for completion/healthy-arrival elsewhere. Also corrected the fabricated '14 small dots, 12 filled, 2 empty' to the spec's actual 7-dot current-week strip. (6) Library rows replaced — the draft invented 'Data Analysis (course) · 20%' and 'Deep Work (book) · 100%', neither of which appears in any of this screen's three source documents ('Deep Work' is a different screen's example, from the Career dashboard packet); replaced with the ascii-wireframe-evidenced rows 'Thinking, Fast and Slow · 62%', 'Data Science (Coursera) · 30%', 'Atomic Habits · 100% completed'. (7) Route corrected from the truncated 'no route' to the spec's literal 'no live route; legacy Explore domain dashboard.' (8) Name corrected to Title Case 'Learning & Growth Dashboard' to match sibling packet convention. (9) Module count kept at 8 by mapping 1:1 to the spec's own 7 Layout-anatomy regions plus the status bar, with Active Goals + Skill Mastery + Study Time TrendChart combined into one module exactly as the spec's region 5 groups them, and the daily reflection prompt merged with FABQuickLog exactly as the spec's region 7 groups them. (10) belowFold converted from a module-object to a descriptive string per schema, matching sibling convention."
+}

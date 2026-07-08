@@ -1,0 +1,76 @@
+{
+  "id": "29",
+  "name": "Meal Detail / Food Logger",
+  "route": "No live route; meal view and food logging are stack modes launched from Nutrition.",
+  "shell": "dark",
+  "annotation": "HIFI-29 · No live route (stack mode) · dark shell — Visual System's warm dark base is the premium detail variant for this pass; the 'Figma parity is language-derived from Nutrition: warm-light' line is reference-only design language (no live Meal Detail/Food Logger frame was screenshotted), not the build target — same resolution already used for sibling screens 24/26/27/28/41.",
+  "italicWord": "logger",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard dark status bar."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Stable TopBar across both modes. Left: back chevron (44px target) -> Nutrition. Center: 'Lunch'. Right: 'Edit' text button (44px target)."
+    },
+    {
+      "region": "Hero / Meal Image",
+      "y": 104,
+      "h": 180,
+      "build": "GlassStatCard meal-photo fallback, r40, faint orange glow (rgba(255,94,0,.15)) marking 'you logged' effort. Image slot HIFI-29-01."
+    },
+    {
+      "region": "Meal Info",
+      "y": 292,
+      "h": 56,
+      "build": "Title 'Chicken salad wrap' (H2 24). Subtitle '12:30 PM · you logged' (Caption 12, ChipProvenance format)."
+    },
+    {
+      "region": "Macro Breakdown",
+      "y": 356,
+      "h": 184,
+      "build": "SolidCard #211008. Overline 'MACROS'. Left: MacroDonutViz (ProgressRing donut base), center '520 cal' (H1 30), subtext 'donut by calorie share'. Right: ProgressBar rows 'protein 32%', 'carbs 37%', 'fat 31%'. Footer '435 from macros' (Caption 12, muted)."
+    },
+    {
+      "region": "CIA Insight",
+      "y": 548,
+      "h": 68,
+      "build": "GlassCard, purple glow (rgba(127,36,255,.25)). Label 'CIA'. Copy 'Good balance. This meal hits 29%.' (Body 15, sentence case, no exclamation)."
+    },
+    {
+      "region": "Ingredients List",
+      "y": 624,
+      "h": 88,
+      "build": "SolidCard #211008. Overline 'Ingredients'. ListRow 'wrap · 220 cal · verified'. ListRow 'dressing · 80 cal · portion estimated' (muted, low-confidence)."
+    },
+    {
+      "region": "Nav Pill + FAB",
+      "y": 756,
+      "h": 88,
+      "build": "Floating pill nav: Today · CIA · Goals · Me, 44px targets. FAB BtnPrimary (#FF5E00), orange glow, plus icon; tap crossfades into Food *logger* mode."
+    }
+  ],
+  "belowFold": [
+    "Food Logging mode (post mode-crossfade): GlassPillInput 'Search food...', barcode-scanner icon, receipt-scanner icon, SegmentedTabs Breakfast/Lunch/Dinner/Snack. Dark shell continues; scanner results are marked as suggestions until the user confirms each item.",
+    "Recent Foods: ListRow 'almonds' with [+] ghost pill action; ListRow 'apple' with [+] ghost pill action."
+  ],
+  "imageSlots": [
+    "HIFI-29-01 — Meal Detail / Food Logger instructional media thumbnails, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Meal, ingredient, scanner, and database ChipProvenance chips ('you logged', 'food database', 'verified', 'portion estimated') open nutrition-source controls: freshness, confidence, retention, export, revoke imported source, delete meal/media entries.",
+    "Allergy and dietary-restriction chips are visible beside the source/provenance row in BOTH Meal Detail and Food Logging modes, not logging-only.",
+    "Scanner (barcode/receipt) results render as suggestions only until the user confirms each item; nothing auto-commits.",
+    "Media is consent-gated: no identifiable face, body, home, document, or provider logo, and no private text, appears without explicit permission.",
+    "Honest-null and low-confidence states use exact copy ('Log this meal to see its split.', 'portion estimated', 'estimated · low confidence') — never a fabricated calorie or macro value.",
+    "CIA copy is coaching support only, never medical nutrition advice."
+  ],
+  "notes": "Mode transition: content below the stable TopBar crossfades over 520ms between Meal Detail and Food Logging modes. Macro percentages are calculated as protein×4, carbs×4, fat×9 before rendering, never invented. Reduced motion: donut arcs and bars render instantly (no sweep), the mode crossfade becomes opacity-only, and count-ups are skipped."
+}

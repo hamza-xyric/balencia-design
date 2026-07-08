@@ -1,0 +1,206 @@
+## 1. Header
+- **Screen ID:** 63
+- **Name:** Energy Tracking
+- **Route(s) covered:** `/wellbeing/energy`
+- **Tab:** Wellbeing (via Today / Explore stack push)
+- **Source:** Functional Content Brief: Energy Tracking
+- **Batch:** 16
+
+## 2. Purpose
+Serve as the user's personal energy observatory, allowing frictionless logging of energy levels throughout the day to detect chronotypes, identify peak productive windows, and reveal cross-domain life correlations.
+
+## 3. Entry & exit
+**Entry Paths:**
+- Explore Screen [18]: Via the "Energy Tracking" module card.
+- Home Screen [12]: Via the "log your energy" quick action card.
+- CIA Chat [09]: Via deep-link (e.g., "let's check your energy patterns").
+- Wellbeing Domain Dashboard: Via the "energy" section tap.
+
+**Exit Paths:**
+- Back Button / iOS Swipe: Stack pop to previous screen.
+- CIA Chat [09]: Tab switch via Coaching Note, Peak Hours card, or "ask CIA more" chip.
+- Fitness Dashboard [26]: Stack push via Correlation row.
+- Nutrition Dashboard [28]: Stack push via Correlation row.
+- Stress [52] / Sleep: Stack push via Correlation row.
+
+## 4. Layout anatomy
+The layout is structured top-to-bottom to prioritize immediate logging, followed by today's context, deep historical analytics, and prescriptive CIA coaching.
+
+1. **TopBar:** Sticky navigation with title and context.
+2. **Hero / Current Energy Display:** A large, immersive glass card featuring the energy gauge.
+3. **Quick Log Card:** Frictionless logging interface with slider, context tags, note input, and submit.
+4. **Today’s Energy Timeline:** Intra-day sparkline chart showing fluctuations.
+5. **Peak Hours Card:** Visual representation of high/low productivity windows.
+6. **Chronotype Badge:** User's biological rhythm profile.
+7. **Correlations Card:** Horizontal impact bars detailing cross-domain effects.
+8. **CIA Insight Card:** Prescriptive, deeper coaching insight and deep-link hooks.
+
+**ASCII Wireframe (390x844):**
+```text
++----------------------------------------------------+ |
+|  < [back]       Energy tracking        [overflow]   | |- TopBar (transparent -> glass on scroll)
++----------------------------------------------------+ |
+|                                                    | |
+|  +----------------------------------------------+  | |
+|  |  . . . . . . . . . . . . . . . . . . . . .   |  | |- GlassCard (Hero, radius 40)
+|  |  .   CURRENT ENERGY                    .   . |  | |  glow-you (effort)
+|  |  .             7.5                        .   |  | |
+|  |  .         [ Arc Gauge ]                  .   |  | |
+|  |  .                                        .   |  | |
+|  |  . . . . . . . . . . . . . . . . . . . . .    |  | |
+|  +----------------------------------------------+  | |
+|                                                    | |
+|  QUICK LOG                                         | |- SectionHeader
+|  +----------------------------------------------+  | |
+|  | [ ==============●===================== ] 7.5  |  | |- SolidCard (Log Zone)
+|  | (morning) (post-workout) (post-meal)         |  | |  ChipRow
+|  | [how are you feeling. (optional)         ]   |  | |  GlassPillInput
+|  |             ( log energy )                   |  | |  BtnPrimary
+|  +----------------------------------------------+  | |
+|                                                    | |
+|  TODAY'S ENERGY                            avg: 6.2|- SectionHeader
+|  +----------------------------------------------+  | |
+|  |   /\        /\                               |  | |- SolidCard
+|  |  /  \      /  \      5 logs today            |  | |  TrendChart (Sparkline)
+|  +----------------------------------------------+  | |
+|                                                    | |
+|  ===============================================  | |- PaywallLock / Blur Gate
+|  || Peak Hours             (LOCKED PREMIUM)     ||  | |  (Hides lower content for Free users)
+|  || Chronotype             (LOCKED PREMIUM)     ||  | |
+|  || Correlations           (LOCKED PREMIUM)     ||  | |
+|  ===============================================  | |
+|                                                    | |
+|  +----------------------------------------------+  | |
+|  | (✦)  *golden* window for deep work...        |  | |- CIAInsightCard
+|  |      [ ask CIA more ]                        |  | |  glow-cia
+|  +----------------------------------------------+  | |
+|                                                    | |
++----------------------------------------------------+ |
+|         [ Today ] [ CIA ] [ Goals ] [ Me ]         | |- GlassNavBar
++----------------------------------------------------+ |
+```
+
+## 5. Components
+**From Catalog:**
+- `TopBar`: Transparent background, transitions to `.glass-pill` on scroll.
+- `GlassCard` (variant `hero`): Radius 40, holds the Arc Gauge. Glow: `--glow-you`.
+- `SolidCard`: Data-dense cards for Quick Log, Today's Energy, and Correlations to ensure legibility.
+- `SectionHeader`: Overline + H2 title + trailing metadata.
+- `GlassPillInput` (variant `text`): For optional logging notes.
+- `ChipDomainTag`: For single-select logging context.
+- `BtnPrimary`: Main "log energy" CTA.
+- `CIAInsightCard`: Purple-tinted glass for final coaching note. Glow: `--glow-cia`.
+- `TrendChart`: Line chart for today's timeline and multi-day trends.
+- `PaywallLock`: Inline tile blurring premium analytics for free users.
+
+**NEW Components:**
+- `NEW: ArcGaugeDial`: An open 240° radial dial replacing the standard closed `ProgressRing` to better represent depletable/recoverable capacity (ChargeMeter concept). Replaces standard ring UI in the Hero.
+- `NEW: ImpactBarRow`: A horizontal bar component used in the Correlations card mapping positive (green) and negative (orange) impacts with domain tags and chevrons, optimized for narrow mobile widths compared to standard tables.
+
+## 6. Visual treatment
+**Glass Tiers & Atmosphere:**
+- **Background:** Screen uses the mandatory `radial-gradient(90% 60% at 50% -10%, rgba(255,94,0,.18), transparent 60%)` over `--bg-base`. A purple pool (`rgba(127, 36, 255, 0.12)`) anchors the bottom 30% of the screen behind the CIA Insight Card to signify AI intelligence.
+- **Hero Card:** `.glass-card` (radius 40) to present the current energy reading with calm focus.
+- **Data Cards:** `--surface-2` (SolidCard) for the logging zone and historical metrics. Data-dense regions must use solid backgrounds for optimum chart legibility.
+
+**Semantic Inner-Glow (One per card):**
+- **Hero Card:** `--glow-you` (#FF5E00). *Meaning:* Highlights the user's current active effort and energy state.
+- **Log Button Success State:** `--glow-done` (#34A853). *Meaning:* Flashes upon successful log submission to confirm completion.
+- **CIA Insight Card:** `--glow-cia` (#7F24FF). *Meaning:* Denotes AI-derived cross-domain intelligence and projected scheduling recommendations.
+
+**Hero Type Moment:**
+The current energy value sits inside the Arc Gauge as a Neue Medium 52px number with tabular-nums (`7.5`), grounding the user's immediate status with absolute clarity.
+
+## 7. Content & copy
+All strings observe sentence case, no exclamation marks, and CIA persona rules. Exactly one emphasis word per moment, rendered in Tiempos italic.
+
+- **Hero Card Overline:** `Current energy`
+- **Quick Log Overline:** `Quick log`
+- **Quick Log Placeholder:** `how are you feeling. (optional)`
+- **Context Tags:** `morning`, `afternoon`, `evening`, `post-workout`, `post-meal`
+- **Log CTA:** `Log energy`
+- **Success CTA:** `Logged` (Reverts to "Log energy" after 3s)
+- **Timeline Header:** `Today's energy` / Sub: `avg: 6.2`
+- **Timeline Meta:** `5 logs today`
+- **CIA Coaching Note:** `Your energy peaks between 9-11am. That's your *golden* window for deep work.`
+- **CIA Insight Card Copy:** `Your post-workout energy is 30% higher than your daily average. Morning workouts specifically give the biggest boost — consider moving your workout to before 10am.`
+- **Deep-link Chip:** `Ask CIA more`
+
+*(Note: Legacy brief strings containing "CIA" have been corrected to "CIA". Legacy string capitalizations like "QUICK LOG" and "TODAY'S ENERGY" have been corrected to sentence case to comply with the typography canon.)*
+
+## 8. Data & honesty states
+Every metric renders through the 3-state honesty invariant. No fabricated numbers.
+
+**1. Current Energy (Hero Gauge)**
+- *Real:* `7.5` + chip `you logged`.
+- *Low-confidence:* (Greyed value) + `estimated · low confidence`.
+- *Honest-null:* `--` + `no energy logged today`.
+
+**2. Today's Average Energy**
+- *Real:* `avg: 6.2` + `synced locally`.
+- *Low-confidence:* `~6` + `estimated · low confidence`.
+- *Honest-null:* `avg: --` + `log today to see this`.
+
+**3. Today's Log Count**
+- *Real:* `5 logs today`.
+- *Low-confidence:* N/A (exact count).
+- *Honest-null:* `0 logs today`.
+
+**4. Trend Average (7d/14d/30d)**
+- *Real:* `7.4 avg` + `via cloud sync`.
+- *Low-confidence:* `est. 7.4 avg` + `estimated · low confidence`.
+- *Honest-null:* `Not enough data yet — 3 more days`.
+
+**5. Chronotype & Peak Hours**
+- *Real:* `9-11am` + `detected via CIA`.
+- *Low-confidence:* (Hidden) + `more logs sharpen your pattern`.
+- *Honest-null:* `keep logging — CIA needs ~2 weeks of data to detect your peak hours`.
+
+**6. Correlations**
+- *Real:* `+30% (post-workout)` + `via cross-domain sync`.
+- *Low-confidence:* (Muted bar) + `estimated · low confidence`.
+- *Honest-null:* `CIA needs more cross-domain data to find correlations. Try logging meals and sleep too.`
+
+## 9. All states
+- **Default:** Fully populated screen for established premium user with real-time data.
+- **Skeleton:** ArcGauge ghost track pulses. Chart lines draw as `--surface-3` blocks. CIA copy reads `CIA is reading your week — one moment.` Shimmer sweep 1.2s.
+- **Empty (Day 1 / Cold Start):** Hero gauge shows `--` with ghosted track. Sparkline is a flat dashed purple line. History/trend sections replaced with constructive `EmptyState` components containing starter CTAs. The Quick Log card pulses subtly.
+- **Error:** Specific error `ErrorState` blocks replace failed chart components (e.g., `could not load trends` + `retry` BtnSecondary). Log CTA submission failure flashes red and displays toast `could not log -- try again`. Never blames the user.
+- **Success:** Log CTA flashes green (`BtnSuccess`) with `--glow-done` sweeping the Hero Card. ArcGauge re-sweeps to new value (520ms). Timeline chart updates with new point.
+- **Offline:** `OfflineBanner` appears under TopBar: `offline — showing last sync 2h ago`. Quick Log CTA remains active; logs queue locally with a `queued` chip.
+- **Disabled:** Rate-limiting disables Log CTA (40% opacity) and displays: `You logged recently. Next log available in Xm.`
+
+## 10. Motion & interaction
+- **Screen Enter/Exit:** Standard iOS stack push/pop slide (280ms).
+- **Hero Gauge & Charts:** `ArcGaugeDial` sweeps 0→value (520ms) using physical spring easing. `TrendChart` line draws left-to-right (1200ms). `ScatterPlot` dots stagger in (40ms delay). Correlation bars rise (60ms stagger).
+- **Quick Log Slider:** Drag to adjust. Thumb scales 1.2x. Floating value bubble appears using tabular-nums. Haptic light impact on integer snaps.
+- **Log CTA Success:** 600ms green glow flash, 520ms gauge re-sweep.
+- **Glow Breathe:** The Hero `--glow-you` utilizes a continuous 4s ease-in-out "breathe" opacity shift to signify a live metric.
+- **Reduced Motion (`prefers-reduced-motion`):** All chart draw-ins and scrubbing animations snap instantly (0ms). Glow breathe is static. Haptics remain unchanged.
+
+## 11. Motivation-tier adaptation
+- **Low Density (Focus):** Screen truncates below "Today's Energy." Hides Peak Hours, Chronotype, and Correlations. Reduces cognitive load to simply logging and viewing today.
+- **Medium Density (Default):** The standard layout detailed in Section 4. Includes timeline, trend, and primary premium analytics.
+- **High Density (Analytic):** Unlocks an expanded "Energy Analytics" section via a segmented control at the bottom. Adds day-of-week breakdown heatmaps, confidence band editing, and expanded streak metrics.
+
+## 12. Accessibility
+- **AA+ Contrast:** Text strictly adheres to the paper-100/64/40% opacity tokens against warm dark surfaces (`--surface-2`, `.glass-card`).
+- **44px Targets:** All chips, the log slider thumb hitbox, and CTAs maintain a minimum 44x44px interactive area.
+- **Screen-reader Labels:** Glyph-only buttons in the `TopBar` have `aria-labels` (e.g., "Back", "Overflow settings").
+- **Axis Labels:** Chart axis values (06:00, 12:00, 18:00) are exposed as hidden `Caption` text lists for VoiceOver/TalkBack to read sequence properly without visual clutter.
+
+## 13. Premium checklist
+- **Connects:** Cross-domain data directly fuels the Correlation bars, funneling users to Sleep, Fitness, and Nutrition dashboards.
+- **Honest:** Every data point has provenance chips or designed honest-null states. Empty logs show dashed ghost UI rather than false zeroes.
+- **Premium:** Highly crafted glass/solid hierarchy. Smooth physical motion. AI insights are accurately gated behind `PaywallLock` without being dead-ends.
+- **Craft Point 1 (Layout):** Fixed 8pt grid, 24/32px section rhythm observed.
+- **Craft Point 2 (Color):** 60/30/10 burnt orange/forest/purple ratio strictly respected.
+- **Craft Point 3 (Typography):** Sentence case enforced. Single Tiempos italic emphasis per CIA card.
+- **Craft Point 4 (Glow):** One semantic glow per max viewport height.
+- **Craft Point 5 (Glass):** Selective glass application; SolidCards used for dense chart legibility.
+- **Craft Point 6 (Safety):** Wellbeing domain implements subtle, non-gamified access to safety resources via TopBar overflow if required.
+- **Craft Point 7 (Consent):** Background syncing of cross-domain health data respects global consent parameters.
+- **Craft Point 8 (Gating):** Premium modules correctly blurred via `PaywallLock`.
+- **Craft Point 9 (FAB):** `FABQuickLog` accessible for global logging context if needed.
+- **Craft Point 10 (Provenance):** Explicit data source chips mapped to all metrics.
+- **Craft Point 11 (A11y):** Reduced motion path defined, AA+ contrast validated.

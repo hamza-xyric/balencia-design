@@ -6,7 +6,7 @@
 
 # CLAUDE.md
 
-Guidance for AI agents (and humans) working in this repository. **These instructions override default behavior.**
+Guidance for Claude and humans working in this repository. Codex uses the matching `AGENTS.md`; both files must agree on active root, source hierarchy, verification, closeout, and handoff rules.
 
 ## What This Repo Is
 
@@ -20,12 +20,21 @@ Guidance for AI agents (and humans) working in this repository. **These instruct
 | `<dir-2>/` | <purpose> | <yes/no> |
 | `framework/` | The reusable production method + templates | — |
 
+## Active vs Archived Sources
+
+- Active implementation root: `<path>`
+- Active planning/source docs: `<paths>`
+- Archived/reference-only sources: `<paths>`
+- Do not use archived sources as active truth unless a current active doc explicitly re-promotes them.
+
 ## Key Documents
 
 - **Founding brief**: `<PATH/FOUNDING-BRIEF.md>` — all intent, self-contained.
 - **Shared canon**: `<PATH/_shared-canon.md>` — the one place reusable patterns/tokens are defined.
 - **Progress ledger**: `<PATH/_progress.md>` — every item's status.
+- **Findings / decisions / improvements**: `<PATH/findings-ledger.md>`, `<PATH/deferred-decisions.md>`, `<PATH/accepted-improvements.md>`.
 - **Rubric + gates**: `<PATH/rubric.md>`, `<PATH/hard-gates.md>` — the quality bar.
+- **Next handoff**: `plans/next-session-handoff.md` — canonical cold-start screen.
 
 ## Source Hierarchy (when documents conflict)
 
@@ -42,8 +51,11 @@ Resolve conflicts in this order. **The tie-breaker is explicit:**
 - **Read before you write**: read the item's spec and the shared canon before working on it.
 - **Lane discipline**: each sub-workspace has its own `AGENTS.md` — read it before working there.
 - **Gate before done**: run `<VERIFY_COMMAND>` before marking any batch complete; nothing is "done" on assertion.
+- **Handoff status**: use `READY`, `READY WITH WAIVERS`, or `BLOCKED`; known drift prevents clean `READY`.
 - **Plan-then-apply** for anything hard to reverse.
 - **Persist state** in git commits + machine-readable metadata + ledgers/handoffs — never only in chat.
+- **Traceability**: every work item must link source → implementation → verification evidence.
+- **Dirty worktree caution**: preserve unrelated changes; name dirty files in the handoff before closeout.
 - <PROJECT_SPECIFIC_RULE>
 
 ## Commands
@@ -53,3 +65,10 @@ Resolve conflicts in this order. **The tie-breaker is explicit:**
 <BUILD_COMMAND>       # full build — run on every 3rd batch + the foundation batch
 <DEV_COMMAND>         # run locally for review/QA
 ```
+
+## Closeout Rules
+
+- Update `_progress.md`, `findings-ledger.md`, `deferred-decisions.md`, and `accepted-improvements.md` as applicable.
+- Record exact verification commands and results.
+- Update `plans/next-session-handoff.md` with one next slice, dirty-worktree cautions, blockers, drift, waivers, and do-not-do-yet constraints.
+- Promote only durable facts into `memory/`; do not preserve old prompts as active truth.

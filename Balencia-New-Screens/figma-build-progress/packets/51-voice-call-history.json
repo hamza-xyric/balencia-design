@@ -1,0 +1,72 @@
+{
+  "id": "51",
+  "name": "Voice Call History",
+  "route": "/voice-call",
+  "shell": "dark",
+  "annotation": "HIFI-51 · /voice-call · dark shell (#0A0A0F) + top-center amber radial glow rgba(255,94,0,.18) + 3-4% grain. The Today/Yesterday call cards are the singular above-fold focal moment; SegmentedTabs, cadence strip, and ConsentCard stay quiet operational evidence below. Floating GlassNavBar persists; no FAB — TopBar '+' is the sole schedule entry point.",
+  "italicWord": "history",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Status bar, dark shell bg #0A0A0F, top-center amber radial glow rgba(255,94,0,.18), paper-100 icons; time left, signal/battery right."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 52,
+      "build": "Transparent, gains .glass-pill on scroll. Left: 44px back chevron (a11y 'Go back'). Center: H2 24 'Voice sessions'. Right: '+' schedule action (44px target) opens Sheet with recurring call options."
+    },
+    {
+      "region": "segmented_tabs",
+      "y": 96,
+      "h": 44,
+      "build": "SegmentedTabs, 44px targets. Active '*History*' (Newsreader Medium Italic — the screen's one emphasis word; white text, bottom border orange #FF5E00). Inactive 'Action items' (muted text)."
+    },
+    {
+      "region": "cadence_strip",
+      "y": 140,
+      "h": 56,
+      "build": "Solid surface #211008 (dense chart per canon). Overline 'calls/week' uppercase 11px. Bar chart built from real logged calls; incomplete-sync bars flagged 'estimated · low confidence'; empty history shows honest-null 'not enough calls yet'."
+    },
+    {
+      "region": "upcoming_card",
+      "y": 196,
+      "h": 84,
+      "build": "GlassCard r24 (white 4.5% fill, border white 8%). Overline 'UPCOMING'. H3 'Thu May 22, 3 PM'. Body 'Weekly check-in'. Ghost pill 'schedule a call' (44px target) opens Sheet with recurring call options."
+    },
+    {
+      "region": "today_calls",
+      "y": 280,
+      "h": 256,
+      "build": "Overline 'TODAY'. CallHistoryCard rows, solid #211008 r24, 44px targets. '10:32 AM' '18min' H3 'Morning check-in', ChipProvenance 'recording retained', 'summary by CIA' (purple), ghost 'delete'. '8:15 AM' '7min' H3 'Quick question', ChipProvenance 'transcript generated'."
+    },
+    {
+      "region": "yesterday_and_consent",
+      "y": 536,
+      "h": 216,
+      "build": "Overline 'YESTERDAY'. CallHistoryCard '6:45 PM' '24min' H3 'Evening reflection', ChipProvenance 'recording retained'. Below: ConsentCard glass r24, shield icon, body 'Manage your voice data retention and delete options.' Linked text 'Consent settings'."
+    },
+    {
+      "region": "nav_pill",
+      "y": 756,
+      "h": 68,
+      "build": "GlassNavBar floating pill r28, pinned: 'Today' · 'CIA' · 'Goals' · 'Me' (active, orange #FF5E00 text/dot), 44px targets, overlaying the last visible row per canon."
+    }
+  ],
+  "belowFold": [
+    "Action items tab (SegmentedTabs 'Action items' active): MomentumBar green #34A853 fill shows completion; ListRows with 44px checkboxes animate green on check; ChipProvenance 'extracted' or 'CIA draft'; honest-null 'No tasks yet' when the log is empty; filter chips 'All', 'Pending', 'Done'.",
+    "Call detail stack (row tap): full stack with TrendChart emotional trend (1px muted orange #FF5E00, no projected line — this is a record), summary, complete transcript, action items, and recording controls with playback/delete.",
+    "Empty state (no calls at all): cadence strip suppressed; scheduling CTA 'Schedule your first call' plus honest-null 'Not enough data yet — try logging a quick voice note.' replace the card list."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "ConsentCard names voice recording retention, transcript use, delete, and export before capture and on demand.",
+    "SafetyResourceCard surfaces when a transcript flags crisis language, reachable across journal, mood, stress, sleep, energy, and voice moments.",
+    "Every ChipProvenance explains why the source was used, flags low-confidence synthesis, and offers delete of recording, transcript, or summary history independently."
+  ],
+  "notes": "Modules consolidated from the draft's 12 down to the 8-cap: TODAY header + both today call rows merged into 'today_calls'; YESTERDAY header + its call row + ConsentCard merged into 'yesterday_and_consent' (content still fits the 390x844 frame, ending y824 — no true overflow). Italic emphasis moved onto the SegmentedTabs' literal 'History' label (the spec's *history* word) since no other on-screen copy contains it. TrendChart moved out of the visible list (it is a call-detail feature per Components: 'call detail emotional trend') into the belowFold call-detail-stack entry, preserving 'no projected line because this is a record'. ChipProvenance vocabulary locked to the spec's literal set: 'recording retained', 'transcript generated', 'summary by CIA', 'you deleted' — not the draft's looser 'recording available'/'· local sync'. belowFold converted from object entries to plain strings to match schema. States not modularized: Skeleton (tabs, cadence strip, upcoming card, four call rows shimmer in final geometry). Error (cached rows stay; failed transcript/recording names its source). Disabled (schedule, playback, transcript, or delete dim when entitlement, retention, or consent blocks them). Motion: cadence strip draws then cards fade by date group on load; delete requires explicit text-label confirmation and keeps cached summary unless separately deleted; reduced-motion disables chart draw and row stagger. Accessibility: paper text on #0A0A0F/#211008 meets AA+; back, +, tabs, rows, playback, delete, and checkboxes are 44px minimum; call rows announce title, time, duration, transcript status, recording status, and delete availability."
+}

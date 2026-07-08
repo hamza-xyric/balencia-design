@@ -1,0 +1,81 @@
+{
+  "id": "80",
+  "name": "Music coach",
+  "route": "/soundscape",
+  "shell": "dark",
+  "annotation": "HIFI-80 · /soundscape · dark shell, glow-you orange on player hero card",
+  "italicWord": "pace",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar, dark mode, white icons on #0A0A0F."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "back btn '<', title 'Music coach'"
+    },
+    {
+      "region": "player_hero",
+      "y": 100,
+      "h": 340,
+      "build": "GlassCard.hero r40 glow-you #FF5E00; overline 'NOW PLAYING'; image tile 'HIFI-80-01'; title 'Tempo run focus'; subtitle 'CIA matched to your planned *pace* window'; WaveformMomentumBar at 62%; time '1:58' / '3:12'; controls: pause, next"
+    },
+    {
+      "region": "context_chips",
+      "y": 450,
+      "h": 64,
+      "build": "row1: ChipDomainTag purple 'CIA matched', ChipProvenance green 'Workout ready'; row2: ChipProvenance 'via Spotify', ChipProvenance 'cached 2m ago'"
+    },
+    {
+      "region": "cia_rationale",
+      "y": 524,
+      "h": 76,
+      "build": "CIAInsightCard: toggles summary 'Uses: workout on · mood off'; insight 'CIA: 154-158 BPM fits today's run.'"
+    },
+    {
+      "region": "recommended_playlists",
+      "y": 608,
+      "h": 128,
+      "build": "section overline 'RECOMMENDED PLAYLISTS'; list rows solid #211008 r16: 'Tempo run focus' tag '156 BPM'; 'Deep work pulse' tag 'low lyric'; 'Evening downshift' tag 'breath-led'"
+    },
+    {
+      "region": "provider_cta",
+      "y": 744,
+      "h": 56,
+      "build": "BtnSecondary solid #211008 full-width: icon headphones, text 'Connect Spotify'"
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating nav pill: Today · CIA · Goals · Me, 44px targets; standard iOS home indicator docked beneath it, overlaying the bottom edge of provider_cta per canon floating-nav behavior."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [
+    {
+      "id": "HIFI-80-01",
+      "desc": "abstract playlist art tile",
+      "w": 96,
+      "h": 96
+    }
+  ],
+  "trustControls": [
+    "OAuth sheet names scopes, sync frequency, retention, revoke, disconnect, export, and delete provider cache",
+    "Recommendation settings expose per-signal toggles for mood, recovery, workout, listening history, and calendar context",
+    "Copy: 'Listening history is not shared with Spotify beyond what the provider requires to play and manage your library.'",
+    "Listening history is not shared to social surfaces unless the user explicitly attaches it",
+    "Provider chips open Manage devices/Data Sources"
+  ],
+  "notes": [
+    "UI may use 'Pulse' as product label only if confirmed by product copy; route header remains '/soundscape' (per spec Implementation Notes).",
+    "WaveformMomentumBar is a continuous progress primitive with subtle waveform texture — the spec's one NEW component for this screen.",
+    "Fixed against draft: draft had 9 modules (exceeds the 8-module cap) with nav_pill/home_indicator split in two — merged into a single GlassNavBar module matching the pattern used elsewhere (e.g. HIFI-22, HIFI-17). Draft also had provider_cta at y=688 overlapping recommended_playlists (608-736); moved provider_cta to y=744. GlassNavBar (756-844) intentionally overlaps the tail of provider_cta as a fixed floating-overlay bottom nav, not a layout bug. No copy, shell, italic-word, chip, or trust-control errors found — those all matched source spec exactly."
+  ]
+}

@@ -1,7 +1,7 @@
 {
-  "_comment": "TEMPLATE (FRAMEWORK.md §C11.6). A plugin bundles your capability layer (skills + commands + agents + hooks + MCP) behind one versioned, namespaced manifest so it is installable across projects — the literal mechanism for 'make this framework repeatable for other projects'. Place this file at <plugin>/.claude-plugin/plugin.json. Replace placeholders and delete the _comment and _layout keys (they are documentation, not schema).",
+  "_comment": "TEMPLATE (FRAMEWORK.md §C11.6). A plugin bundles your capability layer for reuse. Claude uses <plugin>/.claude-plugin/plugin.json. Codex uses <plugin>/.codex-plugin/plugin.json plus a marketplace entry, commonly under .agents/plugins/marketplace.json for repo-scoped discovery. Replace placeholders and delete _comment/_layout after copying.",
   "_layout": [
-    "<plugin>/.claude-plugin/plugin.json   (this manifest)",
+    "<plugin>/.claude-plugin/plugin.json   (Claude manifest) OR <plugin>/.codex-plugin/plugin.json (Codex manifest)",
     "<plugin>/skills/<name>/SKILL.md       (bundled skills)",
     "<plugin>/commands/<name>.md           (bundled slash commands)",
     "<plugin>/agents/<name>.md             (bundled subagents)",

@@ -1,0 +1,66 @@
+{
+  "id": "83",
+  "name": "Social buddy profile",
+  "route": "/profile/[id]",
+  "shell": "dark",
+  "annotation": "HIFI-83 · /profile/[id] · dark shell, top radial orange glow, warm-light parity not required. Buddy Hero Card (avatar + relationship copy + trust pills + SharedDomainShape) is the dominant focal moment; CIA insight card holds one consented pattern; shared missions render as non-shaming progress rows below; bottom actions handle visibility and message.",
+  "italicWord": "half",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar, 44px target for back chevron '<' and overflow '...'. Back label: 'Buddy profile'."
+    },
+    {
+      "region": "Buddy hero card",
+      "y": 56,
+      "h": 284,
+      "build": "GlassCard r40. Center content. Avatar slot HIFI-83-01 initials 'AK'. Name: 'Aisha Khan'. Body copy: 'Running partner. We're training for the *half* together.' (*half* uses Newsreader Medium Italic). Pills: [Trusted partner] green bg #34A853/16%, check glyph; [Mutual insight] purple bg #7F24FF/16%. SharedDomainShape constellation draws below pills: 'Fitness + Learning'."
+    },
+    {
+      "region": "CIA insight card",
+      "y": 352,
+      "h": 100,
+      "build": "GlassCard r24. Purple accent left border. Copy: 'on mutually shared run days, both sleep logs were higher.' Provenance chip: 'via shared consent + check-ins'."
+    },
+    {
+      "region": "Shared missions header and list",
+      "y": 464,
+      "h": 152,
+      "build": "Overline 'SHARED MISSIONS'. SolidCard #211008 r24. Row 1: 'Run a half marathon', ProgressBar 68% (orange #FF5E00 fill), status 'on track', chip 'via check-ins'. Row 2: 'Read 2 books', ProgressBar 35% (orange #FF5E00 fill), status 'building', chip 'via updates'."
+    },
+    {
+      "region": "Network and actions",
+      "y": 628,
+      "h": 100,
+      "build": "Overline 'NETWORK'. Pills row: 'Permissions', 'Invite', 'Safety'. BtnSecondary [Adjust visibility] opens Sheet. BtnPrimary [Message] routes to /messages."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "Visibility and safety sheet",
+      "y": 844,
+      "h": 400,
+      "build": "Sheet opens half-height. Toggles: Health, Photo, Voice, Social profile. Controls: Mute, Remove buddy, Report, Block, Export shared data, Revoke shared domains, Delete shared history."
+    }
+  ],
+  "imageSlots": [
+    {
+      "id": "HIFI-83-01",
+      "desc": "Initials avatar placeholder 'AK' until photo consent exists."
+    }
+  ],
+  "trustControls": [
+    "Adjust visibility sheet exposes per-domain consent toggles for health, photo, voice, and social profile",
+    "Export shared data available before revoking access",
+    "Revoke shared domains and delete shared history with confirmation",
+    "Report and block route to screen 64",
+    "Mute and remove buddy controls in the visibility sheet",
+    "Avatar image opens Image Viewer only when media consent exists",
+    "Shared health/CIA insight requires mutual, per-category consent before rendering; falls back to 'No shared insight yet' otherwise"
+  ],
+  "notes": "Disabled state dims Message, invite, shared mission rows, visibility toggles, avatar open, and CIA insight actions to 40% with reason copy when blocked, removed, pending, consent-missing, offline, or moderation-limited. Pending state dims Message with explicit reason. Removed state shows a reconnect banner and keeps Message visible with an explanation that messaging requires an accepted connection — never silently hidden. Error state keeps identity but shows retry for failed mission sync. Honest-null: missing shared missions renders 'No shared missions yet' with an Invite to mission action; missing shared consent renders 'No shared insight yet' in place of the CIA card; missing photo keeps the initials avatar."
+}

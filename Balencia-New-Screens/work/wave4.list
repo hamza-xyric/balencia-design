@@ -1,0 +1,24 @@
+86|NEW:virtual try-on - AI outfit/appearance preview with consent, upload, generation stepper, before/after reveal (/wellbeing/virtual-tryon)|86-virtual-tryon|17
+87|NEW:virtual try-on history - past generations gallery with consent/data-deletion controls (/wellbeing/virtual-tryon/history)|87-tryon-history|17
+88|NEW:vision suite - eye health hub with color test, eye exercises, progress (/wellbeing/vision)|88-vision-suite|17
+80|80-|80-music-coach|17
+51|51-|51-voice-call-history|17
+35|35-|35-learning-growth-dashboard|18
+36|36-|36-creativity-dashboard|18
+75|75-|75-direct-chat|18
+76|76-|76-group-chat|18
+77|77-|77-message-actions|18
+39|39-|39-leaderboard|19
+40|40-|40-community-chat-rooms|19
+46|46-|46-accountability|19
+47|47-|47-competitions|19
+95|NEW:pods hub - small accountability groups browse, join, manage, tiers Pods/Circles/Partners (/groups)|95-pods-hub|19
+94|NEW:webinars - list and detail with registration (/webinars)|94-webinars|20
+98|NEW:system states - offline, maintenance, error, forbidden full-page template set|98-system-states|20
+99|NEW:whatsapp integration hub - enrollment status, message history, settings (/whatsapp)|99-whatsapp-inbox|20
+67|67-|67-image-viewer|20
+69|69-|69-app-rating|20
+25|25-|25-help-center|21
+81|81-|81-video-library|21
+82|82-|82-accountability-contract|21
+85|85-|85-obstacle-coach|21

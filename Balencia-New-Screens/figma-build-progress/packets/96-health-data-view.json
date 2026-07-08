@@ -1,0 +1,79 @@
+{
+  "id": "96",
+  "name": "Health data view",
+  "route": "/whoop",
+  "shell": "dark",
+  "annotation": "HIFI-96 · /whoop · dark shell with top radial orange glow (rgba(255,94,0,.18)). Provider-neutral Balencia readiness dial (ProgressRing, glow-you) is the singular focal moment, cleanly separated from device-native scores like 'WHOOP recovery 78'; CIA interpretation, readiness/sleep/strain trend tabs, and a visible health-data source manager (primary device, revoke, delete, export, retention) sit below — every metric real, low-confidence, or honest-null, never fabricated.",
+  "italicWord": "readiness",
+  "hasFab": false,
+  "hasNav": true,
+  "imageSlots": [
+    "HIFI-96-01 provider-neutral wearable/source icon set"
+  ],
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar, dark mode, white icons on #0A0A0F."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 44,
+      "build": "Transparent glass-pill TopBar. Left: 44px back chevron. Center: H2 'Health connections' — brand-neutral copy abstracting the underlying /whoop route. Right: SyncStatus glass-pill 'sync …' with manual-sync glyph, 44px target, live region for status changes."
+    },
+    {
+      "region": "Hero - Balencia Readiness",
+      "y": 88,
+      "h": 230,
+      "build": "GlassCard.hero, radius 40, orange glow-you (current capacity/effort). H1 Display 'Balencia *readiness*' — readiness is the screen's one Tiempos-italic word. ProgressRing shows 84, single 250ms sweep. Caption 'recovery high'; honesty line 'house score, provider-neutral'; ChipProvenance 'via WHOOP + app'. BtnCoach 'Talk to CIA' opens health-context consent before sending data."
+    },
+    {
+      "region": "Vitals BentoGrid + device-native label",
+      "y": 318,
+      "h": 190,
+      "build": "BentoGrid 2x2 GlassStatCard tiles: 'HRV 42 ms' + ChipProvenance 'via WHOOP'; 'Strain 14.2' + 'via WHOOP'; 'RHR 52 bpm' + 'via Health'; 'Sleep 7h 12m' + 'via wearable' — each carries value, unit, source, timestamp, confidence. Beneath, Caption 'Device-native: WHOOP recovery 78' — source-specific, never mixed with the Balencia composite above."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 508,
+      "h": 120,
+      "build": "CIAInsightCard, purple glow-cia, label 'CIA'. Copy: 'Recovery is high. Consider a heavier focus block if it still feels right.' Evidence row: ChipProvenance x3 — 'HRV', 'sleep', 'strain'. Renders only because at least two current health signals exist; otherwise no claim, per honesty rule."
+    },
+    {
+      "region": "SegmentedTabs + TrendChart",
+      "y": 628,
+      "h": 146,
+      "build": "SegmentedTabs 'Readiness' (active) / 'Sleep' / 'Strain', glass pill, orange active label. TrendChart below: solid orange line for real history, dashed purple projection, green milestone dots; swipe scrubs days. Insufficient-data spans render HonestNullState inline instead of a fabricated line."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 774,
+      "h": 70,
+      "build": "Floating GlassNavBar, glass pill, pinned: Today · CIA · Goals · Me, 44px targets, overlaying the Health data sources list beneath as the user scrolls."
+    }
+  ],
+  "belowFold": [
+    "SectionHeader 'Health data sources' (~y844-880), Overline label above the source-manager list.",
+    "ListRow 'WHOOP' badge 'primary' + NEW: PrimaryDeviceToggle (mutually exclusive source selector — rationale: only one connected device may resolve a shared metric like recovery/HRV when more than one is linked), trailing BtnGhost 'Revoke' + 'Delete' pills (44px), ChipProvenance 'via WHOOP · synced 2m ago' (~y880-996).",
+    "ListRow 'Apple Health' — bridge-limitation honest state 'requires native app bridge' (web cannot read HealthKit), BtnSecondary 'set up in app' non-web path, no fake connect toggle (~y996-1092).",
+    "ListRow pair 'Export data' + 'Retention' — export triggers a download of synced records, retention states how long data is kept; both stay reachable without a sub-sheet per the Consent and Safety compliance layer (~y1092-1188).",
+    "Empty state (no devices yet, replaces the Hero/BentoGrid/CIAInsightCard/tabs modules): HonestNullState copy 'Connect your first device to populate your whole health picture.' with a single BtnPrimary 'Connect a device'.",
+    "Free-tier gating: Balencia readiness ring, trends beyond 7 days, and CIA correlations render behind PaywallLock — 20px blurred generic preview + one orange 'Unlock with premium' CTA, never a dead end; free tier otherwise sees one device and device-native scores only.",
+    "Error / bridge-limitation state: NEW: SyncFailureBanner names the specific provider or bridge limitation (e.g. token expired, Samsung Health needs the native app) with a Reconnect action, replacing the TopBar SyncStatus pill.",
+    "Stale/offline state: OfflineBanner 'offline — showing last sync 2h ago' replaces the SyncStatus pill; cached metrics keep their ChipProvenance rather than appearing live."
+  ],
+  "trustControls": [
+    "Every vital (HRV, RHR, sleep, strain, respiratory rate) ships value + unit + source + timestamp + confidence; the Balencia readiness composite is clearly separated from device-native scores like 'WHOOP recovery 78', never merged.",
+    "Honesty triple enforced everywhere: real → ChipProvenance ('via WHOOP', 'via Health', 'via wearable'); low-confidence → muted value + 'estimated · low confidence'; honest-null → 'Not enough data yet — …', never a fabricated number.",
+    "Connect preview (ConsentCard) states OAuth scope, sync frequency, storage, retention, provider, primary-device conflict handling, revoke access, delete synced records, and export data before any connection completes.",
+    "Talk to CIA opens a health-context consent step before data reaches the coach; the CIA insight only renders when at least two current health signals exist, and always cites its evidence (HRV, sleep, strain).",
+    "Apple Health / Samsung Health rows state 'requires native app bridge' (honest bridge-limitation copy) with a non-web setup path, never a broken or fake connect toggle.",
+    "Revoke and delete actions confirm with green status + timestamp; disabled sync/trends/CIA/revoke/delete controls show the blocking reason inline rather than dimming silently.",
+    "Free tier: one device, device-native scores only. Premium: multi-device source resolution, Balencia readiness, longer trends, CIA correlations — gated behind PaywallLock's generic preview until both consent and entitlement exist.",
+    "Health guidance is explicitly informational, not diagnostic; urgent-symptom copy routes to appropriate care guidance rather than in-app advice.",
+    "Provider colors (e.g. WHOOP brand color) never recolor chrome — only the canon's orange/green/purple glows and domain-tag colors are used."
+  ],
+  "notes": "Worker draft failed to generate (GLM 529 overloaded) — this packet was authored directly from the spec. Route intentionally stays /whoop (per Implementation Notes, do not rename to /health-data) while all visible copy is provider-neutral ('Health connections', 'via WHOOP + app', 'house score, provider-neutral'). Exactly one Tiempos-italic word: 'readiness', matching the Visual System line; the Final Composition's caps 'BALENCIA *READINESS*' is rendered as sentence-case H1 'Balencia readiness' per canon typography rules, with only 'readiness' italicized. No BtnPrimary appears in the connected default state — BtnCoach 'Talk to CIA' is the sole hero action and Revoke/Delete/Export use BtnGhost; the only true BtnPrimary lives in the Empty state ('Connect a device') and the PaywallLock unlock CTA, satisfying the one-BtnPrimary-per-composition rule since those states are mutually exclusive with the default view. Two components are flagged NEW per catalog rule 6: PrimaryDeviceToggle (mutually exclusive source selector, surfaces on the WHOOP row once more than one device is connected) and SyncFailureBanner (names the specific provider or bridge limitation; appears only in the Error/bridge-limitation state, not in this default composition). Device-native scores are always labeled source-specific and never averaged into the Balencia composite ring. The Health data sources section (WHOOP primary/Revoke/Delete, Apple Health bridge limitation, Export data/Retention) sits below the 844px fold and continues under the floating GlassNavBar on scroll, per the Consent and Safety requirement that revoke/delete/export/retention stay reachable at all times."
+}

@@ -1,0 +1,80 @@
+{
+  "id": "82",
+  "name": "Accountability contract",
+  "route": "/contracts",
+  "shell": "dark",
+  "annotation": "Contract hero (GlassCard: mission title + weeks-left/partners meta + status chips) is the singular focal moment — no CIA card competes above the fold since this screen's Components list omits CIAInsightCard entirely. Verification progress and rows sit quietly below as SolidCard dense lists per canon (glass stays reserved for the hero and Sheets); partner/witness privacy renders as a ConsentCard-style row, never gamified or spectacle-ized. A single BtnPrimary ('Sign update') is the persistent CTA; permissions, export, revoke, pause, and resolve stay ghost pills or Sheet actions, never competing primaries.",
+  "italicWord": "*contract*",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System standard, transparent over dark shell atmosphere (warm amber radial glow, top-center)."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent over atmosphere; gains glass-pill (rgba(10,10,15,.55), blur 24px, border rgba(255,255,255,.10), r999) once content scrolls under. BtnGhost [chevron-left] 44px target 'Back' | Title 'Accountability contract' | BtnGhost [ellipsis] 'Terms & history', 44px target."
+    },
+    {
+      "region": "Contract Hero",
+      "y": 104,
+      "h": 220,
+      "build": "GlassCard r40 hero, glow-you — sole focal moment. Overline 'Active contract'. H2 24 paper-100 'Half marathon consistency'. Caption '4 weeks left · 2 partners'. Chip row: ChipProvenance 'Signed', ChipProvenance '2 checks due', ChipProvenance 'consent'. Line (Newsreader Medium Italic on 'contract'): 'This *contract* keeps effort visible, not perfect.'"
+    },
+    {
+      "region": "Verification Progress",
+      "y": 332,
+      "h": 56,
+      "build": "Overline 'Verification checks · 5 of 6'. ProgressBar track rgba(255,255,255,.08), fill #FF5E00 83%, glow-you breathing. Sweep 0->83% on mount; reduced-motion disables sweep and breathing per spec."
+    },
+    {
+      "region": "Verification Rows",
+      "y": 396,
+      "h": 140,
+      "build": "SolidCard #211008 r24 dense list, no glow (canon reserves glow-bearing glass for the hero). Row 1: tag 'done' green glow-done, Body 'Morning run proof', Caption 'photo confirmed via check-in' ChipProvenance 'via check-in'. Row 2: tag 'due' orange, Body 'Weekly review', Caption 'due Sunday evening'. Tap opens proof detail; buttons, not swipe-only."
+    },
+    {
+      "region": "Partners and Witnesses",
+      "y": 544,
+      "h": 140,
+      "build": "SolidCard #211008 r24 (ConsentCard variant), no glow. Overline 'Partners and witnesses'. Body 'Aisha can see proof status.' Body 'Private journal notes stay off.' Row: BtnGhost 'Permissions' opens partner-permissions Sheet; BtnGhost 'Export'; BtnGhost 'Revoke' — each a confirmed exit, never silent."
+    },
+    {
+      "region": "Sign Action",
+      "y": 694,
+      "h": 56,
+      "build": "BtnPrimary full-width, orange #FF5E00, glow-you: 'Sign update' — sole primary CTA. Opens sign-confirmation Sheet naming changed terms, partner visibility, and proof requirements. Disabled variant dims 40% with 'No update to sign' when nothing is pending."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 768,
+      "h": 68,
+      "build": "Floating pill, fixed overlay: Today · CIA · Goals · Me, 44px targets, overlays last visible content per canon."
+    }
+  ],
+  "belowFold": [
+    "Sign-confirmation Sheet (opened by 'Sign update'): names exactly what changed — updated terms, who gains visibility, and outstanding proof — before confirming. BtnPrimary 'Confirm sign' + BtnGhost 'Cancel', equal visual weight, spring-in with focus trap and drag-to-dismiss.",
+    "Pause/resolve action Sheet: explains the consequence of each choice (partners are notified; proof requirements pause or the contract closes) and keeps 'Cancel' equal prominence to 'Pause' and 'Resolve' — a see-options exit, never a dead end.",
+    "Partner-permissions Sheet: per-partner toggles for what each partner/witness can see (proof status, check-in timestamps), plus 'Export shared data', 'Revoke [partner]'s access', and 'Delete shared history' — each gated behind a confirmation step.",
+    "Terms & history overflow (TopBar ellipsis): opens a SolidCard list of prior signed versions with signer + timestamp ChipProvenance, and the current terms text — read-only, no edits from history.",
+    "Empty state: HonestNullState reads 'No active contract yet' with BtnPrimary 'Create contract' and a line explaining what partners will and won't see before setup begins.",
+    "Skeleton state preserves the hero/progress/rows layout with neutral placeholder blocks — no fabricated partner names or percentages while loading.",
+    "Error state: failed signature or proof sync keeps the last cached contract state visible, names the affected action (e.g. 'Signature didn't sync'), and offers Retry — never resets to blank."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Contract status: real = active/pending/paused/resolved + ChipProvenance; low-confidence = 'sync stale, retrying' (muted); honest-null = 'No active contract' via HonestNullState + 'Create contract'.",
+    "Verification checks: real = proof count and status with ChipProvenance; low-confidence = 'partner confirmation pending'; honest-null = 'No proof required yet.'",
+    "Partner/witness visibility: real = per-person permissions rendered exactly as set; low-confidence = 'permission sync pending'; honest-null = 'No partners or witnesses yet.'",
+    "Signature state: real = signed timestamp + signer via ChipProvenance; low-confidence = 'signature service queued'; honest-null = 'No update to sign' (Sign action dims 40%).",
+    "CIA recommendation is intentionally not rendered as a card in this build (Components list omits CIAInsightCard for this screen) — shown only inline if source supports a synthesized read; low-confidence is a single blocker signal; honest-null never fabricates a coach-plan claim.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete wherever partner/witness data appears — surfaced in the Partners card and the partner-permissions Sheet.",
+    "Disabled: Sign action dims to 40% with 'No update to sign' or the specific missing consent/review reason, never hidden without explanation. Offline: signing and proof upload queue locally; stale data shows a timestamp until sync resumes."
+  ],
+  "notes": "No GLM draft was available to correct: the worker call failed with HTTP 529 (service overloaded), so this packet was authored directly from the spec and canon digest rather than as a fix pass, following the same fallback already used for 31-transaction-budget-detail.json. Key decisions: (1) italicWord is '*contract*', taken verbatim from the Visual System line ('one Tiempos italic emphasis moment: `*contract*`'). Checked against the wider hifi-screens corpus first: nearly every spec's Visual System names the last hyphenated word of its own filename as the italic word (99-whatsapp-inbox -> *inbox*, 85-obstacle-coach -> *coach*, 88-vision-suite -> *suite*, etc.), confirming this line is boilerplate rather than a hand-picked word. But unlike 31 (sleep) and 14 (momentum), no alternate word is embedded inside this spec's Final Composition or reviewer copy to override the boilerplate, so '*contract*' stands and is placed inside a new supporting sentence in the Contract Hero ('This *contract* keeps effort visible, not perfect.') rather than left unused. (2) No CIAInsightCard renders above the fold: this screen's Components list (unlike 14's and 31's) does not include CIAInsightCard at all, even though Focal Hierarchy notes CIA renders 'only when the source supports a synthesized read' and Data Honesty lists a CIA-recommendation data point — read together, CIA appears only conditionally/inline when evidence exists, never as a guaranteed card, so it is left out of the 8-module default composition and documented instead as a trustControl. (3) Contract Hero uses GlassCard (glass reserved for focal surfaces per canon) while verification rows and the partner card use SolidCard, matching canon's 'dense lists ... use solid surfaces' rule and the spec's own Components list, which assigns SolidCard to verification rows, terms, and partner/witness privacy. (4) hasNav is true: '/contracts' is a hub-style live route structurally similar to other hasNav:true hub routes (/achievements, /reputation, /plans), and like 31's Edit-budget CTA, the Sign-update BtnPrimary and the floating GlassNavBar coexist (the nav overlays rather than replaces the fixed CTA). (5) Sign action renders enabled by default per the States section ('Default: ... sign action render[s]'); the Disabled 'No update to sign' 40%-dim copy is documented as a trustControl/belowFold state, not the default render, since the wireframe shows an active-looking button with 2 checks still due. (6) Only one BtnPrimary ('Sign update') is on-screen; Permissions/Export/Revoke are BtnGhost row actions and Pause/Resolve live in a Sheet, preserving canon's one-primary-per-screen rule."
+}

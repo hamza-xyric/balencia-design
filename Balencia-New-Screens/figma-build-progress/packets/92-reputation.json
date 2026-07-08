@@ -1,0 +1,65 @@
+{
+  "id": "92",
+  "name": "Reputation",
+  "route": "/reputation",
+  "shell": "dark",
+  "annotation": "HIFI-92 · /reputation · dark shell, top-center orange radial glow; trust-score hero is the singular focal moment, breakdown/history/tier-ladder stay solid and quiet below.",
+  "italicWord": "*reputation*",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar, time left, home indicator right."
+    },
+    {
+      "region": "header",
+      "y": 44,
+      "h": 56,
+      "build": "Glass. Back chevron 44px L. Title '*Reputation*' (H1 30, Newsreader Medium Italic on 'reputation'). R: safety shield glyph 44px."
+    },
+    {
+      "region": "profile snippet",
+      "y": 100,
+      "h": 48,
+      "build": "Solid #211008 r24. L: Avatar 40px. C: 'Hamza' (H3 20). R: 'Trusted' tier pill, 16% bg #34A853, paper-100 text."
+    },
+    {
+      "region": "reputation hero",
+      "y": 148,
+      "h": 320,
+      "build": "Glass hero r40. Glow: orange rgba(255,94,0,.25) top center. Content: Overline 11 'TRUST SCORE' (center). Below: ReputationDial SVG (size 180, track white 8%, fill #FF5E00). Center text '82' (Display 34). Under dial: 'mentor' pill. Below: Progress bar 70% #FF5E00, Caption '18 points to next tier' center. ChipProvenance 'via community + contracts' bottom."
+    },
+    {
+      "region": "breakdown",
+      "y": 468,
+      "h": 168,
+      "build": "Solid #211008 r28. Padding 16. Overline 11 'BREAKDOWN'. Rows (4): Label L, bar center, chip R. 1) 'consistency', bar 80%, chip 'via activity'. 2) 'helpfulness', bar 85%, chip 'via feed'. 3) 'engagement', bar 75%, chip 'via community'. 4) 'accountability', bar 60%, chip 'via contracts'."
+    },
+    {
+      "region": "history",
+      "y": 636,
+      "h": 120,
+      "build": "Solid #211008 r28. Padding 16. Overline 11 'REPUTATION HISTORY'. TrendChart SVG line, stroke #FF5E00. X-axis dots."
+    }
+  ],
+  "belowFold": [
+    "Tier ladder: Solid #211008 r28, Overline 'TIER LADDER'. 3 TierCards horizontal scroll — Current 'mentor' (outline #FF5E00), Next 'guide' (glass), Locked 'expert' (muted, progression-lock not premium-lock). Tap opens privileges sheet. Honest-null: ladder shows current base tier only.",
+    "CIA insight: Glass card r28 purple-tinted, glow purple rgba(127,36,255,.20). L: CIA dot, Overline 'CIA INSIGHT'. Body 15 'Your helpful replies are lifting trust this week.' ChipProvenance 'via score movement' (low-confidence fallback reads 'early read · low confidence'; card omitted entirely if honest-null).",
+    "Trust transparency: Solid #211008 r28, Overline 'PRIVACY & SAFETY'. Rows 'flags 0', 'appeals none', 'report path'. BtnSecondary ghost 'Manage data controls' surfaces audience, visibility, mute, block, export, revoke, and delete-own-content controls before any sharing or social comparison."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Audience selection",
+    "Visibility controls",
+    "Report path",
+    "Mute",
+    "Block",
+    "Delete own content",
+    "Export data",
+    "Revoke access"
+  ],
+  "notes": "Trusted pill = ProfileSnippet's required 'tier' field, 16% bg #34A853 (forest-green, positive-trust), paper-100 text — profile row no longer shows an unsourced 'Member since' join date (not in source spec, no provenance). CIA insight chip corrected to ChipProvenance 'via score movement' (the real-state explanation) rather than the low-confidence tag, which is reserved for the 'early read · low confidence' fallback while score data is still syncing. Honesty fallbacks: Trust score → 'estimated · low confidence' (muted) or '--' + starter copy when honest-null; Tier progress → dimmed bar while reconciling, or ladder shows current base tier only; Breakdown rows → row-level ConfidenceMeter, or the row is omitted entirely with no source data; History → cached trend rendered dashed, or 'History appears after your first trust event.'; Trust flags → 'No active flags.' when zero. Source chips retain category, source, scope, freshness, retention, export, revoke, and delete fields when expanded. States: Skeleton shimmers dial/rows/chart/ladder in final geometry; Empty shows no dial value plus starter copy and 'Learn how to earn'; Error shows ErrorState with Retry while cached score remains if available; Offline shows cached score with a staleness label, resolve/appeal actions disabled; Disabled dims premium deep-dive rows behind PaywallLock and disables appeal buttons mid-submission with inline reason; Flagged surfaces a private review panel above CIA insight (evidence, policy link, appeal path) — never a public badge or alarm-red. Metric rows, tier cards, and all actions meet 44px minimum targets; score and tier are announced as text and progress, not color alone. Fonts: Hanken Grotesk (UI) stand-in for Neue Montreal; Newsreader Medium Italic (one emphasis word, 'reputation') stand-in for Tiempos."
+}

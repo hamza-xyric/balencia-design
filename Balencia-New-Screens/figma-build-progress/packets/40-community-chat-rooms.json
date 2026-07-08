@@ -1,0 +1,65 @@
+{
+  "id": "40",
+  "name": "Community",
+  "route": "/community, /community/[slug]",
+  "shell": "dark",
+  "annotation": "HIFI-40 · /community, /community/[slug] · dark shell (#0A0A0F) + top-center amber radial glow rgba(255,94,0,.18) + 3-4% grain. Discover carousel and the Your rooms SolidCard stay quiet supporting context; the single '+ create room' BtnPrimary is the hub's one persistent CTA, kept visually singular per Focal Hierarchy. Tapping a room pushes /community/[slug] (room header, AvatarStack, message thread, ChatComposer) — GlassNavBar persists throughout with no forced active tab, since Community sits outside the four primary tabs.",
+  "italicWord": "rooms",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "Dark status bar, 390x844 frame, bg #0A0A0F."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent TopBar. Left: 44x44 back chevron ('Back'). Center: 'Community' (H1 30). No CIA glyph renders — this hub has no synthesized CIA read (canon: CIA icon only when the source supports one)."
+    },
+    {
+      "region": "Discover Carousel",
+      "y": 100,
+      "h": 140,
+      "build": "Overline 'DISCOVER'. Horizontal PodCard scroll, glass r24: 'Fitness lovers' and 'Book club' cards, each with ChipProvenance 'curated this week'. Honest-null: the carousel hides entirely rather than show stale or padded rooms."
+    },
+    {
+      "region": "Your Rooms",
+      "y": 240,
+      "h": 252,
+      "build": "Body 15 'Your *rooms*' (Newsreader Medium Italic 'rooms' — the screen's one italic emphasis). SolidCard #211008 r24 holds 3 rows: 'Morning crew' — 5 members, ChipProvenance '3 unread · synced live'; 'Study group' — 3 members, Caption 'yesterday'; 'Accountability pod' — 4 members, no unread claim shown."
+    },
+    {
+      "region": "Create Room CTA",
+      "y": 492,
+      "h": 64,
+      "build": "BtnPrimary full-width pill, orange #FF5E00: '+ create room' — the hub's one persistent CTA. Dims and disables when moderation or connectivity blocks room creation."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating glass nav pill (r40): Today · CIA · Goals · Me, 44px targets, no forced active tab (Community sits outside the four primary tabs). Home indicator y828."
+    }
+  ],
+  "belowFold": [
+    "Your rooms list continues scrolling inside the same SolidCard as more joined rooms are added — illustrative continuation of the chronological room list; gap between Create Room CTA (y556) and GlassNavBar (y756) is this scroll continuation.",
+    "Room interior (pushed route /community/[slug], reached on room tap — Motion: 'pushes interior and scrolls to latest message'): TopBar 'Morning crew (5)' + 44x44 settings gear ('Room settings'); AvatarStack shows 5 members and presence. Message thread (SolidCard bubbles): 'Sarah: Great workout this morning.' then a FeedPostCard-style achievement 'Achievement: Sarah hit goal +150 XP' with green glow-done and ChipProvenance 'shared by Sarah'; 'You: I did my reading today.' ChatComposer pinned above GlassNavBar: placeholder 'Say something...' + 'send' — queues offline and updates delivery state."
+  ],
+  "imageSlots": [
+    "HIFI-40-01 - avatar or message attachment slot; screen-specific; premium warm-dark product placeholder. Prompt: Community chat rooms avatar or social proof placeholders, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Room list honesty triple: real 'Morning crew · 5 members · 3 unread' + ChipProvenance 'synced live'; low-confidence muted 'estimated · low confidence' when only cached rooms are available; honest-null 'You haven't joined any rooms yet — create or discover one.'",
+    "Discover honesty triple: real curated/live rooms with ChipProvenance 'curated this week'; low-confidence muted 'estimated · low confidence' when popularity/counts are delayed; honest-null hides the Discover carousel entirely.",
+    "Messages honesty triple (room interior): real server-delivered message with sender/time; low-confidence shows a queued local 'sending…' state offline; honest-null 'Say the first thing — no messages yet.'",
+    "Achievement honesty triple: real member-shared proof with ChipProvenance 'shared by Sarah' and green glow-done; low-confidence muted 'pending proof'; honest-null — no achievement card renders at all, never fabricated.",
+    "Room settings Sheet exposes audience/visibility, mute, block, report, leave room, delete own messages/media, export transcript, and revoke shared-achievement visibility before sharing or social comparison.",
+    "SafetyResourceCard reachable from room settings and the report flow; crisis/safety surfaces are never gamified — no XP or streak framing near report/leave controls.",
+    "Route locked to /community, /community/[slug]; no alternate vanity routes."
+  ],
+  "notes": "States — Default: discover, your rooms, and create CTA render. Skeleton: discover cards, room rows, and (in room interior) chat bubbles shimmer via SkeletonState. Empty: discover remains; Your rooms shows a warm EmptyState prompt plus the create CTA when no rooms are joined. Error: ErrorState keeps cached rooms visible with retry; a failed send in the room interior stays inline with retry, never silently dropped. Success: a newly joined room appears in Your rooms; a shared achievement flashes glow-done (#34A853) once, then rests. Disabled: join, create, send, or report dims to ~40% opacity when moderation, privacy, or connectivity blocks the action. OfflineBanner surfaces above the hub when disconnected; composer send queues locally and updates delivery state on reconnect.\nMotion — Load: discover cards slide in, room rows fade, and the create CTA settles last (staggered, reduced-motion collapses to a simultaneous fade). Join: tapping a discover PodCard opens a room-preview Sheet confirming visibility and rules before joining. Room tap: pushes /community/[slug] and auto-scrolls to the latest message. Composer: send queues offline and updates delivery state live. Achievement: a shared achievement scales in once on arrival, then rests at normal scale.\nAccessibility — Contrast: paper text on #0A0A0F and #211008 meets AA+. Targets: room cards, the create CTA, room rows, composer, settings, and report actions are all 44px minimum. Screen readers: room rows announce name, member count, unread count, last activity, and moderation status; the room interior announces message author, time, delivery state, and report options per bubble.\nBuild provenance — the GLM draft worker returned HTTP 529 (service overloaded) with no usable content, so this packet was authored directly from the source spec, the canon digest, and cross-checked against sibling packets 74-conversations-hub.json (hub/list anatomy, PinnedSection/AvatarStack conventions) and 76-group-chat.json (room-interior anatomy: TopBar+AvatarStack+CIAChatBubble/FeedPostCard+ChatComposer), since 76 is the dedicated single-room chat build and 40 only needs to cover its own /community/[slug] variant plus the /community hub. Modules kept to 6 (well under the 8 cap) by treating the room-interior state as a pushed-route continuation in belowFold rather than a second overlapping y-range in the same 844px frame — no other packet in this corpus stacks two routes' content into one modules timeline, so this keeps the shape consistent. The 'create room' control is built as an inline full-width BtnPrimary pill (matching the ASCII's bracketed '[ + create room ]' row), not a floating FAB, so hasFab is false and GlassNavBar is the only persistent chrome below it. Italic word normalized to bare 'rooms' (no asterisks) per corpus convention, placed in the 'Your rooms' section label — the only sentence in the Final Composition where the literal word 'rooms' appears as a natural embedded emphasis rather than a title override."
+}

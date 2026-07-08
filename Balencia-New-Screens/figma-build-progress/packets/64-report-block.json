@@ -1,0 +1,58 @@
+{
+  "id": "64",
+  "name": "Report & Block",
+  "route": "No live route; global ReportBlock Sheet over Community Chat, Competitions, and Recipes.",
+  "shell": "dark",
+  "annotation": "HIFI-64 · No live route · dark shell w/ orange radial glow",
+  "italicWord": "block",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Header",
+      "y": 44,
+      "h": 56,
+      "build": "Sheet (half) grabber pill top-center | TopBar modified | BtnGhost 'cancel' (target 44px) | H3 Title 'report' | right null | backdrop scrim fades in 150ms"
+    },
+    {
+      "region": "Entity Context",
+      "y": 100,
+      "h": 64,
+      "build": "FeedPostCard truncated variant | glass-frost r24 | [Avtr] 'Deleted user' H3 | subtext Body 15 'May have deleted account.'"
+    },
+    {
+      "region": "Reason List",
+      "y": 164,
+      "h": 244,
+      "build": "Overline 11 uppercase 'why are you reporting this?' | ListRow radio group r24 | items: 'Spam', 'Harassment', 'Inappropriate content', 'Misinformation', 'Impersonation', 'Other' | target height 44px | Default Initial: all unselected, submit disabled; Reason Selected: radio fills orange"
+    },
+    {
+      "region": "Description Input",
+      "y": 408,
+      "h": 120,
+      "build": "GlassPillInput multiline radius 20 | label 'tell us more (optional)' | counter Caption 12 '0/500' right-aligned — honest, system-calculated exactly, no ChipProvenance needed (zero source ambiguity)"
+    },
+    {
+      "region": "Block Toggle",
+      "y": 532,
+      "h": 100,
+      "build": "NEW SafetyActionRow glass r24 | text 'also *block* this user' (Tiempos italic 'block') | sub-label Caption 12 'you won't see their messages...' | Toggle OFF default state (resolved contradiction) | target 44px"
+    },
+    {
+      "region": "Submit CTA",
+      "y": 636,
+      "h": 56,
+      "build": "BtnPrimary full width | label 'submit report' | glow orange #FF5E00 | disabled until reason selected | duplicate-report state relabels to 'update report'"
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "Report reason chip — category: report (spam, harassment, inappropriate content, misinformation, impersonation, other); scope: Community Chat, Competitions, and Recipes surfaces only — no chip fabricated for surfaces this sheet doesn't cover.",
+    "Character counter (0/500) — honesty invariant: reflects exact system-calculated input length, never an estimate; no ChipProvenance needed since it's same-frame local state with zero source ambiguity.",
+    "Honest-null context: if the entity ID fails to pass, the sheet does not fabricate a blank report — it fails honestly with toast \"couldn't load report. try again.\"",
+    "Retention/offline honesty — sheet stays interactive and the report queues locally, banner reads \"you're offline - your report will send when you're back online,\" never a false 'sent' confirmation.",
+    "Revoke/update — duplicate report detected: submit label swaps to \"update report,\" letting the member revise their existing report rather than silently duplicating it."
+  ],
+  "notes": "Sheet (half variant) springs up via physical easing 250ms after a 150ms backdrop fade; internal modules cascade in with 8px upward fade. Error state: submit button executes a 250ms high-frequency horizontal rattle (translateX 0->8px->-8px->0) with inline \"couldn't submit. check your connection and try again.\" Success: checkmark scales in with slight overshoot, confirmation text shows, sheet auto-dismisses after 1.5s (250ms slide-down + simultaneous backdrop fade). Reduced motion: all springs/rattles collapse to instant opacity/translateY fades, no bounce. Haptics: light impact on radio selection, medium impact on successful submission. Flagged for removal per source: Quick-log FAB and Bottom Nav (native modal sheet keeps focus on the single critical action). Region labels (Reason List, Description Input, Block Toggle, Submit CTA) corrected to match the spec's own Final Composition numbering, which the draft had renamed (Reasoning, Context Details, Action, Submit). italicWord corrected to plain 'block' (draft wrapped it in literal asterisks '*block*', which belongs only in the on-screen copy string, not the field value). Route corrected to the full spec string — draft truncated 'over Community Chat, Competitions, and Recipes.'"
+}

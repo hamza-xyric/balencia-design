@@ -1,0 +1,73 @@
+{
+  "id": "14",
+  "name": "Mission Detail",
+  "route": "No live route; stack-pushed mission detail keyed from Mission Board [13] or Home [12].",
+  "shell": "dark",
+  "annotation": "Mission Detail answers two questions in order: 'am I on track?' via the hero ProgressRing, then 'what's the whole picture?' through progressive disclosure. Hero ring + Mission title are the singular focal moment; KPI row and CIAInsightCard sit quietly below; ActionCheckCard's large tap-target checkbox replaces a separate BtnPrimary; five ExpandableList accordions stay collapsed by default below the fold.",
+  "italicWord": "*momentum*",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System standard, transparent over dark shell atmosphere (warm amber radial glow, top-center)."
+    },
+    {
+      "region": "TopBar",
+      "y": 60,
+      "h": 44,
+      "build": "Transparent over atmosphere; BtnGhost [chevron-left] 44px target 'Back' | Title 'Mission' (fades in as content scrolls) | BtnGhost [pin] 'Pin to home screen' + BtnGhost [edit] 'Edit mission', 44px targets. Gains glass-pill (rgba(10,10,15,.55), blur 24px, border rgba(255,255,255,.10), r999) once content scrolls under."
+    },
+    {
+      "region": "ProgressRing",
+      "y": 124,
+      "h": 150,
+      "build": "SolidCard r40 hero. ProgressRing stroke 8px, track rgba(255,255,255,.08), fill #FF5E00 (glow-you breathing). Center: tabular-nums '72%' (H1 30 paper-100). Caption: ChipProvenance 'via WHOOP' (conditional — 'system calculated' for non-wearable missions). Sweep 0->72% on mount, 520ms physical ease-out."
+    },
+    {
+      "region": "Mission Title & Chips",
+      "y": 290,
+      "h": 70,
+      "build": "Centered. Display 34 paper-100 'Hyrox Relay Prep' — the one hero type moment. Row: ChipDomainTag 'Fitness' + ChipDomainTag 'Mental', 16% domain-color bg, tappable -> dashboards, 44px hit-slop."
+    },
+    {
+      "region": "KPIRow",
+      "y": 380,
+      "h": 86,
+      "build": "SolidCard r24, glow-you. 3 mini-stats, hairline dividers: '12' (H3 20 orange) 'Actions · you logged', '8' (H3 20 orange) 'Streak · you logged', '450' (H3 20 paper-100) 'XP · system'. Compact ChipProvenance captions preserve mobile density at 390px."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 486,
+      "h": 142,
+      "build": "GlassCard r28 purple-tinted, glow-cia. Body 15 paper-100: 'Three tempo runs this week, each faster than the last. This is what *momentum* looks like.' (Newsreader Medium Italic on 'momentum'). Evidence: ChipProvenance 'via WHOOP · pace'. BtnGhost 'Ask CIA ->' — this card IS the chat exit, no separate persistent affordance."
+    },
+    {
+      "region": "ActionCheckCard",
+      "y": 652,
+      "h": 76,
+      "build": "SolidCard r24, glow-you. Empty circle checkbox + Body 15 paper-100 '20-min easy run - tomorrow'. Caption 12 paper-60 'tap the circle to mark done'. Entire card is the 44px tap target — large surface replaces a separate BtnPrimary."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 768,
+      "h": 68,
+      "build": "Floating pill, fixed overlay: Today · CIA · Goals · Me, 44px targets, overlays last visible content per canon."
+    }
+  ],
+  "belowFold": [
+    "Five ExpandableList accordions below the fold, all collapsed by default (spec correction: an earlier draft wireframe had pre-expanded 'All Actions'; now consistently collapsed): All Actions; Milestones (glow-done); CIA Reasoning (glow-cia, expands to IntelligenceTimeline staged trace 'checking your training log' -> 'comparing to last month'); Cross-Domain Links (glow-you, ListRow entries to linked missions/dashboards); Progress Over Time (glow-cia, TrendChart — solid orange user line, dashed purple projection, green milestone dots). SectionHeader trigger, spring collapse 200ms, chevron rotates 180deg.",
+    "Stalled state (no action in 7 days): CIAInsightCard swaps to stalled coaching copy and offers a Sheet (variant action) with four ListRow choices — a 'see options' exit, never a dead end."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "ChipProvenance on Mission Completion %: real reads 'via WHOOP' when actions sync from a wearable, or 'system calculated' for manual-log missions — provenance is conditional, never hard-coded to one source.",
+    "Low-confidence Mission Completion %: 72% at 64% opacity + 'estimated · low confidence' + purple ConfidenceMeter, shown only when wearable sync is partial.",
+    "Honest-null Mission Completion %: 'Not enough data yet - 3 more days to calibrate,' ring renders ghosted at 0%; honest-null Action count: 'No actions logged yet.'",
+    "Consent/Safety source chips for category, source, scope, freshness, retention, export, revoke, and delete wherever data appears; documented as a modal/overlay/utility surface, never an invented live route.",
+    "Sheet (variant action) — stalled-mission 'see options' surface, four ListRow choices, spring-in 250ms."
+  ],
+  "notes": "Corrects three draft errors. (1) Display 34 belongs to the Mission title 'Hyrox Relay Prep' only — the spec's Focal Hierarchy calls it 'the one hero type moment'; the draft misapplied Display 34 to the ring's '72%' and demoted the title to H1 30, so both are swapped back (ring center = H1 30, title = Display 34). (2) KPIRow's XP figure (450) is recolored from purple to paper-100 — canon reserves purple strictly for CIA/AI synthesis, and XP is a system-calculated reward, not a CIA read. (3) belowFold restructured from module objects to descriptive strings per schema; GlassNavBar promoted into the main modules list since it's a persistent fixed overlay, not below-the-fold content, and the five accordions are described with their exact labels and per-accordion glow. Ring retains last cached value on Error (never resets to zero). Route header kept verbatim per spec: stack-pushed from Mission Board [13] or Home [12], no live route."
+}

@@ -1,0 +1,71 @@
+{
+  "id": "45",
+  "name": "Daily check-in",
+  "route": "/wellbeing/emotional-checkin",
+  "shell": "dark",
+  "annotation": "HIFI-45 · /wellbeing/emotional-checkin · dark shell (#0A0A0F) + top-center amber radial glow rgba(255,94,0,.18); presented as a half Sheet (grabber, Cancel) over the origin screen — no persistent nav/FAB; Daily check-in hero (`glow-cia`, passive CIAPresenceOrb) is the singular focal moment, mood/energy/stress cards stay solid and quiet.",
+  "italicWord": "evening",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Header",
+      "y": 44,
+      "h": 48,
+      "build": "Sheet grabber pill (top-center) · Cancel BtnGhost (left, body 15) · Title 'evening check-in' (center, H3 20); SegmentedTabs omitted here (single deep-linked entry, not a manual dual-incomplete open)."
+    },
+    {
+      "region": "Hero / Check-in Title",
+      "y": 92,
+      "h": 148,
+      "build": "Glass hero r40, `glow-cia`, purple radial pool behind passive CIAPresenceOrb (decorative, hidden from screen reader) · H1 30 'Good *evening*. Let's close out your day.' (only 'evening' in Newsreader Medium Italic) · Body 15 'Two minutes. How did it actually go.' · StreakCard flame glyph 'Day 14 · checking in.', `glow-you` orange bleed."
+    },
+    {
+      "region": "Mood",
+      "y": 240,
+      "h": 128,
+      "build": "SolidCard #211008 · Overline 'how you're feeling' (visual caps via type system) · MoodEmojiPicker: 5 circular 44x44 cells, unselected `--surface-3`, selected = orange 1.5px ring + `glow-you` bleed · ChipProvenance 'you logged' · Overline 'add context' (optional) + ChipDomainTag '[Career]' (indigo #6366F1), '[Fitness]' (red #EF4444), 16% self-tint bg."
+    },
+    {
+      "region": "Energy and Stress",
+      "y": 368,
+      "h": 132,
+      "build": "SolidCard #211008 · Overline 'energy and stress' · Slider rows (`--surface-3` track, orange fill, tabular-nums value bubble): 'low'->'high' = 7 (Energy); 'calm'->'high' = 4 (Stress) · ChipProvenance 'you logged' on both rows."
+    },
+    {
+      "region": "How today went",
+      "y": 500,
+      "h": 120,
+      "build": "GlassCard r28, `glow-you` · Overline 'how today went' · GlassPillInput (multiline, r20) sample text 'Closed the deck. Slept badly the night before.'"
+    },
+    {
+      "region": "Tomorrow",
+      "y": 620,
+      "h": 124,
+      "build": "CIAInsightCard purple glass, `glow-cia`, small CIA diamond marker top-right · Overline 'tomorrow' · Body 'You tend to feel calmer on days you train in the morning.' · ChipDomainTag evidence pair '[Mental/Wellbeing]' (#14B8A6), '[Fitness]' (#EF4444) · BtnCoach pill 'See the pattern' · BtnGhost pill 'Not now'."
+    },
+    {
+      "region": "Trust Footer",
+      "y": 744,
+      "h": 24,
+      "build": "SafetyResourceCard, quiet text only, scroll end: 'You're not alone. View support resources.'"
+    },
+    {
+      "region": "Primary Action",
+      "y": 768,
+      "h": 56,
+      "build": "BtnPrimary full width 'Save check-in' (orange #FF5E00); sits at 40% opacity, no glow, inert until a mood is selected — the only required field."
+    }
+  ],
+  "belowFold": [
+    "GlassStatCard sparkline (high density only): 7-day mood/energy trend. Real = solid orange line, ChipProvenance 'last 7 days'. Low-confidence = dashed gap-fill segments, 'estimated · gaps filled'. Honest-null (<3 check-ins this week) = card omitted entirely, no trend shown."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "SafetyResourceCard reachable, quiet text, at scroll end for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete.",
+    "Cancel or drag-to-dismiss with any non-default field shows an inline 'keep this?' confirmation (BtnGhost 'discard' / 'keep editing') instead of silently dropping input.",
+    "Route locked to /wellbeing/emotional-checkin; no alternate vanity routes."
+  ],
+  "notes": "States — Skeleton: sheet slides up, SkeletonState ghost blocks match real geometry (mood row = 5 ghost circles, sliders = ghost tracks, sparkline = axis + ghost line).\nEmpty/cold start: 7-Day Trend card omitted entirely; MoodEmojiPicker cells render 15% larger; hero subtext swaps to 'This is your first check-in. It takes less than a minute.'\nLoading (Tomorrow insight only): IntelligenceTimeline staged captions 'checking your morning workouts…' then 'comparing to your mood history…', purple dot pulse, collapses to the finished insight line.\nError (genuine save failure): quiet ErrorState — glyph + Body 'Couldn't save your check-in. Your answers are still here — try again.' + BtnSecondary 'Try again'; input preserved locally; no red flash (canon has no danger-red chrome).\nSuccess: BtnPrimary crossfades to BtnSuccess (forest green fill + checkmark) 'Saved' for 600ms, sheet springs down, toast on origin screen 'Check-in saved.'\nOffline: '.glass-pill' banner 'offline — this check-in saves locally until you're back online.'; CTA relabels 'Save locally.'\nAccessibility: MoodEmojiPicker announces a sentiment word not the glyph ('Mood: okay, selected'); Slider announces 'Energy, 7 out of 10'; ChipDomainTag announces domain name + toggle state; CIAPresenceOrb is grouped and hidden from the screen reader (decorative only).\nStreakCard replaces ChipProvenance for streak meta to preserve the honest 'recovered' state for broken streaks.\nScreen's single Newsreader italic word is the hero time-of-day word ('evening'/'morning'); other emphasis in body copy ('calmer' in Tomorrow, 'first' in the cold-start subtext) renders as plain text.\nSegmentedTabs (AM/PM) omitted — only renders when both today's entries are incomplete and the sheet was opened manually, not via deep link or time-aware auto-trigger.\nTomorrow insight honesty triple: real (>=14 days joint history) = full insight; low-confidence (3-13 days) = muted + ConfidenceMeter 'low' + 'early pattern · low confidence'; honest-null (<3 days) = 'Not enough data yet — 3 more days', no invented pattern."
+}

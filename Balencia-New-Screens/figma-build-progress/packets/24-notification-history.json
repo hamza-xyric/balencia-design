@@ -1,0 +1,88 @@
+{
+  "id": "24",
+  "name": "Notification History",
+  "route": "/notifications",
+  "shell": "dark",
+  "annotation": "HIFI-24 · /notifications · dark shell — the Visual System's own 'Warm dark base #0A0A0F' + the Accessibility section's paper-100-on-#211008 contrast reminder are the production shell; the Figma Reference Alignment's 'warm-light utility list' explicitly flags itself as language-only evidence (no live frame existed), not direct frame truth — same resolution precedent as HIFI-08. NotificationCard list is the singular focal moment; Summary/Trend/Section stay quiet operational evidence below.",
+  "italicWord": "history",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "Status bar, bg #0A0A0F, ink icons over dark shell."
+    },
+    {
+      "region": "header",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar, transparent over atmosphere. Back chevron (a11y 'Go back'). Title: 'Notifications'. Trailing ghost textBtn: 'Mark all read' (44x44px tap box; supports undo; drops to 40% opacity + loses orange label at 0 unread)."
+    },
+    {
+      "region": "summary-stats",
+      "y": 100,
+      "h": 44,
+      "build": "Horizontal scroll, ChipProvenance pills (domain-tag 16% bg): 'CIA 3', 'Reminders 2', 'Social 1'. 0-count chips (e.g. 'Check-ins 0') omitted — honest-null. Syncing state: '--' + caption 'syncing'."
+    },
+    {
+      "region": "trend-chart",
+      "y": 148,
+      "h": 76,
+      "build": "TrendChart sparkline, 7-point solid orange #FF5E00 curve, chip 'via Notifications API', caption 'last 7 days', a11y label 'Notification frequency over the last 7 days'. Below: 16px gradient scrim fades to dark bg before the list."
+    },
+    {
+      "region": "section-header",
+      "y": 224,
+      "h": 40,
+      "build": "Sticky SectionHeader: Overline uppercase 'Today'; H2 24px 'Recent *history*' (one Tiempos Medium Italic word, canon one-per-screen). Cross-fades to '.glass-card' with blur on scroll."
+    },
+    {
+      "region": "notification-list",
+      "y": 264,
+      "h": 228,
+      "build": "NotificationCard rows (56px min-height, 76px rendered), scale .98 on press: (unread, glow-you, orange dot) 'Sleep dipped to 6.2h' / 'Sleep impacts spend.' / '2m ago' / CIA. (read, no dot) 'Time to log your morning meal' / 'Nutrition reminder.' / '1h ago' / Reminders. (unread, glow-you) 'Alex finished a 7-day streak' / 'Community update.' / '6h ago' / Social."
+    },
+    {
+      "region": "nav-bar",
+      "y": 756,
+      "h": 68,
+      "build": "GlassNavBar, floating pill r28, pinned: 'Today' · 'CIA' · 'Goals' · 'Me' (active), 44px targets, overlaying the last visible row per canon."
+    },
+    {
+      "region": "home-indicator",
+      "y": 828,
+      "h": 16,
+      "build": "System home indicator, bg #0A0A0F, final element, no copy/controls."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "section-header",
+      "y": 492,
+      "h": 40,
+      "build": "SectionHeader, Overline uppercase 'Yesterday' only — no H2, preserving the one-Tiempos-italic-per-screen rule already spent on 'Today'."
+    },
+    {
+      "region": "list-item",
+      "y": 532,
+      "h": 76,
+      "build": "NotificationCard (read, no dot): 'Stress levels are trending down' / 'CIA Insight.' / '1d' / CIA."
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Row swipe exposes archive/delete; delete pending shows a queued state with undo (session-scoped).",
+    "Overflow sheet opens Notification Controls: category, trigger source, scope, last delivery/sync, retention, export history, revoke category permission, delete history.",
+    "'Mark all read' supports undo; delete/archive never remove source data outside this notification ledger unless the confirmation says so.",
+    "Honest-null: controls disabled with a stated reason when there is no history to act on."
+  ],
+  "notes": [
+    "Shell corrected to DARK: the draft's own annotation ('warm-light spec bypassed for consistency') mischaracterized this as an override-of-convenience. It is not — the spec's Figma Reference Alignment explicitly says no live Notification History frame existed in this pass and its 'warm-light utility list' note is language/alias evidence only, while the Visual System section commits unambiguously to 'Warm dark base #0A0A0F' and the Accessibility section anchors contrast to paper-100 on --surface-2 (#211008), a dark-shell token. Same resolution precedent as HIFI-08 (Figma alias note != production shell).",
+    "Type: Hanken Grotesk stand-in for UI (Overline 11, H2 24, Body 15) — the spec's own 'Neue Montreal' label is superseded by the canon typeface, consistent with sibling packets. One Newsreader Medium Italic emphasis word: 'history' (Visual System's explicit designation). The spec gives no literal H2 copy for the Components section's 'SectionHeader (default): Overline + H2 for date groups' requirement, so H2 'Recent history' is a minimal construction to host the mandated italic word once; applied only to the Today group, Yesterday's SectionHeader (belowFold) stays Overline-only to keep the one-emphasis-per-screen rule intact.",
+    "Accessibility: rows carry 56px min-height per source (rendered 76px here for the 2-line body/subtext/time layout); TopBar chevron + 'Mark all read' wrapped in 44x44px tap boxes; category chips meet 44px height. Paper-100 (#FEFAF3) on --surface-2 (#211008) clears WCAG AA+; orange unread dots hold sufficient brightness differential against the dark base.",
+    "Motion: rows scale .98 on press (150-250ms, cubic-bezier(0.32,0.72,0,1)); sticky SectionHeader cross-fades to '.glass-card' with blur on scroll; sparkline draws left-to-right via stroke-dashoffset (1200ms) on entry; unread dots fade out simultaneously (280ms, medium haptic synced) on 'Mark all read'; light haptic + glow-brighten precede deep-link routing. Reduced motion: stroke-dashoffset disabled (line fades in), row entry stagger disabled (all fade in at once).",
+    "Conditional states not modularized (8-module cap, still spec-true): Skeleton (shimmer blocks at --surface-3, 1.2s sweep; sparkline flat baseline morphs into the drawn line). Empty/cold-start (summary band suppressed; warm empty state with bell glyph + CIA onboarding promise + honest-null copy 'You're all caught up'; 'Mark all read' disabled 40%). Sparse <3 days (summary band omits 0-count chips; sparkline shows unconnected dots; caption 'Building your activity trail'). Error (summary band suppressed; centered ErrorState 'Couldn't load notifications. Pull to refresh.'). Offline (SyncStatus glass-pill banner pinned below header: 'showing last sync 2h ago'; cached list stays visible)."
+  ]
+}

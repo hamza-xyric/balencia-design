@@ -1,0 +1,62 @@
+{
+  "id": "52",
+  "name": "Stress management",
+  "route": "/wellbeing/stress",
+  "shell": "dark",
+  "annotation": "Stress management is a centralized, honest command center for stress: the GlassCard hero (ProgressRing composite score + ChargeMeter mental capacity) is the singular above-fold focal moment, with the inline Quick Log SolidCard and steady-glow CIAInsightCard synthesis right below it; Stress Trend, Mental Recovery, and Relief Tools continue as a quiet operational layer below the fold. Every metric ships real (provenance chip), low-confidence (muted + label), or honest-null — never a fabricated score or trend.",
+  "italicWord": "*management*",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System standard, transparent over dark shell atmosphere #0A0A0F + top-center amber radial glow + 3-4% grain."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent transitioning to `.glass-pill` on scroll. Label 'Stress *management*'. Right: level pill 'Lv.5'. Overflow menu icon houses SafetyResourceCard (Canon 8 crisis/safety layer)."
+    },
+    {
+      "region": "Hero Card",
+      "y": 100,
+      "h": 260,
+      "build": "GlassCard hero variant, r40, glow-you (orange, breathes 4s ease). Overline 'CURRENT STRESS LEVEL'. ProgressRing sweeps 0→3.2 orange #FF5E00 (520ms), center readout '3.2', ChipProvenance 'via WHOOP'. Sub-metrics 'B: 2.1', 'S: 4.5', 'Beh: 3.0'. ChargeMeter 'Mental capacity left today' 60% orange fill + ChipProvenance 'derived today'."
+    },
+    {
+      "region": "Quick Log",
+      "y": 364,
+      "h": 192,
+      "build": "SolidCard #211008. Overline 'QUICK LOG'. Body 'How are you feeling right now?'. Slider (1-10, light haptic snap). ChipDomainTag row 'Work' 'Time' 'Fin' 'Other...' (medium haptic on select). GlassPillInput 'add a note'. BtnPrimary 'Log stress' full width #FF5E00 — screen's single primary CTA."
+    },
+    {
+      "region": "CIA Note",
+      "y": 564,
+      "h": 116,
+      "build": "GlassCard purple glow-cia #7F24FF, steady (not breathing). Body: 'Work stress has been your top trigger this week. A 5-min breathing exercise after lunch could help.' BtnGhost 'ask CIA'. BtnGhost 'ignore'."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 68,
+      "build": "Floating glass pill, fixed overlay: Today · CIA · Goals · Me, 44px targets, overlaying last visible content per canon. Home indicator at y828."
+    }
+  ],
+  "belowFold": [
+    "Trend Card (continues scroll below the fold, ~y844): SolidCard #211008. Overline 'STRESS TREND' + tab toggle '7d'/'14d' (44px targets). Text 'avg: 4.8' and 'v12% vs last wk'. TrendChart draws left-to-right (1200ms, solid orange #FF5E00 line); dashed purple CIA-projection line draws only after the real line completes.",
+    "Recovery Card (~y1064): SolidCard #211008. Overline 'MENTAL RECOVERY', sub 'of 100'. ProgressRing '72' orange, subtext 'improving'. ChargeMeters 'Sleep: 78' (green) and 'Emot: 68' (orange).",
+    "Relief Tools (~y1244): Overline 'RELIEF TOOLS'. Horizontal scroll cards 'Breathe', 'Med', 'Yoga', trailing '>' chevron (see all), not appended to the Yoga label."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Composite Stress Score (1-10): real shows '3.2' + ChipProvenance 'via WHOOP'; low-confidence shows '3.2' at 64% opacity + 'estimated · low confidence'; honest-null shows '-' with 'log your first check-in below'.",
+    "Mental Capacity (%): real shows '60%' + ChipProvenance 'derived today'; low-confidence shows '60%' at 64% opacity + 'estimated · low confidence'; honest-null renders an empty bar track + 'restores after sleep'.",
+    "Names health category, source, freshness, confidence, retention, export, revoke, and delete before synced values or photo-derived reads are trusted.",
+    "SafetyResourceCard stays pinned in the TopBar overflow menu, privacy-first language reachable for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments.",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete."
+  ],
+  "notes": "Corrected the draft's schema and copy errors. belowFold converted from nested region/y/h/build objects to plain description strings (schema requires a string array, not objects). Removed the draft's separate 'home_indicator' module and folded it into GlassNavBar's build text ('Home indicator at y828'), keeping modules at 6, per sibling-packet convention. Hero sub-metric labels corrected to the Final Composition's literal abbreviations 'B:', 'S:', 'Beh:' (draft expanded these to 'Body:'/'Strain:', not exact copy). Slider corrected to '1-10' per Components list (draft said '0-10'). GlassPillInput placeholder corrected to the literal 'add a note' (draft added a non-canonical '+' prefix not present in the composition). Card headers 'QUICK LOG', 'STRESS TREND', 'MENTAL RECOVERY', 'RELIEF TOOLS' restored to the Final Composition's literal all-caps overline copy (draft had sentence-cased these as H3s: 'Quick log', 'Stress trend', 'Mental recovery', 'Relief tools'). Relief Tools' trailing '>' corrected from being appended to the 'Yoga' card label to a separate see-all chevron, matching the ASCII layout. trustControls rebuilt from the spec's Data Honesty section — the Composite Stress Score and Mental Capacity 3-state (real/low-confidence/honest-null) frameworks were entirely missing from the draft — and the full source-chip list (draft truncated 'export, revoke, and delete'); dropped the draft's fabricated 'Locked features = PaywallLock' item since this screen has no paywall or tier-gated content anywhere in the source spec. Motion retained: Hero ProgressRing sweeps 0→3.2 on load (520ms); Quick Log CTA disables (40% opacity) with a countdown immediately after logging; failed log submission triggers a subtle red border flash + ErrorState toast; all sweeping charts/glowing pulses revert to instant opacity fades under reduced motion. Metric 3 ('WHOOP HRV (ms)') is named in the source Data Honesty section but its states are left undefined in the spec itself — not fabricated here, flagged as a source gap for correction. hasFab kept false: the Final Composition shows no floating action button and Quick Log is an always-visible inline card, not a FAB-triggered sheet; the Motion section's generic 'FAB Behavior' bullet does not correspond to any rendered control on this screen."
+}

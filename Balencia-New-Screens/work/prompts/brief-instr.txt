@@ -1,0 +1,12 @@
+You are distilling a Balencia mobile screen spec into a FUNCTIONAL CONTENT BRIEF for a visual redesign. From the source documents that follow, extract compactly (markdown, max ~3500 words):
+1. Purpose (2 lines)
+2. Entry and exit paths
+3. Complete information architecture: every region top-to-bottom, every module
+4. Every feature and capability on the screen (miss nothing)
+5. UI copy worth keeping (verbatim strings)
+6. Data fields and metrics, each with its data source
+7. All screen states mentioned (loading, empty, error, success, disabled, variants)
+8. Interactions, gestures, motion intents
+9. Free vs premium gating
+10. Cross-domain hooks (correlations, AI insights, links to other life areas)
+CRITICAL: the coach persona is renamed CIA (never SIA) - rename every occurrence. EXCLUDE all old visual styling (colors, gradients, fonts, old component names) - functional content only. If the source contradicts itself, flag the contradiction explicitly rather than silently picking one side. Source documents follow.

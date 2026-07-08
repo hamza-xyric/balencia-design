@@ -1,0 +1,68 @@
+{
+  "id": "61",
+  "name": "Reminders & tasks",
+  "route": "No live route; stack-pushed task and reminder hub opened from Home, Schedule, Me, or CIA Chat.",
+  "shell": "dark",
+  "annotation": "Reminders & Tasks is the execution ledger for promises the member doesn't want to lose — a stack-pushed hub opened from Home, Schedule, Me, or CIA Chat, never a live route of its own. The Today completion band is the singular focal moment; today's checklist, upcoming items, active reminders, and the completed collapse stay quiet, legible, and source-specific beneath it. Every ratio, count, due time, and reminder state renders as real, low-confidence, or honest-null — never a fabricated value. The TopBar plus target is the single source-appropriate CTA, opening create/edit sheets; the optional CIA suggestion carries its own evidence chip and never displaces real data.",
+  "italicWord": "tasks",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System status bar, dark bg #0A0A0F."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 48,
+      "build": "Back target 44px L. Title 'Reminders & tasks' (Display/H1, Newsreader Medium Italic on 'tasks'). Below: ChipProvenance 'synced 10m ago'. Plus target 44px R opens create/edit Sheet."
+    },
+    {
+      "region": "Completion Band",
+      "y": 92,
+      "h": 120,
+      "build": "SolidCard #211008 r28. Label 'Today' + '6 of 9 done'. ProgressBar draws to '67%', green #34A853 glow, draw-first motion. KPIRow: 'done 6', 'open 3'. ChipProvenance 'via tasks sync'."
+    },
+    {
+      "region": "Today Checklist",
+      "y": 224,
+      "h": 168,
+      "build": "SolidCard #211008 r28. Overline 'TODAY'. ListRows: 'o 9:30 Take medication' [Health tag], 'o 12:45 Walk after lunch' [Fit tag], 'x 8:00 Check resting HRV' (muted, green check). CheckboxControl 44px targets; announced not done/done/syncing, never by color alone."
+    },
+    {
+      "region": "Upcoming & Active Reminders",
+      "y": 402,
+      "h": 224,
+      "build": "SolidCard #211008 r28. Overline 'UPCOMING', ListRow 'Tomorrow book lab follow-up'. Overline 'ACTIVE REMINDERS 3/4'. ListRows: 'medication reminder' (Toggle on, green), 'wind-down reminder' (Toggle off, muted); toggle announces channel + next trigger time."
+    },
+    {
+      "region": "Completed Today",
+      "y": 638,
+      "h": 64,
+      "build": "SolidCard #211008 r28 continuation. Overline 'COMPLETED TODAY' with collapse chevron; collapsed by default, no rows rendered until expanded."
+    },
+    {
+      "region": "CIA Suggestion",
+      "y": 714,
+      "h": 100,
+      "build": "GlassCard (white 4.5% fill, border white 8%, r28), purple #7F24FF glow. Copy: 'A five-minute stretch fits before your appointment.' Actions: '[Add]' BtnSecondary, '[Ask CIA]' BtnGhost. ChipProvenance 'via schedule + goals'."
+    }
+  ],
+  "belowFold": [
+    "Expanded 'Completed Today' reveals the full list of completed rows (muted text, green checks, strikethrough) scrolling below the collapsed summary; count updates live as tasks complete."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Today completion ratio: real = done/total with ChipProvenance 'via tasks sync'; low-confidence mutes the ratio with 'estimated · low confidence' while cached rows reconcile; honest-null hides the completion band until at least one task exists.",
+    "Done and Open counts: real = exact live counts (ChipProvenance 'via tasks sync'); low-confidence mutes cached counts during offline reconciliation; honest-null shows '--' with 'No tasks for today yet.'",
+    "Task rows: real = title, due time, recurrence, and domain tag from user data; low-confidence labels the due time 'time may shift' when timezone is unresolved; honest-null shows 'unscheduled' rather than inventing a time.",
+    "Active reminders roll-up: real = '3 of 4 on' from reminder toggles; low-confidence reads 'syncing reminder states'; honest-null reads 'No active reminders yet.'",
+    "Reminder channels: real = Push/Email/SMS chip shown only after consent is granted, ChipProvenance 'you allowed'; no low-confidence state (permission is binary); honest-null hides the chip with row copy 'choose a delivery channel.'",
+    "CIA suggestion: real = ChipProvenance 'via schedule + goals'; low-confidence dims the card with a ConfidenceMeter; honest-null omits the card entirely rather than showing filler.",
+    "TopBar freshness chip 'synced 10m ago' communicates last full sync; all checkbox, toggle, plus, back, and drag targets meet the 44px minimum, and checkbox state is announced as 'not done', 'done', or 'syncing', never by color alone."
+  ],
+  "notes": "Plus target (TopBar, 44px R) is the single source-appropriate CTA, opening a Sheet for create/edit task and reminder forms; back target (TopBar, 44px L) pops the stack. Shell: bg #0A0A0F, top-center amber radial glow rgba(255,94,0,.18), grain 3-4%. Swipe right completes a task row; swipe left reveals Edit/Delete; long-press lifts a row for reordering; pull-to-refresh requests a sync. Completion bar fills with draw-first motion over 520ms; checkmark strokes draw before the row slides into the Completed collapse. Haptics: light on completion, medium on reorder drop, success notification when an offline queue syncs. Disabled: create/edit sheet Save sits at 40% opacity until required fields are valid. Offline: cached lists stay interactive; queued writes show 'saving when online' until sync completes. Reduced motion: row slides, bar fills, and reorder springs snap to final static states; status changes still update text and haptics."
+}

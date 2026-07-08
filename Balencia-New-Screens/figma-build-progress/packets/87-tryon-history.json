@@ -1,0 +1,81 @@
+{
+  "id": "87",
+  "name": "Try-on history",
+  "route": "/wellbeing/virtual-tryon/history",
+  "shell": "dark",
+  "annotation": "HIFI-87 · /wellbeing/virtual-tryon/history · dark shell — warm base #0A0A0F, top-center amber radial glow, 3-4% grain. GlassStatCard hero (saved looks / oldest photo / delete queue) is the dominant focal moment per Focal Hierarchy, visually singular, not one tile among many; the two LookTimelineRow entries and CIAInsightCard stay as quiet operational evidence below.",
+  "italicWord": "history",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System standard, transparent over dark shell atmosphere: #0A0A0F base, warm amber radial glow top-center, 3-4% grain."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "BtnGhost [chevron-left] 44px 'Back' | H1 'Try-on *history*' (Newsreader Medium Italic on 'history', the screen's one emphasis word) | trailing 44px filter glyph (opens Sheet) + 44px overflow '...' -> delete-all."
+    },
+    {
+      "region": "GlassStatCard",
+      "y": 100,
+      "h": 140,
+      "build": "GlassCard r28-40, glow-you (orange, user-owned saved looks). Body 'Saved looks: 7' / 'Oldest photo: 18 days' / 'Delete queue: clear'. ChipProvenance 'via try-on history provenance'. Honest-null at zero saved looks: counts hidden, 'No saved looks yet.'"
+    },
+    {
+      "region": "SegmentedTabs",
+      "y": 240,
+      "h": 48,
+      "build": "SegmentedTabs, 44px targets: [All] [Saved] [Shared] [Deleting] ('All' selected). Crossfades timeline content 160ms on tap, same route, scroll position preserved."
+    },
+    {
+      "region": "LookTimelineRow — May 21 · Linen evening look",
+      "y": 288,
+      "h": 152,
+      "build": "SectionHeader Overline 'MAY 21'. SolidCard #211008 r24, LookTimelineRow: [thumb] + H3 'Linen evening look' + ChipProvenance 'source: upload' + ChipProvenance 'render: 82%'. BtnPrimary 'Reuse look' + BtnGhost 'Delete look' (44px targets)."
+    },
+    {
+      "region": "LookTimelineRow — Workday clean fit",
+      "y": 440,
+      "h": 152,
+      "build": "SolidCard #211008 r24, LookTimelineRow: [thumb] + H3 'Workday clean fit' + ChipProvenance 'source deleted' + ChipProvenance 'generated kept'. BtnPrimary 'Restore prompt' + BtnGhost 'Delete look' (44px); reuse disabled 40% opacity, reason 'source photo deleted'."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 592,
+      "h": 96,
+      "build": "Purple glass, glow-cia. Label 'CIA'. Body 'CIA: your saved neutral palette matches three recent outfit notes.' Shown only with >=2 saved looks + preference source (real); one look = muted low-confidence; no provenance = card hidden (honest-null)."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating pill, fixed overlay: 'Today · CIA · Goals · Me', 44px targets, overlays scroll content per canon. iOS Home Indicator, white 30%, final element."
+    }
+  ],
+  "belowFold": [
+    "Footer (SolidCard, always available incl. free tier): BtnGhost 'Export data' + destructive-styled BtnGhost 'Delete all try-on data' (opens confirmation sheet naming the exact saved-look and source-photo count affected; paper-toned, no red text per canon).",
+    "Sheet (filter / row overflow entry point): filter detail, row long-press menu ('Reuse look' / 'Restore prompt' / 'Delete look'), and consent detail linking to source-photo retention terms.",
+    "Sheet (export / delete-all entry point): plain-language confirmation naming exact saved-look and source-photo counts before 'Delete all try-on data' executes; 'Export data' packages saved looks plus provenance metadata."
+  ],
+  "imageSlots": [
+    {
+      "id": "HIFI-87-01",
+      "desc": "Try-on history privacy-safe try-on imagery, Balencia warm-dark glass UI asset; privacy-safe, non-diagnostic, no identifiable person, no brand logos, no readable UI text."
+    }
+  ],
+  "trustControls": [
+    "Saved look count triple — real: generated-asset count + ChipProvenance (e.g. 'Saved looks: 7'); low-confidence: muted count + 'sync stale'; honest-null: 'No saved looks yet.'",
+    "Source photo status triple — real: 'retained' / 'deleted' / 'pending delete' + timestamp; low-confidence: 'deletion queue unconfirmed'; honest-null: source photo never stored, no claim shown.",
+    "Render confidence triple — real: generation confidence + model timestamp (e.g. 'render: 82%'); low-confidence: flagged by scan or incomplete metadata, muted; honest-null: older imported look shows no render-confidence line.",
+    "Sharing state triple — real: exported/shared timestamp; low-confidence: 'OS share sheet opened, completion unknown'; honest-null: 'never shared', no claim shown.",
+    "CIA recommendation triple — real: at least two saved looks plus preference source; low-confidence: exactly one look, muted; honest-null: no look provenance, card hidden entirely.",
+    "Source chips (thumbnail long-press, row overflow, filter sheet) name category, source, scope, freshness, retention, export, revoke, and delete before any synced or photo-derived read is trusted.",
+    "Media is consent-gated throughout: no identifiable face, body, home, document, provider logo, or private text appears without explicit permission; reveal actions require an intentional tap."
+  ],
+  "notes": "Upstream cheap-worker draft was unusable (GLM HTTP 529 overloaded error, no packet content) — this packet was built directly from the spec plus COMPACT-CANON.md/COMPONENT-CATALOG.md conventions, the same resolution pattern already used for HIFI-44 and HIFI-58 under the identical failure. Typeface superseded per canon: Hanken Grotesk stand-in replaces the spec's 'Neue Montreal', Newsreader Medium Italic replaces 'Tiempos italic' for the one emphasis word. Italic word 'history' is placed in the TopBar title 'Try-on *history*' — the Visual System explicitly names '*history*' as the screen's one emphasis moment, and 'Try-on history' is the only literal on-screen string it can attach to (the Final Composition ASCII never renders the asterisked form directly). Shell kept dark: the spec's Visual System commits unambiguously to '#0A0A0F' + amber radial glow with no Figma Reference Alignment override present in this spec, so no warm-light parity applies. Module cap (8) pushes the footer ('Export data' / 'Delete all try-on data') and its filter/export/delete sheets below the fold, consistent with the floating GlassNavBar occupying y756-844; the two LookTimelineRow entries and CIAInsightCard stay above the fold per Focal Hierarchy's dominant-focal-moment-plus-quiet-operational-layer split. hasFab: false — the spec's 'single source-appropriate CTA' is satisfied per row ('Reuse look' / 'Restore prompt' as BtnPrimary), not a floating global FAB. Glow-you (orange) on the hero GlassStatCard reflects user-owned saved-look counts (member effort, per canon glow mapping); glow-cia (purple) stays reserved for the CIA card and only appears once >=2 saved looks with preference-source evidence exist. States not modularized (8-module cap, spec-true): Skeleton (thumbnail skeletons match row aspect ratio; hero counts shimmer, never show fabricated numbers). Empty (HonestNullState routes to /wellbeing/virtual-tryon, explaining no look has been generated yet). Error (cached rows remain visible with an OfflineBanner/SyncStatus and retry; delete stays available if local identifiers are valid). Success (reuse opens screen 86 with the prompt pre-loaded; delete flashes --glow-done and the row moves to delete-pending or disappears). Disabled (reuse/share/delete render at 40% opacity with a stated reason, e.g. 'source photo deleted', whenever image, consent, sync, or entitlement blocks the action). Motion: hero settles first, then timeline rows rise in a 40ms stagger on load; SegmentedTabs crossfade timeline content in 160ms while preserving scroll position; row long-press or overflow opens a Sheet, delete requires confirmation with haptic firing only after completion; thumbnail tap opens the Image Viewer [67] overlay with no autoplay or animated preview in the list; reduced-motion disables row cascade and thumbnail crossfade, delete state changes render instantly with text confirmation only. Route kept verbatim: '/wellbeing/virtual-tryon/history', no alternate vanity route."
+}

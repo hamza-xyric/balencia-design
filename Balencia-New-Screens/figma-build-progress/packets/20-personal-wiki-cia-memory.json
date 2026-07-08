@@ -1,0 +1,82 @@
+{
+  "id": "20",
+  "name": "Personal Wiki / CIA Memory",
+  "route": "/wiki",
+  "shell": "dark",
+  "annotation": "HIFI-20 · /wiki · dark shell, top-center amber radial glow, floating nav pill. Book-of-life correlation graph is the singular focal moment; entry list stays quiet and legible below it.",
+  "italicWord": "*life*",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "TopBar",
+      "y": 0,
+      "h": 100,
+      "build": "Standard iOS status bar (44px), then a transparent top bar (56px) gaining .glass-pill backdrop on scroll. Left: [<-] back chevron. Center: 'book of *life*' (Display 34, 'life' in Newsreader Medium Italic). Right: [] settings glyph, labeled 'wiki data and consent settings.' 44px targets."
+    },
+    {
+      "region": "GlassPillInput (search)",
+      "y": 104,
+      "h": 48,
+      "build": "Search pill, glass fill. Placeholder: 'search memories...'. 44px target. Active: tabs dim to 40%, results flatten across chapters with a chapter badge, [x] clears query."
+    },
+    {
+      "region": "SegmentedTabs (scroll-overflow)",
+      "y": 160,
+      "h": 36,
+      "build": "Horizontal scroll-overflow tabs, 6 segments exceed 390px width: 'you', 'pref', 'patt', 'corr', 'goal', 'lif'. Active 'corr' = --surface-3 fill + orange label, slides 150ms per tap. 44px hit area per pill."
+    },
+    {
+      "region": "SectionHeader",
+      "y": 204,
+      "h": 24,
+      "build": "Overline/Caption meta: '18 entries  last updated 2h ago'. No ChipProvenance — entry count is exact first-party metadata, not an external/AI source; honest-null is '0 entries', 'nothing here yet'."
+    },
+    {
+      "region": "GlassCard (hero, r40)",
+      "y": 228,
+      "h": 140,
+      "build": "WikiCorrelationGraph mini-map, glow-cia breathing (4s ease infinite). Nodes: sleep, spend, fiber. Solid orange edges = confirmed, dashed purple = CIA-inferred, rare green dot = milestone edge. Draws outward from center hub on mount; nodes stagger 20ms, edges stroke-draw 520ms."
+    },
+    {
+      "region": "SolidCard (gut health & sleep)",
+      "y": 376,
+      "h": 156,
+      "build": "glow-cia chroma wash. Title: 'gut health & sleep'. Body: 'high-fiber breakfasts correlate with deeper sleep on the same night.' Tags: [nutrition] [wellbeing]. ConfidenceMeter 8 bars (8/8), '78% high confidence'. ChipProvenance: 'detected from data 2d ago'. BtnGhost row: '[edit]' '[this is wrong]'."
+    },
+    {
+      "region": "SolidCard (workout skips & sleep debt)",
+      "y": 540,
+      "h": 124,
+      "build": "glow-cia. Title: 'workout skips & sleep debt'. Body: 'you skip workouts most often after nights under six hours of sleep.' Tags: [fitness] [wellbeing]. Same SolidCard honesty pattern as the card above; its ConfidenceMeter, ChipProvenance, and BtnGhost row continue below the fold (see belowFold)."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 88,
+      "build": "Floating nav pill: 'Today', 'CIA', 'Goals', 'Meo' — active 'Meo' orange fill, 44px targets. Standard iOS home indicator bar docked beneath it."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "SolidCard (list continuation)",
+      "y": 664,
+      "h": 180,
+      "build": "Completes the 'workout skips & sleep debt' card with its ConfidenceMeter, ChipProvenance, and BtnGhost row ('[edit]' / '[this is wrong]'), then continues the 18-entry correlations list with further SolidCard rows scrolling beneath the floating GlassNavBar."
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Every CIA evidence chip explains why the source was used — chips carry category, source, scope, freshness, retention, export, revoke, and delete.",
+    "'this is wrong' BtnGhost opens the Flagging Sheet (BtnSecondary actions) to correct low-confidence synthesis.",
+    "Delete Sheet holds the single destructive BtnPrimary for clearing recommendation history, with a heavy warning haptic — the Flagging Sheet carries no such haptic, since only deletion is irreversible.",
+    "Navigation stays aligned to /wiki only; no alternate vanity routes."
+  ],
+  "notes": [
+    "Component split preserved: the permanent, scrollable chapter list always uses SolidCard (dense, legible, per CANON 2); CIAInsightCard is reserved only for the transient purple-glass reveal anchored to the mini-map when a graph node is tapped — never the list itself.",
+    "Honesty triple: entry count is an exact integer with no ChipProvenance (first-party metadata, not an external/AI source), honest-null '0 entries' / 'nothing here yet'. Confidence score carries the full triple: real '78% high confidence' + chip 'detected from data 2d ago'; low-confidence '42% low confidence' at 64% opacity with muted bars, copy 'CIA is less *sure* - tell it if this is wrong'; honest-null '-', 0/8 bars (neutral gray), 'needs more data to score'.",
+    "Error state corrected from the draft's red flash to 150ms --surface-3 brighten + thin orange accent border + light haptic, copy \"couldn't save your changes - try again\" — no red exists in this palette.",
+    "Offline corrected: search stays active over cached entries (not disabled); OfflineBanner reads 'offline - showing last sync 2h ago'; edits/flags queue locally with a pending-sync dot on the affected card; pull-to-refresh disabled (nothing new to fetch).",
+    "Graph nodes expose aria-label in full sentences (e.g., 'confirmed connection between sleep and spending, 78 percent confidence'), never just a node name; ChipDomainTag pairs are never the sole signal of a connection since body copy states the relationship in words."
+  ]
+}

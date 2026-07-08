@@ -1,9 +1,12 @@
 <!-- TEMPLATE — How to use (FRAMEWORK.md §C11.1):
-  A slash command is a quick, repeatable action. Like a skill but simpler (no bundled files).
+  A Claude slash command is a quick, repeatable action. Like a skill but simpler (no bundled files).
   Place at:
     .claude/commands/<name>.md       (project, shared via git)  → invoked as /<name>
     ~/.claude/commands/<name>.md      (personal, all projects)
   Subdirectories namespace it: .claude/commands/release/ship.md → /release:ship
+  Codex note: repo-defined custom slash commands are not the shared workflow surface. For Codex
+  workflow wrappers, create `.agents/skills/forgeflow-<name>/SKILL.md` and point it to the
+  same `runbooks/<name>.md`; ordinary project skills can still use `.agents/skills/<name>/SKILL.md`.
   Substitutions in the body: $ARGUMENTS (all args), $1 $2 $3 (positional), $name (from `arguments`).
   !`cmd` injects shell output before the model runs; @path injects a file's contents.
   Replace <PLACEHOLDER>s and delete this comment. -->
@@ -19,6 +22,8 @@ argument-hint: "[<arg1>] [<arg2>]"
 # <Command Name>
 
 Goal: <one line>.
+
+Shared runbook: `runbooks/<name>.md`.
 
 ## Context (optional — injected before the model acts)
 - Current status: !`<fast read-only command>`

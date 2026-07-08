@@ -1,0 +1,61 @@
+{
+  "id": "48",
+  "name": "Intelligence Dashboard",
+  "route": "/wellbeing/insights",
+  "shell": "dark",
+  "annotation": "HIFI-48 · /wellbeing/insights · dark shell, top radial orange glow. Your Daily Intelligence hero (score ring + provenance) is the singular focal moment; active contradictions, a 5x5 cross-domain correlation matrix, trend, best-day formula, weekly report, and tomorrow's outlook sit below as quiet, source-specific evidence — every metric real, low-confidence, or honest-null, never fabricated.",
+  "italicWord": "dashboard",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, dark mode, light icons."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Sticky glass-pill. Left: 44px back chevron. Center: 'Intelligence' (H2). Right: 44px trailing glyph (aria-label 'manage data sources') opens the data/consent menu."
+    },
+    {
+      "region": "Hero - Your Daily Intelligence",
+      "y": 100,
+      "h": 230,
+      "build": "GlassCard hero, radius 40, glow-you (orange breathing shadow). Overline 'YOUR DAILY INTELLIGENCE'. ProgressRing (120pt), score '87', caption '+3 from yesterday', 'updated 2h ago'. Provenance chip 'via WHOOP, you logged'. Row of 4 GlassStatCard sparklines: 'Fit', 'Nutr', 'Well', 'Fin' (solid orange lines, auto-synced)."
+    },
+    {
+      "region": "Active Contradictions",
+      "y": 342,
+      "h": 150,
+      "build": "SectionHeader 'Active contradictions'. CIAInsightCard (glow-cia, purple). Copy: 'You report 8h sleep, but WHOOP shows 5.5h.' Provenance: 'sleep log vs. WHOOP data'. BtnCoach 'resolve' (purple, CIA) + BtnGhost 'x' (dismiss)."
+    },
+    {
+      "region": "Cross-Domain Patterns",
+      "y": 502,
+      "h": 240,
+      "build": "SectionHeader 'Cross-domain patterns' + BtnGhost 'legend'. SolidCard containing 5x5 CorrelationMatrix (top 5 active domains, 5x5 cap). Matrix visualizes reinforcing (green) vs competing-for-attention (orange) via fill and opacity (diagonals non-interactive neutral). Same card, ranked ListRow beneath: 'On days you meditate, stress is 40% lower.' with trailing thumbs-up/down feedback toggles."
+    }
+  ],
+  "belowFold": [
+    "Trend chart (~y742-952): SectionHeader 'Trend' + SegmentedTabs '7d / 14d / 30d' (44px targets). SolidCard containing TrendChart: solid orange 'you' line, dashed purple 'projected' line, green milestone dot.",
+    "Best day formula (~y952-1092): SectionHeader 'Your best day formula'. GlassCard, glow-done (green, completion-themed — not glow-you). Factors 'x 7h sleep', 'x meditate', '+2 more'; segmented ProgressBar showing '4/5 factors'.",
+    "Weekly report (~y1092-1212): SectionHeader 'Weekly report' + BtnGhost 'see all'. Collapsed SolidCard KPIRow: 'Fitness 82', 'Nutrition 74', 'Well 90'. Expands to a 9-tile SolidCard BentoGrid (2-col, gap 12, no per-tile glow).",
+    "Tomorrow's outlook (~y1212-1332): SectionHeader 'Tomorrow's outlook'. GlassStatCard, glow-cia (purple). Large metric '91', caption 'AI projected'. Sub-copy: 'based on your Wednesday patterns'.",
+    "Recent insights (~y1332-1482): SectionHeader 'Recent insights'. Stack of CIAInsightCards (glow-cia) with thumbs-up/down feedback BtnGhost toggles.",
+    "Knowledge graph nav (~y1482-1542): ListRow, nav-only, no glow. Leading icon, label 'explore your health knowledge graph', trailing chevron; opens Knowledge Graph [72]."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Daily score honesty triple — real: '87' with delta '+3 from yesterday' and provenance chip 'via WHOOP, you logged'; low-confidence: 64%-opacity ring + 'estimated · low confidence' caption; honest-null: faint ghost track, '-' at center, 'Not enough data yet - 3 more days.'",
+    "Pillar sparkline honesty triple — real: solid orange line + 'auto-synced' chip; low-confidence: solid line + 'estimated' caption; honest-null: hidden entirely for days 1-3 rather than shown as a broken/ghost line.",
+    "Every CIA evidence chip (contradictions, insights) explains why the source was used and marks low-confidence synthesis; the contradictions section hides entirely — rather than showing an empty state — when none exist.",
+    "Source/consent chips expose category, source, scope, freshness, retention, export, revoke, and delete; reachable via the TopBar's trailing data-source glyph (aria-label 'manage data sources') and per-card chip taps.",
+    "Recommendation history is deletable from data management; resolving a contradiction removes only that card, never the underlying log.",
+    "Offline: cards keep last-known values with provenance chips intact, labeled 'you're offline - showing last sync 2h ago' — staleness is always labeled, never hidden.",
+    "Free tier renders the whole route through a full-screen PaywallLock (20px blur, single BtnPrimary 'Unlock with premium') — never a redirect or dead end; all interactive targets (resolve/x/thumbs/SegmentedTabs/chevron/glyph) honor the 44px minimum."
+  ],
+  "notes": "Shell: warm dark base #0A0A0F with top-center orange radial glow (rgba(255,94,0,.18)) and 3-4% grain. Hero ProgressRing stays orange (glow-you) throughout — this is a daily score, not a progress-to-goal metric, so it never flips green. Correction: the Best Day Formula card uses glow-done (green, completion-themed), not glow-you, per the spec's explicit annotation. Cross-domain patterns consolidates the CorrelationMatrix and its ranked ListRow coaching copy into one SolidCard (never a flat/glass sandwich); the matrix is capped to the user's 5 most-active domains (5x5, diagonals neutral/non-interactive) — the full 9-domain map lives one tap away at Knowledge Graph [72]. Matrix cells scale to 0.95 on tap and surface coaching copy in a popover; contradiction cards also support swipe-left to dismiss. Honesty triples are maintained everywhere: real metrics carry a provenance chip ('via WHOOP', 'you logged', 'auto-synced'), low-confidence metrics show 'estimated · low confidence' at reduced opacity, and missing metrics show 'Not enough data yet' rather than a fake placeholder. Free tier renders the entire route through a full-screen PaywallLock, never a dead end. Accessibility: 44px minimum targets on all controls, AA+ contrast maintained, and screen readers get one grouped summary for the ProgressRing/TrendChart/matrix cells (e.g. 'Intelligence score 87, up 3 points from yesterday') rather than raw path data. Route stays exactly /wellbeing/insights — no alternate vanity route."
+}

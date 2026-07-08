@@ -1,0 +1,73 @@
+{
+  "id": "03b",
+  "name": "OTP Verification",
+  "route": "/auth/verify",
+  "shell": "light",
+  "annotation": "HIFI-03b · /auth/verify · warm-light auth shell (peach blush corners, white cards, ink text)",
+  "italicWord": "email",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status",
+      "y": 0,
+      "h": 44,
+      "build": "Status Bar: Time / Battery"
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 44,
+      "build": "Transparent variant, single leading chevron (44px target), no title, no trailing actions. Stays transparent for the whole screen life — this canvas never scrolls."
+    },
+    {
+      "region": "title",
+      "y": 100,
+      "h": 70,
+      "build": "Balencia | Verify your *email* | We sent a 4-digit code to j***@... (honest-null fallback if address payload missing: 'We sent a 4-digit code to your email.')"
+    },
+    {
+      "region": "otp_input",
+      "y": 190,
+      "h": 80,
+      "build": "4 circular 54-58px cells (12px gaps), white fill, 1px warm-gray ring, centered digit/dash. Cell 1 (focus): 1.5px burnt-orange border + soft glow bleed (--glow-you). Error: solid 2px burnt-orange border, no glow."
+    },
+    {
+      "region": "status_text",
+      "y": 280,
+      "h": 20,
+      "build": "Empty / invisible by default. On error: paper-100 status copy appears below cells — not a danger color, the copy itself carries the warmth."
+    },
+    {
+      "region": "resend",
+      "y": 310,
+      "h": 40,
+      "build": "Resend code (0:59) — ChargeMeter depleting orange fill + tabular countdown; BtnGhost resend label (orange, 44px target), disabled/muted while draining. Success: 'Code sent', meter snaps full with --glow-done flash, resumes orange drain."
+    },
+    {
+      "region": "cta",
+      "y": 756,
+      "h": 68,
+      "build": "verify. (BtnPrimary, orange fill, full width, 52pt tall). Disabled 40% opacity until 4 digits present. Loading = spinner-only, no text label. Success = 600ms green pulse, then push to 03c."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "Masked email (j***@email.com) prevents account enumeration; honest-null fallback 'We sent a 4-digit code to your email.' if the address payload is missing — never fabricates a fake address",
+    "ChargeMeter honest-null: resend cooldown stays hidden until the server confirms the code actually dispatched — no countdown ever shown for a code that may not exist yet",
+    "No skeleton state — no server-fetched layout to mask; a skeleton here would be theater, not honesty",
+    "OfflineBanner variant reuses the one catalog honest-status pattern (no bespoke toast fragment) for both the offline and rate-limited cases",
+    "Rate-limited variant drops CTA, cells, and resend to 40% opacity (standard catalog disabled value, not bespoke) with a live-region countdown inside the banner",
+    "Expired, invalid, and rate-limited states never reveal whether another email has an account"
+  ],
+  "notes": [
+    "Route strictly aligned to /auth/verify — no alternate vanity routes",
+    "Figma alias 'Opt Verification' is a typo; treat as OTP verification in canonical copy, never propagate the typo into production labels",
+    "Dark glass OTP cells are a theme variant only; the Figma-aligned build uses white circular cells with 1px warm-gray rings",
+    "Error (invalid code): solid 2px burnt-orange border, NO glow — glow is reserved for active/positive states; a breathing glow on a wrong code would read as 'good, keep going'",
+    "Shake (3 oscillations) only triggers on the 3rd consecutive miss; cells clear and focus returns to cell 1",
+    "BtnPrimary loading is spinner-only (label -> spinner, width locked) — no 'Verifying' text label",
+    "Reduced motion: shake skipped; breathing/pulsing glows replaced by static equivalents (fixed 1.5px orange focus border, fixed 2px orange error border)"
+  ]
+}

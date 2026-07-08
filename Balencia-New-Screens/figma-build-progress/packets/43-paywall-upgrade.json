@@ -1,0 +1,75 @@
+{
+  "id": "43",
+  "name": "paywall-upgrade",
+  "route": "/subscription, /upgrade, /locked/[pageKey]",
+  "shell": "dark",
+  "annotation": "HIFI-43 · /subscription, /upgrade, /locked/[pageKey] · dark shell w/ CIA purple glow",
+  "italicWord": "*upgrade*",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Scrim & Drag Handle",
+      "y": 0,
+      "h": 334,
+      "build": "rgba(10,10,15,.6) scrim overlay; drag handle centered y330 h4 w40 bg #FEFAF3 opacity 20%"
+    },
+    {
+      "region": "Glass Sheet",
+      "y": 334,
+      "h": 510,
+      "build": ".glass-frost sheet r28 top corners, full width; 4.5% fill, 8% border, 1px inner highlight"
+    },
+    {
+      "region": "Contextual Headline",
+      "y": 350,
+      "h": 60,
+      "build": "H2 24px 'unlock CIA's *upgrade*' centered Paper-100 #FEFAF3; Caption 12px 'You have reached the free tier limit' centered opacity 60%"
+    },
+    {
+      "region": "Blurred Preview (PaywallLock)",
+      "y": 415,
+      "h": 135,
+      "build": "GlassCard r20; PaywallLock blur(20px) on attempted feature; center lock icon 28px #FF5E00; Caption 12px 'Premium feature'"
+    },
+    {
+      "region": "Feature Matrix",
+      "y": 555,
+      "h": 150,
+      "build": "SolidCard #211008 r24; PricingMatrixRow headers Overline 11px 'free | plus | pro'; Plus column highlight 1px border #7F24FF; matrix rows 36px height"
+    },
+    {
+      "region": "BtnPrimary & Terms",
+      "y": 710,
+      "h": 76,
+      "build": "BtnPrimary full width 'Start 7-day free trial' #FF5E00 glow; Caption 12px '$20/mo. cancel anytime' centered; ChipProvenance 'via app store' label"
+    },
+    {
+      "region": "Ghost Exits",
+      "y": 790,
+      "h": 54,
+      "build": "Stacked column, centered: BtnGhost 'Compare all plans' then BtnGhost 'Maybe later'; both Paper-100 opacity 60%, equal visual weight (non-coercive exit)"
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "Source chips (ChipProvenance) on money/billing data include category, source, scope, freshness, retention, export, revoke, and delete, per spec Consent and Safety",
+    "No false urgency: trial CTA 'Start 7-day free trial' pairs with visible terms '$20/mo. cancel anytime' — never hidden or fine-printed",
+    "Equal visual weight applied to both dismissal actions — 'Compare all plans' and 'Maybe later' — same centering/opacity, non-coercive exit",
+    "Price honest-null: 'Price unavailable' + HonestNullState 'we couldn't reach billing - try again later' replaces the price — never a fabricated number",
+    "Trial honest-null: CTA falls back to 'Upgrade to Plus' direct-purchase copy (never a false trial offer) when the API confirms trial ineligibility"
+  ],
+  "notes": [
+    "Entrance: sheet springs up 250ms, grid headers fade in; matrix cells settle and Plus column --glow-cia blooms once; prices count up from 0, CTA fades in last. Total ~2.5-2.8s, calm structural reveal.",
+    "Physical easing: sheet slides down proportional to drag velocity — fast flick dismisses, slow drag springs back. Purple matrix glow breathes on a 4s ease in/out cycle (CIA-active signal, not urgency).",
+    "Error (IAP failure): CTA reverts from spinner to standard BtnPrimary; red text 'Purchase failed - try again or contact support.' below.",
+    "Error (offline): cached matrix stays visible behind OfflineBanner 'Showing saved plans - reconnect to update prices.'; CTA disabled at 40% opacity.",
+    "Success: CTA fills BtnSuccess forest green (#34A853) with checkmark, holds 1.5s, sheet slides down and auto-dismisses. No confetti overlay.",
+    "Skeleton: grid geometry preserved; SkeletonState blocks on pricing tiles, ghost pills on matrix cells; delay >1.5s shows 'Loading your plans' (state-scoped italic on 'plans', distinct from the default composition's single italic word 'upgrade').",
+    "Comparison Matrix Features bullet in the source spec ends with no listed rows (spec truncated) — tier headers and the Plus-column CIA highlight are spec-true; individual feature-row copy is not fabricated.",
+    "PricingMatrixRow is a custom ListRow variant built for nested three-point (Free/Plus/Pro) alignment, promoted per the spec's own component rationale.",
+    "Accessibility (per spec): Paper-100 (#FEFAF3) on --surface-2 (#211008) = 15.8:1; Paper-50 (#FDFDFB) on --glow-cia purple = 6.2:1 — both AA+ pairs.",
+    "Corrections vs. draft: ghost-exit copy re-cased to the spec's exact quoted strings 'Compare all plans' / 'Maybe later' (draft had lowercased 'compare all plans' / 'maybe later'); added honest-null price/trial trust controls and OfflineBanner/error copy the draft omitted."
+  ]
+}

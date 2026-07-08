@@ -1,0 +1,212 @@
+# 26-fitness-workouts-dashboard
+
+## 1. Header
+- **Screen ID:** 26
+- **Name:** Fitness & workouts dashboard
+- **Route(s) covered:** `/activity`, `/workouts`
+- **Tab:** Today (Active)
+- **Source:** Functional Content Brief (corrected for CIA persona and signature hierarchy)
+- **Batch:** 11
+
+## 2. Purpose
+To serve as the physical command center, integrating CIA-generated workout prescriptions with honest wearable data (WHOOP). It establishes the canonical "Domain Dashboard" architecture, prioritizing recovery metrics (the true *signature* moment) over trend lines (*workhorse*), guiding the user safely toward their next physical action without overwhelming them.
+
+## 3. Entry & exit
+- **Entry paths:** 
+  - Explore [18] via stack push
+  - CIA Chat [09] via deep-link
+  - Home Screen [12] via action card
+  - Life Areas Overview [16] via domain tap
+- **Exit paths:**
+  - Workout Detail / Active Workout [27] via "Start workout" CTA
+  - CIA Chat [09] via Coaching Note tap
+  - Goals List [13] via "View all"
+  - Goal Detail [14] via goal row tap
+  - Connected Services [22] via WHOOP retry/connect prompts
+  - Create/Edit Goal [15] via empty state action
+  - RPG Character [19] via Level badge tap
+  - *Correction:* FAB "+ Log workout" pushes to a **NEW:** `Screen 27.5 (Manual Log Flow)` rather than [27], cleanly separating planned active workouts from manual historical logging. 
+
+## 4. Layout anatomy
+Top-to-bottom regions:
+1. **TopBar:** Transparent header with back chevron, RPG level badge, screen title.
+2. **CIA Insight Region:** Contextual purple-glass card bridging recovery data to action.
+3. **Recovery Signature Region:** Solid elevated card containing the hero gauge and secondary metrics, bathed in warm atmosphere.
+4. **Today's Plan Region:** Glass card containing the prescribed workout and primary CTA.
+5. **Goals Region:** Clean list of active progress bars.
+6. **Weekly Intelligence Region:** Solid data-dense cards (KPIs, Bar Chart, Trend Chart, Heatmap).
+7. **Global Navigation:** Floating glass bottom nav.
+8. **Overlays:** Floating Action Button (FAB), system network banner.
+
+**ASCII Wireframe (390x844):**
+```text
+        [≡]    [Lv.12]    [⚙]
+  Fitness & *workouts*        (Header: Transparent)
+
+┌──────────────────────────────┐
+│  ╱ CIA Note                  │  (Glass, Purple Glow)
+│  Recovery is high. Good day  │
+│  for *intensity*.            │
+│  [via WHOOP]   [Ask CIA →]   │
+└──────────────────────────────┘
+
+┌──────────────────────────────┐
+│ YOUR RECOVERY        [via ⌬] │  (Solid, Warm Glow)
+│      ╭───────╮               │
+│     │   78%   │              │
+│      ╰───────╯               │
+│  ┌────────┐  ┌────────┐      │
+│  │ Sleep  │  │  HRV   │      │
+│  │  84%   │  │  52ms  │      │
+│  └────────┘  └────────┘      │
+│  Intensity Charge: ████░ 78% │
+└──────────────────────────────┘
+
+┌──────────────────────────────┐  (Glass, Orange Glow)
+│ TODAY'S WORKOUT              │
+│ Upper body strength  · 45m   │
+│ [Back] [Chest] [Arms] →      │
+│ ┌──────────────────────────┐ │
+│ │      Start workout →     │ │ (BtnPrimary)
+│ └──────────────────────────┘ │
+└──────────────────────────────┘
+
+ACTIVE GOALS                 View all
+  Bench press 125kg   ████░░ 80%
+  Run 5k under 25m    ██░░░░ 40%
+
+THIS WEEK
+┌───────────┬───────────┬──────┐
+│ Workouts  │ Active m  │ Kcal │ (KPIRow)
+│    4      │    120    │ 950  │
+│ ▲ up 1    │    —      │ ▲ 40 │
+└───────────┴───────────┴──────┘
+
+┌──────────────────────────────┐
+│ WEEKLY VOLUME                │  (SolidCard)
+│   ▐▐     ▐▐ ▐▐               │  (Ghost ticks vs solid bars)
+└──────────────────────────────┘
+
+┌──────────────────────────────┐
+│ ACTIVITY TREND               │  (SolidCard)
+│    ╱─╲      ╱╲ ╱─╲ ╱─ • • •  │  (Living-Line + CIA projection)
+└──────────────────────────────┘
+
+┌──────────────────────────────┐
+│ CONSISTENCY (last 4 weeks)   │  (SolidCard)
+│ ░░▒▒▓▓░▒▓▓▒▒▓▓▓▒░▒▓▓▒▒▒▓▓░  │  (Heatmap)
+└──────────────────────────────┘
+                              
+                  (   +   )    FAB (Quick-log)
+ [Today] [CIA] [Goals] [Me]    Floating Glass Nav
+```
+
+## 5. Components
+- **TopBar:** Back chevron, H1 title, level badge (tap target ≥44px).
+- **CIAInsightCard:** Default purple-tinted glass variant.
+- **NEW: RecoveryGaugeCluster:** A `SolidCard (elevated)` housing a `ProgressRing` (96px), two secondary 48px banded rings, and a `ChargeMeter`. *Rationale:* The brief designates this as the "signature" moment requiring bespoke atmospheric layout rather than standard discrete cards.
+- **GlassCard:** `hero` variant (radius 40) for the workout plan.
+- **BtnPrimary:** "Start workout" CTA.
+- **SectionHeader:** Overline + H2 + trailing `BtnGhost` for goals.
+- **ProgressBar:** 2-3 inline active goals.
+- **KPIRow:** 3 mini-stats sharing a `SolidCard`.
+- **NEW: VolumeBarChart:** Compact bar chart juxtaposing solid bars (this week) against ghosted dashed ticks (last week). *Rationale:* Canon mandates simple, honest data-viz without fabricated 3D gradients.
+- **TrendChart:** `Living-Line` (orange solid) + CIA projection (dashed purple). Acts as a workhorse.
+- **NEW: StreakHeatmap:** A `SolidCard` containing a GitHub-style 4-week consistency grid. *Rationale:* Native data-viz requirement not covered by standard catalog line/ring components.
+- **FABQuickLog:** Routes to manual logging.
+- **GlassNavBar:** 4-tab floating pill.
+
+## 6. Visual treatment
+- **Atmosphere:** `--bg-base` (#0A0A0F) bathed in the mandatory top-center warm radial glow `radial-gradient(90% 60% at 50% -10%, rgba(255,94,0,.18), transparent 60%)` with 3% soft-light grain.
+- **Recovery Signature Region (SolidCard elevated):** Background shifts to `--bg-warm` (#0C0603). A deep, breathing bottom-anchored radial `glow-you` (orange, blur 24px, height 62%) meaning: *effort, active state, primary physical energy.*
+- **CIA Note (GlassCard):** `glow-cia` (#7F24FF) meaning: *AI-derived intelligence bridging health data to action.*
+- **Today's Plan (GlassCard):** `glow-you` (#FF5E00) meaning: *user's immediate target.*
+- **The Hero Type Moment:** "Fitness & *workouts*" in the TopBar. Workouts is rendered in Tiempos Medium italic, anchoring the screen's identity seamlessly above the data.
+- **Color Balance:** 60% paper text / warm backgrounds, 30% orange (progress, active states), 10% purple (CIA elements).
+
+## 7. Content & copy
+All strings sentence case. One Tiempos italic emphasis `*word** per moment. 
+*(Correction applied: all instances of "CIA" changed to "CIA" per global identity rule).*
+
+- **H1 Header:** Fitness & *workouts*
+- **CIA Insight Card:** 
+  - "Your recovery is high today (78%). Good day for *intensity*."
+  - "Ready to build your *routine*? Here's what I suggest."
+- **Today's Plan (Rest Day variant):** 
+  - "Rest day. Your body recovers *stronger* than before."
+- **Recovery Metrics:** 
+  - "Your recovery"
+  - "Intensity *charge*"
+- **Goals & Stats:** 
+  - "Active goals"
+  - "This week"
+- **Manual Log FAB (Accessibility Label):** "Log workout"
+- **Honest Nulls:** 
+  - "Tell CIA about your fitness *goals*"
+  - "Connect WHOOP for recovery *insights*"
+  - "No fitness goals yet. Create your first to track *momentum*."
+  - "Your streak starts *today*"
+  - "Calibrating — building your *trend*"
+- **System States:**
+  - "CIA is reading your week — one *moment*."
+  - "Syncing with *WHOOP*..."
+
+## 8. Data & honesty states
+Every metric respects the 3-state honesty invariant (Real, Low-confidence, Honest-null). Ghosted dashed arcs are used for missing wearable data, explicitly distinguishing it from low values.
+
+- **Recovery (%):** 
+  - *Real:* "78%" + ChipProvenance `via WHOOP`
+  - *Low-confidence:* "78%" (muted 64%) + `estimated · low confidence`
+  - *Honest-null:* "—" (ghosted dashed ring) + `Not synced`
+- **Sleep / HRV:** Follows exact same 3-state provenance architecture.
+- **Weekly Stats (Workouts/Min/Kcal):**
+  - *Real:* "4" + delta "▲ up 1" (green).
+  - *Low-confidence:* Delta muted out, showing only "—" if unverified.
+  - *Honest-null:* "0" + Caption "Log your first workout".
+- **Weekly Volume Bar Chart:** Solid orange bars for verified data. Un-logged days render as dashed ghosted ticks (no false zeros).
+- **6-Week Trend Chart:** Orange solid line for history. Dashed purple line for CIA projection (next week). Empty state renders an HonestNullState inside the chart frame: "Calibrating — building your trend".
+
+## 9. All states
+- **Default:** Full dashboard rendered natively.
+- **Skeleton:** Depth-preserving shimmer blocks. Gauge rings draw via radial shimmer. Trend chart line uses L-to-R wipe animation.
+- **Empty / Cold-start:** CIA motivational card. Workout card displays starter prompt to [09]. Gauges render as ghosted dashed arcs (no-data ≠ 0%). Heatmap renders single dot: "Your streak starts today."
+- **Error:** Failed cards retain physical depth and glow but show inline text links. WHOOP failure: "Could not load WHOOP data. *Retry*?" No harsh red errors, no user blame.
+- **Offline:** Cached data retained. Top banner: `OfflineBanner` ("offline — showing last sync 2h ago"). Pull-to-refresh visually dimmed and disabled.
+- **Success:** Initiating "Start workout" transitions the CTA to a brief green glow before routing.
+- **Disabled:** BtnPrimary shows 40% opacity if data requirements for a workout are utterly unavailable.
+
+## 10. Motion & interaction
+- **Easing & Timing:** Physical easing only (never linear). Feedback animations restricted to 150-250ms.
+- **Draw-First Order (On Load):** Recovery gauge fills via radial sweep (520ms) → Secondary gauges draw → KPIs count up → Bar chart bars rise (300ms) → 6-week TrendChart draws itself L-to-R (1200ms) → Dashed CIA projection draws last → Heatmap cells stagger in (40ms delay each).
+- **Glow "Breathe":** The Recovery Signature card features a slow (4s) continuous subtle pulse of its orange `glow-you` to signal active physical energy.
+- **Gestures:** Tap (UI), Edge swipe (back), Horizontal swipe (exercise chips), Long-press (trend chart crosshair).
+- **Scroll Intent:** On scroll-down, the Quick-log FAB translates down 16px + fades to 0 opacity. Reverses instantly on scroll-up.
+- **Haptics:** Light impact on CTA press, medium impact on long-press chart crosshair.
+- **Reduced Motion:** All charts appear instantly at their final drawn state. The Living-Line trend is rendered fully static with its CIA projection visible. FAB scroll-hiding is disabled (remains fixed).
+
+## 11. Motivation-tier adaptation
+- **Low Density (Minimalist):** Hides Weekly Volume and 6-week Trend Chart. Displays only the Recovery Gauges and Today's Workout Card. Limits exercise chips to 3. 
+- **Medium Density (Default):** The exact layout spec detailed in Section 4.
+- **High Density (Premium / Athlete):** Unlocks expanded tiles in the KPIRow (PRs, resting HR, respiratory rate). Adds a `Sparkline` micro-trend beneath the lead goal. Expands the Heatmap to a 12-week view. 
+
+## 12. Accessibility
+- **Contrast:** Adheres to AA+. Paper-100 (#FEFAF3) on `--surface-2` (#211008) provides >12:1 contrast. Paper-50 on Glass is verified.
+- **Targets:** All interactive elements (chevrons, chips, CTAs) exceed the 44x44px minimum touch target, aided by invisible padding where glyphs are smaller.
+- **Screen-reader labels:** Glyph-only components (FAB, back chevron, settings gear) include explicit `aria-labels` (e.g., `Log workout`, `Navigate to previous screen`). 
+- **Data Integrity:** Chart axis and heatmaps utilize sufficient border/background contrast to be parsed by users with color-vision deficiencies without relying solely on hue (ghost ticks vs solid ticks).
+
+## 13. Premium checklist
+1. **Connects?** Yes. CIA card explicitly bridges WHOOP domain data to fitness domain action. Badges link to overarching RPG progression.
+2. **Honest?** Yes. Strict adherence to 3-state metrics. Dashed ghost ticks and arcs physically separate "no data" from "zero".
+3. **Premium?** Yes. Atmospheric warm radial glow, selective glass tiers, and bespoke gauge hierarchy establish a high-fidelity, funded-product aesthetic.
+4. **Exact hexes?** Yes (#0A0A0F, #FF5E00, #34A853, #7F24FF, #FEFAF3, etc.).
+5. **Exact blur/radii?** Yes (Glass r40, Solid r28, 28px blur on standard glass).
+6. **One glow per card?** Yes. Stated explicitly per region in Section 6.
+7. **60/30/10 rule?** Yes. Background/Paper (60), Orange metrics (30), Purple AI elements (10).
+8. **Selective glass?** Yes. Data-dense charts use SolidCards; CIA/Workout navigation uses GlassCards.
+9. **Honesty invariant?** Yes. Verified in Section 8.
+10. **One primary CTA?** Yes. "Start workout" is the singular BtnPrimary.
+11. **One hero type moment?** Yes. "Fitness & *workouts*" in Tiempos italic.
+12. **CIA voice rules?** Yes. Sentence case, zero exclamation marks, exact strings used (CIA corrected to CIA).
+13. **Catalog used?** Yes. Only 3 bespoke data-viz components added (flagged NEW).
+14. **Motion & a11y compliant?** Yes. Reduced-motion path defined; AA+ and 44px targets verified.

@@ -1,0 +1,74 @@
+{
+  "id": "09",
+  "name": "CIA Chat",
+  "route": "/ai-coach",
+  "shell": "dark",
+  "annotation": "HIFI-09 · /ai-coach · dark shell (#0A0A0F) + top-center amber radial glow; ChatComposer is the dominant focal moment fixed above GlassNavBar; CIA glass bubbles carry cross-domain synthesis, user turns are solid orange, and every claim carries provenance or honest-null.",
+  "italicWord": "sleep",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Status bar, dark."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent until scroll; left title 'CIA.' (H1 30); right icons search, mic (44px targets); top-center amber radial glow rgba(255,94,0,.18)."
+    },
+    {
+      "region": "opening_turn",
+      "y": 100,
+      "h": 120,
+      "build": "Overline 'today' centered, uppercase 11. CIA glass bubble below (white 4.5% fill, border white 8%, r24): 'CIA  Good morning, Amira. Your *sleep* and workout load are connected.' (Body 15; *sleep* Newsreader Medium Italic, purple #7F24FF)."
+    },
+    {
+      "region": "inline_artifact",
+      "y": 220,
+      "h": 156,
+      "build": "InlineArtifactCard, glass r28, purple #7F24FF synth glow top-left. Title 'Connection spotted' (H3 20). Row 'sleep 6h 12m' + ChipProvenance 'via Health'. Row 'workout load 8/10' + ChipProvenance 'via you logged'. ChipDomainTag '[fitness]' (orange 16% bg), '[wellbeing]' (green 16% bg)."
+    },
+    {
+      "region": "reply_turn",
+      "y": 376,
+      "h": 76,
+      "build": "User bubble, solid #FF5E00: 'You  What should I change today?' (Body 15, paper text). Below: 'CIA is thinking...' caption 12, muted, opacity pulse."
+    },
+    {
+      "region": "chip_rail",
+      "y": 452,
+      "h": 40,
+      "build": "Horizontal scroll suggestion chips: '(tell me more)', '(show goals)', '(log meal)' — glass pills, border white 8%, 44px targets; selected chip fills orange then becomes a user message."
+    },
+    {
+      "region": "composer",
+      "y": 692,
+      "h": 56,
+      "build": "ChatComposer fixed above GlassNavBar, glass r28: text input placeholder 'message CIA'; right icon mic with VoiceMicGlow (purple #7F24FF); dims 40% when offline, rate-limited, permission-blocked, or a destructive sheet is open."
+    },
+    {
+      "region": "glass_nav",
+      "y": 756,
+      "h": 68,
+      "build": "GlassNavBar floating pill (dark glass): 'Today', 'CIA' (active, orange #FF5E00 underline/glow), 'Goals', 'Me' — 44px targets."
+    }
+  ],
+  "belowFold": [
+    "Older conversation history (scroll-up): day separators, CIA glass bubbles, user orange bubbles, and InlineArtifactCards continue above the visible thread; pull-to-load gesture at top.",
+    "Skeleton state while older history or cards load: message rows and artifact geometry shimmer in final geometry, never a spinner-only placeholder."
+  ],
+  "imageSlots": [
+    "HIFI-09-01 — CIA chat avatar (36px circle in CIA bubble header or top bar); premium warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text; fallback initial 'C' in purple #7F24FF circle."
+  ],
+  "trustControls": [
+    "Long-press message opens action Sheet: audience, visibility, report, mute, block, own-content delete.",
+    "Tap ChipProvenance opens source sheet: category, source, scope, freshness, retention, export, revoke, delete, and 'why CIA used this' explanation.",
+    "Tap mic triggers ConsentCard naming microphone, transcript, retention, export, revoke, delete before capture.",
+    "Low-confidence synthesis labelled 'estimated · low confidence', muted; no cross-domain insight card renders when fewer than two evidence chips exist (honest-null)."
+  ],
+  "notes": "Shell: dark #0A0A0F + top-center orange radial rgba(255,94,0,.18); selective glass on CIA bubbles, artifact, composer, and nav — dense/solid elsewhere.\nComposer is the dominant focal moment — one visually singular element, not one tile among many.\nType: Hanken Grotesk for UI; one Newsreader Medium Italic emphasis word, *sleep*, in the first CIA message.\nDisabled: composer dims 40% when offline, rate-limited, permission-blocked, or a destructive action sheet is open.\nOffline: cached history stays readable; sends queue only on explicit retry; OfflineBanner shown; composer dimmed.\nError: failed sends, logs, cards, and pull-to-load failures each preserve existing history and expose retry/delete inline.\nContrast: paper text on chat bubbles and dark base clears AA+; composer, send, mic, chips, TopBar glyphs, artifact cards, and nav meet 44px targets."
+}

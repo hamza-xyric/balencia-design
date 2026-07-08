@@ -1,0 +1,73 @@
+{
+  "id": "03d",
+  "name": "Complete profile",
+  "route": "No live route; social-auth data-gap step inside the pre-auth onboarding stack.",
+  "shell": "dark",
+  "annotation": "HIFI-03d · no live route (social-auth data-gap step) · dark shell — top-center amber radial glow over #0A0A0F, spec-declared override of the 03x auth-family warm-light default",
+  "italicWord": "details",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar '9:41' + battery/signal glyphs, paper-toned over the dark amber-radial atmosphere; no CIA badge (pre-auth data-gap step has no personalized read)."
+    },
+    {
+      "region": "brand_mark",
+      "y": 44,
+      "h": 56,
+      "build": "Balencia wordmark centered, paper-100 #FEFAF3, Hanken Grotesk Semibold 20/26. No TopBar, no back control — account already exists via OAuth; skip is the only escape hatch."
+    },
+    {
+      "region": "heading",
+      "y": 100,
+      "h": 82,
+      "build": "H1 30/36 Hanken Grotesk Semibold paper-100 #FEFAF3: 'A few more *details*.' ('details' = Newsreader Medium Italic, --glow-you orange #FF5E00). Sub Body 15/22 #EAE3DC @70%: 'These help CIA personalize safely.'"
+    },
+    {
+      "region": "cia_insight_card",
+      "y": 182,
+      "h": 104,
+      "build": "CIAInsightCard glass (white 4.5% fill, border white 8%, r24), --glow-cia purple #7F24FF (glow only — composition shows note copy directly, no header label). Body 15/20 #EAE3DC: 'CIA will use these only for age-aware and profile-aware care.' ChipProvenance (plain text, no domain-tag bg): 'profile data · you entered'."
+    },
+    {
+      "region": "picker_rows",
+      "y": 298,
+      "h": 124,
+      "build": "Two GlassPillInput read-only picker rows, r16, stacked. Row 1 overline #EAE3DC@55% 'date of birth', value #EAE3DC 'Not provided yet' (honest-null), chevron opens DOB Sheet. Row 2 overline 'gender', value 'Not provided yet', chevron opens gender Sheet."
+    },
+    {
+      "region": "name_fields",
+      "y": 434,
+      "h": 56,
+      "build": "Two GlassPillInput text fields side by side, r16 — this row renders only because Google/Apple omitted these values. Placeholder 'first name' / 'last name', overline #EAE3DC@55%, empty by default (honest-null); no OAuth chip shown until a confident provider value arrives."
+    },
+    {
+      "region": "readiness_progress",
+      "y": 506,
+      "h": 44,
+      "build": "ProgressBar readiness for DOB + gender. Overline 11 uppercase #EAE3DC@55%: 'readiness'. Track #211008, fill --glow-you orange #FF5E00 (~50%). Caption 12 #EAE3DC@70%: '1 of 2' (Empty-state variant reads '0 of 2')."
+    },
+    {
+      "region": "actions",
+      "y": 656,
+      "h": 108,
+      "build": "BtnPrimary full-width r999 #FF5E00 fill, paper-50 label Semibold 16 'save details' (52pt, exceeds 44px min). Success: --glow-done green flash, then push to [03c]. Below: BtnGhost centered #EAE3DC@70% Body 15 'skip for now' (44px target)."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [
+    "HIFI-03d-01 — avatar or message-attachment slot (screen-specific, premium warm-dark product placeholder). Prompt: Complete profile avatar or social proof placeholders, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Required consent unchecked until explicit action",
+    "Optional fields (DOB, gender, name) are fully skippable — 'skip for now' stays valid even with everything empty",
+    "No audience, visibility, report, mute, or block controls — pre-social, pre-auth data-gap step only",
+    "Source chips (category, source, scope, freshness, retention, export, revoke, delete) surfaced from Settings, not on this screen",
+    "Route handoff limited to the no-live-route social-auth data-gap step inside the pre-auth onboarding stack; no vanity route invented",
+    "DOB and gender never guessed from provider data — always honest-null 'Not provided yet' until explicitly chosen"
+  ],
+  "notes": "Shell confirmed dark: 03d sits in the 03x auth-family numbering (default assumption warm-light), but the spec's own Visual System section explicitly commits to warm dark base #0A0A0F + top-center amber radial glow + grain — the spec-declared override wins, consistent with how 03c and 03e were corrected. Italic word resolved to 'details' (literal Final Composition heading copy, 'A few more *details*.') over the Visual System's generic '*profile*' label, which does not appear anywhere as literal rendered copy. Removed two non-canon fabricated hex colors from the draft, #B8B0A8 and #8A8278 — neither appears in any other packet in this build — replaced with the established dark-shell palette: paper-100 #FEFAF3 for the wordmark/heading, and paper-tone #EAE3DC at reduced opacity (@70% for body/caption, @55% for uppercase overlines) for secondary/muted text, matching 03e's identical 'muted #EAE3DC @70%' convention. Dropped the draft's unsupported '(hidden for auth)' annotation on the status bar — the Final Composition literally renders '9:41' at the top, and canon requires a status bar on every screen. Removed the domain-tag-style orange 16% background the draft applied to ChipProvenance chips (both the CIA card's 'profile data · you entered' and the name fields' 'from Google') — that 16%-tint treatment is reserved for ChipDomainTag life-domain tags per canon; ChipProvenance across every other packet in this build is plain text with no heavy fill, so both instances were corrected to match. Dropped a fabricated 'CIA insight' overline label on the CIAInsightCard — not present in the literal composition, which shows the evidence copy directly with no header line. Corrected name_fields: the draft invented sample OAuth values ('Member' / 'Account') and a 'from Google' provenance chip with no basis in the spec or composition; the brief's OAuth-gap-filling rule states this row renders ONLY when the provider omitted the name, and the spec's Default state reads 'empty missing fields' — so by definition the row must show two empty placeholder inputs (honest-null), never a fabricated pre-filled provider value; the OAuth-chip variant from Data Honesty applies only once a confident provider value actually arrives, which is not the default render. BtnPrimary label color corrected from #FFFFFF to paper-50 and CTA height aligned to 52pt, matching 03c/03e's established BtnPrimary sizing (still clears the spec's 44px minimum target). Consolidated the DOB+gender picker rows into one 'picker_rows' module and the primary CTA + skip link into one 'actions' module to bring the module count from the draft's 10 down to the required ≤8 cap, without dropping any content. Preserved the literal composition's readiness readout ('1 of 2', ~50% fill) for the default render; the States section's distinct 'Empty' state explicitly reads '0 of 2' when both fields are unset, noted as a variant. Route kept verbatim from the spec's Header field ('No live route; social-auth data-gap step inside the pre-auth onboarding stack.') — no vanity route invented. No overflow past y844 (layout ends at y764); belowFold stays empty. hasNav=false / hasFab=false: pre-auth data-gap step, no Today/CIA/Goals/Me tab pill, single BtnPrimary + ghost skip only per Focal Hierarchy's 'single source-appropriate CTA' rule."
+}

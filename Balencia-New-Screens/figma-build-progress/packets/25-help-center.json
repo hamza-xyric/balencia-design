@@ -1,0 +1,79 @@
+{
+  "id": "25",
+  "name": "Help center",
+  "route": "/help, /help/[slug]",
+  "shell": "dark",
+  "annotation": "HIFI-25 · /help, /help/[slug] · dark shell — the Visual System's own 'Warm dark base #0A0A0F' plus its glass-selective/solid-dense split ('Dense lists ... use solid surfaces') and the Accessibility section's dark/solid-surface contrast anchor are the production shell; no Figma Reference Alignment section exists in this spec (no live frame evidence), so the canon dark default applies with no override, same resolution precedent as HIFI-08/24. Ask CIA GlassCard is the singular dominant focal moment per Focal Hierarchy; SearchOverlay is the secondary layer; FAQ list and Contact support stay quiet operational evidence below.",
+  "italicWord": "center",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "Status bar, bg #0A0A0F, ink icons over dark shell."
+    },
+    {
+      "region": "header",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar, transparent over atmosphere. Back chevron (a11y 'Go back'). H1 'Help *center*' (one Newsreader Medium Italic word: center). Trailing optional ChipProvenance support-status pill, omitted entirely when no ticket exists (honest-null)."
+    },
+    {
+      "region": "search",
+      "y": 100,
+      "h": 52,
+      "build": "SearchOverlay field, 44px min-height. Placeholder 'Search help topics'. Focus opens grouped article results with ChipProvenance; clear (x) restores FAQ categories. No query = FAQ default view."
+    },
+    {
+      "region": "ask-cia",
+      "y": 156,
+      "h": 140,
+      "build": "GlassCard, glow-you orange inner glow, focal surface. Title 'Ask CIA'. Body 'Get instant answers from your coach. CIA knows Balencia help.' BtnPrimary 'Ask CIA' routes to CIA chat with help topic passed only on consent; else opens blank context (honest-null)."
+    },
+    {
+      "region": "faq-list",
+      "y": 300,
+      "h": 276,
+      "build": "SolidCard #211008, Overline 'FAQ', six ListRows (44px+ each, trailing '>'): 'Getting started', 'CIA and AI coach', 'Goals and tracking', 'Billing and subscription', 'Privacy and data', 'Troubleshooting'. Each pushes /help/[slug]."
+    },
+    {
+      "region": "contact-support",
+      "y": 580,
+      "h": 68,
+      "build": "SolidCard #211008. Copy 'Still need help? Contact support'. BtnSecondary 'Contact support' opens Sheet; discloses which account/contact info attaches. SLA chip: current SLA if real, 'service may be delayed' if low-confidence, or no promised time (honest-null)."
+    },
+    {
+      "region": "nav-bar",
+      "y": 756,
+      "h": 68,
+      "build": "GlassNavBar, floating pill r28, pinned: 'Today' · 'CIA' · 'Goals' · 'Me' (active), 44px targets."
+    },
+    {
+      "region": "home-indicator",
+      "y": 828,
+      "h": 16,
+      "build": "System home indicator, bg #0A0A0F, final element, no copy/controls."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "FAQ rows and article detail carry ChipProvenance for category and source; article detail adds freshness (updated date) and retention chips where data appears, per spec's 'category, source, scope, freshness, retention, export, revoke, and delete' list.",
+    "Search results carry ChipProvenance (indexed article match / partial index / no matches - honest-null) so the scope of what was searched is always disclosed.",
+    "Ask CIA handoff requires user consent before the help topic/query is exported to CIA; without consent it opens a blank help context (honest-null) — no fabricated context is ever passed.",
+    "Contact support discloses which account/contact info is attached (scope) before submission; an existing ticket is export/revoke/delete-eligible via its record.",
+    "SLA/response-time copy: real = current SLA shown; low-confidence = 'service may be delayed'; honest-null = no promised response time — never a fabricated ETA.",
+    "Disabled states (Ask CIA, search, Contact support) always state a reason — offline, signed-out restriction, or support outage — never a silent 40%-opacity dim with no explanation."
+  ],
+  "notes": [
+    "Italic word resolution: the spec carries two candidate Tiempos-italic moments — the Visual System section's explicit `*center*` (applied to the H1) and Section 7's `Ask *CIA*` (focal card copy from the underlying screens/25-help-center.md). Canon allows exactly one italic word per screen, so the Visual System's more specific, later designation wins: H1 reads 'Help *center*'. The Ask CIA card title stays plain 'Ask CIA' to avoid a second emphasis on this screen.",
+    "Type: Hanken Grotesk stand-in supersedes the spec's own 'Neue Montreal' label per canon; Newsreader Medium Italic supersedes 'Tiempos italic' — same substitution as sibling packets (e.g. HIFI-24).",
+    "Accessibility: search, clear, category rows, article links, Ask CIA, and Contact support are all wrapped to 44px minimum tap targets per spec Section 12. Paper-100 text/controls clear AA+ on both the dark atmosphere and #211008 solid surfaces. Screen readers announce article title, category, updated date, and route; search results announce match count.",
+    "Motion: search field appears first on load, Ask CIA card fades in next, FAQ rows stagger 40ms. Focused SearchOverlay replaces the FAQ list with grouped results; clearing restores categories. /help/[slug] pushes with a title-on-scroll header and related links. Contact support opens a Sheet and preserves the typed issue text if submission fails. Reduced-motion disables row stagger and card lift.",
+    "Conditional states not modularized (8-module cap, still spec-true): Skeleton (search stays live and interactive; article/category rows shimmer at their exact rendered heights). Empty (HonestNullState 'No matches found. Try asking CIA instead, or contact support.' — Ask CIA and Contact support remain reachable). Error ('Couldn't load help topics. Categories stay available.' — categories and contact card remain, only search/article shows the retry path). Success (support request submitted or article opened uses --glow-done #34A853 plus provenance). Disabled (Ask CIA, search, or Contact support dim to 40% opacity with the stated reason inline).",
+    "Article detail route /help/[slug] (title, body, updated-date ChipProvenance, related articles, Contact support) is a separate pushed view per the spec's own Layout anatomy region 5; it is referenced here for continuity but not modularized into this /help packet, consistent with the 8-module cap.",
+    "No overflow: last on-screen module (home-indicator) ends at y844, exactly at frame bottom; belowFold is empty because all Default-state content for /help fits above the fold."
+  ]
+}

@@ -41,5 +41,5 @@ Legend: **FINAL** = locked, do not re-litigate · **OPEN** = uncertain, carried 
 
 - [ ] Every decision that blocks the first build is **FINAL**.
 - [ ] All **OPEN** decisions are listed under "Open risks".
-- [ ] Source hierarchy + tie-breaker decided (see `CLAUDE.md`).
+- [ ] Source hierarchy + tie-breaker decided (see root `CLAUDE.md` and `AGENTS.md`).
 - [ ] Founding brief is self-contained.

@@ -1,0 +1,60 @@
+{
+  "id": "27",
+  "name": "Workout Detail - Active",
+  "route": "No live route; workout detail and manual logging are stacked sub-flows launched from Screen 26.",
+  "shell": "dark",
+  "annotation": "HIFI-27 · no live route (stacked sub-flow from Screen 26) · dark shell — warm base #0A0A0F, top-center amber radial glow, 3-4% grain (the spec's own 'premium active-session variant' override); the Figma Reference Alignment's Workouts/My Plan warm-light rhythm is language-derived evidence only, not direct frame truth — same resolution precedent as HIFI-08/24. ActiveExerciseCard hero is the singular focal moment; TopBar, MomentumBar, KPIRow, RestTimerSheet, and CIAInsightCard stay quiet, source-specific evidence around it.",
+  "italicWord": "steady",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 44,
+      "build": "Transparent over atmosphere. Exit (ghost) | Overline 'Exercise 2 of 5' | '12:04' | Pause (ghost icon, a11y 'Pause workout') | Stop (ghost icon, a11y 'Stop workout')."
+    },
+    {
+      "region": "MomentumBar",
+      "y": 100,
+      "h": 12,
+      "build": "SolidCard #211008 base. Progress track 60% fill. Accent: orange #FF5E00 glow."
+    },
+    {
+      "region": "KPIRow",
+      "y": 120,
+      "h": 80,
+      "build": "SolidCard base, data-dense. Tile 1: '135 BPM' (H3 20), ChipProvenance 'via WHOOP'. Tile 2: '8:30 /mi' (H3 20), ChipProvenance 'via Apple Watch'."
+    },
+    {
+      "region": "ActiveExerciseCard",
+      "y": 212,
+      "h": 260,
+      "build": "GlassCard (hero r40, breathing glow 4s ease, orange #FF5E00). Tag 'Fitness'. H1 'BACK SQUAT' (30). H3 'Set 3 of 5' (20). Label 'WEIGHT (lbs)' + GlassPillInput '185'; label 'REPS' + GlassPillInput '8'. Caption 'Last set: 185 x 8'. BtnPrimary 'Complete set' (orange)."
+    },
+    {
+      "region": "RestTimerSheet",
+      "y": 484,
+      "h": 48,
+      "build": "Glass-pill anchored floating, ring progress depletes ccw. '00:45 remaining' | BtnGhost 'Skip rest' (orange text, a11y 'Skip rest period')."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 544,
+      "h": 120,
+      "build": "GlassCard purple-tinted glass, glow-cia #7F24FF. Caption 'Keep your form *steady* through this set. Stop for sharp pain, dizziness, or chest pain.' Divider. Caption 'Next Up: Romanian Deadlift'."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [
+    "HIFI-27-01 - content proof or instructional media slot; screen-specific; privacy-safe, non-diagnostic, no identifiable person. Prompt: Workout Detail / Active Workout instructional media thumbnails, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+  ],
+  "trustControls": [
+    "Live metric chips open a health-source sheet: category, source, freshness, confidence, retention, export, revoke, delete.",
+    "Heart-rate honest-null: 'Connect a heart-rate sensor' + BtnGhost 'Connect device', card omitted from layout — never a fake 0 BPM; low-confidence variant mutes to 64% with 'estimated · low confidence'.",
+    "Pace honest-null: tile shows '-' ('Sensor not available'); last-set honest-null shows 'No previous set yet' with no comparison delta — never a fabricated delta or reading.",
+    "CIA copy explicitly lists 'Stop for sharp pain, dizziness, or chest pain' without gamifying or applying XP pressure.",
+    "TopBar carries explicit 'Stop workout' and 'Pause' controls at 44px minimum targets, each with an accessibilityLabel (glyph-only icons)."
+  ],
+  "notes": "Active Card uses a breathing glow (4s ease) to indicate the session timer is live, not literal ticking; prefers-reduced-motion disables the breathing glow and snaps the rest timer and summary visuals to their final static states. Offline error keeps BtnPrimary's shape but adds an orange outline (never red, to protect the calm aesthetic) with caption \"Couldn't save this set - you're offline. It will sync when you reconnect.\" Set completion triggers a 150ms scale-down (.98) plus a 600ms glow-done flash before auto-progressing, with medium haptic on set completion and heavy haptic on workout finish. hasNav/hasFab are false because this is a focused, stack-pushed active session rather than a tab destination — status bar and home indicator (y828) still persist per canon."
+}

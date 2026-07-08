@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balencia — CIA Onboarding · glass-dark v1 reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;1,400&family=Newsreader:ital,opsz,wght@1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  /* ============ glass-dark v1 tokens (COMPACT-CANON.md) ============ */
+  :root{
+    --bg-base:#0A0A0F; --bg-warm:#0C0603;
+    --surface-1:#140A05; --surface-2:#211008; --surface-3:#2A1510;
+    --orange:#FF5E00; --green:#34A853; --purple:#7F24FF;
+    --paper-100:#FEFAF3; --paper-50:#FDFDFB;
+    --t2:rgba(254,250,243,.64); --t3:rgba(254,250,243,.40);
+    --r-xl:28px; --r-2xl:40px; --r-pill:999px;
+    --sans:'Hanken Grotesk',-apple-system,sans-serif;      /* Neue Montreal stand-in */
+    --serif:'Newsreader',Georgia,serif;                     /* Tiempos stand-in */
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; gap:28px;
+    padding:48px 24px; background:#060608; font-family:var(--sans); color:var(--paper-100);
+  }
+
+  /* ============ comp chrome ============ */
+  .comp-label{text-align:center}
+  .comp-label .ov{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--t3)}
+  .comp-label h1{font-size:17px;font-weight:500;margin-top:6px;color:var(--t2)}
+  .comp-label h1 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--paper-100)}
+  .token-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;max-width:420px}
+  .token-chip{font-size:11px;color:var(--t3);border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--r-pill);padding:5px 12px;background:rgba(255,255,255,.03)}
+  .token-chip b{color:var(--t2);font-weight:500}
+
+  /* ============ phone ============ */
+  .phone{
+    position:relative; width:390px; height:844px; border-radius:54px; overflow:hidden;
+    background:var(--bg-base);
+    box-shadow:0 0 0 1px rgba(255,255,255,.07), 0 40px 120px rgba(0,0,0,.7), 0 8px 28px rgba(33,16,8,.5);
+    flex-shrink:0;
+  }
+
+  /* screen atmosphere: warm radial + CIA purple pool + grain */
+  .atmosphere{position:absolute;inset:0;background:
+      radial-gradient(90% 60% at 50% -10%, rgba(255,94,0,.18), transparent 60%),
+      radial-gradient(70% 44% at 50% 44%, rgba(127,36,255,.16), transparent 68%),
+      var(--bg-base);}
+  .grain{position:absolute;inset:0;opacity:.04;mix-blend-mode:soft-light;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  .screen{position:relative;height:100%;display:flex;flex-direction:column;padding:0 24px}
+
+  /* status bar */
+  .statusbar{height:54px;display:flex;align-items:flex-end;justify-content:space-between;
+    padding:0 8px 6px;font-size:14px;font-weight:500;color:var(--paper-50)}
+  .statusbar .icons{display:flex;gap:5px;align-items:center}
+  .statusbar svg{display:block}
+
+  /* top rail: back + progress dots + skip */
+  .toprail{height:52px;display:flex;align-items:center;justify-content:space-between}
+  .backbtn{width:44px;height:44px;display:flex;align-items:center;justify-content:flex-start;
+    background:none;border:none;color:var(--t2);cursor:pointer}
+  .dots{display:flex;gap:6px}
+  .dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.14)}
+  .dots span.active{background:var(--orange);width:18px;border-radius:var(--r-pill)}
+  .skip{font-size:14px;color:var(--t3);background:none;border:none;font-family:var(--sans);
+    cursor:pointer;min-height:44px}
+
+  /* ============ CIA presence orb ============ */
+  .orb-zone{display:flex;flex-direction:column;align-items:center;padding:8px 0 4px}
+  .orb{position:relative;width:104px;height:104px}
+  .orb .halo{position:absolute;inset:-36px;border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 50%, rgba(127,36,255,.34), transparent 70%);
+    filter:blur(18px);animation:breathe 4s ease-in-out infinite}
+  .orb .ring{position:absolute;inset:-12px;border-radius:50%;
+    border:1px solid rgba(127,36,255,.35);animation:breathe 4s ease-in-out infinite reverse}
+  .orb .core{position:absolute;inset:0;border-radius:50%;
+    background:
+      radial-gradient(58% 58% at 34% 28%, rgba(254,250,243,.85), rgba(254,250,243,0) 55%),
+      radial-gradient(90% 90% at 50% 65%, #7F24FF 0%, #3B0F86 58%, #150A2E 100%);
+    box-shadow:0 0 44px rgba(127,36,255,.45), inset 0 1px 0 rgba(255,255,255,.5);
+    animation:breathe 4s ease-in-out infinite}
+  .orb .flare{position:absolute;left:50%;bottom:-8px;width:76%;height:22px;transform:translateX(-50%);
+    background:radial-gradient(50% 100% at 50% 0%, rgba(255,94,0,.30), transparent 75%);
+    filter:blur(10px)}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+  .listening{margin-top:10px;font-size:12px;color:var(--t3);letter-spacing:.14em;
+    text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:8px}
+  .listening i{width:6px;height:6px;border-radius:50%;background:var(--purple);
+    animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+  /* ============ CIA opening line ============ */
+  .cia-line{padding:12px 2px 14px;text-align:center}
+  .cia-line h2{font-weight:500;font-size:28px;line-height:1.16;letter-spacing:-.01em;color:var(--paper-100)}
+  .cia-line h2 em{font-family:var(--serif);font-style:italic;font-weight:500}
+  .cia-line p{margin-top:8px;font-size:14px;font-weight:300;color:var(--t2);line-height:1.45}
+
+  /* ============ frost choice cards ============ */
+  .choices{display:flex;flex-direction:column;gap:14px}
+  .choice{
+    position:relative;overflow:hidden;text-align:left;cursor:pointer;
+    border-radius:var(--r-xl);padding:17px 18px;display:flex;gap:14px;align-items:flex-start;
+    background:rgba(255,255,255,.10);
+    -webkit-backdrop-filter:blur(48px) saturate(130%);backdrop-filter:blur(48px) saturate(130%);
+    border:1px solid rgba(255,255,255,.16);
+    box-shadow:0 8px 32px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.40), inset 0 0 14px 6px rgba(255,255,255,.06);
+    color:var(--paper-100);font-family:var(--sans);
+    transition:transform .2s cubic-bezier(.2,.8,.2,1);
+  }
+  .choice:active{transform:scale(.98)}
+  .choice .num{
+    flex-shrink:0;width:34px;height:34px;border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;
+    background:rgba(10,10,15,.55);border:1px solid rgba(255,255,255,.10);
+    font-size:14px;font-weight:500;color:var(--t2);font-variant-numeric:tabular-nums;
+  }
+  .choice h3{font-size:20px;font-weight:500;letter-spacing:-.01em}
+  .choice h3 em{font-family:var(--serif);font-style:italic;font-weight:500}
+  .choice .sub{margin-top:4px;font-size:14px;font-weight:300;color:var(--t2);line-height:1.45}
+  .choice .meta{margin-top:7px;font-size:12px;color:var(--t3);display:flex;gap:6px;align-items:center}
+  .choice .meta b{font-weight:500;font-variant-numeric:tabular-nums;color:var(--t2)}
+
+  /* selected: orange border + glow-you bleed (one glow, meaning: your effort choice) */
+  .choice.selected{border:1.5px solid rgba(255,94,0,.85)}
+  .choice.selected .num{background:var(--orange);color:var(--paper-50);border-color:transparent}
+  .choice.selected::after{
+    content:'';position:absolute;left:0;right:0;bottom:0;height:62%;pointer-events:none;
+    background:radial-gradient(120% 100% at 50% 120%, rgba(255,94,0,.55) 0%, transparent 70%);
+    filter:blur(24px);
+  }
+  .choice .check{margin-left:auto;flex-shrink:0;width:22px;height:22px;border-radius:50%;
+    border:1.5px solid rgba(255,255,255,.25);position:relative;z-index:1}
+  .choice.selected .check{border-color:var(--orange);background:var(--orange)}
+  .choice.selected .check::after{content:'';position:absolute;inset:0;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FDFDFB' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4 10-11'/%3E%3C/svg%3E") center/12px no-repeat}
+
+  /* ============ composer: glass pill + mic ============ */
+  .composer{margin-top:auto;padding:12px 0 8px;display:flex;gap:10px;align-items:center}
+  .pill-input{
+    flex:1;height:52px;border-radius:var(--r-pill);display:flex;align-items:center;padding:0 20px;
+    background:rgba(10,10,15,.55);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+    border:1px solid rgba(255,255,255,.10);
+    font-size:15px;font-weight:300;color:var(--t3);
+  }
+  .mic{
+    position:relative;width:52px;height:52px;border-radius:50%;flex-shrink:0;cursor:pointer;border:1px solid rgba(255,255,255,.12);
+    background:rgba(10,10,15,.55);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+    display:flex;align-items:center;justify-content:center;color:var(--paper-100);
+  }
+  .mic::before{content:'';position:absolute;inset:8px;border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 60%, rgba(255,94,0,.55), transparent 75%);filter:blur(6px)}
+  .mic svg{position:relative;z-index:1}
+
+  /* ============ CTA ============ */
+  .cta-zone{padding:4px 0 6px;display:flex;flex-direction:column;gap:6px;align-items:center}
+  .btn-primary{
+    width:100%;height:52px;border:none;border-radius:var(--r-pill);cursor:pointer;
+    background:var(--orange);color:var(--paper-50);
+    font-family:var(--sans);font-size:16px;font-weight:500;letter-spacing:.01em;
+    box-shadow:0 10px 30px rgba(255,94,0,.28);
+    transition:transform .15s cubic-bezier(.2,.8,.2,1);
+  }
+  .btn-primary:active{transform:scale(.98)}
+  .ghost{background:none;border:none;color:var(--t3);font-family:var(--sans);font-size:13px;
+    font-weight:300;cursor:pointer;min-height:44px}
+  .ghost em{font-family:var(--serif);font-style:italic;color:var(--t2)}
+
+  .home-indicator{height:24px;display:flex;align-items:center;justify-content:center}
+  .home-indicator i{width:132px;height:5px;border-radius:var(--r-pill);background:rgba(254,250,243,.28)}
+
+  @media (prefers-reduced-motion: reduce){
+    .orb .halo,.orb .ring,.orb .core,.listening i{animation:none}
+  }
+</style>
+</head>
+<body>
+
+  <div class="comp-label">
+    <div class="ov">Balencia · glass-dark v1 · reference comp</div>
+    <h1>07 — meet <em>CIA</em> · onboarding depth choice</h1>
+  </div>
+
+  <div class="phone">
+    <div class="atmosphere"></div>
+    <div class="grain"></div>
+
+    <div class="screen">
+      <div class="statusbar">
+        <span>9:41</span>
+        <span class="icons">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="7" width="3" height="5" rx="1" fill="#FEFAF3"/><rect x="5" y="5" width="3" height="7" rx="1" fill="#FEFAF3"/><rect x="10" y="2.5" width="3" height="9.5" rx="1" fill="#FEFAF3"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#FEFAF3" opacity=".35"/></svg>
+          <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#FEFAF3" opacity=".4"/><rect x="2" y="2" width="14" height="8" rx="2" fill="#FEFAF3"/><path d="M22.5 4v4c1-.3 1.5-1.1 1.5-2s-.5-1.7-1.5-2z" fill="#FEFAF3" opacity=".4"/></svg>
+        </span>
+      </div>
+
+      <div class="toprail">
+        <button class="backbtn" aria-label="Back">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="dots" role="progressbar" aria-label="Step 3 of 5" aria-valuenow="3" aria-valuemin="1" aria-valuemax="5">
+          <span></span><span></span><span class="active"></span><span></span><span></span>
+        </div>
+        <button class="skip">skip</button>
+      </div>
+
+      <div class="orb-zone" aria-hidden="true">
+        <div class="orb">
+          <div class="halo"></div>
+          <div class="ring"></div>
+          <div class="core"></div>
+          <div class="flare"></div>
+        </div>
+        <div class="listening"><i></i>cia is listening</div>
+      </div>
+
+      <div class="cia-line">
+        <h2>How deep do you<br>want to go <em>today</em>?</h2>
+        <p>Both paths end in a plan built around your whole life. You can always go deeper later.</p>
+      </div>
+
+      <div class="choices" role="radiogroup" aria-label="Onboarding depth">
+        <button class="choice selected" role="radio" aria-checked="true">
+          <span class="num">01</span>
+          <span>
+            <h3><em>Quick</em> start</h3>
+            <div class="sub">Pick your life areas and one goal each. CIA fills the gaps as you go.</div>
+            <div class="meta"><b>~1 min</b> · areas + goals</div>
+          </span>
+          <span class="check" aria-hidden="true"></span>
+        </button>
+
+        <button class="choice" role="radio" aria-checked="false">
+          <span class="num">02</span>
+          <span>
+            <h3>Go <em>deep</em></h3>
+            <div class="sub">A real assessment — CIA asks follow-ups and maps how your areas connect.</div>
+            <div class="meta"><b>~10–15 min</b> · assessment + follow-ups</div>
+          </span>
+          <span class="check" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="composer">
+        <div class="pill-input">type your answer instead…</div>
+        <button class="mic" aria-label="Answer by voice">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/></svg>
+        </button>
+      </div>
+
+      <div class="cta-zone">
+        <button class="btn-primary">Continue with Quick</button>
+        <button class="ghost">why CIA asks — <em>connection</em> beats tracking</button>
+      </div>
+
+      <div class="home-indicator"><i></i></div>
+    </div>
+  </div>
+
+  <div class="token-row">
+    <span class="token-chip">bg <b>#0A0A0F</b> + warm radial</span>
+    <span class="token-chip">frost <b>blur 48</b> · card <b>r28</b></span>
+    <span class="token-chip">glow-you <b>#FF5E00</b> (selected)</span>
+    <span class="token-chip">CIA pool <b>#7F24FF</b></span>
+    <span class="token-chip">type <b>HG↔NM</b> · <b>Newsreader↔Tiempos</b> italic</span>
+    <span class="token-chip">grain <b>4%</b> soft-light</span>
+  </div>
+
+</body>
+</html>

@@ -1,16 +1,35 @@
-<!-- TEMPLATE — reviewer persona (the "is this clear, honest, and safe?" lens). Rename/retarget freely. -->
+<!-- TEMPLATE — reviewer persona. Rename/retarget to your domain's clarity, privacy, safety, or trust lens. -->
 
 # Content & Trust Reviewer
 
-## Focus
-Judge copy clarity, honesty, consent/privacy, emotional safety, and sensitive-data respect.
+## Mission
 
-## Questions
-- Is the copy clear, specific, and free of overpromise or manipulation?
-- Are sensitive asks (data, permissions, money) explained with a reason-for-ask, at a moment the user understands the value?
-- Are consent/permission moments placed and worded respectfully? Is opt-out/disconnect clear?
-- Do error/empty/permission states respect the user?
-- Is anything coercive, dark-pattern, or misleading?
+Judge whether the work is clear, honest, respectful, safe, and privacy-aware.
 
-## Output
-Record clarity, consent-timing, privacy, and emotional-safety findings, with the exact copy/flow at fault and a respectful alternative.
+## Review Focus
+
+- Specific, non-misleading language.
+- Consent, permissions, privacy, and sensitive data handling.
+- Error, empty, degraded, and refusal states.
+- User trust, emotional safety, and avoidance of dark patterns.
+
+## Evidence Required
+
+- Exact copy, UI state, API behavior, policy text, or data flow under review.
+- Source of authority for sensitive claims, legal requirements, or trust promises.
+
+## Output Format
+
+Record trust findings with ID, status, severity, finding, evidence/source, owner, blocked work, next action, and closure condition. Include replacement wording or behavior when helpful.
+
+## Can Block
+
+- Misleading or overpromising language.
+- Unclear consent or permission flows.
+- Unsafe, coercive, or privacy-risking behavior.
+
+## Cannot Decide Alone
+
+- Legal approval.
+- Security acceptance.
+- Product risk tolerance when a tradeoff is explicit.

@@ -1,0 +1,60 @@
+{
+  "id": "69",
+  "name": "App rating",
+  "route": "No live route — system-triggered bottom-sheet overlay after positive in-app moments",
+  "shell": "dark",
+  "annotation": "Non-blocking bottom-sheet overlay fired after a positive in-app moment: dimmed backdrop, CIA-avatar greeting, a five-star input that routes 4-5 stars to a native App Store prompt and 1-3 stars to private feedback, with 'Not now' (30-day cooldown) and 'Don't ask again' (permanent suppression) always available — no live route, never gamified, never guilt-tripped.",
+  "italicWord": "rating",
+  "hasNav": false,
+  "hasFab": false,
+  "imageSlots": [],
+  "belowFold": [],
+  "trustControls": [
+    "Trigger-reason ChipProvenance ('milestone reached') renders only in debug/support builds — deliberately withheld from the consumer sheet by default, an honest omission rather than a missing chip",
+    "Star rating is honest-null by default: zero stars filled until a real tap-release selects 1-5; a drag/hold before release is a low-confidence preview fill only, never counted as a submitted value",
+    "Store review handoff only ever claims a native prompt was requested — copy never guarantees the OS will display it (low-confidence framing), and no store-review claim renders before a star is chosen",
+    "Feedback submission (1-3 star path) shows a real sent/queued timestamp or an honest offline-queued state — never a silent optimistic success",
+    "Cooldown enforced without dark patterns: 'Not now' or backdrop/drag dismiss = 30-day suppression, a completed rating or feedback = 60-day suppression, 'Don't ask again' = permanent suppression — no repeated nagging, no shame copy",
+    "HonestNullState: with no qualifying trigger, the sheet never renders at all — no forced or empty prompt",
+    "No live route: this is a system-triggered modal only, never given a deep-linkable route or added to the nav pill"
+  ],
+  "modules": [
+    {
+      "region": "scrim",
+      "y": 0,
+      "h": 844,
+      "build": "Full-screen tap scrim rgba(10,10,15,.72) over the dimmed underlying tab screen; status bar stays visible as system chrome, not a module here. Tap-to-dismiss shares the same 30-day cooldown path as \"Not now\" below — never a silent, unlogged exit."
+    },
+    {
+      "region": "sheet-handle",
+      "y": 424,
+      "h": 28,
+      "build": "Sheet top edge, r28 top corners only, glass fill (white 4.5%, border white 8%) over #211008 base, 24px side pad. Centered 36x4px drag handle, paper-100 40% opacity. Drag-down gesture shares the same cooldown path as \"Not now\" and the backdrop tap."
+    },
+    {
+      "region": "cia-avatar",
+      "y": 452,
+      "h": 64,
+      "build": "CIA persona avatar, 56px circle, single soft --glow-cia ring (purple #7F24FF, 20% opacity, static not breathing — identity, not a synthesis insight, keeping this the screen's one permitted glow). ChipProvenance \"milestone reached\" renders only in debug/support builds; the consumer sheet shows the avatar alone."
+    },
+    {
+      "region": "headline",
+      "y": 516,
+      "h": 100,
+      "build": "H2 24, centered, paper-100: \"Enjoying Balencia?\" Body 15 below, paper-64%, centered, max-width 300px: \"We'd love to hear your *rating*.\" One Newsreader Medium Italic emphasis word, \"rating\" — the screen's only italic moment; no second italic appears in later-state copy."
+    },
+    {
+      "region": "star-row",
+      "y": 616,
+      "h": 84,
+      "build": "NEW StarRatingInput: five 44px star targets, centered, 12px gaps, orange #FF5E00 fill. Honest-null default: zero filled pre-tap. Selecting star N fills 1-N center-out with one bounce, a haptic tick, and VoiceOver announcing \"1 star\" through \"5 star.\" Drag-before-release is a low-confidence preview fill only, never counted as submitted."
+    },
+    {
+      "region": "footer-actions",
+      "y": 700,
+      "h": 144,
+      "build": "BtnGhost \"Not now,\" centered, 44px target — tap starts the 30-day cooldown. Below it, smaller BtnGhost link \"Don't ask again,\" muted paper-40% — permanent suppression, no confirm dialog, no guilt copy, no color shame. HomeIndicator bar anchors the sheet's base, 34px width."
+    }
+  ],
+  "notes": "Italic word: Visual System names \"*rating*\" directly, but unlike sibling screens (03c/\"begin\", 42/\"consistency\", 66/\"track\") this spec's own Final Composition ASCII never asterisk-marks a word in context, and no competing literal candidate appears anywhere else in the spec — so \"rating\" is applied as-given, worked into the subtitle (\"We'd love to hear your *rating*\") rather than corrected away from it. Path swap (280ms crossfade, per Motion) replaces star-row + footer-actions after a tap-release selects a star, in plain (non-italic) copy so the screen keeps exactly one italic word total: 4-5 stars (positive) — headline \"Thank you.\", subtitle \"Would you rate us on the App Store?\", BtnPrimary \"Rate on App Store\" (orange fill), BtnGhost \"Maybe later\"; 1-3 stars (feedback) — headline \"We're sorry to hear that.\", subtitle \"Tell us what we can do better.\", multiline input placeholder \"Your feedback helps us improve.\", BtnPrimary \"Submit feedback\" dimmed 40% + helper reason until minimum text length or a network queue slot is available, BtnGhost \"Skip.\" Error (store handoff failure): feedback text persists, \"Maybe later\" ghost appears beside a quiet retry — no red glyphs, no blame copy. Success: whichever BtnPrimary is active turns --glow-done green with a check glyph and the sheet dismisses after a brief confirmation beat. Skeleton is not normally shown; if trigger metadata is still loading, only the sheet's empty geometry appears (shimmer, no fabricated event copy) before headline/CTA content pops in. Reduced-motion: disables the sheet slide-up and star bounce; scrim fade and all state crossfades become opacity-only, per canon. Cooldown state (30-day/60-day/permanent) is enforced in logic even though it is never rendered as a visible chip to the consumer by default — only debug/support builds surface the ChipProvenance trail for trigger reason, cooldown, and feedback status, per the spec's Data Honesty and Components sections."
+}

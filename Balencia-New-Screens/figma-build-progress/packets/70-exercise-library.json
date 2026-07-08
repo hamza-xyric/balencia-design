@@ -1,0 +1,75 @@
+{
+  "id": "70",
+  "name": "Exercise Library",
+  "route": "/exercises",
+  "shell": "dark",
+  "annotation": "HIFI-70 · /exercises · dark shell #0A0A0F + radial orange glow rgba(255,94,0,.18); selective glass for search/nav/sheets, solid #211008 for the dense exercise grid.",
+  "italicWord": "library",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "StatusBar",
+      "y": 0,
+      "h": 44,
+      "build": "9:41 · Balencia dark status bar"
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "[< back] Left | Exercise *library* (H1 30px, Hanken + Newsreader italic) | [o CIA] Right (icon-only; present only when a synthesized read is supported). Transparent, gains .glass-pill on scroll."
+    },
+    {
+      "region": "GlassPillInput",
+      "y": 104,
+      "h": 54,
+      "build": "Variant: search | bg glass white 4.5%, border white 8%, r24 | [Q icon] 'search exercises' (Body 15, Paper-100 #FEFAF3, opacity 60%)"
+    },
+    {
+      "region": "Muscle Filters",
+      "y": 166,
+      "h": 40,
+      "build": "Horizontal scroll chips (SegmentedTabs, single-select). Active: 'All' (bg orange #FF5E00, --glow-you) | Inert: 'Upper Body', 'Lower Body', 'Core', 'Back' >"
+    },
+    {
+      "region": "Equipment Filters",
+      "y": 214,
+      "h": 40,
+      "build": "Horizontal scroll chips (SegmentedTabs, multi-select). Active: 'Any' (bg orange #FF5E00, --glow-you) | Inert: 'Dumbbell', 'Barbell', 'Kettlebell' >"
+    },
+    {
+      "region": "ResultsMeta",
+      "y": 262,
+      "h": 24,
+      "build": "Text: '532 exercises' (Body 15, plain — sole italic reserved for 'library') | Provenance chip: 'Balencia DB' (Caption 12, border white 8%, r8)"
+    },
+    {
+      "region": "GridTile_Row1",
+      "y": 298,
+      "h": 220,
+      "build": "Two solid #211008 cards, r24, no glow (dense-data rule). Left: [Image HIFI-70-01] 'Bench Press' (H3 20), 'Chest · Dumbbell' (Caption 12), DifficultyMeter Adv 3/3 (paper-100 fill). Right: [Image HIFI-70-01] 'Squat' (H3 20), 'Legs · Barbell' (Caption 12), DifficultyMeter Adv 3/3 (paper-100 fill)."
+    },
+    {
+      "region": "GridTile_Row2",
+      "y": 526,
+      "h": 220,
+      "build": "Two solid #211008 cards, r24, no glow. Left: [Image HIFI-70-01] 'Plank' (H3 20), 'Core · Bodyweight' (Caption 12), DifficultyMeter Beg 1/3 (paper-100 fill). Right: [Image HIFI-70-01] 'Pullup' (H3 20), 'Back · Bodyweight' (Caption 12), DifficultyMeter Int 2/3 (paper-100 fill)."
+    }
+  ],
+  "belowFold": [
+    "Virtualized grid continues below the fold: additional ExerciseTileCard rows (532 total, cached) load as the user scrolls, matching Row 1/2's solid #211008 r24 pattern — image, name, muscle · equipment caption, DifficultyMeter."
+  ],
+  "imageSlots": [
+    "HIFI-70-01 — Exercise Library instructional media thumbnails, reused across all ExerciseTileCard grid tiles (Rows 1-2 and the virtualized below-fold continuation); Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text, no identifiable person."
+  ],
+  "trustControls": [
+    "Database version",
+    "Source",
+    "Freshness",
+    "Export saved exercise selections",
+    "Revoke imported plan source",
+    "Delete saved exercise history"
+  ],
+  "notes": "Fonts: Hanken Grotesk (UI) + Newsreader Medium Italic (emphasis word) stand in for Neue Montreal/Tiempos per session waiver W-FONT-01. Default filters are 'All' (Muscle, single-select) / 'Any' (Equipment, multi-select) — matches the unfiltered 532-exercise count and the mixed muscle-group/equipment grid tiles shown; picking a specific chip re-filters the grid via a 280ms crossfade, and active chips carry a subtle --glow-you orange bleed. Cards scale to .97 on tap with light haptic. DifficultyMeter bars animate their rise on viewport entry; bypassed under prefers-reduced-motion, rendering instantly at final state; Sheet slides up without spring interpolation. Detail sheet (/exercises/[id]) opens as a glass half sheet, top corners r24 (canon reserves r40 for hero/paywall surfaces only), with BtnPrimary 'Add to workout' transitioning to forest-green BtnSuccess 'Added' for 600ms, then disabled at 40% opacity during the mutation to prevent double-taps. Sheet error: opens to skeleton, resolves to a failure message + BtnSecondary 'retry' after 5s. List error: centered offline-cloud glyph, plain-language body text, BtnSecondary 'retry', filters visible but inert. Empty state: centered search glyph, 'No exercises found', no BtnPrimary since filters are the corrective action. Detail sheet's form-safety copy avoids diagnostic or rehab claims unless a licensed source is cited. Screen-reader labels announce exercise name, muscle group, equipment, difficulty, source, and whether media/form cues are available; 44px minimum targets enforced on TopBar actions, filter chips, cards, and the Sheet grabber/CTA zone."
+}

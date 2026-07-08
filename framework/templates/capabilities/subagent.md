@@ -1,8 +1,10 @@
 <!-- TEMPLATE — How to use (FRAMEWORK.md §C11.4):
   A subagent runs an ISOLATED task with its own context window + a restricted tool-set.
   Use it when a pass would pollute the main thread (heavy search) or must be constrained
-  (e.g. a READ-ONLY auditor that can never write). Place at:
+  (e.g. a READ-ONLY auditor that can never write). Claude placement:
     .claude/agents/<name>.md     (project)   OR   ~/.claude/agents/<name>.md (personal)
+  Codex note: use Codex subagent workflows explicitly, or encode the reviewer as a repo skill
+  under .agents/skills/<name>/SKILL.md when you need repeatable discovery.
   The `description` drives automatic delegation; `tools` whitelists what it may call.
   Replace <PLACEHOLDER>s and delete this comment. -->
 ---

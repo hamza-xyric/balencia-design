@@ -5,7 +5,7 @@ description: Research industry best practice, competitors, and prior art before 
 
 # Research-First Workflow
 
-Ground decisions in real sources before committing. AI models confidently pattern-match to plausible-but-wrong defaults; forcing independent, recent, credibility-rated sources converts a guess into a defensible decision and surfaces contradictions early, when they are cheap to fix. This is move **A0 · Ground** of the Production Framework (see `framework/FRAMEWORK.md` §A0).
+Ground decisions in real sources before committing. AI models confidently pattern-match to plausible-but-wrong defaults; forcing independent, recent, credibility-rated sources converts a guess into a defensible decision and surfaces contradictions early, when they are cheap to fix. This is move **A0 · Ground** of Forgeflow (see `framework/FRAMEWORK.md` §A0).
 
 ## When to use
 - A **strategic** decision: business plan, pricing, go-to-market, positioning.

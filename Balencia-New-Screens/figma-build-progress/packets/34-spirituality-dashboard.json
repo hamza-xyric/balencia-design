@@ -1,0 +1,68 @@
+{
+  "id": "34",
+  "name": "Spirituality Dashboard",
+  "route": "No live app route; source-only spirituality surface.",
+  "shell": "dark",
+  "annotation": "HIFI-34 · no live route (source-only spirituality surface) · dark shell (#0A0A0F) + top-center amber radial glow. CIAInsightCard (glow-cia purple synthesis) is the dominant focal moment; today's practice schedule, a consistency heatmap, and reading/reflection stat cards sit as quiet operational evidence below; contemplation/breathing timer shortcuts continue below the fold. Every metric ships real (provenance chip), low-confidence, or honest-null — never a fabricated streak.",
+  "italicWord": "calm",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar, dark mode, light icons, time 9:41, bg #0A0A0F."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent over atmosphere. H1: 'Spirituality'. Right-aligned ChipDomainTag 'Lv.3' — Spirituality violet #8b5cf6 text, 16% bg (accessibility source reminder; never the CIA-reserved #7F24FF)."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 110,
+      "h": 140,
+      "build": "Glass card, glow-cia (#7F24FF) purple synthesis glow. Leading spark/orb glyph + label 'CIA'. Body 15: 'Your consistency with prayer has improved your overall *calm* this' (italicize calm, Newsreader Medium Italic). BtnGhost 'Read more'."
+    },
+    {
+      "region": "SolidCard - Today's Practice",
+      "y": 264,
+      "h": 180,
+      "build": "Solid #211008, r28. Overline: \"TODAY'S PRACTICE\". ListRow 1 'Fajr', right text '5:12 AM', ChipProvenance 'via Prayer API' (plain glass-pill micro, Caption label, no color fill). ListRow 2 'Dhuhr', check glyph filled green #34A853, right text 'completed'. 44px touch targets."
+    },
+    {
+      "region": "Consistency Heatmap",
+      "y": 458,
+      "h": 120,
+      "build": "Glass card. Overline: 'CONSISTENCY'. Stylized dot/block heatmap row. HonestNullState default (no history yet): quiet glyph + caption 'your practice begins today'."
+    },
+    {
+      "region": "GlassStatCard Row - Reading & Reflection",
+      "y": 594,
+      "h": 110,
+      "build": "Two GlassStatCards side by side, 44px targets each. Left 'READING' (sparkline variant): H3 'Surah Al-Baqarah', body 'Page 42 / 604'. Right 'REFLECTION' (metric variant): H3 'What are you', body 'Tap to write'."
+    }
+  ],
+  "belowFold": [
+    "Quick actions (~y714-814): row of two BtnSecondary glass pills, 'Contemplation' (aria-label 'Launch contemplation timer') and 'Breathing'; opens NEW ContextualTimerSheet (time rings, no gamification pressure on the overlay)."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Prayer Time (Fajr) honesty triple — real: '5:12 AM' + ChipProvenance 'via Prayer API'; low-confidence: '5:14 AM' muted 64% + 'estimated · low confidence'; honest-null: 'Time not set' + action 'Enable location for accurate times'.",
+    "Practice Completion (3/5) honesty triple — real: '3 / 5' + chip 'you logged' (no low-confidence tier; binary state); honest-null: 'Not enough data yet - 3 more days' with the Momentum bar hidden.",
+    "Consistency History (Heatmap) — honest-null default renders a blank grid with caption 'your practice begins today' until real history accrues; never a fabricated streak.",
+    "SafetyResourceCard stays reachable with privacy-first language for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments.",
+    "Source chips expose category, source, scope, freshness, retention, export, revoke, and delete wherever provenance is shown."
+  ],
+  "notes": [
+    "FABQuickLog positioned above the floating GlassNavBar, 16px margins, does not overlap the home indicator (per accessibility source reminder).",
+    "Reduced motion: CIA glow breathe snaps to a static alpha; practice-completion check glyphs fade in instantly with no scale pop; timers tick numerically without pulsing rings.",
+    "No exclamation marks; sentence case strictly enforced throughout; never 'SIA', always 'CIA'.",
+    "Corrected from the draft: domain tag recolored from the CIA-reserved royal purple #7F24FF to the spec's Spirituality-specific violet #8b5cf6 (accessibility source reminder) — #7F24FF is reserved for CIA/AI synthesis only. Italic word confirmed as 'calm' (literal CIA card copy, matching the Final Composition) over the Visual System section's generic templated placeholder '*dashboard*', which is boilerplate reused verbatim across many other dashboard specs and does not appear anywhere as literal rendered copy.",
+    "Dhuhr's control corrected from an iOS-style toggle switch to a check glyph that fills green (#34A853) per the spec's own Success state ('toggling a practice visually fills the check glyph') and the Components list's 'Toggle/Check variant' — canon's generic Toggle is orange-filled and reserved for settings switches, not completion checks. Removed an invented 'orange text' treatment on the Fajr ChipProvenance chip — canon defines ChipProvenance as a plain glass-pill micro chip with a Caption label, no special coloring; that 16%-tint/color treatment is reserved for ChipDomainTag.",
+    "CIAInsightCard's action corrected from 'BtnSecondary ghost' to BtnGhost, matching canon's CIAInsightCard action spec (BtnCoach + BtnGhost). Merged the Reading and Reflection GlassStatCards into one side-by-side row module to match this build's established two-column-row convention and stay well under the 8-module cap.",
+    "Route corrected from null to the spec's literal 'No live app route; source-only spirituality surface.' — no packet in this build uses a null route; source-only screens always carry a descriptive route string, and this screen's Route header and Implementation Notes both state this verbatim."
+  ]
+}

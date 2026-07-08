@@ -1,0 +1,175 @@
+# 21-settings — Hi-Fi Spec
+
+## 1. Header
+- **Screen ID:** 21
+- **Name:** Settings
+- **Route(s) covered:** `/settings`, `/preferences`
+- **Tab:** Me
+- **Source:** Functional Content Brief
+- **Batch:** 10
+
+## 2. Purpose
+A centralized, premium control hub for account security, CIA communication preferences, privacy, and localization. Designed for fast scannability and precise calibration of the app's behavior.
+
+## 3. Entry & exit
+- **Entry:** Stack push from "Me Main [17]" via gear icon or quick link grid.
+- **Exits:** 
+  - Stack pop to "Me Main [17]".
+  - "Change Password" bottom sheet modal.
+  - "Connected Services [22]" stack push.
+  - "Subscription & Billing [23]" stack push.
+  - In-app webviews for Terms / Privacy.
+  - Full root reset to "Sign In [04]" upon successful Sign Out or Delete Account.
+
+## 4. Layout anatomy
+The screen is a top-to-bottom scroll feed of grouped `SolidCard` lists, anchored by the global bottom nav. 
+
+**Regions:**
+1. **Top Bar:** Transparent header with back chevron, screen title, and offline sync indicator.
+2. **Account:** Profile details, secure auth, integrations.
+3. **CIA Preferences:** Deep personalization of the AI coach.
+4. **Notifications:** Channels, triggers, and quiet hours.
+5. **Appearance & Locale:** Strictly display-only theme row, plus locale formats.
+6. **Privacy:** Data retention and background sync.
+7. **Emergency & About:** Static safety resources and app metadata.
+8. **Destructive Actions:** Separated, low-stimulation sign out and delete buttons.
+9. **Bottom Nav:** Global floating glass pill.
+
+**ASCII Wireframe (390x844):**
+```text
+       ┌───────────────────────────────────────────┐
+       │  ‹                              (offline) │  44px targets
+       │                                           │
+       │            Settings                       │  H1 Title
+       ├───────────────────────────────────────────┤
+       │  ┌─────────────────────────────────────┐  │
+       │  │ ACCOUNT                             │  │  Overline
+       │  │  ✉  your@email.com              ›  │  │
+       │  │  ⚾  Change password             ›  │  │
+       │  │  ☰  Subscription & billing      ›  │  │
+       │  │  ⇌  Connected services          ›  │  │
+       │  └─────────────────────────────────────┘  │
+       │                                           │
+       │  ┌─────────────────────────────────────┐  │
+       │  │ CIA PREFERENCES                     │  │  Overline
+       │  │  ◈  Coaching style: Supportive   ›  │  │
+       │  │  ⚡ Formality: 4 / 10            ›  │  │
+       │  │  ⏰ Check-in times: 8:00, 20:00  ›  │  │
+       │  │                                     │  │
+       │  │  Your coaching is built on what    │  │  CIA Note (Tiempos accent)
+       │  │  CIA learns from our conversations.│  │
+       │  └─────────────────────────────────────┘  │
+       │                                           │
+       │  ┌─────────────────────────────────────┐  │
+       │  │ APPEARANCE & LOCALE                 │  │  Overline
+       │  │  🌙 Theme: Dark        (coming soon)│  │  Display-only row
+       │  │  💬 Language: English (US)       ›  │  │
+       │  │  ⚖ Units: Metric                ›  │  │
+       │  └─────────────────────────────────────┘  │
+       │                                           │
+       │  ┌─────────────────────────────────────┐  │
+       │  │ EMERGENCY                           │  │
+       │  │  ❤ Resources that help          ›  │  │  SafetyResourceCard
+       │  └─────────────────────────────────────┘  │
+       │                                           │
+       │  ┌─────────────────────────────────────┐  │
+       │  │            Sign out                 │  │  BtnSecondary
+       │  └─────────────────────────────────────┘  │
+       │                                           │
+       │  [Today]  [CIA]  [Goals]  [Me]            │  GlassNavBar
+       └───────────────────────────────────────────┘
+```
+*Correction:* The brief's layout implies dense grouping. To preserve the Balencia premium feel (generous space, easy scannability), I have elevated section headers and added breathing room between cards rather than rendering a continuous, flat gray list.
+
+## 5. Components
+- **TopBar** — Transparent, transitions to `.glass-pill` backdrop on scroll.
+- **SolidCard** — Base surface for all settings group containers. Data-dense legibility.
+- **SectionHeader** — Overline text separating SolidCards.
+- **ListRow** — Interactive rows with leading icons and trailing values/toggles.
+- **GlassNavBar** — Floating bottom navigation.
+- **BtnPrimary / BtnSecondary** — Used for destructive actions and data export.
+- **ModalOverlay** — Used for password changes and delete account confirmation.
+- **Toggle** — Interactive elements for binary preferences.
+- **SafetyResourceCard** — Dedicated emergency resources link.
+- **NEW: DisplayListRow** — A non-interactive variant of `ListRow` for states where a feature is locked or deferred (e.g., Light Mode). *Rationale: The brief demands "Dark only" with a "coming soon" label, which a standard interactive or disabled ListRow doesn't cleanly support without implying it's broken.*
+
+## 6. Visual treatment
+- **Glass tiers:** 
+  - Top Bar: `.glass-pill` on scroll.
+  - Cards: `SolidCard` (--surface-2). Utility screens must prioritize legibility over atmosphere.
+- **Semantic inner-glow (one per card, meaning-driven):**
+  - **Account Card:** `--glow-you` (Orange) — *Meaning: Your core identity and security baseline.*
+  - **CIA Preferences Card:** `--glow-cia` (Purple) — *Meaning: Direct calibration of the AI's projected voice and behavior.*
+  - **Emergency Card:** `--glow-cia` (Purple) — *Meaning: Premium, intelligent safety layer, distinct from physical metrics.*
+- **Background atmosphere:** `--bg-base` with the standard top-center warm radial glow.
+- **Hero type moment:** The H1 "Settings" in Neue Medium, 32px. 
+  *Correction:* The brief contains no metrics to visualize. Strict adherence to the Balencia data-viz invariant (orange user lines, green milestones) is skipped to avoid fabricating a chart.
+
+## 7. Content & copy
+Sentence case, no exclamation marks, CIA voice (warm, direct). One emphasis word per moment wrapped in *asterisks* (rendered in Tiempos italic).
+
+- **Screen Title:** `Settings`
+- **CIA Preferences Note:** `Your coaching is built on what CIA learns from our conversations. These settings guide the tone. You can always adjust your *whole* approach here.`
+- **Biometric Sub-copy:** `Biometric data never leaves your device.`
+- **Emergency Row:** `Resources that *help*.`
+- **Appearance (Light Mode):** `Light mode coming *soon*.`
+- **Background Sync Sub-copy:** `Off saves battery — *insights* still on open.`
+- **Data Retention:** `We keep your health data for as long as you're active. You can request deletion anytime. Deleted data is removed in 30 *days*.`
+- **Sign Out Button:** `Sign out?`
+- **Delete Account Button:** `Delete your account?`
+
+## 8. Data & honesty states
+Every metric or configured preference ships with three distinct states to maintain the honesty invariant. (No fabricated numbers).
+
+**Example: CIA Formality Slider**
+1. **Real:** Value `4 / 10`. Provenance chip: `Set during onboarding`.
+2. **Low-confidence:** Value muted at 64%. Provenance chip: `estimated · low confidence`.
+3. **Honest-null:** `Not configured yet. Set a baseline.`
+
+**Example: Quiet Hours (Time Range)**
+1. **Real:** Value `22:00 – 07:00`. Provenance chip: `Default schedule`.
+2. **Low-confidence:** Value muted at 64%. Provenance chip: `estimated · low confidence`.
+3. **Honest-null:** `Not configured yet. Add a schedule.`
+
+## 9. All states
+- **Default:** Fully populated from onboarding defaults (e.g., Face ID off, theme dark, CIA style supportive). No blank rows.
+- **Skeleton:** When saving preferences, a subtle skeleton shimmer appears over the affected section. The toggle switch thumb is replaced with a 12pt spinner.
+- **Empty / Partial:** Rows are never truly blank; unconfigured rows display ghosted text (`Not configured yet. Add a schedule.`).
+- **Error:** Failed syncs cause the toggle track to flash neutral gray (respecting strict red discipline) for 400ms and revert to its previous state. `Couldn't save that setting. Check your connection and try again.`
+- **Success:** Toggles slide with haptic feedback. Password updates yield: `Password *updated*.`
+- **Disabled:** Rows requiring absent hardware (Biometrics on older devices) are hidden entirely.
+
+## 10. Motion & interaction
+- **Physical easing:** Stack push/pop animations execute at 280ms with a complex ease.
+- **Feedback (150-250ms):** Tapping a toggle row slides the thumb (160ms) and crossfades the track color. Triggers a medium haptic on successful state change.
+- **Sheets/Modals:** Change password, pickers, and delete account slide up from the bottom (520ms complex ease) using `.glass-frost`.
+- **Staggered entrance:** Section groups fade-in/translateY on screen mount, staggered by 80ms per section.
+- **Glow behavior:** Static ambient. No breathing pulses on utility screens to avoid distraction.
+- **Reduced-motion:** All staggered fade-ups and slide-ins are instantly bypassed if `prefers-reduced-motion` is enabled. Sheets render instantly without spring.
+
+## 11. Motivation-tier adaptation
+- **Low density:** Single column of SolidCards, standard 56px list row height, ample vertical padding between sections.
+- **Medium density:** SolidCards retain padding, but section gap is reduced. ListRow chevrons are hidden if the row is a direct toggle (tapping anywhere toggles).
+- **High density:** ListRow vertical padding is reduced to 44px height. Overlines are tucked closer to the cards. (Note: 44px floor strictly maintained for accessibility).
+
+## 12. Accessibility
+- **AA+ contrast pairs:** Paper-100 (#FEFAF3) on --surface-2 (#211008) exceeds 7:1 contrast. Secondary paper-64% maintains legible hierarchy.
+- **44px targets:** All interactive ListRows, chevrons, and bottom nav tabs maintain a minimum 44x44px touch target.
+- **Screen-reader labels:** Glyph-only icons and toggles include descriptive `aria-labels` (e.g., `Toggle background sync`, `Back to Me tab`).
+- **Dynamic type:** Respects OS-level dynamic text scaling up to 150% before truncating gracefully.
+
+## 13. Premium checklist
+1. **Connects:** CIA preferences explicitly tie conversational data back to global tone, establishing a hard link between user input and AI behavior.
+2. **Honest:** The "DisplayListRow" for Light Mode doesn't pretend to be broken—it explicitly states `coming soon`. Offline states clarify that local caching is active.
+3. **Premium:** Generous spacing, strict adherence to warm dark color tokens, selective glass use, and elegant 520ms modals.
+4. **Red discipline:** *Correction applied.* Red is reserved exclusively for the destructive "Delete Account" action. Standard sync errors use neutral gray and copy rather than harsh red UI.
+5. **One hero color:** Burnt Orange leads primary actions; Purple accents the CIA intelligence layer.
+6. **One BtnPrimary:** Reserved solely for the final "Confirm Delete" or "Save Password" action within modals.
+7. **No fake metrics:** CIA formal style and quiet hours use the standard 3-state honesty invariant.
+8. **Glass tiers:** Data-dense lists use SolidCard to guarantee legibility over the atmosphere.
+9. **Motion:** 280ms stack pushes and 160ms toggle slides create a physical, fluid feel.
+10. **Sentence case & Voice:** CIA tone maintained throughout, no exclamations.
+11. **One Tiempos emphasis:** Used sparingly for spotlight words (e.g., *whole*, *help*).
+12. **Radii & spacing:** 28px radii on cards, 999px pills on toggles.
+13. **A11y floor:** 44px targets and screen-reader labels strictly enforced.
+14. **Dark only:** Honored universally.

@@ -1,0 +1,3 @@
+[submodule "yhealth-app"]
+	path = yhealth-app
+	url = https://github.com/xyric-solutions/yhealth-app.git

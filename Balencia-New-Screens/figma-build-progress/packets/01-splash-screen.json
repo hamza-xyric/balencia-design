@@ -1,0 +1,49 @@
+{
+  "id": "01",
+  "name": "Splash Screen",
+  "route": "No live route; system launch surface before the app router mounts.",
+  "shell": "dark",
+  "annotation": "HIFI-01 · No live route; system launch surface before the app router mounts. · Dark cinematic shell — warm dark base #0A0A0F, top-center amber radial glow, 3-4% grain (spec-declared override of the auth-family warm-light default; 01 and 02 are the dark cinematic bookend, the family turns warm-light starting at 03).",
+  "italicWord": "Balencia.",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Transparent status bar, blends into --bg-base (#0A0A0F); sits within the same warm dark atmosphere (top-center amber radial glow + 3-4% grain) as the rest of the screen — no separate treatment."
+    },
+    {
+      "region": "brand_cluster",
+      "y": 322,
+      "h": 200,
+      "build": "Default: bespoke brand mark, continuous-stroke line reveal (stroke-dashoffset draw, NO spinner). Chillax wordmark 'Balencia.' fades in, translates +8px→0, settling under the completed mark. Paper-100 (#FEFAF3) on --bg-base, maximal contrast. Purple pool sits behind the cluster only, never behind readable text."
+    },
+    {
+      "region": "home_indicator",
+      "y": 810,
+      "h": 34,
+      "build": "System safe-area / home indicator zone at the base of the frame, per Focal Hierarchy's operational layer — standard indicator bar on the warm dark base, no additional content."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [
+    {
+      "id": "HIFI-01-01",
+      "prompt": "Splash screen brand-motion frames, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+    }
+  ],
+  "trustControls": [],
+  "notes": [
+    "Shell confirmed dark despite the auth-family warm-light heuristic (01,02,03x,04,05x,06,65,66): this screen's own Visual System explicitly specifies 'warm dark base #0A0A0F, top-center amber radial glow, 3-4% grain' — identical language to 02 and 06's confirmed dark overrides — so the spec text wins over the family default.",
+    "No nav, header, data, or metrics exist on this screen — it predates all data and router mounting; GlassNavBar, TopBar, FABQuickLog, and any card are absent by design (Components).",
+    "Default state IS the loading state — no separate spinner or progress indicator layered on top (States → Default).",
+    "Error branches (Offline / Auth fail): mark holds, executing a subtle opacity pulse (80%→100%, 4s ease-in-out loop) — no red, no error iconography, no alarm tone (States → Error).",
+    "Offline branch: OfflineBanner/SyncStatus (catalog `.glass-pill`, reused as-is) surfaces low, just above the safe area, once the 4s ceiling is reached; copy varies for returning vs. new user — no literal copy string given in source (Components; States → Error → Offline).",
+    "Timing contract: happy-path animation resolves at 1.8s total. A shared 4s ceiling governs every non-happy path, including up to 2 silent retries at 1.2s apart (~2.4s), before falling back to the last known-good local state (Data Honesty).",
+    "Success: no distinct visual state — crossfade to Screen 02 (new/no cached session) or Screen 12 (valid cached session) begins the instant auth resolves, silently (States → Success).",
+    "Accessibility: announces 'Balencia. Loading.' once on mount, then stays silent — stroke-draw and wordmark-rise are decorative, not re-announced. On retry, VoiceOver/TalkBack additionally speaks 'Checking your session — will retry' once per attempt. Reduced-motion users get identical announcements; only the visual draw is skipped (Implementation Notes).",
+    "Spec drift flagged (not applied): the Visual System section's generic placeholder names 'screen' as the italic emphasis word, but no word is italicized anywhere in the actual Final Composition ASCII — the wordmark 'Balencia.' is the only rendered text on the entire canvas, so it is used as the italic emphasis word instead."
+  ]
+}

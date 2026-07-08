@@ -1,0 +1,77 @@
+{
+  "id": "31",
+  "name": "Transaction / Budget Detail",
+  "route": "No live route; transaction and budget detail are nested Money Map stack modes.",
+  "shell": "dark",
+  "annotation": "Transaction / Budget Detail hero (ProgressRing + spend/allocated read) is the singular focal moment, not one tile among many; TopBar stays plain except for edit. Operational layer stacks Budget hero -> CIAInsightCard -> Recent activity history, all quiet and source-specific beneath the hero. A single BtnPrimary ('Edit budget') is the persistent CTA; recategorize, replace-receipt, and delete stay ghost pills or row actions. ContextToggle switches the same shell between Budget View and Transaction View since both are nested Money Map stack modes, not separate routes.",
+  "italicWord": "*sleep*",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System standard, transparent over dark shell atmosphere (warm amber radial glow, top-center)."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent over atmosphere; gains glass-pill (rgba(10,10,15,.55), blur 24px, border rgba(255,255,255,.10), r999) once content scrolls under. BtnGhost [chevron-left] 44px target 'Back' | Title 'Dining budget' | BtnGhost [pencil] 'Edit', 44px target."
+    },
+    {
+      "region": "ContextToggle",
+      "y": 100,
+      "h": 44,
+      "build": "NEW: compact segmented pill, glass, 44px targets: 'Budget' (active, orange underline) and 'Transaction'. Switches this one shell between Budget View and Transaction View without duplicating screens, per spec rationale."
+    },
+    {
+      "region": "Budget Hero",
+      "y": 144,
+      "h": 230,
+      "build": "SolidCard #211008 r40 hero, glow-you. Overline 'Allocated this month'. ProgressRing 78% (H1 30 paper-100). Body '$480 spent / $620 allocated', ChipProvenance 'via Plaid'. Caption '12 days left · on pace'. ProgressBar (capped) fill beneath, with pace marker."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 384,
+      "h": 140,
+      "build": "GlassCard r28 purple-tinted, glow-cia. Body 15 paper-100: 'Dining jumps 40% after short sleep.' (Newsreader Medium Italic on 'sleep'). ChipProvenance 'calculated · spend pattern'. ChipDomainTag 'Finance' + 'Wellbeing', 16% bg, tappable -> dashboards. BtnGhost 'Ask CIA ->' — this card is the chat exit."
+    },
+    {
+      "region": "Recent Activity",
+      "y": 534,
+      "h": 150,
+      "build": "Overline 'Recent activity'. SolidCard #211008 (dense list, no glow). ListRow 'Joe's Pizza · 2 days ago · -$24.00', ChipProvenance 'via Plaid'. ListRow 'Spotify · 4 days ago · -$11.99', ChipProvenance 'via Plaid'."
+    },
+    {
+      "region": "Edit Budget CTA",
+      "y": 694,
+      "h": 56,
+      "build": "BtnPrimary (only primary CTA on-screen), full-width, orange #FF5E00, glow-you: 'Edit budget'. Opens budget-edit Sheet, spring-in with focus trap and drag-to-dismiss."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 768,
+      "h": 68,
+      "build": "Floating pill, fixed overlay: Today · CIA · Goals · Me, 44px targets, overlays last visible content per canon."
+    }
+  ],
+  "belowFold": [
+    "Transaction View mode (ContextToggle -> 'Transaction'): SolidCard r40 hero replaces the Budget hero. Signed amount '-$42.10' (H1 30, real state) + ChipProvenance 'via Plaid' or 'you logged'; low-confidence pending values render muted; honest-null hides the hero entirely until an amount exists. Label 'Expense' · merchant 'Trader Joe's'. Metadata rows: category 'Groceries' (ListRow, opens category-picker Sheet) and 'Receipt attached' (ListRow, opens receipt-options Sheet) — honest-null reads 'No receipt attached.' Amount scales 0.96 to 1.0 on entry while metadata rows rise.",
+    "Row actions (Transaction View): BtnSecondary 'Recategorize', BtnGhost 'Replace receipt', BtnGhost 'Delete' — Delete is hidden (not shown-then-denied) per the Disabled state while a transaction is still pending bank clearance.",
+    "Sheets (per Components list): delete-confirmation, category-picker, budget-edit, and receipt-options — all spring in with focus trap and drag-to-dismiss, matching Motion spec."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Transaction amount: real = signed value + ChipProvenance 'via Plaid' or 'you logged'; low-confidence pending values render muted; honest-null hides the hero entirely until an amount exists.",
+    "Budget spent/allocated: real = '$480 spent / $620 allocated'; low-confidence = 'estimated - low confidence'; honest-null = 'No spending in Dining yet. Budget fully available.'",
+    "Days remaining: real uses finance-cycle data; low-confidence marks the value approximate; honest-null = 'Cycle dates unknown.'",
+    "Category list rows: real transactions carry merchant, amount, and source; low-confidence rows read 'merchant pending'; honest-null = 'No transactions in this budget yet.'",
+    "CIA suggestion amount: real uses a 3-month average with a calculated-source label; low-confidence is labeled; honest-null = '2 of 3 merchants synced - check back soon.'",
+    "Receipt: real shows attachment metadata; honest-null = 'No receipt attached.'",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete wherever money or billing data appears; documented as a nested Money Map stack mode, never an invented live route.",
+    "Disabled: Delete hidden while a transaction is pending bank clearance. Offline: editing and deletion disabled unless a local queue exists; data reads stale with a timestamp."
+  ],
+  "notes": "No GLM draft was available to correct: the worker call failed twice with HTTP 529 (service overloaded), so this packet was authored directly from the spec and canon digest rather than as a fix pass. Key decisions: (1) italicWord is 'sleep', not the Visual System section's generic '*detail*' placeholder — that line is boilerplate template text repeated near-verbatim across many hifi specs (compare 14-goal-detail.md, which also names '*detail*' in Visual System yet the built packet correctly used '*momentum*' because that word is embedded directly in the Final Composition wireframe's CIA copy); here the wireframe embeds '*sleep*' inside 'Dining jumps 40% after short *sleep*.', so that word wins. (2) Budget Hero uses SolidCard r40 rather than GlassCard: canon reserves glass for focal surfaces, but the Components list explicitly classifies 'budget overview' under SolidCard's dense-surface bucket, and Mission Detail [14] sets the same precedent (its focal ProgressRing hero is SolidCard, not glass) — glass is reserved here for CIAInsightCard, Sheets, and GlassNavBar only. (3) hasNav is true because this screen has a single parent stack (Money Map [30]), matching Mission Detail [14]'s single-parent pattern, not the multi-entry-point drill-down pattern of Streak Details [59] (hasNav false). (4) Only one BtnPrimary renders on-screen ('Edit budget'); Transaction View's Recategorize/Replace receipt/Delete are BtnSecondary/BtnGhost per canon's one-primary-per-screen rule. (5) Transaction View content is placed in belowFold rather than as an on-screen module because only one ContextToggle mode is visible at a time — it is a mode swap, not additional scroll content, so it does not count against the 8-module cap for the default Budget View render."
+}

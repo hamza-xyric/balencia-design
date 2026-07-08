@@ -1,0 +1,54 @@
+{
+  "id": "72",
+  "name": "Knowledge Graph",
+  "route": "/knowledge-graph",
+  "shell": "dark",
+  "annotation": "Knowledge Graph is CIA's explorable correlation map: an interactive node graph is the singular focal hero (populated default state, orange-confirmed/purple-inferred edges, one glow on the selected node only), with a floating Legend chip and GraphControlsStack kept quiet at the edges. Tapping a node opens a glass-frost Sheet with source-specific StrengthListRow connections, a CIAInsightCard cross-domain read, and Ask CIA / Go to Fitness actions — every metric real, low-confidence, or honest-null, never fabricated.",
+  "italicWord": "graph",
+  "hasFab": false,
+  "hasNav": true,
+  "imageSlots": [],
+  "belowFold": [
+    "Sheet overflow: connections list shows top 4 by strength with internal scroll by default; drag-to-full Sheet variant reveals the complete scrollable connections list ordered by correlation strength for hub nodes with more."
+  ],
+  "trustControls": [
+    "ChipProvenance tags carry explicit sourcing: 'via WHOOP' (synced biometric nodes: sleep, HRV, strain), 'you logged' (manual domains), 'estimated · low confidence' (low-confidence rows) — never an unlabeled number.",
+    "Strict node-keyed data mapping fixes the source brief's shared-blob bug: no node ever renders another node's connection numbers.",
+    "Low-confidence correlations render a purple 'inferred' ProgressBar fill with 'estimated · low confidence' caption, distinct from the orange 'confirmed' fill — not the default orange-to-green completion logic.",
+    "Honest-null node degree renders 0 with caption 'Not enough data yet — 3 more days', never a fabricated connection count.",
+    "Evidence chips expose category, source, scope, freshness, retention, export, revoke, and delete controls, including deleting recommendation history (Consent and Safety)."
+  ],
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "Standard iOS status bar, dark shell: time left, signal/wifi/battery right, paper-100 icons on #0A0A0F, top-center orange radial glow beneath, 3-4% grain."
+    },
+    {
+      "region": "topbar",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar transparent over atmosphere, gains .glass-pill once panned canvas content passes under it. Centered title 'Knowledge *graph*' — Newsreader Medium Italic on 'graph', the screen's one emphasis word. Trailing 44px glass-pill icon button '(?)' opens legend/help."
+    },
+    {
+      "region": "graph-canvas",
+      "y": 100,
+      "h": 488,
+      "build": "Populated default graph (20-50 nodes; sample: Zen, Productivity, Sleep, Workout, Deep, HRV, Strain, Cal), domain-colored, edges thick orange (confirmed) or thin purple (estimated/low-confidence). Left glass-pill Legend chip 'Legend (tap to expand)'. Right GraphControlsStack glass-pill: zoom-in, zoom-out, reset-to-fit (44px targets, hairline dividers). One glow: selected node only, others static."
+    },
+    {
+      "region": "node-detail-sheet",
+      "y": 440,
+      "h": 404,
+      "build": "Glass-frost half sheet (drag to full), scrim rgba(10,10,15,.6), grabber. Header: [Fitness] 'Workout strain' [x]. Overline 'Connected to'. Row: Sleep score, bar 78% orange (confirmed), 'via WHOOP'. Row: HRV, bar 62% purple (inferred), 'estimated · low confidence'. Divider. CIAInsightCard: 'Better sleep strongly correlates with higher workout performance in your data.' Tags: Wellbeing, Fitness. CTAs: 'Ask CIA' (primary), 'Go to Fitness' (ghost)."
+    },
+    {
+      "region": "nav-bar",
+      "y": 774,
+      "h": 70,
+      "build": "GlassNavBar, floating, pinned: Today · CIA · Goals · Me, CIA segment active, 44px targets, overlaying the sheet's lower edge per canon."
+    }
+  ],
+  "notes": "TopBar stays transparent over the atmosphere and only gains .glass-pill once panned canvas content passes under it (this screen pans, it never scrolls). StrengthListRow fill logic is orange-confirmed/purple-inferred, mirroring the canvas edge encoding, not the default orange-to-green completion logic. SkeletonState renders 5-8 ghost node circles plus faint ghost edges in the graph's real settled geometry with --surface-3 shimmer and a CIA-voice caption ('CIA is mapping your connections - one moment'), transitioning to Error after 10s. Empty/cold-start shows 3-5 neutral (non-domain-colored) ghost nodes at paper-100 20% opacity, no edges, centered copy plus a calm 3-dot purple pulse — never an empty canvas. Legend auto-collapses to its chip form when the Sheet opens and requires a tap to re-expand once dismissed. Entrance choreography (first session entry only): nodes stagger-fade in (20ms/node max), edges draw via stroke-dashoffset over 400ms, then legend/controls fade in last; later re-entries render already-settled. Reduced motion disables entrance draw-in and the glow pulse loop outright, with no information lost. VoiceOver suppresses the visual graph entirely and renders the same flat, domain-grouped list (sorted by connection count) used by the Low Motivation tier [11]. GraphControlsStack groups zoom/reset into one floating pill to respect the 60/30/10 ratio rather than three standalone glyph buttons. FABQuickLog and SafetyResourceCard are intentionally absent per CANON 8 (Today-tab-only FAB; mood/check-in-scoped safety card). Route stays exactly /knowledge-graph — no alternate vanity route."
+}

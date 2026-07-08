@@ -1,0 +1,94 @@
+{
+  "id": "50",
+  "name": "Edit profile",
+  "route": "/profile/edit",
+  "shell": "dark",
+  "annotation": "HIFI-50 · /profile/edit · Dark shell, #0A0A0F base + top-center orange radial atmosphere. AvatarGlassInput and the hero completeness GlassStatCard are the singular focal moment; Identity/Contact sections stay quiet and legible; Demographics + Delete account sit below the fold; one sticky Save changes CTA.",
+  "italicWord": "personalise",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status-bar",
+      "y": 0,
+      "h": 44,
+      "build": "iOS status bar: time left, signal/wifi/battery right, paper-100 icons on #0A0A0F warm-dark shell with top-center orange radial atmosphere (18%) and grain. Fixed 44px, no copy."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar, transparent on load, gains .glass-pill backdrop on scroll. Left: BtnGhost chevron-left (back, 44px target). Center: H2 'Edit profile'. Right: BtnGhost glyph action (44px target)."
+    },
+    {
+      "region": "Avatar",
+      "y": 100,
+      "h": 132,
+      "build": "AvatarGlassInput (NEW) 96px centered, circular .glass-card mask + bottom-right .glass-pill camera glyph (44px hit target). Caption below: 'change photo'. Real: image renders + ChipProvenance 'via camera roll'. Honest-null: empty ring + 'tap to add photo'. a11y: 'Profile photo, double tap to change'."
+    },
+    {
+      "region": "Profile Completeness",
+      "y": 232,
+      "h": 132,
+      "build": "GlassStatCard (variant: metric), hero-sized. Overline 'PROFILE'. Primary '6 of 8 complete'. ProgressBar 8px, 75% orange fill. Subtext: '2 left to *personalise* CIA'. ChipProvenance 'you logged'. Glow: purple #7F24FF breathe (55%->70%, 4s ease infinite), sweeps to green #34A853 (glow-done) permanently at 8/8. a11y traits: updatesFrequently."
+    },
+    {
+      "region": "Identity",
+      "y": 364,
+      "h": 180,
+      "build": "SectionHeader 'IDENTITY'. GlassPillInput (text): 'First name'. GlassPillInput (text): 'Last name'. GlassPillInput (multiline, radius 20): 'About you (optional)', placeholder 'tell CIA what matters right now'."
+    },
+    {
+      "region": "Contact",
+      "y": 544,
+      "h": 112,
+      "build": "SectionHeader 'CONTACT'. ListRow (disabled, no chevron): Label 'Email', trailing ChipProvenance 'email verified' + BtnGhost copy-icon (44px, a11y 'Copy email address', confirms 'Copied'). GlassPillInput (text, keyboard tel): 'Phone', placeholder '+971 50 123 4567'."
+    },
+    {
+      "region": "Action Zone",
+      "y": 760,
+      "h": 84,
+      "build": "Sticky glass action zone docked above home indicator. BtnPrimary 'Save changes', disabled 40% opacity until a valid dirty change exists. Success: flashes --glow-done green + light haptic, holds 250ms, then stack-pops to Me Main."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "Demographics",
+      "y": 656,
+      "h": 144,
+      "build": "SectionHeader 'DEMOGRAPHICS'. ListRow (value, chevron, opens Sheet): 'Date of birth' -> '1 Jan 1996'. ListRow: 'Gender' -> 'prefer not to say'. ListRow: 'Timezone' -> 'Asia/Dubai'. Light haptic on each tap."
+    },
+    {
+      "region": "Destructive Action",
+      "y": 800,
+      "h": 44,
+      "build": "BtnGhost centered: 'Delete account' (destructive tint). Confirmation required; heavy impact haptic fires only on confirmed deletion."
+    }
+  ],
+  "imageSlots": [
+    {
+      "id": "HIFI-50-01",
+      "description": "avatar or message attachment slot; screen-specific; premium warm-dark product placeholder.",
+      "prompt": "50-profile-edit avatar or social proof placeholders, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text."
+    }
+  ],
+  "trustControls": [
+    "50-profile-edit exposes audience, visibility, report, mute, block, and own-content delete controls before sharing or social comparison",
+    "ConsentCard shown on first tap of 'change photo', before the native OS picker opens — required by CANON 8 for any screen touching photo data",
+    "Source chips include category, source, scope, freshness, retention, export, revoke, and delete",
+    "Profile completeness carries the full honesty pair: real '6 of 8 complete' + ChipProvenance 'you logged'; honest-null '0 of 8 complete' + 'next: add a photo' — no fabricated percentage",
+    "Avatar status: real = image renders + ChipProvenance 'via camera roll'; honest-null = empty ring + 'tap to add photo' (not a full-screen EmptyState)",
+    "Every ListRow (email, DOB, gender, timezone) and the AvatarGlassInput camera glyph honor a 44x44px minimum hit target; disabled 'Save changes' still announces 'Save disabled, 2 fields left to complete' to screen readers",
+    "Copy-email BtnGhost announces 'Copy email address' on focus and confirms 'Copied' on success, not just a silent visual toast",
+    "Route stays aligned to /profile/edit only — no alternate vanity routes"
+  ],
+  "notes": [
+    "New component: AvatarGlassInput — 96px circular .glass-card-tier mask + bottom-right .glass-pill camera glyph; promote to catalog only if reused (Me Main uses a plain avatar).",
+    "DO NOT use full-screen EmptyState for Day-1; Day-1 preserves already-populated name/email from sign-up while avatar, phone, DOB, gender, timezone, and about-you sit at honest-null (ListRow placeholder 'not set ->').",
+    "Validation error rings flash #FF5E00 with matching inline error text — color is never the sole signal.",
+    "Haptics: light selection feedback on every ListRow tap and each keyboard 'Next' step; heavy impact haptic on confirmed account deletion only.",
+    "Completeness GlassStatCard glow-cia breathes (4s ease, 55%->70% opacity) while CIA reads input; breathe stops permanently once it sweeps to glow-done at 8/8.",
+    "Skeleton sweeps --surface-3 blocks over avatar, completeness card, and input geometries; reduced motion: entrance staggers and glow breathe cease instantly, ProgressBar snaps to final width, success 250ms hold is skipped.",
+    "Fonts: Hanken Grotesk (UI) + Newsreader Medium Italic (emphasis word) stand in for Neue Montreal/Tiempos per session waiver W-FONT-01 — supersedes this spec's own Visual System font references."
+  ]
+}

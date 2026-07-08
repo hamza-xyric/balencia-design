@@ -1,0 +1,71 @@
+{
+  "id": "58",
+  "name": "Sleep Tracking",
+  "route": "No live route; sleep tracking is a nested module opened from Today, Wellbeing, Explore, and CIA chat.",
+  "shell": "dark",
+  "annotation": "Sleep Tracking is the command center for last night's rest: the GlassStatCard hero (ProgressRing sleep score + ChargeMeter sleep reserve) is the singular above-fold focal moment, with the CIAInsightCard synthesis quietly above it; BentoGrid stages/consistency and the Duration Trend chart sit as a quiet operational layer below; CalendarHeatmap and HygieneList continue below the fold. Every metric ships real (provenance chip), low-confidence (muted + label), or honest-null — never a fabricated score, stage, or streak.",
+  "italicWord": "workout",
+  "hasNav": true,
+  "hasFab": true,
+  "modules": [
+    {
+      "region": "Status Bar",
+      "y": 0,
+      "h": 44,
+      "build": "System standard, transparent over dark shell atmosphere #0A0A0F + top-center amber radial glow + 3-4% grain."
+    },
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Sticky header: BtnGhost [chevron-left] 'Back' 44px target, title 'Sleep', RPGBadge 'Lv.8' (Wellbeing skill level)."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 104,
+      "h": 108,
+      "build": "GlassCard purple-tinted, glow-cia #7F24FF. Body 15: 'HRV dipped after a late *workout*.' ChipDomainTag [fitness] [sleep], 16% bg. BtnPrimary 'Ask CIA' — this card is the chat exit."
+    },
+    {
+      "region": "GlassStatCard (Hero)",
+      "y": 220,
+      "h": 268,
+      "build": "GlassCard r40 hero. Overline 'LAST NIGHT' top-left, ChipProvenance 'via wearable' top-right. ProgressRing center, orange #FF5E00, score '82'. Below: '7.2 hrs' | 'recovery 64%' | '10:45p-6:08a'. ChargeMeter 'sleep reserve' filled ~70% orange, faint track remainder."
+    },
+    {
+      "region": "BentoGrid",
+      "y": 496,
+      "h": 124,
+      "build": "Two SolidCard columns #211008 r16. Left 'sleep stages' -> 'REM 1h 20m', 'Deep 1h 10m'. Right 'consistency' -> 'tight 10:45p' with ConsistencyCloud (dots for bedtime and wake clusters)."
+    },
+    {
+      "region": "TrendChart",
+      "y": 628,
+      "h": 124,
+      "build": "Header 'DURATION TREND' + SegmentedTabs (7d active orange underline, 14d, 30d). SolidCard r16. TrendChart draws left-to-right on scroll into view; dashed gaps mark missing nights, never zero-sleep."
+    },
+    {
+      "region": "GlassNavBar",
+      "y": 756,
+      "h": 68,
+      "build": "Floating pill, fixed overlay: Today · CIA · Goals · Me, 44px targets, overlaying last visible content per canon. Home indicator y828."
+    }
+  ],
+  "belowFold": [
+    "CalendarHeatmap ('30-NIGHT HEATMAP'): SolidCard r16 continues scroll below Duration Trend; cells render real nights in faint orange, gaps as dashed ghost cells (never zero-sleep, per Trends and heatmap honesty), manual logs with a green border.",
+    "HygieneList ('HYGIENE TIPS'): SolidCard ListRow 'wrap up exercise earlier'; tapping a tip expands evidence + CTA in 200ms (per Motion). Honest-null: CIA asks the user to log more sleep before claiming a pattern."
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Sleep Score: real shows '82' + 'via wearable'; low-confidence shows a muted approximate score + 'estimated · low confidence'; honest-null renders a faint empty ring + 'Not enough data yet.'",
+    "Sleep Duration: real shows '7.2 hrs' + provider/manual source; low-confidence mutes the estimate when wake time is inferred; honest-null shows '-- hrs' + a manual log action.",
+    "Recovery: real shows '64%' from connected health metrics; low-confidence is muted; honest-null hides the recovery module entirely and shows a connect prompt.",
+    "Sleep stages: real uses provider stage data only — no low-confidence variant since stage detection must be provider-backed; honest-null hides stages completely (also hidden in Manual-only state).",
+    "Consistency: real uses bedtime/wake variance; low-confidence labels apply under seven nights of data; honest-null reads 'More data needed. Log sleep over a week to spot your rhythm.'",
+    "Trends and heatmap: missing nights render as dashed gaps or ghost cells, never as zero sleep.",
+    "CIA tips: real only when evidence exists; low-confidence tips are labeled; honest-null asks the user to log more sleep before claiming a pattern.",
+    "Provider/manual-source chip ('via wearable') opens a data sources sheet: category, source, scope, freshness, retention, export sleep data, revoke provider access, delete manual logs, remove cached wearable reads.",
+    "SafetyResourceCard stays reachable with privacy-first language for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments (Consent and Safety)."
+  ],
+  "notes": "Corrects the draft's structural gaps: modules were missing the Status Bar (added, y0 h44) and GlassNavBar (promoted into the main modules list as a persistent fixed overlay, y756 h68, per canon); belowFold and trustControls were restructured from module-shaped objects to descriptive strings per schema, and notes from an array to a single string. TopBar title corrected to 'Sleep' (capitalized, per the Final Composition's literal render — draft had lowercase 'sleep'). ChargeMeter 'sleep reserve' fill corrected from a fabricated 60% to ~70% to match the Final Composition's rendered proportion ('=======---'). ConsistencyCloud description corrected to 'bedtime and wake clusters' (draft dropped 'wake'). Honest-null Sleep Score copy corrected to the spec's literal string 'Not enough data yet.' (draft had invented an extended sentence). Italic word: Visual System literally names 'tracking' as the one Tiempos/Newsreader italic moment, but that word never appears inside any visible copy string; the Final Composition's own rendered CIA body carries the asterisks on 'workout' ('HRV dipped after a late *workout*.'), so 'workout' is used as the actual emphasis word — flagged as spec drift for source correction, same pattern as prior packets (e.g. Mission Board). FABQuickLog opens the Manual Sleep Log sheet (GlassPillInput + ChoiceCardFrost); hides on scroll-down, returns on scroll-up unless reduced motion is active; disabled while offline if queueing is unavailable. Manual-only state hides Stages and Recovery entirely, relying only on manual duration/quality values. Route header kept verbatim per spec: no live route, nested module opened from Today, Wellbeing, Explore, and CIA chat."
+}

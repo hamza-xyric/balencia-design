@@ -1,0 +1,52 @@
+{
+  "id": "42",
+  "name": "Celebration Overlay",
+  "route": "/subscription/success",
+  "shell": "dark",
+  "annotation": "HIFI-42 · /subscription/success · dark shell w/ orange radial glow",
+  "italicWord": "consistency",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "scrim",
+      "y": 44,
+      "h": 784,
+      "build": "Full-screen tap scrim rgba(10,10,15,.6) + .button trait, label 'dismiss celebration'. Restrained particle burst green->orange (secondary layer, never the focal element)."
+    },
+    {
+      "region": "FrostCard summary",
+      "y": 130,
+      "h": 320,
+      "build": "FrostCard variant: summary, r40, glow-done green (#34A853) breathing 60-100% over 3s. Overline 'overall level up'. ChipProvenance 'level 8 -> 9'. ProgressRing variant: ring at 82% (#FF5E00) enclosing neutral paper-100 badge emblem (label 'level 9 badge, earned'). GlassStatCard variant: metric, flush sub-mode: '+ 120 XP' (tabular nums). ChipProvenance 'you earned it'. ProgressBar variant: segmented at 82%, orange fill."
+    },
+    {
+      "region": "ContinuousStrokeDivider",
+      "y": 474,
+      "h": 40,
+      "build": "SVG continuous-stroke divider line motif, draws once left-to-right, ~400ms."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 524,
+      "h": 140,
+      "build": "CIAInsightCard, static glow-cia purple (#7F24FF). Copy: 'level 9. your *consistency* across fitness and finance is coming together. - CIA' (Tiempos italic on 'consistency'). Evidence row ChipDomainTag x2: 'fitness' (#ef4444), 'finance' (#10b981)."
+    },
+    {
+      "region": "Action row",
+      "y": 694,
+      "h": 56,
+      "build": "BtnPrimary 'continue' (h52, #FF5E00 fill, paper-50 label). BtnSecondary 'share' (h44). Failure: BtnSecondary label swaps to 'sharing failed  try again' for 2.5s, no color change, then reverts."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [],
+  "trustControls": [
+    "ChipProvenance 'level 8 -> 9' on the FrostCard hero — deterministic level-progression readout, always real, never estimated.",
+    "ChipProvenance 'you earned it' beside '+ 120 XP' — first-party, system-computed XP; never a synced/third-party 'via ...' claim.",
+    "Honest-null: if XP fails to resolve, the entire XP stat + chip is omitted (never a fabricated placeholder); layout recenters gracefully.",
+    "Honest-null: for a pure streak celebration with no level attached, ProgressRing/ProgressBar are omitted entirely — never shown at 0% or greyed out.",
+    "Honest-null: if the CIA copy API fails, ContinuousStrokeDivider and CIAInsightCard are both hidden — no filler text substituted."
+  ],
+  "notes": "Isolated full-screen overlay: status bar remains visible (system chrome, not a module), no bottom nav pill or home indicator chrome — single BtnPrimary is the only persistent, labeled exit (scrim-tap is a shortcut, never the sole affordance). Skeleton: FrostCard shows a shimmering --surface-3 block, '0 XP' placeholder (explicit zero, never guessed), caption 'getting your result ready'; CIAInsightCard withheld until data resolves. Fast-dismiss: tapping BtnPrimary or the scrim before the entrance sequence finishes resolves all count-ups and the stroke draw instantly to final values. Italic word corrected to 'consistency' — the literal rendered word marked with asterisks in the spec's own Final Composition/CIA copy — over the Visual System section's generic '*overlay*' label, which never appears as literal on-screen copy anywhere in the spec (same resolution pattern used for HIFI-03c's '*consent*' vs. 'begin')."
+}

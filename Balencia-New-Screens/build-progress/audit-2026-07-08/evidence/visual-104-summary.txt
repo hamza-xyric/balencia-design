@@ -1,0 +1,13 @@
+{
+  "auditedAt": "2026-07-08T14:29:26.335Z",
+  "baseURL": "http://localhost:3001",
+  "screens": 104,
+  "issueScreens": 94,
+  "warningScreens": 37,
+  "totalIssues": 150,
+  "totalWarnings": 40,
+  "missingPhoneFrames": [],
+  "visibleSiaScreens": [],
+  "consoleErrorScreens": [],
+  "screenshotDir": "/Users/hamza/Desktop/balencia-design/Balencia-New-Screens/build-progress/audit-2026-07-08/evidence/screenshots/issues"
+}

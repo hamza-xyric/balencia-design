@@ -1,0 +1,84 @@
+{
+  "id": "79",
+  "name": "Call summary",
+  "route": "No live route; post-call summary detail opened from Voice mode and Voice call history.",
+  "shell": "dark",
+  "annotation": "HIFI-79 · no live route · dark warm shell w/ top radial orange · one Newsreader italic on 'recovery' in the hero Display 34.",
+  "italicWord": "recovery",
+  "hasNav": false,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "TopBar",
+      "y": 44,
+      "h": 56,
+      "build": "Transparent bg, left: < back glyph, center: Call summary, right: (i) privacy glyph. Tap right opens GlyphTooltip."
+    },
+    {
+      "region": "Hero FrostCard (summary)",
+      "y": 100,
+      "h": 280,
+      "build": "glow-cia. Subtitle: 'Morning coaching call'. NEW ToneGauge (rgba(255,255,255,.08) track, no green flip): '72' / 'warm' + chip 'vocal pacing analyzed'. Display 34: 'Your *recovery* is clear for a tempo day'. Tap gauge expands explainer: 'warm tone detected from vocal pacing'."
+    },
+    {
+      "region": "KPIRow",
+      "y": 388,
+      "h": 78,
+      "build": "glow-done. 3 stats: '12m 04s' (ChipProvenance: 'auto-logged'), '3 actions' (ChipProvenance: 'CIA-detected'), '15% shift' (ChipProvenance: 'transcript parsed')."
+    },
+    {
+      "region": "SolidCard (Call Composition)",
+      "y": 474,
+      "h": 110,
+      "build": "glow-you. Overline: 'CALL COMPOSITION'. ProgressBar variant segmented (scale-X from left). Segments: 'o recovery 5m' (ChipDomainTag: fitness), 'o pace 3m' (ChipDomainTag: fitness), 'o fueling 4m' (ChipDomainTag: nutrition). Total: '12m total'."
+    },
+    {
+      "region": "CIAInsightCard",
+      "y": 592,
+      "h": 128,
+      "build": "glow-cia. Title: 'CIA insight'. Body: 'Your pacing held because fueling happened early'. ChipDomainTag x2: [fitness] [nutrition]. ChipProvenance x2: 'via transcript', 'meal log'. Tap expands correlated reasoning."
+    }
+  ],
+  "belowFold": [
+    {
+      "region": "CallArcTimeline",
+      "y": 728,
+      "h": 100,
+      "build": "glow-done. Overline: 'KEY MOMENTS'. Orange baseline, green 6px dots. Drawn left-to-right. Time anchors: '2m', '5m', '8m', '10m'."
+    },
+    {
+      "region": "Action Items",
+      "y": 836,
+      "h": 160,
+      "build": "glow-you. Overline: 'ACTION ITEMS'. ListRow x3: '[ ] Check resting HRV tomorrow', '[ ] Adjust pre-workout nutrition', '[ ] Log wind-down time before 10pm'. Tap triggers XPToast: '+40 XP · Fitness' (ChipDomainTag: fitness)."
+    },
+    {
+      "region": "Transcript Highlights",
+      "y": 1002,
+      "h": 100,
+      "build": "Overline: 'TRANSCRIPT HIGHLIGHTS'. CIAChatBubble: 'CIA: let's lock in that pacing rule.'"
+    },
+    {
+      "region": "Fixed bottom bar",
+      "y": 1116,
+      "h": 80,
+      "build": "BtnSecondary: 'Schedule follow-up call' (demoted secondary exit, opens Sheet; pinned above the home indicator, always visible regardless of scroll). No BtnPrimary on this screen by design."
+    }
+  ],
+  "imageSlots": [],
+  "trustControls": [
+    "Tap privacy (i) glyph opens GlyphTooltip: retention line + 'Delete now' action, satisfying the consent/revoke requirement.",
+    "Source chips carry category, source, scope, freshness, retention, export, revoke, and delete.",
+    "SafetyResourceCard stays reachable — privacy-first language maintained for journal, mood, stress, sleep, energy, voice, and wellbeing-adjacent moments."
+  ],
+  "notes": [
+    "Type: Hanken Grotesk stand-in for UI (canon override of the spec's legacy 'Neue Montreal'); ONE Newsreader Medium Italic emphasis word: 'recovery', styled in the hero Display 34 ('Your *recovery* is clear for a tempo day').",
+    "Italic word resolved to 'recovery' (literal hero copy, 'the one hero moment' per spec) over the Visual System's generic '*summary*' placeholder, which never appears as literal rendered copy — same resolution pattern used on 03c-consent. CIAInsightCard's spec-marked '*pacing*' is de-italicized in build (rendered plain) to hold canon's one-italic-word-per-screen rule, since both asterisks sit in the same default-state render.",
+    "Honorable-mention correction applied: success XPToast reads '+40 XP · Fitness' (not 'Tasks' — Fitness is one of the nine RPG life domains; 'Tasks' is not).",
+    "NEW components: ToneGauge (interpretive CIA tone read, rgba(255,255,255,.08) track, never flips green — distinct from ProgressRing/ReputationDial) and CallArcTimeline (static historical map: orange baseline = elapsed time, green 6px milestone dots — replaces the draft's IntelligenceTimeline, which the catalog reserves for a live processing trace).",
+    "Composition bars are a segmented ProgressBar (scale-X from left, tag color on label/dot only per CANON 8 'never chrome') — not arcs, correcting the draft's motion spec.",
+    "No BtnPrimary on this screen by design: the persistent action is a demoted BtnSecondary 'Schedule follow-up call' (secondary exit, opens Sheet) — a summary/debrief surface, not a forcing action.",
+    "States for implementation: skeleton ghosts the ToneGauge ring (track only) + SkeletonState composition bars + --surface-3 KPI blocks, empty CallArcTimeline baseline, CIAInsightCard hidden; partial ghosts CallArcTimeline/transcript with 'Transcript is still processing', CIAInsightCard stays hidden until transcript-derived correlation resolves; error swaps hero for BtnSecondary 'Retry' with \"CIA couldn't summarize this call - try again or review the transcript manually\"; offline renders the cached summary + OfflineBanner 'offline - showing your last sync, 2h ago', CTA disabled at 50% opacity with 'connect to internet to schedule'; reduced-motion swaps all draw-first animations to opacity-only fades, ToneGauge/CallArcTimeline set to final state instantly.",
+    "Accessibility: paper-100 #FEFAF3 over --bg-warm #0C0603 = 19.3:1; paper-64% (paper-100 at 64% alpha over --surface-2 #211008) = 7.7:1 — both recalculated against the exact hexes, both clear AAA."
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "id": "94",
+  "name": "Webinars",
+  "route": "/webinars",
+  "shell": "dark",
+  "annotation": "HIFI-94 · /webinars, /webinars/[slug] · dark shell (#0A0A0F) + top-center amber radial glow (18%) + grain. Hero registration card is the singular focal moment (orange glow, one BtnPrimary); recording row and CIA topic-match stay quiet supporting context. GlassNavBar persists with no forced active tab, since Webinars sits outside the four primary destinations.",
+  "italicWord": "webinars",
+  "hasNav": true,
+  "hasFab": false,
+  "modules": [
+    {
+      "region": "status_bar",
+      "y": 0,
+      "h": 44,
+      "build": "Status bar (time, signal, battery). Transparent."
+    },
+    {
+      "region": "top_bar",
+      "y": 44,
+      "h": 56,
+      "build": "TopBar: Back icon '<', Title '*Webinars*' (Newsreader Medium Italic, H1 30px), Search icon right. 44px targets. Solid bottom hairline white 8%."
+    },
+    {
+      "region": "hero_card",
+      "y": 104,
+      "h": 218,
+      "build": "GlassCard r40: H2 'Live reset for sleep'. Body 15 'Thu 7:00 PM | speaker: Dr. Rana'. Body 'host: Balencia wellbeing'. Caption 12 'seats: open | via /webinars'. ChipProvenance: 'route · /webinars', 'source · balencia wellbeing', 'freshness · live'. Orange glow left edge. BtnPrimary 'Register' (#FF5E00, 44px). BtnSecondary 'Add to calendar' (ghost pill)."
+    },
+    {
+      "region": "filter_tabs",
+      "y": 330,
+      "h": 48,
+      "build": "SegmentedTabs: 'Upcoming' (active, orange underline), 'Registered', 'Recordings', 'Topics'. 44px targets. White 8% bg."
+    },
+    {
+      "region": "recording_row",
+      "y": 386,
+      "h": 104,
+      "build": "SolidCard #211008 r24: H3 'Stress reset workshop'. Body 15 'speaker Maya | 42 min recording'. ProgressBar 38% (orange #FF5E00). BtnGhost 'Watch' right. ChipProvenance: 'recording · verified source', 'progress · 38%'."
+    },
+    {
+      "region": "cia_insight",
+      "y": 498,
+      "h": 104,
+      "build": "CIAInsightCard glass r28 purple glow #7F24FF left edge: 'CIA: this session supports your active sleep and stress plan.' ChipProvenance: 'cia · topic match'. Caption muted 'low confidence · estimated'."
+    },
+    {
+      "region": "footer_links",
+      "y": 610,
+      "h": 146,
+      "build": "Footer rows: 'Speaker bio' (BtnGhost), 'privacy' (BtnGhost), 'support' (BtnGhost). 44px targets each. White 8% top border per row."
+    },
+    {
+      "region": "nav_bar",
+      "y": 756,
+      "h": 88,
+      "build": "GlassNavBar: floating pill 'Today · CIA · Goals · Me', 44px targets, no forced active tab — Webinars sits outside the four primary destinations. Home indicator docked beneath, bg #0A0A0F."
+    }
+  ],
+  "belowFold": [],
+  "imageSlots": [
+    {
+      "id": "HIFI-94-01",
+      "y": 104,
+      "h": 218,
+      "prompt": "Webinars video/speaker thumbnails, Balencia warm-dark glass UI asset, privacy-safe, no brand logos, no readable UI text"
+    }
+  ],
+  "trustControls": [
+    "Media consent-gated: no identifiable face, body, home, document, provider logo, or private text without explicit permission",
+    "Source chips expose category, source, scope, freshness, retention, export, revoke, and delete",
+    "Navigation stays aligned to /webinars, /webinars/[slug] only — no alternate vanity routes",
+    "Share uses public URL only, never private plan or health data"
+  ],
+  "notes": "Single BtnPrimary per screen (Register). Recording progress fills only to real 38%, never fabricated. Skeleton: session cards show date/title/speaker geometry, no fake seat counts. Empty: HonestNullState varies per tab — no upcoming, no registrations, or no recordings. Error: failed registration or recording keeps session visible, names the failed action. Success: registration confirms, --glow-done flashes, next step (calendar/recording) appears. Disabled: register/watch/calendar 40% opacity with reason (signed-out, sold out, unpublished, permission-blocked, offline). GlassNavBar carries no forced active tab."
+}

@@ -1,0 +1,162 @@
+### 1. Header
+- **Screen ID:** 24
+- **Name:** Notification history
+- **Route(s) covered:** `/notifications`
+- **Tab:** Me
+- **Source:** Balencia Brief & Glass Canon
+- **Batch:** 10
+
+### 2. Purpose
+A transparent, scrollable ledger of past notifications grouped by date. It allows users to revisit dismissed insights and serves as a passive, honest signal of CIA’s continuous, whole-life background processing. 
+
+### 3. Entry & exit
+- **Entry:** Stack push (depth 1) from the Me Main screen [17] via the quick link grid.
+- **Primary Exit:** Deep-link navigation to relevant screens via tap (CIA Chat [09], Goal Detail [14], Home Screen [12], Community [40]). Premium-locked targets enforce gating on arrival.
+- **Secondary Exit:** Standard stack pop back to Me Main [17] via top-bar back chevron or iOS edge-swipe.
+
+### 4. Layout anatomy
+**Regions top-to-bottom:**
+1. **Atmosphere & TopBar:** Warm radial glow atmosphere. Transparent top bar containing back chevron, title, and "Mark all read" action.
+2. **Summary Band:** A `SummaryStatRow` (CIA, Reminders, Check-ins, Social) with inline counts, plus a `FrequencySparkline` with quiet sub-copy.
+3. **Sticky Group Headers:** Temporal labels (Today, Yesterday) that activate glass backdrop-blur on scroll.
+4. **Grouped Notification List:** Solid data cards containing `NotificationRow` items, separated by hairlines.
+5. **Global Navigation:** Floating glass bottom pill nav (Me tab active).
+
+**ASCII Wireframe (390x844):**
+```text
++-------------------------------------------+ |
+|         (Warm Orange Atmosphere)          | |
++-------------------------------------------+ |
+| < |  Notifications          Mark all read | |- TopBar (44px targets)
++-------------------------------------------+ |
+|                                           | |
+| [ CIA 3 ]  [ Reminders 2 ]                | |- SummaryStatRow
+| [ Check-ins 0 ]  [ Social 1 ]             | |
+|                                           | |
+|        ╱╲     ╱╲          (Sparkline)     | |- TrendChart (Sparse)
+|       ╱  ╲___╱  ╲___                      | |
+| last 7 days                               | |
++-------------------------------------------+ |
+| =========================================  | |- Scrim Fade
+|  TODAY                                    | |- Sticky Date Header
+| -----------------------------------------  | |
+|  *  [C] Sleep dipped to 6.2h              | |- NotificationCard (Unread)
+|  |     Sleep impacts spend.      | 2m ago  | |
+|  -----------------------------------------  | |
+|  O  [R] Time to log your morning meal     | |- NotificationCard (Read)
+|  |     Nutrition reminder.       | 1h ago  | |
+|  -----------------------------------------  | |
+|  *  [S] Alex finished a 7-day streak      | |
+|  |     Community update.         | 6h ago  | |
++-------------------------------------------+ |
+|                                           | |
+|  YESTERDAY                                | |
+|  -----------------------------------------  | |
+|  O  [C] Stress levels are trending down   | |
+|  |     CIA Insight.              | 1d      | |
++-------------------------------------------+ |
+|                                           | |
+|     (Floating Glass Nav Bar - Me Active)  | |- GlassNavBar
++-------------------------------------------+ |
+```
+
+### 5. Components
+- **TopBar** (`default`): Transparent over atmosphere.
+- **SectionHeader** (`default`): Overline + H2 for date groups.
+- **TrendChart** (`sparkline`): 7-point curve for frequency pulse.
+- **NotificationCard** (`default`, `interactive`): `ListRow` variant. Unread state features an orange dot + `glow-you`.
+- **GlassNavBar** (`default`): Floating bottom pill.
+- **SyncStatus** (`offline`): Conditional glass-pill banner.
+- **HonestNullState**: Used for sparse data and empty states.
+- **NEW: SummaryStatRow**: A horizontal scroll of 4 `ChipProvenance`-style tiles that act as inline counters/filters. *Rationale: The brief asked for category counts; wrapping these in solid cards is too heavy. A glass-pill chip row aligns with the 60/30/10 rule and preserves space.*
+
+### 6. Visual treatment
+- **Glass tiers:** 
+  - TopBar and bottom Nav: `.glass-pill` / `.glass-card` on scroll.
+  - Summary Band: `.glass-pill` for chips. Sparkline is borderless.
+  - Notification Cards: `.solid-card` (`--surface-2`). Data-dense lists must use solid surfaces for legibility, never mixing with glass.
+- **Semantic inner-glow:** 
+  - Unread `NotificationCard`: `--glow-you` (#FF5E00). Meaning: *demands your attention/effort.*
+  - CIA Category Chip & CIA-origin notifications: `--glow-cia` (#7F24FF). Meaning: *AI-derived intelligence/projected value.*
+- **Background atmosphere:** `radial-gradient(90% 60% at 50% -10%, rgba(255,94,0,.18), transparent 60%)` over `--bg-base` + 3% grain. 
+- **Hero type moment:** Tiempos Medium italic emphasis word embedded naturally inside CIA notification preview text (e.g., _whole_).
+
+### 7. Content & copy
+Real strings in CIA voice. Sentence case, no exclamation marks, max one emphasis word per moment.
+
+- **Nav Title:** Notifications
+- **Action:** Mark all read
+- **Summary Caption:** last 7 days
+- **Category Labels:** CIA, Reminder, Check-in, Social
+- **Notification Previews:** 
+  - "Your sleep dipped to 6.2h. This often impacts spend."
+  - "Time to log your morning meal."
+  - "Alex finished a 7-day streak."
+  - "Stress levels are trending down."
+  - "I'm noticing a pattern in your _whole_ -life data." *(Tiempos italic)*
+- **Timestamps:** 2m ago, 1h ago, 6h ago, 1d, 3d, May 12
+- **Cold-Start Heading:** No notifications yet
+- **Cold-Start CIA Promise:** I'll start reaching out once I get to know you better
+- **List Load Error:** Couldn't load notifications. Pull to refresh.
+- **Mark-as-Read Error:** Couldn't mark as read. Try again
+- **Offline State:** You're offline. Some notifications may be outdated
+- **Refresh Success:** Notifications refreshed
+
+### 8. Data & honesty states
+Every metric ships 3 states (Real, Low-confidence, Honest-null). No fabricated numbers.
+- **Metric 1: Frequency Pulse (7-day sparkline)**
+  - **Real:** Solid orange curved line + chip `via Notifications API`.
+  - **Low-confidence:** (Brief: < 3 days history) Dashed orange line + caption `estimated · building trail`.
+  - **Honest-null:** 7 unconnected grey dots + caption `Not enough data yet — 3 more days`.
+- **Metric 2: By-Type Counts (Category chips)**
+  - **Real:** Integer count (e.g., `3`) + pill provenance.
+  - **Low-confidence:** `--` + `syncing` caption (during fetch).
+  - **Honest-null:** `0` + omitted from scroll if zero.
+- **Metric 3: Notification Read Status**
+  - **Real:** Unread dot (orange) or Read state (no dot) synced with backend.
+  - **Low-confidence:** Unread dot remains orange + muted `unsynced` tag on row.
+  - **Honest-null:** N/A (binary state, defaults to Read if null).
+
+### 9. All states
+- **Default:** Populated list, mix of read/unread, summary band live.
+- **Skeleton:** Shimmer blocks (`--surface-3` base, 1.2s sweep) match layout geometry. Sparkline shows a flat baseline that morphs into the drawn line.
+- **Empty (Cold-start):** Summary band suppressed. Warm empty state with bell glyph and CIA onboarding promise. "Mark all read" disabled (40% opacity).
+- **Sparse:** (< 3 days) Summary band omits 0-count chips. Sparkline shows individual dots without a connecting line. Caption: "Building your activity trail".
+- **Error:** Summary band suppressed. Centered `ErrorState` with plain language ("Couldn't load notifications. Pull to refresh."). 
+- **Success:** Unread dots undergo atomic simultaneous fade-out (280ms) when "Mark all read" is tapped.
+- **Disabled:** "Mark all read" ghost button drops to 40% opacity and loses orange label when 0 unread items exist.
+- **Offline:** `SyncStatus` glass-pill banner pinned below header. Cached list visible.
+
+### 10. Motion & interaction
+- **Physical Easing:** Standard `cubic-bezier(0.32, 0.72, 0, 1)` for all UI momentum.
+- **Feedback (150-250ms):** Rows scale to `.98` on press. Sticky date headers cross-fade to `.glass-card` with blur on scroll.
+- **Sparkline Choreography:** Draws left-to-right via stroke-dashoffset (1200ms) on screen entry.
+- **Glow behavior:** Unread `NotificationCard` glows subtly. On press/interaction, glow brightens prior to deep-link routing.
+- **Haptics:** Light impact on successful deep-link tap. Medium impact synchronized with the fade-out of "Mark all read".
+- **Reduced-motion path:** Stroke-dashoffset disabled (line simply fades in). Row entry stagger disabled (all fade in at once). 
+
+### 11. Motivation-tier adaptation
+- **Low (Sparse/Day 1):** Summary band hidden. Pure focus on the CIA promise empty state to set expectations without overwhelming.
+- **Medium (Default):** Summary band visible with category counts. Sparkline shows solid trend line. Grouped headers standard. 
+- **High (Power User):** Summary band chip counts serve as active tap-filters. Sparkline supports long-press scrubbing to reveal exact per-day counts. Dense lists load via continuous scroll without pagination breaks.
+
+### 12. Accessibility
+- **AA+ Contrast:** Paper-100 (#FEFAF3) on `--surface-2` (#211008) exceeds WCAG AA. Orange unread dots (#FF5E00) feature a sufficient differential brightness from the dark background. 
+- **44px Targets:** All notification rows maintain 56px min-height. TopBar chevron and "Mark all read" text button are wrapped in 44x44px transparent tap boxes. Category chips meet 44px height.
+- **Screen-reader labels:** Glyph-only sparklines read as: "Notification frequency over the last 7 days". Back chevron reads: "Return to settings".
+
+### 13. Premium checklist
+- [x] **Connects:** Deep-links route seamlessly to cross-domain targets [09, 14, 12, 40].
+- [x] **Honest:** Real-time sync state respected. Sparse data honestly nullified rather than faked. 
+- [x] **Premium:** Dark warm glass atmosphere; tactile, physical motion; typographic elegance.
+- [x] **Glass tiers obeyed:** Solid surfaces used for dense list; glass reserved for nav/chips.
+- [x] **Semantic inner-glow:** One glow per unread card (effort) and CIA chip (AI). No decorative glow.
+- [x] **60/30/10 Color:** Orange (user), Green (completed), Purple (CIA) strictly allocated. 
+- [x] **Selective Glass:** Top/Bottom nav feature glass; data table is opaque.
+- [x] **Honesty Invariant:** 3 states defined for all metrics. Never fabricated.
+- [x] **Data-viz:** Sparkline past line is solid orange; no multi-color gradients.
+- [x] **Voice:** CIA speaks truthfully. One Tiempos italic emphasis word max per notification moment.
+- [x] **Motion:** Physical easing, 150-250ms feedback, reduced-motion honored.
+- [x] **A11y:** AA+ contrast validated. 44px touch targets enforced. Screen-reader labels added.
+- [x] **Cross-cutting:** Offline banner handled via `SyncStatus`.
+- [x] **Contradiction Resolved:** Deep-links pointing to premium-only insights (like photo analytics) do not bypass gating; the target screen enforces the `PaywallLock` on arrival.
