@@ -96,6 +96,41 @@ if (activeSpecFiles.length !== expectedScreenCount) {
   fail(`expected ${expectedScreenCount} active hi-fi specs, found ${activeSpecFiles.length}`)
 }
 
+// Hi-fi registry coverage: a screen with implementation status must have a
+// registry entry in src/components/hifi/screens/<family>/index.ts, and every
+// registry entry must map to a screen that is at least in progress.
+const hifiScreensDir = path.join(root, 'src/components/hifi/screens')
+const registryIds = new Set()
+if (fs.existsSync(hifiScreensDir)) {
+  for (const family of fs.readdirSync(hifiScreensDir, { withFileTypes: true })) {
+    if (!family.isDirectory()) continue
+    const indexFile = path.join(hifiScreensDir, family.name, 'index.ts')
+    if (!fs.existsSync(indexFile)) continue
+    const indexSource = fs.readFileSync(indexFile, 'utf8')
+    for (const match of indexSource.matchAll(/'(\d{2}[a-z]?)':/g)) {
+      if (registryIds.has(match[1])) fail(`duplicate hi-fi registry entry for screen ${match[1]}`)
+      registryIds.add(match[1])
+    }
+  }
+}
+
+const statusById = new Map(
+  [...fs.readFileSync(screensFile, 'utf8').matchAll(/\{\s*id:\s*'([^']+)'[^}]*?status:\s*'([^']+)'/g)]
+    .map(match => [match[1], match[2]])
+)
+for (const [id, status] of statusById) {
+  if (status !== 'not-started' && !registryIds.has(id)) {
+    fail(`screen ${id} has status "${status}" but no hi-fi registry entry`)
+  }
+}
+for (const id of registryIds) {
+  if (!statusById.has(id)) {
+    fail(`hi-fi registry has entry for unknown screen id ${id}`)
+  } else if (statusById.get(id) === 'not-started') {
+    fail(`hi-fi registry has entry for ${id} but screens.ts status is "not-started"`)
+  }
+}
+
 if (!process.exitCode) {
   const warningSuffix = warningCount > 0 ? `, ${warningCount} spec warnings` : ''
   console.log(`verify:routes passed (${screens.length} screens, ${Object.keys(screenSpecs).length} specs${warningSuffix})`)
