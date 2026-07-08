@@ -56,6 +56,16 @@ screens). No live Figma MCP evidence captured this session. Glass-dark canon
 PASS + screenshot) `→ complete` (ledger finalized, screens.ts flipped, batch closed).
 screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'not-started'.
 
+## LIMIT EVENT — 2026-07-08
+
+Anthropic monthly spend limit hit mid-B5b (workflow `wf_14b96b17-485`): 7 spec digests completed;
+all 12 subsequent Claude subagents (GLM wrappers, 2 builders, 3 reviewers) failed to spawn.
+Recovery mode: orchestrator continues in main loop — GLM drafts invoked directly via
+`scripts/glm-worker.sh` (z.ai unaffected), Fable integrates/repairs directly, and performs the
+trust/a11y/clinical-safety review passes itself against the established checklists.
+**Independent third-party review of B5b+ is deferred to the sweep session** and logged as a waiver
+(W-007). Batches stay small with per-batch commits so a hard session stop loses at most one batch.
+
 ## Open items / debt
 
 - Warm-light exception screens (12, 16, 26, 28, 56, auth family): dark-only per decision 1; revisit at light-theme task.
