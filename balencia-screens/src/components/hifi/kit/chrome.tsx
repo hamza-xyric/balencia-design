@@ -36,7 +36,7 @@ export function TopBar({
   right,
   back = true,
 }: {
-  title: string
+  title: React.ReactNode
   eyebrow?: string
   right?: React.ReactNode
   back?: boolean

@@ -80,14 +80,14 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 06 | 06-guest-mode-preview.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
 | 07 | 07-cia-onboarding-conversation.md | /onboarding | Auth & onboarding | P | todo | — | — | — | — |  |
 | 08 | 08-initial-plan-summary.md | /onboarding | Auth & onboarding | B1 | todo | — | — | — | — |  |
-| 09 | 09-cia-chat.md | /ai-coach | CIA, voice & chat | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — |  |
+| 09 | 09-cia-chat.md | /ai-coach | CIA, voice & chat | A | complete | screens/cia/S09CiaChat.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 10 | 10-cia-voice-in-chat.md | review-route only | CIA, voice & chat | B2 | todo | — | — | — | — | review-route only |
 | 11 | 11-cia-voice-full-screen.md | /voice-assistant, /voice-call | CIA, voice & chat | B2 | todo | — | — | — | — |  |
-| 12 | 12-home-screen.md | /dashboard, /activity-status | Today & missions | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — |  |
-| 13 | 13-goals-list.md | /goals | Today & missions | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — |  |
+| 12 | 12-home-screen.md | /dashboard, /activity-status | Today & missions | A | complete | screens/today/S12HomeScreen.tsx | Batch A gates | 2026-07-08 baseline | — |  |
+| 13 | 13-goals-list.md | /goals | Today & missions | A | complete | screens/today/S13MissionBoard.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 14 | 14-goal-detail.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
 | 15 | 15-create-edit-goal.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
-| 16 | 16-life-areas-overview.md | /life-areas | Life intelligence | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — |  |
+| 16 | 16-life-areas-overview.md | /life-areas | Life intelligence | A | complete | screens/intelligence/S16LifeAreas.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 17 | 17-me-main.md | /profile | Profile & settings | B4 | todo | — | — | — | — |  |
 | 18 | 18-explore-section.md | review-route only | Profile & settings | B6 | todo | — | — | — | — | review-route only |
 | 19 | 19-rpg-character.md | /life-world | Profile & settings | B4 | todo | — | — | — | — |  |
@@ -119,7 +119,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 45 | 45-daily-checkin.md | /wellbeing/emotional-checkin | Today & missions | B3 | todo | — | — | — | — |  |
 | 46 | 46-accountability.md | review-route only | Social & community | B7a | todo | — | — | — | — | review-route only |
 | 47 | 47-competitions.md | /competitions | Social & community | B7a | todo | — | — | — | — |  |
-| 48 | 48-intelligence-dashboard.md | /wellbeing/insights | Life intelligence | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — |  |
+| 48 | 48-intelligence-dashboard.md | /wellbeing/insights | Life intelligence | A | complete | screens/intelligence/S48Intelligence.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 49 | 49-progress-photos.md | review-route only | Health & wellbeing | B5a | todo | — | — | — | — | review-route only |
 | 50 | 50-profile-edit.md | /profile/edit | Profile & settings | B4 | todo | — | — | — | — |  |
 | 51 | 51-voice-call-history.md | /voice-call | CIA, voice & chat | B2 | todo | — | — | — | — |  |
@@ -134,10 +134,10 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 60 | 60-medication-tracking.md | No live app route; source-only medication surface. | Health & wellbeing | B5b | todo | — | — | — | — |  |
 | 61 | 61-reminders-tasks.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
 | 62 | 62-quick-notes.md | /quick-notes | Health & wellbeing | B5b | todo | — | — | — | — |  |
-| 63 | 63-energy-tracking.md | /wellbeing/energy | Health & wellbeing | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — |  |
+| 63 | 63-energy-tracking.md | /wellbeing/energy | Health & wellbeing | A | complete | screens/health/S63EnergyTracking.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 64 | 64-report-block.md | review-route only | Social & community | B7b | todo | — | — | — | — | review-route only |
 | 65 | 65-force-update.md | review-route only | Auth & onboarding | B1 | todo | — | — | — | — | review-route only |
-| 66 | 66-notification-permission.md | review-route only | Auth & onboarding | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — | review-route only |
+| 66 | 66-notification-permission.md | review-route only | Auth & onboarding | A | complete | screens/auth/S66NotificationPermission.tsx | Batch A gates | 2026-07-08 baseline | — | review-route only |
 | 67 | 67-image-viewer.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
 | 68 | 68-universal-search.md | review-route only | Profile & settings | B4 | todo | — | — | — | — | review-route only |
 | 69 | 69-app-rating.md | review-route only | System & media | B7b | todo | — | — | — | — | review-route only |
@@ -146,7 +146,7 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 72 | 72-knowledge-graph.md | /knowledge-graph | Life intelligence | B4 | todo | — | — | — | — |  |
 | 73 | 73-mission-journal.md | review-route only | Today & missions | B3 | todo | — | — | — | — | review-route only |
 | 74 | 74-conversations-hub.md | /chat-history, /chat | CIA, voice & chat | B2 | todo | — | — | — | — |  |
-| 75 | 75-direct-chat.md | /messages | CIA, voice & chat | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — |  |
+| 75 | 75-direct-chat.md | /messages | CIA, voice & chat | A | complete | screens/cia/S75DirectChat.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 76 | 76-group-chat.md | /chat | CIA, voice & chat | B2 | todo | — | — | — | — |  |
 | 77 | 77-message-actions.md | review-route only | CIA, voice & chat | B2 | todo | — | — | — | — | review-route only |
 | 78 | 78-reports-center.md | review-route only | Social & community | B7b | todo | — | — | — | — | review-route only |
@@ -160,9 +160,9 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | 86 | 86-virtual-tryon.md | /wellbeing/virtual-tryon | Health & wellbeing | B5a | todo | — | — | — | — |  |
 | 87 | 87-tryon-history.md | /wellbeing/virtual-tryon/history | Health & wellbeing | B5a | todo | — | — | — | — |  |
 | 88 | 88-vision-suite.md | /wellbeing/vision | Health & wellbeing | B5a | todo | — | — | — | — |  |
-| 89 | 89-wellbeing-hub.md | /wellbeing | Health & wellbeing | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — |  |
+| 89 | 89-wellbeing-hub.md | /wellbeing | Health & wellbeing | A | complete | screens/health/S89Wellbeing.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 90 | 90-progress-measurements.md | /progress | Life intelligence | B4 | todo | — | — | — | — |  |
-| 91 | 91-social-feed.md | /feed | Social & community | A | complete | HifiPrototype.tsx (pre-B0) | Batch A gates | 2026-07-08 baseline | — |  |
+| 91 | 91-social-feed.md | /feed | Social & community | A | complete | screens/social/S91SocialFeed.tsx | Batch A gates | 2026-07-08 baseline | — |  |
 | 92 | 92-reputation.md | /reputation | Life intelligence | B4 | todo | — | — | — | — |  |
 | 93 | 93-mood-trends.md | /wellbeing/mood | Life intelligence | B4 | todo | — | — | — | — |  |
 | 94 | 94-webinars.md | /webinars, /webinars/[slug] | Social & community | B7a | todo | — | — | — | — |  |
@@ -177,5 +177,6 @@ screens.ts sync: complete→'complete', built/verified→'in-progress', todo→'
 | Batch | Screens | Opened | Closed | Verification | Notes |
 |---|---|---|---|---|---|
 | A | 10 (09,12,13,16,48,63,66,75,89,91) | 2026-07-07 | 2026-07-07 | npm run check PASS (prior session) | Baseline commit ff59f6f |
+| B0 | 0 new (architecture) | 2026-07-08 | 2026-07-08 | npm run check PASS ×3; screenshot byte-diff pixel-identical on structural commit; canon-aligned shots reviewed | Commits 8bdc343 (kit+registry decomposition), c4a2aba (canon tokens), 5a06da7 (fonts/atmosphere/nav/glow). Evidence: screenshots/B0-baseline, B0-post-refactor, B0-canon-aligned. verify:copy gained inline-emphasis continuation rule. figma-tokens-map.json regen still owed. |
 
 Batch sizes: A=10 · P=4 · B1=12 · B2=8 · B3=9 · B4=12 · B5a=9 · B5b=7 · B6=10 · B7a=9 · B7b=14 · total 104

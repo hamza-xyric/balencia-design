@@ -216,8 +216,8 @@ export function VolumeBars({
       </div>
       {labels && (
         <div className="mt-2 flex gap-2">
-          {labels.map(labelAt => (
-            <span key={labelAt} className="flex-1 text-center text-[10px] text-white/35">{labelAt}</span>
+          {labels.map((labelAt, index) => (
+            <span key={index} className="flex-1 text-center text-[10px] text-white/35">{labelAt}</span>
           ))}
         </div>
       )}
@@ -232,7 +232,7 @@ export function DonutHub({
   label,
   size = 120,
 }: {
-  segments: Array<{ percent: number; className: string }>
+  segments: Array<{ percent: number; className: string; label?: string }>
   value: string
   label?: string
   size?: number
@@ -241,8 +241,17 @@ export function DonutHub({
   const circumference = 2 * Math.PI * radius
   const lengths = segments.map(segment => (segment.percent / 100) * circumference)
   const offsets = lengths.map((_, index) => lengths.slice(0, index).reduce((sum, length) => sum + length + 2, 0))
+  const segmentSummary = segments
+    .filter(segment => segment.label)
+    .map(segment => `${segment.label} ${segment.percent} percent`)
+    .join(', ')
   return (
-    <div className="relative shrink-0" style={{ width: size, height: size }} role="img" aria-label={`${label ?? 'Total'} ${value}`}>
+    <div
+      className="relative shrink-0"
+      style={{ width: size, height: size }}
+      role="img"
+      aria-label={`${label ?? 'Total'} ${value}${segmentSummary ? `. ${segmentSummary}` : ''}`}
+    >
       <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
         <circle cx="50" cy="50" r={radius} fill="none" className="stroke-white/[0.07]" strokeWidth="10" />
         {segments.map((segment, index) => {
