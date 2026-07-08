@@ -7,7 +7,7 @@ readiness.**
 
 | Batch | Status | SHA at close | Findings closed | Gates run | Evidence | Notes |
 |---|---|---|---|---|---|---|
-| R0 evidence-reset | **closed 2026-07-08** | baseline 737d5ad (close = R0 commit) | none closed by design (triage non-closing); W-TRUNC-40/80 waivers written; RW-R0-01..19 filed | STRICT baseline exact-reproduction pass (104/0/21); `npm run check` pass; 104-count pass | `R0/` (baseline JSON+summary, 104 screenshots, 40 reviews, affordance-inventory, new-rw-items), `WAIVERS.md`, batch file `plans/batches/REMEDIATION-R0-evidence-reset/` | 40/40 triage FIX-FILED (59H/101M/70L). **STOP-CONDITION OPEN: confirmed High on reference screen 80 (spec-originated) — R1 gated on founder ack** |
+| R0 evidence-reset | **closed 2026-07-08** | baseline 737d5ad · close f8a9efe | none closed by design (triage non-closing); W-TRUNC-40/80 waivers written; RW-R0-01..19 filed | STRICT baseline exact-reproduction pass (104/0/21); `npm run check` pass; 104-count pass | `R0/` (baseline JSON+summary, 104 screenshots, 40 reviews, affordance-inventory, new-rw-items), `WAIVERS.md`, batch file `plans/batches/REMEDIATION-R0-evidence-reset/` | 40/40 triage FIX-FILED (59H/101M/70L). **STOP-CONDITION OPEN: confirmed High on reference screen 80 (spec-originated) — R1 gated on founder ack** |
 | R1 Cia convergence | queued — **gated on founder ack of R0 stop-condition surface** | — | — | — | — | canon+gates FIRST |
 | R2 chrome semantics | queued | — | — | — | — | zero-pixel |
 | R3 touch targets/roles | queued | — | — | — | — | |
