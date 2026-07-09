@@ -84,40 +84,38 @@ canon §6 wording, gate coverage. Loop `/goal`; profile claude-native.
 
 ---
 
-# 2. Lane B — iOS development (BIOS-002 CLOSED)
+# 2. Lane B — iOS development (BIOS-003 CLOSED)
 
-> Status: **BIOS-002 CLOSED 2026-07-09 — all gates green, app runs live against the real backend in the iOS Simulator** · Next: **BIOS-003 auth hardening**
-> Batch record: `plans/batches/BIOS-002-ios-simulator-contracts/BATCH.md` · Verification: `evidence/verification.md` · Roadmap: `plans/batches/ROADMAP.md`.
+> Status: **BIOS-003 CLOSED 2026-07-09 — all gates green (server 117/117 auth tests, mobile 66/66, 17-step live endpoint exercise, simulator smoke)** · Next: **BIOS-004 Today + Missions hi-fi parity + first EAS/TestFlight build**
+> Batch record: `plans/batches/BIOS-003-auth-hardening/BATCH.md` · Verification: `evidence/verification.md` · Roadmap: `plans/batches/ROADMAP.md` · Submodule pinned @14dd0302.
 
-## What Changed (BIOS-002-ios-simulator-contracts)
+## What Changed (BIOS-003-auth-hardening)
 
-- **Local backend runs** (see `evidence/local-backend.md`): docker `balencia-postgres` (pgvector, :5433) + `balencia-redis` (:6380), server :9090, 15 seeded test users (`john.doe@balancia.test` / `Test1234!`). Fresh-DB sequence: `db:setup` → `db:migrate` → `db:migrate:auto` → manual `139-life-area-checkins.sql`. Local LLM provider = GLM via Z.ai Anthropic-compatible endpoint (`ANTHROPIC_*` in server/.env, dev only) — real Cia completions work locally.
-- **Mobile contract layer rebuilt** (submodule commits `00922b87..f2bdefd4`): vendored DTO mirror, honest adapters (canon §7 enforced by an anti-fabrication test walker — old fake fitness/lifePower numbers deleted), SessionProvider state machine (SecureStore v1 schema, proactive+reactive refresh, rotation replay → global expired state), TanStack Query conventions, non-streaming Cia chat with Idempotency-Key + 4 distinct gated states, trust center (real export w/ truncation honesty, exact-phrase hard delete, optimistic privacy toggles).
-- **Server fix shipped**: gamification routes read `req.user.userId` (was `.id` = undefined → zero stats for every user; proven live before/after). 3 upstream server findings documented in `evidence/local-backend.md`.
-- **Simulator smoke (Maestro 2.6.1 + Expo Go)**: full walk of sign-in → onboarding (live Cia calibration chat) → Today (honest-null Life Power/pulse) → Cia live reply → Missions → Me (real Level 5/1,200 XP/streak 7) → Life Areas → Fitness → Data Controls (live toggles + real export counts) → boot hydration. 14 screenshots in `evidence/simulator/`. Two real bugs found by smoke and fixed: hidden-NativeTabs routes were unreachable via router.push (now root Stack pushes w/ native headers); eyebrow style uppercased "Cia" → visible "CIA" (eyebrows now "Coach").
-- **Review panel**: 4 Sonnet lenses, 19 adversarially-confirmed findings, all fixed (notably: business-401s no longer collapsed into SessionExpiredError; session expiry now propagates globally; purple stripped from non-Cia surfaces; AA-safe purpleText token; keyboard avoidance on input screens).
-- **Tests**: Vitest infra + 41 tests green (`npm run test` = manifest verifier + vitest).
-- GLM 5.2 drafted 100% of the 12 implementation packets (`packets/`), per the token-routing policy; Fable did seam/review fixes only.
+- **OQ-1 CLOSED — per-device sessions**: `user_sessions` table (146-*.sql + registered auto-migration), sha256-hashed refresh at rest, atomic-CAS rotation, reuse-detection→revoke, LRU cap 10, `sid` claim in both JWTs, `/refresh` dual-read + lazy legacy migration (web cookie flow byte-unchanged, integration-proven), `/logout {allDevices?}` (this-device default), `jti` uniqueness on refresh tokens (1-second-iat rotation degeneracy found by integration tests). BIOS-002's "second device logs out the first" caveat is gone — proven live (17-step exercise incl. multi-device independence + replay→revoke).
+- **Social auth fail-closed**: Apple JWKS verification wired (was decode-only AND unwired — client JSON was trusted); Google verification required for ALL callers (the X-Client-gated NextAuth fallback was a bypass; web client verified to send id_token every sign-in); `socialAuthSchema.email` optional (derived from the verified token).
+- **Mobile auth suite per hi-fi**: S03 sign-up → S03b OTP (in-memory activationToken) → S03c consent → S03e whatsapp-gated-skip → onboarding via `resolveNextStep`; S04 sign-in (spec copy, forgot link, gated equal-weight social pills); S05/S05b forgot/reset (honest OTP adaptation ADR-9, client-side enumeration normalization, real Retry-After handling); complete-profile for social users. New kit primitives (OTPCluster, ChargeMeter, PasswordRequirementList, ConsentCheckbox, MaskedDestinationLine, ToastBanner, SocialAuthButton, GlassPillInput) — a11y-labeled, announced errors, reduced-motion safe. `adoptSession`, per-install device id headers. Tests 41→66.
+- **Review panel**: 16 findings → 14 adversarially confirmed → all fixed (blockers: social empty-email 400 breaker; Google X-Client verification bypass). 2 refuted with evidence (`evidence/review-panel.md`).
+- **Local infra**: mailpit sink (`balencia-mailpit` docker, SMTP :1025, API/UI :8025) + `FORCE_EMAIL_IN_DEV=true` in server/.env → registration/OTP/reset emails exercisable locally (`evidence/local-backend-delta.md`).
+- **Upstream findings (server backlog)**: full-suite `npm test` OOM (use scoped suites or `test:ci`); `tests/globalTeardown.ts` deletes ALL `%@balancia.test` users — **re-run `npm run db:seed:test-users` after any server integration run**; forgot-password 404-enumeration is a product decision (OQ-A, owner Hamza).
 
-## Manual Items Still Needed From Hamza (unchanged + one urgency bump)
+## GLM lessons (BINDING for BIOS-004 Move D/E)
 
-1. **Replace `mobile/.env` with EXPO_PUBLIC_*-only content — urgency bumped:** expo/npm auto-load it and echo all var NAMES to logs every run (values never printed).
-2. Confirm Apple team type intent (EAS showed Individual).
-3. Provide TestFlight privacy policy URL + feedback email (before external testers only).
-4. Decide QA account approach for production (local dev uses seeded users; production QA still undecided).
-5. **BIOS-003 entry decision (OQ-1):** single-refresh-token-per-user silently logs out other devices — approve a backend session-table change or accept the limitation.
+1. **The glm-worker heredoc bridge drops/truncates packets beyond ~50KB** — GLM then hallucinates an imaginary codebase. Fix before heavy waves: pass packets by file path (bridge reads from disk) or keep packets small. Escalations this batch: SP2, MP1, MP6, MP7, MP9, MP10 (Fable implemented from the packets' own contracts).
+2. Never ask a worker to re-emit `package.json`/large existing files — anchored edits or dependency lists only; landers install deps.
+3. Haiku shell-runner wrappers must be explicitly forbidden from using file tools (two went rogue and applied drafts themselves).
+4. Maestro 2.6.1 + RN new-arch: secure-field text injection is flaky; tap nested-Text links via points; buttons match by accessibilityLabel. Prefer a dev-build for BIOS-004 smoke automation.
 
-## Next Batch (Lane B): BIOS-003 — Auth hardening + multi-device
+## Manual Items Still Needed From Hamza (unchanged)
 
-Per `plans/batches/ROADMAP.md`. Scope: backend session model (OQ-1), Google/Apple sign-in,
-registration/OTP/forgot-password screens, token security review. Entry: OQ-1 decision from Hamza.
-Follow the Per-Batch Operating Procedure in `plans/BIOS-DEV-MASTER-PROMPT.md`; local backend
-setup is reproducible from `BIOS-002 .../evidence/local-backend.md`. Open questions OQ-1..5 in
-`evidence/architecture-plan.md` §6.
+1. Replace `mobile/.env` with EXPO_PUBLIC_*-only content (W1 — names echo into logs every toolchain run).
+2. Apple team type intent (W2). 3. TestFlight privacy URL + feedback email (W3). 4. Production QA account decision (W4).
+5. NEW: OQ-A (server forgot-password enumeration 404 — keep or normalize?), OQ-C (`APPLE_CLIENT_IDS` production values).
+
+## Next Batch (Lane B): BIOS-004 — Today + Missions hi-fi parity
+
+Per `plans/batches/ROADMAP.md`: deep visual parity to `Balencia-New-Screens/hifi-screens/` (Today S12 family + Missions), GlassNavBar, canon viz components (TrendChart, ProgressRing, GlassStatCard, CIAPresenceOrb) native w/ Reanimated, motion + reduced-motion variants, density tiers, **first EAS/TestFlight build** (internal group; approved per standing decision 7). Entry: BIOS-002 adapters stable ✓; check W-007 re-review state for affected screens (Lane A `remediation-2026-07/R0/reviews/`). Local backend recipe: BIOS-002 `evidence/local-backend.md` + BIOS-003 `evidence/local-backend-delta.md` (mailpit). Boot: docker start balencia-postgres balencia-redis balencia-mailpit; server `npm run dev` (:9090); re-seed users if integration tests ran.
 
 ## Standing Constraints (Lane B)
 
-- Design truth: `Balencia-New-Screens/hifi-screens/` + `canon/` (CIA naming — becomes **Cia** after Lane A R1, warm-dark glass, 44px targets, purple = Cia/AI only). W-007: 40 screens triaged FIX-FILED in Lane A R0 (see `remediation-2026-07/R0/reviews/`) — don't treat their specs as final until remediation lands.
-- Backend-gated features (WhatsApp, Finance, compliance, barcode, PWA/offline, PSTN) stay visible-but-gated with provenance states.
-- `yhealth-app-main` is historical reference only.
-- Never read/print/commit secret values; `.p8` stays local-only.
+- Design truth: `Balencia-New-Screens/hifi-screens/` + `canon/` (Cia naming, warm-dark glass, 44px targets, purple = Cia/AI only, honesty invariant). W-007: 40 screens FIX-FILED in Lane A — parity re-check when remediation lands.
+- Backend-gated features stay visible-but-gated with provenance. `yhealth-app-main` historical only. Never read/print/commit secret values.
