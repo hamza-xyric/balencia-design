@@ -1,6 +1,6 @@
 # BIOS-004-today-missions-parity — Today + Missions Hi-Fi Parity + First EAS Build
 
-- Status: `in progress` (opened 2026-07-09, unattended autonomous run, continues from BIOS-003 close)
+- Status: `closed` (opened 2026-07-09, closed 2026-07-09 — unattended autonomous run)
 - Theme: Deep visual parity of Today + Missions to `Balencia-New-Screens/hifi-screens/` — GlassNavBar, canon viz components native (TrendChart, ProgressRing, GlassStatCard, CIAPresenceOrb per COMPONENT-CATALOG), motion w/ reduced-motion variants, density tiers, 60/30/10 color roles, honesty invariant on every metric — plus the **first EAS/TestFlight build** of the integrated app (internal group; pre-approved, standing decision 7).
 - Session cap: 4 slices — (1) canon viz component kit native (Reanimated), (2) Today screen family parity, (3) Missions board parity (6 tier colors, create/complete + XP against `/v1/goals/unified`), (4) GlassNavBar + motion polish; then EAS build+submit (internal). No widening to other tabs/screens.
 - Build gate this batch? yes — EAS/TestFlight milestone build (internal group) + full simulator smoke
@@ -75,12 +75,12 @@ closeout_writes:
 ## Item checklist
 | Item | Locator | Status |
 |------|---------|--------|
-| BIOS-004-01 Canon viz kit native: TrendChart, ProgressRing, GlassStatCard, CIAPresenceOrb (+ MomentumBar/ChargeMeter reuse) w/ Reanimated, reduced-motion, 44px, honesty states | `mobile/src/components/balencia/` | pending |
-| BIOS-004-02 Today family deep parity vs hi-fi S12 spec (layout, copy, density tiers, motion, provenance chips) | `mobile/src/features/today/` | pending |
-| BIOS-004-03 Missions board parity: 6 tier colors per RPG terminology, create/complete flows, XP against `/v1/goals/unified` + `/gamification` | `mobile/src/features/missions/` | pending |
-| BIOS-004-04 GlassNavBar (custom tab bar per canon) + cross-screen motion polish | `mobile/src/app/(tabs)/` | pending |
-| BIOS-004-05 EAS build + TestFlight internal submission (milestone build) | `eas.json`, ASC | pending |
-| BIOS-004-06 Simulator parity smoke (screenshots vs hi-fi refs) + endpoint exercise | `evidence/simulator/` | pending |
+| BIOS-004-01 Canon viz kit native: TrendChart, ProgressRing, GlassStatCard, CIAPresenceOrb (+ MomentumBar/ChargeMeter reuse) w/ Reanimated, reduced-motion, 44px, honesty states | `mobile/src/components/balencia/` | done @6acbb7a6 + K1 composition-kit @46f942c1 |
+| BIOS-004-02 Today family deep parity vs hi-fi S12 spec (layout, copy, density tiers, motion, provenance chips) | `mobile/src/features/today/` | done @46f942c1 (S1 packet; Move F review pending) |
+| BIOS-004-03 Missions board parity: 6 tier colors per RPG terminology, create/complete flows, XP against `/v1/goals/unified` + `/gamification` | `mobile/src/features/missions/` | done @46f942c1 (S2–S5 packets: board, detail w/ 5 accordions per A1, create w/ A6 pin test, celebration XP-delta-only; Move F review pending) |
+| BIOS-004-04 GlassNavBar (custom tab bar per canon) + cross-screen motion polish | `mobile/src/app/(tabs)/` | done @6acbb7a6 (js-tabs + GlassNavBar; motion constants shared via motion.ts) |
+| BIOS-004-05 EAS build + TestFlight internal submission (milestone build) | `eas.json`, ASC | done — build 13 FINISHED + auto-submitted (internal group); builds 11/12 failed on stale profile → capability repaired non-interactively via ASC API + EAS profile regen (`evidence/eas/build-13-record.md`) |
+| BIOS-004-06 Simulator parity smoke (screenshots vs hi-fi refs) + endpoint exercise | `evidence/simulator/` | done — A4 Expo-Go gate PASSED; full UI walk vs hi-fi (sign-in → Today → board → create → detail → complete → deep-link defense), real POST/PUT/GET exercised + server-verified (`evidence/simulator/endpoint-exercise.md`) |
 
 ## Architecture decisions (Move C — ACCEPTED 2026-07-09)
 
@@ -91,13 +91,57 @@ closeout_writes:
 ## Packet lessons (running log)
 _(BIOS-003 lessons are binding preconditions — see pre-dev gate)_
 
+- **2026-07-09 Move E:** file-path bridge + fully self-contained packets (byte-exact embeds,
+  pre-verified reference implementations, shared K1 contract pasted verbatim into every screen
+  packet) → **6/6 GLM first-attempt successes, zero retries, zero escalations**. Lander fixes
+  were all mechanical (eslint-disable on Reanimated SharedValue writes, absoluteFillObject→absoluteFill,
+  &apos; escape). Details: `evidence/move-e-implementation-log.md`.
+- Packet-AC precision lesson: two packets had imprecise mechanical checks (grep patterns matching
+  comment text / substring false-positives like 'expo' matching 'xp'); anchor grep ACs to `^import`
+  or word boundaries in future packets.
+- **2026-07-09 Move G (EAS lesson, binding for future builds):** eas-cli CANNOT sync Apple
+  capability identifiers with ASC API-key auth (cookies/Apple-ID only) — but capabilities can be
+  enabled directly via ASC API (`POST /v1/bundleIdCapabilities`; APPLE_ID_AUTH needs the
+  PRIMARY_APP_CONSENT setting or it 409s), and EAS *profile regeneration* works fine with API-key
+  auth once the stale portal profile is deleted. Full repeatable recipe:
+  `evidence/eas/build-13-record.md`. Also: `yes | eas build` forces non-interactive mode (skips
+  credential validation entirely) — never use it expecting prompts.
+
 ## Batch summary
-_(filled at close)_
+
+**CLOSED 2026-07-09.** Today (S12), Missions board (S13), mission detail (S14, all five
+accordions per A1), create mission (S15, life-create + A6 drift pin), celebration (S42,
+XP-delta-only via in-memory single-use gate) all at hi-fi parity on the UNCHANGED BIOS-002
+adapters; K1 composition kit (ChipDomainTag w/ canon DOMAIN_COLORS, SegmentedTabs, FABQuickLog,
+CIAInsightCard, ExpandableSection, FrostCard) + viz kit + GlassNavBar shipped; **first
+EAS/TestFlight internal build (build 13) FINISHED + submitted** after a fully non-interactive
+Apple capability repair (see packet lessons + `evidence/eas/build-13-record.md`).
+
+- Gates at close: lint 0 / typecheck 0 / **tests 165** (70 at open) / expo config OK /
+  expo web export smoke OK / simulator parity walk vs hi-fi with real-endpoint exercise
+  (server-verified create+complete+stats) / EAS build 13 green + submitted; ASC
+  processingState tracked via `scripts/verify-asc-state.sh` (A3).
+- Move F: 4-lens panel → 22 raw findings → **21 adversarially confirmed → all fixed**
+  (incl. celebration deep-link forgery gate, per-mission optimistic rollback, mutation-scope
+  serialization, a11y grouping/dynamic-type sweep, S14 KPI row to spec, S15 type-picker
+  honesty relabel). Evidence: `evidence/move-f-review-panel-findings.json`.
+- Orchestrator-found fixes: safe-area on detail push, a11y descendant visibility, DOMAIN_COLORS
+  threading, domain copy humanize, pinned-missions completed-exclusion.
+- **GLM-vs-Claude split:** GLM 5.2 drafted 100% of K1+S1–S5 first-pass implementation
+  (6/6 packets first-attempt, zero retries/escalations — file-path bridge + reference-impl
+  packets). Claude: packet composition + landing verification + review panel + fixes +
+  orchestration. Token routing policy satisfied for generation; review/fix volume was
+  Claude-side by design.
+- Waivers carried: W1–W4 (Hamza-owned, unchanged), W5 (Lane A), W6 (backend-gated), B2
+  (Maestro secure-field — worked around with point-taps; sign-in automated successfully).
+  B1 (real-device Apple sign-in E2E) now UNBLOCKED by build 13 on TestFlight.
+- New disclosure: repair created a new Apple distribution cert (old one still portal-side;
+  revocation = Hamza's call). W2 team-type store decision still open.
 
 ## Completion gate (before status `closed`)
-- [ ] Every worked item has notes in THIS file
-- [ ] Worker packets + output paths recorded; worker output verified by orchestrator
-- [ ] Verify command run and result recorded
-- [ ] Simulator screenshots + EAS build/submission evidence in `evidence/`
-- [ ] GLM-vs-Claude split recorded
-- [ ] Spec + ROADMAP + handoff updated; submodule committed; pinned SHA updated
+- [x] Every worked item has notes in THIS file
+- [x] Worker packets + output paths recorded; worker output verified by orchestrator
+- [x] Verify command run and result recorded (lint/typecheck/test/config/export + simulator + EAS)
+- [x] Simulator screenshots + EAS build/submission evidence in `evidence/`
+- [x] GLM-vs-Claude split recorded
+- [x] Spec + ROADMAP + handoff updated; submodule committed; pinned SHA updated

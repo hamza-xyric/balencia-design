@@ -84,39 +84,33 @@ canon §6 wording, gate coverage. Loop `/goal`; profile claude-native.
 
 ---
 
-# 2. Lane B — iOS development (BIOS-003 CLOSED · BIOS-004 IN PROGRESS mid Move-E)
+# 2. Lane B — iOS development (BIOS-004 CLOSED · next BIOS-005)
 
-> Status: **BIOS-003 CLOSED 2026-07-09. BIOS-004 (Today+Missions parity + first EAS build) IN PROGRESS — Moves A/B/C done, Move D/E ~60% (viz kit + missions data + GlassNavBar landed & gated green; screens + tests + review + build NOT done).**
-> Submodule pinned @6acbb7a6 (WIP, all gates green: lint 0 / typecheck 0 / test 70/70). Batch record: `plans/batches/BIOS-004-today-missions-parity/BATCH.md`. Plan (accepted w/ A1–A6): `evidence/architecture-plan.md`. Roadmap: `plans/batches/ROADMAP.md`.
+> Status: **BIOS-004 CLOSED 2026-07-09 (same-day full batch, unattended run). First EAS/TestFlight internal build SHIPPED (build 13). Next: BIOS-005 Cia coach full experience.**
+> Submodule pinned @6a18c8e5 (pushed). Batch record: `plans/batches/BIOS-004-today-missions-parity/BATCH.md` (+ evidence/). Roadmap: `plans/batches/ROADMAP.md`.
 
-## RESUME HERE — BIOS-004 remaining work (Move E continuation)
+## RESUME HERE — open BIOS-005 (Cia coach full experience)
 
-Landed & green so far: `src/constants/theme.ts` (6 metal tier tokens) + `motion.ts`; viz kit `progress-ring/trend-chart/glass-stat-card/cia-presence-orb/momentum-bar.tsx` + kit `index.ts` exports; `services/adapters/missions.ts` (6-tier `mapTier`) + create/complete DTOs + `services/api/missions.ts` + `hooks/use-mission-mutations.ts` (optimistic + XP-delta honesty); `components/balencia/glass-nav-bar.tsx` + `app/(tabs)/_layout.tsx` (NativeTabs → expo-router js-tabs). Interim: `missions-screen.tsx` tier map stubbed to 6 tiers (rebuild in S2).
+Move A per master prompt: `/runtime-profiles` → `/start-batch BIOS-005-cia-coach` → `/pre-development-check` → GLM ping. Entry criteria from ROADMAP: trace the streaming transport (OQ-3: socket layer vs SSE in `server/src/.../chat.routes` + socket services), confirm entitlement/402 enforcement plan. Scope: streaming chat transport decision, insights/suggestedActions UI, image analysis, MCQ onboarding; plus the BIOS-004 deferral line (S41/S45/S61/S73/S93 + ScheduleDonut/TimelineGrid/MoodEmojiPicker/TimelineSpine/EventCard/ImageThumbnailRow/ExpandableList-list-variant/ConstellationRadar + CIA-planning create result state + S13 journal glyph + canon CapacityMeter) — pull into 005/006 as the architecture plan decides.
 
-STILL TO BUILD (packets already partly composed in `packets/` — S1..S5, T1; A1/N1/V*/F1 packets exist):
-1. **S1 — Today recompose** to hi-fi S12 parity on the UNCHANGED TodayVM adapter (new viz kit, density tiers, staggered motion, hero-only breathing, provenance chips, purple only on Cia).
-2. **S2 — Missions board** to hi-fi S13: 6 metal-tier card colors from theme tokens (replace the interim stub), summary row, create entry point.
-3. **S3 — Mission detail S14**: ALL FIVE accordions (A1 amendment: ALL ACTIONS + PROGRESS data-backed; MILESTONES honest-null-capable; CIA REASONING + CROSS-DOMAIN LINKS visible-but-gated). Root-Stack push route `app/mission/[id].tsx`.
-4. **S4 — Create mission S15**: life-domain create via `POST /v1/journal/goals`, `VALID_CATEGORIES` (pin with a test), optimistic board update.
-5. **S5 — Completion celebration S42**: XP-delta-only (three separate elements +120 / XP / "you earned it"); null-delta branch has NO XP number.
-6. **T1 — screen/logic tests**; then **Move F** (4-lens review panel + adversarial verify + fix), **Move G** (simulator parity smoke vs hi-fi + **first EAS/TestFlight internal build** via /loop wait + ASC JWT verify script `scripts/verify-asc-state.sh` to author), **Move H** (close + commit + handoff + open BIOS-005).
+## BIOS-004 closeout facts (what a fresh session must know)
 
-Wave-1 EMPIRICAL GATE (A4, do at first simulator run): confirm Expo Go loads react-native-svg / expo-haptics / expo-linear-gradient; if the Go binary lacks any, pivot smoke to an EAS dev-client simulator build (documented, budget-approved).
+- Screens S12/S13/S14/S15/S42 at hi-fi parity, on UNCHANGED BIOS-002 adapters. Composition kit (`composition-kit.tsx`): ChipDomainTag (+`domain` canon tint), SegmentedTabs, FABQuickLog, CIAInsightCard (Cia-only purple; `gated`), ExpandableSection (`gated` lock), FrostCard (breathe hero-only). Mobile tests 165, lint/typecheck 0.
+- **XP honesty implementation** (do not regress): complete → per-mission optimistic flip (`mission-mutation-logic.ts` applyOptimisticComplete/revertGoal; mutation `scope:{id:'complete-mission'}`) → forced stats refetch → `computeXpDelta` → celebration ONLY on positive delta, payload via `celebration-gate.ts` in-memory single-use gate (30s TTL) — **route params carry no XP**; forged deep links land in the honest no-XP branch (simulator-proven screenshot in evidence).
+- **EAS build 13** (v1.0.0) FINISHED + auto-submitted to "Internal Balencia Testing". Builds 11/12 failed: stale profile lacked Sign In with Apple. NON-INTERACTIVE repair recipe (repeatable, in `evidence/eas/build-13-record.md`): ASC API enable `APPLE_ID_AUTH` w/ `PRIMARY_APP_CONSENT` setting → delete stale portal profile → `eas credentials` "All: Set up" via expect w/ `EXPO_ASC_*` env (profile regen works with API-key auth; capability SYNC is cookie/Apple-ID-only — eas-cli hard limit). NEVER `yes | eas build` (forces non-interactive, skips validation).
+- Disclosures for Hamza: (1) repair created a NEW Apple distribution cert (serial 44FBDA8E…, exp 2027-07-09); old cert 32A29646… still portal-side — revoke or keep is his call (Individual account cert slots are limited). (2) Team-type prompt answered "Individual" (mirrors existing team record); W2 store-metadata decision still open. (3) Build 13 content = submodule @4eff877a; the domain-humanize + pinned-missions polish (@458f0b9a) ships with the next build.
+- ASC state check: `scripts/verify-asc-state.sh [builds|groups]` (local ES256 JWT from eas.json creds; read-only). At close, build 13 was uploaded + submitted; ASC processing to VALID typically lands within ~15 min — verify at next session start.
+- B1 (real-device Apple sign-in E2E) is now UNBLOCKED via TestFlight build 13 — needs Hamza's device.
+- Known cosmetic follow-ups (BIOS-005 backlog): S14 due-date raw ISO slice; consider excluding source chip tint on S14; Expo Go "Continue to Today" onboarding gate (BIOS-002 surface) requires a Cia reply before enabling — smoke used "Skip for now".
 
-## GLM bridge — FIXED (use it)
+## GLM bridge + packet discipline (unchanged, proven at scale this batch)
 
-`scripts/glm-worker.sh` now streams the prompt via a temp file + `curl --data-binary @file` (committed) — proven with a 190KB round-trip. Deliver packets by file path: wrappers run `cat packets/_worker-rules.md packets/<id>.md | ./scripts/glm-worker.sh -t 16384` and the haiku shell-runner is forbidden from using file tools. `packets/_worker-rules.md` holds the standing output-format + lint + canon rules. Never ask a worker to re-emit package.json.
+File-path bridge: `cat packets/_worker-rules.md packets/<id>.md | ./scripts/glm-worker.sh -t 24576`, haiku shell-runners forbidden from file tools, drafts to `evidence/glm-drafts/`. BIOS-004 result: **6/6 GLM first-attempt successes** — packet recipe that did it: byte-exact current-source embeds + verbatim import-surface interfaces + a pre-verified reference implementation + explicit out-of-scope list. Sonnet landers verify/apply; mechanical-fix-only mandate. Packet-AC lesson: anchor grep checks to `^import` (comment text false-positives).
 
-## What Changed earlier (BIOS-003-auth-hardening, CLOSED @14dd0302)
+## Manual Items Still Needed From Hamza
 
-- OQ-1 CLOSED — per-device `user_sessions` (atomic-CAS rotation, reuse→revoke, dual-read legacy compat, `jti` on refresh tokens). Apple JWKS verification wired (was decode-only+unwired). Google verification required for all callers (X-Client bypass closed). Full mobile auth-flow suite per hi-fi (S03/S03b/S03c/S03e/S04/S05/S05b + complete-profile). Server 117/117 auth tests, mobile 66→70. Review panel 16→14 confirmed→fixed. Evidence: `plans/batches/BIOS-003-auth-hardening/`.
-- Local dev: mailpit sink (`balencia-mailpit` docker :1025/:8025) + `FORCE_EMAIL_IN_DEV=true`. CAUTION: server integration suite teardown DELETES all `%@balancia.test` users — re-run `npm run db:seed:test-users` after; full-suite `npm test` OOMs (use scoped suites).
+1. `mobile/.env` EXPO_PUBLIC_*-only (W1). 2. Apple team type / store metadata (W2, W3). 3. Production QA account (W4). 4. OQ-A (forgot-password 404 enumeration), OQ-C (`APPLE_CLIENT_IDS` prod values). 5. NEW: distribution-cert cleanup decision (see disclosures). 6. B1 real-device Apple sign-in E2E on build 13.
 
-## Manual Items Still Needed From Hamza (unchanged)
+## Standing Constraints (Lane B — unchanged)
 
-1. Replace `mobile/.env` with EXPO_PUBLIC_*-only (W1). 2. Apple team type (W2). 3. TestFlight privacy URL + feedback email (W3). 4. Production QA account (W4). 5. OQ-A (server forgot-password 404 enumeration — keep or normalize?), OQ-C (`APPLE_CLIENT_IDS` prod values). B1: real-device Apple sign-in E2E — the BIOS-004 TestFlight build is the unblock vehicle.
-
-## Standing Constraints (Lane B)
-
-- Design truth: `Balencia-New-Screens/hifi-screens/` + `canon/`; rendered reference `balencia-screens/src/components/hifi/screens/`. Cia naming, warm-dark glass, 44px, purple = Cia/AI only, honesty invariant on every metric. W-007: 40 screens FIX-FILED in Lane A — no Today/Missions screens in that list (verified).
-- Backend-gated features stay visible-but-gated with provenance. `yhealth-app-main` historical only. Never read/print/commit secret values. Boot: docker start balencia-postgres balencia-redis balencia-mailpit; server `npm run dev` (:9090).
+Design truth `Balencia-New-Screens/hifi-screens/` + `canon/`; rendered reference `balencia-screens/`. Cia naming, warm-dark glass, 44px, purple = Cia only, honesty invariant everywhere. Backend-gated stays visible-but-gated. Never read/print `mobile/.env` or secret values. Boot: `docker start balencia-postgres balencia-redis balencia-mailpit`; server `npm run dev` (:9090); re-seed `npm run db:seed:test-users` after integration suites; full server `npm test` OOMs (scoped suites only).
