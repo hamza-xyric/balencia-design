@@ -82,8 +82,11 @@ closeout_writes:
 | BIOS-004-05 EAS build + TestFlight internal submission (milestone build) | `eas.json`, ASC | pending |
 | BIOS-004-06 Simulator parity smoke (screenshots vs hi-fi refs) + endpoint exercise | `evidence/simulator/` | pending |
 
-## Architecture decisions (Move C)
-_(filled after Opus plan accepted)_
+## Architecture decisions (Move C — ACCEPTED 2026-07-09)
+
+- Plan: `evidence/architecture-plan.md` (Opus, high effort; 10 ADRs binding). Review: `evidence/architecture-plan-review.json` (Sonnet) — **approve-with-changes** (1 blocker, 4 majors, 5 minors); Fable **ACCEPTED WITH AMENDMENTS A1–A6** (plan §11).
+- Highlights: viz kit = react-native-svg + Reanimated animatedProps (5 components: ProgressRing, TrendChart, GlassStatCard, CIAPresenceOrb, MomentumBar; canon ChargeMeter deferred as CapacityMeter — name collision with the OTP ChargeMeter); Today recomposed on the UNCHANGED BIOS-002 adapters; Missions = 6 metal-tier tokens + life-primary create (`POST /v1/journal/goals`) + complete via per-domain routes + **XP-delta-only celebration** (server returns no XP on completion — refetch `/gamification/stats`, celebrate only a confirmed delta; never a fabricated toast); GlassNavBar via expo-router JS `Tabs` custom tabBar (fixes the NativeTabs hidden-route class); S14 renders ALL 5 accordions (2 data-backed, milestones honest-null-capable, reasoning/links visible-but-gated → A1); first EAS build (production profile, autoIncrement → build 11, --auto-submit, /loop wait, ASC JWT verify script authored in-batch → A3); defer line to BIOS-005: S41/S45/S61/S73/S93 + bespoke components.
+- Wave-1 empirical gate (A4): Expo Go must load svg/haptics/linear-gradient imports; else smoke pivots to EAS dev-client simulator build.
 
 ## Packet lessons (running log)
 _(BIOS-003 lessons are binding preconditions — see pre-dev gate)_

@@ -1,0 +1,83 @@
+{
+  "verdict": "approve-with-changes",
+  "blockers": [
+    {
+      "id": "B1",
+      "claim": "S14 Mission Detail (in-scope, not on the defer line) ships all required design-parity elements this batch.",
+      "evidence": "architecture-plan.md §4.3 builds only 2 of the 5 accordions the scope authority requires: 'accordions read-only/collapsed (ALL ACTIONS / PROGRESS = TrendChart); other accordions deferred-ghost.' But scope-hifi-today-missions.md §8 ('Verification Checklist (BIOS-004 Entry Gate)') explicitly states: '- [ ] S14: Five expandable accordions: ALL ACTIONS / MILESTONES / CIA REASONING / CROSS-DOMAIN / PROGRESS OVER TIME'. Unlike every other scope cut in this plan (S41/S45/S61/S73/S93, ConstellationRadar), this one has no ADR, no Section-8 Open-Questions flag, and no mention in the Executive Summary's defer line — it is buried as a single clause in a composition-table cell. As written, the batch cannot pass the exit gate defined by its own cited source of truth for an in-scope screen.",
+      "fix": "Either (a) add MILESTONES/CIA REASONING/CROSS-DOMAIN LINKS to the S14 packet scope (accepting the cap tradeoff it displaces), or (b) add this as an explicit ADR/Open-Question with the same decided-with-flag treatment given to ConstellationRadar, and amend or waive the scope-hifi §8 checklist line for S14 accordingly so close-batch verification isn't silently failing its own gate."
+    }
+  ],
+  "majors": [
+    {
+      "id": "M1",
+      "claim": "ADR-5 states new root Stack.Screen routes this batch are 'life-areas, fitness, data-controls, + new mission-detail/create/journal/celebration.'",
+      "evidence": "'journal' (S73 Mission Journal) is explicitly deferred to BIOS-005 in the Executive Summary ('S41/S45/S61/S73/S93 ... are deferred to BIOS-005') and in Open Question #2. Section 5's packet table (the actual build plan) correctly builds only app/mission-detail.tsx, app/mission-create.tsx, and app/celebration.tsx — no mission-journal route exists anywhere else in the document. ADR-5's route list is internally inconsistent with the rest of the plan, and the S13 TopBar 'journal glyph' (scope-hifi §3, S13 composition) has no stated destination this batch given the contradiction.",
+      "fix": "Remove 'journal' from ADR-5's new-route list, and explicitly state the S13 TopBar journal glyph is disabled/hidden this batch (or routes to a documented placeholder) since S73 is deferred."
+    },
+    {
+      "id": "M2",
+      "claim": "ADR-8 and the Test Plan (§6) verify the EAS submission via 'a local-JWT ASC script (scripts/verify-asc-state.sh, ES256 from the gitignored .p8)' as if it is an existing, ready tool.",
+      "evidence": "scope-release.md §5 states plainly: 'Status: Pattern documented, but no standalone implementation found' and lists `./scripts/verify-asc-state.sh # (not found)`. Section 5's packet decomposition (the batch's actual task list, waves 0-4) assigns no owner or wave to creating this script — it appears nowhere in the Wave/Packet table.",
+      "fix": "Add a lander task (Wave 0 or Wave-EAS) to author scripts/verify-asc-state.sh before ADR-8 is executed, or explicitly fall back to the scope-release.md-documented workaround (manual expo.dev/ASC-portal check) and say so in ADR-8."
+    },
+    {
+      "id": "M3",
+      "claim": "Executive Summary / ADR-7: 'react-native-svg / expo-haptics / expo-linear-gradient are all Expo-Go-compatible SDK-57 modules (present in node_modules/expo/bundledNativeModules.json) — the \"dev build needed\" claim is wrong.'",
+      "evidence": "bundledNativeModules.json lists every SDK-57-compatible package for `expo install` version resolution across ALL Expo apps (managed or bare) — it is not a list of modules compiled into the official App Store Expo Go client, which is a much narrower, curated native-module set. Separately, this project already ships via a **custom dev client**: `expo-dev-client` is a direct dependency, and eas.json's `development`/`simulator` profiles set `developmentClient: true`. There is no evidence anywhere in the repo that the team tests via the literal Expo Go app. ADR-8 itself immediately requires a 'dev-client simulator build' for smoke testing, which contradicts the 'Expo-Go-compatible ... dev build needed claim is wrong' framing in the same document — the scout's practical conclusion (a dev build/EAS build is needed) was actually correct; only the terminology used to rebut it is wrong.",
+      "fix": "Reword ADR-7/Exec-Summary to say these packages are confirmed present at the pinned SDK-57 version and already compiled into the project's existing custom dev-client/EAS-build pipeline (not 'Expo-Go-compatible', which is a different and moot claim given this project doesn't use the Expo Go app)."
+    },
+    {
+      "id": "M4",
+      "claim": "Packet table (§5): Wave 4a 'Today recompose' lists dependencies as only '1*, 2*'.",
+      "evidence": "ADR-3 states Today's 'Pinned missions ×2' section is sourced from `useMissions()` (§4.1 row 6), and Wave 3a is precisely the packet that rewrites the missions adapter to 6 tiers that `useMissions()` returns. 4a's declared 'Depends on' column omits 3a. Wave-number ordering (0→1→2→3→4) happens to sequence this correctly in practice, but the explicit per-packet dependency annotation — the mechanism this document uses elsewhere to prevent file-conflict/readiness mistakes — is incomplete for a worker auditing 4a's prerequisites in isolation.",
+      "fix": "Add '3a' to Wave 4a's Depends-on column for documentation completeness/audit correctness."
+    }
+  ],
+  "minors": [
+    {
+      "id": "m1",
+      "claim": "ADR-5 imports the JS Tabs navigator via `import { Tabs } from 'expo-router'`.",
+      "evidence": "node_modules/expo-router/build/exports.js:111 marks this export `@deprecated Use import { Tabs } from 'expo-router/js-tabs' instead.` Both paths resolve to the identical `./build/layouts/Tabs` module (confirmed by reading node_modules/expo-router/js-tabs.js), so this is functionally correct today but will emit a deprecation warning and is a future-removal risk.",
+      "fix": "Cite `expo-router/js-tabs` as the import path in the GlassNavBar packet contract instead of the deprecated top-level `expo-router` export."
+    },
+    {
+      "id": "m2",
+      "claim": "GlassNavBar component contract (§3) implements the canon spec for the bottom nav.",
+      "evidence": "COMPONENT-CATALOG reference (scope-hifi §5) describes GlassNavBar as a 'floating bottom pill (4 tabs...)'. The plan's contract and ADR-5 only specify safe-area bottom padding, 44px targets, and glass material — not the floating/pill form factor (vs. a full-width edge-to-edge bar), leaving that dimension of design fidelity unresolved.",
+      "fix": "Add explicit pill/floating dimensions (margin, radius, width) to the GlassNavBar contract so the GLM packet doesn't default to a full-width bar."
+    },
+    {
+      "id": "m3",
+      "claim": "S42 composition map (§4.5): 'GlassStatCard(flush) \"+{delta} XP · you earned it\"'.",
+      "evidence": "scope-hifi §Screen 42 spec describes three distinct elements: Display '+120' (orange, tabular-nums) + separate sub-copy 'XP' + a separate ChipProvenance chip reading 'you earned it'. The plan's composition-map cell collapses these into one concatenated string inside a single component slot, which risks the GLM packet building a fused label rather than the spec's three-part visual structure.",
+      "fix": "Expand the S42 packet contract to explicitly preserve Display + sub-copy + ChipProvenance as separate elements, matching the hi-fi spec's anatomy."
+    },
+    {
+      "id": "m4",
+      "claim": "ADR-4 create decision: client validates category against 'the 14-value VALID_CATEGORIES' with no Zod.",
+      "evidence": "This list is a plain array hardcoded server-side in life-goals.service.ts (per scope-server-missions.md §1.3) with no shared contract/OpenAPI/Zod export the client can import — the client-side copy the plan proposes is a second, independently-maintained copy of the same 14 values.",
+      "fix": "Note the drift risk explicitly and add a test that pins the client's VALID_CATEGORIES list, or add a TODO to source it from a shared contract in a later batch."
+    },
+    {
+      "id": "m5",
+      "claim": "ADR-4: 'Career's sync XP is likewise not in its response → same refetch/diff path.'",
+      "evidence": "Career is not one of this batch's in-scope create/complete surfaces (ADR-4 decision explicitly limits create to life primary / health secondary, career/finance deferred), so this sentence describes a domain not being built this batch.",
+      "fix": "Label the career sentence as a forward-looking note for BIOS-005, not batch-scope behavior, to avoid read-through scope-creep confusion."
+    }
+  ],
+  "verified_ok": [
+    "POST /v1/journal/goals (no Zod, manual category+title checks) and PUT /v1/journal/goals/:id {status:'completed'} match journal.routes.ts and scope-server-missions.md §1.3 exactly, including the absence of any extra auth/entitlement middleware beyond the blanket `authenticate`.",
+    "PATCH /assessment/goals/:goalId {status:'completed'} (health, secondary/deferred create surface) matches scope-server-missions.md §1.2 exactly.",
+    "XP-honesty claim (no XP in life/health/career completion responses; must refetch GET /gamification/stats and diff) matches scope-server-missions.md §0.3-0.4 and §3 verbatim.",
+    "react-native-svg@15.15.4, expo-haptics ~57.0.0, expo-linear-gradient ~57.0.0, expo-glass-effect ~57.0.0 are all present in package.json/node_modules and bundledNativeModules.json as claimed (confirmed directly in yhealth-app/mobile).",
+    "expo-router `Tabs` = `withLayoutContext(BottomTabNavigator)` accepting a custom `tabBar` prop, confirmed by reading node_modules/expo-router/build/layouts/TabsClient.js source directly.",
+    "Root Stack + hidden-route push architecture (life-areas/fitness/data-controls as Stack.Screen, NativeTabs swallowing pushes to hidden triggers) accurately reflects src/app/_layout.tsx and src/app/(tabs)/_layout.tsx, including the exact code comment about the NativeTabs limitation.",
+    "6-tier metal color mapping (life=gold, main=silver, side=bronze, weekly=steel, daily=sage, group=copper-deferred) matches CLAUDE.md RPG terminology and scope-hifi canon table.",
+    "EAS build command (`npx eas build --platform ios --profile production --auto-submit --no-wait`), production profile autoIncrement→build 11, and build-10 precedent (~41 min, VALID in ASC) match scope-release.md verbatim.",
+    "ADR-10's ChargeMeter naming-collision handling correctly identifies and avoids clashing with the existing OTP-countdown ChargeMeter in auth-inputs.tsx.",
+    "GlassStatCard flush-mode contract ('no border/blur/shadow, inherits FrostCard chrome') matches the COMPONENT-CATALOG reference almost verbatim.",
+    "queryKeys.missions()/queryKeys.gamification() referenced in ADR-4's mutation invalidation plan match the actual keys defined in src/services/query/keys.ts.",
+    "Apple team type / TestFlight beta metadata correctly treated as non-blocking waivers owned by Hamza (not fabricated as resolved), consistent with scope-release.md's waiver table and build-10 precedent."
+  ]
+}
