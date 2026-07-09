@@ -55,18 +55,26 @@ else
   prompt="$(cat)"
 fi
 
-body="$(python3 - "$MODEL" "$MAX_TOKENS" "$prompt" <<'PY'
+# Build the request body via a temp file, streaming the prompt to python on
+# stdin — argv/heredoc paths silently hit ARG_MAX for large packets (BIOS-003
+# lesson: >50KB packets must survive byte-exact; callers should `cat file |`).
+body_file="$(mktemp)"
+prompt_file="$(mktemp)"
+trap 'rm -f "$body_file" "$prompt_file"' EXIT
+printf '%s' "$prompt" > "$prompt_file"
+python3 - "$MODEL" "$MAX_TOKENS" "$prompt_file" > "$body_file" <<'PY'
 import json, sys
-model, max_tokens, prompt = sys.argv[1], int(sys.argv[2]), sys.argv[3]
+model, max_tokens, prompt_path = sys.argv[1], int(sys.argv[2]), sys.argv[3]
+with open(prompt_path) as f:
+    prompt = f.read()
 print(json.dumps({"model": model, "max_tokens": max_tokens, "messages": [{"role": "user", "content": prompt}]}))
 PY
-)"
 
 raw="$(curl -sS -w '\n%{http_code}' -X POST "$BASE_URL/v1/messages" \
   -H "Authorization: Bearer $ZAI_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -H "content-type: application/json" \
-  -d "$body")"
+  --data-binary "@$body_file")"
 http_code="${raw##*$'\n'}"
 response="${raw%$'\n'*}"
 
