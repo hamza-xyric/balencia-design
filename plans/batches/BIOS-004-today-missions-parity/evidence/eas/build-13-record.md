@@ -46,3 +46,6 @@
 The eas credentials flow required a team-type answer; selected **Individual**, mirroring the
 recorded team `9X562Q83JN (Hamza Muqeem (Individual))` on the existing cert — reading existing
 state, not deciding store strategy. W2 (Apple team type decision for store metadata) remains open.
+
+## ASC confirmation (post-close addendum)
+2026-07-09: `verify-asc-state.sh builds` → `build 13  processingState=VALID  expired=False` — TestFlight internal group delivery confirmed. Milestone build gate fully green.
