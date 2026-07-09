@@ -84,38 +84,39 @@ canon §6 wording, gate coverage. Loop `/goal`; profile claude-native.
 
 ---
 
-# 2. Lane B — iOS development (BIOS-003 CLOSED)
+# 2. Lane B — iOS development (BIOS-003 CLOSED · BIOS-004 IN PROGRESS mid Move-E)
 
-> Status: **BIOS-003 CLOSED 2026-07-09 — all gates green (server 117/117 auth tests, mobile 66/66, 17-step live endpoint exercise, simulator smoke)** · Next: **BIOS-004 Today + Missions hi-fi parity + first EAS/TestFlight build**
-> Batch record: `plans/batches/BIOS-003-auth-hardening/BATCH.md` · Verification: `evidence/verification.md` · Roadmap: `plans/batches/ROADMAP.md` · Submodule pinned @14dd0302.
+> Status: **BIOS-003 CLOSED 2026-07-09. BIOS-004 (Today+Missions parity + first EAS build) IN PROGRESS — Moves A/B/C done, Move D/E ~60% (viz kit + missions data + GlassNavBar landed & gated green; screens + tests + review + build NOT done).**
+> Submodule pinned @6acbb7a6 (WIP, all gates green: lint 0 / typecheck 0 / test 70/70). Batch record: `plans/batches/BIOS-004-today-missions-parity/BATCH.md`. Plan (accepted w/ A1–A6): `evidence/architecture-plan.md`. Roadmap: `plans/batches/ROADMAP.md`.
 
-## What Changed (BIOS-003-auth-hardening)
+## RESUME HERE — BIOS-004 remaining work (Move E continuation)
 
-- **OQ-1 CLOSED — per-device sessions**: `user_sessions` table (146-*.sql + registered auto-migration), sha256-hashed refresh at rest, atomic-CAS rotation, reuse-detection→revoke, LRU cap 10, `sid` claim in both JWTs, `/refresh` dual-read + lazy legacy migration (web cookie flow byte-unchanged, integration-proven), `/logout {allDevices?}` (this-device default), `jti` uniqueness on refresh tokens (1-second-iat rotation degeneracy found by integration tests). BIOS-002's "second device logs out the first" caveat is gone — proven live (17-step exercise incl. multi-device independence + replay→revoke).
-- **Social auth fail-closed**: Apple JWKS verification wired (was decode-only AND unwired — client JSON was trusted); Google verification required for ALL callers (the X-Client-gated NextAuth fallback was a bypass; web client verified to send id_token every sign-in); `socialAuthSchema.email` optional (derived from the verified token).
-- **Mobile auth suite per hi-fi**: S03 sign-up → S03b OTP (in-memory activationToken) → S03c consent → S03e whatsapp-gated-skip → onboarding via `resolveNextStep`; S04 sign-in (spec copy, forgot link, gated equal-weight social pills); S05/S05b forgot/reset (honest OTP adaptation ADR-9, client-side enumeration normalization, real Retry-After handling); complete-profile for social users. New kit primitives (OTPCluster, ChargeMeter, PasswordRequirementList, ConsentCheckbox, MaskedDestinationLine, ToastBanner, SocialAuthButton, GlassPillInput) — a11y-labeled, announced errors, reduced-motion safe. `adoptSession`, per-install device id headers. Tests 41→66.
-- **Review panel**: 16 findings → 14 adversarially confirmed → all fixed (blockers: social empty-email 400 breaker; Google X-Client verification bypass). 2 refuted with evidence (`evidence/review-panel.md`).
-- **Local infra**: mailpit sink (`balencia-mailpit` docker, SMTP :1025, API/UI :8025) + `FORCE_EMAIL_IN_DEV=true` in server/.env → registration/OTP/reset emails exercisable locally (`evidence/local-backend-delta.md`).
-- **Upstream findings (server backlog)**: full-suite `npm test` OOM (use scoped suites or `test:ci`); `tests/globalTeardown.ts` deletes ALL `%@balancia.test` users — **re-run `npm run db:seed:test-users` after any server integration run**; forgot-password 404-enumeration is a product decision (OQ-A, owner Hamza).
+Landed & green so far: `src/constants/theme.ts` (6 metal tier tokens) + `motion.ts`; viz kit `progress-ring/trend-chart/glass-stat-card/cia-presence-orb/momentum-bar.tsx` + kit `index.ts` exports; `services/adapters/missions.ts` (6-tier `mapTier`) + create/complete DTOs + `services/api/missions.ts` + `hooks/use-mission-mutations.ts` (optimistic + XP-delta honesty); `components/balencia/glass-nav-bar.tsx` + `app/(tabs)/_layout.tsx` (NativeTabs → expo-router js-tabs). Interim: `missions-screen.tsx` tier map stubbed to 6 tiers (rebuild in S2).
 
-## GLM lessons (BINDING for BIOS-004 Move D/E)
+STILL TO BUILD (packets already partly composed in `packets/` — S1..S5, T1; A1/N1/V*/F1 packets exist):
+1. **S1 — Today recompose** to hi-fi S12 parity on the UNCHANGED TodayVM adapter (new viz kit, density tiers, staggered motion, hero-only breathing, provenance chips, purple only on Cia).
+2. **S2 — Missions board** to hi-fi S13: 6 metal-tier card colors from theme tokens (replace the interim stub), summary row, create entry point.
+3. **S3 — Mission detail S14**: ALL FIVE accordions (A1 amendment: ALL ACTIONS + PROGRESS data-backed; MILESTONES honest-null-capable; CIA REASONING + CROSS-DOMAIN LINKS visible-but-gated). Root-Stack push route `app/mission/[id].tsx`.
+4. **S4 — Create mission S15**: life-domain create via `POST /v1/journal/goals`, `VALID_CATEGORIES` (pin with a test), optimistic board update.
+5. **S5 — Completion celebration S42**: XP-delta-only (three separate elements +120 / XP / "you earned it"); null-delta branch has NO XP number.
+6. **T1 — screen/logic tests**; then **Move F** (4-lens review panel + adversarial verify + fix), **Move G** (simulator parity smoke vs hi-fi + **first EAS/TestFlight internal build** via /loop wait + ASC JWT verify script `scripts/verify-asc-state.sh` to author), **Move H** (close + commit + handoff + open BIOS-005).
 
-1. **The glm-worker heredoc bridge drops/truncates packets beyond ~50KB** — GLM then hallucinates an imaginary codebase. Fix before heavy waves: pass packets by file path (bridge reads from disk) or keep packets small. Escalations this batch: SP2, MP1, MP6, MP7, MP9, MP10 (Fable implemented from the packets' own contracts).
-2. Never ask a worker to re-emit `package.json`/large existing files — anchored edits or dependency lists only; landers install deps.
-3. Haiku shell-runner wrappers must be explicitly forbidden from using file tools (two went rogue and applied drafts themselves).
-4. Maestro 2.6.1 + RN new-arch: secure-field text injection is flaky; tap nested-Text links via points; buttons match by accessibilityLabel. Prefer a dev-build for BIOS-004 smoke automation.
+Wave-1 EMPIRICAL GATE (A4, do at first simulator run): confirm Expo Go loads react-native-svg / expo-haptics / expo-linear-gradient; if the Go binary lacks any, pivot smoke to an EAS dev-client simulator build (documented, budget-approved).
+
+## GLM bridge — FIXED (use it)
+
+`scripts/glm-worker.sh` now streams the prompt via a temp file + `curl --data-binary @file` (committed) — proven with a 190KB round-trip. Deliver packets by file path: wrappers run `cat packets/_worker-rules.md packets/<id>.md | ./scripts/glm-worker.sh -t 16384` and the haiku shell-runner is forbidden from using file tools. `packets/_worker-rules.md` holds the standing output-format + lint + canon rules. Never ask a worker to re-emit package.json.
+
+## What Changed earlier (BIOS-003-auth-hardening, CLOSED @14dd0302)
+
+- OQ-1 CLOSED — per-device `user_sessions` (atomic-CAS rotation, reuse→revoke, dual-read legacy compat, `jti` on refresh tokens). Apple JWKS verification wired (was decode-only+unwired). Google verification required for all callers (X-Client bypass closed). Full mobile auth-flow suite per hi-fi (S03/S03b/S03c/S03e/S04/S05/S05b + complete-profile). Server 117/117 auth tests, mobile 66→70. Review panel 16→14 confirmed→fixed. Evidence: `plans/batches/BIOS-003-auth-hardening/`.
+- Local dev: mailpit sink (`balencia-mailpit` docker :1025/:8025) + `FORCE_EMAIL_IN_DEV=true`. CAUTION: server integration suite teardown DELETES all `%@balancia.test` users — re-run `npm run db:seed:test-users` after; full-suite `npm test` OOMs (use scoped suites).
 
 ## Manual Items Still Needed From Hamza (unchanged)
 
-1. Replace `mobile/.env` with EXPO_PUBLIC_*-only content (W1 — names echo into logs every toolchain run).
-2. Apple team type intent (W2). 3. TestFlight privacy URL + feedback email (W3). 4. Production QA account decision (W4).
-5. NEW: OQ-A (server forgot-password enumeration 404 — keep or normalize?), OQ-C (`APPLE_CLIENT_IDS` production values).
-
-## Next Batch (Lane B): BIOS-004 — Today + Missions hi-fi parity
-
-Per `plans/batches/ROADMAP.md`: deep visual parity to `Balencia-New-Screens/hifi-screens/` (Today S12 family + Missions), GlassNavBar, canon viz components (TrendChart, ProgressRing, GlassStatCard, CIAPresenceOrb) native w/ Reanimated, motion + reduced-motion variants, density tiers, **first EAS/TestFlight build** (internal group; approved per standing decision 7). Entry: BIOS-002 adapters stable ✓; check W-007 re-review state for affected screens (Lane A `remediation-2026-07/R0/reviews/`). Local backend recipe: BIOS-002 `evidence/local-backend.md` + BIOS-003 `evidence/local-backend-delta.md` (mailpit). Boot: docker start balencia-postgres balencia-redis balencia-mailpit; server `npm run dev` (:9090); re-seed users if integration tests ran.
+1. Replace `mobile/.env` with EXPO_PUBLIC_*-only (W1). 2. Apple team type (W2). 3. TestFlight privacy URL + feedback email (W3). 4. Production QA account (W4). 5. OQ-A (server forgot-password 404 enumeration — keep or normalize?), OQ-C (`APPLE_CLIENT_IDS` prod values). B1: real-device Apple sign-in E2E — the BIOS-004 TestFlight build is the unblock vehicle.
 
 ## Standing Constraints (Lane B)
 
-- Design truth: `Balencia-New-Screens/hifi-screens/` + `canon/` (Cia naming, warm-dark glass, 44px targets, purple = Cia/AI only, honesty invariant). W-007: 40 screens FIX-FILED in Lane A — parity re-check when remediation lands.
-- Backend-gated features stay visible-but-gated with provenance. `yhealth-app-main` historical only. Never read/print/commit secret values.
+- Design truth: `Balencia-New-Screens/hifi-screens/` + `canon/`; rendered reference `balencia-screens/src/components/hifi/screens/`. Cia naming, warm-dark glass, 44px, purple = Cia/AI only, honesty invariant on every metric. W-007: 40 screens FIX-FILED in Lane A — no Today/Missions screens in that list (verified).
+- Backend-gated features stay visible-but-gated with provenance. `yhealth-app-main` historical only. Never read/print/commit secret values. Boot: docker start balencia-postgres balencia-redis balencia-mailpit; server `npm run dev` (:9090).
