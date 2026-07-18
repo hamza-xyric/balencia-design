@@ -1,0 +1,3 @@
+# G1 recon A — finance and budget
+
+Read-only Luna packet. Inspect BATCH, matrix, G1 audit, specs/code for screens 30–31, canon/catalog, finance/domain/RPG authority, relevant shared consumers, and F2 accepted-sentinel records. Inventory live defects versus stale audit claims, exact numeric/source/privacy/destructive states, interactions, 390×844/125% risks, asset slots, and proposed deterministic fixtures/assertions. Propose accepted-through-F2 sentinel composition excluding G1 targets. Write only `evidence/recon-a.md`; no product/git/browser/server mutation. Stop on source conflict or safety/finance decision and escalate to Sol.

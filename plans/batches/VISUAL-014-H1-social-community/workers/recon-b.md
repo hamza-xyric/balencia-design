@@ -1,0 +1,3 @@
+# H1 recon B — competitions, report/block, reports, contracts
+
+Read-only Luna packet. Inspect H1 BATCH/matrix/audit, active specs and live code for `47,64,78,82`, canon/catalog, RPG/social terminology, privacy/moderation/safety authority, shared consumers, image ledger, and G1 acceptance/sentinels. Reconcile competition/date math, neutral report defaults, report privacy/lifecycle, signer/witness truth, exact interactions/states, 390×844/125%, assets, and deterministic fixtures/assertions. Write only `evidence/recon-b.md`. No product/git/browser/server/Figma/external mutation. Escalate safety/privacy/coercion/source conflicts to Sol.

@@ -1,0 +1,3 @@
+# H1 builder C — S91/S94/S95
+
+Terra write packet. Read BATCH, FROZEN-MATRIX, VERIFICATION-MATRIX, recon-c, active specs, canon/catalog, and current owned files. Implement every frozen state and assertion for S91/S94/S95 only. Allowed product files: `S91SocialFeed.tsx`, `S94Webinars.tsx`, `S95PodsHub.tsx`; write evidence only to `evidence/builder-c.md`. Denied: all other product/shared/API/registry/spec/ledger/git/browser/server/Figma/external files/actions. Use approved Squad/Community vocabulary and code-native/honest-null assets only. Run scoped Prettier, TypeScript, ESLint, and owned-file `git diff --check`. Stop on source/privacy/moderation/terminology/shared-contract conflict or any need outside allowed files.

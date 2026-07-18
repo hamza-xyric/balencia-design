@@ -1,0 +1,3 @@
+# H1 recon A — leaderboard, communities, accountability
+
+Read-only Luna packet. Inspect H1 BATCH/matrix/audit, active specs and live code for `39,40,46`, canon/catalog, RPG/social terminology, privacy/safety authority, shared consumers, image ledger, and G1 acceptance/sentinels. Reconcile stale vs live findings; exact audience/ranking/room/partner/safety states; counts; interactions; 390×844/125% risks; assets; deterministic fixtures/assertions. Write only `evidence/recon-a.md`. No product/git/browser/server/Figma/external mutation. Escalate privacy, safety, terminology, or shared-contract conflicts to Sol.

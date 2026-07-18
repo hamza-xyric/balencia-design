@@ -1,0 +1,4403 @@
+{
+  "auditedAt": "2026-07-11T22:02:01.682Z",
+  "baseURL": "http://localhost:3002",
+  "command": "Usage: node scripts/verify-d1-profile.mjs <baseURL> <out-json> <shots-dir>",
+  "hostViewport": {
+    "width": 1440,
+    "height": 1000,
+    "deviceScaleFactor": 1
+  },
+  "phoneFrame": {
+    "width": 390,
+    "height": 844
+  },
+  "primaryReducedMotion": "reduce",
+  "productionBuild": {
+    "origin": "http://localhost:3002",
+    "port": "3002",
+    "mode": "next start production",
+    "buildId": "emqSufq32x9DrJG2I1yIF",
+    "buildIdMtime": "2026-07-11T21:56:22.035Z",
+    "newestBoundSource": "src/components/hifi/screens/profile/S24NotificationHistory.tsx",
+    "newestBoundSourceMtime": "2026-07-11T20:32:12.380Z",
+    "servedHTMLSha256": "cc97a09915cfba743585ab3c3b46268726a4e845e1f236f3f5dfb0abdf45120e"
+  },
+  "navigationIsolation": {
+    "strategy": "new context per case + about:blank + Chromium origin clear + cookie clear + exact query fixture + unique __d1audit nonce + two RAFs",
+    "contexts": 99,
+    "uniqueNonces": 99
+  },
+  "integrity": {
+    "start": {
+      "product": {
+        "digest": "06004e81af243fd7c2aad37f5ce5e0c3f19dfa76c094efb66000666d5b3ae328",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/profile/S17MeMain.tsx",
+            "sha256": "9e48e19a957966d7523fd4e4646ac7b9694be89be724eab34ab2e025d97bc5aa"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S18Explore.tsx",
+            "sha256": "293644cd2e1f38153fd72396bc15b0e5beb2586c965b0d7c77765c53d7db1d2f"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S21Settings.tsx",
+            "sha256": "46ec42d00c244c63478baaa35a0494d32519ef9784a405acd54bc2d4299fec02"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S22ConnectedServices.tsx",
+            "sha256": "00dddee99c3c8fc9a777688460a11316da047502ce9322e3c020a0ba67bfeb88"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S23SubscriptionBilling.tsx",
+            "sha256": "feb893846a2241849ad59bdf9be6274bcb30cb4601f84fcf86ea8f46a8a8b5b3"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S24NotificationHistory.tsx",
+            "sha256": "2dc4d82ae9185b7531b7acbe01c9c0a45f5b7a10d6e2ff75aecdbadd86bb23dc"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S25HelpCenter.tsx",
+            "sha256": "d174c4b9186b964bc8facdca2dee6fd2ff1f1d6b2a3d88d1ccd2de556227382c"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S50ProfileEdit.tsx",
+            "sha256": "0c31405581c3a4a126417336401cba3dcdbba33c367f0b902acb20e30d10c333"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/index.ts",
+            "sha256": "d25759967ff33da151ea127b003079a4ed013e7afa818ca10c26bc12c7675554"
+          }
+        ]
+      },
+      "api": {
+        "digest": "8ae765735b6061987b65cd388f3e82ceba127d1ca8507b6ed8e8c73710c11714",
+        "files": [
+          {
+            "path": "next.config.ts",
+            "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+          },
+          {
+            "path": "package-lock.json",
+            "sha256": "c98ac50e650dc57702cedcd5b7e18e5d768c1bdab211dea19237c8eaa3c7d92d"
+          },
+          {
+            "path": "package.json",
+            "sha256": "56819e030eaa265b2efac487913a75589bbf1a23edbb7e2bc2f76bfac6d48a32"
+          },
+          {
+            "path": "postcss.config.mjs",
+            "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+          },
+          {
+            "path": "scripts/verify-d1-profile.mjs",
+            "sha256": "394d898c2514f4d5417c8bb4e5bb4bb7ea490d29c26c9dbd9f31b7c184e115ed"
+          },
+          {
+            "path": "src/app/globals.css",
+            "sha256": "5cf1f1fa683add0fb80156f355d6b86b98a629782326c2d75c13aeec2af1b840"
+          },
+          {
+            "path": "src/app/layout.tsx",
+            "sha256": "0330526f534505bd63b830942c44648dcf49ada5d0d482a72e39bf234ff03540"
+          },
+          {
+            "path": "src/app/screens/[id]/page.tsx",
+            "sha256": "fcb7be286a828ae4ee24120e2174be8dec4986a6548dd6b7bf7911501d89d416"
+          },
+          {
+            "path": "src/components/hifi/HifiPrototype.tsx",
+            "sha256": "57bf51e600ba9beacfcfe3a571898a94b816c159cbdd19ae2ae35b4fd278b5ba"
+          },
+          {
+            "path": "src/components/hifi/kit/HifiShell.tsx",
+            "sha256": "466eb88667d202da25ee5b04749bb93a78ecf30135a8d8d0239caeba5d9bb257"
+          },
+          {
+            "path": "src/components/hifi/kit/back-control.tsx",
+            "sha256": "561e9a580bb23361478c1d85fea9be29fa3f3d83a8b60a1c886eec2dfc7f6aed"
+          },
+          {
+            "path": "src/components/hifi/kit/buttons.tsx",
+            "sha256": "f875adfa7e66e884157699319e074cd0192f1605d2206e29bb0e57507945a168"
+          },
+          {
+            "path": "src/components/hifi/kit/chips.tsx",
+            "sha256": "e9ef348cd7166ff2eefdf43ff574ce9721207d3e59e4e83491d2d8945deab20a"
+          },
+          {
+            "path": "src/components/hifi/kit/chrome.tsx",
+            "sha256": "4ed33c760e7e77d1ceef8fd71a2906c00f864ec1f04604eeb7f95e6a32d6d65b"
+          },
+          {
+            "path": "src/components/hifi/kit/core.ts",
+            "sha256": "f6cddff8b0f2843f7493b7f16c806136aa06d24050b1d82e48132df14945a1ad"
+          },
+          {
+            "path": "src/components/hifi/kit/data.tsx",
+            "sha256": "583de2ee5bae773d33d1e924841d906cc9d136eed1c53eb1f0cb146b852d820b"
+          },
+          {
+            "path": "src/components/hifi/kit/glass-pill-input.tsx",
+            "sha256": "79f15a5e3b6034b4daddf57818f2f85a3511e9ef11f1651bab93cdc8aa7b58ed"
+          },
+          {
+            "path": "src/components/hifi/kit/index.ts",
+            "sha256": "ec2c76ed6a70b6d765cbf5de89a060f4c47a35a863be0d74bedd27138b0d65c1"
+          },
+          {
+            "path": "src/components/hifi/kit/paywall.tsx",
+            "sha256": "df392c03cb1f7b255b646f3c65f6f52adfdd0d96d45b7fcfab7c51b44e28d250"
+          },
+          {
+            "path": "src/components/hifi/kit/signature-icons.tsx",
+            "sha256": "6bb01f34e18cabdcce301bde6ad9581384ad71b73c9b9a6e6484d631bf2291ab"
+          },
+          {
+            "path": "src/components/hifi/kit/surfaces.tsx",
+            "sha256": "a8b32ce990d6f710e67e6bcf98b86cdff6b0ff56e0ed5d21dd399a05e55d54b4"
+          },
+          {
+            "path": "src/components/hifi/kit/system.tsx",
+            "sha256": "2b4024b8b198a935f30143c5e69b39c57f9c9581936a947140e86b64bd37b2d5"
+          },
+          {
+            "path": "src/components/hifi/screens/registry.ts",
+            "sha256": "ae6ddb016c27d83073982d605ba25f26aef4afce6a5faff20ca21f0ff76912b6"
+          },
+          {
+            "path": "src/components/layout/PhoneFrame.tsx",
+            "sha256": "f80f22e22b0f2399cdf9c18bf7f53b519b71914046d49ed6ac9560f94acb1104"
+          },
+          {
+            "path": "src/components/layout/ScreenShell.tsx",
+            "sha256": "74ee8aef4a0304df4ceb770cb46fb8bfc89e29ac5c6493e50ecb5c0f6b9d7c9e"
+          },
+          {
+            "path": "src/data/hifi/persona.ts",
+            "sha256": "438e012e77ba2f8990c73785ff304e70e9594a3d38992f8e19e657a37d9de56e"
+          },
+          {
+            "path": "src/data/screens.ts",
+            "sha256": "0f1bb06441e3e57015235ee86278b9c63f6934508cf804aba43bacb9e65aeaaf"
+          }
+        ]
+      },
+      "authority": {
+        "digest": "3f1d3c737c1df0aa553a025b697a456febe3b035fe8a2db8d109234eb2bba525",
+        "files": [
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/DECISIONS.md",
+            "sha256": "e5a055d9f0d2a376cb3c2c90ca8699102fc0a3b7b83b9a03de507b80778214ad"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/REFERENCE-DIRECTION.md",
+            "sha256": "9d5fcb9ea64a2721f43c2cc4ceab7509cb8985468e2d4680e51d0c69c68ecf1e"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/audit/D1-profile-settings-core.md",
+            "sha256": "0fca003f873b6b16b462e30841976a96c517271cf7a736629ebfd75b8746ef8c"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPACT-CANON.md",
+            "sha256": "73ecbcbc2b1756ddf94f78962c2751ef06d3b39bb52338e1ef87d76f443040b2"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPONENT-CATALOG.md",
+            "sha256": "6a176393692891879d98ec220c4ae5ea0eb8b8ff23f61a8959ae88dd9585aa4f"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/17-me-main.md",
+            "sha256": "341b30bc9ba9bf5d65baea125ca8d00e73a75c25a0df831618d346d9861b61ef"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/18-explore-section.md",
+            "sha256": "473d770a02bc38cb660f4ee71d82975a34e1a9632fea636678361f30723b355d"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/21-settings.md",
+            "sha256": "ce3a56b7a6ba8a2a5d45408aa40a2df2163c8b73bfc079fb134cd5830bc8dc7a"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/22-connected-services.md",
+            "sha256": "915b7174a57c025cd56720d463c2cd30be2c8362c20c0fa58015cec6b287940a"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/23-subscription-billing.md",
+            "sha256": "f4e64543982834172b21f1becebe05da83d2cf3458c6cd57b33904062dba1dad"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/24-notification-history.md",
+            "sha256": "a1e039682c977537e2fafbd96dc0314541c29bf1d90a5025d8169c10827cc842"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/25-help-center.md",
+            "sha256": "b5e1e2f29828df6b247b7eb97065ccebeab6758711f3e71d505a859800b3b7a6"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/50-profile-edit.md",
+            "sha256": "c32b9013c80c56a67f0ad21a0d2f7f3e9a9f23cd0c315de592209dc183d7b837"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/BATCH.md",
+            "sha256": "6a7d388c6cfd6d6850da5893499fcf527875aaf389904ad3a459077c39c71d2f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/VERIFICATION-MATRIX.md",
+            "sha256": "b861a21e80d85e29ba5f747c1391b6e27c48630ab1784c56bdee53030fc4ecb3"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/ACCEPTED-SENTINELS-BEFORE.sha256",
+            "sha256": "159d70a5cced8e3fc7f3371f5d84eaa4cdb9b168b3cad94cb64e7de79ef24722"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/ASSET-DISPOSITION.md",
+            "sha256": "a0dcc09d1ffba4b3fb7ffb84ef667e67821f1435349945589369beb5f427ea79"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/BEFORE-CAPTURE-MANIFEST.md",
+            "sha256": "010d87561cfe0e4bf7eea10d2b357440b44f2065599742d48385a1f756d5060a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/BEFORE-SOURCE.md",
+            "sha256": "7527f5f41ce847615ba177422f13fb132618263a9e83f94dd23b757f5ee34b16"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/builder-a.md",
+            "sha256": "25f88614254c3ecd0a20e1366c4388ed512e661a84c5bb61b01ffa19dff08c07"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/builder-b.md",
+            "sha256": "6ae4c687d95733276131105c2e5caaf9240815675e10e5cfea0e5085d5629262"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/builder-c.md",
+            "sha256": "97be3ff2eea557e7897ec129debfe82e9efbd7b8134b500c9c69ff186edb980c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/builder-d.md",
+            "sha256": "2a2f6ea69d53155ddf78341861415188c4120f3ce7d390c41e81f7de6f6c264f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/recon-a.md",
+            "sha256": "61a59058393bba70516271dddbfa33556562d1bb044126948460b860f9e0310d"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/recon-b.md",
+            "sha256": "f6d2080b070da2b6ac7c95a4f9d015f8670c882f0b2755c9fa4f159199566169"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/recon-c.md",
+            "sha256": "2883b30409d04235b6cf7571dbdc1658730c62c9317ac1bd421e79f3fc9023a6"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-a11y-trust.md",
+            "sha256": "7e4050ee791e3d285a8e3adf44d5754819b29958e916d56d8a6194dea03e5082"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-clear.md",
+            "sha256": "451ae0652578bf02530a3cd72c7d799dbc3cb7b677ccd2bcde7d4e9ec0ab054a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-design-source.md",
+            "sha256": "d434934dcc5ad1daaf13a5faf9ee10d00475f0f12742161bf22fe60c99884615"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-runtime-delta-a11y-trust.md",
+            "sha256": "e5dc730ed76e8448d5003b8211fddb6a7c0ef991e5acb311cf2fe6ee810bf115"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-runtime-delta-clear.md",
+            "sha256": "3e4072c0ea8e92b9f279c5158cdd9fa9b9b6e0f1af6cb3f75242967a9afad916"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-runtime-delta-design-source.md",
+            "sha256": "bb51974fec5a21985e64a97899bc242229b57253327159b27c293148e1be2b2c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-a.md",
+            "sha256": "ecdce89f54061815b9507c64ca0a97ae374241374579097e444618993eae50dd"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-b.md",
+            "sha256": "3123b99e2042b5b016fa9b7df2e7e163428afb0a035e7cb8950a93083c7b7f32"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-c.md",
+            "sha256": "742e9be75d61e1a6b997b6d7af6c26bc7df7ca216b346d4263f0966eb823217f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-common.md",
+            "sha256": "96a064c6b71b7f4df03c0f465ea7033633eb974170c2534c669d017b572a2b8a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-d.md",
+            "sha256": "6f010f59b6adebcbd5e2f6203597893cfcb833eacc921be45bbae95e852bb6f3"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-a11y-trust.md",
+            "sha256": "f6a7ae66f730055b1c0d1adfe3b9dd9e70873323cc00c898885b5ecf056d6582"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-clear.md",
+            "sha256": "e2a962f3f18ab721769db89010d350a0d054f97513441e930e4f497472d30109"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-design-source.md",
+            "sha256": "c0e0ba6a5872cb209f7f2181f81cf09c630595d50db09decf6b0c5a75ab75a19"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-runtime-delta-a11y-trust.md",
+            "sha256": "60cc711e1342bfac79b6206d9b3fb279492b74e25356d737666e7fde6d4568a0"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-runtime-delta-clear.md",
+            "sha256": "2dd7a413acf448d60c06935c8fd0ad8bb64e4df9c752741d8e355ca6525f8b74"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-runtime-delta-design-source.md",
+            "sha256": "f0e3c94fdd9e16fe15dcb25ca1ce05df1fa96489f53c2b13cb748250ef5d76ab"
+          }
+        ]
+      },
+      "accepted": {
+        "digest": "937f3622bfef444b374b4bd388ab24c0b8df7948de820158a1f625263a665e20",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/auth/S01Splash.tsx",
+            "sha256": "7fc7c1a537a01fc22d4f6864bfba0f18a7598c27c11c962445bc75ed55941736"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S02MotionCarousel.tsx",
+            "sha256": "f4f105308383ee2e3d3c2ad262de3d71fcb54fda618867cba7140dafc5b72cb8"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03WelcomeSignUp.tsx",
+            "sha256": "a97299a7e78286794e12a3646d0952f83be47dd9808ae3cb3c93008f57caad8f"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03bOtpVerification.tsx",
+            "sha256": "2d8d156f73877474ea8aca6fc76e345341dd718cad7c6efc26633ed2e0bcf3b0"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03cConsent.tsx",
+            "sha256": "cbdb2287950796aa8d20fe68bcd9e3b711113a1ac75a86e55f4c5e671b213152"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03dCompleteProfile.tsx",
+            "sha256": "2cb49fd2dce787c6da4d9f27cfd4739699be51ea4262370d0b4ffb37ca799ada"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03eWhatsappEnrollment.tsx",
+            "sha256": "de5dd8f97babfbd0f43e6f453843946847b06903a52c8f296644732670d82e43"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S04SignIn.tsx",
+            "sha256": "a3b689f3cd975cdff3082d24acbdc17c7ee34c3cee37a29f4ca6665b28e6d3f4"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S05ForgotPassword.tsx",
+            "sha256": "d9e8b6c68913c02b7d45f206fb8634caebcdcba461d99b60531e3a078707fcfa"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S05bResetPassword.tsx",
+            "sha256": "445132640a1953483c0cd329e7e8bcc17afcf4f64e00d3233c12996f4801504a"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S06GuestModePreview.tsx",
+            "sha256": "cea7431bcb2179be765a06e64e2e850c0109e8bbcf39c8100a90654a5a27da87"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S07CiaOnboarding.tsx",
+            "sha256": "e1f1691732039869a3a9b0da09c97476fe8e90f9f7ffd4caab9390ba3da0d388"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S08InitialPlanSummary.tsx",
+            "sha256": "a452750058ebcafb83858d1cd760d189e0d1666040c78bb75cce6c850bd1ff8a"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S65ForceUpdate.tsx",
+            "sha256": "257dddeb7ca124aa2e66d013143644c5d20fe97be943e211251d758bd5052661"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S66NotificationPermission.tsx",
+            "sha256": "32f4d7dee40bc56145f646f5685e8e76c53bf14ed743ae8de3051c7a032ee29f"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S09CiaChat.tsx",
+            "sha256": "33e15001c97b2925afd6b5fafc4f7e552af24675a4e50ae6fe1f4644678ffcbf"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S10CiaVoiceInChat.tsx",
+            "sha256": "9cd23ce5f4336dc2195c5a674427f569ea9d1d2724d236b6d20d4c4c3cf25db0"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S11CiaVoiceFullScreen.tsx",
+            "sha256": "af0c299c2558075ba95632ac9b4f813281ef6fdb50d9c85be0c8e1aeb5b0c334"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S51VoiceCallHistory.tsx",
+            "sha256": "7357227ac7cbb10438d98eb0fd65555aac31d5e9c36807298a2390bcfb240ff9"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S74ConversationsHub.tsx",
+            "sha256": "9adfa2fef3d4f6fdbc2f998586b0719a5cf7529a9a7448884da780b64c9b1399"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S75DirectChat.tsx",
+            "sha256": "bec3142c7b3b06352cb2224d6199523dae8747a2e480fc7dfebdbde5dba06c27"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S76GroupChat.tsx",
+            "sha256": "c3481341a3e19f8dec4aa05d1922c32b4cdb42ade261f9ba94902bd62da66a91"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S77MessageActions.tsx",
+            "sha256": "0b9d5c9f870191044c1b86e591c5286f073c5d13b2540bc82b984fc3f9b79ece"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S79CallSummary.tsx",
+            "sha256": "034f532c8ba0ce15842bd4867e9037242c6a190604579a23016165e3fcf681bc"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S99WhatsappInbox.tsx",
+            "sha256": "2c815fba9804c11f53dacba953c1d49c1d8204dd435037b130ba5f21d9c43df0"
+          },
+          {
+            "path": "src/components/hifi/screens/health/S26FitnessDashboard.tsx",
+            "sha256": "37bb7106c03cc81b15dc6efff65ca7001c405d71d5276f6cd4939b3abee64dd9"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S43Paywall.tsx",
+            "sha256": "134d064bfef7d1d9a4b77f6ac4558a8c80beaa14fe42167501396797dd6e39c3"
+          },
+          {
+            "path": "src/components/hifi/screens/system/S80MusicCoach.tsx",
+            "sha256": "250fe435013c40a7060b3c91f49be39f5328c213095323c1d2072d3100fc38fb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S12HomeScreen.tsx",
+            "sha256": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S13MissionBoard.tsx",
+            "sha256": "32b1152531ee2477c6a704394172ff6b574be8bf5cfcb22e85ea7ee10be76bc3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S14MissionDetail.tsx",
+            "sha256": "cb5bf50d3fc3f9f182360a7f0362235f4d09c7df4e07f6039edd02f37bef92f3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S15CreateEditMission.tsx",
+            "sha256": "ecd84923a6e3be9f21ab11bd8308011d93aa0e51eace5dd6a4a22fa65c8c5ebb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S41ScheduleCalendar.tsx",
+            "sha256": "4154f1d6e1d56ca7232c636f1007f10b15d23124bb6d915d3effd67057990932"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S44WaterIntake.tsx",
+            "sha256": "ebb9e691d2eaddae0b4a85628139b890a8eec672e8715f1726a9805f485a68d9"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S45DailyCheckin.tsx",
+            "sha256": "7955053e92cb956bf0795a8ba9a52fb40d988ca5bf29fcb17829656d86e05811"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S59StreakDetails.tsx",
+            "sha256": "f62cf6c5768ec2dc3b601f8d1fe03573bcdcfa8136b9d55720acef608a9ced64"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S61RemindersTasks.tsx",
+            "sha256": "44571c251e6cfa83894552ce2b0d8e0910ec239295c11051c63916f721cec3ad"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S73MissionJournal.tsx",
+            "sha256": "e1c75226156a37eb2f2f491ce42e40bf0dfe3e29a6da739417d7738d4f5ca090"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S97PlansLibrary.tsx",
+            "sha256": "17a15d65f531d7941b8f5e8d441e775cee22bce1f695221c19b47896bfd6ed84"
+          }
+        ]
+      }
+    },
+    "end": {
+      "product": {
+        "digest": "06004e81af243fd7c2aad37f5ce5e0c3f19dfa76c094efb66000666d5b3ae328",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/profile/S17MeMain.tsx",
+            "sha256": "9e48e19a957966d7523fd4e4646ac7b9694be89be724eab34ab2e025d97bc5aa"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S18Explore.tsx",
+            "sha256": "293644cd2e1f38153fd72396bc15b0e5beb2586c965b0d7c77765c53d7db1d2f"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S21Settings.tsx",
+            "sha256": "46ec42d00c244c63478baaa35a0494d32519ef9784a405acd54bc2d4299fec02"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S22ConnectedServices.tsx",
+            "sha256": "00dddee99c3c8fc9a777688460a11316da047502ce9322e3c020a0ba67bfeb88"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S23SubscriptionBilling.tsx",
+            "sha256": "feb893846a2241849ad59bdf9be6274bcb30cb4601f84fcf86ea8f46a8a8b5b3"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S24NotificationHistory.tsx",
+            "sha256": "2dc4d82ae9185b7531b7acbe01c9c0a45f5b7a10d6e2ff75aecdbadd86bb23dc"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S25HelpCenter.tsx",
+            "sha256": "d174c4b9186b964bc8facdca2dee6fd2ff1f1d6b2a3d88d1ccd2de556227382c"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S50ProfileEdit.tsx",
+            "sha256": "0c31405581c3a4a126417336401cba3dcdbba33c367f0b902acb20e30d10c333"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/index.ts",
+            "sha256": "d25759967ff33da151ea127b003079a4ed013e7afa818ca10c26bc12c7675554"
+          }
+        ]
+      },
+      "api": {
+        "digest": "8ae765735b6061987b65cd388f3e82ceba127d1ca8507b6ed8e8c73710c11714",
+        "files": [
+          {
+            "path": "next.config.ts",
+            "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+          },
+          {
+            "path": "package-lock.json",
+            "sha256": "c98ac50e650dc57702cedcd5b7e18e5d768c1bdab211dea19237c8eaa3c7d92d"
+          },
+          {
+            "path": "package.json",
+            "sha256": "56819e030eaa265b2efac487913a75589bbf1a23edbb7e2bc2f76bfac6d48a32"
+          },
+          {
+            "path": "postcss.config.mjs",
+            "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+          },
+          {
+            "path": "scripts/verify-d1-profile.mjs",
+            "sha256": "394d898c2514f4d5417c8bb4e5bb4bb7ea490d29c26c9dbd9f31b7c184e115ed"
+          },
+          {
+            "path": "src/app/globals.css",
+            "sha256": "5cf1f1fa683add0fb80156f355d6b86b98a629782326c2d75c13aeec2af1b840"
+          },
+          {
+            "path": "src/app/layout.tsx",
+            "sha256": "0330526f534505bd63b830942c44648dcf49ada5d0d482a72e39bf234ff03540"
+          },
+          {
+            "path": "src/app/screens/[id]/page.tsx",
+            "sha256": "fcb7be286a828ae4ee24120e2174be8dec4986a6548dd6b7bf7911501d89d416"
+          },
+          {
+            "path": "src/components/hifi/HifiPrototype.tsx",
+            "sha256": "57bf51e600ba9beacfcfe3a571898a94b816c159cbdd19ae2ae35b4fd278b5ba"
+          },
+          {
+            "path": "src/components/hifi/kit/HifiShell.tsx",
+            "sha256": "466eb88667d202da25ee5b04749bb93a78ecf30135a8d8d0239caeba5d9bb257"
+          },
+          {
+            "path": "src/components/hifi/kit/back-control.tsx",
+            "sha256": "561e9a580bb23361478c1d85fea9be29fa3f3d83a8b60a1c886eec2dfc7f6aed"
+          },
+          {
+            "path": "src/components/hifi/kit/buttons.tsx",
+            "sha256": "f875adfa7e66e884157699319e074cd0192f1605d2206e29bb0e57507945a168"
+          },
+          {
+            "path": "src/components/hifi/kit/chips.tsx",
+            "sha256": "e9ef348cd7166ff2eefdf43ff574ce9721207d3e59e4e83491d2d8945deab20a"
+          },
+          {
+            "path": "src/components/hifi/kit/chrome.tsx",
+            "sha256": "4ed33c760e7e77d1ceef8fd71a2906c00f864ec1f04604eeb7f95e6a32d6d65b"
+          },
+          {
+            "path": "src/components/hifi/kit/core.ts",
+            "sha256": "f6cddff8b0f2843f7493b7f16c806136aa06d24050b1d82e48132df14945a1ad"
+          },
+          {
+            "path": "src/components/hifi/kit/data.tsx",
+            "sha256": "583de2ee5bae773d33d1e924841d906cc9d136eed1c53eb1f0cb146b852d820b"
+          },
+          {
+            "path": "src/components/hifi/kit/glass-pill-input.tsx",
+            "sha256": "79f15a5e3b6034b4daddf57818f2f85a3511e9ef11f1651bab93cdc8aa7b58ed"
+          },
+          {
+            "path": "src/components/hifi/kit/index.ts",
+            "sha256": "ec2c76ed6a70b6d765cbf5de89a060f4c47a35a863be0d74bedd27138b0d65c1"
+          },
+          {
+            "path": "src/components/hifi/kit/paywall.tsx",
+            "sha256": "df392c03cb1f7b255b646f3c65f6f52adfdd0d96d45b7fcfab7c51b44e28d250"
+          },
+          {
+            "path": "src/components/hifi/kit/signature-icons.tsx",
+            "sha256": "6bb01f34e18cabdcce301bde6ad9581384ad71b73c9b9a6e6484d631bf2291ab"
+          },
+          {
+            "path": "src/components/hifi/kit/surfaces.tsx",
+            "sha256": "a8b32ce990d6f710e67e6bcf98b86cdff6b0ff56e0ed5d21dd399a05e55d54b4"
+          },
+          {
+            "path": "src/components/hifi/kit/system.tsx",
+            "sha256": "2b4024b8b198a935f30143c5e69b39c57f9c9581936a947140e86b64bd37b2d5"
+          },
+          {
+            "path": "src/components/hifi/screens/registry.ts",
+            "sha256": "ae6ddb016c27d83073982d605ba25f26aef4afce6a5faff20ca21f0ff76912b6"
+          },
+          {
+            "path": "src/components/layout/PhoneFrame.tsx",
+            "sha256": "f80f22e22b0f2399cdf9c18bf7f53b519b71914046d49ed6ac9560f94acb1104"
+          },
+          {
+            "path": "src/components/layout/ScreenShell.tsx",
+            "sha256": "74ee8aef4a0304df4ceb770cb46fb8bfc89e29ac5c6493e50ecb5c0f6b9d7c9e"
+          },
+          {
+            "path": "src/data/hifi/persona.ts",
+            "sha256": "438e012e77ba2f8990c73785ff304e70e9594a3d38992f8e19e657a37d9de56e"
+          },
+          {
+            "path": "src/data/screens.ts",
+            "sha256": "0f1bb06441e3e57015235ee86278b9c63f6934508cf804aba43bacb9e65aeaaf"
+          }
+        ]
+      },
+      "authority": {
+        "digest": "3f1d3c737c1df0aa553a025b697a456febe3b035fe8a2db8d109234eb2bba525",
+        "files": [
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/DECISIONS.md",
+            "sha256": "e5a055d9f0d2a376cb3c2c90ca8699102fc0a3b7b83b9a03de507b80778214ad"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/REFERENCE-DIRECTION.md",
+            "sha256": "9d5fcb9ea64a2721f43c2cc4ceab7509cb8985468e2d4680e51d0c69c68ecf1e"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/audit/D1-profile-settings-core.md",
+            "sha256": "0fca003f873b6b16b462e30841976a96c517271cf7a736629ebfd75b8746ef8c"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPACT-CANON.md",
+            "sha256": "73ecbcbc2b1756ddf94f78962c2751ef06d3b39bb52338e1ef87d76f443040b2"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPONENT-CATALOG.md",
+            "sha256": "6a176393692891879d98ec220c4ae5ea0eb8b8ff23f61a8959ae88dd9585aa4f"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/17-me-main.md",
+            "sha256": "341b30bc9ba9bf5d65baea125ca8d00e73a75c25a0df831618d346d9861b61ef"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/18-explore-section.md",
+            "sha256": "473d770a02bc38cb660f4ee71d82975a34e1a9632fea636678361f30723b355d"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/21-settings.md",
+            "sha256": "ce3a56b7a6ba8a2a5d45408aa40a2df2163c8b73bfc079fb134cd5830bc8dc7a"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/22-connected-services.md",
+            "sha256": "915b7174a57c025cd56720d463c2cd30be2c8362c20c0fa58015cec6b287940a"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/23-subscription-billing.md",
+            "sha256": "f4e64543982834172b21f1becebe05da83d2cf3458c6cd57b33904062dba1dad"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/24-notification-history.md",
+            "sha256": "a1e039682c977537e2fafbd96dc0314541c29bf1d90a5025d8169c10827cc842"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/25-help-center.md",
+            "sha256": "b5e1e2f29828df6b247b7eb97065ccebeab6758711f3e71d505a859800b3b7a6"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/50-profile-edit.md",
+            "sha256": "c32b9013c80c56a67f0ad21a0d2f7f3e9a9f23cd0c315de592209dc183d7b837"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/BATCH.md",
+            "sha256": "6a7d388c6cfd6d6850da5893499fcf527875aaf389904ad3a459077c39c71d2f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/VERIFICATION-MATRIX.md",
+            "sha256": "b861a21e80d85e29ba5f747c1391b6e27c48630ab1784c56bdee53030fc4ecb3"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/ACCEPTED-SENTINELS-BEFORE.sha256",
+            "sha256": "159d70a5cced8e3fc7f3371f5d84eaa4cdb9b168b3cad94cb64e7de79ef24722"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/ASSET-DISPOSITION.md",
+            "sha256": "a0dcc09d1ffba4b3fb7ffb84ef667e67821f1435349945589369beb5f427ea79"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/BEFORE-CAPTURE-MANIFEST.md",
+            "sha256": "010d87561cfe0e4bf7eea10d2b357440b44f2065599742d48385a1f756d5060a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/BEFORE-SOURCE.md",
+            "sha256": "7527f5f41ce847615ba177422f13fb132618263a9e83f94dd23b757f5ee34b16"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/builder-a.md",
+            "sha256": "25f88614254c3ecd0a20e1366c4388ed512e661a84c5bb61b01ffa19dff08c07"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/builder-b.md",
+            "sha256": "6ae4c687d95733276131105c2e5caaf9240815675e10e5cfea0e5085d5629262"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/builder-c.md",
+            "sha256": "97be3ff2eea557e7897ec129debfe82e9efbd7b8134b500c9c69ff186edb980c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/builder-d.md",
+            "sha256": "2a2f6ea69d53155ddf78341861415188c4120f3ce7d390c41e81f7de6f6c264f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/recon-a.md",
+            "sha256": "61a59058393bba70516271dddbfa33556562d1bb044126948460b860f9e0310d"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/recon-b.md",
+            "sha256": "f6d2080b070da2b6ac7c95a4f9d015f8670c882f0b2755c9fa4f159199566169"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/recon-c.md",
+            "sha256": "2883b30409d04235b6cf7571dbdc1658730c62c9317ac1bd421e79f3fc9023a6"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-a11y-trust.md",
+            "sha256": "7e4050ee791e3d285a8e3adf44d5754819b29958e916d56d8a6194dea03e5082"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-clear.md",
+            "sha256": "451ae0652578bf02530a3cd72c7d799dbc3cb7b677ccd2bcde7d4e9ec0ab054a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-design-source.md",
+            "sha256": "d434934dcc5ad1daaf13a5faf9ee10d00475f0f12742161bf22fe60c99884615"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-runtime-delta-a11y-trust.md",
+            "sha256": "e5dc730ed76e8448d5003b8211fddb6a7c0ef991e5acb311cf2fe6ee810bf115"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-runtime-delta-clear.md",
+            "sha256": "3e4072c0ea8e92b9f279c5158cdd9fa9b9b6e0f1af6cb3f75242967a9afad916"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/review-runtime-delta-design-source.md",
+            "sha256": "bb51974fec5a21985e64a97899bc242229b57253327159b27c293148e1be2b2c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-a.md",
+            "sha256": "ecdce89f54061815b9507c64ca0a97ae374241374579097e444618993eae50dd"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-b.md",
+            "sha256": "3123b99e2042b5b016fa9b7df2e7e163428afb0a035e7cb8950a93083c7b7f32"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-c.md",
+            "sha256": "742e9be75d61e1a6b997b6d7af6c26bc7df7ca216b346d4263f0966eb823217f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-common.md",
+            "sha256": "96a064c6b71b7f4df03c0f465ea7033633eb974170c2534c669d017b572a2b8a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/builder-d.md",
+            "sha256": "6f010f59b6adebcbd5e2f6203597893cfcb833eacc921be45bbae95e852bb6f3"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-a11y-trust.md",
+            "sha256": "f6a7ae66f730055b1c0d1adfe3b9dd9e70873323cc00c898885b5ecf056d6582"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-clear.md",
+            "sha256": "e2a962f3f18ab721769db89010d350a0d054f97513441e930e4f497472d30109"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-design-source.md",
+            "sha256": "c0e0ba6a5872cb209f7f2181f81cf09c630595d50db09decf6b0c5a75ab75a19"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-runtime-delta-a11y-trust.md",
+            "sha256": "60cc711e1342bfac79b6206d9b3fb279492b74e25356d737666e7fde6d4568a0"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-runtime-delta-clear.md",
+            "sha256": "2dd7a413acf448d60c06935c8fd0ad8bb64e4df9c752741d8e355ca6525f8b74"
+          },
+          {
+            "path": "../plans/batches/VISUAL-008-D1-profile-settings-core/workers/reviewer-runtime-delta-design-source.md",
+            "sha256": "f0e3c94fdd9e16fe15dcb25ca1ce05df1fa96489f53c2b13cb748250ef5d76ab"
+          }
+        ]
+      },
+      "accepted": {
+        "digest": "937f3622bfef444b374b4bd388ab24c0b8df7948de820158a1f625263a665e20",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/auth/S01Splash.tsx",
+            "sha256": "7fc7c1a537a01fc22d4f6864bfba0f18a7598c27c11c962445bc75ed55941736"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S02MotionCarousel.tsx",
+            "sha256": "f4f105308383ee2e3d3c2ad262de3d71fcb54fda618867cba7140dafc5b72cb8"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03WelcomeSignUp.tsx",
+            "sha256": "a97299a7e78286794e12a3646d0952f83be47dd9808ae3cb3c93008f57caad8f"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03bOtpVerification.tsx",
+            "sha256": "2d8d156f73877474ea8aca6fc76e345341dd718cad7c6efc26633ed2e0bcf3b0"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03cConsent.tsx",
+            "sha256": "cbdb2287950796aa8d20fe68bcd9e3b711113a1ac75a86e55f4c5e671b213152"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03dCompleteProfile.tsx",
+            "sha256": "2cb49fd2dce787c6da4d9f27cfd4739699be51ea4262370d0b4ffb37ca799ada"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03eWhatsappEnrollment.tsx",
+            "sha256": "de5dd8f97babfbd0f43e6f453843946847b06903a52c8f296644732670d82e43"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S04SignIn.tsx",
+            "sha256": "a3b689f3cd975cdff3082d24acbdc17c7ee34c3cee37a29f4ca6665b28e6d3f4"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S05ForgotPassword.tsx",
+            "sha256": "d9e8b6c68913c02b7d45f206fb8634caebcdcba461d99b60531e3a078707fcfa"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S05bResetPassword.tsx",
+            "sha256": "445132640a1953483c0cd329e7e8bcc17afcf4f64e00d3233c12996f4801504a"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S06GuestModePreview.tsx",
+            "sha256": "cea7431bcb2179be765a06e64e2e850c0109e8bbcf39c8100a90654a5a27da87"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S07CiaOnboarding.tsx",
+            "sha256": "e1f1691732039869a3a9b0da09c97476fe8e90f9f7ffd4caab9390ba3da0d388"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S08InitialPlanSummary.tsx",
+            "sha256": "a452750058ebcafb83858d1cd760d189e0d1666040c78bb75cce6c850bd1ff8a"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S65ForceUpdate.tsx",
+            "sha256": "257dddeb7ca124aa2e66d013143644c5d20fe97be943e211251d758bd5052661"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S66NotificationPermission.tsx",
+            "sha256": "32f4d7dee40bc56145f646f5685e8e76c53bf14ed743ae8de3051c7a032ee29f"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S09CiaChat.tsx",
+            "sha256": "33e15001c97b2925afd6b5fafc4f7e552af24675a4e50ae6fe1f4644678ffcbf"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S10CiaVoiceInChat.tsx",
+            "sha256": "9cd23ce5f4336dc2195c5a674427f569ea9d1d2724d236b6d20d4c4c3cf25db0"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S11CiaVoiceFullScreen.tsx",
+            "sha256": "af0c299c2558075ba95632ac9b4f813281ef6fdb50d9c85be0c8e1aeb5b0c334"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S51VoiceCallHistory.tsx",
+            "sha256": "7357227ac7cbb10438d98eb0fd65555aac31d5e9c36807298a2390bcfb240ff9"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S74ConversationsHub.tsx",
+            "sha256": "9adfa2fef3d4f6fdbc2f998586b0719a5cf7529a9a7448884da780b64c9b1399"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S75DirectChat.tsx",
+            "sha256": "bec3142c7b3b06352cb2224d6199523dae8747a2e480fc7dfebdbde5dba06c27"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S76GroupChat.tsx",
+            "sha256": "c3481341a3e19f8dec4aa05d1922c32b4cdb42ade261f9ba94902bd62da66a91"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S77MessageActions.tsx",
+            "sha256": "0b9d5c9f870191044c1b86e591c5286f073c5d13b2540bc82b984fc3f9b79ece"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S79CallSummary.tsx",
+            "sha256": "034f532c8ba0ce15842bd4867e9037242c6a190604579a23016165e3fcf681bc"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S99WhatsappInbox.tsx",
+            "sha256": "2c815fba9804c11f53dacba953c1d49c1d8204dd435037b130ba5f21d9c43df0"
+          },
+          {
+            "path": "src/components/hifi/screens/health/S26FitnessDashboard.tsx",
+            "sha256": "37bb7106c03cc81b15dc6efff65ca7001c405d71d5276f6cd4939b3abee64dd9"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S43Paywall.tsx",
+            "sha256": "134d064bfef7d1d9a4b77f6ac4558a8c80beaa14fe42167501396797dd6e39c3"
+          },
+          {
+            "path": "src/components/hifi/screens/system/S80MusicCoach.tsx",
+            "sha256": "250fe435013c40a7060b3c91f49be39f5328c213095323c1d2072d3100fc38fb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S12HomeScreen.tsx",
+            "sha256": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S13MissionBoard.tsx",
+            "sha256": "32b1152531ee2477c6a704394172ff6b574be8bf5cfcb22e85ea7ee10be76bc3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S14MissionDetail.tsx",
+            "sha256": "cb5bf50d3fc3f9f182360a7f0362235f4d09c7df4e07f6039edd02f37bef92f3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S15CreateEditMission.tsx",
+            "sha256": "ecd84923a6e3be9f21ab11bd8308011d93aa0e51eace5dd6a4a22fa65c8c5ebb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S41ScheduleCalendar.tsx",
+            "sha256": "4154f1d6e1d56ca7232c636f1007f10b15d23124bb6d915d3effd67057990932"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S44WaterIntake.tsx",
+            "sha256": "ebb9e691d2eaddae0b4a85628139b890a8eec672e8715f1726a9805f485a68d9"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S45DailyCheckin.tsx",
+            "sha256": "7955053e92cb956bf0795a8ba9a52fb40d988ca5bf29fcb17829656d86e05811"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S59StreakDetails.tsx",
+            "sha256": "f62cf6c5768ec2dc3b601f8d1fe03573bcdcfa8136b9d55720acef608a9ced64"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S61RemindersTasks.tsx",
+            "sha256": "44571c251e6cfa83894552ce2b0d8e0910ec239295c11051c63916f721cec3ad"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S73MissionJournal.tsx",
+            "sha256": "e1c75226156a37eb2f2f491ce42e40bf0dfe3e29a6da739417d7738d4f5ca090"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S97PlansLibrary.tsx",
+            "sha256": "17a15d65f531d7941b8f5e8d441e775cee22bce1f695221c19b47896bfd6ed84"
+          }
+        ]
+      }
+    },
+    "unchanged": true,
+    "acceptedSentinels": {
+      "manifest": "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/ACCEPTED-SENTINELS-BEFORE.sha256",
+      "expectedFiles": 39,
+      "unchangedFromManifest": true
+    }
+  },
+  "expectedScreenshotCount": 91,
+  "expectedScreenshots": [
+    "17-default.png",
+    "17-skeleton.png",
+    "17-empty.png",
+    "17-error.png",
+    "17-offline.png",
+    "17-success.png",
+    "17-disabled.png",
+    "17-data-controls.png",
+    "17-avatar-consent.png",
+    "18-default.png",
+    "18-partial.png",
+    "18-empty.png",
+    "18-error.png",
+    "18-offline.png",
+    "18-locked.png",
+    "18-search-results.png",
+    "18-search-empty.png",
+    "18-paywall-locks.png",
+    "18-data-controls.png",
+    "21-default.png",
+    "21-skeleton.png",
+    "21-partial.png",
+    "21-saving.png",
+    "21-error.png",
+    "21-offline.png",
+    "21-success.png",
+    "21-hardware-unsupported.png",
+    "21-password-modal.png",
+    "21-data-controls.png",
+    "21-notifications-toggled.png",
+    "22-default.png",
+    "22-skeleton.png",
+    "22-unconnected.png",
+    "22-error.png",
+    "22-offline.png",
+    "22-success.png",
+    "22-disabled.png",
+    "22-provider-controls.png",
+    "22-connect-consent.png",
+    "22-disconnect-confirm.png",
+    "22-reduced-motion.png",
+    "23-default.png",
+    "23-skeleton.png",
+    "23-empty.png",
+    "23-error.png",
+    "23-offline.png",
+    "23-success.png",
+    "23-disabled.png",
+    "23-payment-final-day.png",
+    "23-payment-post-grace.png",
+    "23-compare-table.png",
+    "23-cancel-confirm.png",
+    "23-update-payment.png",
+    "23-reduced-motion.png",
+    "24-default.png",
+    "24-skeleton.png",
+    "24-empty.png",
+    "24-sparse.png",
+    "24-error.png",
+    "24-offline.png",
+    "24-success.png",
+    "24-disabled.png",
+    "24-filter-cia.png",
+    "24-row-menu.png",
+    "24-controls.png",
+    "24-mark-read-undone.png",
+    "24-reduced-motion.png",
+    "25-default.png",
+    "25-skeleton.png",
+    "25-empty.png",
+    "25-error.png",
+    "25-offline.png",
+    "25-success.png",
+    "25-search-results.png",
+    "25-search-empty.png",
+    "25-cia-consent.png",
+    "25-contact-no-ticket.png",
+    "25-article.png",
+    "50-default.png",
+    "50-partial.png",
+    "50-skeleton.png",
+    "50-error.png",
+    "50-offline.png",
+    "50-success.png",
+    "50-invalid.png",
+    "50-dirty-valid.png",
+    "50-dirty-invalid.png",
+    "50-photo-consent.png",
+    "50-unsaved-exit.png",
+    "50-delete-confirm.png",
+    "50-enlarged-bottom.png"
+  ],
+  "screenshots": [
+    {
+      "file": "17-avatar-consent.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 72397,
+      "sha256": "d4a81ff4fc94f5daef89738d12846a693ec6bd4f060aca962d14248dd434de5a"
+    },
+    {
+      "file": "17-data-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 62318,
+      "sha256": "f439edd6c885330e425b7c949beaf10e949472902343d7ea7c13ad4d0d5f355f"
+    },
+    {
+      "file": "17-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 180502,
+      "sha256": "45aa2c84c4018abc266e9be663f06d1eaefe44b0d67145d7b9858d841d8b9546"
+    },
+    {
+      "file": "17-disabled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 185574,
+      "sha256": "8d8a07c22594be4cb6d31728df21623059df697ab2968ece0d7cd1948acb5fb9"
+    },
+    {
+      "file": "17-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 180396,
+      "sha256": "e5313b5224b27f17c3c0debdfe512e9862985350099d88551a3a9d5a06387252"
+    },
+    {
+      "file": "17-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 185404,
+      "sha256": "df2fda479189bb15205d7a28506eb7fb6a226547f5a2ccd8adb1d930a8889357"
+    },
+    {
+      "file": "17-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 191047,
+      "sha256": "ff8ff4d15ce78e3be58b71480141941573f96b70c7ee4691c7d8e5857734a8c6"
+    },
+    {
+      "file": "17-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 127951,
+      "sha256": "4d17e3cfb480f4ac73c70ab9fb436e275ae4f5c31fa7c5b25d0a92211d6c6881"
+    },
+    {
+      "file": "17-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 179855,
+      "sha256": "e059afdb37a6cd50b84d39ad005f305a9a8a7dcbd3ca8ad9f1db414c8eb71b42"
+    },
+    {
+      "file": "18-data-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 76625,
+      "sha256": "b66291ac6c4cbf904531e1cf78a71f90a679a9b42ee906eb7f8ea6f938179add"
+    },
+    {
+      "file": "18-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 225328,
+      "sha256": "0e62102b6675c3c27d19aadb661464d119b1db50887d4bae3d132d9f072ddee3"
+    },
+    {
+      "file": "18-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 236794,
+      "sha256": "04d75af30d6c219539d67f1c2679f4bce60fc72e68f4b985a2b03e6e67acf3ac"
+    },
+    {
+      "file": "18-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 229146,
+      "sha256": "3b50249d1de8ac6899864e2cdf04f3eaf43d9507c718cad88464bafd1e016846"
+    },
+    {
+      "file": "18-locked.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 226816,
+      "sha256": "e3c89b584d630e3a3ed965affdaabe36c2257fd715a07f54e8026566c4c71e3f"
+    },
+    {
+      "file": "18-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 227632,
+      "sha256": "b473b097c063ae721451a49c326ea5a37249854e893e64a6e067e3537197b1da"
+    },
+    {
+      "file": "18-partial.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 226358,
+      "sha256": "3d9ed567f4bf2d136fc8e26a1054f64fc4516ce6da8e3e8129f466e96c4dd110"
+    },
+    {
+      "file": "18-paywall-locks.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 216851,
+      "sha256": "e9c8b2836478faf08dbd7c27a4042db5ea27462bd80cd0e724d99d96b89fe984"
+    },
+    {
+      "file": "18-search-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 150250,
+      "sha256": "8838300456bd47e3589041389da34cab6ffc686d9ae5626737754bca7d8f6109"
+    },
+    {
+      "file": "18-search-results.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 165269,
+      "sha256": "846b61ce6ccf1929e07fb2247359c34cff11fdaa7a207fae861437ba3f09b760"
+    },
+    {
+      "file": "21-data-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 86497,
+      "sha256": "0066fdec45d9b9e4ae97c99b6daa129f60dbb63cb30ce2beee3761a1f26470dc"
+    },
+    {
+      "file": "21-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 137629,
+      "sha256": "9ec5141ed3b68181b0bff29998985fdb1f078fd63dd3c0bf9a45074649a90974"
+    },
+    {
+      "file": "21-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 137698,
+      "sha256": "837f1dc217970bb982b91ee2972292ea2a49852634f9502b33e32934eb9931fc"
+    },
+    {
+      "file": "21-hardware-unsupported.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 139069,
+      "sha256": "43f5f3357b5606d4c5ba95d5b7be9b0bb7af11b6a5dd55f4eb0116046433be32"
+    },
+    {
+      "file": "21-notifications-toggled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 139775,
+      "sha256": "9a994f35a6bb974641c6ea25b380f9babed82fdc58433288e7cf55c7d92c3d80"
+    },
+    {
+      "file": "21-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 138099,
+      "sha256": "5a58a4342f80ca97bde4691d695d478a0652d416a78696c8c39028543fc51bce"
+    },
+    {
+      "file": "21-partial.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 138600,
+      "sha256": "bd596d6275df466c275e8f0460e27b92eb52cc708558cb8f7b45c953f6100997"
+    },
+    {
+      "file": "21-password-modal.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 77377,
+      "sha256": "1c509a26bff57c1d10dccfaecdcb424a9ed9a7a75599df625be2601dab26172b"
+    },
+    {
+      "file": "21-saving.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 136587,
+      "sha256": "1950c62c8bf5662745c3e0269800ead204583ab549767d4305181a89b5a8cf1b"
+    },
+    {
+      "file": "21-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 114808,
+      "sha256": "c9aeacfad534b0cea5e2edfa87d3027ef01c47aca7a2a1712748db3c3903e3af"
+    },
+    {
+      "file": "21-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 138251,
+      "sha256": "51ba111b1ed0fb16649af62535256e05a6412db23fc7ac13c9d800334580911e"
+    },
+    {
+      "file": "22-connect-consent.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 96618,
+      "sha256": "55f89047a433907c994b13d11340393aff9cc09ce712cee78d22ce59d07dd1ce"
+    },
+    {
+      "file": "22-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172100,
+      "sha256": "2e4902b0568ba6818cf6f1140114fc164e1b0426d86339c15c2b5f1335db05b4"
+    },
+    {
+      "file": "22-disabled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 174783,
+      "sha256": "3f9c3456ed641ab47a49831be7ac83b0644db60d7f3c0cf0878824ab4a1bd01e"
+    },
+    {
+      "file": "22-disconnect-confirm.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 95537,
+      "sha256": "65684310cdb10c4b68230298606000a898fb1c1ccac544710f2dcfac158628e7"
+    },
+    {
+      "file": "22-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 177578,
+      "sha256": "1660cc4c6153c581ab7a059cc9e008e71f7171df68824becac1146d97b5dbd3c"
+    },
+    {
+      "file": "22-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 175774,
+      "sha256": "942cb337c1c363f803b61d667870e4284f8951a001bd073daf6a13fb6cc96bc9"
+    },
+    {
+      "file": "22-provider-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 96932,
+      "sha256": "b936c072c0dacb648a14a369044a0b875d94560d05bf36c95fef523f2700d669"
+    },
+    {
+      "file": "22-reduced-motion.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172090,
+      "sha256": "1172d5b082f2faf55bec795b65e39c1647b562a2b28e74f91936440fb79d5b34"
+    },
+    {
+      "file": "22-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 160089,
+      "sha256": "c16a713ef1cede7927a55e4a22ab19e3363fdf83d5f43f2ff354f6684e8ca727"
+    },
+    {
+      "file": "22-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 175756,
+      "sha256": "80b9c02c6d5ba36d612c62edf9fec90dd7888dd62a88cbd931ab40ba57379bd0"
+    },
+    {
+      "file": "22-unconnected.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 174500,
+      "sha256": "db7f0db2a2a92659ca990c3f1a5e657869b7581711c31ef76f63d21dc61b791b"
+    },
+    {
+      "file": "23-cancel-confirm.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 75809,
+      "sha256": "39e6f14e7db3ce2d4ca14b6a6edfa7e36505583b93a8a569920036bc7bddcc02"
+    },
+    {
+      "file": "23-compare-table.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 158601,
+      "sha256": "2f10b77158261601e7ca1a5aa52ab63c8d397733e66122252cc09cc908ee42d2"
+    },
+    {
+      "file": "23-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 200142,
+      "sha256": "b6ef1c7ba11da3462fe892c41fe426b8c8d27d264e5ce43842b55288fb845b99"
+    },
+    {
+      "file": "23-disabled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 181597,
+      "sha256": "f602741cbde6f083946e1269cc99836cf50de11eb1a149df0f61254d495535d0"
+    },
+    {
+      "file": "23-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 162285,
+      "sha256": "65a25a5698f164aecea84ceb1aa54c47fed90a321c2cf9886922f1866d607d82"
+    },
+    {
+      "file": "23-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 122436,
+      "sha256": "dc238e923ad151586225bdfa180e69753a79cbc2a4c78c6ad477c6001a86691c"
+    },
+    {
+      "file": "23-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172012,
+      "sha256": "8c8a5203abc12a7212a0d8aa92b3a40b953b896e816450dbf74171996552714e"
+    },
+    {
+      "file": "23-payment-final-day.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 204488,
+      "sha256": "0df23dad633961f6af0a1627ad0714399ed9dd5b55f9098aac83d4dc069deed7"
+    },
+    {
+      "file": "23-payment-post-grace.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 197134,
+      "sha256": "b8ef04ebc7b15987178dfc24100395844bc88699a9177dcddd241dbca7e8a5ab"
+    },
+    {
+      "file": "23-reduced-motion.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 200132,
+      "sha256": "5d8a7d01a7e88f1114d73c48a157926f291100cbb04e8a32eec4e7ae5c002afe"
+    },
+    {
+      "file": "23-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 100560,
+      "sha256": "da9a8e6c78420a687a9b2775736a6132976383eb61357dba93e5fca7a0830eba"
+    },
+    {
+      "file": "23-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 189169,
+      "sha256": "4964642ad33fe4f52717881889989fd1ededc6815d3fa76cc89238704d4aa8dc"
+    },
+    {
+      "file": "23-update-payment.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 76421,
+      "sha256": "afe1e91deb3117653afb7ff7f093fd72db4f98f98fd086711aece9428059f8ea"
+    },
+    {
+      "file": "24-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 74506,
+      "sha256": "9f54192b55cad5a0d4b2f4fe1b960c23321873e2c108fed9a9daddb41a06fdaf"
+    },
+    {
+      "file": "24-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 134332,
+      "sha256": "518cd4e95d2fab44578e9b01ece8dcd110021971891c5a45bdc0a7b9dde71d39"
+    },
+    {
+      "file": "24-disabled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 136323,
+      "sha256": "2879c9c2396643d675ac32ddce8540ac5491526c8601df048780dd5a97b1d47c"
+    },
+    {
+      "file": "24-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 113153,
+      "sha256": "3d5e6684b67c11e9e640053f9ac21e57b98cfdc0ea8b2f17ec02c12618eb5cca"
+    },
+    {
+      "file": "24-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 118599,
+      "sha256": "7d6967525c3654fb2ddb058c60cda05deef6781627ce46677de516fa517092f4"
+    },
+    {
+      "file": "24-filter-cia.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 131828,
+      "sha256": "60f4b25e1eefed547d101d74ac3cf7b540f12cf175f859a89929d156362cba08"
+    },
+    {
+      "file": "24-mark-read-undone.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 121426,
+      "sha256": "d2e2acd5b53b0fc51f6e28dd466f5bf77924102fab7dc024c9322cf645025eb4"
+    },
+    {
+      "file": "24-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 140053,
+      "sha256": "abb8a2fba29853edca2147aa9750fe3b1bfc8b2a118f2b3fb9f2dffe1cf1f35c"
+    },
+    {
+      "file": "24-reduced-motion.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 134332,
+      "sha256": "518cd4e95d2fab44578e9b01ece8dcd110021971891c5a45bdc0a7b9dde71d39"
+    },
+    {
+      "file": "24-row-menu.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 75099,
+      "sha256": "e2267fb5a6d72a40d298605d520539c254cda757e760ed0dbbbef19a7d3ba585"
+    },
+    {
+      "file": "24-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 95206,
+      "sha256": "8fa5b63096c53f6b58e64505c042e3dcdece162fc245370c8640334047d7f6c9"
+    },
+    {
+      "file": "24-sparse.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 132724,
+      "sha256": "c7130f85f3f67b9e096582bd34159bcee361e11676658bca117e811d9b72d5af"
+    },
+    {
+      "file": "24-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 144716,
+      "sha256": "91841884bdf467a10960160a1342677be5c5ad5e5d028e259a8258c7324927d9"
+    },
+    {
+      "file": "25-article.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 89155,
+      "sha256": "496eba03d91ac60829c9538909cf9fcc8c09a3d900a242b2ff9c8d248f00758e"
+    },
+    {
+      "file": "25-cia-consent.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 96020,
+      "sha256": "13b883302d3d10bfe61a8bff70a7706b31a0e0709a42d8f9f4f50cd68afa7a3f"
+    },
+    {
+      "file": "25-contact-no-ticket.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 86128,
+      "sha256": "a80337aa3453cb706c028b4c6095c17ca1628d873c03d59ad15fcb24896968a9"
+    },
+    {
+      "file": "25-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 161047,
+      "sha256": "bfac5daac7dd453b35b4f75ab0b5a6cddce7f9404ee8fbb0618d48ed47ae1d92"
+    },
+    {
+      "file": "25-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 168638,
+      "sha256": "b68d21aa08df333ec8833ebe54af379c3286238fd46dd451d0a2ffea44b1bfc3"
+    },
+    {
+      "file": "25-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 163091,
+      "sha256": "af47a877c64cea291d6a2dec148ef756866584088aab41c7bed2a02e6c2f01e7"
+    },
+    {
+      "file": "25-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 158933,
+      "sha256": "9ae20ce6c23b6e36fdb4dc8ed1b3a9fc99e9d1f8d2f85b5f2aee9cd05a2f152f"
+    },
+    {
+      "file": "25-search-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 156634,
+      "sha256": "e4a15cc7789eb3a3af225e960fabb6cca442960bde5b4d9ca635ab867540f335"
+    },
+    {
+      "file": "25-search-results.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 151255,
+      "sha256": "cad259b35962716be04de6353a50f9f631bffef5a011259d0d40c46238af2df6"
+    },
+    {
+      "file": "25-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 162351,
+      "sha256": "ba3ec92b031dded0834876542d7284954b6f6e09a849483bed3701e0bcff4ee3"
+    },
+    {
+      "file": "25-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 162709,
+      "sha256": "00c18862ff615506933b9ccc4346440dd084f56c671eb73b23bdc84b4731fcaa"
+    },
+    {
+      "file": "50-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 139426,
+      "sha256": "3e90a7ee8001743a8399a69875233ba2931c9a1da3d9a10b4b1b9c27e119e7aa"
+    },
+    {
+      "file": "50-delete-confirm.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 75761,
+      "sha256": "11ead0606b78a77d1325cd3bdf4e64330791708b81bb3b55f02b9f813b589267"
+    },
+    {
+      "file": "50-dirty-invalid.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 139056,
+      "sha256": "79c66581f74b948737a19f035ba4e25b26695608ddec07b117eeb19eb74e6991"
+    },
+    {
+      "file": "50-dirty-valid.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 139076,
+      "sha256": "ec5940da7f873c8a3fca8b862bd5a25a8ed2c8a77cf79e733db333f6d79b6225"
+    },
+    {
+      "file": "50-enlarged-bottom.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 156862,
+      "sha256": "5dea31fa30e0c8d4cd3e6af2afa9161a037abfb0121c1f3dd2941ac9ba7d9f9c"
+    },
+    {
+      "file": "50-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 151062,
+      "sha256": "89d38299492f901fd164adf4ca053071482a37d586ac789ac07d53ccf7c00ba1"
+    },
+    {
+      "file": "50-invalid.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 149211,
+      "sha256": "e31740edd6dec2da9fa4afade9fdbeb438586b7a0d327b4ea81fba22937c68a0"
+    },
+    {
+      "file": "50-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 151394,
+      "sha256": "a1fca5400eb5c4a943c38c4a632fe90fb684fb447d5730b8390387af76ab4656"
+    },
+    {
+      "file": "50-partial.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 150483,
+      "sha256": "e2e2cc97923c80fd9f9f6f1dd03743e294cc41a60fe61c7c9a32a4e292f5d51e"
+    },
+    {
+      "file": "50-photo-consent.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 87484,
+      "sha256": "cdfd50dea57b86e3ba464b6960494f5440b1299ae407e3cd9b11ab7fd2711f85"
+    },
+    {
+      "file": "50-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 111311,
+      "sha256": "4473f1e91fbd0de437f583dd373219ca0f43ded9470b5421f7175e611d4dd90c"
+    },
+    {
+      "file": "50-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 152392,
+      "sha256": "2fa17c8cb00c2fb6092e0512e25d6a44830ab1e127d8e79b3c4ba79831af72ea"
+    },
+    {
+      "file": "50-unsaved-exit.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 78387,
+      "sha256": "4e13781426eb55417b6c0ec0b5de978f0d63979bceef0bc5dd2c432a09a9915c"
+    }
+  ],
+  "screenshotPromotion": "promoted-after-all-assertions",
+  "checks": [
+    {
+      "name": "S17 profile/source truth",
+      "status": "pass",
+      "evidence": {
+        "providers": 3,
+        "importedRecords": 84,
+        "level": 12
+      }
+    },
+    {
+      "name": "case 17-default",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "default",
+        "nonce": "1"
+      }
+    },
+    {
+      "name": "case 17-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "skeleton",
+        "nonce": "2"
+      }
+    },
+    {
+      "name": "case 17-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "empty",
+        "nonce": "3"
+      }
+    },
+    {
+      "name": "case 17-error",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "error",
+        "nonce": "4"
+      }
+    },
+    {
+      "name": "case 17-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "offline",
+        "nonce": "5"
+      }
+    },
+    {
+      "name": "case 17-success",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "success",
+        "nonce": "6"
+      }
+    },
+    {
+      "name": "case 17-disabled",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "disabled",
+        "nonce": "7"
+      }
+    },
+    {
+      "name": "case 17-data-controls",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "default",
+        "nonce": "8"
+      }
+    },
+    {
+      "name": "case 17-avatar-consent",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "default",
+        "nonce": "9"
+      }
+    },
+    {
+      "name": "case 18-default",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "default",
+        "nonce": "10"
+      }
+    },
+    {
+      "name": "case 18-partial",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "partial",
+        "nonce": "11"
+      }
+    },
+    {
+      "name": "case 18-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "empty",
+        "nonce": "12"
+      }
+    },
+    {
+      "name": "case 18-error",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "error",
+        "nonce": "13"
+      }
+    },
+    {
+      "name": "case 18-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "offline",
+        "nonce": "14"
+      }
+    },
+    {
+      "name": "case 18-locked",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "locked",
+        "nonce": "15"
+      }
+    },
+    {
+      "name": "case 18-search-results",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "default",
+        "nonce": "16"
+      }
+    },
+    {
+      "name": "case 18-search-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "default",
+        "nonce": "17"
+      }
+    },
+    {
+      "name": "case 18-paywall-locks",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "default",
+        "nonce": "18"
+      }
+    },
+    {
+      "name": "case 18-data-controls",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "default",
+        "nonce": "19"
+      }
+    },
+    {
+      "name": "case 21-default",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "default",
+        "nonce": "20"
+      }
+    },
+    {
+      "name": "case 21-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "skeleton",
+        "nonce": "21"
+      }
+    },
+    {
+      "name": "case 21-partial",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "partial",
+        "nonce": "22"
+      }
+    },
+    {
+      "name": "case 21-saving",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "saving",
+        "nonce": "23"
+      }
+    },
+    {
+      "name": "case 21-error",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "error",
+        "nonce": "24"
+      }
+    },
+    {
+      "name": "case 21-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "offline",
+        "nonce": "25"
+      }
+    },
+    {
+      "name": "case 21-success",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "success",
+        "nonce": "26"
+      }
+    },
+    {
+      "name": "case 21-hardware-unsupported",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "default",
+        "nonce": "27"
+      }
+    },
+    {
+      "name": "case 21-password-modal",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "default",
+        "nonce": "28"
+      }
+    },
+    {
+      "name": "case 21-data-controls",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "default",
+        "nonce": "29"
+      }
+    },
+    {
+      "name": "case 21-notifications-toggled",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "default",
+        "nonce": "30"
+      }
+    },
+    {
+      "name": "case 22-default",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "default",
+        "nonce": "31"
+      }
+    },
+    {
+      "name": "case 22-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "skeleton",
+        "nonce": "32"
+      }
+    },
+    {
+      "name": "case 22-unconnected",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "unconnected",
+        "nonce": "33"
+      }
+    },
+    {
+      "name": "case 22-error",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "error",
+        "nonce": "34"
+      }
+    },
+    {
+      "name": "case 22-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "offline",
+        "nonce": "35"
+      }
+    },
+    {
+      "name": "case 22-success",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "success",
+        "nonce": "36"
+      }
+    },
+    {
+      "name": "case 22-disabled",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "disabled",
+        "nonce": "37"
+      }
+    },
+    {
+      "name": "case 22-provider-controls",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "default",
+        "nonce": "38"
+      }
+    },
+    {
+      "name": "case 22-connect-consent",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "default",
+        "nonce": "39"
+      }
+    },
+    {
+      "name": "case 22-disconnect-confirm",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "default",
+        "nonce": "40"
+      }
+    },
+    {
+      "name": "case 22-reduced-motion",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "default",
+        "nonce": "41"
+      }
+    },
+    {
+      "name": "S23 billing truth",
+      "status": "pass",
+      "evidence": {
+        "usage": "800/1000",
+        "ticks": "8/10",
+        "plans": 4
+      }
+    },
+    {
+      "name": "case 23-default",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "default",
+        "nonce": "42"
+      }
+    },
+    {
+      "name": "case 23-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "skeleton",
+        "nonce": "43"
+      }
+    },
+    {
+      "name": "case 23-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "empty",
+        "nonce": "44"
+      }
+    },
+    {
+      "name": "case 23-error",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "error",
+        "nonce": "45"
+      }
+    },
+    {
+      "name": "case 23-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "offline",
+        "nonce": "46"
+      }
+    },
+    {
+      "name": "case 23-success",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "success",
+        "nonce": "47"
+      }
+    },
+    {
+      "name": "case 23-disabled",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "disabled",
+        "nonce": "48"
+      }
+    },
+    {
+      "name": "case 23-payment-final-day",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "payment-final-day",
+        "nonce": "49"
+      }
+    },
+    {
+      "name": "case 23-payment-post-grace",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "payment-post-grace",
+        "nonce": "50"
+      }
+    },
+    {
+      "name": "case 23-compare-table",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "default",
+        "nonce": "51"
+      }
+    },
+    {
+      "name": "case 23-cancel-confirm",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "default",
+        "nonce": "52"
+      }
+    },
+    {
+      "name": "case 23-update-payment",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "default",
+        "nonce": "53"
+      }
+    },
+    {
+      "name": "case 23-reduced-motion",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "default",
+        "nonce": "54"
+      }
+    },
+    {
+      "name": "S24 notification truth",
+      "status": "pass",
+      "evidence": {
+        "days": [
+          1,
+          0,
+          2,
+          1,
+          0,
+          1,
+          1
+        ],
+        "total": 6,
+        "categories": {
+          "CIA": 3,
+          "Reminders": 2,
+          "Social": 1
+        }
+      }
+    },
+    {
+      "name": "case 24-default",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "default",
+        "nonce": "55"
+      }
+    },
+    {
+      "name": "case 24-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "skeleton",
+        "nonce": "56"
+      }
+    },
+    {
+      "name": "case 24-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "empty",
+        "nonce": "57"
+      }
+    },
+    {
+      "name": "case 24-sparse",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "sparse",
+        "nonce": "58"
+      }
+    },
+    {
+      "name": "case 24-error",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "error",
+        "nonce": "59"
+      }
+    },
+    {
+      "name": "case 24-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "offline",
+        "nonce": "60"
+      }
+    },
+    {
+      "name": "case 24-success",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "success",
+        "nonce": "61"
+      }
+    },
+    {
+      "name": "case 24-disabled",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "disabled",
+        "nonce": "62"
+      }
+    },
+    {
+      "name": "case 24-filter-cia",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "default",
+        "nonce": "63"
+      }
+    },
+    {
+      "name": "case 24-row-menu",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "default",
+        "nonce": "64"
+      }
+    },
+    {
+      "name": "case 24-controls",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "default",
+        "nonce": "65"
+      }
+    },
+    {
+      "name": "case 24-mark-read-undone",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "default",
+        "nonce": "66"
+      }
+    },
+    {
+      "name": "case 24-reduced-motion",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "default",
+        "nonce": "67"
+      }
+    },
+    {
+      "name": "case 25-default",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "default",
+        "nonce": "68"
+      }
+    },
+    {
+      "name": "case 25-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "skeleton",
+        "nonce": "69"
+      }
+    },
+    {
+      "name": "case 25-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "empty",
+        "nonce": "70"
+      }
+    },
+    {
+      "name": "case 25-error",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "error",
+        "nonce": "71"
+      }
+    },
+    {
+      "name": "case 25-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "offline",
+        "nonce": "72"
+      }
+    },
+    {
+      "name": "case 25-success",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "success",
+        "nonce": "73"
+      }
+    },
+    {
+      "name": "case 25-search-results",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "default",
+        "nonce": "74"
+      }
+    },
+    {
+      "name": "case 25-search-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "default",
+        "nonce": "75"
+      }
+    },
+    {
+      "name": "case 25-cia-consent",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "default",
+        "nonce": "76"
+      }
+    },
+    {
+      "name": "case 25-contact-no-ticket",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "default",
+        "nonce": "77"
+      }
+    },
+    {
+      "name": "case 25-article",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "default",
+        "nonce": "78"
+      }
+    },
+    {
+      "name": "case 50-default",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "default",
+        "nonce": "79"
+      }
+    },
+    {
+      "name": "case 50-partial",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "partial",
+        "nonce": "80"
+      }
+    },
+    {
+      "name": "case 50-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "skeleton",
+        "nonce": "81"
+      }
+    },
+    {
+      "name": "case 50-error",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "error",
+        "nonce": "82"
+      }
+    },
+    {
+      "name": "case 50-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "offline",
+        "nonce": "83"
+      }
+    },
+    {
+      "name": "case 50-success",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "success",
+        "nonce": "84"
+      }
+    },
+    {
+      "name": "case 50-invalid",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "invalid",
+        "nonce": "85"
+      }
+    },
+    {
+      "name": "case 50-dirty-valid",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "default",
+        "nonce": "86"
+      }
+    },
+    {
+      "name": "case 50-dirty-invalid",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "default",
+        "nonce": "87"
+      }
+    },
+    {
+      "name": "case 50-photo-consent",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "default",
+        "nonce": "88"
+      }
+    },
+    {
+      "name": "case 50-unsaved-exit",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "default",
+        "nonce": "89"
+      }
+    },
+    {
+      "name": "case 50-delete-confirm",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "default",
+        "nonce": "90"
+      }
+    },
+    {
+      "name": "50-enlarged-bottom text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 32,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "case 50-enlarged-bottom",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "default",
+        "nonce": "91"
+      }
+    },
+    {
+      "name": "17-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 63,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "D1 125% text matrix 17",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 17-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "17",
+        "fixture": "default",
+        "nonce": "92"
+      }
+    },
+    {
+      "name": "18-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 55,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "D1 125% text matrix 18",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 18-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "18",
+        "fixture": "default",
+        "nonce": "93"
+      }
+    },
+    {
+      "name": "21-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 51,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "D1 125% text matrix 21",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 21-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "21",
+        "fixture": "default",
+        "nonce": "94"
+      }
+    },
+    {
+      "name": "22-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 78,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "D1 125% text matrix 22",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 22-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "22",
+        "fixture": "default",
+        "nonce": "95"
+      }
+    },
+    {
+      "name": "23-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 101,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "D1 125% text matrix 23",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 23-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "23",
+        "fixture": "default",
+        "nonce": "96"
+      }
+    },
+    {
+      "name": "24-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 62,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "D1 125% text matrix 24",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 24-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "24",
+        "fixture": "default",
+        "nonce": "97"
+      }
+    },
+    {
+      "name": "25-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 44,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "D1 125% text matrix 25",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 25-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "25",
+        "fixture": "default",
+        "nonce": "98"
+      }
+    },
+    {
+      "name": "50-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 32,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "D1 125% text matrix 50",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 50-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "50",
+        "fixture": "default",
+        "nonce": "99"
+      }
+    },
+    {
+      "name": "atomic screenshot set",
+      "status": "pass",
+      "evidence": {
+        "count": 91,
+        "dimensions": "390x844",
+        "hashes": 91,
+        "promotedAfterPass": true
+      }
+    },
+    {
+      "name": "source integrity",
+      "status": "pass",
+      "evidence": {
+        "product": "06004e81af243fd7c2aad37f5ce5e0c3f19dfa76c094efb66000666d5b3ae328",
+        "api": "8ae765735b6061987b65cd388f3e82ceba127d1ca8507b6ed8e8c73710c11714",
+        "authority": "3f1d3c737c1df0aa553a025b697a456febe3b035fe8a2db8d109234eb2bba525",
+        "accepted": "937f3622bfef444b374b4bd388ab24c0b8df7948de820158a1f625263a665e20"
+      }
+    },
+    {
+      "name": "accepted sentinels byte-identical",
+      "status": "pass",
+      "evidence": {
+        "files": 39
+      }
+    },
+    {
+      "name": "capability boundary",
+      "status": "pass",
+      "evidence": {
+        "forbidden": 0,
+        "total": 0
+      }
+    }
+  ],
+  "cases": [
+    {
+      "name": "17-default",
+      "id": "17",
+      "state": "default",
+      "nonce": "1",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "17-skeleton",
+      "id": "17",
+      "state": "skeleton",
+      "nonce": "2",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "17-empty",
+      "id": "17",
+      "state": "empty",
+      "nonce": "3",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "17-error",
+      "id": "17",
+      "state": "error",
+      "nonce": "4",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "17-offline",
+      "id": "17",
+      "state": "offline",
+      "nonce": "5",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "17-success",
+      "id": "17",
+      "state": "success",
+      "nonce": "6",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "17-disabled",
+      "id": "17",
+      "state": "disabled",
+      "nonce": "7",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "17-data-controls",
+      "id": "17",
+      "state": "default",
+      "nonce": "8",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "17-avatar-consent",
+      "id": "17",
+      "state": "default",
+      "nonce": "9",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-default",
+      "id": "18",
+      "state": "default",
+      "nonce": "10",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-partial",
+      "id": "18",
+      "state": "partial",
+      "nonce": "11",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-empty",
+      "id": "18",
+      "state": "empty",
+      "nonce": "12",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-error",
+      "id": "18",
+      "state": "error",
+      "nonce": "13",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-offline",
+      "id": "18",
+      "state": "offline",
+      "nonce": "14",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-locked",
+      "id": "18",
+      "state": "locked",
+      "nonce": "15",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-search-results",
+      "id": "18",
+      "state": "default",
+      "nonce": "16",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-search-empty",
+      "id": "18",
+      "state": "default",
+      "nonce": "17",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-paywall-locks",
+      "id": "18",
+      "state": "default",
+      "nonce": "18",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-data-controls",
+      "id": "18",
+      "state": "default",
+      "nonce": "19",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-default",
+      "id": "21",
+      "state": "default",
+      "nonce": "20",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-skeleton",
+      "id": "21",
+      "state": "skeleton",
+      "nonce": "21",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-partial",
+      "id": "21",
+      "state": "partial",
+      "nonce": "22",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-saving",
+      "id": "21",
+      "state": "saving",
+      "nonce": "23",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-error",
+      "id": "21",
+      "state": "error",
+      "nonce": "24",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-offline",
+      "id": "21",
+      "state": "offline",
+      "nonce": "25",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-success",
+      "id": "21",
+      "state": "success",
+      "nonce": "26",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-hardware-unsupported",
+      "id": "21",
+      "state": "default",
+      "nonce": "27",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-password-modal",
+      "id": "21",
+      "state": "default",
+      "nonce": "28",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-data-controls",
+      "id": "21",
+      "state": "default",
+      "nonce": "29",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-notifications-toggled",
+      "id": "21",
+      "state": "default",
+      "nonce": "30",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-default",
+      "id": "22",
+      "state": "default",
+      "nonce": "31",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-skeleton",
+      "id": "22",
+      "state": "skeleton",
+      "nonce": "32",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-unconnected",
+      "id": "22",
+      "state": "unconnected",
+      "nonce": "33",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-error",
+      "id": "22",
+      "state": "error",
+      "nonce": "34",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-offline",
+      "id": "22",
+      "state": "offline",
+      "nonce": "35",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-success",
+      "id": "22",
+      "state": "success",
+      "nonce": "36",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-disabled",
+      "id": "22",
+      "state": "disabled",
+      "nonce": "37",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-provider-controls",
+      "id": "22",
+      "state": "default",
+      "nonce": "38",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-connect-consent",
+      "id": "22",
+      "state": "default",
+      "nonce": "39",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-disconnect-confirm",
+      "id": "22",
+      "state": "default",
+      "nonce": "40",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-reduced-motion",
+      "id": "22",
+      "state": "default",
+      "nonce": "41",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-default",
+      "id": "23",
+      "state": "default",
+      "nonce": "42",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-skeleton",
+      "id": "23",
+      "state": "skeleton",
+      "nonce": "43",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-empty",
+      "id": "23",
+      "state": "empty",
+      "nonce": "44",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-error",
+      "id": "23",
+      "state": "error",
+      "nonce": "45",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-offline",
+      "id": "23",
+      "state": "offline",
+      "nonce": "46",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-success",
+      "id": "23",
+      "state": "success",
+      "nonce": "47",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-disabled",
+      "id": "23",
+      "state": "disabled",
+      "nonce": "48",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-payment-final-day",
+      "id": "23",
+      "state": "payment-final-day",
+      "nonce": "49",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-payment-post-grace",
+      "id": "23",
+      "state": "payment-post-grace",
+      "nonce": "50",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-compare-table",
+      "id": "23",
+      "state": "default",
+      "nonce": "51",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-cancel-confirm",
+      "id": "23",
+      "state": "default",
+      "nonce": "52",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-update-payment",
+      "id": "23",
+      "state": "default",
+      "nonce": "53",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-reduced-motion",
+      "id": "23",
+      "state": "default",
+      "nonce": "54",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-default",
+      "id": "24",
+      "state": "default",
+      "nonce": "55",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-skeleton",
+      "id": "24",
+      "state": "skeleton",
+      "nonce": "56",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-empty",
+      "id": "24",
+      "state": "empty",
+      "nonce": "57",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-sparse",
+      "id": "24",
+      "state": "sparse",
+      "nonce": "58",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-error",
+      "id": "24",
+      "state": "error",
+      "nonce": "59",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-offline",
+      "id": "24",
+      "state": "offline",
+      "nonce": "60",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-success",
+      "id": "24",
+      "state": "success",
+      "nonce": "61",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-disabled",
+      "id": "24",
+      "state": "disabled",
+      "nonce": "62",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-filter-cia",
+      "id": "24",
+      "state": "default",
+      "nonce": "63",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-row-menu",
+      "id": "24",
+      "state": "default",
+      "nonce": "64",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-controls",
+      "id": "24",
+      "state": "default",
+      "nonce": "65",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-mark-read-undone",
+      "id": "24",
+      "state": "default",
+      "nonce": "66",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-reduced-motion",
+      "id": "24",
+      "state": "default",
+      "nonce": "67",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-default",
+      "id": "25",
+      "state": "default",
+      "nonce": "68",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-skeleton",
+      "id": "25",
+      "state": "skeleton",
+      "nonce": "69",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-empty",
+      "id": "25",
+      "state": "empty",
+      "nonce": "70",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-error",
+      "id": "25",
+      "state": "error",
+      "nonce": "71",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-offline",
+      "id": "25",
+      "state": "offline",
+      "nonce": "72",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-success",
+      "id": "25",
+      "state": "success",
+      "nonce": "73",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-search-results",
+      "id": "25",
+      "state": "default",
+      "nonce": "74",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-search-empty",
+      "id": "25",
+      "state": "default",
+      "nonce": "75",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-cia-consent",
+      "id": "25",
+      "state": "default",
+      "nonce": "76",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-contact-no-ticket",
+      "id": "25",
+      "state": "default",
+      "nonce": "77",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-article",
+      "id": "25",
+      "state": "default",
+      "nonce": "78",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-default",
+      "id": "50",
+      "state": "default",
+      "nonce": "79",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-partial",
+      "id": "50",
+      "state": "partial",
+      "nonce": "80",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-skeleton",
+      "id": "50",
+      "state": "skeleton",
+      "nonce": "81",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-error",
+      "id": "50",
+      "state": "error",
+      "nonce": "82",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-offline",
+      "id": "50",
+      "state": "offline",
+      "nonce": "83",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-success",
+      "id": "50",
+      "state": "success",
+      "nonce": "84",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-invalid",
+      "id": "50",
+      "state": "invalid",
+      "nonce": "85",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-dirty-valid",
+      "id": "50",
+      "state": "default",
+      "nonce": "86",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-dirty-invalid",
+      "id": "50",
+      "state": "default",
+      "nonce": "87",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-photo-consent",
+      "id": "50",
+      "state": "default",
+      "nonce": "88",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-unsaved-exit",
+      "id": "50",
+      "state": "default",
+      "nonce": "89",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-delete-confirm",
+      "id": "50",
+      "state": "default",
+      "nonce": "90",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-enlarged-bottom",
+      "id": "50",
+      "state": "default",
+      "nonce": "91",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "17-text-scale-proof",
+      "id": "17",
+      "state": "default",
+      "nonce": "92",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "18-text-scale-proof",
+      "id": "18",
+      "state": "default",
+      "nonce": "93",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "21-text-scale-proof",
+      "id": "21",
+      "state": "default",
+      "nonce": "94",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "22-text-scale-proof",
+      "id": "22",
+      "state": "default",
+      "nonce": "95",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "23-text-scale-proof",
+      "id": "23",
+      "state": "default",
+      "nonce": "96",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "24-text-scale-proof",
+      "id": "24",
+      "state": "default",
+      "nonce": "97",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "25-text-scale-proof",
+      "id": "25",
+      "state": "default",
+      "nonce": "98",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "50-text-scale-proof",
+      "id": "50",
+      "state": "default",
+      "nonce": "99",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "capabilityEvents": [],
+  "capabilityExpectation": {
+    "forbidden": 0,
+    "total": 0
+  },
+  "status": "pass"
+}

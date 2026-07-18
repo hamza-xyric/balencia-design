@@ -1,0 +1,23 @@
+# BEFORE-SOURCE — VISUAL-007-C1 pre-implementation provenance (2026-07-11)
+
+Worktree: dirty at HEAD 5e933f6 (intentional). SHA-256 of current bytes:
+
+```
+107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67  src/components/hifi/screens/today/S12HomeScreen.tsx
+e2b84e1a6b81ba7851c79a6848a08c0a20508cb65592956d48ce64c7ac8e4842  src/components/hifi/screens/today/S13MissionBoard.tsx
+f7a03c15361ada03aff8f2c27bed47ad78a092d00b6ac399718a40ded159e2ee  src/components/hifi/screens/today/S14MissionDetail.tsx
+4cb35d2339d9fc06a968fbccdea5a5a570aacdd6841f56e5bd828b0060737816  src/components/hifi/screens/today/S15CreateEditMission.tsx
+23d8feecfc4e91fd8e1a8da0580dc42b0b3713bd51018154e9ef0e06e4738c62  src/components/hifi/screens/today/S41ScheduleCalendar.tsx
+064347f6dad705bb431b89a51220a285c29abc29375236c9ed68d008b5de4d6f  src/components/hifi/screens/today/S44WaterIntake.tsx
+7797d2dde471a9060dbc81da4b3ece50beae285e37efcacb319324d2c0400f28  src/components/hifi/screens/today/S45DailyCheckin.tsx
+b65de6aeb17b7081a2dcb80a534a8bcbe5f8fd4a279ceb504e7ecbf179fd76b5  src/components/hifi/screens/today/S59StreakDetails.tsx
+bf1a24f630bbf5704e263f278f2f74c3944db50f19f2c4c30785a73439712e95  src/components/hifi/screens/today/S61RemindersTasks.tsx
+259181aed1a3ceb5eed3fa66ea2da74d59f2a6800828f6f05d44356a0a905e3d  src/components/hifi/screens/today/S73MissionJournal.tsx
+a7721c60a21f1557b748287cf876a9c52e61c821bce120b6cd7d2cc8b9b9497e  src/components/hifi/screens/today/S97PlansLibrary.tsx
+45d80cf8f724600c5271799afa3e0690815dcee0c051feeb028c1cd95a9f299f  src/components/hifi/screens/today/index.ts
+d63dbb04aec861ddf773f01b725bd084e38c1e868d94cb869f8ddcc94f54bb7f  src/components/hifi/kit/data.tsx
+136962a298953dee1e508dbece55c81c8a166e061b807fecb8fb21b59ffc744c  src/components/hifi/kit/glass-pill-input.tsx
+5cf1f1fa683add0fb80156f355d6b86b98a629782326c2d75c13aeec2af1b840  src/app/globals.css
+```
+
+S12HomeScreen.tsx hash above is the SENTINEL BYTE-LOCK: must be unchanged at batch close.

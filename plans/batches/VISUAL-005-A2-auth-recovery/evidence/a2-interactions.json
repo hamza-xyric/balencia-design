@@ -1,0 +1,311 @@
+{
+  "auditedAt": "2026-07-10T11:44:21.147Z",
+  "baseURL": "http://localhost:3001",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "phoneFrame": {
+    "width": 390,
+    "height": 844
+  },
+  "reducedMotion": "reduce",
+  "navigationIsolation": {
+    "strategy": "about:blank + Chromium origin-storage clear + cookie clear + same-origin query/hash nonce",
+    "uniqueNonces": 62,
+    "fixtureTransports": [
+      "query",
+      "hash"
+    ]
+  },
+  "integrity": {
+    "source": {
+      "files": [
+        "src/components/hifi/screens/auth/S05ForgotPassword.tsx",
+        "src/components/hifi/screens/auth/S05bResetPassword.tsx",
+        "src/components/hifi/screens/auth/S06GuestModePreview.tsx",
+        "src/components/hifi/screens/auth/S07CiaOnboarding.tsx",
+        "src/components/hifi/screens/auth/S08InitialPlanSummary.tsx",
+        "src/components/hifi/screens/auth/S65ForceUpdate.tsx",
+        "src/components/hifi/screens/auth/S66NotificationPermission.tsx"
+      ],
+      "start": "de4472c90a67adf5950989092593a3992c4f920542f80db9af5ed06519295bee",
+      "end": "de4472c90a67adf5950989092593a3992c4f920542f80db9af5ed06519295bee",
+      "unchanged": true
+    },
+    "api": {
+      "files": [
+        "src/app/globals.css",
+        "src/components/hifi/kit/HifiShell.tsx",
+        "src/components/hifi/kit/buttons.tsx",
+        "src/components/hifi/kit/chips.tsx",
+        "src/components/hifi/kit/cia-composer.tsx",
+        "src/components/hifi/kit/cia-orb.tsx",
+        "src/components/hifi/kit/glass-pill-input.tsx",
+        "src/components/layout/ScreenShell.tsx"
+      ],
+      "start": "71247fc68608c967efa5ea2acf6c0bfa413094c47eb0c620241440e15a631c1b",
+      "end": "71247fc68608c967efa5ea2acf6c0bfa413094c47eb0c620241440e15a631c1b",
+      "unchanged": true
+    }
+  },
+  "expectedScreenshots": [
+    "05-default.png",
+    "05-filled.png",
+    "05-loading.png",
+    "05-success.png",
+    "05-offline.png",
+    "05-error.png",
+    "05-cooldown-start.png",
+    "05-cooldown-ended.png",
+    "05-resend-cooldown.png",
+    "05b-default.png",
+    "05b-filled.png",
+    "05b-loading.png",
+    "05b-missing.png",
+    "05b-invalid.png",
+    "05b-expired.png",
+    "05b-rate-limit.png",
+    "05b-offline.png",
+    "05b-success.png",
+    "05b-password-visible.png",
+    "05b-mismatch.png",
+    "05b-interactive-loading.png",
+    "06-default.png",
+    "06-name-only.png",
+    "06-populated.png",
+    "06-cap-error.png",
+    "06-loading.png",
+    "06-error.png",
+    "06-success.png",
+    "06-three-selected.png",
+    "06-fourth-rejected.png",
+    "07-default.png",
+    "07-listening.png",
+    "07-privacy.png",
+    "07-crisis.png",
+    "07-text-send.png",
+    "07-skip-health.png",
+    "08-default.png",
+    "08-minimal.png",
+    "08-editing.png",
+    "08-error.png",
+    "08-offline.png",
+    "08-success.png",
+    "08-edit-mission.png",
+    "08-offline-queued.png",
+    "65-default.png",
+    "65-loading.png",
+    "65-error.png",
+    "65-offline.png",
+    "65-empty.png",
+    "65-returned.png",
+    "65-action-error.png",
+    "66-default.png",
+    "66-loading.png",
+    "66-authorized-preview.png",
+    "66-denied.png",
+    "66-error.png",
+    "66-offline.png",
+    "66-re-entry.png",
+    "66-default-skipped.png",
+    "66-authorized-manage.png",
+    "66-reentry-unavailable.png"
+  ],
+  "screenshots": [
+    "05-cooldown-ended.png",
+    "05-cooldown-start.png",
+    "05-default.png",
+    "05-error.png",
+    "05-filled.png",
+    "05-loading.png",
+    "05-offline.png",
+    "05-resend-cooldown.png",
+    "05-success.png",
+    "05b-default.png",
+    "05b-expired.png",
+    "05b-filled.png",
+    "05b-interactive-loading.png",
+    "05b-invalid.png",
+    "05b-loading.png",
+    "05b-mismatch.png",
+    "05b-missing.png",
+    "05b-offline.png",
+    "05b-password-visible.png",
+    "05b-rate-limit.png",
+    "05b-success.png",
+    "06-cap-error.png",
+    "06-default.png",
+    "06-error.png",
+    "06-fourth-rejected.png",
+    "06-loading.png",
+    "06-name-only.png",
+    "06-populated.png",
+    "06-success.png",
+    "06-three-selected.png",
+    "07-crisis.png",
+    "07-default.png",
+    "07-listening.png",
+    "07-privacy.png",
+    "07-skip-health.png",
+    "07-text-send.png",
+    "08-default.png",
+    "08-edit-mission.png",
+    "08-editing.png",
+    "08-error.png",
+    "08-minimal.png",
+    "08-offline-queued.png",
+    "08-offline.png",
+    "08-success.png",
+    "65-action-error.png",
+    "65-default.png",
+    "65-empty.png",
+    "65-error.png",
+    "65-loading.png",
+    "65-offline.png",
+    "65-returned.png",
+    "66-authorized-manage.png",
+    "66-authorized-preview.png",
+    "66-default-skipped.png",
+    "66-default.png",
+    "66-denied.png",
+    "66-error.png",
+    "66-loading.png",
+    "66-offline.png",
+    "66-re-entry.png",
+    "66-reentry-unavailable.png"
+  ],
+  "checks": [
+    {
+      "name": "05 recovery request",
+      "status": "pass",
+      "evidence": {
+        "fixtures": 7,
+        "mutuallyExclusive": true,
+        "masked": true,
+        "cooldownExpires": true,
+        "widthLocked": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "05b reset password",
+      "status": "pass",
+      "evidence": {
+        "fixtures": 9,
+        "nativePasswords": true,
+        "rules": 5,
+        "revealGeometryStable": true,
+        "tokenHidden": true,
+        "widthLocked": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "06 guest preview",
+      "status": "pass",
+      "evidence": {
+        "fixtures": 7,
+        "domains": 9,
+        "capRetainsSelection": true,
+        "illustrativeOnly": true,
+        "noSession": true,
+        "widthLocked": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "07 CIA onboarding sentinel",
+      "status": "pass",
+      "evidence": {
+        "idleDefault": true,
+        "listeningExplicit": true,
+        "disclosure": true,
+        "textFallback": true,
+        "privacyAndCrisis": true,
+        "reducedMotionStatic": true
+      }
+    },
+    {
+      "name": "08 initial plan summary",
+      "status": "pass",
+      "evidence": {
+        "fixtures": 6,
+        "tenDomains": true,
+        "timeline": "Plan timeline. Day one. Milestone 1 of 5, Week 1, July 10, current.",
+        "localEditing": true,
+        "offlineQueue": true,
+        "widthLocked": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "65 force update",
+      "status": "pass",
+      "evidence": {
+        "fixtures": 6,
+        "officialAssets": 2,
+        "releaseNotesCapped": 3,
+        "noSuccess": true,
+        "storeUnavailable": true,
+        "widthLocked": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "66 notification permission",
+      "status": "pass",
+      "evidence": {
+        "fixtures": 7,
+        "equalReach": true,
+        "optionalAndRevocable": true,
+        "groupScope": true,
+        "noOsClaim": true,
+        "widthLocked": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "A2 evidence integrity",
+      "status": "pass",
+      "evidence": {
+        "sourceHash": "de4472c90a67adf5950989092593a3992c4f920542f80db9af5ed06519295bee",
+        "apiHash": "71247fc68608c967efa5ea2acf6c0bfa413094c47eb0c620241440e15a631c1b",
+        "uniqueNonces": 62,
+        "screenshots": 61,
+        "consoleErrors": 0,
+        "pageErrors": 0,
+        "capabilityEvents": 0,
+        "visualDeltaPairs": 8
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "capabilityEvents": [],
+  "status": "pass"
+}

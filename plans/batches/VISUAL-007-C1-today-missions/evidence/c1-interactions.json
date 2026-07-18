@@ -1,0 +1,4316 @@
+{
+  "auditedAt": "2026-07-11T15:04:08.917Z",
+  "baseURL": "http://localhost:3002",
+  "command": "Usage: node scripts/verify-c1-today.mjs <baseURL> <out-json> <shots-dir>",
+  "hostViewport": {
+    "width": 1440,
+    "height": 1000,
+    "deviceScaleFactor": 1
+  },
+  "phoneFrame": {
+    "width": 390,
+    "height": 844
+  },
+  "primaryReducedMotion": "reduce",
+  "productionBuild": {
+    "origin": "http://localhost:3002",
+    "port": "3002",
+    "mode": "next start production",
+    "buildId": "EeCHMg26d0yGZbyL-aWUG",
+    "buildIdMtime": "2026-07-11T14:39:28.397Z",
+    "newestBoundSource": "src/components/hifi/screens/today/S15CreateEditMission.tsx",
+    "newestBoundSourceMtime": "2026-07-11T14:38:03.417Z",
+    "servedHTMLSha256": "3b7a719bc4b828f25c15dd37aa7d739db772d3ad65113eb15a9c604a6a82f3c9"
+  },
+  "navigationIsolation": {
+    "strategy": "new context per case + about:blank + Chromium origin clear + cookie clear + exact query fixture + unique __c1audit nonce + two RAFs",
+    "contexts": 100,
+    "uniqueNonces": 100
+  },
+  "integrity": {
+    "start": {
+      "product": {
+        "digest": "013bea5d034ab47df29de461b1791d037f988e0bb98aefbfcf6a2d4b26fb397e",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/today/S12HomeScreen.tsx",
+            "sha256": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S13MissionBoard.tsx",
+            "sha256": "32b1152531ee2477c6a704394172ff6b574be8bf5cfcb22e85ea7ee10be76bc3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S14MissionDetail.tsx",
+            "sha256": "cb5bf50d3fc3f9f182360a7f0362235f4d09c7df4e07f6039edd02f37bef92f3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S15CreateEditMission.tsx",
+            "sha256": "ecd84923a6e3be9f21ab11bd8308011d93aa0e51eace5dd6a4a22fa65c8c5ebb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S41ScheduleCalendar.tsx",
+            "sha256": "4154f1d6e1d56ca7232c636f1007f10b15d23124bb6d915d3effd67057990932"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S44WaterIntake.tsx",
+            "sha256": "ebb9e691d2eaddae0b4a85628139b890a8eec672e8715f1726a9805f485a68d9"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S45DailyCheckin.tsx",
+            "sha256": "7955053e92cb956bf0795a8ba9a52fb40d988ca5bf29fcb17829656d86e05811"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S59StreakDetails.tsx",
+            "sha256": "f62cf6c5768ec2dc3b601f8d1fe03573bcdcfa8136b9d55720acef608a9ced64"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S61RemindersTasks.tsx",
+            "sha256": "44571c251e6cfa83894552ce2b0d8e0910ec239295c11051c63916f721cec3ad"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S73MissionJournal.tsx",
+            "sha256": "e1c75226156a37eb2f2f491ce42e40bf0dfe3e29a6da739417d7738d4f5ca090"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S97PlansLibrary.tsx",
+            "sha256": "17a15d65f531d7941b8f5e8d441e775cee22bce1f695221c19b47896bfd6ed84"
+          },
+          {
+            "path": "src/components/hifi/screens/today/index.ts",
+            "sha256": "45d80cf8f724600c5271799afa3e0690815dcee0c051feeb028c1cd95a9f299f"
+          }
+        ]
+      },
+      "api": {
+        "digest": "a4bcdfb702538c4bf8a29ced58aff82b2c890378608953a2dcc41fa6a9f1418c",
+        "files": [
+          {
+            "path": "next.config.ts",
+            "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+          },
+          {
+            "path": "package-lock.json",
+            "sha256": "c98ac50e650dc57702cedcd5b7e18e5d768c1bdab211dea19237c8eaa3c7d92d"
+          },
+          {
+            "path": "package.json",
+            "sha256": "56819e030eaa265b2efac487913a75589bbf1a23edbb7e2bc2f76bfac6d48a32"
+          },
+          {
+            "path": "postcss.config.mjs",
+            "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+          },
+          {
+            "path": "scripts/verify-c1-today.mjs",
+            "sha256": "3301f9efeaf41c751abdce9720f988f68507d4b498794521d873d801b505f958"
+          },
+          {
+            "path": "src/app/globals.css",
+            "sha256": "5cf1f1fa683add0fb80156f355d6b86b98a629782326c2d75c13aeec2af1b840"
+          },
+          {
+            "path": "src/app/layout.tsx",
+            "sha256": "0330526f534505bd63b830942c44648dcf49ada5d0d482a72e39bf234ff03540"
+          },
+          {
+            "path": "src/app/screens/[id]/page.tsx",
+            "sha256": "fcb7be286a828ae4ee24120e2174be8dec4986a6548dd6b7bf7911501d89d416"
+          },
+          {
+            "path": "src/components/hifi/HifiPrototype.tsx",
+            "sha256": "57bf51e600ba9beacfcfe3a571898a94b816c159cbdd19ae2ae35b4fd278b5ba"
+          },
+          {
+            "path": "src/components/hifi/kit/HifiShell.tsx",
+            "sha256": "466eb88667d202da25ee5b04749bb93a78ecf30135a8d8d0239caeba5d9bb257"
+          },
+          {
+            "path": "src/components/hifi/kit/back-control.tsx",
+            "sha256": "561e9a580bb23361478c1d85fea9be29fa3f3d83a8b60a1c886eec2dfc7f6aed"
+          },
+          {
+            "path": "src/components/hifi/kit/buttons.tsx",
+            "sha256": "f875adfa7e66e884157699319e074cd0192f1605d2206e29bb0e57507945a168"
+          },
+          {
+            "path": "src/components/hifi/kit/chips.tsx",
+            "sha256": "e9ef348cd7166ff2eefdf43ff574ce9721207d3e59e4e83491d2d8945deab20a"
+          },
+          {
+            "path": "src/components/hifi/kit/chrome.tsx",
+            "sha256": "4ed33c760e7e77d1ceef8fd71a2906c00f864ec1f04604eeb7f95e6a32d6d65b"
+          },
+          {
+            "path": "src/components/hifi/kit/cia-composer.tsx",
+            "sha256": "9512c19937c401cb773553cfd90f10244a7f1f3e3a6031785c50bfc4fd495d72"
+          },
+          {
+            "path": "src/components/hifi/kit/cia-orb.tsx",
+            "sha256": "e6322d25a84a757867c6b0a28664599c3c04a8f6d506ca848778f5729060fd2c"
+          },
+          {
+            "path": "src/components/hifi/kit/cia.tsx",
+            "sha256": "b56d2169e395e5b8211bd2dabd6bd5139249ee547c5d5947b0b7112ac92cfb23"
+          },
+          {
+            "path": "src/components/hifi/kit/core.ts",
+            "sha256": "f6cddff8b0f2843f7493b7f16c806136aa06d24050b1d82e48132df14945a1ad"
+          },
+          {
+            "path": "src/components/hifi/kit/data.tsx",
+            "sha256": "583de2ee5bae773d33d1e924841d906cc9d136eed1c53eb1f0cb146b852d820b"
+          },
+          {
+            "path": "src/components/hifi/kit/glass-pill-input.tsx",
+            "sha256": "79f15a5e3b6034b4daddf57818f2f85a3511e9ef11f1651bab93cdc8aa7b58ed"
+          },
+          {
+            "path": "src/components/hifi/kit/index.ts",
+            "sha256": "ec2c76ed6a70b6d765cbf5de89a060f4c47a35a863be0d74bedd27138b0d65c1"
+          },
+          {
+            "path": "src/components/hifi/kit/paywall.tsx",
+            "sha256": "df392c03cb1f7b255b646f3c65f6f52adfdd0d96d45b7fcfab7c51b44e28d250"
+          },
+          {
+            "path": "src/components/hifi/kit/prototype-action-sheet.tsx",
+            "sha256": "90bacea9a0b159c1c62f4b9cb82ca4d9a0ae9e5ddea0a4651b47d2589255bfef"
+          },
+          {
+            "path": "src/components/hifi/kit/signature-icons.tsx",
+            "sha256": "6bb01f34e18cabdcce301bde6ad9581384ad71b73c9b9a6e6484d631bf2291ab"
+          },
+          {
+            "path": "src/components/hifi/kit/surfaces.tsx",
+            "sha256": "a8b32ce990d6f710e67e6bcf98b86cdff6b0ff56e0ed5d21dd399a05e55d54b4"
+          },
+          {
+            "path": "src/components/hifi/kit/system.tsx",
+            "sha256": "2b4024b8b198a935f30143c5e69b39c57f9c9581936a947140e86b64bd37b2d5"
+          },
+          {
+            "path": "src/components/hifi/screens/registry.ts",
+            "sha256": "ae6ddb016c27d83073982d605ba25f26aef4afce6a5faff20ca21f0ff76912b6"
+          },
+          {
+            "path": "src/components/layout/PhoneFrame.tsx",
+            "sha256": "f80f22e22b0f2399cdf9c18bf7f53b519b71914046d49ed6ac9560f94acb1104"
+          },
+          {
+            "path": "src/components/layout/ScreenShell.tsx",
+            "sha256": "74ee8aef4a0304df4ceb770cb46fb8bfc89e29ac5c6493e50ecb5c0f6b9d7c9e"
+          },
+          {
+            "path": "src/data/hifi/persona.ts",
+            "sha256": "438e012e77ba2f8990c73785ff304e70e9594a3d38992f8e19e657a37d9de56e"
+          },
+          {
+            "path": "src/data/screens.ts",
+            "sha256": "0f1bb06441e3e57015235ee86278b9c63f6934508cf804aba43bacb9e65aeaaf"
+          }
+        ]
+      },
+      "authority": {
+        "digest": "17b1256d3816e3326bd7672b4c0d1aebdc0443ee738dee02f93ff4a8b23912db",
+        "files": [
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/DECISIONS.md",
+            "sha256": "e29f94a4327614c19b09d4599b0dc2150808f470bf0f9bf6fe6737a2ed8f291b"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/REFERENCE-DIRECTION.md",
+            "sha256": "9d5fcb9ea64a2721f43c2cc4ceab7509cb8985468e2d4680e51d0c69c68ecf1e"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/audit/C1-today-missions.md",
+            "sha256": "e5ba0eb19423a0eaba9332122ca979b8300fefc2772567ccdd4afa5fb5b1018e"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPACT-CANON.md",
+            "sha256": "73ecbcbc2b1756ddf94f78962c2751ef06d3b39bb52338e1ef87d76f443040b2"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPONENT-CATALOG.md",
+            "sha256": "6a176393692891879d98ec220c4ae5ea0eb8b8ff23f61a8959ae88dd9585aa4f"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/12-home-screen.md",
+            "sha256": "10599c3fe31197eeef53643d297430563fbab2b16f955ac884952846544c83a4"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/13-goals-list.md",
+            "sha256": "30dff359aacc60cf4854b1c1a8f59c4fe9309d7355b402990372c05ed757455b"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/14-goal-detail.md",
+            "sha256": "dd0305aa0f311afb042ea25820e8c5865fdb17673f3835d77b2556664835ba6b"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/15-create-edit-goal.md",
+            "sha256": "2a468548e66260f760f65f2cdc4c4bcdb817e399db509762f3c2a592682b52e8"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/41-schedule-calendar.md",
+            "sha256": "767b5b5e9e0087c11378fc5185bd2d1e13a69d2ad77e13d607a55b97e22b893f"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/44-water-intake.md",
+            "sha256": "18e07a637ade0605ca85f04c8e69370d63eef78ae73fca571b18d399ca4a7f66"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/45-daily-checkin.md",
+            "sha256": "044ac4c66f5706e61139c7bdf8cb01bc9f5bd7f22a778f05305b71eafa9918dd"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/59-streak-details.md",
+            "sha256": "c61d7703b0446cd06ce63334484fc372664f9dfe73ac727a0b44700346cf1312"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/61-reminders-tasks.md",
+            "sha256": "1f457143459de280aca76efc891ba756cbbe32db1da39829c4b3c4e243a717a5"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/73-mission-journal.md",
+            "sha256": "b59eaa0bed6310e7265b328bb21d62a884cfbd8ffb1dd9ad69d206096ec712c0"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/97-plans-library.md",
+            "sha256": "43f608a11d5bcc8d374d5cf2d9e6d79f1fe5e783c2273d1fafd3b4da60843bca"
+          },
+          {
+            "path": "../RPG_SYSTEM_DESIGN.md",
+            "sha256": "f5b80ae241d1bde669c5070c5a47f4c2ec5837f0708014c26ac2f3c474781de9"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/BATCH.md",
+            "sha256": "9604caa429766303a15286ed8cf1b052bd5a2d55df2dae785f2c680025b7c8a1"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/VERIFICATION-MATRIX.md",
+            "sha256": "e5cb185ea8808b957f82b771ddc742489db08f30bf35145a961d4876613d0780"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/repair-a-mission-flow.md",
+            "sha256": "2c6917424a192f808ea7a23c2295662cfa865c6cab5b45fd59094634fb212fcd"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/repair-b-schedule-water-checkin.md",
+            "sha256": "4ac99c8ea6d5f0dcf7ab512406e016d96404b739c01bef1f3550fc590ddad5d1"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/repair-c-type-tabs-plans.md",
+            "sha256": "d68d6d2351911d136b888bf8681b09d32414ef6dee31a5b33ad5d55d7e9415b1"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/review-accessibility-trust.md",
+            "sha256": "300c02c1acf17869a8f71504b2db1c6b0d0f64b3dcd8abefffd8b63c36ebb5e0"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/review-code.md",
+            "sha256": "a23437eb92d61ddcf1884f281b15fa3445e17331e4a741082f0b383335b2d7e2"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/review-design-source.md",
+            "sha256": "615e932a870fb6c7ec7b7f8c90aa22f0f2eb598ed23c4065eda0ee96f3c5dcef"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-a.md",
+            "sha256": "38c26ebbb4d5f05aaf5f7e926812bc322fdf558f696edab660b7ccb706ed7e2e"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-b.md",
+            "sha256": "fac0566414c782c927eaef068a2cdcf0e1684bb34aa8e83a5170c9dd18ada646"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-c.md",
+            "sha256": "0b6d62726ce9c8a3e92917083ec0fad9c9bc7bfc817a1b39b0bf0b0e7af4106b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-common.md",
+            "sha256": "adaf9e39b3ddacf38a7f34761b1ead77dc1a0ee865ef166cc511567aa12d91d5"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-d.md",
+            "sha256": "423cb26b9bd9635ecec531395407cb437c1aaf364a3cd829e96254f33bae9a71"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/repair-a-mission-flow.md",
+            "sha256": "194a1d9556a4bff831687a887b0290261a0ed22a545627dda16973bf77fb1833"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/repair-b-schedule-water-checkin.md",
+            "sha256": "7e497d8268e119e0a59f0916381f4924d210986e9afb704e2b685b1dd653aa3c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/repair-c-type-tabs-plans.md",
+            "sha256": "16a04a974b5c6795558bf787b405860881d0846458b546c0564805af09e31ac6"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-accessibility-trust.md",
+            "sha256": "0dc057ab3a718ea28fe94a3614451c57ab1596d0922dcf286ce146f349aa8a2d"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-code-correctness.md",
+            "sha256": "50bb8773dabe255fc45c2ac47061fab3014c896c740548f4acd55bfb8641bce0"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-design-source.md",
+            "sha256": "c723302e4793fa84efeb7735bc7ebd7ba1daa591bfb7bc9640ad1e2b5bb40be0"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-hardened-verifier.md",
+            "sha256": "ecac92dbde3b3b829e5badfe76386655636a70f0e5b0ca3c6b4b7cbb9aa93ac9"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-repair-a.md",
+            "sha256": "aecaf1ffd5993a2c3f2522af8886056fe92c53829727f6432819661b02bd9efd"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-repair-b.md",
+            "sha256": "49c7d2ec61b91a57372eeabd250067eb71c1b613c3c858b84cbc667e6ad56c1c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-repair-c.md",
+            "sha256": "9d3d27d4f7e568940f6de308d0746e991300489d9c0bbbbc3f26b211695d50b3"
+          }
+        ]
+      }
+    },
+    "end": {
+      "product": {
+        "digest": "013bea5d034ab47df29de461b1791d037f988e0bb98aefbfcf6a2d4b26fb397e",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/today/S12HomeScreen.tsx",
+            "sha256": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S13MissionBoard.tsx",
+            "sha256": "32b1152531ee2477c6a704394172ff6b574be8bf5cfcb22e85ea7ee10be76bc3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S14MissionDetail.tsx",
+            "sha256": "cb5bf50d3fc3f9f182360a7f0362235f4d09c7df4e07f6039edd02f37bef92f3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S15CreateEditMission.tsx",
+            "sha256": "ecd84923a6e3be9f21ab11bd8308011d93aa0e51eace5dd6a4a22fa65c8c5ebb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S41ScheduleCalendar.tsx",
+            "sha256": "4154f1d6e1d56ca7232c636f1007f10b15d23124bb6d915d3effd67057990932"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S44WaterIntake.tsx",
+            "sha256": "ebb9e691d2eaddae0b4a85628139b890a8eec672e8715f1726a9805f485a68d9"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S45DailyCheckin.tsx",
+            "sha256": "7955053e92cb956bf0795a8ba9a52fb40d988ca5bf29fcb17829656d86e05811"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S59StreakDetails.tsx",
+            "sha256": "f62cf6c5768ec2dc3b601f8d1fe03573bcdcfa8136b9d55720acef608a9ced64"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S61RemindersTasks.tsx",
+            "sha256": "44571c251e6cfa83894552ce2b0d8e0910ec239295c11051c63916f721cec3ad"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S73MissionJournal.tsx",
+            "sha256": "e1c75226156a37eb2f2f491ce42e40bf0dfe3e29a6da739417d7738d4f5ca090"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S97PlansLibrary.tsx",
+            "sha256": "17a15d65f531d7941b8f5e8d441e775cee22bce1f695221c19b47896bfd6ed84"
+          },
+          {
+            "path": "src/components/hifi/screens/today/index.ts",
+            "sha256": "45d80cf8f724600c5271799afa3e0690815dcee0c051feeb028c1cd95a9f299f"
+          }
+        ]
+      },
+      "api": {
+        "digest": "a4bcdfb702538c4bf8a29ced58aff82b2c890378608953a2dcc41fa6a9f1418c",
+        "files": [
+          {
+            "path": "next.config.ts",
+            "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+          },
+          {
+            "path": "package-lock.json",
+            "sha256": "c98ac50e650dc57702cedcd5b7e18e5d768c1bdab211dea19237c8eaa3c7d92d"
+          },
+          {
+            "path": "package.json",
+            "sha256": "56819e030eaa265b2efac487913a75589bbf1a23edbb7e2bc2f76bfac6d48a32"
+          },
+          {
+            "path": "postcss.config.mjs",
+            "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+          },
+          {
+            "path": "scripts/verify-c1-today.mjs",
+            "sha256": "3301f9efeaf41c751abdce9720f988f68507d4b498794521d873d801b505f958"
+          },
+          {
+            "path": "src/app/globals.css",
+            "sha256": "5cf1f1fa683add0fb80156f355d6b86b98a629782326c2d75c13aeec2af1b840"
+          },
+          {
+            "path": "src/app/layout.tsx",
+            "sha256": "0330526f534505bd63b830942c44648dcf49ada5d0d482a72e39bf234ff03540"
+          },
+          {
+            "path": "src/app/screens/[id]/page.tsx",
+            "sha256": "fcb7be286a828ae4ee24120e2174be8dec4986a6548dd6b7bf7911501d89d416"
+          },
+          {
+            "path": "src/components/hifi/HifiPrototype.tsx",
+            "sha256": "57bf51e600ba9beacfcfe3a571898a94b816c159cbdd19ae2ae35b4fd278b5ba"
+          },
+          {
+            "path": "src/components/hifi/kit/HifiShell.tsx",
+            "sha256": "466eb88667d202da25ee5b04749bb93a78ecf30135a8d8d0239caeba5d9bb257"
+          },
+          {
+            "path": "src/components/hifi/kit/back-control.tsx",
+            "sha256": "561e9a580bb23361478c1d85fea9be29fa3f3d83a8b60a1c886eec2dfc7f6aed"
+          },
+          {
+            "path": "src/components/hifi/kit/buttons.tsx",
+            "sha256": "f875adfa7e66e884157699319e074cd0192f1605d2206e29bb0e57507945a168"
+          },
+          {
+            "path": "src/components/hifi/kit/chips.tsx",
+            "sha256": "e9ef348cd7166ff2eefdf43ff574ce9721207d3e59e4e83491d2d8945deab20a"
+          },
+          {
+            "path": "src/components/hifi/kit/chrome.tsx",
+            "sha256": "4ed33c760e7e77d1ceef8fd71a2906c00f864ec1f04604eeb7f95e6a32d6d65b"
+          },
+          {
+            "path": "src/components/hifi/kit/cia-composer.tsx",
+            "sha256": "9512c19937c401cb773553cfd90f10244a7f1f3e3a6031785c50bfc4fd495d72"
+          },
+          {
+            "path": "src/components/hifi/kit/cia-orb.tsx",
+            "sha256": "e6322d25a84a757867c6b0a28664599c3c04a8f6d506ca848778f5729060fd2c"
+          },
+          {
+            "path": "src/components/hifi/kit/cia.tsx",
+            "sha256": "b56d2169e395e5b8211bd2dabd6bd5139249ee547c5d5947b0b7112ac92cfb23"
+          },
+          {
+            "path": "src/components/hifi/kit/core.ts",
+            "sha256": "f6cddff8b0f2843f7493b7f16c806136aa06d24050b1d82e48132df14945a1ad"
+          },
+          {
+            "path": "src/components/hifi/kit/data.tsx",
+            "sha256": "583de2ee5bae773d33d1e924841d906cc9d136eed1c53eb1f0cb146b852d820b"
+          },
+          {
+            "path": "src/components/hifi/kit/glass-pill-input.tsx",
+            "sha256": "79f15a5e3b6034b4daddf57818f2f85a3511e9ef11f1651bab93cdc8aa7b58ed"
+          },
+          {
+            "path": "src/components/hifi/kit/index.ts",
+            "sha256": "ec2c76ed6a70b6d765cbf5de89a060f4c47a35a863be0d74bedd27138b0d65c1"
+          },
+          {
+            "path": "src/components/hifi/kit/paywall.tsx",
+            "sha256": "df392c03cb1f7b255b646f3c65f6f52adfdd0d96d45b7fcfab7c51b44e28d250"
+          },
+          {
+            "path": "src/components/hifi/kit/prototype-action-sheet.tsx",
+            "sha256": "90bacea9a0b159c1c62f4b9cb82ca4d9a0ae9e5ddea0a4651b47d2589255bfef"
+          },
+          {
+            "path": "src/components/hifi/kit/signature-icons.tsx",
+            "sha256": "6bb01f34e18cabdcce301bde6ad9581384ad71b73c9b9a6e6484d631bf2291ab"
+          },
+          {
+            "path": "src/components/hifi/kit/surfaces.tsx",
+            "sha256": "a8b32ce990d6f710e67e6bcf98b86cdff6b0ff56e0ed5d21dd399a05e55d54b4"
+          },
+          {
+            "path": "src/components/hifi/kit/system.tsx",
+            "sha256": "2b4024b8b198a935f30143c5e69b39c57f9c9581936a947140e86b64bd37b2d5"
+          },
+          {
+            "path": "src/components/hifi/screens/registry.ts",
+            "sha256": "ae6ddb016c27d83073982d605ba25f26aef4afce6a5faff20ca21f0ff76912b6"
+          },
+          {
+            "path": "src/components/layout/PhoneFrame.tsx",
+            "sha256": "f80f22e22b0f2399cdf9c18bf7f53b519b71914046d49ed6ac9560f94acb1104"
+          },
+          {
+            "path": "src/components/layout/ScreenShell.tsx",
+            "sha256": "74ee8aef4a0304df4ceb770cb46fb8bfc89e29ac5c6493e50ecb5c0f6b9d7c9e"
+          },
+          {
+            "path": "src/data/hifi/persona.ts",
+            "sha256": "438e012e77ba2f8990c73785ff304e70e9594a3d38992f8e19e657a37d9de56e"
+          },
+          {
+            "path": "src/data/screens.ts",
+            "sha256": "0f1bb06441e3e57015235ee86278b9c63f6934508cf804aba43bacb9e65aeaaf"
+          }
+        ]
+      },
+      "authority": {
+        "digest": "17b1256d3816e3326bd7672b4c0d1aebdc0443ee738dee02f93ff4a8b23912db",
+        "files": [
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/DECISIONS.md",
+            "sha256": "e29f94a4327614c19b09d4599b0dc2150808f470bf0f9bf6fe6737a2ed8f291b"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/REFERENCE-DIRECTION.md",
+            "sha256": "9d5fcb9ea64a2721f43c2cc4ceab7509cb8985468e2d4680e51d0c69c68ecf1e"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/audit/C1-today-missions.md",
+            "sha256": "e5ba0eb19423a0eaba9332122ca979b8300fefc2772567ccdd4afa5fb5b1018e"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPACT-CANON.md",
+            "sha256": "73ecbcbc2b1756ddf94f78962c2751ef06d3b39bb52338e1ef87d76f443040b2"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPONENT-CATALOG.md",
+            "sha256": "6a176393692891879d98ec220c4ae5ea0eb8b8ff23f61a8959ae88dd9585aa4f"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/12-home-screen.md",
+            "sha256": "10599c3fe31197eeef53643d297430563fbab2b16f955ac884952846544c83a4"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/13-goals-list.md",
+            "sha256": "30dff359aacc60cf4854b1c1a8f59c4fe9309d7355b402990372c05ed757455b"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/14-goal-detail.md",
+            "sha256": "dd0305aa0f311afb042ea25820e8c5865fdb17673f3835d77b2556664835ba6b"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/15-create-edit-goal.md",
+            "sha256": "2a468548e66260f760f65f2cdc4c4bcdb817e399db509762f3c2a592682b52e8"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/41-schedule-calendar.md",
+            "sha256": "767b5b5e9e0087c11378fc5185bd2d1e13a69d2ad77e13d607a55b97e22b893f"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/44-water-intake.md",
+            "sha256": "18e07a637ade0605ca85f04c8e69370d63eef78ae73fca571b18d399ca4a7f66"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/45-daily-checkin.md",
+            "sha256": "044ac4c66f5706e61139c7bdf8cb01bc9f5bd7f22a778f05305b71eafa9918dd"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/59-streak-details.md",
+            "sha256": "c61d7703b0446cd06ce63334484fc372664f9dfe73ac727a0b44700346cf1312"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/61-reminders-tasks.md",
+            "sha256": "1f457143459de280aca76efc891ba756cbbe32db1da39829c4b3c4e243a717a5"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/73-mission-journal.md",
+            "sha256": "b59eaa0bed6310e7265b328bb21d62a884cfbd8ffb1dd9ad69d206096ec712c0"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/97-plans-library.md",
+            "sha256": "43f608a11d5bcc8d374d5cf2d9e6d79f1fe5e783c2273d1fafd3b4da60843bca"
+          },
+          {
+            "path": "../RPG_SYSTEM_DESIGN.md",
+            "sha256": "f5b80ae241d1bde669c5070c5a47f4c2ec5837f0708014c26ac2f3c474781de9"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/BATCH.md",
+            "sha256": "9604caa429766303a15286ed8cf1b052bd5a2d55df2dae785f2c680025b7c8a1"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/VERIFICATION-MATRIX.md",
+            "sha256": "e5cb185ea8808b957f82b771ddc742489db08f30bf35145a961d4876613d0780"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/repair-a-mission-flow.md",
+            "sha256": "2c6917424a192f808ea7a23c2295662cfa865c6cab5b45fd59094634fb212fcd"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/repair-b-schedule-water-checkin.md",
+            "sha256": "4ac99c8ea6d5f0dcf7ab512406e016d96404b739c01bef1f3550fc590ddad5d1"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/repair-c-type-tabs-plans.md",
+            "sha256": "d68d6d2351911d136b888bf8681b09d32414ef6dee31a5b33ad5d55d7e9415b1"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/review-accessibility-trust.md",
+            "sha256": "300c02c1acf17869a8f71504b2db1c6b0d0f64b3dcd8abefffd8b63c36ebb5e0"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/review-code.md",
+            "sha256": "a23437eb92d61ddcf1884f281b15fa3445e17331e4a741082f0b383335b2d7e2"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/evidence/review-design-source.md",
+            "sha256": "615e932a870fb6c7ec7b7f8c90aa22f0f2eb598ed23c4065eda0ee96f3c5dcef"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-a.md",
+            "sha256": "38c26ebbb4d5f05aaf5f7e926812bc322fdf558f696edab660b7ccb706ed7e2e"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-b.md",
+            "sha256": "fac0566414c782c927eaef068a2cdcf0e1684bb34aa8e83a5170c9dd18ada646"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-c.md",
+            "sha256": "0b6d62726ce9c8a3e92917083ec0fad9c9bc7bfc817a1b39b0bf0b0e7af4106b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-common.md",
+            "sha256": "adaf9e39b3ddacf38a7f34761b1ead77dc1a0ee865ef166cc511567aa12d91d5"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/builder-d.md",
+            "sha256": "423cb26b9bd9635ecec531395407cb437c1aaf364a3cd829e96254f33bae9a71"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/repair-a-mission-flow.md",
+            "sha256": "194a1d9556a4bff831687a887b0290261a0ed22a545627dda16973bf77fb1833"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/repair-b-schedule-water-checkin.md",
+            "sha256": "7e497d8268e119e0a59f0916381f4924d210986e9afb704e2b685b1dd653aa3c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/repair-c-type-tabs-plans.md",
+            "sha256": "16a04a974b5c6795558bf787b405860881d0846458b546c0564805af09e31ac6"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-accessibility-trust.md",
+            "sha256": "0dc057ab3a718ea28fe94a3614451c57ab1596d0922dcf286ce146f349aa8a2d"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-code-correctness.md",
+            "sha256": "50bb8773dabe255fc45c2ac47061fab3014c896c740548f4acd55bfb8641bce0"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-design-source.md",
+            "sha256": "c723302e4793fa84efeb7735bc7ebd7ba1daa591bfb7bc9640ad1e2b5bb40be0"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-hardened-verifier.md",
+            "sha256": "ecac92dbde3b3b829e5badfe76386655636a70f0e5b0ca3c6b4b7cbb9aa93ac9"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-repair-a.md",
+            "sha256": "aecaf1ffd5993a2c3f2522af8886056fe92c53829727f6432819661b02bd9efd"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-repair-b.md",
+            "sha256": "49c7d2ec61b91a57372eeabd250067eb71c1b613c3c858b84cbc667e6ad56c1c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-007-C1-today-missions/workers/review-repair-c.md",
+            "sha256": "9d3d27d4f7e568940f6de308d0746e991300489d9c0bbbbc3f26b211695d50b3"
+          }
+        ]
+      }
+    },
+    "unchanged": true,
+    "s12Sentinel": {
+      "file": "src/components/hifi/screens/today/S12HomeScreen.tsx",
+      "expected": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67",
+      "actual": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67"
+    }
+  },
+  "expectedScreenshotCount": 89,
+  "expectedScreenshots": [
+    "12-default.png",
+    "12-action-toggled.png",
+    "13-default.png",
+    "13-skeleton.png",
+    "13-empty.png",
+    "13-filtered-empty.png",
+    "13-error.png",
+    "13-offline.png",
+    "13-success.png",
+    "13-filter-weekly.png",
+    "13-new-mission.png",
+    "14-default.png",
+    "14-empty.png",
+    "14-low-confidence.png",
+    "14-offline.png",
+    "14-stalled.png",
+    "14-success.png",
+    "14-accordion-open.png",
+    "15-default.png",
+    "15-empty.png",
+    "15-processing.png",
+    "15-error.png",
+    "15-offline.png",
+    "15-success.png",
+    "15-invalid.png",
+    "15-domain-removed.png",
+    "15-reorder-moved.png",
+    "15-enlarged-bottom.png",
+    "41-default.png",
+    "41-overpacked.png",
+    "41-cold-start.png",
+    "41-stale-offline.png",
+    "41-revoked.png",
+    "41-skeleton.png",
+    "41-day-selected.png",
+    "41-enlarged-default.png",
+    "44-default.png",
+    "44-skeleton.png",
+    "44-empty.png",
+    "44-error.png",
+    "44-offline.png",
+    "44-success.png",
+    "44-delete-confirm.png",
+    "44-delete-undone.png",
+    "44-quick-add.png",
+    "45-default.png",
+    "45-skeleton.png",
+    "45-empty.png",
+    "45-error.png",
+    "45-offline.png",
+    "45-success.png",
+    "45-invalid.png",
+    "45-context-added.png",
+    "45-dismissed.png",
+    "59-default.png",
+    "59-skeleton.png",
+    "59-empty.png",
+    "59-error.png",
+    "59-offline.png",
+    "59-freeze-confirm.png",
+    "59-freeze-used.png",
+    "59-freeze-undone.png",
+    "59-success.png",
+    "61-default.png",
+    "61-skeleton.png",
+    "61-empty.png",
+    "61-error.png",
+    "61-offline.png",
+    "61-success.png",
+    "61-task-toggled.png",
+    "61-task-undone.png",
+    "61-reminder-toggled.png",
+    "73-default.png",
+    "73-skeleton.png",
+    "73-empty.png",
+    "73-filtered-empty.png",
+    "73-error.png",
+    "73-offline.png",
+    "73-media-hidden.png",
+    "73-photo-delete-confirm.png",
+    "97-default.png",
+    "97-skeleton.png",
+    "97-empty.png",
+    "97-error.png",
+    "97-offline.png",
+    "97-success.png",
+    "97-plan-actions.png",
+    "97-archive-confirm.png",
+    "97-enlarged-default.png"
+  ],
+  "screenshots": [
+    {
+      "file": "12-action-toggled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 161586,
+      "sha256": "492013f27d898dedf87ee570987d92ab1bfe1c8f866f5508276012df5c178f3e"
+    },
+    {
+      "file": "12-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 203885,
+      "sha256": "73ac23d6d39a6ad4f6ebd44cf1ef1de859c72a877d2a4e77e354288bb4029d09"
+    },
+    {
+      "file": "13-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 173725,
+      "sha256": "e5ca55c5371aaa82dce4b55294cf0cdd2a67d76436d57efbeb25f9676013e56e"
+    },
+    {
+      "file": "13-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 122851,
+      "sha256": "8ae839c6d1bacb01605b3627426383c897cd0cb9e164268dc090c042ac3547d4"
+    },
+    {
+      "file": "13-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 175783,
+      "sha256": "86518c10f44da417c658347b4dde099121ab77ba9a750775ea6bf345d05f4aa2"
+    },
+    {
+      "file": "13-filter-weekly.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172825,
+      "sha256": "3517cdd39a0f53b86bb58abb49cc88a8dcb2fc27947befaf478456b5dc625933"
+    },
+    {
+      "file": "13-filtered-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 171826,
+      "sha256": "617d7035b6b69f0f6a430385456ea0c6c4d360511feced5a6ae84d1c59973f5d"
+    },
+    {
+      "file": "13-new-mission.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 195894,
+      "sha256": "35c2719b165b0b0607e328be878e943576e5c342c90c19aa764a1f16409c8dcc"
+    },
+    {
+      "file": "13-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 177972,
+      "sha256": "3af5c2d330332676e657868d55c5798cbc35284c0340b3a2ad5df434fe87a867"
+    },
+    {
+      "file": "13-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 118361,
+      "sha256": "94416a82335efc878ca2343f0facf569c6e484947ca4b569333eec80930fddf5"
+    },
+    {
+      "file": "13-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 173836,
+      "sha256": "1115ac485b0fd9ffaa301fac830a575b1d658d70d1f514b6f2df94fbc0d17841"
+    },
+    {
+      "file": "14-accordion-open.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 163589,
+      "sha256": "4b06c2fe38eff6f5a9f10bfff5a7aaa24fb8f7024f5da1040aef0b3fa52e4284"
+    },
+    {
+      "file": "14-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 147504,
+      "sha256": "d1d65c9b1fb9f26c97bc0229f03a2006f915194d789d11ec7ff1a81fd7672d22"
+    },
+    {
+      "file": "14-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 156833,
+      "sha256": "90ab9e21338b9a47a5128124caf42246ffae141b1a3a30424ead84e53b9a57d5"
+    },
+    {
+      "file": "14-low-confidence.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 148936,
+      "sha256": "9a929f12fa0612abc6333aa070eb608eb1fe4558fc5b2fdd580367ae6c6e6a16"
+    },
+    {
+      "file": "14-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 139395,
+      "sha256": "fadc3d2fd9f892a7ce9bc3093e9bd64c07f40226fbb86bcca7710589248362f6"
+    },
+    {
+      "file": "14-stalled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 148236,
+      "sha256": "e853f8ad7a20fe9a217951331c79fd558def3b8336a074bbc811dcb8dbc4ae9f"
+    },
+    {
+      "file": "14-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 148597,
+      "sha256": "28ab87505e8e528d02bc34a40c181cb53148ee621ab2ab3ab0173cd7c47b6edc"
+    },
+    {
+      "file": "15-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 195894,
+      "sha256": "35c2719b165b0b0607e328be878e943576e5c342c90c19aa764a1f16409c8dcc"
+    },
+    {
+      "file": "15-domain-removed.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 154959,
+      "sha256": "d2e1de359bf2c2e9f0407b5a5233623d37528c727d67c988f8b5af5076cc5e62"
+    },
+    {
+      "file": "15-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 193794,
+      "sha256": "7d224f2f37d1374e059ad1136b293ee41683ab5e4bd346629674401518019e0f"
+    },
+    {
+      "file": "15-enlarged-bottom.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 190050,
+      "sha256": "19bd53e4da7267eca1dc1561ea6447fb384265050b87d4f24dd6764e6b316f25"
+    },
+    {
+      "file": "15-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 189494,
+      "sha256": "1134251da95143aae71e14275403c774c6d00cac2d8d2749066baf4c15744469"
+    },
+    {
+      "file": "15-invalid.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 196515,
+      "sha256": "46681d0400110fbbc13422ddbf91e5384b716c0762bf82e3d7dc6d71602b872e"
+    },
+    {
+      "file": "15-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 197720,
+      "sha256": "7d681a13b48420c4e56048e4d866adf1272e372557dff53f1ff9cfae04f3837b"
+    },
+    {
+      "file": "15-processing.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 198560,
+      "sha256": "dee332d779ef3600b56bfb5e42815261c08ffa4e373d70c85a8957499a3680d4"
+    },
+    {
+      "file": "15-reorder-moved.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 134434,
+      "sha256": "38f9569ad12b0c25cdc02f46574cb75488a4eff4d80c79d26c4957638baa565b"
+    },
+    {
+      "file": "15-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 198662,
+      "sha256": "e5df5a58e93fb6fbaa594cc970bf4dd85e254b9159253f1a0cdb6160228d6432"
+    },
+    {
+      "file": "41-cold-start.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 178195,
+      "sha256": "573d82d1ca397db1af2e294d19c126a29bb149bd39e50c366b9612e3866d6a2c"
+    },
+    {
+      "file": "41-day-selected.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 166772,
+      "sha256": "2e2c41d97ce74130add619345848e4215659e7affdad75bba8b0b3af54b49f83"
+    },
+    {
+      "file": "41-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 143384,
+      "sha256": "81c8c0e123cf0ca1cd94ba7646a48f70cb6312acc6e8aa52255c3343fbd6dfd2"
+    },
+    {
+      "file": "41-enlarged-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 156985,
+      "sha256": "5e40313fcff7530177dd8b10c0a99f2f628b053126de621528cce089d01acb8f"
+    },
+    {
+      "file": "41-overpacked.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 171415,
+      "sha256": "17e2addf67dbe5d7851e8e6fa5a58fbea5aa4690eda89098463810adabfcc8ac"
+    },
+    {
+      "file": "41-revoked.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 162187,
+      "sha256": "9685ea6eee66853287a7d4803f54f2863fa84c5e3a1c14a92a4ed675e2433a4c"
+    },
+    {
+      "file": "41-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 114595,
+      "sha256": "8dbcf9b0d97d9eba482a59fc5d2607b27a3ed46062d33828a6460809c194c68a"
+    },
+    {
+      "file": "41-stale-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 143553,
+      "sha256": "f14b4d0cdeff92d23c28af53a90466a7caf4b407a70682439c1da50e172d1f6f"
+    },
+    {
+      "file": "44-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 187554,
+      "sha256": "ff6b0028aa5609b0346af0ca4091cb201196c701608e07a8c016cf36f98e23a6"
+    },
+    {
+      "file": "44-delete-confirm.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 84042,
+      "sha256": "d62b762c4ae869239bdb5d03d078ed47676a749c755ca7698769ebc9a2ed8e6a"
+    },
+    {
+      "file": "44-delete-undone.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 177076,
+      "sha256": "926f528bc19b277757c6963fce39de9719644eec8da853f1be6b1b866c8ea687"
+    },
+    {
+      "file": "44-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 183919,
+      "sha256": "1410e93acb7af1f6ffcfe308806f9c1b97606134f5f3d592dda85544ebb4336c"
+    },
+    {
+      "file": "44-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 183653,
+      "sha256": "f998e890532332fbdd2c4eb65c6afb7b024424662f7216e02429264ac0b06a77"
+    },
+    {
+      "file": "44-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 190544,
+      "sha256": "484ce74d18887e96456a0e679b608a618d391d1fba80c0619ffb02f03e3055dd"
+    },
+    {
+      "file": "44-quick-add.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 186906,
+      "sha256": "8e63d98ee9eb4a16d6a018878257f16b62f6ecb3d16021303834a974919df8d4"
+    },
+    {
+      "file": "44-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 113073,
+      "sha256": "af635b5a9f8e5965c01823790b64b2bcffcbe2ad157f7167b122f293e2b6f0c1"
+    },
+    {
+      "file": "44-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 197945,
+      "sha256": "7ddebeac5d139b5a2fb6f4236e5dca6752c3d54edbcfdd7f8b4f008c6f0f7a6a"
+    },
+    {
+      "file": "45-context-added.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 193274,
+      "sha256": "3af86e8e30c63943482275e4c77286c917cd2338bc2f68da9743d25d0105fae5"
+    },
+    {
+      "file": "45-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 193060,
+      "sha256": "3d046182ebb6c3daf9eda71f615b96e73ba8c9808536c89d6d780ed815375862"
+    },
+    {
+      "file": "45-dismissed.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 191927,
+      "sha256": "83674eaa4b474d4ea13dbe3dee1ae4345396301ed51a7c8f2732d335481d242e"
+    },
+    {
+      "file": "45-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 181999,
+      "sha256": "e7c04cc3827ebb03aa749a51044500d31feeffb89081ac894e88fb490e290536"
+    },
+    {
+      "file": "45-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 173056,
+      "sha256": "22c220a28109a16f396225ccb3bd83978bdafe59416ed7facba6793d52024df9"
+    },
+    {
+      "file": "45-invalid.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 191971,
+      "sha256": "d0c03414880c45316ebe087f5732b2f788f63f931b76a5e61aaff9aba0c7daac"
+    },
+    {
+      "file": "45-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 196166,
+      "sha256": "dd0f946016065e72be1fd4bf19948edc7ca5da79831bfe642ec1d9b1dfdfd058"
+    },
+    {
+      "file": "45-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 109461,
+      "sha256": "b6175a57254c95834e7a9fc84ac8a9f422b716a245456a6d9419e104ea62f6be"
+    },
+    {
+      "file": "45-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 198138,
+      "sha256": "e4c1f61dbdbe5da2db092e617fa341db8c58a4a01c3a8608dab2a29a6ceda3a0"
+    },
+    {
+      "file": "59-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 198217,
+      "sha256": "c6fe38cc7a244178ce51e6d8ee0cf30ce87d68a4475507b304fc386ab98fc48c"
+    },
+    {
+      "file": "59-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 188253,
+      "sha256": "2beb18e21d8ffa06aa5896b466834f2342920294633825366d20f5f3cce1f48a"
+    },
+    {
+      "file": "59-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 213634,
+      "sha256": "84fff19f6cd9613f95423200d9f4821f2944f9c90763f295bb910d3c2dbc9764"
+    },
+    {
+      "file": "59-freeze-confirm.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 79794,
+      "sha256": "d2431a75612ab030afddce0225e3ea367f8c4fcb300438ed0cb7dc9f17034f9b"
+    },
+    {
+      "file": "59-freeze-undone.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 198217,
+      "sha256": "c6fe38cc7a244178ce51e6d8ee0cf30ce87d68a4475507b304fc386ab98fc48c"
+    },
+    {
+      "file": "59-freeze-used.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 199130,
+      "sha256": "f238a585ad956e267e85e1ba4126766e1e41fe6d0b24ba390c1424eb3d7e4884"
+    },
+    {
+      "file": "59-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 195744,
+      "sha256": "e85d73e1b12f0cf9b45b0af1f1e3d37e64c1e9717d4f34333f02d10fd0cd4d1e"
+    },
+    {
+      "file": "59-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 109700,
+      "sha256": "ced717fcb0905e8c619c4fe9a88ab2390b56d79d2ae2b3aa6a9d25101175e326"
+    },
+    {
+      "file": "59-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 199130,
+      "sha256": "f238a585ad956e267e85e1ba4126766e1e41fe6d0b24ba390c1424eb3d7e4884"
+    },
+    {
+      "file": "61-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172333,
+      "sha256": "27603ad71b40b34f2dbea4255663f8f13333aff322a4885228eeeb235cd9eef6"
+    },
+    {
+      "file": "61-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 159390,
+      "sha256": "5a9692dcc5198d6ae72779635efdd0938fc88d561934041ca6fb601cec9fe270"
+    },
+    {
+      "file": "61-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 184373,
+      "sha256": "1242b71196d3400ce78c9bb83bab08b571920611e829939698538deddf673d2e"
+    },
+    {
+      "file": "61-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 173248,
+      "sha256": "45bf5ca997d349c78ab60490e8b2cb34ea42d6f1bde02702953346f6c23cfc87"
+    },
+    {
+      "file": "61-reminder-toggled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 149632,
+      "sha256": "82ecec2f11fd6a0c354db02a9fee59aef6c458d4cbf7753f74afe0c82c452f55"
+    },
+    {
+      "file": "61-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 110936,
+      "sha256": "4bf71a94feb47c0e67c6ad1896fffc6eb1727a7cceb53e0e8bd2957e14895267"
+    },
+    {
+      "file": "61-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 193707,
+      "sha256": "e5cc2be69f9b0a909ea4e9b661466ca094e2b3e392ebb4805d51e530ffc0dffa"
+    },
+    {
+      "file": "61-task-toggled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 174592,
+      "sha256": "29acd836862e7f64ff6551329dbfe661b86dc6268973e114eef813e9c52fa7dc"
+    },
+    {
+      "file": "61-task-undone.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172333,
+      "sha256": "27603ad71b40b34f2dbea4255663f8f13333aff322a4885228eeeb235cd9eef6"
+    },
+    {
+      "file": "73-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 189400,
+      "sha256": "0f7a6032ec503d6b687b85a37baedb2c48403dd924afb2f7914c26b0ba76ef1d"
+    },
+    {
+      "file": "73-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 154308,
+      "sha256": "97b5119c036be808a0e5ec9c6efae48f9ad1603f758d7523f47373b81a9964b8"
+    },
+    {
+      "file": "73-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172918,
+      "sha256": "27129fd77d95dd9a84d5c4024db0262bc8d72ba539b45506b7e1ae62875a0739"
+    },
+    {
+      "file": "73-filtered-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 182160,
+      "sha256": "77ff28ba75281919af20031e7d5956344bcd9254288c79c4c3152e0278cb7a82"
+    },
+    {
+      "file": "73-media-hidden.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 174327,
+      "sha256": "06c5526a60b4ed3fdad1383d93e533447474bf0049e52629a50e57923b211763"
+    },
+    {
+      "file": "73-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 181773,
+      "sha256": "08f2acc499afc1badfa26aa9e78d3cfd7ea7849962ca9890031fe14b627521f3"
+    },
+    {
+      "file": "73-photo-delete-confirm.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 104235,
+      "sha256": "b58edf2330627e70421a42d7c4e41611ddb638d191d8dda0738a30b695ca0e58"
+    },
+    {
+      "file": "73-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 111862,
+      "sha256": "52a239bad712de3f917d8c6b59e47e3323ff3cbb4ec20c3520022907d6fd7a84"
+    },
+    {
+      "file": "97-archive-confirm.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 134849,
+      "sha256": "ee6049a0d1ed594e107c7754af6f9dde7aa8e7acfa8937dfb1817d4429dc39f3"
+    },
+    {
+      "file": "97-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 221081,
+      "sha256": "cf38aaf638bf6afbf915ce122a99320565cf65df5c5ad7882753ff987fe146d4"
+    },
+    {
+      "file": "97-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 162200,
+      "sha256": "7f9b3ae6f05bd11ba07397cc3b26ed8ab12f48d44e02157abac4f5839fc65a1a"
+    },
+    {
+      "file": "97-enlarged-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 175288,
+      "sha256": "be0a4d3250b7ef0f14c9cbc69afdf5b62537761cb74e228f76f33de8e731c0f5"
+    },
+    {
+      "file": "97-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 196847,
+      "sha256": "9785db125e3c944e6486646e8baec9080fcbc80106f880703512c0c70c948809"
+    },
+    {
+      "file": "97-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 217167,
+      "sha256": "1328e59637bbcdbc8e7d74df7edeeff25747a45fb8e417effd408eeed4308bec"
+    },
+    {
+      "file": "97-plan-actions.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 77380,
+      "sha256": "2db814cd6811388a0c6640aeccbd0da46425826a3c9829b4779a90fd4be05b50"
+    },
+    {
+      "file": "97-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 109280,
+      "sha256": "add2256aa75632bed3f75242c867ff995b596afb1ce23fa47b47898ac5f08bab"
+    },
+    {
+      "file": "97-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 219493,
+      "sha256": "1b1514dc150cb481ca63564f2dee8430aa0f10b0ec8f798e618e382a52a92522"
+    }
+  ],
+  "screenshotPromotion": "promoted-after-all-assertions",
+  "checks": [
+    {
+      "name": "ten-domain truth S12",
+      "status": "pass",
+      "evidence": {
+        "domainCount": 10,
+        "summary": "Life Power 487. 10 active domains. Fitness 57 from WHOOP, Sleep 51 from Health, Career 49 from Calendar, Nutrition 44 fr"
+      }
+    },
+    {
+      "name": "case 12-default",
+      "status": "pass",
+      "evidence": {
+        "id": "12",
+        "nonce": "1"
+      }
+    },
+    {
+      "name": "case 12-action-toggled",
+      "status": "pass",
+      "evidence": {
+        "id": "12",
+        "nonce": "2"
+      }
+    },
+    {
+      "name": "ten-domain truth S13",
+      "status": "pass",
+      "evidence": {
+        "domainCount": 10
+      }
+    },
+    {
+      "name": "S13→S14 mission identity",
+      "status": "pass",
+      "evidence": {
+        "mission": "Finalize Q3 report",
+        "query": "q3-report"
+      }
+    },
+    {
+      "name": "case 13-default",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "default",
+        "nonce": "3"
+      }
+    },
+    {
+      "name": "case 13-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "skeleton",
+        "nonce": "4"
+      }
+    },
+    {
+      "name": "case 13-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "empty",
+        "nonce": "5"
+      }
+    },
+    {
+      "name": "case 13-filtered-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "filtered-empty",
+        "nonce": "6"
+      }
+    },
+    {
+      "name": "case 13-error",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "error",
+        "nonce": "7"
+      }
+    },
+    {
+      "name": "case 13-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "offline",
+        "nonce": "8"
+      }
+    },
+    {
+      "name": "case 13-success",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "success",
+        "nonce": "9"
+      }
+    },
+    {
+      "name": "case 13-filter-weekly",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "default",
+        "nonce": "10"
+      }
+    },
+    {
+      "name": "S13→S15 create flow",
+      "status": "pass",
+      "evidence": {
+        "path": "/screens/15",
+        "editor": "data-mission-editor-state"
+      }
+    },
+    {
+      "name": "case 13-new-mission",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "default",
+        "nonce": "11"
+      }
+    },
+    {
+      "name": "case 14-default",
+      "status": "pass",
+      "evidence": {
+        "id": "14",
+        "fixture": "default",
+        "nonce": "12"
+      }
+    },
+    {
+      "name": "case 14-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "14",
+        "fixture": "empty",
+        "nonce": "13"
+      }
+    },
+    {
+      "name": "case 14-low-confidence",
+      "status": "pass",
+      "evidence": {
+        "id": "14",
+        "fixture": "low-confidence",
+        "nonce": "14"
+      }
+    },
+    {
+      "name": "case 14-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "14",
+        "fixture": "offline",
+        "nonce": "15"
+      }
+    },
+    {
+      "name": "case 14-stalled",
+      "status": "pass",
+      "evidence": {
+        "id": "14",
+        "fixture": "stalled",
+        "nonce": "16"
+      }
+    },
+    {
+      "name": "case 14-success",
+      "status": "pass",
+      "evidence": {
+        "id": "14",
+        "fixture": "success",
+        "nonce": "17"
+      }
+    },
+    {
+      "name": "case 14-accordion-open",
+      "status": "pass",
+      "evidence": {
+        "id": "14",
+        "fixture": "default",
+        "nonce": "18"
+      }
+    },
+    {
+      "name": "case 15-default",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "default",
+        "nonce": "19"
+      }
+    },
+    {
+      "name": "case 15-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "empty",
+        "nonce": "20"
+      }
+    },
+    {
+      "name": "case 15-processing",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "processing",
+        "nonce": "21"
+      }
+    },
+    {
+      "name": "case 15-error",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "error",
+        "nonce": "22"
+      }
+    },
+    {
+      "name": "case 15-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "offline",
+        "nonce": "23"
+      }
+    },
+    {
+      "name": "case 15-success",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "success",
+        "nonce": "24"
+      }
+    },
+    {
+      "name": "case 15-invalid",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "invalid",
+        "nonce": "25"
+      }
+    },
+    {
+      "name": "case 15-domain-removed",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "default",
+        "nonce": "26"
+      }
+    },
+    {
+      "name": "case 15-reorder-moved",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "default",
+        "nonce": "27"
+      }
+    },
+    {
+      "name": "15-enlarged-bottom text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 59,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "case 15-enlarged-bottom",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "default",
+        "nonce": "28"
+      }
+    },
+    {
+      "name": "S41 first-viewport timeline",
+      "status": "pass",
+      "evidence": {
+        "locator": "data attribute"
+      }
+    },
+    {
+      "name": "S41 population labelling",
+      "status": "pass",
+      "evidence": {
+        "bothFiguresPresent": true
+      }
+    },
+    {
+      "name": "case 41-default",
+      "status": "pass",
+      "evidence": {
+        "id": "41",
+        "fixture": "default",
+        "nonce": "29"
+      }
+    },
+    {
+      "name": "case 41-overpacked",
+      "status": "pass",
+      "evidence": {
+        "id": "41",
+        "fixture": "overpacked",
+        "nonce": "30"
+      }
+    },
+    {
+      "name": "S41 consent choice parity",
+      "status": "pass",
+      "evidence": {
+        "variant": "secondary",
+        "width": 314,
+        "height": 52
+      }
+    },
+    {
+      "name": "case 41-cold-start",
+      "status": "pass",
+      "evidence": {
+        "id": "41",
+        "fixture": "cold-start",
+        "nonce": "31"
+      }
+    },
+    {
+      "name": "case 41-stale-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "41",
+        "fixture": "stale-offline",
+        "nonce": "32"
+      }
+    },
+    {
+      "name": "case 41-revoked",
+      "status": "pass",
+      "evidence": {
+        "id": "41",
+        "fixture": "revoked",
+        "nonce": "33"
+      }
+    },
+    {
+      "name": "case 41-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "41",
+        "fixture": "skeleton",
+        "nonce": "34"
+      }
+    },
+    {
+      "name": "S41 view populations",
+      "status": "pass",
+      "evidence": {
+        "day": "Monday, May 4",
+        "week": "Week of May 4",
+        "month": "May 2026"
+      }
+    },
+    {
+      "name": "case 41-day-selected",
+      "status": "pass",
+      "evidence": {
+        "id": "41",
+        "fixture": "default",
+        "nonce": "35"
+      }
+    },
+    {
+      "name": "41-enlarged-default text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 75,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "case 41-enlarged-default",
+      "status": "pass",
+      "evidence": {
+        "id": "41",
+        "fixture": "default",
+        "nonce": "36"
+      }
+    },
+    {
+      "name": "S44 delete affordance contract",
+      "status": "pass",
+      "evidence": {
+        "opacity": 1
+      }
+    },
+    {
+      "name": "case 44-default",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "default",
+        "nonce": "37"
+      }
+    },
+    {
+      "name": "case 44-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "skeleton",
+        "nonce": "38"
+      }
+    },
+    {
+      "name": "case 44-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "empty",
+        "nonce": "39"
+      }
+    },
+    {
+      "name": "case 44-error",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "error",
+        "nonce": "40"
+      }
+    },
+    {
+      "name": "case 44-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "offline",
+        "nonce": "41"
+      }
+    },
+    {
+      "name": "case 44-success",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "success",
+        "nonce": "42"
+      }
+    },
+    {
+      "name": "case 44-delete-confirm",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "default",
+        "nonce": "43"
+      }
+    },
+    {
+      "name": "S44 delete undo restores",
+      "status": "pass",
+      "evidence": {
+        "target": "Delete 1 glass (250 ml) logged at 7:40 AM"
+      }
+    },
+    {
+      "name": "case 44-delete-undone",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "default",
+        "nonce": "44"
+      }
+    },
+    {
+      "name": "case 44-quick-add",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "default",
+        "nonce": "45"
+      }
+    },
+    {
+      "name": "S45 single orb + consent",
+      "status": "pass",
+      "evidence": {
+        "orbs": 1
+      }
+    },
+    {
+      "name": "case 45-default",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "default",
+        "nonce": "46"
+      }
+    },
+    {
+      "name": "case 45-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "skeleton",
+        "nonce": "47"
+      }
+    },
+    {
+      "name": "case 45-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "empty",
+        "nonce": "48"
+      }
+    },
+    {
+      "name": "case 45-error",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "error",
+        "nonce": "49"
+      }
+    },
+    {
+      "name": "case 45-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "offline",
+        "nonce": "50"
+      }
+    },
+    {
+      "name": "case 45-success",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "success",
+        "nonce": "51"
+      }
+    },
+    {
+      "name": "S45 invalid gating",
+      "status": "pass",
+      "evidence": {
+        "reason": "Select a mood to save — it’s the only required field."
+      }
+    },
+    {
+      "name": "case 45-invalid",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "invalid",
+        "nonce": "52"
+      }
+    },
+    {
+      "name": "case 45-context-added",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "default",
+        "nonce": "53"
+      }
+    },
+    {
+      "name": "case 45-dismissed",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "default",
+        "nonce": "54"
+      }
+    },
+    {
+      "name": "S59 RPG multiplier truth",
+      "status": "pass",
+      "evidence": {
+        "gauge": "2.0x at 42 days",
+        "recovery": "1.3x capped 2.0x total"
+      }
+    },
+    {
+      "name": "case 59-default",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "default",
+        "nonce": "55"
+      }
+    },
+    {
+      "name": "case 59-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "skeleton",
+        "nonce": "56"
+      }
+    },
+    {
+      "name": "case 59-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "empty",
+        "nonce": "57"
+      }
+    },
+    {
+      "name": "case 59-error",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "error",
+        "nonce": "58"
+      }
+    },
+    {
+      "name": "case 59-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "offline",
+        "nonce": "59"
+      }
+    },
+    {
+      "name": "case 59-success",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "success",
+        "nonce": "60"
+      }
+    },
+    {
+      "name": "case 59-freeze-confirm",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "default",
+        "nonce": "61"
+      }
+    },
+    {
+      "name": "case 59-freeze-used",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "default",
+        "nonce": "62"
+      }
+    },
+    {
+      "name": "case 59-freeze-undone",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "default",
+        "nonce": "63"
+      }
+    },
+    {
+      "name": "S61 completed contrast + roll-up truth",
+      "status": "pass",
+      "evidence": {
+        "doneContrast": 8.967086537661228,
+        "rollup": "3 of 4 on"
+      }
+    },
+    {
+      "name": "case 61-default",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "default",
+        "nonce": "64"
+      }
+    },
+    {
+      "name": "case 61-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "skeleton",
+        "nonce": "65"
+      }
+    },
+    {
+      "name": "case 61-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "empty",
+        "nonce": "66"
+      }
+    },
+    {
+      "name": "case 61-error",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "error",
+        "nonce": "67"
+      }
+    },
+    {
+      "name": "case 61-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "offline",
+        "nonce": "68"
+      }
+    },
+    {
+      "name": "case 61-success",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "success",
+        "nonce": "69"
+      }
+    },
+    {
+      "name": "case 61-task-toggled",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "default",
+        "nonce": "70"
+      }
+    },
+    {
+      "name": "case 61-task-undone",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "default",
+        "nonce": "71"
+      }
+    },
+    {
+      "name": "case 61-reminder-toggled",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "default",
+        "nonce": "72"
+      }
+    },
+    {
+      "name": "S73 media honesty + duration consistency",
+      "status": "pass",
+      "evidence": {}
+    },
+    {
+      "name": "case 73-default",
+      "status": "pass",
+      "evidence": {
+        "id": "73",
+        "fixture": "default",
+        "nonce": "73"
+      }
+    },
+    {
+      "name": "case 73-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "73",
+        "fixture": "skeleton",
+        "nonce": "74"
+      }
+    },
+    {
+      "name": "case 73-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "73",
+        "fixture": "empty",
+        "nonce": "75"
+      }
+    },
+    {
+      "name": "case 73-filtered-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "73",
+        "fixture": "filtered-empty",
+        "nonce": "76"
+      }
+    },
+    {
+      "name": "case 73-error",
+      "status": "pass",
+      "evidence": {
+        "id": "73",
+        "fixture": "error",
+        "nonce": "77"
+      }
+    },
+    {
+      "name": "case 73-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "73",
+        "fixture": "offline",
+        "nonce": "78"
+      }
+    },
+    {
+      "name": "case 73-media-hidden",
+      "status": "pass",
+      "evidence": {
+        "id": "73",
+        "fixture": "default",
+        "nonce": "79"
+      }
+    },
+    {
+      "name": "case 73-photo-delete-confirm",
+      "status": "pass",
+      "evidence": {
+        "id": "73",
+        "fixture": "default",
+        "nonce": "80"
+      }
+    },
+    {
+      "name": "S97 canonical PaywallLock",
+      "status": "pass",
+      "evidence": {
+        "marker": ".paywall-blur"
+      }
+    },
+    {
+      "name": "case 97-default",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "default",
+        "nonce": "81"
+      }
+    },
+    {
+      "name": "case 97-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "skeleton",
+        "nonce": "82"
+      }
+    },
+    {
+      "name": "case 97-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "empty",
+        "nonce": "83"
+      }
+    },
+    {
+      "name": "case 97-error",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "error",
+        "nonce": "84"
+      }
+    },
+    {
+      "name": "case 97-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "offline",
+        "nonce": "85"
+      }
+    },
+    {
+      "name": "case 97-success",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "success",
+        "nonce": "86"
+      }
+    },
+    {
+      "name": "S97 overflow exposes all 8 actions",
+      "status": "pass",
+      "evidence": {
+        "trigger": "Plan actions for Strength reset",
+        "strengthRow": true,
+        "reachable": [
+          "Edit",
+          "Pause",
+          "Stop",
+          "Archive",
+          "Delete",
+          "Export",
+          "Share",
+          "Revoke CIA memory"
+        ]
+      }
+    },
+    {
+      "name": "case 97-plan-actions",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "default",
+        "nonce": "87"
+      }
+    },
+    {
+      "name": "case 97-archive-confirm",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "default",
+        "nonce": "88"
+      }
+    },
+    {
+      "name": "97-enlarged-default text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 54,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "S97 125% PaywallLock in-view",
+      "status": "pass",
+      "evidence": {
+        "actions": [
+          "Unlock with premium",
+          "Not now"
+        ]
+      }
+    },
+    {
+      "name": "case 97-enlarged-default",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "default",
+        "nonce": "89"
+      }
+    },
+    {
+      "name": "12-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 55,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 12",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 12-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "12",
+        "fixture": null,
+        "nonce": "90"
+      }
+    },
+    {
+      "name": "13-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 48,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 13",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 13-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "13",
+        "fixture": "default",
+        "nonce": "91"
+      }
+    },
+    {
+      "name": "14-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 38,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 14",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 14-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "14",
+        "fixture": "default",
+        "nonce": "92"
+      }
+    },
+    {
+      "name": "15-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 59,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 15",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 15-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "15",
+        "fixture": "default",
+        "nonce": "93"
+      }
+    },
+    {
+      "name": "41-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 75,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 41",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 41-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "41",
+        "fixture": "default",
+        "nonce": "94"
+      }
+    },
+    {
+      "name": "44-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 77,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 44",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 44-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "44",
+        "fixture": "default",
+        "nonce": "95"
+      }
+    },
+    {
+      "name": "45-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 44,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 45",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 45-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "45",
+        "fixture": "default",
+        "nonce": "96"
+      }
+    },
+    {
+      "name": "59-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 99,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 59",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 59-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "59",
+        "fixture": "default",
+        "nonce": "97"
+      }
+    },
+    {
+      "name": "61-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 60,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 61",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 61-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "61",
+        "fixture": "default",
+        "nonce": "98"
+      }
+    },
+    {
+      "name": "73-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 55,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 73",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 73-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "73",
+        "fixture": "default",
+        "nonce": "99"
+      }
+    },
+    {
+      "name": "97-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 54,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": []
+      }
+    },
+    {
+      "name": "C1 125% text matrix 97",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 97-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "97",
+        "fixture": "default",
+        "nonce": "100"
+      }
+    },
+    {
+      "name": "atomic screenshot set",
+      "status": "pass",
+      "evidence": {
+        "count": 89,
+        "dimensions": "390x844",
+        "hashes": 89,
+        "promotedAfterPass": true
+      }
+    },
+    {
+      "name": "source integrity",
+      "status": "pass",
+      "evidence": {
+        "product": "013bea5d034ab47df29de461b1791d037f988e0bb98aefbfcf6a2d4b26fb397e",
+        "api": "a4bcdfb702538c4bf8a29ced58aff82b2c890378608953a2dcc41fa6a9f1418c",
+        "authority": "17b1256d3816e3326bd7672b4c0d1aebdc0443ee738dee02f93ff4a8b23912db"
+      }
+    },
+    {
+      "name": "S12 sentinel byte-identical",
+      "status": "pass",
+      "evidence": {
+        "file": "src/components/hifi/screens/today/S12HomeScreen.tsx",
+        "sha256": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67"
+      }
+    },
+    {
+      "name": "capability boundary",
+      "status": "pass",
+      "evidence": {
+        "forbidden": 0,
+        "total": 0
+      }
+    }
+  ],
+  "cases": [
+    {
+      "name": "12-default",
+      "id": "12",
+      "state": null,
+      "nonce": "1",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "12-action-toggled",
+      "id": "12",
+      "state": null,
+      "nonce": "2",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-default",
+      "id": "13",
+      "state": "default",
+      "nonce": "3",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-skeleton",
+      "id": "13",
+      "state": "skeleton",
+      "nonce": "4",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-empty",
+      "id": "13",
+      "state": "empty",
+      "nonce": "5",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-filtered-empty",
+      "id": "13",
+      "state": "filtered-empty",
+      "nonce": "6",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-error",
+      "id": "13",
+      "state": "error",
+      "nonce": "7",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-offline",
+      "id": "13",
+      "state": "offline",
+      "nonce": "8",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-success",
+      "id": "13",
+      "state": "success",
+      "nonce": "9",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-filter-weekly",
+      "id": "13",
+      "state": "default",
+      "nonce": "10",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-new-mission",
+      "id": "13",
+      "state": "default",
+      "nonce": "11",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "14-default",
+      "id": "14",
+      "state": "default",
+      "nonce": "12",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "14-empty",
+      "id": "14",
+      "state": "empty",
+      "nonce": "13",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "14-low-confidence",
+      "id": "14",
+      "state": "low-confidence",
+      "nonce": "14",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "14-offline",
+      "id": "14",
+      "state": "offline",
+      "nonce": "15",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "14-stalled",
+      "id": "14",
+      "state": "stalled",
+      "nonce": "16",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "14-success",
+      "id": "14",
+      "state": "success",
+      "nonce": "17",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "14-accordion-open",
+      "id": "14",
+      "state": "default",
+      "nonce": "18",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-default",
+      "id": "15",
+      "state": "default",
+      "nonce": "19",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-empty",
+      "id": "15",
+      "state": "empty",
+      "nonce": "20",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-processing",
+      "id": "15",
+      "state": "processing",
+      "nonce": "21",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-error",
+      "id": "15",
+      "state": "error",
+      "nonce": "22",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-offline",
+      "id": "15",
+      "state": "offline",
+      "nonce": "23",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-success",
+      "id": "15",
+      "state": "success",
+      "nonce": "24",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-invalid",
+      "id": "15",
+      "state": "invalid",
+      "nonce": "25",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-domain-removed",
+      "id": "15",
+      "state": "default",
+      "nonce": "26",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-reorder-moved",
+      "id": "15",
+      "state": "default",
+      "nonce": "27",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-enlarged-bottom",
+      "id": "15",
+      "state": "default",
+      "nonce": "28",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "41-default",
+      "id": "41",
+      "state": "default",
+      "nonce": "29",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "41-overpacked",
+      "id": "41",
+      "state": "overpacked",
+      "nonce": "30",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "41-cold-start",
+      "id": "41",
+      "state": "cold-start",
+      "nonce": "31",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "41-stale-offline",
+      "id": "41",
+      "state": "stale-offline",
+      "nonce": "32",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "41-revoked",
+      "id": "41",
+      "state": "revoked",
+      "nonce": "33",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "41-skeleton",
+      "id": "41",
+      "state": "skeleton",
+      "nonce": "34",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "41-day-selected",
+      "id": "41",
+      "state": "default",
+      "nonce": "35",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "41-enlarged-default",
+      "id": "41",
+      "state": "default",
+      "nonce": "36",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-default",
+      "id": "44",
+      "state": "default",
+      "nonce": "37",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-skeleton",
+      "id": "44",
+      "state": "skeleton",
+      "nonce": "38",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-empty",
+      "id": "44",
+      "state": "empty",
+      "nonce": "39",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-error",
+      "id": "44",
+      "state": "error",
+      "nonce": "40",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-offline",
+      "id": "44",
+      "state": "offline",
+      "nonce": "41",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-success",
+      "id": "44",
+      "state": "success",
+      "nonce": "42",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-delete-confirm",
+      "id": "44",
+      "state": "default",
+      "nonce": "43",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-delete-undone",
+      "id": "44",
+      "state": "default",
+      "nonce": "44",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-quick-add",
+      "id": "44",
+      "state": "default",
+      "nonce": "45",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-default",
+      "id": "45",
+      "state": "default",
+      "nonce": "46",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-skeleton",
+      "id": "45",
+      "state": "skeleton",
+      "nonce": "47",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-empty",
+      "id": "45",
+      "state": "empty",
+      "nonce": "48",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-error",
+      "id": "45",
+      "state": "error",
+      "nonce": "49",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-offline",
+      "id": "45",
+      "state": "offline",
+      "nonce": "50",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-success",
+      "id": "45",
+      "state": "success",
+      "nonce": "51",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-invalid",
+      "id": "45",
+      "state": "invalid",
+      "nonce": "52",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-context-added",
+      "id": "45",
+      "state": "default",
+      "nonce": "53",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-dismissed",
+      "id": "45",
+      "state": "default",
+      "nonce": "54",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-default",
+      "id": "59",
+      "state": "default",
+      "nonce": "55",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-skeleton",
+      "id": "59",
+      "state": "skeleton",
+      "nonce": "56",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-empty",
+      "id": "59",
+      "state": "empty",
+      "nonce": "57",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-error",
+      "id": "59",
+      "state": "error",
+      "nonce": "58",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-offline",
+      "id": "59",
+      "state": "offline",
+      "nonce": "59",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-success",
+      "id": "59",
+      "state": "success",
+      "nonce": "60",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-freeze-confirm",
+      "id": "59",
+      "state": "default",
+      "nonce": "61",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-freeze-used",
+      "id": "59",
+      "state": "default",
+      "nonce": "62",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-freeze-undone",
+      "id": "59",
+      "state": "default",
+      "nonce": "63",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-default",
+      "id": "61",
+      "state": "default",
+      "nonce": "64",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-skeleton",
+      "id": "61",
+      "state": "skeleton",
+      "nonce": "65",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-empty",
+      "id": "61",
+      "state": "empty",
+      "nonce": "66",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-error",
+      "id": "61",
+      "state": "error",
+      "nonce": "67",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-offline",
+      "id": "61",
+      "state": "offline",
+      "nonce": "68",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-success",
+      "id": "61",
+      "state": "success",
+      "nonce": "69",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-task-toggled",
+      "id": "61",
+      "state": "default",
+      "nonce": "70",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-task-undone",
+      "id": "61",
+      "state": "default",
+      "nonce": "71",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-reminder-toggled",
+      "id": "61",
+      "state": "default",
+      "nonce": "72",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "73-default",
+      "id": "73",
+      "state": "default",
+      "nonce": "73",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "73-skeleton",
+      "id": "73",
+      "state": "skeleton",
+      "nonce": "74",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "73-empty",
+      "id": "73",
+      "state": "empty",
+      "nonce": "75",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "73-filtered-empty",
+      "id": "73",
+      "state": "filtered-empty",
+      "nonce": "76",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "73-error",
+      "id": "73",
+      "state": "error",
+      "nonce": "77",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "73-offline",
+      "id": "73",
+      "state": "offline",
+      "nonce": "78",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "73-media-hidden",
+      "id": "73",
+      "state": "default",
+      "nonce": "79",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "73-photo-delete-confirm",
+      "id": "73",
+      "state": "default",
+      "nonce": "80",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-default",
+      "id": "97",
+      "state": "default",
+      "nonce": "81",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-skeleton",
+      "id": "97",
+      "state": "skeleton",
+      "nonce": "82",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-empty",
+      "id": "97",
+      "state": "empty",
+      "nonce": "83",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-error",
+      "id": "97",
+      "state": "error",
+      "nonce": "84",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-offline",
+      "id": "97",
+      "state": "offline",
+      "nonce": "85",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-success",
+      "id": "97",
+      "state": "success",
+      "nonce": "86",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-plan-actions",
+      "id": "97",
+      "state": "default",
+      "nonce": "87",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-archive-confirm",
+      "id": "97",
+      "state": "default",
+      "nonce": "88",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-enlarged-default",
+      "id": "97",
+      "state": "default",
+      "nonce": "89",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "12-text-scale-proof",
+      "id": "12",
+      "state": null,
+      "nonce": "90",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "13-text-scale-proof",
+      "id": "13",
+      "state": "default",
+      "nonce": "91",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "14-text-scale-proof",
+      "id": "14",
+      "state": "default",
+      "nonce": "92",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "15-text-scale-proof",
+      "id": "15",
+      "state": "default",
+      "nonce": "93",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "41-text-scale-proof",
+      "id": "41",
+      "state": "default",
+      "nonce": "94",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "44-text-scale-proof",
+      "id": "44",
+      "state": "default",
+      "nonce": "95",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "45-text-scale-proof",
+      "id": "45",
+      "state": "default",
+      "nonce": "96",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "59-text-scale-proof",
+      "id": "59",
+      "state": "default",
+      "nonce": "97",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "61-text-scale-proof",
+      "id": "61",
+      "state": "default",
+      "nonce": "98",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "73-text-scale-proof",
+      "id": "73",
+      "state": "default",
+      "nonce": "99",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "97-text-scale-proof",
+      "id": "97",
+      "state": "default",
+      "nonce": "100",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "capabilityEvents": [],
+  "capabilityExpectation": {
+    "forbidden": 0,
+    "total": 0
+  },
+  "status": "pass"
+}

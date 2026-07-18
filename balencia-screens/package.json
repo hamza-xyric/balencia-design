@@ -13,6 +13,8 @@
     "verify:copy": "node scripts/verify-copy.mjs",
     "verify:brand": "node scripts/verify-brand.mjs",
     "verify:visual": "node scripts/verify-visual.mjs",
+    "verify:visual104": "node scripts/verify-visual-104.mjs",
+    "verify:r11-contracts": "node scripts/verify-r11-route-contracts.mjs",
     "figma:check": "figma connect parse",
     "figma:publish": "figma connect publish",
     "figma:unpublish": "figma connect unpublish",

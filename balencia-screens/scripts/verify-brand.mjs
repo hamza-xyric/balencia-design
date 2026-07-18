@@ -27,6 +27,25 @@ const allowedGoalCopy = new Map([
   ['src/components/layout/TabBar.tsx', new Set(['Goals'])],
   ['src/data/screens.ts', new Set(['Goals Tab'])],
 ])
+// Raw brand-colour rgba (orange #FF5E00 / green #34A853 / purple #7F24FF) belongs in
+// globals.css (and domains.ts) only — components must reference the --glow-* / --grad-* / color
+// tokens, never inline a brand colour with an ad-hoc alpha. These pre-existing files use inline
+// atmospheric bg-[linear-gradient(rgba(...))] backgrounds and are grandfathered pending a token
+// migration; do NOT add new files here.
+const allowedWarmRgbaFiles = new Set([
+  'src/app/tabs/goals/obstacles/page.tsx',
+  'src/app/tabs/sia/page.tsx',
+  'src/app/tabs/sia/conversations/page.tsx',
+  'src/app/tabs/sia/call-summary/page.tsx',
+  'src/app/features/accountability-contract/page.tsx',
+  'src/app/features/videos/page.tsx',
+  'src/app/features/reports/page.tsx',
+])
+const ciaGuardedPathPatterns = [
+  /^src\/app\/screens\//,
+  /^src\/components\/hifi\//,
+  /^src\/data\/screens\.ts$/,
+]
 
 function fail(message) {
   console.error(`verify:brand failed: ${message}`)
@@ -123,8 +142,19 @@ for (const filePath of files) {
     fail(`${relativePath} contains cool shadow ${match[0]}; use warm rgba(33, 16, 8, ...) shadows`)
   }
 
+  if (!allowsHex && !allowedWarmRgbaFiles.has(relativePath)) {
+    const warmBrandRgba = [...source.matchAll(/rgba\(\s*255\s*,\s*94\s*,\s*0\b|rgba\(\s*52\s*,\s*168\s*,\s*83\b|rgba\(\s*127\s*,\s*36\s*,\s*255\b/g)]
+    for (const match of warmBrandRgba) {
+      fail(`${relativePath} inlines a raw brand colour (${match[0]}…); reference a --glow-* / --grad-* / colour token from globals.css instead`)
+    }
+  }
+
   if (/SIA[^'\n]*brand-orange|brand-orange[^'\n]*SIA/.test(source)) {
     fail(`${relativePath} appears to pair SIA copy with brand-orange; SIA/AI accents must use royal-purple`)
+  }
+
+  if (ciaGuardedPathPatterns.some(pattern => pattern.test(relativePath)) && /\bSIA\b/i.test(source)) {
+    fail(`${relativePath} contains legacy SIA naming in the new CIA prototype path`)
   }
 
   checkVisibleGoalLanguage(relativePath, source)

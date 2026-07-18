@@ -7,7 +7,8 @@ interface ScreenShellProps {
   bottomAction?: React.ReactNode
   composer?: React.ReactNode
   showTabBar?: boolean
-  activeTab?: 'today' | 'sia' | 'goals' | 'me'
+  modalOpen?: boolean
+  activeTab?: 'today' | 'cia' | 'sia' | 'goals' | 'me'
 }
 
 export function ScreenShell({
@@ -17,10 +18,16 @@ export function ScreenShell({
   bottomAction,
   composer,
   showTabBar = true,
+  modalOpen = false,
   activeTab = 'today',
 }: ScreenShellProps) {
   return (
-    <div className="flex h-full flex-col bg-ink-900" data-testid="screen-shell">
+    <div
+      className="flex h-full flex-col bg-ink-900"
+      data-testid="screen-shell"
+      aria-hidden={modalOpen || undefined}
+      inert={modalOpen || undefined}
+    >
       <div className="h-[54px] flex-shrink-0" data-testid="status-bar-space" />
 
       {header}

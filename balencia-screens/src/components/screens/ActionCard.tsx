@@ -10,14 +10,15 @@ type ActionCardProps = HTMLAttributes<HTMLDivElement> & {
   onToggleComplete?: () => void
 }
 
-export function ActionCard({ action, expanded = false, onOpen, onToggleComplete, className = '', ...props }: ActionCardProps) {
+export function ActionCard({ action, expanded = false, onOpen, onToggleComplete, className = '', style, ...props }: ActionCardProps) {
   return (
     <article
       className={[
-        'rounded-xl border border-alpha-white-06 bg-ink-brown-800 p-6 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]',
+        'rounded-xl border border-alpha-white-06 bg-ink-brown-800 p-6 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]',
         action.completed ? 'opacity-55' : '',
         className,
       ].filter(Boolean).join(' ')}
+      style={{ boxShadow: 'var(--edge-highlight), var(--shadow-1)', ...style }}
       aria-label={`${action.name}, ${action.domain}, ${action.timeEstimate}, tap to expand, swipe right to complete`}
       {...props}
     >
@@ -26,7 +27,7 @@ export function ActionCard({ action, expanded = false, onOpen, onToggleComplete,
           <button
             type="button"
             onClick={onOpen}
-            className="block w-full rounded-md text-left"
+            className="focus-ring block w-full rounded-md text-left"
             aria-expanded={expanded}
           >
             <DomainTag domain={action.domain} />
@@ -47,7 +48,7 @@ export function ActionCard({ action, expanded = false, onOpen, onToggleComplete,
         </div>
         <button
           className={[
-            'flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-transform duration-[var(--dur-base)] active:scale-90',
+            'focus-ring flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-transform duration-[var(--dur-base)] active:scale-90',
             action.completed ? 'border-brand-orange bg-brand-orange' : 'border-white/30',
           ].join(' ')}
           aria-label={`Mark ${action.name} as complete`}

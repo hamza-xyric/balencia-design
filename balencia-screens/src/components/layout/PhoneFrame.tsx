@@ -1,7 +1,7 @@
 export function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="relative h-[812px] w-[375px] flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-ink-900 shadow-3 [transform:translateZ(0)]"
+      className="relative h-[844px] w-[390px] flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-ink-900 shadow-3 [transform:translateZ(0)]"
       data-testid="phone-frame"
     >
       <div

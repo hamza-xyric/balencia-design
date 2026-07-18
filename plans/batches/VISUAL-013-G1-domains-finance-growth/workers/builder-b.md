@@ -1,0 +1,3 @@
+# G1 builder B — S32/S33/S34
+
+Terra high bounded writer. Read BATCH, FROZEN-MATRIX, VERIFICATION-MATRIX, recon-b, active specs/canon/catalog/RPG authority, and three live files. Edit only `S32CareerDashboard.tsx`, `S33RelationshipsDashboard.tsx`, and `S34SpiritualityDashboard.tsx`. Implement every frozen taxonomy/numeric/source/state/interaction/privacy/accessibility contract locally; no shared registry/kit or real capability. Run scoped Prettier, typecheck/lint if practical, and owned-file diff-check. Write evidence only to `evidence/builder-b.md`. Stop/escalate source/safety/shared conflicts or repeated failure.

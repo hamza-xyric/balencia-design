@@ -1,0 +1,47 @@
+{
+  "auditedAt": "2026-07-10T06:40:10.701Z",
+  "baseURL": "http://localhost:3001",
+  "reducedMotion": "reduce",
+  "screens": [
+    {
+      "id": "03",
+      "status": "pass"
+    },
+    {
+      "id": "07",
+      "status": "pass"
+    },
+    {
+      "id": "11",
+      "status": "pass"
+    },
+    {
+      "id": "12",
+      "status": "pass"
+    },
+    {
+      "id": "26",
+      "status": "pass"
+    },
+    {
+      "id": "43",
+      "status": "pass"
+    },
+    {
+      "id": "80",
+      "status": "pass"
+    }
+  ],
+  "metrics": {
+    "s07DomainMicrotextContrast": [
+      17.99344252760456,
+      18.47517962247999,
+      18.336510375456236,
+      18.607425590480084
+    ],
+    "s80MatchedMicrotextContrast": 18.04364864576745
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "status": "pass"
+}

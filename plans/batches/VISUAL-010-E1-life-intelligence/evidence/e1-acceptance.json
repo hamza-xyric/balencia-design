@@ -1,0 +1,6948 @@
+{
+  "auditedAt": "2026-07-15T20:26:13.436Z",
+  "baseURL": "http://127.0.0.1:3002",
+  "phoneFrame": {
+    "width": 390,
+    "height": 844
+  },
+  "expectedContexts": 81,
+  "expectedScreenshots": 73,
+  "checks": [
+    {
+      "label": "served production HTML binds current BUILD_ID",
+      "ok": true,
+      "evidence": "XWMRAiWe4OFR6UruxfXDl"
+    },
+    {
+      "label": "16-default: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "16-default: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-default: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "16-default: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-default: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-default: ten-domain radar",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: Life Power formula result and reporting",
+      "ok": true,
+      "evidence": "Life areas\nData controls\n\nLIFE POWER\n\nCalculated · 10 domains\n49\nLife Power\n\nAverage\n\n43\n\nReporting\n\n10/10\n\nLAST 7 WEEKS\nCurrent\n10 domains\nUpdated 2h ago\nCurrent\nVs week\nVs month\nDOMAIN STATS\nFitness\n58\nSleep\n50\nCareer\n46\nNutrition\n43\nFinance\n38\nFaith\n32\nProductivity\n49\nRelationships\n44\nWellbeing\n40\nMeditation\n33\nToday\nCIA\nMissions\nMe"
+    },
+    {
+      "label": "16-default: data controls: modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: data controls: every underlying shell region is inert",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: data controls: reverse Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: data controls: Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: data controls: Escape restores exact opener",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: domain detail: modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: domain detail: every underlying shell region is inert",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: domain detail: reverse Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: domain detail: Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: domain detail: Escape restores exact opener",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-default: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "16-default: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "a4fbcbb03c5fbc6f9b866885f49e4204d495a45088ca8cff4b1f1532db0d4826"
+    },
+    {
+      "label": "16-low-confidence: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "16-low-confidence: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-low-confidence: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "16-low-confidence: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-low-confidence: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-low-confidence: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "16-low-confidence: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "244101682b61d90b42b8fdcdb9ee40b29ef1200ba01b909f79619d50baaf3d02"
+    },
+    {
+      "label": "16-empty: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "16-empty: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-empty: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "16-empty: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-empty: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-empty: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "16-empty: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "7ee51d396628dce194fe9900fe2a8f915c4f44e79d81103addd85abf95f1cf27"
+    },
+    {
+      "label": "16-error: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "16-error: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-error: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "16-error: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-error: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-error: retry restores the local default surface",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-error: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "16-error: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "4f4c7884594bb4bb54adc66695241a153fe397dda795fefde89ca7dde5a9f444"
+    },
+    {
+      "label": "16-offline: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "16-offline: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-offline: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "16-offline: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-offline: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-offline: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "16-offline: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "b86455a216f6a3cc3ba8679e228fc3fe5414425aca473f55c8272334f9309a9b"
+    },
+    {
+      "label": "16-compare-week: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "16-compare-week: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-compare-week: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "16-compare-week: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-compare-week: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-compare-week: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "16-compare-week: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "6380d42ca8d72fb718e36040eb1e10a5e12d14da05c6a0d7ad757054570b2e74"
+    },
+    {
+      "label": "16-domain-detail: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "16-domain-detail: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-domain-detail: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "16-domain-detail: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-domain-detail: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-domain-detail: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-domain-detail: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-domain-detail: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-domain-detail: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "16-domain-detail: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "2a3025f285b6b622a65179a69461dbb01d31b285cba2e0bc8f333d0a516c67db"
+    },
+    {
+      "label": "16-data-controls: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "16-data-controls: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-data-controls: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "16-data-controls: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-data-controls: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-data-controls: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-data-controls: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-data-controls: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-data-controls: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "16-data-controls: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "fb3e1aae997afc3c212978b3924137a4a9d22a33b0427e4d58ad2f468ebaff69"
+    },
+    {
+      "label": "20-default: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-default: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-default: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-default: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-default: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-default: non-causal correlation boundary",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-default: edit outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-default: delete outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-default: upload outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-default: citation modal: modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-default: citation modal: every underlying shell region is inert",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-default: citation modal: reverse Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-default: citation modal: Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-default: citation modal: Escape restores exact opener",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-default: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-default: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "2ed13f8ed2fe52213142f2dcdebc6cf99c982b1ca5eb1b75e31ee4c78ea9364a"
+    },
+    {
+      "label": "20-search: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-search: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-search: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-search: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-search: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-search: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-search: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "c3577b984d0643c4181da9d909324be91cd442dd69ff51fdf3bdea7ae47cfb90"
+    },
+    {
+      "label": "20-node-detail: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-node-detail: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-node-detail: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-node-detail: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-node-detail: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-node-detail: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-node-detail: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-node-detail: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-node-detail: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-node-detail: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "9175b8a90efb744e4129b74eb047af604bdef293b0b2faaeafd888dbc231dba7"
+    },
+    {
+      "label": "20-edit: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-edit: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-edit: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-edit: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-edit: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-edit: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-edit: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-edit: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-edit: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-edit: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "d2c81e0da12695df648ce3f4b3e7b29a16a95929afa64ba0bb7a7ece1f22629d"
+    },
+    {
+      "label": "20-delete-confirm: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-delete-confirm: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-delete-confirm: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-delete-confirm: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-delete-confirm: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-delete-confirm: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-delete-confirm: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-delete-confirm: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-delete-confirm: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-delete-confirm: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "57429d1022d43a8c511c6d042811948882cb0d0cdaf4543f3f7872036e9f7dd6"
+    },
+    {
+      "label": "20-success: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-success: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-success: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-success: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-success: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-success: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-success: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "15fe0e00e38904fbe0189fc34a284dadb5718ee9d4a09d51321af188e3388c6f"
+    },
+    {
+      "label": "20-error: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-error: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-error: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-error: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-error: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-error: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-error: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "79c2e5c0fb987f65c31ac5d8f80ec6bee5b4c990647c033a26b7f9364b71dc5c"
+    },
+    {
+      "label": "20-offline: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-offline: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-offline: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-offline: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-offline: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-offline: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-offline: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "01d4c63b015f388c24e6f0618a9937a0ac96a5b4310b08361baf793dcff6ff62"
+    },
+    {
+      "label": "20-upload: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-upload: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-upload: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-upload: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-upload: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-upload: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-upload: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-upload: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-upload: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-upload: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "9539ed0d8cbbdbdc1f862d6799f06c3f144e3079232da64bf32a089a055b77f0"
+    },
+    {
+      "label": "20-citation-medical: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-citation-medical: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-citation-medical: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-citation-medical: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-citation-medical: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-citation-medical: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-citation-medical: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-citation-medical: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-citation-medical: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-citation-medical: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "a94840364479c570fba4763c5ddb23d20f32bf0ba72aaaead85da56c1f79a218"
+    },
+    {
+      "label": "48-default: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "48-default: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-default: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "48-default: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-default: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-default: contained score meter 87",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-default: semantic matrix cells",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-default: manage data: modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-default: manage data: every underlying shell region is inert",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-default: manage data: reverse Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-default: manage data: Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-default: manage data: Escape restores exact opener",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-default: resolve outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-default: dismiss outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-default: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "48-default: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "cd78179d0da0b5d571f37f66ddfce86821ae736fc5bf86a91886cea0adc63b2b"
+    },
+    {
+      "label": "48-low-confidence: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "48-low-confidence: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-low-confidence: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "48-low-confidence: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-low-confidence: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-low-confidence: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "48-low-confidence: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "19e720bbb1d6befc4012ecf940f163071913925a85befdc335968a3053768b8c"
+    },
+    {
+      "label": "48-empty: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "48-empty: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-empty: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "48-empty: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-empty: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-empty: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "48-empty: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "0d6fcc373bd5eaa34f51bed02cc8cf67aead9c50495f0bcf89a89010c385c8f0"
+    },
+    {
+      "label": "48-error: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "48-error: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-error: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "48-error: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-error: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-error: retry restores the local default surface",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-error: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "48-error: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "ebfa9b005bba6627b3e7abf5c76bce00d945cb1ae74e27d2098f1bcc8537a459"
+    },
+    {
+      "label": "48-offline: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "48-offline: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-offline: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "48-offline: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-offline: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-offline: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "48-offline: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "fe526729321364b93e763e5bf9d4d304dee22a968135ec780783ac34831fcebb"
+    },
+    {
+      "label": "48-contradiction: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "48-contradiction: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-contradiction: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "48-contradiction: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-contradiction: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-contradiction: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-contradiction: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-contradiction: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-contradiction: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "48-contradiction: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "058d8efe8129df867a0581fa063fe06f03f6093c49bdd961bcedecd58b260b11"
+    },
+    {
+      "label": "48-legend: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "48-legend: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-legend: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "48-legend: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-legend: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-legend: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-legend: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-legend: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-legend: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "48-legend: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "5f7f06cbea625f69b83ee52490fc05574a64ebdbb2ca69145c0ea046e73982ce"
+    },
+    {
+      "label": "48-timeframe: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "48-timeframe: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-timeframe: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "48-timeframe: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-timeframe: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-timeframe: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "48-timeframe: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "cd78179d0da0b5d571f37f66ddfce86821ae736fc5bf86a91886cea0adc63b2b"
+    },
+    {
+      "label": "72-default: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "72-default: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-default: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "72-default: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-default: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-default: native graph controls",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-default: zoom changes graph state",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-default: zoom visibly transforms graph",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-default: reset restores graph",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-default: node detail: modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-default: node detail: every underlying shell region is inert",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-default: node detail: reverse Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-default: node detail: Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-default: node detail: Escape restores exact opener",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-default: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "72-default: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "label": "72-node-detail: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "72-node-detail: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-node-detail: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "72-node-detail: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-node-detail: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-node-detail: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "72-node-detail: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "label": "72-legend: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "72-legend: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-legend: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "72-legend: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-legend: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-legend: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "72-legend: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "label": "72-document: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "72-document: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-document: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "72-document: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-document: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-document: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "72-document: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "label": "72-citation-medical: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "72-citation-medical: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-citation-medical: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "72-citation-medical: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-citation-medical: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-citation-medical: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "72-citation-medical: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "label": "72-empty: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "72-empty: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-empty: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "72-empty: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-empty: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-empty: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "72-empty: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "9d9bd65e4b7b822c7756dd3728ec8c2840976d6e787198c641f6173caa55359f"
+    },
+    {
+      "label": "72-error: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "72-error: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-error: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "72-error: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-error: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-error: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "72-error: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "7bbc6cd352133b7068096ce20ec229ab2724f4e81b85d44d3c78338494600dc0"
+    },
+    {
+      "label": "72-offline: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "72-offline: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-offline: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "72-offline: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-offline: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-offline: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "72-offline: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "30c853b19298cd46cdf59a17490d928126c11fa29fa66782ca2a439c5fb5a20a"
+    },
+    {
+      "label": "84-default: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "84-default: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-default: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "84-default: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-default: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-default: provider co-variation boundary",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-default: source control outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-default: reconnect outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-default: delete outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-default: revoke outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-default: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "84-default: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "a6f5f1ec28ec27e94ccb0f91b1947a8954f6c9ad82e77cea86e06caa5a885d95"
+    },
+    {
+      "label": "84-sync-failure: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "84-sync-failure: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-sync-failure: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "84-sync-failure: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-sync-failure: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-sync-failure: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "84-sync-failure: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "d15c53ae8a0fdbdc83be34cdea38e748d979cdf1bb33d92ef65d0e24570277dd"
+    },
+    {
+      "label": "84-reconnect: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "84-reconnect: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-reconnect: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "84-reconnect: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-reconnect: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-reconnect: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "84-reconnect: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "ca75cf067c5853a13666551313d4be0570d653b25f5706cce8f4d730d12c34b3"
+    },
+    {
+      "label": "84-consent: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "84-consent: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-consent: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "84-consent: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-consent: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-consent: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-consent: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-consent: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-consent: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "84-consent: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "b93745c2b6d1a32265bbed682be9a0d336b21cb93b9112cc574b6ab0d6b5d1be"
+    },
+    {
+      "label": "84-empty: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "84-empty: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-empty: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "84-empty: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-empty: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-empty: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "84-empty: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "e58ad08ef08119c343fc4dd7b1ec9ec14a93e3ee77b991193a4de373fd1d4106"
+    },
+    {
+      "label": "84-offline: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "84-offline: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-offline: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "84-offline: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-offline: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-offline: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "84-offline: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "99371d4ef12fd0c30b03af6dd94470b9307722cd019e859952278d075e24c057"
+    },
+    {
+      "label": "84-revoke: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "84-revoke: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-revoke: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "84-revoke: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-revoke: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-revoke: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-revoke: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-revoke: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-revoke: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "84-revoke: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "52713f219910c15e8a16163ee2a110e3979d55fe782d1a17afe2df0433956358"
+    },
+    {
+      "label": "84-delete: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "84-delete: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-delete: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "84-delete: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-delete: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-delete: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-delete: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-delete: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-delete: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "84-delete: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "ec13fb95ac431eb656d11b6756adc6a33fdacbad65c69bc72599cd204bf97436"
+    },
+    {
+      "label": "90-default: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "90-default: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-default: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "90-default: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-default: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-default: HIFI-90-01 code-native disposition",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-default: consent exposes code-native comparison",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-default: privacy control outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-default: history detail: modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-default: history detail: every underlying shell region is inert",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-default: history detail: reverse Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-default: history detail: Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-default: history detail: Escape restores exact opener",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-default: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "90-default: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "48d84c03865dd20c72d7c015044d357f8ff87df29be69cf2facaa64f69f8914b"
+    },
+    {
+      "label": "90-monthly: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "90-monthly: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-monthly: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "90-monthly: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-monthly: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-monthly: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "90-monthly: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "07fa7cede4607249bad3d176351538b4654d0ab6cbfe24a552af768057e18a7c"
+    },
+    {
+      "label": "90-yearly-lock: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "90-yearly-lock: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-yearly-lock: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "90-yearly-lock: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-yearly-lock: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-yearly-lock: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "90-yearly-lock: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "d3caea4cc75bfbe2134c3e21ff62fa765352a396fd6b65fe70fe297677313cd2"
+    },
+    {
+      "label": "90-photo-consent: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "90-photo-consent: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-photo-consent: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "90-photo-consent: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-photo-consent: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-photo-consent: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-photo-consent: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-photo-consent: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-photo-consent: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "90-photo-consent: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "b386202711b3f02bba773d3a8f26d2e23fc7575bc15afd910846f91c51e5e460"
+    },
+    {
+      "label": "90-photo-detail: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "90-photo-detail: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-photo-detail: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "90-photo-detail: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-photo-detail: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-photo-detail: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-photo-detail: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-photo-detail: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-photo-detail: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "90-photo-detail: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "7f81c2f082e542aa31338332d3364ccf0d055beb1f7db739c00250d65c2e9b99"
+    },
+    {
+      "label": "90-empty: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "90-empty: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-empty: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "90-empty: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-empty: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-empty: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "90-empty: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "67c28859e7834b00ade74b0bb24e97f795c3e41a4c465c7303e8a49a7dbb88a4"
+    },
+    {
+      "label": "90-offline: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "90-offline: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-offline: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "90-offline: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-offline: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-offline: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "90-offline: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "117f627338c131ea1dd0d1bdffe3e2e940d79412b5f6bf4b79882966f0787322"
+    },
+    {
+      "label": "90-history-detail: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "90-history-detail: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-history-detail: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "90-history-detail: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-history-detail: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-history-detail: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-history-detail: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-history-detail: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-history-detail: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "90-history-detail: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "d533abddf835ee483dc4c80921a197fd53ab45c45b66fca4d9501cdecb218cd3"
+    },
+    {
+      "label": "93-default: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "93-default: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-default: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "93-default: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-default: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-default: marker evidence count reconciled",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-default: crisis help remains reachable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-default: 30D selection changes styling and evidence",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-default: crisis preview outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-default: mood log outcome visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-default: delete requires consequence confirmation",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-default: delete confirmation focuses safe Cancel action",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-default: delete completion announced",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-default: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "93-default: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "0e3866f64e164be5005daa67ae03a5b3e8598e6766febbcdc00c8279ac848ae1"
+    },
+    {
+      "label": "93-crisis: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "93-crisis: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-crisis: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "93-crisis: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-crisis: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-crisis: crisis help remains reachable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-crisis: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-crisis: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-crisis: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-crisis: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "93-crisis: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "2f6b3f1554f4235cd03d7f4983e086bdf5b6f60aaa684aed17f6ab9e849ff112"
+    },
+    {
+      "label": "93-offline-crisis: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "93-offline-crisis: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-offline-crisis: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "93-offline-crisis: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-offline-crisis: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-offline-crisis: crisis help remains reachable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-offline-crisis: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-offline-crisis: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-offline-crisis: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-offline-crisis: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "93-offline-crisis: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "df88104c490458088cbffb678c9be9b8da48bf4f86137cda333219d5bbb43125"
+    },
+    {
+      "label": "93-log-sheet: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "93-log-sheet: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-log-sheet: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "93-log-sheet: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-log-sheet: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-log-sheet: crisis help remains reachable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-log-sheet: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-log-sheet: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-log-sheet: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-log-sheet: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "93-log-sheet: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "e7addd933929546fbbc924c4656f8479bffab58adab9982d6f334715b891132f"
+    },
+    {
+      "label": "93-success: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "93-success: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-success: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "93-success: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-success: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-success: crisis help remains reachable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-success: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "93-success: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "9107a597d62a9126b0cbf92072d0ea576c5df52e32dd0169dd70e4e383248ac6"
+    },
+    {
+      "label": "93-empty: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "93-empty: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-empty: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "93-empty: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-empty: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-empty: crisis help remains reachable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-empty: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "93-empty: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "98e6849357ea82b603883b0d839a223e2661f4976d46511e023f5868f362d146"
+    },
+    {
+      "label": "93-error-cached: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "93-error-cached: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-error-cached: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "93-error-cached: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-error-cached: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-error-cached: crisis help remains reachable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-error-cached: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "93-error-cached: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "609d5e4fef0b50126201f0a803072ffc4ac9bb2665cda41b9531a8f711e63660"
+    },
+    {
+      "label": "93-paywall-90d: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "93-paywall-90d: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-paywall-90d: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "93-paywall-90d: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-paywall-90d: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-paywall-90d: crisis help remains reachable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-paywall-90d: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "93-paywall-90d: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "7bfffb1c4c156b2a0eab91897d3f3bb2ef1c265f38dd47653b8992873113d988"
+    },
+    {
+      "label": "96-default: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-default: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-default: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-default: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-default: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-default: readiness score and formula disclosure are exposed",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: provider dependency honesty",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: HRV opens matching evidence",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: Strain opens matching evidence",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: RHR opens matching evidence",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: Sleep opens matching evidence",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: formula detail: modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: formula detail: every underlying shell region is inert",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: formula detail: reverse Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: formula detail: Tab stays contained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: formula detail: Escape restores exact opener",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: consent decline sends nothing",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: primary-source confirmation visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: source revoke visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: source delete visible",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-default: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-default: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "6f4d5c0635205a8164badc611421ac315cdf9d1023b18ff53e991d285df3e924"
+    },
+    {
+      "label": "96-formula-detail: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-formula-detail: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-formula-detail: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-formula-detail: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-formula-detail: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-formula-detail: readiness arithmetic is exact",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-formula-detail: device-native score stays separate",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-formula-detail: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-formula-detail: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-formula-detail: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-formula-detail: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-formula-detail: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "6c8db13b45bf12cedcadf5df8db67444c310b15423fef8e8fdd4085ae41fc353"
+    },
+    {
+      "label": "96-metric-detail: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-metric-detail: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-metric-detail: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-metric-detail: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-metric-detail: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-metric-detail: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-metric-detail: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-metric-detail: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-metric-detail: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-metric-detail: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "891ee420906f0794d0d61b31fcb89c95347a0ed7c5f46d2779707db498552966"
+    },
+    {
+      "label": "96-cia-consent: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-cia-consent: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-cia-consent: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-cia-consent: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-cia-consent: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-cia-consent: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-cia-consent: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-cia-consent: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-cia-consent: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-cia-consent: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "fe5296df60cd628b02fe4c3890bb6a1b2e70da5461120da65ad3218268ddc622"
+    },
+    {
+      "label": "96-empty: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-empty: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-empty: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-empty: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-empty: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-empty: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-empty: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "20a818159b1354e9bf2fca06aa6778b3ad916f50013a12b31b60568b780f7bb9"
+    },
+    {
+      "label": "96-partial: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-partial: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-partial: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-partial: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-partial: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-partial: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-partial: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "2cebcb52df0e319deb6d65f88f7767b0e7ac4fe93e351c465412237e0681bca3"
+    },
+    {
+      "label": "96-stale-offline: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-stale-offline: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-stale-offline: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-stale-offline: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-stale-offline: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-stale-offline: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-stale-offline: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "cb636b40c57ed66d5a967a797d3cc9788effcb2f3c6dfa40def81e4ce3046dc3"
+    },
+    {
+      "label": "96-sync-error: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-sync-error: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-sync-error: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-sync-error: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-sync-error: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-sync-error: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-sync-error: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "c4dc738a3c1b3be3da0131b2d66f308d5e8f153a99daf937b695dd00c4fa7600"
+    },
+    {
+      "label": "96-bridge: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-bridge: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-bridge: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-bridge: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-bridge: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-bridge: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-bridge: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-bridge: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-bridge: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-bridge: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "5a1e1fa26526dad28886d9b6912819a0bbe7de57fc69f7912313bcff2d2102ca"
+    },
+    {
+      "label": "96-primary-conflict: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-primary-conflict: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-primary-conflict: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-primary-conflict: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-primary-conflict: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-primary-conflict: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-primary-conflict: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-primary-conflict: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-primary-conflict: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-primary-conflict: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "14bf3476de9088bb268e1154ad50bfca21346d6d05f5fe889144eab4afc0fd67"
+    },
+    {
+      "label": "96-revoke-confirm: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-revoke-confirm: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-revoke-confirm: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-revoke-confirm: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-revoke-confirm: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-revoke-confirm: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-revoke-confirm: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-revoke-confirm: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-revoke-confirm: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-revoke-confirm: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "30236115b06368db04daa1e5cd7ff31271a8c5e461837351eabc6bee310f16bd"
+    },
+    {
+      "label": "96-delete-confirm: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-delete-confirm: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-delete-confirm: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-delete-confirm: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-delete-confirm: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-delete-confirm: query-opened modal receives initial focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-delete-confirm: query-opened modal isolates every shell region",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-delete-confirm: query-opened modal contains Tab focus",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-delete-confirm: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-delete-confirm: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "3545b12789f9512c2f1b1b0203bbc0cee27ab27b31b3b29c29b5e5e5594d4dd3"
+    },
+    {
+      "label": "96-premium-lock: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-premium-lock: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-premium-lock: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-premium-lock: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-premium-lock: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-premium-lock: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-premium-lock: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "6f4d5c0635205a8164badc611421ac315cdf9d1023b18ff53e991d285df3e924"
+    },
+    {
+      "label": "96-disabled: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-disabled: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-disabled: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-disabled: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-disabled: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-disabled: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-disabled: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "0880c7faa35910dd23a3982a08b48c27b4e2d77f86406c4190ddb44d56b16011"
+    },
+    {
+      "label": "96-skeleton: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-skeleton: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-skeleton: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-skeleton: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-skeleton: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-skeleton: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-skeleton: two consecutive captures are byte-identical",
+      "ok": true,
+      "evidence": "bb51d36d40802c2bc43fb8b5003e83a92079621c783af8176566d09e515aab85"
+    },
+    {
+      "label": "16-text-scale-proof: at least ten text nodes enlarged",
+      "ok": true,
+      "evidence": 42
+    },
+    {
+      "label": "16-text-scale-proof: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "16-text-scale-proof: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-text-scale-proof: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "16-text-scale-proof: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "16-text-scale-proof: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-text-scale-proof: 125% reflow stays inside phone",
+      "ok": true,
+      "evidence": {
+        "frame": {
+          "width": 390,
+          "height": 844
+        },
+        "horizontalOverflow": 0,
+        "smallTargets": [],
+        "unnamed": 0,
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "16-text-scale-proof: ten-domain radar",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "16-text-scale-proof: Life Power formula result and reporting",
+      "ok": true,
+      "evidence": "Life areas\nData controls\n\nLIFE POWER\n\nCalculated · 10 domains\n49\nLife Power\n\nAverage\n\n43\n\nReporting\n\n10/10\n\nLAST 7 WEEKS\nCurrent\n10 domains\nUpdated 2h ago\nCurrent\nVs week\nVs month\nDOMAIN STATS\nFitness\n58\nSleep\n50\nCareer\n46\nNutrition\n43\nFinance\n38\nFaith\n32\nProductivity\n49\nRelationships\n44\nWellbeing\n40\nMeditation\n33\nToday\nCIA\nMissions\nMe"
+    },
+    {
+      "label": "16-text-scale-proof: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "20-text-scale-proof: at least ten text nodes enlarged",
+      "ok": true,
+      "evidence": 45
+    },
+    {
+      "label": "20-text-scale-proof: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "20-text-scale-proof: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-text-scale-proof: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "20-text-scale-proof: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "20-text-scale-proof: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-text-scale-proof: 125% reflow stays inside phone",
+      "ok": true,
+      "evidence": {
+        "frame": {
+          "width": 390,
+          "height": 844
+        },
+        "horizontalOverflow": 0,
+        "smallTargets": [],
+        "unnamed": 0,
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "20-text-scale-proof: non-causal correlation boundary",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "20-text-scale-proof: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "48-text-scale-proof: at least ten text nodes enlarged",
+      "ok": true,
+      "evidence": 42
+    },
+    {
+      "label": "48-text-scale-proof: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "48-text-scale-proof: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-text-scale-proof: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "48-text-scale-proof: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "48-text-scale-proof: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-text-scale-proof: 125% reflow stays inside phone",
+      "ok": true,
+      "evidence": {
+        "frame": {
+          "width": 390,
+          "height": 844
+        },
+        "horizontalOverflow": 0,
+        "smallTargets": [],
+        "unnamed": 0,
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "48-text-scale-proof: contained score meter 87",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-text-scale-proof: semantic matrix cells",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "48-text-scale-proof: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "72-text-scale-proof: at least ten text nodes enlarged",
+      "ok": true,
+      "evidence": 38
+    },
+    {
+      "label": "72-text-scale-proof: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "72-text-scale-proof: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-text-scale-proof: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "72-text-scale-proof: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "72-text-scale-proof: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-text-scale-proof: 125% reflow stays inside phone",
+      "ok": true,
+      "evidence": {
+        "frame": {
+          "width": 390,
+          "height": 844
+        },
+        "horizontalOverflow": 0,
+        "smallTargets": [],
+        "unnamed": 0,
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "72-text-scale-proof: native graph controls",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "72-text-scale-proof: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "84-text-scale-proof: at least ten text nodes enlarged",
+      "ok": true,
+      "evidence": 44
+    },
+    {
+      "label": "84-text-scale-proof: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "84-text-scale-proof: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-text-scale-proof: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "84-text-scale-proof: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "84-text-scale-proof: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-text-scale-proof: 125% reflow stays inside phone",
+      "ok": true,
+      "evidence": {
+        "frame": {
+          "width": 390,
+          "height": 844
+        },
+        "horizontalOverflow": 0,
+        "smallTargets": [],
+        "unnamed": 0,
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "84-text-scale-proof: provider co-variation boundary",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "84-text-scale-proof: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "90-text-scale-proof: at least ten text nodes enlarged",
+      "ok": true,
+      "evidence": 43
+    },
+    {
+      "label": "90-text-scale-proof: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "90-text-scale-proof: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-text-scale-proof: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "90-text-scale-proof: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "90-text-scale-proof: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-text-scale-proof: 125% reflow stays inside phone",
+      "ok": true,
+      "evidence": {
+        "frame": {
+          "width": 390,
+          "height": 844
+        },
+        "horizontalOverflow": 0,
+        "smallTargets": [],
+        "unnamed": 0,
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "90-text-scale-proof: HIFI-90-01 code-native disposition",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "90-text-scale-proof: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "93-text-scale-proof: at least ten text nodes enlarged",
+      "ok": true,
+      "evidence": 51
+    },
+    {
+      "label": "93-text-scale-proof: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "93-text-scale-proof: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-text-scale-proof: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "93-text-scale-proof: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "93-text-scale-proof: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-text-scale-proof: 125% reflow stays inside phone",
+      "ok": true,
+      "evidence": {
+        "frame": {
+          "width": 390,
+          "height": 844
+        },
+        "horizontalOverflow": 0,
+        "smallTargets": [],
+        "unnamed": 0,
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "93-text-scale-proof: marker evidence count reconciled",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-text-scale-proof: crisis help remains reachable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "93-text-scale-proof: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "96-text-scale-proof: at least ten text nodes enlarged",
+      "ok": true,
+      "evidence": 70
+    },
+    {
+      "label": "96-text-scale-proof: phone frame is 390x844",
+      "ok": true,
+      "evidence": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "label": "96-text-scale-proof: no phone horizontal overflow",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-text-scale-proof: visible controls meet 44px",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "label": "96-text-scale-proof: visible controls are named",
+      "ok": true,
+      "evidence": 0
+    },
+    {
+      "label": "96-text-scale-proof: visible coach name is CIA",
+      "ok": true,
+      "evidence": {
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-text-scale-proof: 125% reflow stays inside phone",
+      "ok": true,
+      "evidence": {
+        "frame": {
+          "width": 390,
+          "height": 844
+        },
+        "horizontalOverflow": 0,
+        "smallTargets": [],
+        "unnamed": 0,
+        "visibleSia": false,
+        "visibleWrongCia": false
+      }
+    },
+    {
+      "label": "96-text-scale-proof: readiness score and formula disclosure are exposed",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-text-scale-proof: provider dependency honesty",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "96-text-scale-proof: storage and cookies empty",
+      "ok": true,
+      "evidence": {
+        "storage": {
+          "local": [],
+          "session": [],
+          "databases": [],
+          "caches": []
+        },
+        "cookies": 0
+      }
+    },
+    {
+      "label": "start/end integrity unchanged",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "label": "exact context and screenshot counts",
+      "ok": true,
+      "evidence": {
+        "cases": 81,
+        "screenshots": 73
+      }
+    },
+    {
+      "label": "zero console/page/capability events",
+      "ok": true,
+      "evidence": {
+        "console": [],
+        "page": [],
+        "capability": []
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "16",
+      "state": "default",
+      "name": "16-default",
+      "nonce": "1",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "16",
+      "state": "low-confidence",
+      "name": "16-low-confidence",
+      "nonce": "2",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "16",
+      "state": "empty",
+      "name": "16-empty",
+      "nonce": "3",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "16",
+      "state": "error",
+      "name": "16-error",
+      "nonce": "4",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "16",
+      "state": "offline",
+      "name": "16-offline",
+      "nonce": "5",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "16",
+      "state": "compare-week",
+      "name": "16-compare-week",
+      "nonce": "6",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "16",
+      "state": "domain-detail",
+      "name": "16-domain-detail",
+      "nonce": "7",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "16",
+      "state": "data-controls",
+      "name": "16-data-controls",
+      "nonce": "8",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "default",
+      "name": "20-default",
+      "nonce": "9",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "search",
+      "name": "20-search",
+      "nonce": "10",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "node-detail",
+      "name": "20-node-detail",
+      "nonce": "11",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "edit",
+      "name": "20-edit",
+      "nonce": "12",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "delete-confirm",
+      "name": "20-delete-confirm",
+      "nonce": "13",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "success",
+      "name": "20-success",
+      "nonce": "14",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "error",
+      "name": "20-error",
+      "nonce": "15",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "offline",
+      "name": "20-offline",
+      "nonce": "16",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "upload",
+      "name": "20-upload",
+      "nonce": "17",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "citation-medical",
+      "name": "20-citation-medical",
+      "nonce": "18",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "48",
+      "state": "default",
+      "name": "48-default",
+      "nonce": "19",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "48",
+      "state": "low-confidence",
+      "name": "48-low-confidence",
+      "nonce": "20",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "48",
+      "state": "empty",
+      "name": "48-empty",
+      "nonce": "21",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "48",
+      "state": "error",
+      "name": "48-error",
+      "nonce": "22",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "48",
+      "state": "offline",
+      "name": "48-offline",
+      "nonce": "23",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "48",
+      "state": "contradiction",
+      "name": "48-contradiction",
+      "nonce": "24",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "48",
+      "state": "legend",
+      "name": "48-legend",
+      "nonce": "25",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "48",
+      "state": "timeframe",
+      "name": "48-timeframe",
+      "nonce": "26",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "72",
+      "state": "default",
+      "name": "72-default",
+      "nonce": "27",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "72",
+      "state": "node-detail",
+      "name": "72-node-detail",
+      "nonce": "28",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "72",
+      "state": "legend",
+      "name": "72-legend",
+      "nonce": "29",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "72",
+      "state": "document",
+      "name": "72-document",
+      "nonce": "30",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "72",
+      "state": "citation-medical",
+      "name": "72-citation-medical",
+      "nonce": "31",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "72",
+      "state": "empty",
+      "name": "72-empty",
+      "nonce": "32",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "72",
+      "state": "error",
+      "name": "72-error",
+      "nonce": "33",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "72",
+      "state": "offline",
+      "name": "72-offline",
+      "nonce": "34",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "84",
+      "state": "default",
+      "name": "84-default",
+      "nonce": "35",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "84",
+      "state": "sync-failure",
+      "name": "84-sync-failure",
+      "nonce": "36",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "84",
+      "state": "reconnect",
+      "name": "84-reconnect",
+      "nonce": "37",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "84",
+      "state": "consent",
+      "name": "84-consent",
+      "nonce": "38",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "84",
+      "state": "empty",
+      "name": "84-empty",
+      "nonce": "39",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "84",
+      "state": "offline",
+      "name": "84-offline",
+      "nonce": "40",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "84",
+      "state": "revoke",
+      "name": "84-revoke",
+      "nonce": "41",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "84",
+      "state": "delete",
+      "name": "84-delete",
+      "nonce": "42",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "90",
+      "state": "default",
+      "name": "90-default",
+      "nonce": "43",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "90",
+      "state": "monthly",
+      "name": "90-monthly",
+      "nonce": "44",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "90",
+      "state": "yearly-lock",
+      "name": "90-yearly-lock",
+      "nonce": "45",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "90",
+      "state": "photo-consent",
+      "name": "90-photo-consent",
+      "nonce": "46",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "90",
+      "state": "photo-detail",
+      "name": "90-photo-detail",
+      "nonce": "47",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "90",
+      "state": "empty",
+      "name": "90-empty",
+      "nonce": "48",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "90",
+      "state": "offline",
+      "name": "90-offline",
+      "nonce": "49",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "90",
+      "state": "history-detail",
+      "name": "90-history-detail",
+      "nonce": "50",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "93",
+      "state": "default",
+      "name": "93-default",
+      "nonce": "51",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "93",
+      "state": "crisis",
+      "name": "93-crisis",
+      "nonce": "52",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "93",
+      "state": "offline-crisis",
+      "name": "93-offline-crisis",
+      "nonce": "53",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "93",
+      "state": "log-sheet",
+      "name": "93-log-sheet",
+      "nonce": "54",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "93",
+      "state": "success",
+      "name": "93-success",
+      "nonce": "55",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "93",
+      "state": "empty",
+      "name": "93-empty",
+      "nonce": "56",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "93",
+      "state": "error-cached",
+      "name": "93-error-cached",
+      "nonce": "57",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "93",
+      "state": "paywall-90d",
+      "name": "93-paywall-90d",
+      "nonce": "58",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "default",
+      "name": "96-default",
+      "nonce": "59",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "formula-detail",
+      "name": "96-formula-detail",
+      "nonce": "60",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "metric-detail",
+      "name": "96-metric-detail",
+      "nonce": "61",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "cia-consent",
+      "name": "96-cia-consent",
+      "nonce": "62",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "empty",
+      "name": "96-empty",
+      "nonce": "63",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "partial",
+      "name": "96-partial",
+      "nonce": "64",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "stale-offline",
+      "name": "96-stale-offline",
+      "nonce": "65",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "sync-error",
+      "name": "96-sync-error",
+      "nonce": "66",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "bridge",
+      "name": "96-bridge",
+      "nonce": "67",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "primary-conflict",
+      "name": "96-primary-conflict",
+      "nonce": "68",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "revoke-confirm",
+      "name": "96-revoke-confirm",
+      "nonce": "69",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "delete-confirm",
+      "name": "96-delete-confirm",
+      "nonce": "70",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "premium-lock",
+      "name": "96-premium-lock",
+      "nonce": "71",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "disabled",
+      "name": "96-disabled",
+      "nonce": "72",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "skeleton",
+      "name": "96-skeleton",
+      "nonce": "73",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "16",
+      "state": "default",
+      "name": "16-text-scale-proof",
+      "textScale": 1.25,
+      "nonce": "74",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "20",
+      "state": "default",
+      "name": "20-text-scale-proof",
+      "textScale": 1.25,
+      "nonce": "75",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "48",
+      "state": "default",
+      "name": "48-text-scale-proof",
+      "textScale": 1.25,
+      "nonce": "76",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "72",
+      "state": "default",
+      "name": "72-text-scale-proof",
+      "textScale": 1.25,
+      "nonce": "77",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "84",
+      "state": "default",
+      "name": "84-text-scale-proof",
+      "textScale": 1.25,
+      "nonce": "78",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "90",
+      "state": "default",
+      "name": "90-text-scale-proof",
+      "textScale": 1.25,
+      "nonce": "79",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "93",
+      "state": "default",
+      "name": "93-text-scale-proof",
+      "textScale": 1.25,
+      "nonce": "80",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    },
+    {
+      "id": "96",
+      "state": "default",
+      "name": "96-text-scale-proof",
+      "textScale": 1.25,
+      "nonce": "81",
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "caches": []
+      },
+      "cookies": 0
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "16-default.png",
+      "sha256": "a4fbcbb03c5fbc6f9b866885f49e4204d495a45088ca8cff4b1f1532db0d4826"
+    },
+    {
+      "name": "16-low-confidence.png",
+      "sha256": "244101682b61d90b42b8fdcdb9ee40b29ef1200ba01b909f79619d50baaf3d02"
+    },
+    {
+      "name": "16-empty.png",
+      "sha256": "7ee51d396628dce194fe9900fe2a8f915c4f44e79d81103addd85abf95f1cf27"
+    },
+    {
+      "name": "16-error.png",
+      "sha256": "4f4c7884594bb4bb54adc66695241a153fe397dda795fefde89ca7dde5a9f444"
+    },
+    {
+      "name": "16-offline.png",
+      "sha256": "b86455a216f6a3cc3ba8679e228fc3fe5414425aca473f55c8272334f9309a9b"
+    },
+    {
+      "name": "16-compare-week.png",
+      "sha256": "6380d42ca8d72fb718e36040eb1e10a5e12d14da05c6a0d7ad757054570b2e74"
+    },
+    {
+      "name": "16-domain-detail.png",
+      "sha256": "2a3025f285b6b622a65179a69461dbb01d31b285cba2e0bc8f333d0a516c67db"
+    },
+    {
+      "name": "16-data-controls.png",
+      "sha256": "fb3e1aae997afc3c212978b3924137a4a9d22a33b0427e4d58ad2f468ebaff69"
+    },
+    {
+      "name": "20-default.png",
+      "sha256": "2ed13f8ed2fe52213142f2dcdebc6cf99c982b1ca5eb1b75e31ee4c78ea9364a"
+    },
+    {
+      "name": "20-search.png",
+      "sha256": "c3577b984d0643c4181da9d909324be91cd442dd69ff51fdf3bdea7ae47cfb90"
+    },
+    {
+      "name": "20-node-detail.png",
+      "sha256": "9175b8a90efb744e4129b74eb047af604bdef293b0b2faaeafd888dbc231dba7"
+    },
+    {
+      "name": "20-edit.png",
+      "sha256": "d2c81e0da12695df648ce3f4b3e7b29a16a95929afa64ba0bb7a7ece1f22629d"
+    },
+    {
+      "name": "20-delete-confirm.png",
+      "sha256": "57429d1022d43a8c511c6d042811948882cb0d0cdaf4543f3f7872036e9f7dd6"
+    },
+    {
+      "name": "20-success.png",
+      "sha256": "15fe0e00e38904fbe0189fc34a284dadb5718ee9d4a09d51321af188e3388c6f"
+    },
+    {
+      "name": "20-error.png",
+      "sha256": "79c2e5c0fb987f65c31ac5d8f80ec6bee5b4c990647c033a26b7f9364b71dc5c"
+    },
+    {
+      "name": "20-offline.png",
+      "sha256": "01d4c63b015f388c24e6f0618a9937a0ac96a5b4310b08361baf793dcff6ff62"
+    },
+    {
+      "name": "20-upload.png",
+      "sha256": "9539ed0d8cbbdbdc1f862d6799f06c3f144e3079232da64bf32a089a055b77f0"
+    },
+    {
+      "name": "20-citation-medical.png",
+      "sha256": "a94840364479c570fba4763c5ddb23d20f32bf0ba72aaaead85da56c1f79a218"
+    },
+    {
+      "name": "48-default.png",
+      "sha256": "cd78179d0da0b5d571f37f66ddfce86821ae736fc5bf86a91886cea0adc63b2b"
+    },
+    {
+      "name": "48-low-confidence.png",
+      "sha256": "19e720bbb1d6befc4012ecf940f163071913925a85befdc335968a3053768b8c"
+    },
+    {
+      "name": "48-empty.png",
+      "sha256": "0d6fcc373bd5eaa34f51bed02cc8cf67aead9c50495f0bcf89a89010c385c8f0"
+    },
+    {
+      "name": "48-error.png",
+      "sha256": "ebfa9b005bba6627b3e7abf5c76bce00d945cb1ae74e27d2098f1bcc8537a459"
+    },
+    {
+      "name": "48-offline.png",
+      "sha256": "fe526729321364b93e763e5bf9d4d304dee22a968135ec780783ac34831fcebb"
+    },
+    {
+      "name": "48-contradiction.png",
+      "sha256": "058d8efe8129df867a0581fa063fe06f03f6093c49bdd961bcedecd58b260b11"
+    },
+    {
+      "name": "48-legend.png",
+      "sha256": "5f7f06cbea625f69b83ee52490fc05574a64ebdbb2ca69145c0ea046e73982ce"
+    },
+    {
+      "name": "48-timeframe.png",
+      "sha256": "cd78179d0da0b5d571f37f66ddfce86821ae736fc5bf86a91886cea0adc63b2b"
+    },
+    {
+      "name": "72-default.png",
+      "sha256": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "name": "72-node-detail.png",
+      "sha256": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "name": "72-legend.png",
+      "sha256": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "name": "72-document.png",
+      "sha256": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "name": "72-citation-medical.png",
+      "sha256": "12a9d2ddacf1d2c9d8a6b4d0ee6921580544fb74d2a0c41f41f22f4bbab23796"
+    },
+    {
+      "name": "72-empty.png",
+      "sha256": "9d9bd65e4b7b822c7756dd3728ec8c2840976d6e787198c641f6173caa55359f"
+    },
+    {
+      "name": "72-error.png",
+      "sha256": "7bbc6cd352133b7068096ce20ec229ab2724f4e81b85d44d3c78338494600dc0"
+    },
+    {
+      "name": "72-offline.png",
+      "sha256": "30c853b19298cd46cdf59a17490d928126c11fa29fa66782ca2a439c5fb5a20a"
+    },
+    {
+      "name": "84-default.png",
+      "sha256": "a6f5f1ec28ec27e94ccb0f91b1947a8954f6c9ad82e77cea86e06caa5a885d95"
+    },
+    {
+      "name": "84-sync-failure.png",
+      "sha256": "d15c53ae8a0fdbdc83be34cdea38e748d979cdf1bb33d92ef65d0e24570277dd"
+    },
+    {
+      "name": "84-reconnect.png",
+      "sha256": "ca75cf067c5853a13666551313d4be0570d653b25f5706cce8f4d730d12c34b3"
+    },
+    {
+      "name": "84-consent.png",
+      "sha256": "b93745c2b6d1a32265bbed682be9a0d336b21cb93b9112cc574b6ab0d6b5d1be"
+    },
+    {
+      "name": "84-empty.png",
+      "sha256": "e58ad08ef08119c343fc4dd7b1ec9ec14a93e3ee77b991193a4de373fd1d4106"
+    },
+    {
+      "name": "84-offline.png",
+      "sha256": "99371d4ef12fd0c30b03af6dd94470b9307722cd019e859952278d075e24c057"
+    },
+    {
+      "name": "84-revoke.png",
+      "sha256": "52713f219910c15e8a16163ee2a110e3979d55fe782d1a17afe2df0433956358"
+    },
+    {
+      "name": "84-delete.png",
+      "sha256": "ec13fb95ac431eb656d11b6756adc6a33fdacbad65c69bc72599cd204bf97436"
+    },
+    {
+      "name": "90-default.png",
+      "sha256": "48d84c03865dd20c72d7c015044d357f8ff87df29be69cf2facaa64f69f8914b"
+    },
+    {
+      "name": "90-monthly.png",
+      "sha256": "07fa7cede4607249bad3d176351538b4654d0ab6cbfe24a552af768057e18a7c"
+    },
+    {
+      "name": "90-yearly-lock.png",
+      "sha256": "d3caea4cc75bfbe2134c3e21ff62fa765352a396fd6b65fe70fe297677313cd2"
+    },
+    {
+      "name": "90-photo-consent.png",
+      "sha256": "b386202711b3f02bba773d3a8f26d2e23fc7575bc15afd910846f91c51e5e460"
+    },
+    {
+      "name": "90-photo-detail.png",
+      "sha256": "7f81c2f082e542aa31338332d3364ccf0d055beb1f7db739c00250d65c2e9b99"
+    },
+    {
+      "name": "90-empty.png",
+      "sha256": "67c28859e7834b00ade74b0bb24e97f795c3e41a4c465c7303e8a49a7dbb88a4"
+    },
+    {
+      "name": "90-offline.png",
+      "sha256": "117f627338c131ea1dd0d1bdffe3e2e940d79412b5f6bf4b79882966f0787322"
+    },
+    {
+      "name": "90-history-detail.png",
+      "sha256": "d533abddf835ee483dc4c80921a197fd53ab45c45b66fca4d9501cdecb218cd3"
+    },
+    {
+      "name": "93-default.png",
+      "sha256": "0e3866f64e164be5005daa67ae03a5b3e8598e6766febbcdc00c8279ac848ae1"
+    },
+    {
+      "name": "93-crisis.png",
+      "sha256": "2f6b3f1554f4235cd03d7f4983e086bdf5b6f60aaa684aed17f6ab9e849ff112"
+    },
+    {
+      "name": "93-offline-crisis.png",
+      "sha256": "df88104c490458088cbffb678c9be9b8da48bf4f86137cda333219d5bbb43125"
+    },
+    {
+      "name": "93-log-sheet.png",
+      "sha256": "e7addd933929546fbbc924c4656f8479bffab58adab9982d6f334715b891132f"
+    },
+    {
+      "name": "93-success.png",
+      "sha256": "9107a597d62a9126b0cbf92072d0ea576c5df52e32dd0169dd70e4e383248ac6"
+    },
+    {
+      "name": "93-empty.png",
+      "sha256": "98e6849357ea82b603883b0d839a223e2661f4976d46511e023f5868f362d146"
+    },
+    {
+      "name": "93-error-cached.png",
+      "sha256": "609d5e4fef0b50126201f0a803072ffc4ac9bb2665cda41b9531a8f711e63660"
+    },
+    {
+      "name": "93-paywall-90d.png",
+      "sha256": "7bfffb1c4c156b2a0eab91897d3f3bb2ef1c265f38dd47653b8992873113d988"
+    },
+    {
+      "name": "96-default.png",
+      "sha256": "6f4d5c0635205a8164badc611421ac315cdf9d1023b18ff53e991d285df3e924"
+    },
+    {
+      "name": "96-formula-detail.png",
+      "sha256": "6c8db13b45bf12cedcadf5df8db67444c310b15423fef8e8fdd4085ae41fc353"
+    },
+    {
+      "name": "96-metric-detail.png",
+      "sha256": "891ee420906f0794d0d61b31fcb89c95347a0ed7c5f46d2779707db498552966"
+    },
+    {
+      "name": "96-cia-consent.png",
+      "sha256": "fe5296df60cd628b02fe4c3890bb6a1b2e70da5461120da65ad3218268ddc622"
+    },
+    {
+      "name": "96-empty.png",
+      "sha256": "20a818159b1354e9bf2fca06aa6778b3ad916f50013a12b31b60568b780f7bb9"
+    },
+    {
+      "name": "96-partial.png",
+      "sha256": "2cebcb52df0e319deb6d65f88f7767b0e7ac4fe93e351c465412237e0681bca3"
+    },
+    {
+      "name": "96-stale-offline.png",
+      "sha256": "cb636b40c57ed66d5a967a797d3cc9788effcb2f3c6dfa40def81e4ce3046dc3"
+    },
+    {
+      "name": "96-sync-error.png",
+      "sha256": "c4dc738a3c1b3be3da0131b2d66f308d5e8f153a99daf937b695dd00c4fa7600"
+    },
+    {
+      "name": "96-bridge.png",
+      "sha256": "5a1e1fa26526dad28886d9b6912819a0bbe7de57fc69f7912313bcff2d2102ca"
+    },
+    {
+      "name": "96-primary-conflict.png",
+      "sha256": "14bf3476de9088bb268e1154ad50bfca21346d6d05f5fe889144eab4afc0fd67"
+    },
+    {
+      "name": "96-revoke-confirm.png",
+      "sha256": "30236115b06368db04daa1e5cd7ff31271a8c5e461837351eabc6bee310f16bd"
+    },
+    {
+      "name": "96-delete-confirm.png",
+      "sha256": "3545b12789f9512c2f1b1b0203bbc0cee27ab27b31b3b29c29b5e5e5594d4dd3"
+    },
+    {
+      "name": "96-premium-lock.png",
+      "sha256": "6f4d5c0635205a8164badc611421ac315cdf9d1023b18ff53e991d285df3e924"
+    },
+    {
+      "name": "96-disabled.png",
+      "sha256": "0880c7faa35910dd23a3982a08b48c27b4e2d77f86406c4190ddb44d56b16011"
+    },
+    {
+      "name": "96-skeleton.png",
+      "sha256": "bb51d36d40802c2bc43fb8b5003e83a92079621c783af8176566d09e515aab85"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "capabilityEvents": [],
+  "status": "pass",
+  "productionBuild": {
+    "buildId": "XWMRAiWe4OFR6UruxfXDl",
+    "mode": "next start production",
+    "port": "3002"
+  },
+  "integrity": {
+    "start": {
+      "product": {
+        "digest": "8d2f28a62b39ee8ee348fab3dcd97c74ca1332dacc2148316b47384764251ba4",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/intelligence/E1Modal.tsx",
+            "sha256": "3bfa577e5d8871b0c7d884c3616b9fbc18bf47ac4707cb42c2c13a35408e149f"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S16LifeAreas.tsx",
+            "sha256": "b4e3cb2022987c50419ea4cff772b68c6311edabf9d4b5fc49608f58643337ea"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S20CiaMemory.tsx",
+            "sha256": "e1b95ed1fb1fe0aed567ac805f2a60cd54750e9dcdc8bc765dad8f1bac718b11"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S48Intelligence.tsx",
+            "sha256": "44eb416c7b0620c700f9825bd841ccd040d6e39a8e850136b331cfaa857c612e"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S72KnowledgeGraph.tsx",
+            "sha256": "0e615a4d8e44ad031acd7ca83fdffa7e6b6224d39aa4ca36b3fe13e29d9eb39e"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S84DataSources.tsx",
+            "sha256": "920dce06848e6116fa38dd27d457a77e049cd753ea35555334c6e82691f37c54"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S90ProgressMeasurements.tsx",
+            "sha256": "39887525a35e0e1ff30acd38250b3a63e032e95f7df751142cb43489198eae3c"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S93MoodTrends.tsx",
+            "sha256": "748fd521c012851ad15853e24d6970b6e996d720e803603d2864c76f5a1420aa"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S96HealthDataView.tsx",
+            "sha256": "054ab4c9f268f603b2fad7b674a36682b2d45b7f04512cb3c107243f4bbb952f"
+          }
+        ]
+      },
+      "api": {
+        "digest": "94bc9ab391cc89aa98c1e49cad8422d10e99d2fed4a14c7b11b6ef9747af8eaa",
+        "files": [
+          {
+            "path": "package.json",
+            "sha256": "56819e030eaa265b2efac487913a75589bbf1a23edbb7e2bc2f76bfac6d48a32"
+          },
+          {
+            "path": "package-lock.json",
+            "sha256": "c98ac50e650dc57702cedcd5b7e18e5d768c1bdab211dea19237c8eaa3c7d92d"
+          },
+          {
+            "path": "next.config.ts",
+            "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+          },
+          {
+            "path": "src/app/screens/[id]/page.tsx",
+            "sha256": "fcb7be286a828ae4ee24120e2174be8dec4986a6548dd6b7bf7911501d89d416"
+          },
+          {
+            "path": "src/components/hifi/HifiPrototype.tsx",
+            "sha256": "57bf51e600ba9beacfcfe3a571898a94b816c159cbdd19ae2ae35b4fd278b5ba"
+          },
+          {
+            "path": "src/components/hifi/screens/registry.ts",
+            "sha256": "ae6ddb016c27d83073982d605ba25f26aef4afce6a5faff20ca21f0ff76912b6"
+          },
+          {
+            "path": "scripts/verify-e1-life-intelligence.mjs",
+            "sha256": "dc73defc5037ca21d8e7a286d19e3e6c9c569af4b5ac74ac514c2a1bf6842e27"
+          }
+        ]
+      },
+      "accepted": {
+        "digest": "33f17877490d746324e5dcf697691183ce0f62ecc21f7ddde836bfbec1474728",
+        "files": [
+          {
+            "sha256": "7fc7c1a537a01fc22d4f6864bfba0f18a7598c27c11c962445bc75ed55941736",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S01Splash.tsx"
+          },
+          {
+            "sha256": "f4f105308383ee2e3d3c2ad262de3d71fcb54fda618867cba7140dafc5b72cb8",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S02MotionCarousel.tsx"
+          },
+          {
+            "sha256": "a97299a7e78286794e12a3646d0952f83be47dd9808ae3cb3c93008f57caad8f",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03WelcomeSignUp.tsx"
+          },
+          {
+            "sha256": "2d8d156f73877474ea8aca6fc76e345341dd718cad7c6efc26633ed2e0bcf3b0",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03bOtpVerification.tsx"
+          },
+          {
+            "sha256": "cbdb2287950796aa8d20fe68bcd9e3b711113a1ac75a86e55f4c5e671b213152",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03cConsent.tsx"
+          },
+          {
+            "sha256": "2cb49fd2dce787c6da4d9f27cfd4739699be51ea4262370d0b4ffb37ca799ada",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03dCompleteProfile.tsx"
+          },
+          {
+            "sha256": "de5dd8f97babfbd0f43e6f453843946847b06903a52c8f296644732670d82e43",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03eWhatsappEnrollment.tsx"
+          },
+          {
+            "sha256": "a3b689f3cd975cdff3082d24acbdc17c7ee34c3cee37a29f4ca6665b28e6d3f4",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S04SignIn.tsx"
+          },
+          {
+            "sha256": "d9e8b6c68913c02b7d45f206fb8634caebcdcba461d99b60531e3a078707fcfa",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S05ForgotPassword.tsx"
+          },
+          {
+            "sha256": "445132640a1953483c0cd329e7e8bcc17afcf4f64e00d3233c12996f4801504a",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S05bResetPassword.tsx"
+          },
+          {
+            "sha256": "cea7431bcb2179be765a06e64e2e850c0109e8bbcf39c8100a90654a5a27da87",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S06GuestModePreview.tsx"
+          },
+          {
+            "sha256": "e1f1691732039869a3a9b0da09c97476fe8e90f9f7ffd4caab9390ba3da0d388",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S07CiaOnboarding.tsx"
+          },
+          {
+            "sha256": "a452750058ebcafb83858d1cd760d189e0d1666040c78bb75cce6c850bd1ff8a",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S08InitialPlanSummary.tsx"
+          },
+          {
+            "sha256": "257dddeb7ca124aa2e66d013143644c5d20fe97be943e211251d758bd5052661",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S65ForceUpdate.tsx"
+          },
+          {
+            "sha256": "32f4d7dee40bc56145f646f5685e8e76c53bf14ed743ae8de3051c7a032ee29f",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S66NotificationPermission.tsx"
+          },
+          {
+            "sha256": "33e15001c97b2925afd6b5fafc4f7e552af24675a4e50ae6fe1f4644678ffcbf",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S09CiaChat.tsx"
+          },
+          {
+            "sha256": "9cd23ce5f4336dc2195c5a674427f569ea9d1d2724d236b6d20d4c4c3cf25db0",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S10CiaVoiceInChat.tsx"
+          },
+          {
+            "sha256": "af0c299c2558075ba95632ac9b4f813281ef6fdb50d9c85be0c8e1aeb5b0c334",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S11CiaVoiceFullScreen.tsx"
+          },
+          {
+            "sha256": "7357227ac7cbb10438d98eb0fd65555aac31d5e9c36807298a2390bcfb240ff9",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S51VoiceCallHistory.tsx"
+          },
+          {
+            "sha256": "9adfa2fef3d4f6fdbc2f998586b0719a5cf7529a9a7448884da780b64c9b1399",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S74ConversationsHub.tsx"
+          },
+          {
+            "sha256": "bec3142c7b3b06352cb2224d6199523dae8747a2e480fc7dfebdbde5dba06c27",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S75DirectChat.tsx"
+          },
+          {
+            "sha256": "c3481341a3e19f8dec4aa05d1922c32b4cdb42ade261f9ba94902bd62da66a91",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S76GroupChat.tsx"
+          },
+          {
+            "sha256": "0b9d5c9f870191044c1b86e591c5286f073c5d13b2540bc82b984fc3f9b79ece",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S77MessageActions.tsx"
+          },
+          {
+            "sha256": "034f532c8ba0ce15842bd4867e9037242c6a190604579a23016165e3fcf681bc",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S79CallSummary.tsx"
+          },
+          {
+            "sha256": "2c815fba9804c11f53dacba953c1d49c1d8204dd435037b130ba5f21d9c43df0",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S99WhatsappInbox.tsx"
+          },
+          {
+            "sha256": "37bb7106c03cc81b15dc6efff65ca7001c405d71d5276f6cd4939b3abee64dd9",
+            "path": "balencia-screens/src/components/hifi/screens/health/S26FitnessDashboard.tsx"
+          },
+          {
+            "sha256": "9e48e19a957966d7523fd4e4646ac7b9694be89be724eab34ab2e025d97bc5aa",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S17MeMain.tsx"
+          },
+          {
+            "sha256": "293644cd2e1f38153fd72396bc15b0e5beb2586c965b0d7c77765c53d7db1d2f",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S18Explore.tsx"
+          },
+          {
+            "sha256": "4f910e3b30f8327d11024aceee838e538d4257e76923d12059b8206bb30f005e",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S19RpgCharacter.tsx"
+          },
+          {
+            "sha256": "46ec42d00c244c63478baaa35a0494d32519ef9784a405acd54bc2d4299fec02",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S21Settings.tsx"
+          },
+          {
+            "sha256": "00dddee99c3c8fc9a777688460a11316da047502ce9322e3c020a0ba67bfeb88",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S22ConnectedServices.tsx"
+          },
+          {
+            "sha256": "feb893846a2241849ad59bdf9be6274bcb30cb4601f84fcf86ea8f46a8a8b5b3",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S23SubscriptionBilling.tsx"
+          },
+          {
+            "sha256": "2dc4d82ae9185b7531b7acbe01c9c0a45f5b7a10d6e2ff75aecdbadd86bb23dc",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S24NotificationHistory.tsx"
+          },
+          {
+            "sha256": "d174c4b9186b964bc8facdca2dee6fd2ff1f1d6b2a3d88d1ccd2de556227382c",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S25HelpCenter.tsx"
+          },
+          {
+            "sha256": "96e58f939e7713132835e314621a26f2feffb1e112032ad9a0b45c952c9ab476",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S42CelebrationOverlay.tsx"
+          },
+          {
+            "sha256": "134d064bfef7d1d9a4b77f6ac4558a8c80beaa14fe42167501396797dd6e39c3",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S43Paywall.tsx"
+          },
+          {
+            "sha256": "0c31405581c3a4a126417336401cba3dcdbba33c367f0b902acb20e30d10c333",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S50ProfileEdit.tsx"
+          },
+          {
+            "sha256": "4382558e74cbf2da14d719cdaf3a0366c3a17e697e802eaa2190fd1f1c6c6e2d",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S68UniversalSearch.tsx"
+          },
+          {
+            "sha256": "99ab180a2ff28297e95431f9aa68ff13e7fec66465ac6a88005bf95e844cf43f",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S71AchievementGallery.tsx"
+          },
+          {
+            "sha256": "d7d8355e85b5980ff2d9c4c0355df1a4c5921cec12ae70010491c6877622e6a0",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S83BuddyProfile.tsx"
+          },
+          {
+            "sha256": "5396d02a196c1a69d1fa3cb48bbda9edf591d3ec8f261a66af792ee61edddf0a",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S92Reputation.tsx"
+          },
+          {
+            "sha256": "250fe435013c40a7060b3c91f49be39f5328c213095323c1d2072d3100fc38fb",
+            "path": "balencia-screens/src/components/hifi/screens/system/S80MusicCoach.tsx"
+          },
+          {
+            "sha256": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67",
+            "path": "balencia-screens/src/components/hifi/screens/today/S12HomeScreen.tsx"
+          },
+          {
+            "sha256": "32b1152531ee2477c6a704394172ff6b574be8bf5cfcb22e85ea7ee10be76bc3",
+            "path": "balencia-screens/src/components/hifi/screens/today/S13MissionBoard.tsx"
+          },
+          {
+            "sha256": "cb5bf50d3fc3f9f182360a7f0362235f4d09c7df4e07f6039edd02f37bef92f3",
+            "path": "balencia-screens/src/components/hifi/screens/today/S14MissionDetail.tsx"
+          },
+          {
+            "sha256": "ecd84923a6e3be9f21ab11bd8308011d93aa0e51eace5dd6a4a22fa65c8c5ebb",
+            "path": "balencia-screens/src/components/hifi/screens/today/S15CreateEditMission.tsx"
+          },
+          {
+            "sha256": "4154f1d6e1d56ca7232c636f1007f10b15d23124bb6d915d3effd67057990932",
+            "path": "balencia-screens/src/components/hifi/screens/today/S41ScheduleCalendar.tsx"
+          },
+          {
+            "sha256": "ebb9e691d2eaddae0b4a85628139b890a8eec672e8715f1726a9805f485a68d9",
+            "path": "balencia-screens/src/components/hifi/screens/today/S44WaterIntake.tsx"
+          },
+          {
+            "sha256": "7955053e92cb956bf0795a8ba9a52fb40d988ca5bf29fcb17829656d86e05811",
+            "path": "balencia-screens/src/components/hifi/screens/today/S45DailyCheckin.tsx"
+          },
+          {
+            "sha256": "f62cf6c5768ec2dc3b601f8d1fe03573bcdcfa8136b9d55720acef608a9ced64",
+            "path": "balencia-screens/src/components/hifi/screens/today/S59StreakDetails.tsx"
+          },
+          {
+            "sha256": "44571c251e6cfa83894552ce2b0d8e0910ec239295c11051c63916f721cec3ad",
+            "path": "balencia-screens/src/components/hifi/screens/today/S61RemindersTasks.tsx"
+          },
+          {
+            "sha256": "e1c75226156a37eb2f2f491ce42e40bf0dfe3e29a6da739417d7738d4f5ca090",
+            "path": "balencia-screens/src/components/hifi/screens/today/S73MissionJournal.tsx"
+          },
+          {
+            "sha256": "17a15d65f531d7941b8f5e8d441e775cee22bce1f695221c19b47896bfd6ed84",
+            "path": "balencia-screens/src/components/hifi/screens/today/S97PlansLibrary.tsx"
+          }
+        ]
+      }
+    },
+    "end": {
+      "product": {
+        "digest": "8d2f28a62b39ee8ee348fab3dcd97c74ca1332dacc2148316b47384764251ba4",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/intelligence/E1Modal.tsx",
+            "sha256": "3bfa577e5d8871b0c7d884c3616b9fbc18bf47ac4707cb42c2c13a35408e149f"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S16LifeAreas.tsx",
+            "sha256": "b4e3cb2022987c50419ea4cff772b68c6311edabf9d4b5fc49608f58643337ea"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S20CiaMemory.tsx",
+            "sha256": "e1b95ed1fb1fe0aed567ac805f2a60cd54750e9dcdc8bc765dad8f1bac718b11"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S48Intelligence.tsx",
+            "sha256": "44eb416c7b0620c700f9825bd841ccd040d6e39a8e850136b331cfaa857c612e"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S72KnowledgeGraph.tsx",
+            "sha256": "0e615a4d8e44ad031acd7ca83fdffa7e6b6224d39aa4ca36b3fe13e29d9eb39e"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S84DataSources.tsx",
+            "sha256": "920dce06848e6116fa38dd27d457a77e049cd753ea35555334c6e82691f37c54"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S90ProgressMeasurements.tsx",
+            "sha256": "39887525a35e0e1ff30acd38250b3a63e032e95f7df751142cb43489198eae3c"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S93MoodTrends.tsx",
+            "sha256": "748fd521c012851ad15853e24d6970b6e996d720e803603d2864c76f5a1420aa"
+          },
+          {
+            "path": "src/components/hifi/screens/intelligence/S96HealthDataView.tsx",
+            "sha256": "054ab4c9f268f603b2fad7b674a36682b2d45b7f04512cb3c107243f4bbb952f"
+          }
+        ]
+      },
+      "api": {
+        "digest": "94bc9ab391cc89aa98c1e49cad8422d10e99d2fed4a14c7b11b6ef9747af8eaa",
+        "files": [
+          {
+            "path": "package.json",
+            "sha256": "56819e030eaa265b2efac487913a75589bbf1a23edbb7e2bc2f76bfac6d48a32"
+          },
+          {
+            "path": "package-lock.json",
+            "sha256": "c98ac50e650dc57702cedcd5b7e18e5d768c1bdab211dea19237c8eaa3c7d92d"
+          },
+          {
+            "path": "next.config.ts",
+            "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+          },
+          {
+            "path": "src/app/screens/[id]/page.tsx",
+            "sha256": "fcb7be286a828ae4ee24120e2174be8dec4986a6548dd6b7bf7911501d89d416"
+          },
+          {
+            "path": "src/components/hifi/HifiPrototype.tsx",
+            "sha256": "57bf51e600ba9beacfcfe3a571898a94b816c159cbdd19ae2ae35b4fd278b5ba"
+          },
+          {
+            "path": "src/components/hifi/screens/registry.ts",
+            "sha256": "ae6ddb016c27d83073982d605ba25f26aef4afce6a5faff20ca21f0ff76912b6"
+          },
+          {
+            "path": "scripts/verify-e1-life-intelligence.mjs",
+            "sha256": "dc73defc5037ca21d8e7a286d19e3e6c9c569af4b5ac74ac514c2a1bf6842e27"
+          }
+        ]
+      },
+      "accepted": {
+        "digest": "33f17877490d746324e5dcf697691183ce0f62ecc21f7ddde836bfbec1474728",
+        "files": [
+          {
+            "sha256": "7fc7c1a537a01fc22d4f6864bfba0f18a7598c27c11c962445bc75ed55941736",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S01Splash.tsx"
+          },
+          {
+            "sha256": "f4f105308383ee2e3d3c2ad262de3d71fcb54fda618867cba7140dafc5b72cb8",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S02MotionCarousel.tsx"
+          },
+          {
+            "sha256": "a97299a7e78286794e12a3646d0952f83be47dd9808ae3cb3c93008f57caad8f",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03WelcomeSignUp.tsx"
+          },
+          {
+            "sha256": "2d8d156f73877474ea8aca6fc76e345341dd718cad7c6efc26633ed2e0bcf3b0",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03bOtpVerification.tsx"
+          },
+          {
+            "sha256": "cbdb2287950796aa8d20fe68bcd9e3b711113a1ac75a86e55f4c5e671b213152",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03cConsent.tsx"
+          },
+          {
+            "sha256": "2cb49fd2dce787c6da4d9f27cfd4739699be51ea4262370d0b4ffb37ca799ada",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03dCompleteProfile.tsx"
+          },
+          {
+            "sha256": "de5dd8f97babfbd0f43e6f453843946847b06903a52c8f296644732670d82e43",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S03eWhatsappEnrollment.tsx"
+          },
+          {
+            "sha256": "a3b689f3cd975cdff3082d24acbdc17c7ee34c3cee37a29f4ca6665b28e6d3f4",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S04SignIn.tsx"
+          },
+          {
+            "sha256": "d9e8b6c68913c02b7d45f206fb8634caebcdcba461d99b60531e3a078707fcfa",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S05ForgotPassword.tsx"
+          },
+          {
+            "sha256": "445132640a1953483c0cd329e7e8bcc17afcf4f64e00d3233c12996f4801504a",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S05bResetPassword.tsx"
+          },
+          {
+            "sha256": "cea7431bcb2179be765a06e64e2e850c0109e8bbcf39c8100a90654a5a27da87",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S06GuestModePreview.tsx"
+          },
+          {
+            "sha256": "e1f1691732039869a3a9b0da09c97476fe8e90f9f7ffd4caab9390ba3da0d388",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S07CiaOnboarding.tsx"
+          },
+          {
+            "sha256": "a452750058ebcafb83858d1cd760d189e0d1666040c78bb75cce6c850bd1ff8a",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S08InitialPlanSummary.tsx"
+          },
+          {
+            "sha256": "257dddeb7ca124aa2e66d013143644c5d20fe97be943e211251d758bd5052661",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S65ForceUpdate.tsx"
+          },
+          {
+            "sha256": "32f4d7dee40bc56145f646f5685e8e76c53bf14ed743ae8de3051c7a032ee29f",
+            "path": "balencia-screens/src/components/hifi/screens/auth/S66NotificationPermission.tsx"
+          },
+          {
+            "sha256": "33e15001c97b2925afd6b5fafc4f7e552af24675a4e50ae6fe1f4644678ffcbf",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S09CiaChat.tsx"
+          },
+          {
+            "sha256": "9cd23ce5f4336dc2195c5a674427f569ea9d1d2724d236b6d20d4c4c3cf25db0",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S10CiaVoiceInChat.tsx"
+          },
+          {
+            "sha256": "af0c299c2558075ba95632ac9b4f813281ef6fdb50d9c85be0c8e1aeb5b0c334",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S11CiaVoiceFullScreen.tsx"
+          },
+          {
+            "sha256": "7357227ac7cbb10438d98eb0fd65555aac31d5e9c36807298a2390bcfb240ff9",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S51VoiceCallHistory.tsx"
+          },
+          {
+            "sha256": "9adfa2fef3d4f6fdbc2f998586b0719a5cf7529a9a7448884da780b64c9b1399",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S74ConversationsHub.tsx"
+          },
+          {
+            "sha256": "bec3142c7b3b06352cb2224d6199523dae8747a2e480fc7dfebdbde5dba06c27",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S75DirectChat.tsx"
+          },
+          {
+            "sha256": "c3481341a3e19f8dec4aa05d1922c32b4cdb42ade261f9ba94902bd62da66a91",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S76GroupChat.tsx"
+          },
+          {
+            "sha256": "0b9d5c9f870191044c1b86e591c5286f073c5d13b2540bc82b984fc3f9b79ece",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S77MessageActions.tsx"
+          },
+          {
+            "sha256": "034f532c8ba0ce15842bd4867e9037242c6a190604579a23016165e3fcf681bc",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S79CallSummary.tsx"
+          },
+          {
+            "sha256": "2c815fba9804c11f53dacba953c1d49c1d8204dd435037b130ba5f21d9c43df0",
+            "path": "balencia-screens/src/components/hifi/screens/cia/S99WhatsappInbox.tsx"
+          },
+          {
+            "sha256": "37bb7106c03cc81b15dc6efff65ca7001c405d71d5276f6cd4939b3abee64dd9",
+            "path": "balencia-screens/src/components/hifi/screens/health/S26FitnessDashboard.tsx"
+          },
+          {
+            "sha256": "9e48e19a957966d7523fd4e4646ac7b9694be89be724eab34ab2e025d97bc5aa",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S17MeMain.tsx"
+          },
+          {
+            "sha256": "293644cd2e1f38153fd72396bc15b0e5beb2586c965b0d7c77765c53d7db1d2f",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S18Explore.tsx"
+          },
+          {
+            "sha256": "4f910e3b30f8327d11024aceee838e538d4257e76923d12059b8206bb30f005e",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S19RpgCharacter.tsx"
+          },
+          {
+            "sha256": "46ec42d00c244c63478baaa35a0494d32519ef9784a405acd54bc2d4299fec02",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S21Settings.tsx"
+          },
+          {
+            "sha256": "00dddee99c3c8fc9a777688460a11316da047502ce9322e3c020a0ba67bfeb88",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S22ConnectedServices.tsx"
+          },
+          {
+            "sha256": "feb893846a2241849ad59bdf9be6274bcb30cb4601f84fcf86ea8f46a8a8b5b3",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S23SubscriptionBilling.tsx"
+          },
+          {
+            "sha256": "2dc4d82ae9185b7531b7acbe01c9c0a45f5b7a10d6e2ff75aecdbadd86bb23dc",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S24NotificationHistory.tsx"
+          },
+          {
+            "sha256": "d174c4b9186b964bc8facdca2dee6fd2ff1f1d6b2a3d88d1ccd2de556227382c",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S25HelpCenter.tsx"
+          },
+          {
+            "sha256": "96e58f939e7713132835e314621a26f2feffb1e112032ad9a0b45c952c9ab476",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S42CelebrationOverlay.tsx"
+          },
+          {
+            "sha256": "134d064bfef7d1d9a4b77f6ac4558a8c80beaa14fe42167501396797dd6e39c3",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S43Paywall.tsx"
+          },
+          {
+            "sha256": "0c31405581c3a4a126417336401cba3dcdbba33c367f0b902acb20e30d10c333",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S50ProfileEdit.tsx"
+          },
+          {
+            "sha256": "4382558e74cbf2da14d719cdaf3a0366c3a17e697e802eaa2190fd1f1c6c6e2d",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S68UniversalSearch.tsx"
+          },
+          {
+            "sha256": "99ab180a2ff28297e95431f9aa68ff13e7fec66465ac6a88005bf95e844cf43f",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S71AchievementGallery.tsx"
+          },
+          {
+            "sha256": "d7d8355e85b5980ff2d9c4c0355df1a4c5921cec12ae70010491c6877622e6a0",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S83BuddyProfile.tsx"
+          },
+          {
+            "sha256": "5396d02a196c1a69d1fa3cb48bbda9edf591d3ec8f261a66af792ee61edddf0a",
+            "path": "balencia-screens/src/components/hifi/screens/profile/S92Reputation.tsx"
+          },
+          {
+            "sha256": "250fe435013c40a7060b3c91f49be39f5328c213095323c1d2072d3100fc38fb",
+            "path": "balencia-screens/src/components/hifi/screens/system/S80MusicCoach.tsx"
+          },
+          {
+            "sha256": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67",
+            "path": "balencia-screens/src/components/hifi/screens/today/S12HomeScreen.tsx"
+          },
+          {
+            "sha256": "32b1152531ee2477c6a704394172ff6b574be8bf5cfcb22e85ea7ee10be76bc3",
+            "path": "balencia-screens/src/components/hifi/screens/today/S13MissionBoard.tsx"
+          },
+          {
+            "sha256": "cb5bf50d3fc3f9f182360a7f0362235f4d09c7df4e07f6039edd02f37bef92f3",
+            "path": "balencia-screens/src/components/hifi/screens/today/S14MissionDetail.tsx"
+          },
+          {
+            "sha256": "ecd84923a6e3be9f21ab11bd8308011d93aa0e51eace5dd6a4a22fa65c8c5ebb",
+            "path": "balencia-screens/src/components/hifi/screens/today/S15CreateEditMission.tsx"
+          },
+          {
+            "sha256": "4154f1d6e1d56ca7232c636f1007f10b15d23124bb6d915d3effd67057990932",
+            "path": "balencia-screens/src/components/hifi/screens/today/S41ScheduleCalendar.tsx"
+          },
+          {
+            "sha256": "ebb9e691d2eaddae0b4a85628139b890a8eec672e8715f1726a9805f485a68d9",
+            "path": "balencia-screens/src/components/hifi/screens/today/S44WaterIntake.tsx"
+          },
+          {
+            "sha256": "7955053e92cb956bf0795a8ba9a52fb40d988ca5bf29fcb17829656d86e05811",
+            "path": "balencia-screens/src/components/hifi/screens/today/S45DailyCheckin.tsx"
+          },
+          {
+            "sha256": "f62cf6c5768ec2dc3b601f8d1fe03573bcdcfa8136b9d55720acef608a9ced64",
+            "path": "balencia-screens/src/components/hifi/screens/today/S59StreakDetails.tsx"
+          },
+          {
+            "sha256": "44571c251e6cfa83894552ce2b0d8e0910ec239295c11051c63916f721cec3ad",
+            "path": "balencia-screens/src/components/hifi/screens/today/S61RemindersTasks.tsx"
+          },
+          {
+            "sha256": "e1c75226156a37eb2f2f491ce42e40bf0dfe3e29a6da739417d7738d4f5ca090",
+            "path": "balencia-screens/src/components/hifi/screens/today/S73MissionJournal.tsx"
+          },
+          {
+            "sha256": "17a15d65f531d7941b8f5e8d441e775cee22bce1f695221c19b47896bfd6ed84",
+            "path": "balencia-screens/src/components/hifi/screens/today/S97PlansLibrary.tsx"
+          }
+        ]
+      }
+    }
+  },
+  "screenshotPromotion": "promoted-after-all-assertions"
+}

@@ -98,6 +98,10 @@ export interface HealthMetric {
   id: 'heart-rate' | 'steps' | 'sleep'
   value: string
   unit: string
+  // S12-V02 — 7-point Living-Line trend + a visible in-range sign (never colour alone).
+  trend: number[]
+  status: 'in-range' | 'neutral'
+  milestone?: boolean
 }
 
 export interface QuickAction {
@@ -541,6 +545,11 @@ export const domainProgress: DomainProgress[] = [
   { domain: 'meditation',    activeMissions: 1, weekDelta: 1,  monthDelta: 4 },
 ]
 
+// S16-V02 — 7-week Life Power history for the Life Areas trajectory sparkline (latest = user.lifePower).
+export const lifePowerHistory = [402, 418, 431, 440, 455, 472, 487]
+// Completed missions count (Me [17] stats row).
+export const missionsCompleted = 12
+
 export const missions: Mission[] = [
   {
     id: '1', name: 'Run a half marathon', domain: 'fitness', domains: ['fitness', 'nutrition'], type: 'main',
@@ -707,10 +716,14 @@ export const homeMoodChips: MoodChip[] = [
 ]
 
 export const healthMetrics: HealthMetric[] = [
-  { id: 'heart-rate', value: '72', unit: 'bpm' },
-  { id: 'steps', value: '1,204', unit: 'steps' },
-  { id: 'sleep', value: '7.2', unit: 'hrs' },
+  { id: 'heart-rate', value: '72', unit: 'bpm', trend: [70, 72, 71, 73, 72, 74, 72], status: 'in-range' },
+  { id: 'steps', value: '1,204', unit: 'steps', trend: [180, 420, 600, 760, 940, 1080, 1204], status: 'neutral' },
+  { id: 'sleep', value: '7.2', unit: 'hrs', trend: [6.4, 7, 6.8, 7.4, 7.1, 6.9, 7.2], status: 'in-range', milestone: true },
 ]
+
+// S12-V01 — one warm, non-shaming SIA read for the Life Balance hero.
+export const homeBalanceRead =
+  'Strongest in fitness this week. Career is early — one small step moves it.'
 
 export const quickActions: QuickAction[] = [
   { id: 'breathe', label: 'Breathe' },

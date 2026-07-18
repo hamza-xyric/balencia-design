@@ -1,0 +1,3 @@
+# H1 builder A — S39/S40/S46
+
+Terra write packet. Read BATCH, FROZEN-MATRIX, VERIFICATION-MATRIX, recon-a, active specs, canon/catalog, and current owned files. Implement every frozen state and assertion for S39/S40/S46 only. Allowed product files: `S39Leaderboard.tsx`, `S40CommunityRooms.tsx`, `S46Accountability.tsx`; write evidence only to `evidence/builder-a.md`. Denied: all other product/shared/API/registry/spec/ledger/git/browser/server/Figma/external files/actions. Use existing kit patterns; code-native assets only. Run scoped Prettier, TypeScript, ESLint, and owned-file `git diff --check`. Stop on source/privacy/safety/terminology/shared-contract conflict or any need outside allowed files.

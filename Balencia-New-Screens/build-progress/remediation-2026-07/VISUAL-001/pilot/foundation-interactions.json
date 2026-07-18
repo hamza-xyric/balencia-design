@@ -1,0 +1,96 @@
+{
+  "auditedAt": "2026-07-10T06:35:05.002Z",
+  "baseURL": "http://localhost:3001",
+  "reducedMotion": "reduce",
+  "checks": [
+    {
+      "name": "CIA state/size/reduced-motion grid",
+      "status": "pass",
+      "evidence": {
+        "fixtures": 15,
+        "signatureVariants": 36,
+        "runningAnimations": 0,
+        "runningTransitions": 0
+      }
+    },
+    {
+      "name": "Action hover/focus/reduced motion",
+      "status": "pass",
+      "evidence": {
+        "hover": "#AA3A08",
+        "focus": "paper gap + orange ring",
+        "transitionDuration": "0s"
+      }
+    },
+    {
+      "name": "Page Visibility pause/resume",
+      "status": "pass",
+      "evidence": {
+        "activeBeforeHide": 1,
+        "dataCiaPaused": true,
+        "computedPaused": true,
+        "resumed": true
+      }
+    },
+    {
+      "name": "Quick action modal keyboard contract",
+      "status": "pass",
+      "evidence": {
+        "initialFocus": "Close",
+        "trap": true,
+        "escape": true,
+        "focusRestored": true
+      }
+    },
+    {
+      "name": "Daily check-in native slider",
+      "status": "pass",
+      "evidence": {
+        "targetHeight": 44,
+        "visibleFocus": true,
+        "initialFillRatio": 0.6666343167701864,
+        "minimumValue": 1,
+        "minimumFillWidth": 0
+      }
+    },
+    {
+      "name": "Life Power sentinels",
+      "status": "pass",
+      "evidence": {
+        "routes": [
+          "12",
+          "13",
+          "16",
+          "19"
+        ],
+        "score": 487,
+        "domains": 10
+      }
+    },
+    {
+      "name": "Paywall action ethics",
+      "status": "pass",
+      "evidence": {
+        "primaryActions": 1,
+        "equalExit": true
+      }
+    },
+    {
+      "name": "ConsentRail privacy-safe default",
+      "status": "pass",
+      "evidence": {
+        "route": "09",
+        "controls": [
+          "Source",
+          "Retention",
+          "Export",
+          "Revoke",
+          "Delete"
+        ]
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "status": "pass"
+}

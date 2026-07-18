@@ -1,0 +1,3 @@
+# H1 recon C — feed, webinars, groups
+
+Read-only Luna packet. Inspect H1 BATCH/matrix/audit, active specs and live code for `91,94,95`, canon/catalog, approved Squad/Community terminology, privacy/moderation/media authority, shared consumers, image ledger, and G1 acceptance/sentinels. Reconcile composer audience/proof consent, moderation/own-delete, webinar count/schedule/share/motion, group taxonomy/count/membership/route-history consent, exact states/interactions, 390×844/125%, assets, and deterministic fixtures/assertions. Write only `evidence/recon-c.md`. No product/git/browser/server/Figma/external mutation. Escalate terminology/privacy/moderation/source conflicts to Sol.

@@ -1,0 +1,163 @@
+{
+  "auditedAt": "2026-07-10T09:33:50.895Z",
+  "baseURL": "http://localhost:3001",
+  "reducedMotion": "reduce",
+  "checks": [
+    {
+      "name": "01 splash",
+      "status": "pass",
+      "evidence": {
+        "announcement": 1,
+        "officialAsset": true,
+        "activeAnimations": 0
+      }
+    },
+    {
+      "name": "02 carousel",
+      "status": "pass",
+      "evidence": {
+        "slides": 4,
+        "keyboardTabs": true,
+        "swipe": true,
+        "routes": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "03 sign-up sentinel",
+      "status": "pass",
+      "evidence": {
+        "loadingWidthLocked": true,
+        "providerHonesty": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "03b OTP",
+      "status": "pass",
+      "evidence": {
+        "fixtures": 9,
+        "paste": true,
+        "backspace": true,
+        "rateLimitExpires": true,
+        "widthLocked": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "03c consent",
+      "status": "pass",
+      "evidence": {
+        "native": true,
+        "optionalNeutral": true,
+        "fixtures": 5,
+        "widthLocked": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "03d profile",
+      "status": "pass",
+      "evidence": {
+        "readiness": "0→2",
+        "privacyControls": 9,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "03e optional channel",
+      "status": "pass",
+      "evidence": {
+        "explicitOptIn": true,
+        "privacyControls": 9,
+        "providerNeutral": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    },
+    {
+      "name": "04 sign-in",
+      "status": "pass",
+      "evidence": {
+        "fixtures": 6,
+        "providerHonesty": true,
+        "stateSeparation": true,
+        "contrast": {
+          "normal": 7.036515012974097,
+          "hover": 6.082880451141361,
+          "pressed": 10.522855365170038
+        }
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "screenshots": [
+    "01-default-reduced.png",
+    "02-next-focus.png",
+    "02-slide-1.png",
+    "02-slide-2.png",
+    "02-slide-3.png",
+    "02-slide-4.png",
+    "03-default.png",
+    "03-error.png",
+    "03-loading.png",
+    "03-password-visible.png",
+    "03b-default.png",
+    "03b-expired.png",
+    "03b-invalid.png",
+    "03b-loading.png",
+    "03b-offline.png",
+    "03b-partial.png",
+    "03b-rate-limit-ended.png",
+    "03b-rate-limited.png",
+    "03b-ready.png",
+    "03b-resend-success.png",
+    "03b-success.png",
+    "03c-default.png",
+    "03c-loading.png",
+    "03c-offline.png",
+    "03c-partial.png",
+    "03c-privacy-focus.png",
+    "03c-ready.png",
+    "03c-success.png",
+    "03d-complete.png",
+    "03d-default.png",
+    "03e-code-preview-complete.png",
+    "03e-default.png",
+    "03e-opted-valid.png",
+    "03e-verify-unavailable.png",
+    "04-default.png",
+    "04-email-focus.png",
+    "04-filled.png",
+    "04-loading.png",
+    "04-offline.png",
+    "04-provider-unavailable.png",
+    "04-rate-limit.png",
+    "04-wrong-credentials.png"
+  ],
+  "status": "pass"
+}

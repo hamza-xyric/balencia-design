@@ -30,6 +30,17 @@ const toneBlacklist = [
   { pattern: /\bfinally\b/i, label: 'finally' },
   { pattern: /\bno excuses\b/i, label: 'no excuses' },
 ]
+const ciaGuardedPathPatterns = [
+  /^src\/app\/screens\//,
+  /^src\/components\/hifi\//,
+  /^src\/data\/screens\.ts$/,
+]
+const fillerBlacklist = [
+  { pattern: /\blorem ipsum\b/i, label: 'lorem ipsum' },
+  { pattern: /\bTBD\b/, label: 'TBD' },
+  { pattern: /Coming in a future batch/i, label: 'future batch placeholder' },
+  { pattern: /generic filler/i, label: 'generic filler' },
+]
 
 function fail(message) {
   console.error(`verify:copy failed: ${message}`)
@@ -99,10 +110,24 @@ function checkSentenceCase(relativePath, value, context) {
   }
 }
 
+function isSentenceContinuation(source, matchIndex) {
+  // Text resuming after an inline </span> continues its sentence
+  // (e.g. `Your daily <span …>whole</span> state`).
+  if (source.slice(Math.max(0, matchIndex - 6), matchIndex + 1) === '</span>') return true
+  // A mid-sentence emphasis word inside <span className="text-emphasis">.
+  const tagStart = source.lastIndexOf('<', matchIndex)
+  if (tagStart !== -1) {
+    const tag = source.slice(tagStart, matchIndex + 1)
+    if (/^<span\b[^>]*text-emphasis/.test(tag)) return true
+  }
+  return false
+}
+
 function checkVisibleJsxText(relativePath, source) {
   const matches = [...source.matchAll(/>([^<>{}\n]*[A-Za-z][^<>{}\n]*)</g)]
   for (const match of matches) {
     if (source[match.index - 1] === '=') continue
+    if (isSentenceContinuation(source, match.index)) continue
     checkSentenceCase(relativePath, match[1], 'visible JSX text')
   }
 }
@@ -136,6 +161,20 @@ for (const filePath of files) {
   const source = stripComments(rawSource)
   const screen = screenStatuses.get(filePath)
   const isStartedScreen = screen && screen.status !== 'not-started'
+  const normalizedPath = relativePath.replaceAll(path.sep, '/')
+  const isCiaGuarded = ciaGuardedPathPatterns.some(pattern => pattern.test(normalizedPath))
+
+  if (isCiaGuarded && /\bSIA\b/i.test(source)) {
+    fail(`${relativePath} contains legacy SIA naming in new prototype content; use CIA`)
+  }
+
+  if (isCiaGuarded) {
+    for (const term of fillerBlacklist) {
+      if (term.pattern.test(source)) {
+        fail(`${relativePath} contains ${term.label}; render source-specific content or mark the screen not-started`)
+      }
+    }
+  }
 
   if (source.includes('Coming in a future batch')) {
     if (isStartedScreen) {

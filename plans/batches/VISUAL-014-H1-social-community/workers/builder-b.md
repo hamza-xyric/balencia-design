@@ -1,0 +1,3 @@
+# H1 builder B — S47/S64/S78/S82
+
+Terra write packet. Read BATCH, FROZEN-MATRIX, VERIFICATION-MATRIX, recon-b, active specs, canon/catalog, and current owned files. Implement every frozen state and assertion for S47/S64/S78/S82 only. Allowed product files: `S47Competitions.tsx`, `S64ReportBlock.tsx`, `S78ReportsCenter.tsx`, `S82AccountabilityContract.tsx`; write evidence only to `evidence/builder-b.md`. Denied: all other product/shared/API/registry/spec/ledger/git/browser/server/Figma/external files/actions. Preserve S89 sentinel; code-native assets only. Run scoped Prettier, TypeScript, ESLint, and owned-file `git diff --check`. Stop on source/privacy/moderation/safety/coercion/shared-contract conflict or any need outside allowed files.

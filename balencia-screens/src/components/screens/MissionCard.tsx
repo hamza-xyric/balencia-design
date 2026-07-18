@@ -2,15 +2,15 @@ import type { HTMLAttributes } from 'react'
 import { Flame, Pin } from 'lucide-react'
 import { DomainTag } from '@/components/design-system/DomainTag'
 import type { Mission } from '@/data/mock'
+import { GaugeRing } from '@/components/charts/GaugeRing'
 import { ChainProgressBar } from './ChainProgressBar'
 import { MissionTypeBadge } from './MissionTypeBadge'
-import { ProgressRing } from './ProgressRing'
 
 type MissionCardProps = HTMLAttributes<HTMLDivElement> & {
   mission: Mission
 }
 
-export function MissionCard({ mission, className = '', ...props }: MissionCardProps) {
+export function MissionCard({ mission, className = '', style, ...props }: MissionCardProps) {
   const domains = mission.domains ?? [mission.domain]
   const difficulty = mission.difficulty ?? 'easy'
   const difficultyClass = {
@@ -22,11 +22,12 @@ export function MissionCard({ mission, className = '', ...props }: MissionCardPr
   return (
     <article
       className={[
-        'relative rounded-xl border border-alpha-white-06 bg-ink-brown-800 p-6 shadow-1 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]',
+        'relative rounded-xl border border-alpha-white-06 bg-ink-brown-800 p-6 transition-transform duration-[var(--dur-fast)] active:scale-[0.98]',
         mission.status === 'completed' ? 'opacity-70' : '',
         mission.status === 'paused' ? 'opacity-60' : '',
         className,
       ].filter(Boolean).join(' ')}
+      style={{ boxShadow: 'var(--edge-highlight), var(--shadow-1)', ...style }}
       aria-label={`${mission.name}, ${Math.round(mission.progress * 100)}% complete, tap to view details`}
       {...props}
     >
@@ -35,7 +36,7 @@ export function MissionCard({ mission, className = '', ...props }: MissionCardPr
       )}
       <div className="flex gap-3">
         <div className="flex w-16 shrink-0 items-center justify-center">
-          <ProgressRing progress={mission.progress} size={36} />
+          <GaugeRing progress={mission.progress} size={36} />
         </div>
         <div className="min-w-0 flex-1 pr-2">
           <h2 className="text-body font-semibold leading-[22px] text-white">

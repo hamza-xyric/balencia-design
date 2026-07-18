@@ -1,0 +1,4094 @@
+{
+  "auditedAt": "2026-07-15T19:06:02.151Z",
+  "baseURL": "http://localhost:3002",
+  "command": "Usage: node scripts/verify-d2-profile-commercial.mjs <baseURL> <out-json> <shots-dir>",
+  "hostViewport": {
+    "width": 1440,
+    "height": 1000,
+    "deviceScaleFactor": 1
+  },
+  "phoneFrame": {
+    "width": 390,
+    "height": 844
+  },
+  "primaryReducedMotion": "reduce",
+  "productionBuild": {
+    "origin": "http://localhost:3002",
+    "port": "3002",
+    "mode": "next start production",
+    "buildId": "BkBidMSJRPC2-G9ymoOyL",
+    "buildIdMtime": "2026-07-15T19:02:26.175Z",
+    "newestBoundSource": "src/app/layout.tsx",
+    "newestBoundSourceMtime": "2026-07-12T21:37:54.024Z",
+    "servedHTMLSha256": "78250a14fdc7cf200fc7458f40d61b2f00911e95b4a74dc9367c54001bc7a2f5"
+  },
+  "navigationIsolation": {
+    "strategy": "new context per case + about:blank + Chromium origin clear + cookie clear + exact query fixture + unique __d2audit nonce + two RAFs",
+    "contexts": 80,
+    "uniqueNonces": 80
+  },
+  "integrity": {
+    "start": {
+      "product": {
+        "digest": "dc366e3ceea9d970bf9d9008cbc06367aac61458cfc5e43f276ac107147d9696",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/profile/S19RpgCharacter.tsx",
+            "sha256": "4f910e3b30f8327d11024aceee838e538d4257e76923d12059b8206bb30f005e"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S42CelebrationOverlay.tsx",
+            "sha256": "96e58f939e7713132835e314621a26f2feffb1e112032ad9a0b45c952c9ab476"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S43Paywall.tsx",
+            "sha256": "134d064bfef7d1d9a4b77f6ac4558a8c80beaa14fe42167501396797dd6e39c3"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S68UniversalSearch.tsx",
+            "sha256": "4382558e74cbf2da14d719cdaf3a0366c3a17e697e802eaa2190fd1f1c6c6e2d"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S71AchievementGallery.tsx",
+            "sha256": "99ab180a2ff28297e95431f9aa68ff13e7fec66465ac6a88005bf95e844cf43f"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S83BuddyProfile.tsx",
+            "sha256": "d7d8355e85b5980ff2d9c4c0355df1a4c5921cec12ae70010491c6877622e6a0"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S92Reputation.tsx",
+            "sha256": "5396d02a196c1a69d1fa3cb48bbda9edf591d3ec8f261a66af792ee61edddf0a"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/index.ts",
+            "sha256": "d25759967ff33da151ea127b003079a4ed013e7afa818ca10c26bc12c7675554"
+          }
+        ]
+      },
+      "api": {
+        "digest": "6141a3a67cfa4c60437a696da589bc439229437791cfd1628de92397d056dc8a",
+        "files": [
+          {
+            "path": "next.config.ts",
+            "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+          },
+          {
+            "path": "package-lock.json",
+            "sha256": "c98ac50e650dc57702cedcd5b7e18e5d768c1bdab211dea19237c8eaa3c7d92d"
+          },
+          {
+            "path": "package.json",
+            "sha256": "56819e030eaa265b2efac487913a75589bbf1a23edbb7e2bc2f76bfac6d48a32"
+          },
+          {
+            "path": "postcss.config.mjs",
+            "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+          },
+          {
+            "path": "scripts/verify-d2-profile-commercial.mjs",
+            "sha256": "4c25bb950b2a3452d866d86a71f02f94d8cfdc21337386ffd8a947185045441c"
+          },
+          {
+            "path": "src/app/globals.css",
+            "sha256": "5cf1f1fa683add0fb80156f355d6b86b98a629782326c2d75c13aeec2af1b840"
+          },
+          {
+            "path": "src/app/layout.tsx",
+            "sha256": "0330526f534505bd63b830942c44648dcf49ada5d0d482a72e39bf234ff03540"
+          },
+          {
+            "path": "src/app/screens/[id]/page.tsx",
+            "sha256": "fcb7be286a828ae4ee24120e2174be8dec4986a6548dd6b7bf7911501d89d416"
+          },
+          {
+            "path": "src/components/hifi/HifiPrototype.tsx",
+            "sha256": "57bf51e600ba9beacfcfe3a571898a94b816c159cbdd19ae2ae35b4fd278b5ba"
+          },
+          {
+            "path": "src/components/hifi/kit/HifiShell.tsx",
+            "sha256": "466eb88667d202da25ee5b04749bb93a78ecf30135a8d8d0239caeba5d9bb257"
+          },
+          {
+            "path": "src/components/hifi/kit/back-control.tsx",
+            "sha256": "561e9a580bb23361478c1d85fea9be29fa3f3d83a8b60a1c886eec2dfc7f6aed"
+          },
+          {
+            "path": "src/components/hifi/kit/buttons.tsx",
+            "sha256": "f875adfa7e66e884157699319e074cd0192f1605d2206e29bb0e57507945a168"
+          },
+          {
+            "path": "src/components/hifi/kit/chips.tsx",
+            "sha256": "e9ef348cd7166ff2eefdf43ff574ce9721207d3e59e4e83491d2d8945deab20a"
+          },
+          {
+            "path": "src/components/hifi/kit/chrome.tsx",
+            "sha256": "4ed33c760e7e77d1ceef8fd71a2906c00f864ec1f04604eeb7f95e6a32d6d65b"
+          },
+          {
+            "path": "src/components/hifi/kit/cia-composer.tsx",
+            "sha256": "9512c19937c401cb773553cfd90f10244a7f1f3e3a6031785c50bfc4fd495d72"
+          },
+          {
+            "path": "src/components/hifi/kit/cia-orb.tsx",
+            "sha256": "e6322d25a84a757867c6b0a28664599c3c04a8f6d506ca848778f5729060fd2c"
+          },
+          {
+            "path": "src/components/hifi/kit/cia.tsx",
+            "sha256": "b56d2169e395e5b8211bd2dabd6bd5139249ee547c5d5947b0b7112ac92cfb23"
+          },
+          {
+            "path": "src/components/hifi/kit/core.ts",
+            "sha256": "f6cddff8b0f2843f7493b7f16c806136aa06d24050b1d82e48132df14945a1ad"
+          },
+          {
+            "path": "src/components/hifi/kit/data.tsx",
+            "sha256": "583de2ee5bae773d33d1e924841d906cc9d136eed1c53eb1f0cb146b852d820b"
+          },
+          {
+            "path": "src/components/hifi/kit/glass-pill-input.tsx",
+            "sha256": "79f15a5e3b6034b4daddf57818f2f85a3511e9ef11f1651bab93cdc8aa7b58ed"
+          },
+          {
+            "path": "src/components/hifi/kit/index.ts",
+            "sha256": "ec2c76ed6a70b6d765cbf5de89a060f4c47a35a863be0d74bedd27138b0d65c1"
+          },
+          {
+            "path": "src/components/hifi/kit/paywall.tsx",
+            "sha256": "df392c03cb1f7b255b646f3c65f6f52adfdd0d96d45b7fcfab7c51b44e28d250"
+          },
+          {
+            "path": "src/components/hifi/kit/prototype-action-sheet.tsx",
+            "sha256": "90bacea9a0b159c1c62f4b9cb82ca4d9a0ae9e5ddea0a4651b47d2589255bfef"
+          },
+          {
+            "path": "src/components/hifi/kit/signature-icons.tsx",
+            "sha256": "6bb01f34e18cabdcce301bde6ad9581384ad71b73c9b9a6e6484d631bf2291ab"
+          },
+          {
+            "path": "src/components/hifi/kit/surfaces.tsx",
+            "sha256": "a8b32ce990d6f710e67e6bcf98b86cdff6b0ff56e0ed5d21dd399a05e55d54b4"
+          },
+          {
+            "path": "src/components/hifi/kit/system.tsx",
+            "sha256": "2b4024b8b198a935f30143c5e69b39c57f9c9581936a947140e86b64bd37b2d5"
+          },
+          {
+            "path": "src/components/hifi/screens/registry.ts",
+            "sha256": "ae6ddb016c27d83073982d605ba25f26aef4afce6a5faff20ca21f0ff76912b6"
+          },
+          {
+            "path": "src/components/layout/PhoneFrame.tsx",
+            "sha256": "f80f22e22b0f2399cdf9c18bf7f53b519b71914046d49ed6ac9560f94acb1104"
+          },
+          {
+            "path": "src/components/layout/ScreenShell.tsx",
+            "sha256": "74ee8aef4a0304df4ceb770cb46fb8bfc89e29ac5c6493e50ecb5c0f6b9d7c9e"
+          },
+          {
+            "path": "src/components/layout/TabBar.tsx",
+            "sha256": "473c4f8dd32351d6a90257828bb8eefd5713319ab8c02eab398d12f16ad1287c"
+          },
+          {
+            "path": "src/data/domains.ts",
+            "sha256": "d24318e68f9adb3b661c2e90f7d15420399ad782424d6566cf179717ae9247c8"
+          },
+          {
+            "path": "src/data/hifi/persona.ts",
+            "sha256": "438e012e77ba2f8990c73785ff304e70e9594a3d38992f8e19e657a37d9de56e"
+          },
+          {
+            "path": "src/data/mock.ts",
+            "sha256": "0480a6fd735fbf5f55e4c16f96e2d91254eefd2b0ee9dc6ce595e1020bc66106"
+          },
+          {
+            "path": "src/data/screens.ts",
+            "sha256": "0f1bb06441e3e57015235ee86278b9c63f6934508cf804aba43bacb9e65aeaaf"
+          }
+        ]
+      },
+      "authority": {
+        "digest": "67241362f43f0c77d4fe385e5625a57ee5915064073010d632fee4999b6fb4fa",
+        "files": [
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/DECISIONS.md",
+            "sha256": "e5a055d9f0d2a376cb3c2c90ca8699102fc0a3b7b83b9a03de507b80778214ad"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/REFERENCE-DIRECTION.md",
+            "sha256": "9d5fcb9ea64a2721f43c2cc4ceab7509cb8985468e2d4680e51d0c69c68ecf1e"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/audit/D2-profile-commercial.md",
+            "sha256": "a253ab18f8168d99f229b5e5f15141d8268927bae3cc178d731d08fbaf508a82"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPACT-CANON.md",
+            "sha256": "73ecbcbc2b1756ddf94f78962c2751ef06d3b39bb52338e1ef87d76f443040b2"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPONENT-CATALOG.md",
+            "sha256": "6a176393692891879d98ec220c4ae5ea0eb8b8ff23f61a8959ae88dd9585aa4f"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/19-rpg-character.md",
+            "sha256": "1d2de4431c8fd709b20dc6740e31c85cf1f67ffcfe5b35bc540fa5502ca73e2e"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/42-celebration-overlay.md",
+            "sha256": "f4352808920f02a96d12195f562a6125b6791fdfd65571e3e6fb63341d5757d3"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/43-paywall-upgrade.md",
+            "sha256": "3eaf44df8088b6766b08c3fb6d8cb35408d55f52d9a63ea0e0cbb81a05609075"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/68-universal-search.md",
+            "sha256": "2ece48c9647c05f082cdd6e209cf8e010ae77d96c096662e84331bc09e597a96"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/71-achievement-gallery.md",
+            "sha256": "8ac5aa4d793da98db410b2472f7035873e54b0714499166573ce3ea8c0c513ad"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/83-social-buddy-profile.md",
+            "sha256": "682cb51a700249d328f3c38210ec392c51c5cfdea4f7df5c255b0a2ec82e916e"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/92-reputation.md",
+            "sha256": "17fd57a45555f31ff6608b034d4ad90060479945f87b37d566e7adf3e7871f89"
+          },
+          {
+            "path": "../RPG_SYSTEM_DESIGN.md",
+            "sha256": "f5b80ae241d1bde669c5070c5a47f4c2ec5837f0708014c26ac2f3c474781de9"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/BATCH.md",
+            "sha256": "a3d397ecfa5b1689e09301f7269a1c2f6811286f45885557f38244c6e95a657c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/VERIFICATION-MATRIX.md",
+            "sha256": "94b3c7ccfceb06f7fee1ce959902e0433eb583fe98e2bb610e4ecb50e1f07d51"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/ACCEPTED-D1-SENTINELS-BEFORE.sha256",
+            "sha256": "56b50472e4bdd6bb73547f9b4207444aeda423c0552d0cba1e5f8676f7ce1a05"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/ASSET-DISPOSITION.md",
+            "sha256": "a9ec221d65187253452de60aa8755b3f6a21eee64ff59ae8cba76f3a64b49ca6"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/BEFORE-CAPTURE-MANIFEST.md",
+            "sha256": "0c3e24420a37092747221f018369c9a1c1171405570de8f9d7b9f3d4ffd777bc"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/BEFORE-SOURCE.md",
+            "sha256": "6d85e8cf42ee2a949022ed17df3fefcc6b77dde5c149cdbd54667e342a8ef73f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/builder-a.md",
+            "sha256": "b2577984494ae8a189189ae832fdaff38d80beb025607b27cbbe7ac53b2d0b4c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/builder-b.md",
+            "sha256": "f101af5fa0b11e8818ae187bbd240b42d4f6ffcfb60eb766e740aa8ecf10fb68"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/builder-c.md",
+            "sha256": "b048cf219ecbc8dcd560d188a3aac252ccd8912856260fc98ed8c4c90b5fdad2"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/recon-a.md",
+            "sha256": "50e82d951d391f30fc366a16e397f8f834a2271929a30d6c384af9d71954ad6f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/recon-b.md",
+            "sha256": "112ae6cb677645b65705699eb983732fe9b039a6aba55ac4cb4c58f36f4189fe"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/recon-c.md",
+            "sha256": "8735501a3cff7f986ebcfd234cfc7805ac353dc2c38498923cf248afc18f2f6b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-celebration-polish-final.md",
+            "sha256": "0bcee6d4f9976b1dc4756b6d8b897e454ae1a5cbab1c8981adb46f84f68e771b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-design-final.md",
+            "sha256": "630ce04be2efec7acd4a33ae484403c3d3ac699a1dd6d23173c05c21c4f84a2a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-rendered-filter-visibility.md",
+            "sha256": "64c247ee6fce5c08c969d58c27c8ff49bd3faccf2429df34314c9fdc76ec1671"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-search-final.md",
+            "sha256": "f9f0758635d31356a212d0356c02939151ec085dc57c5300b982f5d43662a9bb"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-trust-final.md",
+            "sha256": "f511a309c1d78d1b198deeeef723a971706c2ff66230c4d037cbd66c45740e1e"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/review-a11y-trust.md",
+            "sha256": "26585d6864240aa0ac963e57697008f8e18b18f988be806d004950765e1e0977"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/review-clear.md",
+            "sha256": "67d9bed5fa2ac2182c2294b477f6838aa00d3d16266255a1eccf186892ebaf3d"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/review-design-source.md",
+            "sha256": "23dbac6410c02f44d2d15f13ad0632a3c4d540e81d1b34857ffc9aaa1944f66b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/reviewer-a11y-trust-final.md",
+            "sha256": "388502d0625ad42e2ff7dd1f6bf097cb7cf9898745416cd3c78cadf0cb008e27"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/reviewer-clear-final.md",
+            "sha256": "cc526573270eebc649118abdbc040385bd6bbe2c27021c7453c93b1863b82e6a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/reviewer-design-source-final.md",
+            "sha256": "7265b3dade65a5ab82a100d9471599150c24054de1a5ac6ea06f15281d0b525f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/builder-a.md",
+            "sha256": "429a22e492c44865e9bcb9b3c1c545938c0fef72662be683a2260e3d80dfc4be"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/builder-b.md",
+            "sha256": "81cf35939df8c56f2480f0438ce6c822051d5df7bd036625ba248c6cce6639ec"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/builder-c.md",
+            "sha256": "5097255454a5f77431fcd601ade5294c8e4833e05adc9a9931a89708abba1f1d"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/builder-common.md",
+            "sha256": "e310af41cca4f6668069ef26ff50e570978c99ca4e3799714e8d96222424afcb"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/recon-a.md",
+            "sha256": "61737a532091653f20f8d375dde8fe0e38bb6cc32c1763e895e689b2559df479"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/recon-b.md",
+            "sha256": "33c277c5107ace6740a09612549da738ae8a0a1bf10205adf2cdb4561464d1fd"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/recon-c.md",
+            "sha256": "ba9c793ee1962ca6029a335f09ddc71b80f775c925c444693bb9f5c8cde441f8"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-celebration-polish-final.md",
+            "sha256": "c165ac0e57a8ffbe50bb8f3d763d7cbf60c9266361edf363522a4faa61facb44"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-design-final.md",
+            "sha256": "a8102bc898204a011de698dfbf27a4b7377025eba9c19e63e37994aeee2383bf"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-rendered-filter-visibility.md",
+            "sha256": "e780210b20954e9b58fdbb6bf6e06b1f5330a5a3113e1093cf258adfeeb44002"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-search-final.md",
+            "sha256": "baa506c5f45a8bb5c2e5fdc0e0235c3ccf5859fe0e1f70f36f939853a0bc0478"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-trust-final.md",
+            "sha256": "22c28fb75b893f6982c2e65780ec9f80b13b73945f266322926e94cd959e1b8c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-a11y-trust-final-v2.md",
+            "sha256": "7672b27f72ee5b402dabf6ca0a75e43b688f13900cfe2479132b6814560b1767"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-a11y-trust-final.md",
+            "sha256": "08ad7702279b07e60ab9b04f50dd0f72d62312a78b94cb841f693fe6c35404a6"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-a11y-trust.md",
+            "sha256": "8bdc2a107dedae63d7de67bfa7c24677bf1d757f6c841f76f57c12720548e2fb"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-clear-final-v2.md",
+            "sha256": "14e30ab23ad9f0016be1f9e247e423293494535943978b9caaec9b2c3b03c59a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-clear-final.md",
+            "sha256": "54671ff62f8a4536c5ff7c7e53938efb5ee4af267e51b2d2d8c4df2a3780d72b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-clear.md",
+            "sha256": "7047d9a91c1b27b2fc6af2397861555b637209dd92e4c59440efd46cbd1bc2ec"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-design-source-final-v2.md",
+            "sha256": "1522d17c52ed5b00075af19c97c7a34edf21d4cf572a7498f507f0fb4184f069"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-design-source-final.md",
+            "sha256": "23acacfdeb680a1fcc53bcdab5d5cfb8454081af3b081aa714e05add3171fce8"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-design-source.md",
+            "sha256": "af2dd602a7ca572046f05240a913830c8002a7760c906aeeb425d7a057d6785c"
+          }
+        ]
+      },
+      "accepted": {
+        "digest": "8246f1b05399366c41e37a499c64fbaba5b8510b4037be8b48f5c54beab33541",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/auth/S01Splash.tsx",
+            "sha256": "7fc7c1a537a01fc22d4f6864bfba0f18a7598c27c11c962445bc75ed55941736"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S02MotionCarousel.tsx",
+            "sha256": "f4f105308383ee2e3d3c2ad262de3d71fcb54fda618867cba7140dafc5b72cb8"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03WelcomeSignUp.tsx",
+            "sha256": "a97299a7e78286794e12a3646d0952f83be47dd9808ae3cb3c93008f57caad8f"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03bOtpVerification.tsx",
+            "sha256": "2d8d156f73877474ea8aca6fc76e345341dd718cad7c6efc26633ed2e0bcf3b0"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03cConsent.tsx",
+            "sha256": "cbdb2287950796aa8d20fe68bcd9e3b711113a1ac75a86e55f4c5e671b213152"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03dCompleteProfile.tsx",
+            "sha256": "2cb49fd2dce787c6da4d9f27cfd4739699be51ea4262370d0b4ffb37ca799ada"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03eWhatsappEnrollment.tsx",
+            "sha256": "de5dd8f97babfbd0f43e6f453843946847b06903a52c8f296644732670d82e43"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S04SignIn.tsx",
+            "sha256": "a3b689f3cd975cdff3082d24acbdc17c7ee34c3cee37a29f4ca6665b28e6d3f4"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S05ForgotPassword.tsx",
+            "sha256": "d9e8b6c68913c02b7d45f206fb8634caebcdcba461d99b60531e3a078707fcfa"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S05bResetPassword.tsx",
+            "sha256": "445132640a1953483c0cd329e7e8bcc17afcf4f64e00d3233c12996f4801504a"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S06GuestModePreview.tsx",
+            "sha256": "cea7431bcb2179be765a06e64e2e850c0109e8bbcf39c8100a90654a5a27da87"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S07CiaOnboarding.tsx",
+            "sha256": "e1f1691732039869a3a9b0da09c97476fe8e90f9f7ffd4caab9390ba3da0d388"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S08InitialPlanSummary.tsx",
+            "sha256": "a452750058ebcafb83858d1cd760d189e0d1666040c78bb75cce6c850bd1ff8a"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S65ForceUpdate.tsx",
+            "sha256": "257dddeb7ca124aa2e66d013143644c5d20fe97be943e211251d758bd5052661"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S66NotificationPermission.tsx",
+            "sha256": "32f4d7dee40bc56145f646f5685e8e76c53bf14ed743ae8de3051c7a032ee29f"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S09CiaChat.tsx",
+            "sha256": "33e15001c97b2925afd6b5fafc4f7e552af24675a4e50ae6fe1f4644678ffcbf"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S10CiaVoiceInChat.tsx",
+            "sha256": "9cd23ce5f4336dc2195c5a674427f569ea9d1d2724d236b6d20d4c4c3cf25db0"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S11CiaVoiceFullScreen.tsx",
+            "sha256": "af0c299c2558075ba95632ac9b4f813281ef6fdb50d9c85be0c8e1aeb5b0c334"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S51VoiceCallHistory.tsx",
+            "sha256": "7357227ac7cbb10438d98eb0fd65555aac31d5e9c36807298a2390bcfb240ff9"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S74ConversationsHub.tsx",
+            "sha256": "9adfa2fef3d4f6fdbc2f998586b0719a5cf7529a9a7448884da780b64c9b1399"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S75DirectChat.tsx",
+            "sha256": "bec3142c7b3b06352cb2224d6199523dae8747a2e480fc7dfebdbde5dba06c27"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S76GroupChat.tsx",
+            "sha256": "c3481341a3e19f8dec4aa05d1922c32b4cdb42ade261f9ba94902bd62da66a91"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S77MessageActions.tsx",
+            "sha256": "0b9d5c9f870191044c1b86e591c5286f073c5d13b2540bc82b984fc3f9b79ece"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S79CallSummary.tsx",
+            "sha256": "034f532c8ba0ce15842bd4867e9037242c6a190604579a23016165e3fcf681bc"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S99WhatsappInbox.tsx",
+            "sha256": "2c815fba9804c11f53dacba953c1d49c1d8204dd435037b130ba5f21d9c43df0"
+          },
+          {
+            "path": "src/components/hifi/screens/health/S26FitnessDashboard.tsx",
+            "sha256": "37bb7106c03cc81b15dc6efff65ca7001c405d71d5276f6cd4939b3abee64dd9"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S17MeMain.tsx",
+            "sha256": "9e48e19a957966d7523fd4e4646ac7b9694be89be724eab34ab2e025d97bc5aa"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S18Explore.tsx",
+            "sha256": "293644cd2e1f38153fd72396bc15b0e5beb2586c965b0d7c77765c53d7db1d2f"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S21Settings.tsx",
+            "sha256": "46ec42d00c244c63478baaa35a0494d32519ef9784a405acd54bc2d4299fec02"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S22ConnectedServices.tsx",
+            "sha256": "00dddee99c3c8fc9a777688460a11316da047502ce9322e3c020a0ba67bfeb88"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S23SubscriptionBilling.tsx",
+            "sha256": "feb893846a2241849ad59bdf9be6274bcb30cb4601f84fcf86ea8f46a8a8b5b3"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S24NotificationHistory.tsx",
+            "sha256": "2dc4d82ae9185b7531b7acbe01c9c0a45f5b7a10d6e2ff75aecdbadd86bb23dc"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S25HelpCenter.tsx",
+            "sha256": "d174c4b9186b964bc8facdca2dee6fd2ff1f1d6b2a3d88d1ccd2de556227382c"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S43Paywall.tsx",
+            "sha256": "134d064bfef7d1d9a4b77f6ac4558a8c80beaa14fe42167501396797dd6e39c3"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S50ProfileEdit.tsx",
+            "sha256": "0c31405581c3a4a126417336401cba3dcdbba33c367f0b902acb20e30d10c333"
+          },
+          {
+            "path": "src/components/hifi/screens/system/S80MusicCoach.tsx",
+            "sha256": "250fe435013c40a7060b3c91f49be39f5328c213095323c1d2072d3100fc38fb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S12HomeScreen.tsx",
+            "sha256": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S13MissionBoard.tsx",
+            "sha256": "32b1152531ee2477c6a704394172ff6b574be8bf5cfcb22e85ea7ee10be76bc3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S14MissionDetail.tsx",
+            "sha256": "cb5bf50d3fc3f9f182360a7f0362235f4d09c7df4e07f6039edd02f37bef92f3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S15CreateEditMission.tsx",
+            "sha256": "ecd84923a6e3be9f21ab11bd8308011d93aa0e51eace5dd6a4a22fa65c8c5ebb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S41ScheduleCalendar.tsx",
+            "sha256": "4154f1d6e1d56ca7232c636f1007f10b15d23124bb6d915d3effd67057990932"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S44WaterIntake.tsx",
+            "sha256": "ebb9e691d2eaddae0b4a85628139b890a8eec672e8715f1726a9805f485a68d9"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S45DailyCheckin.tsx",
+            "sha256": "7955053e92cb956bf0795a8ba9a52fb40d988ca5bf29fcb17829656d86e05811"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S59StreakDetails.tsx",
+            "sha256": "f62cf6c5768ec2dc3b601f8d1fe03573bcdcfa8136b9d55720acef608a9ced64"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S61RemindersTasks.tsx",
+            "sha256": "44571c251e6cfa83894552ce2b0d8e0910ec239295c11051c63916f721cec3ad"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S73MissionJournal.tsx",
+            "sha256": "e1c75226156a37eb2f2f491ce42e40bf0dfe3e29a6da739417d7738d4f5ca090"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S97PlansLibrary.tsx",
+            "sha256": "17a15d65f531d7941b8f5e8d441e775cee22bce1f695221c19b47896bfd6ed84"
+          }
+        ]
+      }
+    },
+    "end": {
+      "product": {
+        "digest": "dc366e3ceea9d970bf9d9008cbc06367aac61458cfc5e43f276ac107147d9696",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/profile/S19RpgCharacter.tsx",
+            "sha256": "4f910e3b30f8327d11024aceee838e538d4257e76923d12059b8206bb30f005e"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S42CelebrationOverlay.tsx",
+            "sha256": "96e58f939e7713132835e314621a26f2feffb1e112032ad9a0b45c952c9ab476"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S43Paywall.tsx",
+            "sha256": "134d064bfef7d1d9a4b77f6ac4558a8c80beaa14fe42167501396797dd6e39c3"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S68UniversalSearch.tsx",
+            "sha256": "4382558e74cbf2da14d719cdaf3a0366c3a17e697e802eaa2190fd1f1c6c6e2d"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S71AchievementGallery.tsx",
+            "sha256": "99ab180a2ff28297e95431f9aa68ff13e7fec66465ac6a88005bf95e844cf43f"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S83BuddyProfile.tsx",
+            "sha256": "d7d8355e85b5980ff2d9c4c0355df1a4c5921cec12ae70010491c6877622e6a0"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S92Reputation.tsx",
+            "sha256": "5396d02a196c1a69d1fa3cb48bbda9edf591d3ec8f261a66af792ee61edddf0a"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/index.ts",
+            "sha256": "d25759967ff33da151ea127b003079a4ed013e7afa818ca10c26bc12c7675554"
+          }
+        ]
+      },
+      "api": {
+        "digest": "6141a3a67cfa4c60437a696da589bc439229437791cfd1628de92397d056dc8a",
+        "files": [
+          {
+            "path": "next.config.ts",
+            "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+          },
+          {
+            "path": "package-lock.json",
+            "sha256": "c98ac50e650dc57702cedcd5b7e18e5d768c1bdab211dea19237c8eaa3c7d92d"
+          },
+          {
+            "path": "package.json",
+            "sha256": "56819e030eaa265b2efac487913a75589bbf1a23edbb7e2bc2f76bfac6d48a32"
+          },
+          {
+            "path": "postcss.config.mjs",
+            "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+          },
+          {
+            "path": "scripts/verify-d2-profile-commercial.mjs",
+            "sha256": "4c25bb950b2a3452d866d86a71f02f94d8cfdc21337386ffd8a947185045441c"
+          },
+          {
+            "path": "src/app/globals.css",
+            "sha256": "5cf1f1fa683add0fb80156f355d6b86b98a629782326c2d75c13aeec2af1b840"
+          },
+          {
+            "path": "src/app/layout.tsx",
+            "sha256": "0330526f534505bd63b830942c44648dcf49ada5d0d482a72e39bf234ff03540"
+          },
+          {
+            "path": "src/app/screens/[id]/page.tsx",
+            "sha256": "fcb7be286a828ae4ee24120e2174be8dec4986a6548dd6b7bf7911501d89d416"
+          },
+          {
+            "path": "src/components/hifi/HifiPrototype.tsx",
+            "sha256": "57bf51e600ba9beacfcfe3a571898a94b816c159cbdd19ae2ae35b4fd278b5ba"
+          },
+          {
+            "path": "src/components/hifi/kit/HifiShell.tsx",
+            "sha256": "466eb88667d202da25ee5b04749bb93a78ecf30135a8d8d0239caeba5d9bb257"
+          },
+          {
+            "path": "src/components/hifi/kit/back-control.tsx",
+            "sha256": "561e9a580bb23361478c1d85fea9be29fa3f3d83a8b60a1c886eec2dfc7f6aed"
+          },
+          {
+            "path": "src/components/hifi/kit/buttons.tsx",
+            "sha256": "f875adfa7e66e884157699319e074cd0192f1605d2206e29bb0e57507945a168"
+          },
+          {
+            "path": "src/components/hifi/kit/chips.tsx",
+            "sha256": "e9ef348cd7166ff2eefdf43ff574ce9721207d3e59e4e83491d2d8945deab20a"
+          },
+          {
+            "path": "src/components/hifi/kit/chrome.tsx",
+            "sha256": "4ed33c760e7e77d1ceef8fd71a2906c00f864ec1f04604eeb7f95e6a32d6d65b"
+          },
+          {
+            "path": "src/components/hifi/kit/cia-composer.tsx",
+            "sha256": "9512c19937c401cb773553cfd90f10244a7f1f3e3a6031785c50bfc4fd495d72"
+          },
+          {
+            "path": "src/components/hifi/kit/cia-orb.tsx",
+            "sha256": "e6322d25a84a757867c6b0a28664599c3c04a8f6d506ca848778f5729060fd2c"
+          },
+          {
+            "path": "src/components/hifi/kit/cia.tsx",
+            "sha256": "b56d2169e395e5b8211bd2dabd6bd5139249ee547c5d5947b0b7112ac92cfb23"
+          },
+          {
+            "path": "src/components/hifi/kit/core.ts",
+            "sha256": "f6cddff8b0f2843f7493b7f16c806136aa06d24050b1d82e48132df14945a1ad"
+          },
+          {
+            "path": "src/components/hifi/kit/data.tsx",
+            "sha256": "583de2ee5bae773d33d1e924841d906cc9d136eed1c53eb1f0cb146b852d820b"
+          },
+          {
+            "path": "src/components/hifi/kit/glass-pill-input.tsx",
+            "sha256": "79f15a5e3b6034b4daddf57818f2f85a3511e9ef11f1651bab93cdc8aa7b58ed"
+          },
+          {
+            "path": "src/components/hifi/kit/index.ts",
+            "sha256": "ec2c76ed6a70b6d765cbf5de89a060f4c47a35a863be0d74bedd27138b0d65c1"
+          },
+          {
+            "path": "src/components/hifi/kit/paywall.tsx",
+            "sha256": "df392c03cb1f7b255b646f3c65f6f52adfdd0d96d45b7fcfab7c51b44e28d250"
+          },
+          {
+            "path": "src/components/hifi/kit/prototype-action-sheet.tsx",
+            "sha256": "90bacea9a0b159c1c62f4b9cb82ca4d9a0ae9e5ddea0a4651b47d2589255bfef"
+          },
+          {
+            "path": "src/components/hifi/kit/signature-icons.tsx",
+            "sha256": "6bb01f34e18cabdcce301bde6ad9581384ad71b73c9b9a6e6484d631bf2291ab"
+          },
+          {
+            "path": "src/components/hifi/kit/surfaces.tsx",
+            "sha256": "a8b32ce990d6f710e67e6bcf98b86cdff6b0ff56e0ed5d21dd399a05e55d54b4"
+          },
+          {
+            "path": "src/components/hifi/kit/system.tsx",
+            "sha256": "2b4024b8b198a935f30143c5e69b39c57f9c9581936a947140e86b64bd37b2d5"
+          },
+          {
+            "path": "src/components/hifi/screens/registry.ts",
+            "sha256": "ae6ddb016c27d83073982d605ba25f26aef4afce6a5faff20ca21f0ff76912b6"
+          },
+          {
+            "path": "src/components/layout/PhoneFrame.tsx",
+            "sha256": "f80f22e22b0f2399cdf9c18bf7f53b519b71914046d49ed6ac9560f94acb1104"
+          },
+          {
+            "path": "src/components/layout/ScreenShell.tsx",
+            "sha256": "74ee8aef4a0304df4ceb770cb46fb8bfc89e29ac5c6493e50ecb5c0f6b9d7c9e"
+          },
+          {
+            "path": "src/components/layout/TabBar.tsx",
+            "sha256": "473c4f8dd32351d6a90257828bb8eefd5713319ab8c02eab398d12f16ad1287c"
+          },
+          {
+            "path": "src/data/domains.ts",
+            "sha256": "d24318e68f9adb3b661c2e90f7d15420399ad782424d6566cf179717ae9247c8"
+          },
+          {
+            "path": "src/data/hifi/persona.ts",
+            "sha256": "438e012e77ba2f8990c73785ff304e70e9594a3d38992f8e19e657a37d9de56e"
+          },
+          {
+            "path": "src/data/mock.ts",
+            "sha256": "0480a6fd735fbf5f55e4c16f96e2d91254eefd2b0ee9dc6ce595e1020bc66106"
+          },
+          {
+            "path": "src/data/screens.ts",
+            "sha256": "0f1bb06441e3e57015235ee86278b9c63f6934508cf804aba43bacb9e65aeaaf"
+          }
+        ]
+      },
+      "authority": {
+        "digest": "67241362f43f0c77d4fe385e5625a57ee5915064073010d632fee4999b6fb4fa",
+        "files": [
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/DECISIONS.md",
+            "sha256": "e5a055d9f0d2a376cb3c2c90ca8699102fc0a3b7b83b9a03de507b80778214ad"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/REFERENCE-DIRECTION.md",
+            "sha256": "9d5fcb9ea64a2721f43c2cc4ceab7509cb8985468e2d4680e51d0c69c68ecf1e"
+          },
+          {
+            "path": "../Balencia-New-Screens/build-progress/remediation-2026-07/VISUAL-001/audit/D2-profile-commercial.md",
+            "sha256": "a253ab18f8168d99f229b5e5f15141d8268927bae3cc178d731d08fbaf508a82"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPACT-CANON.md",
+            "sha256": "73ecbcbc2b1756ddf94f78962c2751ef06d3b39bb52338e1ef87d76f443040b2"
+          },
+          {
+            "path": "../Balencia-New-Screens/canon/COMPONENT-CATALOG.md",
+            "sha256": "6a176393692891879d98ec220c4ae5ea0eb8b8ff23f61a8959ae88dd9585aa4f"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/19-rpg-character.md",
+            "sha256": "1d2de4431c8fd709b20dc6740e31c85cf1f67ffcfe5b35bc540fa5502ca73e2e"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/42-celebration-overlay.md",
+            "sha256": "f4352808920f02a96d12195f562a6125b6791fdfd65571e3e6fb63341d5757d3"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/43-paywall-upgrade.md",
+            "sha256": "3eaf44df8088b6766b08c3fb6d8cb35408d55f52d9a63ea0e0cbb81a05609075"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/68-universal-search.md",
+            "sha256": "2ece48c9647c05f082cdd6e209cf8e010ae77d96c096662e84331bc09e597a96"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/71-achievement-gallery.md",
+            "sha256": "8ac5aa4d793da98db410b2472f7035873e54b0714499166573ce3ea8c0c513ad"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/83-social-buddy-profile.md",
+            "sha256": "682cb51a700249d328f3c38210ec392c51c5cfdea4f7df5c255b0a2ec82e916e"
+          },
+          {
+            "path": "../Balencia-New-Screens/hifi-screens/92-reputation.md",
+            "sha256": "17fd57a45555f31ff6608b034d4ad90060479945f87b37d566e7adf3e7871f89"
+          },
+          {
+            "path": "../RPG_SYSTEM_DESIGN.md",
+            "sha256": "f5b80ae241d1bde669c5070c5a47f4c2ec5837f0708014c26ac2f3c474781de9"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/BATCH.md",
+            "sha256": "a3d397ecfa5b1689e09301f7269a1c2f6811286f45885557f38244c6e95a657c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/VERIFICATION-MATRIX.md",
+            "sha256": "94b3c7ccfceb06f7fee1ce959902e0433eb583fe98e2bb610e4ecb50e1f07d51"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/ACCEPTED-D1-SENTINELS-BEFORE.sha256",
+            "sha256": "56b50472e4bdd6bb73547f9b4207444aeda423c0552d0cba1e5f8676f7ce1a05"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/ASSET-DISPOSITION.md",
+            "sha256": "a9ec221d65187253452de60aa8755b3f6a21eee64ff59ae8cba76f3a64b49ca6"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/BEFORE-CAPTURE-MANIFEST.md",
+            "sha256": "0c3e24420a37092747221f018369c9a1c1171405570de8f9d7b9f3d4ffd777bc"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/BEFORE-SOURCE.md",
+            "sha256": "6d85e8cf42ee2a949022ed17df3fefcc6b77dde5c149cdbd54667e342a8ef73f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/builder-a.md",
+            "sha256": "b2577984494ae8a189189ae832fdaff38d80beb025607b27cbbe7ac53b2d0b4c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/builder-b.md",
+            "sha256": "f101af5fa0b11e8818ae187bbd240b42d4f6ffcfb60eb766e740aa8ecf10fb68"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/builder-c.md",
+            "sha256": "b048cf219ecbc8dcd560d188a3aac252ccd8912856260fc98ed8c4c90b5fdad2"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/recon-a.md",
+            "sha256": "50e82d951d391f30fc366a16e397f8f834a2271929a30d6c384af9d71954ad6f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/recon-b.md",
+            "sha256": "112ae6cb677645b65705699eb983732fe9b039a6aba55ac4cb4c58f36f4189fe"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/recon-c.md",
+            "sha256": "8735501a3cff7f986ebcfd234cfc7805ac353dc2c38498923cf248afc18f2f6b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-celebration-polish-final.md",
+            "sha256": "0bcee6d4f9976b1dc4756b6d8b897e454ae1a5cbab1c8981adb46f84f68e771b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-design-final.md",
+            "sha256": "630ce04be2efec7acd4a33ae484403c3d3ac699a1dd6d23173c05c21c4f84a2a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-rendered-filter-visibility.md",
+            "sha256": "64c247ee6fce5c08c969d58c27c8ff49bd3faccf2429df34314c9fdc76ec1671"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-search-final.md",
+            "sha256": "f9f0758635d31356a212d0356c02939151ec085dc57c5300b982f5d43662a9bb"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/repair-trust-final.md",
+            "sha256": "f511a309c1d78d1b198deeeef723a971706c2ff66230c4d037cbd66c45740e1e"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/review-a11y-trust.md",
+            "sha256": "26585d6864240aa0ac963e57697008f8e18b18f988be806d004950765e1e0977"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/review-clear.md",
+            "sha256": "67d9bed5fa2ac2182c2294b477f6838aa00d3d16266255a1eccf186892ebaf3d"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/review-design-source.md",
+            "sha256": "23dbac6410c02f44d2d15f13ad0632a3c4d540e81d1b34857ffc9aaa1944f66b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/reviewer-a11y-trust-final.md",
+            "sha256": "388502d0625ad42e2ff7dd1f6bf097cb7cf9898745416cd3c78cadf0cb008e27"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/reviewer-clear-final.md",
+            "sha256": "cc526573270eebc649118abdbc040385bd6bbe2c27021c7453c93b1863b82e6a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/reviewer-design-source-final.md",
+            "sha256": "7265b3dade65a5ab82a100d9471599150c24054de1a5ac6ea06f15281d0b525f"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/builder-a.md",
+            "sha256": "429a22e492c44865e9bcb9b3c1c545938c0fef72662be683a2260e3d80dfc4be"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/builder-b.md",
+            "sha256": "81cf35939df8c56f2480f0438ce6c822051d5df7bd036625ba248c6cce6639ec"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/builder-c.md",
+            "sha256": "5097255454a5f77431fcd601ade5294c8e4833e05adc9a9931a89708abba1f1d"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/builder-common.md",
+            "sha256": "e310af41cca4f6668069ef26ff50e570978c99ca4e3799714e8d96222424afcb"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/recon-a.md",
+            "sha256": "61737a532091653f20f8d375dde8fe0e38bb6cc32c1763e895e689b2559df479"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/recon-b.md",
+            "sha256": "33c277c5107ace6740a09612549da738ae8a0a1bf10205adf2cdb4561464d1fd"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/recon-c.md",
+            "sha256": "ba9c793ee1962ca6029a335f09ddc71b80f775c925c444693bb9f5c8cde441f8"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-celebration-polish-final.md",
+            "sha256": "c165ac0e57a8ffbe50bb8f3d763d7cbf60c9266361edf363522a4faa61facb44"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-design-final.md",
+            "sha256": "a8102bc898204a011de698dfbf27a4b7377025eba9c19e63e37994aeee2383bf"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-rendered-filter-visibility.md",
+            "sha256": "e780210b20954e9b58fdbb6bf6e06b1f5330a5a3113e1093cf258adfeeb44002"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-search-final.md",
+            "sha256": "baa506c5f45a8bb5c2e5fdc0e0235c3ccf5859fe0e1f70f36f939853a0bc0478"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/repair-trust-final.md",
+            "sha256": "22c28fb75b893f6982c2e65780ec9f80b13b73945f266322926e94cd959e1b8c"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-a11y-trust-final-v2.md",
+            "sha256": "7672b27f72ee5b402dabf6ca0a75e43b688f13900cfe2479132b6814560b1767"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-a11y-trust-final.md",
+            "sha256": "08ad7702279b07e60ab9b04f50dd0f72d62312a78b94cb841f693fe6c35404a6"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-a11y-trust.md",
+            "sha256": "8bdc2a107dedae63d7de67bfa7c24677bf1d757f6c841f76f57c12720548e2fb"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-clear-final-v2.md",
+            "sha256": "14e30ab23ad9f0016be1f9e247e423293494535943978b9caaec9b2c3b03c59a"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-clear-final.md",
+            "sha256": "54671ff62f8a4536c5ff7c7e53938efb5ee4af267e51b2d2d8c4df2a3780d72b"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-clear.md",
+            "sha256": "7047d9a91c1b27b2fc6af2397861555b637209dd92e4c59440efd46cbd1bc2ec"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-design-source-final-v2.md",
+            "sha256": "1522d17c52ed5b00075af19c97c7a34edf21d4cf572a7498f507f0fb4184f069"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-design-source-final.md",
+            "sha256": "23acacfdeb680a1fcc53bcdab5d5cfb8454081af3b081aa714e05add3171fce8"
+          },
+          {
+            "path": "../plans/batches/VISUAL-009-D2-profile-commercial/workers/reviewer-design-source.md",
+            "sha256": "af2dd602a7ca572046f05240a913830c8002a7760c906aeeb425d7a057d6785c"
+          }
+        ]
+      },
+      "accepted": {
+        "digest": "8246f1b05399366c41e37a499c64fbaba5b8510b4037be8b48f5c54beab33541",
+        "files": [
+          {
+            "path": "src/components/hifi/screens/auth/S01Splash.tsx",
+            "sha256": "7fc7c1a537a01fc22d4f6864bfba0f18a7598c27c11c962445bc75ed55941736"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S02MotionCarousel.tsx",
+            "sha256": "f4f105308383ee2e3d3c2ad262de3d71fcb54fda618867cba7140dafc5b72cb8"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03WelcomeSignUp.tsx",
+            "sha256": "a97299a7e78286794e12a3646d0952f83be47dd9808ae3cb3c93008f57caad8f"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03bOtpVerification.tsx",
+            "sha256": "2d8d156f73877474ea8aca6fc76e345341dd718cad7c6efc26633ed2e0bcf3b0"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03cConsent.tsx",
+            "sha256": "cbdb2287950796aa8d20fe68bcd9e3b711113a1ac75a86e55f4c5e671b213152"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03dCompleteProfile.tsx",
+            "sha256": "2cb49fd2dce787c6da4d9f27cfd4739699be51ea4262370d0b4ffb37ca799ada"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S03eWhatsappEnrollment.tsx",
+            "sha256": "de5dd8f97babfbd0f43e6f453843946847b06903a52c8f296644732670d82e43"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S04SignIn.tsx",
+            "sha256": "a3b689f3cd975cdff3082d24acbdc17c7ee34c3cee37a29f4ca6665b28e6d3f4"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S05ForgotPassword.tsx",
+            "sha256": "d9e8b6c68913c02b7d45f206fb8634caebcdcba461d99b60531e3a078707fcfa"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S05bResetPassword.tsx",
+            "sha256": "445132640a1953483c0cd329e7e8bcc17afcf4f64e00d3233c12996f4801504a"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S06GuestModePreview.tsx",
+            "sha256": "cea7431bcb2179be765a06e64e2e850c0109e8bbcf39c8100a90654a5a27da87"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S07CiaOnboarding.tsx",
+            "sha256": "e1f1691732039869a3a9b0da09c97476fe8e90f9f7ffd4caab9390ba3da0d388"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S08InitialPlanSummary.tsx",
+            "sha256": "a452750058ebcafb83858d1cd760d189e0d1666040c78bb75cce6c850bd1ff8a"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S65ForceUpdate.tsx",
+            "sha256": "257dddeb7ca124aa2e66d013143644c5d20fe97be943e211251d758bd5052661"
+          },
+          {
+            "path": "src/components/hifi/screens/auth/S66NotificationPermission.tsx",
+            "sha256": "32f4d7dee40bc56145f646f5685e8e76c53bf14ed743ae8de3051c7a032ee29f"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S09CiaChat.tsx",
+            "sha256": "33e15001c97b2925afd6b5fafc4f7e552af24675a4e50ae6fe1f4644678ffcbf"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S10CiaVoiceInChat.tsx",
+            "sha256": "9cd23ce5f4336dc2195c5a674427f569ea9d1d2724d236b6d20d4c4c3cf25db0"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S11CiaVoiceFullScreen.tsx",
+            "sha256": "af0c299c2558075ba95632ac9b4f813281ef6fdb50d9c85be0c8e1aeb5b0c334"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S51VoiceCallHistory.tsx",
+            "sha256": "7357227ac7cbb10438d98eb0fd65555aac31d5e9c36807298a2390bcfb240ff9"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S74ConversationsHub.tsx",
+            "sha256": "9adfa2fef3d4f6fdbc2f998586b0719a5cf7529a9a7448884da780b64c9b1399"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S75DirectChat.tsx",
+            "sha256": "bec3142c7b3b06352cb2224d6199523dae8747a2e480fc7dfebdbde5dba06c27"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S76GroupChat.tsx",
+            "sha256": "c3481341a3e19f8dec4aa05d1922c32b4cdb42ade261f9ba94902bd62da66a91"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S77MessageActions.tsx",
+            "sha256": "0b9d5c9f870191044c1b86e591c5286f073c5d13b2540bc82b984fc3f9b79ece"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S79CallSummary.tsx",
+            "sha256": "034f532c8ba0ce15842bd4867e9037242c6a190604579a23016165e3fcf681bc"
+          },
+          {
+            "path": "src/components/hifi/screens/cia/S99WhatsappInbox.tsx",
+            "sha256": "2c815fba9804c11f53dacba953c1d49c1d8204dd435037b130ba5f21d9c43df0"
+          },
+          {
+            "path": "src/components/hifi/screens/health/S26FitnessDashboard.tsx",
+            "sha256": "37bb7106c03cc81b15dc6efff65ca7001c405d71d5276f6cd4939b3abee64dd9"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S17MeMain.tsx",
+            "sha256": "9e48e19a957966d7523fd4e4646ac7b9694be89be724eab34ab2e025d97bc5aa"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S18Explore.tsx",
+            "sha256": "293644cd2e1f38153fd72396bc15b0e5beb2586c965b0d7c77765c53d7db1d2f"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S21Settings.tsx",
+            "sha256": "46ec42d00c244c63478baaa35a0494d32519ef9784a405acd54bc2d4299fec02"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S22ConnectedServices.tsx",
+            "sha256": "00dddee99c3c8fc9a777688460a11316da047502ce9322e3c020a0ba67bfeb88"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S23SubscriptionBilling.tsx",
+            "sha256": "feb893846a2241849ad59bdf9be6274bcb30cb4601f84fcf86ea8f46a8a8b5b3"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S24NotificationHistory.tsx",
+            "sha256": "2dc4d82ae9185b7531b7acbe01c9c0a45f5b7a10d6e2ff75aecdbadd86bb23dc"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S25HelpCenter.tsx",
+            "sha256": "d174c4b9186b964bc8facdca2dee6fd2ff1f1d6b2a3d88d1ccd2de556227382c"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S43Paywall.tsx",
+            "sha256": "134d064bfef7d1d9a4b77f6ac4558a8c80beaa14fe42167501396797dd6e39c3"
+          },
+          {
+            "path": "src/components/hifi/screens/profile/S50ProfileEdit.tsx",
+            "sha256": "0c31405581c3a4a126417336401cba3dcdbba33c367f0b902acb20e30d10c333"
+          },
+          {
+            "path": "src/components/hifi/screens/system/S80MusicCoach.tsx",
+            "sha256": "250fe435013c40a7060b3c91f49be39f5328c213095323c1d2072d3100fc38fb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S12HomeScreen.tsx",
+            "sha256": "107b59b58bca73a05045dfd90a68cdf4219176f72aa7e6dcf48b59165f75df67"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S13MissionBoard.tsx",
+            "sha256": "32b1152531ee2477c6a704394172ff6b574be8bf5cfcb22e85ea7ee10be76bc3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S14MissionDetail.tsx",
+            "sha256": "cb5bf50d3fc3f9f182360a7f0362235f4d09c7df4e07f6039edd02f37bef92f3"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S15CreateEditMission.tsx",
+            "sha256": "ecd84923a6e3be9f21ab11bd8308011d93aa0e51eace5dd6a4a22fa65c8c5ebb"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S41ScheduleCalendar.tsx",
+            "sha256": "4154f1d6e1d56ca7232c636f1007f10b15d23124bb6d915d3effd67057990932"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S44WaterIntake.tsx",
+            "sha256": "ebb9e691d2eaddae0b4a85628139b890a8eec672e8715f1726a9805f485a68d9"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S45DailyCheckin.tsx",
+            "sha256": "7955053e92cb956bf0795a8ba9a52fb40d988ca5bf29fcb17829656d86e05811"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S59StreakDetails.tsx",
+            "sha256": "f62cf6c5768ec2dc3b601f8d1fe03573bcdcfa8136b9d55720acef608a9ced64"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S61RemindersTasks.tsx",
+            "sha256": "44571c251e6cfa83894552ce2b0d8e0910ec239295c11051c63916f721cec3ad"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S73MissionJournal.tsx",
+            "sha256": "e1c75226156a37eb2f2f491ce42e40bf0dfe3e29a6da739417d7738d4f5ca090"
+          },
+          {
+            "path": "src/components/hifi/screens/today/S97PlansLibrary.tsx",
+            "sha256": "17a15d65f531d7941b8f5e8d441e775cee22bce1f695221c19b47896bfd6ed84"
+          }
+        ]
+      }
+    },
+    "unchanged": true,
+    "acceptedSentinels": {
+      "manifests": [
+        "../plans/batches/VISUAL-008-D1-profile-settings-core/evidence/ACCEPTED-SENTINELS-BEFORE.sha256",
+        "../plans/batches/VISUAL-009-D2-profile-commercial/evidence/ACCEPTED-D1-SENTINELS-BEFORE.sha256"
+      ],
+      "expectedFiles": 47,
+      "unchangedFromManifest": true
+    }
+  },
+  "expectedScreenshotCount": 73,
+  "expectedScreenshots": [
+    "19-default.png",
+    "19-low-confidence.png",
+    "19-skeleton.png",
+    "19-empty.png",
+    "19-error.png",
+    "19-success.png",
+    "19-disabled.png",
+    "19-offline.png",
+    "19-domain-sheet-fitness.png",
+    "19-ranked-breakdown.png",
+    "19-data-controls.png",
+    "42-default.png",
+    "42-skeleton.png",
+    "42-cia-null.png",
+    "42-streak.png",
+    "42-share-error.png",
+    "42-dismissed.png",
+    "42-toast.png",
+    "42-reduced-motion.png",
+    "42-enlarged-actions.png",
+    "43-default.png",
+    "43-price-exits.png",
+    "43-cta-outcome.png",
+    "43-compare-outcome.png",
+    "43-enlarged-exits.png",
+    "68-default.png",
+    "68-first-use.png",
+    "68-results-run.png",
+    "68-loading-morning.png",
+    "68-zero-results-yoga.png",
+    "68-error-local.png",
+    "68-offline-local.png",
+    "68-filter-habits.png",
+    "68-cia-dismissed.png",
+    "68-history-deleted.png",
+    "68-result-opened.png",
+    "71-default.png",
+    "71-skeleton.png",
+    "71-first-use.png",
+    "71-filtered-empty-meditation.png",
+    "71-error-cached.png",
+    "71-offline-cached.png",
+    "71-success-new-badge.png",
+    "71-filter-fitness.png",
+    "71-earned-detail.png",
+    "71-reduced-motion.png",
+    "83-default.png",
+    "83-skeleton.png",
+    "83-empty.png",
+    "83-pending.png",
+    "83-removed.png",
+    "83-error.png",
+    "83-success.png",
+    "83-consent-missing.png",
+    "83-offline.png",
+    "83-visibility-sheet.png",
+    "83-safety-sheet.png",
+    "83-mission-detail.png",
+    "83-avatar-consent.png",
+    "83-message-outcome.png",
+    "92-default.png",
+    "92-skeleton.png",
+    "92-empty.png",
+    "92-offline.png",
+    "92-sync-error.png",
+    "92-flagged.png",
+    "92-success.png",
+    "92-disabled.png",
+    "92-metric-consistency.png",
+    "92-premium-lock.png",
+    "92-premium-outcome.png",
+    "92-safety-controls.png",
+    "92-tier-detail.png"
+  ],
+  "screenshots": [
+    {
+      "file": "19-data-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 97660,
+      "sha256": "b7788ca2def98a068ed51816346714846b4c78d70fb4a513e5b072a7045dacb7"
+    },
+    {
+      "file": "19-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172865,
+      "sha256": "5d70482b4b8d52860c217bfda468291a0ce933367063fbf5f62e526882738e0b"
+    },
+    {
+      "file": "19-disabled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 175342,
+      "sha256": "26cf49e4b706cfce3ee5b10337a8c84690baa18c77858dff9698b51253237f02"
+    },
+    {
+      "file": "19-domain-sheet-fitness.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 83580,
+      "sha256": "448c17d8d551656106ec59fb5cc9aa8c25c7117af760981cf5f2ff6cafa5df67"
+    },
+    {
+      "file": "19-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 163989,
+      "sha256": "ac302ae1d9b830e32eea2221acd8e56d5854ca5659bcc6a4c9047b3b0bda11c0"
+    },
+    {
+      "file": "19-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 179614,
+      "sha256": "a18e692677a26e9f7efe0c42ed1173040bb5feb578c19b40d94d53187f75692e"
+    },
+    {
+      "file": "19-low-confidence.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 176953,
+      "sha256": "6ec18d5df444d6f9b41c9451f4bc4a19f5c7376fad371f5164a3dc792b578e38"
+    },
+    {
+      "file": "19-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 179099,
+      "sha256": "a90b985432b48a03fb8aa7acc72a990e05cc6a1fa70a7a05916640dbe2b987ca"
+    },
+    {
+      "file": "19-ranked-breakdown.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 80344,
+      "sha256": "6bc62d3d707e4f6d1103fe1ab3bcb0d2b469a508be9ad4d909194126460d72f3"
+    },
+    {
+      "file": "19-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 99424,
+      "sha256": "c414135d2aa977e91db94d7695d18725cf7eacac841dcedd960ab31e9aeeaabf"
+    },
+    {
+      "file": "19-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 179858,
+      "sha256": "e5b097b075051521e264037dbb7c08946376f28845421b743cbf976523db8a5b"
+    },
+    {
+      "file": "42-cia-null.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 54146,
+      "sha256": "b4902d8c31904b1e2c6583d823c0e60c0d76a4b25fd957a7ccc9fd3db4a5e30a"
+    },
+    {
+      "file": "42-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 74281,
+      "sha256": "9482d03af6d1bfe541d43c6cf1afa1142d3768dad9643a3a6a2a70fc8b23bbc9"
+    },
+    {
+      "file": "42-dismissed.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 138550,
+      "sha256": "39242b2710012ae8a153a95b30fc8f24c8fe05f2c99041f3dad39da146d831a4"
+    },
+    {
+      "file": "42-enlarged-actions.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 83205,
+      "sha256": "cc8508ae4c627c650dc42575883d928f7d3d3337a96f42ede5044455d6bf8afc"
+    },
+    {
+      "file": "42-reduced-motion.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 76161,
+      "sha256": "21c6f89bf82c9150986b15895ca7ca6a2eeb95c3114c2332a74d296edeccd308"
+    },
+    {
+      "file": "42-share-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 81577,
+      "sha256": "72f73b93dafa37f0ab61ff47a8b30c393d55bd6b3cb28ef2a8879610dddde6b0"
+    },
+    {
+      "file": "42-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 53689,
+      "sha256": "19f7ea264c13c5956d88ed6b653d60bbe3f7fa62c1bf39701440a7e262caf35f"
+    },
+    {
+      "file": "42-streak.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 71438,
+      "sha256": "71a498a977d20ac090128b269536ae5028444df02812e4d711f17eac467a2973"
+    },
+    {
+      "file": "42-toast.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 142195,
+      "sha256": "8d090a334a2124ed44623378e5e767dc592d9c58aa0628c758d98dee040a7780"
+    },
+    {
+      "file": "43-compare-outcome.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 173476,
+      "sha256": "e5b89f4a937d515ec8455b8ee1719e8e7f981faeeb98d74d85caa1e7ca2d8e24"
+    },
+    {
+      "file": "43-cta-outcome.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 181818,
+      "sha256": "8d36ab10d3731487769aeaf20222288310b5abd9c57f6fe20bebc12eefe21fe8"
+    },
+    {
+      "file": "43-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 221115,
+      "sha256": "227ca4b1096fbf4df80b522f6a5eebd48453ba8c7f8b535c342d540ddf65411c"
+    },
+    {
+      "file": "43-enlarged-exits.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 188194,
+      "sha256": "ea4967be64dad41bcdb15e4af74ca47fea353890061c45b1b3b230e7af996217"
+    },
+    {
+      "file": "43-price-exits.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 168435,
+      "sha256": "ad878c1461f6b89a846505fe834ae161bea0d3f87fc0f578d0a84fe6a7b6ce18"
+    },
+    {
+      "file": "68-cia-dismissed.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 199405,
+      "sha256": "a48b7c3292df18c8bc7223ca132846d17295f1831cab5eb2da420276d4e3d0b8"
+    },
+    {
+      "file": "68-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 201537,
+      "sha256": "f3421dec759a9096aae92eabd64749ccf7a6c42b2ab654f3f5ac9a07fb9f27fc"
+    },
+    {
+      "file": "68-error-local.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 194791,
+      "sha256": "55afe164a69aa9cc0f3e1bca97626896602fac7f52173b317814210dbecfc647"
+    },
+    {
+      "file": "68-filter-habits.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 241255,
+      "sha256": "9fc4994e0238b0abdbf21d431752c11a27337cc36b176d6fd9f552fd86a9778c"
+    },
+    {
+      "file": "68-first-use.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 184441,
+      "sha256": "ca4ec74b4cd2c04adcf10b1c09a6b8cf4be637ab961ec40b16c18d81c8fbc5c9"
+    },
+    {
+      "file": "68-history-deleted.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 199782,
+      "sha256": "b906c9703433fdb81c4274d0c7fa31c92218278683cca38b8e59f3e34e33ca6e"
+    },
+    {
+      "file": "68-loading-morning.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172830,
+      "sha256": "aaf8ebd460e9415b88b397c82329822b3037ccef74fe41ddbb6aa43c2ce4ba96"
+    },
+    {
+      "file": "68-offline-local.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 213573,
+      "sha256": "7d70927bec134532422885982fe72adc7312b46e0c7b011b675a1ea2aaee7fa9"
+    },
+    {
+      "file": "68-result-opened.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 99612,
+      "sha256": "f4772ba4bcf4fce767cd435b1b1c26c38049f5949628090615115a6281551cff"
+    },
+    {
+      "file": "68-results-run.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 235974,
+      "sha256": "4acadfbeaf3e3c527d4e0d378603267478a744143f631ecfd8d56257ed60eb9d"
+    },
+    {
+      "file": "68-zero-results-yoga.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 179481,
+      "sha256": "63df76c009281b8da4774f8cdc0c1248c362688b5fb338b96e3042be47c59c12"
+    },
+    {
+      "file": "71-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 179288,
+      "sha256": "8a0a2187fa1035241709b3c69000329783053c9022cfc16eea122fa7d8924189"
+    },
+    {
+      "file": "71-earned-detail.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 80837,
+      "sha256": "2592e261ce91ca5515382395164bac156dc99444ddc3136ba527d9e8f9aadc2b"
+    },
+    {
+      "file": "71-error-cached.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 177966,
+      "sha256": "2a9cff224730fb7d5c93519692d03699b07e1ca1d082ffb030a39a7f5455bd0f"
+    },
+    {
+      "file": "71-filter-fitness.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 179621,
+      "sha256": "45095e46e78bf9eec5e9d4f03fe6a45f00b34f9032914e85ed88d42e7cc54861"
+    },
+    {
+      "file": "71-filtered-empty-meditation.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 183004,
+      "sha256": "fba4ca9f248dbad9ca3a3946709c419bad734b325231cfbb77d04074ac14275e"
+    },
+    {
+      "file": "71-first-use.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 180609,
+      "sha256": "abd6696c1c1ecaff199a27f7f7094a955e20cec08dd96b879cfa5f0cb1183b88"
+    },
+    {
+      "file": "71-offline-cached.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 170864,
+      "sha256": "0b555f9b44c6d6922a64464c9e0adbe877bba88a145681788394137358273938"
+    },
+    {
+      "file": "71-reduced-motion.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 179288,
+      "sha256": "8a0a2187fa1035241709b3c69000329783053c9022cfc16eea122fa7d8924189"
+    },
+    {
+      "file": "71-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 100900,
+      "sha256": "add4268effec29ee5893f4784e71234a0f85fe6d36bcefb0d45e658f3dbc848d"
+    },
+    {
+      "file": "71-success-new-badge.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 182262,
+      "sha256": "67d5a90213fee26d330ae660ee6d7c975242e5499b3c130b438cf4726eacdbfd"
+    },
+    {
+      "file": "83-avatar-consent.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 71079,
+      "sha256": "993e2d54ff0b9be7629795f9f8dda5f49a87a2b3b98be2938f3ae21f823cbe73"
+    },
+    {
+      "file": "83-consent-missing.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 154324,
+      "sha256": "de17887054759bb5f544cfd9015a0795d2a5aee9c73ca30614156f5569ba8976"
+    },
+    {
+      "file": "83-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 164700,
+      "sha256": "91eb7fca1b0a2d7f054f777e342eee96552753a267f4a181ac8eaef4b1f89997"
+    },
+    {
+      "file": "83-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 164158,
+      "sha256": "2b50017fdac37cbf0cb42265f0e9aa9de07b31cbdc31b19dd6b2dbbbfc610ec3"
+    },
+    {
+      "file": "83-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 163679,
+      "sha256": "580cc5d1ef735969fc3484595e55447849be577649992f9a8f5d319765869013"
+    },
+    {
+      "file": "83-message-outcome.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 164485,
+      "sha256": "a6fa8a7b89721a4bf5e625860f024118424c7befb97d25a8c75870ad18effa04"
+    },
+    {
+      "file": "83-mission-detail.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 65080,
+      "sha256": "853fd5161a95b83c4384bdf8726b701bc26c20673d09434b1615c0288458220d"
+    },
+    {
+      "file": "83-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 167557,
+      "sha256": "22ee38227f35a62fbc9ea8cf5ccbc8a07396656fcb91814a709bcecda121cbf3"
+    },
+    {
+      "file": "83-pending.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 148527,
+      "sha256": "63f9d3a26cd48e60203d04155bbe8c7917ec2b88df1dd99037fcf2698ec3d7b6"
+    },
+    {
+      "file": "83-removed.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 151627,
+      "sha256": "abdb1b68f7090f554c1b14cb7a419a926b54f5895190148dc663d5dd0c77c4df"
+    },
+    {
+      "file": "83-safety-sheet.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 64813,
+      "sha256": "9b8748821770270645e21a62a07da3a022ae1a92713d1c4759c255b247d5990b"
+    },
+    {
+      "file": "83-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 132906,
+      "sha256": "c1336a683f95c8435851fef5081aa735471d0387bdab1dbcd43c10ccebf9d600"
+    },
+    {
+      "file": "83-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 163241,
+      "sha256": "adf08e1d2287cc04fac72ba87ba172a76a0e90010fc889b779dc595b238cc7bc"
+    },
+    {
+      "file": "83-visibility-sheet.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 64040,
+      "sha256": "25e9de48e5f11a81d6991282c8ae8bea398e9d72ae178c342b148715d759793f"
+    },
+    {
+      "file": "92-default.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172944,
+      "sha256": "2d3b5855d9120444e0df77d0acbbd258c4551fe4e41f8e6b53386f715346e347"
+    },
+    {
+      "file": "92-disabled.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 179871,
+      "sha256": "047c547f13c12fca799b0c411da77882d8f5f013ae6cb53d56e337d0e4c4ff77"
+    },
+    {
+      "file": "92-empty.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 129830,
+      "sha256": "71e3964afbacccedca726c704e4e2a13a86f940fed985834387f6615f69cdb00"
+    },
+    {
+      "file": "92-flagged.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 180644,
+      "sha256": "f5593cab2246c740f08b1714d7378149a12e5f85f9a973bbf9bcf9b14a3ae79c"
+    },
+    {
+      "file": "92-metric-consistency.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 66409,
+      "sha256": "da8fbb584d2b1dcf46b153f1f0e203b5ed83de9e74aee3810ad771e228cfba35"
+    },
+    {
+      "file": "92-offline.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 180430,
+      "sha256": "33c1c80858ea788e23f588b539cc949c3745f8fccbb254164782531b8950dce6"
+    },
+    {
+      "file": "92-premium-lock.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 187716,
+      "sha256": "518e5234816bc43e97b7177a8b92ede0565a3e75368d6b07893d7a92a22413ce"
+    },
+    {
+      "file": "92-premium-outcome.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 66322,
+      "sha256": "6b344e9a2c3536f2a160d8bb7c7046b6bb15f492488f4882c859baea28d49385"
+    },
+    {
+      "file": "92-safety-controls.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 70296,
+      "sha256": "2b19afe93cb32e06e0752768b2494caa47d2212dbd7ad4071c0386c47d9df228"
+    },
+    {
+      "file": "92-skeleton.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 130679,
+      "sha256": "f54b5dac003b5b2d3a05296e0c9c0c9a4a08fb9685e6862806c9d376e7e1aba9"
+    },
+    {
+      "file": "92-success.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 172011,
+      "sha256": "1148d83a63c3dde084c9bed0e7f5e4edafdd7042131f4ee29a4614298a1ae29d"
+    },
+    {
+      "file": "92-sync-error.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 165978,
+      "sha256": "29874d416432bd252fdcdc946eb39085e244d241da53e3f165378d22e0aa4118"
+    },
+    {
+      "file": "92-tier-detail.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 65532,
+      "sha256": "de45b5ff1e099ee3acb4b5a35f3044740300b15d7d8943d83056bd35d9fffb04"
+    }
+  ],
+  "screenshotPromotion": "promoted-after-all-assertions",
+  "checks": [
+    {
+      "name": "case 19-default",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "default",
+        "nonce": "1"
+      }
+    },
+    {
+      "name": "case 19-low-confidence",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "low-confidence",
+        "nonce": "2"
+      }
+    },
+    {
+      "name": "case 19-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "skeleton",
+        "nonce": "3"
+      }
+    },
+    {
+      "name": "case 19-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "empty",
+        "nonce": "4"
+      }
+    },
+    {
+      "name": "case 19-error",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "error",
+        "nonce": "5"
+      }
+    },
+    {
+      "name": "case 19-success",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "success",
+        "nonce": "6"
+      }
+    },
+    {
+      "name": "case 19-disabled",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "disabled",
+        "nonce": "7"
+      }
+    },
+    {
+      "name": "case 19-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "offline",
+        "nonce": "8"
+      }
+    },
+    {
+      "name": "case 19-domain-sheet-fitness",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "default",
+        "nonce": "9"
+      }
+    },
+    {
+      "name": "case 19-ranked-breakdown",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "default",
+        "nonce": "10"
+      }
+    },
+    {
+      "name": "case 19-data-controls",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "default",
+        "nonce": "11"
+      }
+    },
+    {
+      "name": "case 42-default",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "default",
+        "nonce": "12"
+      }
+    },
+    {
+      "name": "case 42-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "skeleton",
+        "nonce": "13"
+      }
+    },
+    {
+      "name": "case 42-cia-null",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "cia-null",
+        "nonce": "14"
+      }
+    },
+    {
+      "name": "case 42-streak",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "streak",
+        "nonce": "15"
+      }
+    },
+    {
+      "name": "case 42-share-error",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "share-error",
+        "nonce": "16"
+      }
+    },
+    {
+      "name": "case 42-dismissed",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "dismissed",
+        "nonce": "17"
+      }
+    },
+    {
+      "name": "case 42-toast",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "toast",
+        "nonce": "18"
+      }
+    },
+    {
+      "name": "case 42-reduced-motion",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "default",
+        "nonce": "19"
+      }
+    },
+    {
+      "name": "42-enlarged-actions text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 14,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "case 42-enlarged-actions",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "default",
+        "nonce": "20"
+      }
+    },
+    {
+      "name": "case 43-default",
+      "status": "pass",
+      "evidence": {
+        "id": "43",
+        "nonce": "21"
+      }
+    },
+    {
+      "name": "case 43-price-exits",
+      "status": "pass",
+      "evidence": {
+        "id": "43",
+        "nonce": "22"
+      }
+    },
+    {
+      "name": "case 43-cta-outcome",
+      "status": "pass",
+      "evidence": {
+        "id": "43",
+        "nonce": "23"
+      }
+    },
+    {
+      "name": "case 43-compare-outcome",
+      "status": "pass",
+      "evidence": {
+        "id": "43",
+        "nonce": "24"
+      }
+    },
+    {
+      "name": "43-enlarged-exits text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 47,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [
+          {
+            "tag": "td",
+            "ancestor": "div.-mx-1.overflow-hidden",
+            "text": "Projected+"
+          }
+        ],
+        "overlaps": [],
+        "waivedAncestorClips": [
+          {
+            "tag": "td",
+            "ancestor": "div.-mx-1.overflow-hidden",
+            "text": "Projected+"
+          }
+        ]
+      }
+    },
+    {
+      "name": "case 43-enlarged-exits",
+      "status": "pass",
+      "evidence": {
+        "id": "43",
+        "nonce": "25"
+      }
+    },
+    {
+      "name": "case 68-default",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "default",
+        "nonce": "26"
+      }
+    },
+    {
+      "name": "case 68-first-use",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "first-use",
+        "nonce": "27"
+      }
+    },
+    {
+      "name": "case 68-results-run",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "results",
+        "nonce": "28"
+      }
+    },
+    {
+      "name": "case 68-loading-morning",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "loading",
+        "nonce": "29"
+      }
+    },
+    {
+      "name": "case 68-zero-results-yoga",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "zero-results",
+        "nonce": "30"
+      }
+    },
+    {
+      "name": "case 68-error-local",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "error",
+        "nonce": "31"
+      }
+    },
+    {
+      "name": "case 68-offline-local",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "offline",
+        "nonce": "32"
+      }
+    },
+    {
+      "name": "case 68-filter-habits",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "results",
+        "nonce": "33"
+      }
+    },
+    {
+      "name": "case 68-cia-dismissed",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "results",
+        "nonce": "34"
+      }
+    },
+    {
+      "name": "case 68-history-deleted",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "default",
+        "nonce": "35"
+      }
+    },
+    {
+      "name": "case 68-result-opened",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "results",
+        "nonce": "36"
+      }
+    },
+    {
+      "name": "case 71-default",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "default",
+        "nonce": "37"
+      }
+    },
+    {
+      "name": "case 71-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "skeleton",
+        "nonce": "38"
+      }
+    },
+    {
+      "name": "case 71-first-use",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "first-use",
+        "nonce": "39"
+      }
+    },
+    {
+      "name": "case 71-filtered-empty-meditation",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "filtered-empty",
+        "nonce": "40"
+      }
+    },
+    {
+      "name": "case 71-error-cached",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "error",
+        "nonce": "41"
+      }
+    },
+    {
+      "name": "case 71-offline-cached",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "offline",
+        "nonce": "42"
+      }
+    },
+    {
+      "name": "case 71-success-new-badge",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "success",
+        "nonce": "43"
+      }
+    },
+    {
+      "name": "case 71-filter-fitness",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "default",
+        "nonce": "44"
+      }
+    },
+    {
+      "name": "case 71-earned-detail",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "default",
+        "nonce": "45"
+      }
+    },
+    {
+      "name": "case 71-reduced-motion",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "default",
+        "nonce": "46"
+      }
+    },
+    {
+      "name": "case 83-default",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "default",
+        "nonce": "47"
+      }
+    },
+    {
+      "name": "case 83-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "skeleton",
+        "nonce": "48"
+      }
+    },
+    {
+      "name": "case 83-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "empty",
+        "nonce": "49"
+      }
+    },
+    {
+      "name": "case 83-pending",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "pending",
+        "nonce": "50"
+      }
+    },
+    {
+      "name": "case 83-removed",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "removed",
+        "nonce": "51"
+      }
+    },
+    {
+      "name": "case 83-error",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "error",
+        "nonce": "52"
+      }
+    },
+    {
+      "name": "case 83-success",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "success",
+        "nonce": "53"
+      }
+    },
+    {
+      "name": "case 83-consent-missing",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "consent-missing",
+        "nonce": "54"
+      }
+    },
+    {
+      "name": "case 83-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "offline",
+        "nonce": "55"
+      }
+    },
+    {
+      "name": "83 destructive confirmation 125% audit text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 5,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "83 visibility 125% audit text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 14,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "case 83-visibility-sheet",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "default",
+        "nonce": "56"
+      }
+    },
+    {
+      "name": "83 safety 125% audit text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 9,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "case 83-safety-sheet",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "default",
+        "nonce": "57"
+      }
+    },
+    {
+      "name": "case 83-mission-detail",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "default",
+        "nonce": "58"
+      }
+    },
+    {
+      "name": "case 83-avatar-consent",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "default",
+        "nonce": "59"
+      }
+    },
+    {
+      "name": "case 83-message-outcome",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "default",
+        "nonce": "60"
+      }
+    },
+    {
+      "name": "case 92-default",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "default",
+        "nonce": "61"
+      }
+    },
+    {
+      "name": "case 92-skeleton",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "skeleton",
+        "nonce": "62"
+      }
+    },
+    {
+      "name": "case 92-empty",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "empty",
+        "nonce": "63"
+      }
+    },
+    {
+      "name": "case 92-offline",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "offline",
+        "nonce": "64"
+      }
+    },
+    {
+      "name": "case 92-sync-error",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "sync-error",
+        "nonce": "65"
+      }
+    },
+    {
+      "name": "case 92-flagged",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "flagged",
+        "nonce": "66"
+      }
+    },
+    {
+      "name": "case 92-success",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "success",
+        "nonce": "67"
+      }
+    },
+    {
+      "name": "case 92-disabled",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "disabled",
+        "nonce": "68"
+      }
+    },
+    {
+      "name": "case 92-metric-consistency",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "default",
+        "nonce": "69"
+      }
+    },
+    {
+      "name": "case 92-premium-lock",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "default",
+        "nonce": "70"
+      }
+    },
+    {
+      "name": "92 premium outcome 125% audit text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 5,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "case 92-premium-outcome",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "default",
+        "nonce": "71"
+      }
+    },
+    {
+      "name": "92 destructive confirmation 125% audit text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 5,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "92 safety 125% audit text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 13,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "case 92-safety-controls",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "default",
+        "nonce": "72"
+      }
+    },
+    {
+      "name": "case 92-tier-detail",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "default",
+        "nonce": "73"
+      }
+    },
+    {
+      "name": "19-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 97,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "D2 125% text matrix 19",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 19-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "19",
+        "fixture": "default",
+        "nonce": "74"
+      }
+    },
+    {
+      "name": "42-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 14,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "D2 125% text matrix 42",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 42-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "42",
+        "fixture": "default",
+        "nonce": "75"
+      }
+    },
+    {
+      "name": "43-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 47,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [
+          {
+            "tag": "td",
+            "ancestor": "div.-mx-1.overflow-hidden",
+            "text": "Projected+"
+          }
+        ],
+        "overlaps": [],
+        "waivedAncestorClips": [
+          {
+            "tag": "td",
+            "ancestor": "div.-mx-1.overflow-hidden",
+            "text": "Projected+"
+          }
+        ]
+      }
+    },
+    {
+      "name": "D2 125% text matrix 43",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 43-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "43",
+        "fixture": null,
+        "nonce": "76"
+      }
+    },
+    {
+      "name": "68-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 21,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "D2 125% text matrix 68",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 68-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "68",
+        "fixture": "default",
+        "nonce": "77"
+      }
+    },
+    {
+      "name": "71-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 75,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "D2 125% text matrix 71",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 71-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "71",
+        "fixture": "default",
+        "nonce": "78"
+      }
+    },
+    {
+      "name": "83-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 37,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "D2 125% text matrix 83",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 83-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "83",
+        "fixture": "default",
+        "nonce": "79"
+      }
+    },
+    {
+      "name": "92-text-scale-proof text-only enlargement",
+      "status": "pass",
+      "evidence": {
+        "count": 60,
+        "minimumRatio": 1.25,
+        "maximumRatio": 1.25,
+        "expectedScale": 1.25,
+        "clipped": [],
+        "ancestorClips": [],
+        "overlaps": [],
+        "waivedAncestorClips": []
+      }
+    },
+    {
+      "name": "D2 125% text matrix 92",
+      "status": "pass",
+      "evidence": {
+        "scale": 1.25,
+        "screenshot": false
+      }
+    },
+    {
+      "name": "case 92-text-scale-proof",
+      "status": "pass",
+      "evidence": {
+        "id": "92",
+        "fixture": "default",
+        "nonce": "80"
+      }
+    },
+    {
+      "name": "atomic screenshot set",
+      "status": "pass",
+      "evidence": {
+        "count": 73,
+        "dimensions": "390x844",
+        "promotedAfterPass": true
+      }
+    },
+    {
+      "name": "source integrity",
+      "status": "pass",
+      "evidence": {
+        "product": "dc366e3ceea9d970bf9d9008cbc06367aac61458cfc5e43f276ac107147d9696",
+        "api": "6141a3a67cfa4c60437a696da589bc439229437791cfd1628de92397d056dc8a",
+        "authority": "67241362f43f0c77d4fe385e5625a57ee5915064073010d632fee4999b6fb4fa",
+        "accepted": "8246f1b05399366c41e37a499c64fbaba5b8510b4037be8b48f5c54beab33541"
+      }
+    },
+    {
+      "name": "accepted sentinels byte-identical",
+      "status": "pass",
+      "evidence": {
+        "files": 47
+      }
+    },
+    {
+      "name": "capability boundary",
+      "status": "pass",
+      "evidence": {
+        "forbidden": 0,
+        "total": 0
+      }
+    }
+  ],
+  "cases": [
+    {
+      "name": "19-default",
+      "id": "19",
+      "state": "default",
+      "nonce": "1",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-low-confidence",
+      "id": "19",
+      "state": "low-confidence",
+      "nonce": "2",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-skeleton",
+      "id": "19",
+      "state": "skeleton",
+      "nonce": "3",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-empty",
+      "id": "19",
+      "state": "empty",
+      "nonce": "4",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-error",
+      "id": "19",
+      "state": "error",
+      "nonce": "5",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-success",
+      "id": "19",
+      "state": "success",
+      "nonce": "6",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-disabled",
+      "id": "19",
+      "state": "disabled",
+      "nonce": "7",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-offline",
+      "id": "19",
+      "state": "offline",
+      "nonce": "8",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-domain-sheet-fitness",
+      "id": "19",
+      "state": "default",
+      "nonce": "9",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-ranked-breakdown",
+      "id": "19",
+      "state": "default",
+      "nonce": "10",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-data-controls",
+      "id": "19",
+      "state": "default",
+      "nonce": "11",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-default",
+      "id": "42",
+      "state": "default",
+      "nonce": "12",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-skeleton",
+      "id": "42",
+      "state": "skeleton",
+      "nonce": "13",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-cia-null",
+      "id": "42",
+      "state": "cia-null",
+      "nonce": "14",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-streak",
+      "id": "42",
+      "state": "streak",
+      "nonce": "15",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-share-error",
+      "id": "42",
+      "state": "share-error",
+      "nonce": "16",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-dismissed",
+      "id": "42",
+      "state": "dismissed",
+      "nonce": "17",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-toast",
+      "id": "42",
+      "state": "toast",
+      "nonce": "18",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-reduced-motion",
+      "id": "42",
+      "state": "default",
+      "nonce": "19",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-enlarged-actions",
+      "id": "42",
+      "state": "default",
+      "nonce": "20",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "43-default",
+      "id": "43",
+      "state": null,
+      "nonce": "21",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "43-price-exits",
+      "id": "43",
+      "state": null,
+      "nonce": "22",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "43-cta-outcome",
+      "id": "43",
+      "state": null,
+      "nonce": "23",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "43-compare-outcome",
+      "id": "43",
+      "state": null,
+      "nonce": "24",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "43-enlarged-exits",
+      "id": "43",
+      "state": null,
+      "nonce": "25",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-default",
+      "id": "68",
+      "state": "default",
+      "nonce": "26",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-first-use",
+      "id": "68",
+      "state": "first-use",
+      "nonce": "27",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-results-run",
+      "id": "68",
+      "state": "results",
+      "nonce": "28",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-loading-morning",
+      "id": "68",
+      "state": "loading",
+      "nonce": "29",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-zero-results-yoga",
+      "id": "68",
+      "state": "zero-results",
+      "nonce": "30",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-error-local",
+      "id": "68",
+      "state": "error",
+      "nonce": "31",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-offline-local",
+      "id": "68",
+      "state": "offline",
+      "nonce": "32",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-filter-habits",
+      "id": "68",
+      "state": "results",
+      "nonce": "33",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-cia-dismissed",
+      "id": "68",
+      "state": "results",
+      "nonce": "34",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-history-deleted",
+      "id": "68",
+      "state": "default",
+      "nonce": "35",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-result-opened",
+      "id": "68",
+      "state": "results",
+      "nonce": "36",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-default",
+      "id": "71",
+      "state": "default",
+      "nonce": "37",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-skeleton",
+      "id": "71",
+      "state": "skeleton",
+      "nonce": "38",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-first-use",
+      "id": "71",
+      "state": "first-use",
+      "nonce": "39",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-filtered-empty-meditation",
+      "id": "71",
+      "state": "filtered-empty",
+      "nonce": "40",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-error-cached",
+      "id": "71",
+      "state": "error",
+      "nonce": "41",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-offline-cached",
+      "id": "71",
+      "state": "offline",
+      "nonce": "42",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-success-new-badge",
+      "id": "71",
+      "state": "success",
+      "nonce": "43",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-filter-fitness",
+      "id": "71",
+      "state": "default",
+      "nonce": "44",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-earned-detail",
+      "id": "71",
+      "state": "default",
+      "nonce": "45",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-reduced-motion",
+      "id": "71",
+      "state": "default",
+      "nonce": "46",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-default",
+      "id": "83",
+      "state": "default",
+      "nonce": "47",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-skeleton",
+      "id": "83",
+      "state": "skeleton",
+      "nonce": "48",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-empty",
+      "id": "83",
+      "state": "empty",
+      "nonce": "49",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-pending",
+      "id": "83",
+      "state": "pending",
+      "nonce": "50",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-removed",
+      "id": "83",
+      "state": "removed",
+      "nonce": "51",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-error",
+      "id": "83",
+      "state": "error",
+      "nonce": "52",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-success",
+      "id": "83",
+      "state": "success",
+      "nonce": "53",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-consent-missing",
+      "id": "83",
+      "state": "consent-missing",
+      "nonce": "54",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-offline",
+      "id": "83",
+      "state": "offline",
+      "nonce": "55",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-visibility-sheet",
+      "id": "83",
+      "state": "default",
+      "nonce": "56",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-safety-sheet",
+      "id": "83",
+      "state": "default",
+      "nonce": "57",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-mission-detail",
+      "id": "83",
+      "state": "default",
+      "nonce": "58",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-avatar-consent",
+      "id": "83",
+      "state": "default",
+      "nonce": "59",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-message-outcome",
+      "id": "83",
+      "state": "default",
+      "nonce": "60",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-default",
+      "id": "92",
+      "state": "default",
+      "nonce": "61",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-skeleton",
+      "id": "92",
+      "state": "skeleton",
+      "nonce": "62",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-empty",
+      "id": "92",
+      "state": "empty",
+      "nonce": "63",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-offline",
+      "id": "92",
+      "state": "offline",
+      "nonce": "64",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-sync-error",
+      "id": "92",
+      "state": "sync-error",
+      "nonce": "65",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-flagged",
+      "id": "92",
+      "state": "flagged",
+      "nonce": "66",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-success",
+      "id": "92",
+      "state": "success",
+      "nonce": "67",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-disabled",
+      "id": "92",
+      "state": "disabled",
+      "nonce": "68",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-metric-consistency",
+      "id": "92",
+      "state": "default",
+      "nonce": "69",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-premium-lock",
+      "id": "92",
+      "state": "default",
+      "nonce": "70",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-premium-outcome",
+      "id": "92",
+      "state": "default",
+      "nonce": "71",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-safety-controls",
+      "id": "92",
+      "state": "default",
+      "nonce": "72",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-tier-detail",
+      "id": "92",
+      "state": "default",
+      "nonce": "73",
+      "reducedMotion": "reduce",
+      "textScale": 1,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "19-text-scale-proof",
+      "id": "19",
+      "state": "default",
+      "nonce": "74",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "42-text-scale-proof",
+      "id": "42",
+      "state": "default",
+      "nonce": "75",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "43-text-scale-proof",
+      "id": "43",
+      "state": null,
+      "nonce": "76",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "68-text-scale-proof",
+      "id": "68",
+      "state": "default",
+      "nonce": "77",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "71-text-scale-proof",
+      "id": "71",
+      "state": "default",
+      "nonce": "78",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "83-text-scale-proof",
+      "id": "83",
+      "state": "default",
+      "nonce": "79",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    },
+    {
+      "name": "92-text-scale-proof",
+      "id": "92",
+      "state": "default",
+      "nonce": "80",
+      "reducedMotion": "reduce",
+      "textScale": 1.25,
+      "storage": {
+        "local": [],
+        "session": [],
+        "databases": [],
+        "cacheNames": []
+      },
+      "cookies": 0
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "capabilityEvents": [],
+  "capabilityExpectation": {
+    "forbidden": 0,
+    "total": 0
+  },
+  "status": "pass"
+}

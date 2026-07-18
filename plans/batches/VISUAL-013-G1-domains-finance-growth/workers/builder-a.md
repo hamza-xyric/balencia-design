@@ -1,0 +1,3 @@
+# G1 builder A — S30/S31
+
+Terra high bounded writer. Read BATCH, FROZEN-MATRIX, VERIFICATION-MATRIX, recon-a, active specs/canon/catalog/RPG authority, and both live files. Edit only `S30FinanceMoneyMap.tsx` and `S31BudgetDetail.tsx`. Implement every frozen finance/source/state/interaction/privacy/accessibility contract with local deterministic React/query state; no shared files or real capability. Run scoped Prettier, typecheck/lint if practical, and `git diff --check -- <owned files>`. Write evidence only to `evidence/builder-a.md`. Stop on shared/source/safety conflict or two equivalent failures; worker output remains evidence until Sol verification.

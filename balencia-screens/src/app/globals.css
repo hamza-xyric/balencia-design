@@ -8,10 +8,27 @@
   --color-forest-green: #34A853;
   --color-royal-purple: #7F24FF;
 
+  /* VISUAL-003 accessible action surfaces. Brand orange remains the edge,
+     focus, and active accent; these deep semantic fills carry normal text. */
+  --color-cta-ember: #9A3407;
+  --color-cta-ember-hover: #AA3A08;
+  --color-cta-ember-pressed: #6E2406;
+  --color-success-deep: #1F6F38;
+  --color-danger-deep: #8C1D18;
+  --color-cta-disabled: #4A2D22;
+  --color-cta-disabled-fg: #CFC5BA;
+
   /* Neutrals */
   --color-ink-900: #0A0A0F;
   --color-ink-brown-800: #211008;
   --color-ink-700: #171717;
+
+  /* Canon warm-dark surface ramp (COMPACT-CANON §1). surface-2 aliases
+     ink-brown-800 — same value, canonical vocabulary for the hi-fi kit. */
+  --color-bg-warm: #0C0603;
+  --color-surface-1: #140A05;
+  --color-surface-2: #211008;
+  --color-surface-3: #2A1510;
   --color-paper-100: #FEFAF3;
   --color-paper-50: #FDFDFB;
   --color-error-red: #F44336;
@@ -164,6 +181,68 @@
   /* Glass */
   --glass-border: rgba(255, 255, 255, 0.06);
   --glass-border-strong: rgba(255, 255, 255, 0.1);
+
+  /* Semantic glow color sources (COMPACT-CANON §3) — raw colors for
+     color-mix recipes; the box-shadow --glow-* tokens above stay the
+     outer-halo scale for small controls. */
+  --glow-you: #FF5E00;
+  --glow-done: #34A853;
+  --glow-cia: #7F24FF;
+
+  /* Overlay scrim (sheets, modals, paywall) — warm ink, never pure black. */
+  --scrim: rgba(10, 10, 15, 0.6);
+
+  /* === Depth tokens (VK-017 — viz-build) ===
+     Minted once here; the craft + viz kits reference these by name. */
+  --orange-light: #FF8A3D;
+  --grad-orange: linear-gradient(180deg, var(--color-brand-orange) 0%, var(--orange-light) 100%);
+  --grad-progress: linear-gradient(90deg, var(--color-brand-orange) 0%, var(--color-forest-green) 100%);
+  /* Recessed inner track. Spec value is rgba(0,0,0,0.28); expressed via the brand's
+     screen-base ink-900 rgb(10,10,15) so it carves toward the screen base AND clears
+     verify:brand's cool pure-black-shadow guard. Visually equivalent at 0.28. */
+  --track-inset: rgba(10, 10, 15, 0.28);
+  /* Size-stepped glow scale (calibrated by element size — never neon). */
+  --glow-orange-md: 0 0 20px rgba(255, 94, 0, 0.40);
+  --glow-orange-sm: 0 0 12px rgba(255, 94, 0, 0.35);
+  --glow-green-md: 0 0 20px rgba(52, 168, 83, 0.36);
+  --glow-green-sm: 0 0 12px rgba(52, 168, 83, 0.32);
+  --glow-purple-md: 0 0 20px rgba(127, 36, 255, 0.36);
+  --glow-purple-sm: 0 0 12px rgba(127, 36, 255, 0.32);
+  /* SVG-filter glow (drop-shadow-shaped). The box-shadow --glow-* tokens cannot feed an
+     SVG filter:drop-shadow(); these are the token-backed equivalents for strokes/dots/slices.
+     Radii are smaller than the box-shadow scale on purpose — a 32px bloom on a 2px stroke
+     reads neon. */
+  --glow-drop-orange-sm: drop-shadow(0 0 3px rgba(255, 94, 0, 0.35));
+  --glow-drop-orange-md: drop-shadow(0 0 6px rgba(255, 94, 0, 0.45));
+  --glow-drop-orange-lg: drop-shadow(0 0 8px rgba(255, 94, 0, 0.35));
+  /* Brand stroke-width scale (§8). */
+  --stroke-thin: 2px;
+  --stroke-base: 4px;
+  --stroke-bold: 8px;
+  --stroke-poster: 12px;
+
+  /* === ChargeMeter tokens (VK-020 — Design-Elevation pass) ===
+     Segmented energy/charge meter (the sanctioned §8 segmentation exception).
+     No new colours: filled ticks interpolate --grad-progress per-tick; off-ticks
+     alias --color-alpha-white-10; glow reuses --glow-orange-sm / --glow-green-sm. */
+  --charge-gap: 2px;
+  --charge-tick-off: var(--color-alpha-white-10);
+  --charge-radius: var(--radius-xs);
+
+  /* === Craft tokens (CK-T — design-audit) === */
+  --edge-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --surface-backplate: radial-gradient(120% 90% at 50% 0%, rgba(255, 94, 0, 0.05) 0%, transparent 60%);
+  --focus-ring: 0 0 0 2px var(--color-paper-100), 0 0 0 4px var(--color-brand-orange);
+  --cta-lift: 0 8px 18px rgba(154, 52, 7, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --cta-lift-success: 0 8px 18px rgba(31, 111, 56, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --cta-lift-danger: 0 8px 18px rgba(140, 29, 24, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.6;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-eyebrow: 0.12em;
 }
 
 body {
@@ -186,6 +265,163 @@ body {
   background-color: var(--color-ink-brown-800);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
+}
+
+/* === CK-P1 · Layered Warm Surface ===
+   The anti-flat-box default: warm ink body + top-edge highlight + honest shadow.
+   .surface-hero adds the faint warm backplate behind above-the-fold heroes (CK-P2). */
+.surface-warm {
+  background-color: var(--color-ink-brown-800);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--edge-highlight), var(--shadow-1);
+}
+
+.surface-hero {
+  background-color: var(--color-ink-brown-800);
+  background-image: var(--surface-backplate);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--edge-highlight), var(--shadow-1);
+}
+
+/* === CK-P8 / CK-T03 · the one app-wide focus ring === */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Quiet orbit / burnished ember action contract. */
+.hifi-action {
+  border: 1px solid transparent;
+  transition:
+    transform var(--dur-fast) var(--ease-out-soft),
+    background-color var(--dur-fast) var(--ease-out-soft),
+    border-color var(--dur-fast) var(--ease-out-soft);
+}
+
+.hifi-action:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.hifi-action:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+.hifi-action-primary {
+  color: var(--color-paper-100);
+  background: var(--color-cta-ember);
+  border-color: color-mix(in srgb, var(--color-brand-orange) 72%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.hifi-action-primary:not(:disabled):hover {
+  background: var(--color-cta-ember-hover);
+  border-color: var(--color-brand-orange);
+  box-shadow: var(--cta-lift);
+}
+
+.hifi-action-primary:not(:disabled):active {
+  background: var(--color-cta-ember-pressed);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hifi-action-success {
+  color: var(--color-paper-100);
+  background: var(--color-success-deep);
+  border-color: color-mix(in srgb, var(--color-forest-green) 72%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.hifi-action-success:not(:disabled):hover {
+  box-shadow: var(--cta-lift-success);
+}
+
+.hifi-action-danger {
+  color: var(--color-paper-100);
+  background: var(--color-danger-deep);
+  border-color: color-mix(in srgb, var(--color-error-red) 72%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.hifi-action-danger:not(:disabled):hover {
+  box-shadow: var(--cta-lift-danger);
+}
+
+.hifi-action:disabled:not([aria-busy='true']),
+.hifi-action[aria-disabled='true'] {
+  color: var(--color-cta-disabled-fg);
+  background: var(--color-cta-disabled);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.hifi-action[aria-busy='true'] {
+  cursor: wait;
+}
+
+/* State-bearing CIA orb. Static geometry carries state; motion is optional. */
+.cia-orb__halo {
+  position: absolute;
+  inset: 12%;
+  border-radius: 999px;
+  background: rgba(127, 36, 255, 0.22);
+  filter: blur(16px);
+  pointer-events: none;
+}
+
+.cia-orb[data-cia-state='idle'] .cia-orb__core {
+  transform-origin: center;
+  animation: cia-core-breathe 4s var(--ease-in-out-brand) infinite alternate;
+}
+
+.cia-orb__listen-ticks {
+  transform-origin: center;
+  transition: opacity var(--dur-fast) var(--ease-out-soft);
+}
+
+.cia-orb__thinking-orbit {
+  transform-origin: center;
+  animation: cia-orbit 8s var(--ease-in-out-brand) infinite;
+}
+
+.cia-orb__speaking-wave {
+  transform-origin: center;
+  animation: cia-speak 720ms var(--ease-in-out-brand) infinite alternate;
+}
+
+.cia-orb__success {
+  transform-origin: center;
+  animation: cia-success 280ms var(--ease-out-soft) both;
+}
+
+.cia-orb[data-cia-paused='true'] .cia-orb__core,
+.cia-orb[data-cia-paused='true'] .cia-orb__listen-ticks,
+.cia-orb[data-cia-paused='true'] .cia-orb__thinking-orbit,
+.cia-orb[data-cia-paused='true'] .cia-orb__speaking-wave,
+.cia-orb[data-cia-paused='true'] .cia-orb__success {
+  animation-play-state: paused;
+}
+
+@keyframes cia-core-breathe {
+  from { transform: scale(0.96); opacity: 0.82; }
+  to { transform: scale(1.03); opacity: 1; }
+}
+
+@keyframes cia-orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cia-speak {
+  from { transform: translateX(-1px); opacity: 0.55; }
+  to { transform: translateX(2px); opacity: 1; }
+}
+
+@keyframes cia-success {
+  from { transform: scale(0.9); opacity: 0.5; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 /* Scrollbar hiding */
@@ -479,4 +715,305 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
+}
+
+/* === Living-Line / Constellation draw (§8 — draw, never fade) ===
+   Stroke geometry normalized via pathLength="1"; the stroke reveals itself by
+   retracting its dash offset. Never an opacity fade on a line. */
+@keyframes line-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.line-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: line-draw var(--dur-flow) var(--ease-flow) forwards;
+}
+
+/* Sparkline / shorter strokes draw at the 520ms step. */
+.line-draw-slow {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: line-draw var(--dur-slow) var(--ease-flow) forwards;
+}
+
+/* Radar/area fill arrives with its stroke (an area, not a line — gentle reveal). */
+@keyframes area-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.area-in {
+  animation: area-in var(--dur-slow) var(--ease-flow) both;
+}
+
+/* === MomentumBar — the horizontal Living Line fills left→right === */
+@keyframes momentum-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.momentum-animate {
+  transform-origin: left center;
+  animation: momentum-fill var(--dur-slow) var(--ease-flow) forwards;
+}
+
+/* === GaugeRing — arc-following gradient fill ===
+   The arc-following gradient is a conic-gradient behind a circular (annulus) mask;
+   an SVG linearGradient cannot sweep along a ring arc. The swept angle is a
+   registered <angle> custom property so it animates 0→target on the GPU without JS,
+   and the round end-cap rides the same property so it tracks the arc tip. */
+@property --gauge-sweep {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes gauge-fill {
+  from {
+    --gauge-sweep: 0deg;
+  }
+  to {
+    --gauge-sweep: var(--gauge-target, 0deg);
+  }
+}
+
+.gauge-animate {
+  animation: gauge-fill var(--dur-slow) var(--ease-flow) forwards;
+}
+
+.gauge-cap-animate {
+  animation: gauge-fill var(--dur-slow) var(--ease-flow) forwards;
+}
+
+/* ============================================================
+   Canon glass-dark v1 recipes (COMPACT-CANON §§1–3) — hi-fi kit.
+   Shadows are warm ink (33,16,8), never cool black (verify:brand).
+   ============================================================ */
+
+/* Hi-fi typography — Hanken Grotesk (Neue Montreal stand-in) across the
+   .hifi tree; Newsreader italic carries the single Tiempos emphasis word. */
+.hifi {
+  font-family: var(--font-hanken), system-ui, sans-serif;
+}
+
+.text-emphasis {
+  font-family: var(--font-emphasis), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Hi-fi shell transparency — the atmosphere layer paints the base; the
+   legacy shell's opaque inks would cover it. */
+.hifi [data-testid='screen-shell'],
+.hifi [data-testid='screen-bottom-action'],
+.hifi [data-testid='screen-composer'],
+.hifi [data-testid='home-indicator-clearance'] {
+  background: transparent;
+}
+
+/* Screen atmosphere — every hi-fi screen sits on a soft warm radial,
+   never flat black. CIA moments add a purple pool. */
+.screen-atmosphere {
+  background:
+    radial-gradient(90% 60% at 50% -10%, rgba(255, 94, 0, 0.18), transparent 60%),
+    var(--color-ink-900);
+}
+
+.screen-atmosphere-cia {
+  background:
+    radial-gradient(90% 60% at 50% -10%, rgba(255, 94, 0, 0.14), transparent 60%),
+    radial-gradient(80% 50% at 50% 34%, rgba(127, 36, 255, 0.12), transparent 65%),
+    var(--color-ink-900);
+}
+
+/* Grain film — 3.5% soft-light noise for premium tactility. */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* Canon glass card — scoped to the hi-fi tree; the legacy layer owns the
+   global .glass-card name with a solid (non-blur) recipe. */
+.hifi .glass-card {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(28px) saturate(120%);
+  -webkit-backdrop-filter: blur(28px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 18px 48px rgba(33, 16, 8, 0.45),
+              inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.hifi .glass-card.action-sheet-surface {
+  background: var(--color-surface-2);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Immersive frost — onboarding / over colorful glow backgrounds. */
+.glass-frost {
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(48px) saturate(130%);
+  -webkit-backdrop-filter: blur(48px) saturate(130%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 32px rgba(33, 16, 8, 0.30),
+              inset 0 1px 0 rgba(255, 255, 255, 0.40),
+              inset 0 0 14px 6px rgba(255, 255, 255, 0.06);
+}
+
+/* Dark glass pill — inputs, chips, CTAs-in-card. */
+.glass-pill {
+  background: rgba(10, 10, 15, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--radius-pill);
+}
+
+/* Semantic inner-glow — the signature. One glow per card, meaning-driven:
+   you/effort = orange · done/growth = green · CIA/AI = purple. Bottom-anchored
+   pool of colored light bleeding from inside the card. */
+.glow-inner-you { --glow: var(--glow-you); }
+.glow-inner-done { --glow: var(--glow-done); }
+.glow-inner-cia { --glow: var(--glow-cia); }
+
+.glow-inner-you,
+.glow-inner-done,
+.glow-inner-cia {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-inner-you::after,
+.glow-inner-done::after,
+.glow-inner-cia::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 62%;
+  background: radial-gradient(120% 100% at 50% 120%,
+    color-mix(in srgb, var(--glow) 55%, transparent) 0%, transparent 70%);
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+/* Skeleton shimmer — geometry-matching loading blocks. */
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-block {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(100deg,
+    var(--color-surface-3) 40%,
+    rgba(255, 255, 255, 0.06) 50%,
+    var(--color-surface-3) 60%);
+  background-size: 200% 100%;
+  animation: shimmer 1200ms linear infinite;
+}
+
+/* Paywall — blurred real layout behind the lock, never a gray box. */
+.paywall-blur {
+  filter: blur(20px);
+}
+
+/* === Reduced motion — the settled final frame is the canonical frame ===
+   Strokes fully drawn + end dots present, fills at rest, rings at final fill,
+   loops off — the identity survives without motion (CK-P4 / §8). */
+@media (prefers-reduced-motion: reduce) {
+  .line-draw,
+  .line-draw-slow {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .ring-animate {
+    animation: none;
+    stroke-dashoffset: var(--ring-target, 0);
+  }
+
+  .momentum-animate {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .gauge-animate,
+  .gauge-cap-animate {
+    animation: none;
+  }
+
+  .area-in,
+  .animate-fade-up,
+  .radar-grow,
+  .radar-dot {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .skeleton-block {
+    animation: none;
+    background: var(--color-surface-3);
+  }
+
+  .quiet-pulse,
+  .avatar-breathe,
+  .breathing-guide,
+  .voice-status-pulse,
+  .sia-thinking-dot,
+  .cia-orb__core,
+  .cia-orb[data-cia-state='idle'] .cia-orb__core,
+  .cia-orb__listen-ticks,
+  .cia-orb__thinking-orbit,
+  .cia-orb__speaking-wave,
+  .cia-orb__success {
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+
+  .hifi-action {
+    transition: none;
+  }
+
+  .hifi-action:not(:disabled):active {
+    transform: none;
+  }
+
+  .hifi-action:hover {
+    box-shadow: none !important;
+  }
+
+  .hifi-action:focus-visible {
+    box-shadow: var(--focus-ring) !important;
+  }
 }

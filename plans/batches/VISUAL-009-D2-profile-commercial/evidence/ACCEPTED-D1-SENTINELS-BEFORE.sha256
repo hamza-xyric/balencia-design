@@ -1,0 +1,11 @@
+# Eight D1 product files accepted under DVF-15 and frozen before D2.
+# Combine these with the inherited 39-row D1 accepted-sentinel manifest for
+# exactly 47 unique accepted pilot/A1/A2/B1/C1/D1 source sentinels.
+9e48e19a957966d7523fd4e4646ac7b9694be89be724eab34ab2e025d97bc5aa  balencia-screens/src/components/hifi/screens/profile/S17MeMain.tsx
+293644cd2e1f38153fd72396bc15b0e5beb2586c965b0d7c77765c53d7db1d2f  balencia-screens/src/components/hifi/screens/profile/S18Explore.tsx
+46ec42d00c244c63478baaa35a0494d32519ef9784a405acd54bc2d4299fec02  balencia-screens/src/components/hifi/screens/profile/S21Settings.tsx
+00dddee99c3c8fc9a777688460a11316da047502ce9322e3c020a0ba67bfeb88  balencia-screens/src/components/hifi/screens/profile/S22ConnectedServices.tsx
+feb893846a2241849ad59bdf9be6274bcb30cb4601f84fcf86ea8f46a8a8b5b3  balencia-screens/src/components/hifi/screens/profile/S23SubscriptionBilling.tsx
+2dc4d82ae9185b7531b7acbe01c9c0a45f5b7a10d6e2ff75aecdbadd86bb23dc  balencia-screens/src/components/hifi/screens/profile/S24NotificationHistory.tsx
+d174c4b9186b964bc8facdca2dee6fd2ff1f1d6b2a3d88d1ccd2de556227382c  balencia-screens/src/components/hifi/screens/profile/S25HelpCenter.tsx
+0c31405581c3a4a126417336401cba3dcdbba33c367f0b902acb20e30d10c333  balencia-screens/src/components/hifi/screens/profile/S50ProfileEdit.tsx

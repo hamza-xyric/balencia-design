@@ -1,0 +1,3 @@
+# G1 builder C — S35/S36/S37/S38
+
+Terra high bounded writer. Read BATCH, FROZEN-MATRIX, VERIFICATION-MATRIX, recon-c, active specs/canon/catalog/RPG/privacy authority, and four live files. Edit only `S35LearningDashboard.tsx`, `S36CreativityDashboard.tsx`, `S37Journal.tsx`, and `S38Habits.tsx`. Implement every frozen non-scored Explore/numeric/source/state/interaction/privacy/accessibility contract locally; preserve same-origin handoffs; no shared files or real capability. Run scoped Prettier, typecheck/lint if practical, and owned-file diff-check. Write evidence only to `evidence/builder-c.md`. Stop/escalate source/privacy/shared conflicts or repeated failure.

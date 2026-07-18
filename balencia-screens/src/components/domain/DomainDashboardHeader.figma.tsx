@@ -1,5 +1,4 @@
 import figma from '@figma/code-connect'
-import { MoreHorizontal } from 'lucide-react'
 import { DomainDashboardHeader } from '@/components/domain/DomainDashboardHeader'
 
 // Figma SET 329:158 — Variant[Compact,Expanded]->variant, Title TEXT->title, Level TEXT->level
